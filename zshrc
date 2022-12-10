@@ -77,14 +77,17 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+EASY_MOTION_TARGET_KEYS="asdghklqwertyuiopzxcvbnmfj;"
+bindkey -v
 plugins=(git
 brew
 gitfast
 macos
 tmux
+easy_motion
 fzf
 fzf-zsh-plugin
-zsh-vi-mode
+vi-mode
 autoupdate
 fast-syntax-highlighting
  zsh-exa-ls-plugin
@@ -93,7 +96,11 @@ zsh-autosuggestions
 fzf-tab)
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
-
+EASY_MOTION_TARGET_KEYS="asdghklqwertyuiopzxcvbnmfj;"
+VI_MODE_SET_CURSOR=true
+MODE_INDICATOR="%F{white}+%f"
+INSERT_MODE_INDICATOR="%F{yellow}+%f"
+bindkey -M vicmd ' ' vi-easy-motion
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
