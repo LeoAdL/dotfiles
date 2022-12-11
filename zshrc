@@ -87,7 +87,7 @@ tmux
 easy_motion
 fzf
 fzf-zsh-plugin
-vi-mode
+zsh-vi-mode
 autoupdate
 fast-syntax-highlighting
  zsh-exa-ls-plugin
