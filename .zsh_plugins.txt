@@ -46,6 +46,9 @@ romkatv/powerlevel10k
 zsh-users/zsh-completions path:src kind:fpath
 Aloxaf/fzf-tab
 
+belak/zsh-utils path:editor
+belak/zsh-utils path:history
+belak/zsh-utils path:utility
 
 ### Deferred Plugins
 #
@@ -72,9 +75,7 @@ zdharma-continuum/fast-syntax-highlighting kind:defer
 # Popular plugins for Fish-like behavior:
 mattmc3/zfunctions
 zsh-users/zsh-autosuggestions
-ChrisPenner/session-sauce
 Freed-Wu/fzf-tab-source
-ThemysciraData/conda.plugin.zsh
 amyreese/zsh-titles
 b0o/zfzf
 birdhackor/zsh-exa-ls-plugin
@@ -85,6 +86,6 @@ greymd/tmux-xpanes
 hlissner/zsh-autopair
 jeffreytse/zsh-vi-mode
 joshskidmore/zsh-fzf-history-search
-leophys/zsh-plugin-fzf-finder
 unixorn/fzf-zsh-plugin
 zsh-vi-more/evil-registers
+conda-incubator/conda-zsh-completion
