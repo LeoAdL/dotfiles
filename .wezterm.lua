@@ -42,7 +42,7 @@ return {
 	window_background_opacity = 0.95,
 	text_background_opacity = 1,
 	window_decorations = "RESIZE",
-	leader = { key = "A", mods = "CTRL" },
+	leader = { key = "a", mods = "CTRL" },
 	inactive_pane_hsb = {
 		-- NOTE: these values are multipliers, applied on normal pane values
 		saturation = 0.9,
@@ -72,6 +72,16 @@ return {
 			key = "J",
 			mods = "LEADER",
 			action = act.AdjustPaneSize({ "Down", 5 }),
+		},
+		{
+			key = "L",
+			mods = "LEADER",
+			action = act.AdjustPaneSize({ "Right", 5 }),
+		},
+		{
+			key = "K",
+			mods = "LEADER",
+			action = act.AdjustPaneSize({ "Up", 5 }),
 		},
 		{ key = "K", mods = "LEADER", action = act.AdjustPaneSize({ "Up", 5 }) },
 		{ key = "h", mods = "CTRL", action = act.EmitEvent("ActivatePaneDirection-left") },
