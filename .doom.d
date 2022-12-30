@@ -1,0 +1,1 @@
+/Users/leoap/.doom.d/
