@@ -160,11 +160,156 @@
 
 (add-hook 'Info-selection-hook 'info-colors-fontify-node)
 
-(use-package lsp-ltex
-  :ensure t
-  :hook (text-mode . (lambda ()
-                       (require 'lsp-ltex)
-                       (lsp)))  ; or lsp-deferred
-  :init
-  (setq lsp-ltex-version "15.2.0"))  ; make sure you have set this, see below
-(setq +latex-viewers '(pdf-tools evince zathura okular skim sumatrapdf))
+;; org-agenda-config
+(after! org-agenda
+  (setq org-agenda-files (list "~/Org/agenda.org"
+                               "~/Org/todo.org"))
+  (setq org-agenda-window-setup 'current-window
+        org-agenda-restore-windows-after-quit t
+        org-agenda-show-all-dates nil
+        org-agenda-time-in-grid t
+        org-agenda-show-current-time-in-grid t
+        org-agenda-start-on-weekday 1
+        org-agenda-span 7
+        org-agenda-tags-column  0
+        org-agenda-block-separator nil
+        org-agenda-category-icon-alist nil
+        org-agenda-sticky t)
+  (setq org-agenda-prefix-format
+        '((agenda . "%i %?-12t%s")
+          (todo .   "%i")
+          (tags .   "%i")
+          (search . "%i")))
+  (setq org-agenda-sorting-strategy
+        '((agenda deadline-down scheduled-down todo-state-up time-up
+                  habit-down priority-down category-keep)
+          (todo   priority-down category-keep)
+          (tags   timestamp-up priority-down category-keep)
+          (search category-keep))))
+
+
+(after! org
+  (remove-hook 'org-agenda-finalize-hook '+org-exclude-agenda-buffers-from-workspace-h)
+  (remove-hook 'org-agenda-finalize-hook
+               '+org-defer-mode-in-agenda-buffers-h))
+
+(use-package! org-roam
+  :after org
+  :config
+  (setq org-roam-v2-ack t)
+  (setq org-roam-mode-sections
+        (list #'org-roam-backlinks-insert-section
+              #'org-roam-reflinks-insert-section
+              #'org-roam-unlinked-references-insert-section))
+  (org-roam-db-autosync-enable))
+
+(use-package! org-roam-ui
+  :after org-roam
+  :config
+  (setq org-roam-ui-open-on-start nil)
+  (setq org-roam-ui-browser-function #'xwidget-webkit-browse-url))
+
+
+
+ (use-package! org-roam-ui
+   :after org-roam
+   :commands org-roam-ui-open
+   :config
+   (setq org-roam-ui-sync-theme t
+         org-roam-ui-follow t
+         org-roam-ui-update-on-save t
+         org-roam-ui-open-on-start t))
+ (after! org-roam
+ (setq +org-roam-open-buffer-on-find-file nil))
+
+(use-package! org-fragtog
+  :after org
+  :hook (org-mode . org-fragtog-mode)
+  )
+
+(use-package! org-roam-bibtex
+  :after org-roam
+  :hook (org-mode . org-roam-bibtex-mode)
+  :config
+  (require 'org-ref)
+  (setq orb-preformat-keywords
+   '("citekey" "title" "url" "file" "author-or-editor" "keywords" "pdf" "doi" "author" "tags" "year" "author-bbrev")))
+;)
+
+;; org modern
+(setq ;; Edit settings
+ org-auto-align-tags nil
+ org-tags-column 0
+ org-fold-catch-invisible-edits 'show-and-error
+ org-special-ctrl-a/e t
+ org-insert-heading-respect-content t
+
+ ;; Org styling, hide markup etc.
+ org-hide-emphasis-markers t
+ org-pretty-entities t
+ org-ellipsis "…"
+
+ ;; Agenda styling
+ org-agenda-tags-column 0
+ org-agenda-block-separator ?─
+ org-agenda-time-grid
+ '((daily today require-timed)
+   (800 1000 1200 1400 1600 1800 2000)
+   " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+ org-agenda-current-time-string
+ "⭠ now ─────────────────────────────────────────────────")
+(global-org-modern-mode)
+
+(after! org
+    (setq org-src-fontify-natively t
+    org-fontify-whole-heading-line t
+    org-pretty-entities t
+    org-ellipsis "  " ;; folding symbol
+    org-hide-emphasis-markers t
+    org-agenda-block-separator ""
+    org-fontify-done-headline t
+    prot/scroll-center-cursor-mode t
+    org-fontify-quote-and-verse-blocks t
+    org-startup-with-inline-images t
+    org-startup-indented t))
+
+    (lambda () (progn
+      (setq left-margin-width 2)
+      (setq right-margin-width 2)
+      (set-window-buffer nil (current-buffer))))
+(setq header-line-format " ")
+  (custom-theme-set-faces
+   'user
+   `(org-level-4 ((t (:height 0.8))))
+   `(org-level-3 ((t (:height 0.95))))
+   `(org-level-2 ((t (:height 1.1))))
+   `(org-level-1 ((t (:height 1.35))))
+   `(org-document-title ((t (:height 1.6 :underline nil)))))
+
+(after! org (require 'ob-jupyter))
+
+(add-hook 'org-mode-hook 'turn-on-flyspell)
+
+
+(use-package! theme-magic
+  :commands theme-magic-from-emacs
+  :config
+  (defadvice! theme-magic--auto-extract-16-doom-colors ()
+    :override #'theme-magic--auto-extract-16-colors
+    (list
+     (face-attribute 'default :background)
+     (doom-color 'error)
+     (doom-color 'success)
+     (doom-color 'type)
+     (doom-color 'keywords)
+     (doom-color 'constants)
+     (doom-color 'functions)
+     (face-attribute 'default :foreground)
+     (face-attribute 'shadow :foreground)
+     (doom-blend 'base8 'error 0.1)
+     (doom-blend 'base8 'success 0.1)
+     (doom-blend 'base8 'type 0.1)
+     (doom-blend 'base8 'keywords 0.1)
+     (doom-blend 'base8 'constants 0.1)
+     (doom-blend 'base8 'functions 0.1)
+     (face-attribute 'default :foreground))))
