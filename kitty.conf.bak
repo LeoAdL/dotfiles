@@ -6,7 +6,7 @@
 #: individual font faces and even specify special fonts for particular
 #: characters.
 
- font_family      FiraCode Retina Nerd Font
+ font_family      Fira Code 
  bold_font        auto
  italic_font      auto
  bold_italic_font auto
@@ -47,7 +47,7 @@
 #: support, because it will force kitty to always treat the text as
 #: LTR, which FriBidi expects for terminals.
 
-# symbol_map
+ symbol_map
 
 #: E.g. symbol_map U+E0A0-U+E0A3,U+E0C0-U+E0C7 PowerlineSymbols
 
@@ -75,7 +75,7 @@
 
 #:     narrow_symbols codepoints [optionally the number of cells]
 
-# disable_ligatures never
+ disable_ligatures never
 
 #: Choose how you want to handle multi-character ligatures. The
 #: default is to always render them. You can tell kitty to not render
@@ -135,7 +135,7 @@
 
 #: Enable alternate zero and oldstyle numerals::
 
-#:     font_features FiraCode-Retina +zero +onum
+:     font_features FiraCode-Retina +zero +onum
 
 #: Enable only alternate zero in the bold font::
 
@@ -678,7 +678,6 @@
 #: as number of cells instead of pixels.
 
  enabled_layouts *
-
 #: The enabled window layouts. A comma separated list of layout names.
 #: The special value all means all layouts. The first listed layout
 #: will be used as the startup layout. Default configuration is all
@@ -701,7 +700,7 @@
 #: to be pts. Note that borders are displayed only when more than one
 #: window is visible. They are meant to separate multiple windows.
 
-# draw_minimal_borders yes
+ draw_minimal_borders yes
 
 #: Draw only the minimum borders needed. This means that only the
 #: borders that separate the inactive window from a neighbor are
@@ -723,7 +722,7 @@
 #: set the vertical and horizontal sides. Three values set top,
 #: horizontal and bottom. Four values set top, right, bottom and left.
 
-# window_padding_width 0
+ window_padding_width 3 
 
 #: The window padding (in pts) (blank area between the text and the
 #: window border). A single value sets all four sides. Two values set
@@ -758,7 +757,7 @@
 #: Fade the text in inactive windows by the specified amount (a number
 #: between zero and one, with zero being fully faded).
 
- hide_window_decorations no
+ hide_window_decorations titlebar-only
 
 #: Hide the window decorations (title-bar and window borders) with
 #: yes. On macOS, titlebar-only can be used to only hide the titlebar.
@@ -1004,81 +1003,81 @@ tab_title_template          {title}{' :{}:'.format(num_windows) if num_windows >
 
 
 # The basic colors
-foreground              #CAD3F5
-background              #24273A
-selection_foreground    #24273A
-selection_background    #F4DBD6
+# foreground              #CAD3F5
+# background              #24273A
+# selection_foreground    #24273A
+# selection_background    #F4DBD6
 
 # Cursor colors
-cursor                  #F4DBD6
-cursor_text_color       #24273A
+# cursor                  #F4DBD6
+# cursor_text_color       #24273A
 
 # URL underline color when hovering with mouse
-url_color               #F4DBD6
+# url_color               #F4DBD6
 
 # Kitty window border colors
-active_border_color     #B7BDF8
-inactive_border_color   #6E738D
-bell_border_color       #EED49F
+# active_border_color     #B7BDF8
+# inactive_border_color   #6E738D
+# bell_border_color       #EED49F
 
 # OS Window titlebar colors
-wayland_titlebar_color system
-macos_titlebar_color #B7BDF8
+# wayland_titlebar_color system
+# macos_titlebar_color background
 
 # Tab bar colors
-active_tab_foreground   #181926
-active_tab_background   #C6A0F6
-inactive_tab_foreground #CAD3F5
-inactive_tab_background #1E2030
-tab_bar_background      #181926
+# active_tab_foreground   #181926
+# active_tab_background   #C6A0F6
+# inactive_tab_foreground #CAD3F5
+# inactive_tab_background #1E2030
+# tab_bar_background      #181926
 
 # Colors for marks (marked text in the terminal)
-mark1_foreground #24273A
-mark1_background #B7BDF8
-mark2_foreground #24273A
-mark2_background #C6A0F6
-mark3_foreground #24273A
-mark3_background #7DC4E4
+# mark1_foreground #24273A
+# mark1_background #B7BDF8
+# mark2_foreground #24273A
+# mark2_background #C6A0F6
+# mark3_foreground #24273A
+# mark3_background #7DC4E4
 
 # The 16 terminal colors
 
 # black
-color0 #494D64
-color8 #5B6078
+# color0 #494D64
+# color8 #5B6078
 
 # red
-color1 #ED8796
-color9 #ED8796
+# color1 #ED8796
+# color9 #ED8796
 
 # green
-color2  #A6DA95
-color10 #A6DA95
+# color2  #A6DA95
+# color10 #A6DA95
 
 # yellow
-color3  #EED49F
-color11 #EED49F
+# color3  #EED49F
+# color11 #EED49F
 
 # blue
-color4  #8AADF4
-color12 #8AADF4
+# color4  #8AADF4
+# color12 #8AADF4
 
 # magenta
-color5  #F5BDE6
-color13 #F5BDE6
+# color5  #F5BDE6
+# color13 #F5BDE6
 
 # cyan
-color6  #8BD5CA
-color14 #8BD5CA
+# color6  #8BD5CA
+# color14 #8BD5CA
 
 # white
-color7  #B8C0E0
-color15 #A5ADCB
+# color7  #B8C0E0
+# color15 #A5ADCB
 # foreground #dddddd
 # background #000000
 
 #: The foreground and background colors.
 
- background_opacity 0.96
+ background_opacity .99
 
 #: The opacity of the background. A number between zero and one, where
 #: one is opaque and zero is fully transparent. This will only work if
@@ -1120,7 +1119,7 @@ color15 #A5ADCB
 #: decrease_background_opacity) or the remote control facility.
 #: Changing this option by reloading the config is not supported.
 
- # background_tint 0.75
+  background_tint 0.75
 
 #: How much to tint the background image by the background color.
 #: This option makes it easier to read the text. Tinting is done using
@@ -1128,7 +1127,7 @@ color15 #A5ADCB
 #: only if background_opacity is set and transparent windows are
 #: supported or background_image is set.
 
-# dim_opacity 0.75
+ dim_opacity 0.75
 
 #: How much to dim text that has the DIM/FAINT attribute set. One
 #: means no dimming and zero means fully dimmed (i.e. invisible).
@@ -1389,7 +1388,7 @@ color15 #A5ADCB
 #: in the path are expanded. Changing this option by reloading the
 #: config is not supported.
 
-# clipboard_control write-clipboard write-primary read-clipboard-ask read-primary-ask
+ clipboard_control write-clipboard write-primary read-clipboard-ask read-primary-ask
 
 #: Allow programs running in kitty to read and write from the
 #: clipboard. You can control exactly which actions are allowed. The
@@ -1418,7 +1417,7 @@ color15 #A5ADCB
 #: remote machine to read/write to the local filesystem, without
 #: permission.
 
-# allow_hyperlinks yes
+ allow_hyperlinks yes
 
 #: Process hyperlink escape sequences (OSC 8). If disabled OSC 8
 #: escape sequences are ignored. Otherwise they become clickable
@@ -1427,7 +1426,7 @@ color15 #A5ADCB
 #: special value of ask means that kitty will ask before opening the
 #: link when clicked.
 
-# shell_integration enabled
+ shell_integration enabled
 
 #: Enable shell integration on supported shells. This enables features
 #: such as jumping to previous prompts, browsing the output of the
@@ -1494,7 +1493,6 @@ color15 #A5ADCB
 #: means to use the default system color, a value of background means
 #: to use the background color of the currently active window and
 #: finally you can use an arbitrary color, such as #12af59 or red.
-macos_titlebar_color #B7BDF8
 #: The color of the kitty window's titlebar on macOS. A value of
 #: system means to use the default system color, light or dark can
 #: also be used to set it explicitly. A value of background means to
@@ -1871,6 +1869,20 @@ map shift+insert paste_from_clipboard
 
 #::      map ctrl+n launch --location=neighbor
 #::      map ctrl+f launch --location=first
+map cmd+shift+k neighboring_window up
+map cmd+shift+h neighboring_window left
+map cmd+shift+l neighboring_window right
+map cmd+shift+j neighboring_window down
+# Map cmd + <num> to corresponding tabs
+map cmd+1 goto_tab 1
+map cmd+2 goto_tab 2
+map cmd+3 goto_tab 3
+map cmd+4 goto_tab 4
+map cmd+5 goto_tab 5
+map cmd+6 goto_tab 6
+map cmd+7 goto_tab 7
+map cmd+8 goto_tab 8
+map cmd+9 goto_tab 9
 
 #::  For more details, see launch
 #::  <https://sw.kovidgoyal.net/kitty/launch/>.
@@ -2323,3 +2335,18 @@ map shift+insert paste_from_clipboard
 #: }}}
 
 #: }}}
+
+
+map ctrl+j kitten pass_keys.py neighboring_window bottom ctrl+j
+map ctrl+k kitten pass_keys.py neighboring_window top    ctrl+k
+map ctrl+h kitten pass_keys.py neighboring_window left   ctrl+h
+map ctrl+l kitten pass_keys.py neighboring_window right  ctrl+l
+map ctrl+j kitten pass_keys.py neighboring_window bottom ctrl+j "^.* - nvim$"
+map ctrl+k kitten pass_keys.py neighboring_window top    ctrl+k "^.* - nvim$"
+map ctrl+h kitten pass_keys.py neighboring_window left   ctrl+h "^.* - nvim$"
+map ctrl+l kitten pass_keys.py neighboring_window right  ctrl+l "^.* - nvim$"
+# BEGIN_KITTY_THEME
+# Catppuccin-Frappe
+include current-theme.conf
+# END_KITTY_THEME
+#
