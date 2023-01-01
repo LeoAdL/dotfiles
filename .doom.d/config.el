@@ -21,7 +21,7 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font (font-spec :family "Fira Code Retina" :size 13)
+(setq doom-font (font-spec :family "Iosevka" :size 13)
       doom-serif-font (font-spec :family "IBM Plex Mono" :weight 'light))
 
 ;;
@@ -64,8 +64,8 @@
 
 
 ;; set transparency
-(set-frame-parameter (selected-frame) 'alpha '(98 98))
-(add-to-list 'default-frame-alist '(alpha 98 98))
+(set-frame-parameter (selected-frame) 'alpha '(97 97))
+(add-to-list 'default-frame-alist '(alpha 97 97))
 
 (setq initial-frame-alist '((fullscreen . fullboth)))
 (setq fancy-splash-image (expand-file-name "themes/doom-emacs-gray.svg" doom-user-dir))
@@ -129,24 +129,6 @@
 (use-package! python-black
   :after python
   :hook (python-mode . python-black-on-save-mode-enable-dwim))
-(use-package good-scroll
-  :hook (doom-first-input . good-scroll-mode)
-  :config
-  (defun good-scroll--convert-line-to-step (line)
-    (cl-typecase line
-      (integer (* line (line-pixel-height)))
-      ((or null (member -))
-       (- (good-scroll--window-usable-height)
-          (* next-screen-context-lines (line-pixel-height))))
-      (t (line-pixel-height))))
-
-  (defadvice! good-scroll--scroll-up (&optional arg)
-    :override 'scroll-up
-    (good-scroll-move (good-scroll--convert-line-to-step arg)))
-
-  (defadvice! good-scroll--scroll-down (&optional arg)
-    :override 'scroll-down
-    (good-scroll-move (- (good-scroll--convert-line-to-step arg)))))
 
 (use-package! info-colors
   :commands (info-colors-fontify-node))
@@ -190,10 +172,6 @@
   :after org
   :config
   (setq org-roam-v2-ack t)
-  (setq org-roam-mode-sections
-        (list #'org-roam-backlinks-insert-section
-              #'org-roam-reflinks-insert-section
-              #'org-roam-unlinked-references-insert-section))
   (org-roam-db-autosync-enable))
 
 (use-package! org-roam-ui
@@ -201,19 +179,6 @@
   :config
   (setq org-roam-ui-open-on-start nil)
   (setq org-roam-ui-browser-function #'xwidget-webkit-browse-url))
-
-
-
- (use-package! org-roam-ui
-   :after org-roam
-   :commands org-roam-ui-open
-   :config
-   (setq org-roam-ui-sync-theme t
-         org-roam-ui-follow t
-         org-roam-ui-update-on-save t
-         org-roam-ui-open-on-start t))
- (after! org-roam
- (setq +org-roam-open-buffer-on-find-file nil))
 
 (use-package! org-fragtog
   :after org
@@ -229,29 +194,6 @@
    '("citekey" "title" "url" "file" "author-or-editor" "keywords" "pdf" "doi" "author" "tags" "year" "author-bbrev")))
 ;)
 
-;; org modern
-(setq ;; Edit settings
- org-auto-align-tags nil
- org-tags-column 0
- org-fold-catch-invisible-edits 'show-and-error
- org-special-ctrl-a/e t
- org-insert-heading-respect-content t
-
- ;; Org styling, hide markup etc.
- org-hide-emphasis-markers t
- org-pretty-entities t
- org-ellipsis "…"
-
- ;; Agenda styling
- org-agenda-tags-column 0
- org-agenda-block-separator ?─
- org-agenda-time-grid
- '((daily today require-timed)
-   (800 1000 1200 1400 1600 1800 2000)
-   " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
- org-agenda-current-time-string
- "⭠ now ─────────────────────────────────────────────────")
-(global-org-modern-mode)
 
 (after! org
     (setq org-src-fontify-natively t
