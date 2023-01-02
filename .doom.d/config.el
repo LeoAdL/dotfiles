@@ -22,7 +22,7 @@
 ;; accept. For example:
 ;;
 (setq doom-font (font-spec :family "Iosevka" :size 13)
-      doom-serif-font (font-spec :family "IBM Plex Mono" :weight 'light))
+      doom-serif-font (font-spec :family "Iosevka Etoile" :weight 'light))
 
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
@@ -67,7 +67,7 @@
 (set-frame-parameter (selected-frame) 'alpha '(97 97))
 (add-to-list 'default-frame-alist '(alpha 97 97))
 
-(setq initial-frame-alist '((fullscreen . fullboth)))
+(setq initial-frame-alist '((fullboth)))
 (setq fancy-splash-image (expand-file-name "themes/doom-emacs-gray.svg" doom-user-dir))
 
 ;; This determines the style of line numbers in effect. If set to `nil', line

@@ -22,4 +22,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(org-document-title ((t (:height 1.6 :underline nil))))
+ '(org-level-1 ((t (:height 1.35))))
+ '(org-level-2 ((t (:height 1.1))))
+ '(org-level-3 ((t (:height 0.95))))
+ '(org-level-4 ((t (:height 0.8)))))
