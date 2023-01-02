@@ -124,8 +124,6 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
-(use-package! beacon)
-(after! beacon (beacon-mode 1))
 (use-package! python-black
   :after python
   :hook (python-mode . python-black-on-save-mode-enable-dwim))
@@ -248,3 +246,6 @@
      (doom-blend 'base8 'constants 0.1)
      (doom-blend 'base8 'functions 0.1)
      (face-attribute 'default :foreground))))
+(setq ein:output-area-inlined-images t)
+
+(add-hook'pdf-tools-enabled-hook 'pdf-view-themed-minor-mode)
