@@ -77,10 +77,17 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(setq org-directory "~/org/"      org-use-property-inheritance t              ; it's convenient to have properties inherited
+      org-log-done 'time                          ; having the time a item is done sounds convenient
+      org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
+      org-export-in-background t                  ; run export processes in external emacs process
+      org-catch-invisible-edits 'smart            ; try not to accidently do weird stuff in invisible regions
+      org-export-with-sub-superscripts '{})       ; don't treat lone _ / ^ as sub/superscripts, require _{} / ^{}
+
 (setq
  org-superstar-headline-bullets-list '("⁖" "◉" "○" "✸" "✿")
  )
+(setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a.")))
 
 (setq browse-url-chrome-program "brave")
 
@@ -132,6 +139,8 @@
   :commands (info-colors-fontify-node))
 
 (add-hook 'Info-selection-hook 'info-colors-fontify-node)
+(set-file-template! "\\.tex$" :trigger "__" :mode 'latex-mode)
+(set-file-template! "\\.org$" :trigger "__" :mode 'org-mode)
 
 ;; org-agenda-config
 (after! org-agenda
@@ -155,7 +164,7 @@
           (search . "%i")))
   (setq org-agenda-sorting-strategy
         '((agenda deadline-down scheduled-down todo-state-up time-up
-                  habit-down priority-down category-keep)
+           habit-down priority-down category-keep)
           (todo   priority-down category-keep)
           (tags   timestamp-up priority-down category-keep)
           (search category-keep))))
@@ -170,13 +179,29 @@
   :after org
   :config
   (setq org-roam-v2-ack t)
-  (org-roam-db-autosync-enable))
+ (org-roam-db-autosync-enable))
 
+(defadvice! doom-modeline--buffer-file-name-roam-aware-a (orig-fun)
+  :around #'doom-modeline-buffer-file-name ; takes no args
+  (if (s-contains-p org-roam-directory (or buffer-file-name ""))
+      (replace-regexp-in-string
+       "\\(?:^\\|.*/\\)\\([0-9]\\{4\\}\\)\\([0-9]\\{2\\}\\)\\([0-9]\\{2\\}\\)[0-9]*-"
+       "🢔(\\1-\\2-\\3) "
+       (subst-char-in-string ?_ ?  buffer-file-name))
+    (funcall orig-fun)))
+(use-package! websocket
+    :after org-roam)
 (use-package! org-roam-ui
   :after org-roam
+  :commands org-roam-ui-open
+  :hook (org-roam . org-roam-ui-mode)
   :config
-  (setq org-roam-ui-open-on-start nil)
-  (setq org-roam-ui-browser-function #'xwidget-webkit-browse-url))
+  (require 'org-roam) ; in case autoloaded
+  (defun org-roam-ui-open ()
+    "Ensure the server is active, then open the roam graph."
+    (interactive)
+    (unless org-roam-ui-mode (org-roam-ui-mode 1))
+    (browse-url--browser (format "http://localhost:%d" org-roam-ui-port))))
 
 (use-package! org-fragtog
   :after org
@@ -189,40 +214,110 @@
   :config
   (require 'org-ref)
   (setq orb-preformat-keywords
-   '("citekey" "title" "url" "file" "author-or-editor" "keywords" "pdf" "doi" "author" "tags" "year" "author-bbrev")))
-;)
+        '("citekey" "title" "url" "file" "author-or-editor" "keywords" "pdf" "doi" "author" "tags" "year" "author-bbrev")))
+                                        ;)
 
 
 (after! org
-    (setq org-src-fontify-natively t
-    org-fontify-whole-heading-line t
-    org-pretty-entities t
-    org-ellipsis "  " ;; folding symbol
-    org-hide-emphasis-markers t
-    org-agenda-block-separator ""
-    org-fontify-done-headline t
-    prot/scroll-center-cursor-mode t
-    org-fontify-quote-and-verse-blocks t
-    org-startup-with-inline-images t
-    org-startup-indented t))
+  (setq org-src-fontify-natively t
+        org-fontify-whole-heading-line t
+        org-pretty-entities t
+        org-ellipsis "  " ;; folding symbol
+        org-hide-emphasis-markers t
+        org-agenda-block-separator ""
+        org-fontify-done-headline t
+        prot/scroll-center-cursor-mode t
+        org-fontify-quote-and-verse-blocks t
+        org-startup-with-inline-images t
+        org-startup-indented t))
 
-    (lambda () (progn
-      (setq left-margin-width 2)
-      (setq right-margin-width 2)
-      (set-window-buffer nil (current-buffer))))
-(setq header-line-format " ")
-  (custom-theme-set-faces
-   'user
-   `(org-level-4 ((t (:height 0.8))))
-   `(org-level-3 ((t (:height 0.95))))
-   `(org-level-2 ((t (:height 1.1))))
-   `(org-level-1 ((t (:height 1.35))))
-   `(org-document-title ((t (:height 1.6 :underline nil)))))
+(lambda () (progn
+             (setq left-margin-width 2)
+             (setq right-margin-width 2)
+             (set-window-buffer nil (current-buffer))))
+(custom-set-faces!
+  '(outline-1 :weight extra-bold :height 1.25)
+  '(outline-2 :weight bold :height 1.15)
+  '(outline-3 :weight bold :height 1.12)
+  '(outline-4 :weight semi-bold :height 1.09)
+  '(outline-5 :weight semi-bold :height 1.06)
+  '(outline-6 :weight semi-bold :height 1.03)
+  '(outline-8 :weight semi-bold)
+  '(outline-9 :weight semi-bold))
+(custom-set-faces!
+  '(org-document-title :height 1.2))
+
+(setq org-agenda-deadline-faces
+      '((1.001 . error)
+        (1.0 . org-warning)
+        (0.5 . org-upcoming-deadline)
+        (0.0 . org-upcoming-distant-deadline)))
 
 (after! org (require 'ob-jupyter))
 
 
 (after! org (require 'org-zotxt))
+(use-package org-chef
+  :ensure t)
+
+
+(use-package! orgdiff
+  :defer t
+  :config
+  (defun +orgdiff-nicer-change-colours ()
+    (goto-char (point-min))
+    ;; Set red/blue based on whether chameleon is being used
+    (if (search-forward "%% make document follow Emacs theme" nil t)
+        (setq red  (substring (doom-blend 'red 'fg 0.8) 1)
+              blue (substring (doom-blend 'blue 'teal 0.6) 1))
+      (setq red  "c82829"
+            blue "00618a"))
+    (when (and (search-forward "%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF" nil t)
+               (search-forward "\\RequirePackage{color}" nil t))
+      (when (re-search-forward "definecolor{red}{rgb}{1,0,0}" (cdr (bounds-of-thing-at-point 'line)) t)
+        (replace-match (format "definecolor{red}{HTML}{%s}" red)))
+      (when (re-search-forward "definecolor{blue}{rgb}{0,0,1}" (cdr (bounds-of-thing-at-point 'line)) t)
+        (replace-match (format "definecolor{blue}{HTML}{%s}" blue)))))
+  (add-to-list 'orgdiff-latexdiff-postprocess-hooks #'+orgdiff-nicer-change-colours))
+
+(use-package! org-super-agenda
+  :commands org-super-agenda-mode)
+
+(setq org-agenda-skip-scheduled-if-done t
+      org-agenda-skip-deadline-if-done t
+      org-agenda-include-deadlines t
+      org-agenda-block-separator nil
+      org-agenda-tags-column 100 ;; from testing this seems to be a good value
+      org-agenda-compact-blocks t)
+
+(setq org-format-latex-header "\\documentclass{article}
+\\usepackage[usenames]{xcolor}
+
+\\usepackage[T1]{fontenc}
+
+\\usepackage{booktabs}
+
+\\usepackage{xfrac}
+\\usepackage{siunitx}
+\\usepackage{diffcoeff}
+\\usepackage{nicematrix}
+\\usepackage{newpxtext}
+\\usepackage[varbb]{newpxmath}
+\\pagestyle{empty}             % do not remove
+% The settings below are copied from fullpage.sty
+\\setlength{\\textwidth}{\\paperwidth}
+\\addtolength{\\textwidth}{-3cm}
+\\setlength{\\oddsidemargin}{1.5cm}
+\\addtolength{\\oddsidemargin}{-2.54cm}
+\\setlength{\\evensidemargin}{\\oddsidemargin}
+\\setlength{\\textheight}{\\paperheight}
+\\addtolength{\\textheight}{-\\headheight}
+\\addtolength{\\textheight}{-\\headsep}
+\\addtolength{\\textheight}{-\\footskip}
+\\addtolength{\\textheight}{-3cm}
+\\setlength{\\topmargin}{1.5cm}
+\\addtolength{\\topmargin}{-2.54cm}
+% my custom stuff")
 
 (use-package! theme-magic
   :commands theme-magic-from-emacs
@@ -249,3 +344,4 @@
 (setq ein:output-area-inlined-images t)
 
 (add-hook'pdf-tools-enabled-hook 'pdf-view-themed-minor-mode)
+
