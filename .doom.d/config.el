@@ -22,7 +22,7 @@
 ;; accept. For example:
 ;;
 (setq doom-font (font-spec :family "Iosevka" :size 13)
-      doom-serif-font (font-spec :family "Iosevka Etoile" :weight 'light))
+      doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light))
 
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
@@ -67,12 +67,13 @@
 ;; set transparency
 (set-frame-parameter (selected-frame) 'alpha '(97 97))
 (add-to-list 'default-frame-alist '(alpha 97 97))
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-(setq initial-frame-alist '((fullboth)))
 (setq fancy-splash-image (expand-file-name "themes/doom-emacs-gray.svg" doom-user-dir))
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
+;;
 (setq display-line-numbers-type `relative)
 (setq-default tab-width 4)
 
@@ -207,6 +208,12 @@
 (after! org-roam
   (setq +org-roam-open-buffer-on-find-file nil))
 
+(use-package! org-appear
+  :hook
+  (org-mode . org-appear-mode)
+  :config
+  (setq org-hide-emphasis-markers t))
+
 (use-package! org-fragtog
   :after org
   :hook (org-mode . org-fragtog-mode)
@@ -322,6 +329,32 @@
 \\setlength{\\topmargin}{1.5cm}
 \\addtolength{\\topmargin}{-2.54cm}
 % my custom stuff")
+;; Add frame borders and window dividers
+
+(setq
+ ;; Edit settings
+ org-auto-align-tags nil
+ org-tags-column 0
+ org-catch-invisible-edits 'show-and-error
+ org-special-ctrl-a/e t
+ org-insert-heading-respect-content t
+
+ ;; Org styling, hide markup etc.
+ org-hide-emphasis-markers t
+ org-pretty-entities t
+ org-ellipsis "…"
+
+ ;; Agenda styling
+ org-agenda-tags-column 0
+ org-agenda-block-separator ?─
+ org-agenda-time-grid
+ '((daily today require-timed)
+   (800 1000 1200 1400 1600 1800 2000)
+   " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+ org-agenda-current-time-string
+ "⭠ now ─────────────────────────────────────────────────")
+
+(global-org-modern-mode)
 
 (use-package! theme-magic
   :commands theme-magic-from-emacs
