@@ -20,11 +20,15 @@
 (package! lsp-ltex)
 (package! info-colors)
 (package! org-roam-ui)
+(package! websocket)
 (package! org-roam-bibtex)
 (package! org-fragtog)
 (package! org-ref)
 (package! theme-magic)
 (package! zotxt)
+(package! org-chef)
+(package! org-super-agenda :pin "3108bc3f725818f0e868520d2c243abe9acbef4e")
+
 ;; If the package you are trying to install does not contain a PACKAGENAME.el
 ;; file, or is located in a subdirectory of the repo, you'll need to specify
 ;; `:files' in the `:recipe':
