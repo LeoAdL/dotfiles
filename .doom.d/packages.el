@@ -14,8 +14,6 @@
 ;; https://github.com/radian-software/straight.el#the-recipe-format
 ;(package! another-package
 ;  :recipe (:host github :repo "username/repo"))
-(package! python-black)
-(package! deadgrep)
 (package! autothemer)
 (package! lsp-ltex)
 (package! info-colors)

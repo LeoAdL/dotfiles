@@ -50,6 +50,7 @@
 (setq undo-limit 80000000                         ; Raise undo-limit to 80Mb
       evil-want-fine-undo t                       ; By default while in insert all changes are one big blob. Be more granular
       auto-save-default t                         ; Nobody likes to loose work, I certainly don't
+      truncate-string-ellipsis "…"
       scroll-margin 2)                            ; It's nice to maintain a little margin
 
 (display-time-mode 1)                             ; Enable time in the mode-line
@@ -131,9 +132,6 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
-(use-package! python-black
-  :after python
-  :hook (python-mode . python-black-on-save-mode-enable-dwim))
 
 (use-package! info-colors
   :commands (info-colors-fontify-node))
@@ -179,7 +177,7 @@
   :after org
   :config
   (setq org-roam-v2-ack t)
- (org-roam-db-autosync-enable))
+  (org-roam-db-autosync-enable))
 
 (defadvice! doom-modeline--buffer-file-name-roam-aware-a (orig-fun)
   :around #'doom-modeline-buffer-file-name ; takes no args
@@ -190,18 +188,24 @@
        (subst-char-in-string ?_ ?  buffer-file-name))
     (funcall orig-fun)))
 (use-package! websocket
-    :after org-roam)
+  :after org-roam)
 (use-package! org-roam-ui
   :after org-roam
   :commands org-roam-ui-open
   :hook (org-roam . org-roam-ui-mode)
   :config
+  (setq org-roam-ui-sync-theme t
+        org-roam-ui-follow t
+        org-roam-ui-update-on-save t
+        org-roam-ui-open-on-start t)
   (require 'org-roam) ; in case autoloaded
   (defun org-roam-ui-open ()
     "Ensure the server is active, then open the roam graph."
     (interactive)
     (unless org-roam-ui-mode (org-roam-ui-mode 1))
     (browse-url--browser (format "http://localhost:%d" org-roam-ui-port))))
+(after! org-roam
+  (setq +org-roam-open-buffer-on-find-file nil))
 
 (use-package! org-fragtog
   :after org
@@ -344,4 +348,3 @@
 (setq ein:output-area-inlined-images t)
 
 (add-hook'pdf-tools-enabled-hook 'pdf-view-themed-minor-mode)
-
