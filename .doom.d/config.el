@@ -83,7 +83,7 @@
       org-log-done 'time                          ; having the time a item is done sounds convenient
       org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
       org-export-in-background t                  ; run export processes in external emacs process
-      org-catch-invisible-edits 'smart            ; try not to accidently do weird stuff in invisible regions
+      org-fold-catch-invisible-edits 'smart            ; try not to accidently do weird stuff in invisible regions
       org-export-with-sub-superscripts '{})       ; don't treat lone _ / ^ as sub/superscripts, require _{} / ^{}
 
 (setq
@@ -234,7 +234,6 @@
         org-fontify-whole-heading-line t
         org-pretty-entities t
         org-ellipsis "  " ;; folding symbol
-        org-hide-emphasis-markers t
         org-agenda-block-separator ""
         org-fontify-done-headline t
         prot/scroll-center-cursor-mode t
@@ -268,9 +267,7 @@
 
 
 (after! org (require 'org-zotxt))
-(use-package org-chef
-  :ensure t)
-
+(use-package org-chef)
 
 (use-package! orgdiff
   :defer t
@@ -301,7 +298,8 @@
       org-agenda-tags-column 100 ;; from testing this seems to be a good value
       org-agenda-compact-blocks t)
 
-(setq org-format-latex-header "\\documentclass{article}
+(setq org-format-latex-header "\\documentclass[12pt]
+{article}
 \\usepackage[usenames]{xcolor}
 
 \\usepackage[T1]{fontenc}
@@ -332,18 +330,6 @@
 ;; Add frame borders and window dividers
 
 (setq
- ;; Edit settings
- org-auto-align-tags nil
- org-tags-column 0
- org-catch-invisible-edits 'show-and-error
- org-special-ctrl-a/e t
- org-insert-heading-respect-content t
-
- ;; Org styling, hide markup etc.
- org-hide-emphasis-markers t
- org-pretty-entities t
- org-ellipsis "…"
-
  ;; Agenda styling
  org-agenda-tags-column 0
  org-agenda-block-separator ?─
@@ -356,6 +342,8 @@
 
 (global-org-modern-mode)
 
+(setq org-latex-image-default-scale '2.0
+ org-preview-latex-default-process 'dvipng)
 (use-package! theme-magic
   :commands theme-magic-from-emacs
   :config
