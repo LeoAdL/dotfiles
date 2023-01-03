@@ -144,35 +144,7 @@
 ;; org-agenda-config
 (after! org-agenda
   (setq org-agenda-files (list "~/Org/agenda.org"
-                               "~/Org/todo.org"))
-  (setq org-agenda-window-setup 'current-window
-        org-agenda-restore-windows-after-quit t
-        org-agenda-show-all-dates nil
-        org-agenda-time-in-grid t
-        org-agenda-show-current-time-in-grid t
-        org-agenda-start-on-weekday 1
-        org-agenda-span 7
-        org-agenda-tags-column  0
-        org-agenda-block-separator nil
-        org-agenda-category-icon-alist nil
-        org-agenda-sticky t)
-  (setq org-agenda-prefix-format
-        '((agenda . "%i %?-12t%s")
-          (todo .   "%i")
-          (tags .   "%i")
-          (search . "%i")))
-  (setq org-agenda-sorting-strategy
-        '((agenda deadline-down scheduled-down todo-state-up time-up
-           habit-down priority-down category-keep)
-          (todo   priority-down category-keep)
-          (tags   timestamp-up priority-down category-keep)
-          (search category-keep))))
-
-
-(after! org
-  (remove-hook 'org-agenda-finalize-hook '+org-exclude-agenda-buffers-from-workspace-h)
-  (remove-hook 'org-agenda-finalize-hook
-               '+org-defer-mode-in-agenda-buffers-h))
+                               "~/Org/todo.org")))
 
 (use-package! org-roam
   :after org
@@ -207,6 +179,13 @@
     (browse-url--browser (format "http://localhost:%d" org-roam-ui-port))))
 (after! org-roam
   (setq +org-roam-open-buffer-on-find-file nil))
+(setq org-roam-dailies-directory "daily/")
+
+(setq org-roam-dailies-capture-templates
+      '(("d" "default" entry
+         "* %?"
+         :target (file+head "%<%Y-%m-%d>.org"
+                            "#+title: %<%Y-%m-%d>\n"))))
 
 (use-package! org-appear
   :hook
@@ -288,6 +267,19 @@
         (replace-match (format "definecolor{blue}{HTML}{%s}" blue)))))
   (add-to-list 'orgdiff-latexdiff-postprocess-hooks #'+orgdiff-nicer-change-colours))
 
+
+(setq
+ ;; Agenda styling
+ org-agenda-tags-column 0
+ org-agenda-block-separator ?─
+ org-agenda-time-grid
+ '((daily today require-timed)
+   (800 1000 1200 1400 1600 1800 2000)
+   " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+ org-agenda-current-time-string
+ "⭠ now ─────────────────────────────────────────────────")
+
+(global-org-modern-mode)
 (use-package! org-super-agenda
   :commands org-super-agenda-mode)
 
@@ -297,6 +289,66 @@
       org-agenda-block-separator nil
       org-agenda-tags-column 100 ;; from testing this seems to be a good value
       org-agenda-compact-blocks t)
+
+(setq org-agenda-custom-commands
+      '(("o" "Overview"
+         ((agenda "" ((org-agenda-span 'day)
+                      (org-super-agenda-groups
+                       '((:name "Today"
+                          :time-grid t
+                          :date today
+                          :todo "TODAY"
+                          :scheduled today
+                          :order 1)))))
+          (alltodo "" ((org-agenda-overriding-header "")
+                       (org-super-agenda-groups
+                        '((:name "Next to do"
+                           :todo "NEXT"
+                           :order 1)
+                          (:name "Important"
+                           :tag "Important"
+                           :priority "A"
+                           :order 6)
+                          (:name "Due Today"
+                           :deadline today
+                           :order 2)
+                          (:name "Due Soon"
+                           :deadline future
+                           :order 8)
+                          (:name "Overdue"
+                           :deadline past
+                           :face error
+                           :order 7)
+                          (:name "Assignments"
+                           :tag "Assignment"
+                           :order 10)
+                          (:name "Issues"
+                           :tag "Issue"
+                           :order 12)
+                          (:name "Emacs"
+                           :tag "Emacs"
+                           :order 13)
+                          (:name "Projects"
+                           :tag "Project"
+                           :order 14)
+                          (:name "Research"
+                           :tag "Research"
+                           :order 15)
+                          (:name "To read"
+                           :tag "Read"
+                           :order 30)
+                          (:name "Waiting"
+                           :todo "WAITING"
+                           :order 20)
+                          (:name "University"
+                           :tag "uni"
+                           :order 32)
+                          (:name "Trivial"
+                           :priority<= "E"
+                           :tag ("Trivial" "Unimportant")
+                           :todo ("SOMEDAY" )
+                           :order 90)
+                          (:discard (:tag ("Chore" "Routine" "Daily")))))))))))
 
 (setq org-format-latex-header "\\documentclass[12pt]
 {article}
@@ -329,18 +381,6 @@
 % my custom stuff")
 ;; Add frame borders and window dividers
 
-(setq
- ;; Agenda styling
- org-agenda-tags-column 0
- org-agenda-block-separator ?─
- org-agenda-time-grid
- '((daily today require-timed)
-   (800 1000 1200 1400 1600 1800 2000)
-   " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
- org-agenda-current-time-string
- "⭠ now ─────────────────────────────────────────────────")
-
-(global-org-modern-mode)
 
 (setq org-latex-image-default-scale '2.0
  org-preview-latex-default-process 'dvipng)
@@ -376,3 +416,15 @@
 ;; Update PDF buffers after successful LaTeX runs
 (add-hook 'TeX-after-compilation-finished-functions
            #'TeX-revert-document-buffer)
+
+(after! company
+  (setq company-idle-delay 0.5
+        company-minimum-prefix-length 2)
+  (setq company-show-numbers t)
+  (add-hook 'evil-normal-state-entry-hook #'company-abort)) ;; make aborting less annoying.
+(setq-default history-length 1000)
+(setq-default prescient-history-length 1000)
+
+
+(use-package! vlf-setup
+  :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
