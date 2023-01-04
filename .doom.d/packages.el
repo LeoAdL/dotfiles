@@ -19,7 +19,6 @@
 (package! info-colors)
 (package! org-roam-ui)
 (package! websocket)
-(package! org-modern)
 (package! org-roam-bibtex)
 (package! org-fragtog)
 (package! org-appear)
