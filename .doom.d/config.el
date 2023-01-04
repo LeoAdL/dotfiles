@@ -67,7 +67,7 @@
 ;; set transparency
 (set-frame-parameter (selected-frame) 'alpha '(97 97))
 (add-to-list 'default-frame-alist '(alpha 97 97))
-(add-to-list 'default-frame-alist '(fullscreen . fullboth))
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (setq fancy-splash-image (expand-file-name "themes/doom-emacs-gray.svg" doom-user-dir))
 
@@ -267,21 +267,11 @@
         (replace-match (format "definecolor{blue}{HTML}{%s}" blue)))))
   (add-to-list 'orgdiff-latexdiff-postprocess-hooks #'+orgdiff-nicer-change-colours))
 
-
-(setq
- ;; Agenda styling
- org-agenda-tags-column 0
- org-agenda-block-separator ?─
- org-agenda-time-grid
- '((daily today require-timed)
-   (800 1000 1200 1400 1600 1800 2000)
-   " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
- org-agenda-current-time-string
- "⭠ now ─────────────────────────────────────────────────")
-
-(global-org-modern-mode)
 (use-package! org-super-agenda
   :commands org-super-agenda-mode)
+
+(after! org-agenda
+  (org-super-agenda-mode))
 
 (setq org-agenda-skip-scheduled-if-done t
       org-agenda-skip-deadline-if-done t
@@ -349,6 +339,8 @@
                            :todo ("SOMEDAY" )
                            :order 90)
                           (:discard (:tag ("Chore" "Routine" "Daily")))))))))))
+
+
 
 (setq org-format-latex-header "\\documentclass[12pt]
 {article}
@@ -428,6 +420,7 @@
 
 (use-package! vlf-setup
   :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
+
 (defun my-fix-tablist ()
   (interactive)
   (unload-feature 'tablist-filter t)
