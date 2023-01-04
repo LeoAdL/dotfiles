@@ -67,7 +67,7 @@
 ;; set transparency
 (set-frame-parameter (selected-frame) 'alpha '(97 97))
 (add-to-list 'default-frame-alist '(alpha 97 97))
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+(add-to-list 'default-frame-alist '(fullscreen . fullboth))
 
 (setq fancy-splash-image (expand-file-name "themes/doom-emacs-gray.svg" doom-user-dir))
 
@@ -428,3 +428,7 @@
 
 (use-package! vlf-setup
   :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
+(defun my-fix-tablist ()
+  (interactive)
+  (unload-feature 'tablist-filter t)
+  (load-file (find-library-name "tablist-filter")))
