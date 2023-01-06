@@ -22,6 +22,9 @@
 ;; accept. For example:
 ;;
 (setq doom-font (font-spec :family "Iosevka" :size 13)
+            doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 13)
+      doom-unicode-font (font-spec :family "Symbola")
+      doom-big-font (font-spec :family "Iosevka" :size 24)
       doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light))
 
 ;;
@@ -33,7 +36,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-catppuccin)
+(setq doom-theme 'doom-nord)
 ;; or for treemacs users
 (setq doom-themes-treemacs-theme "doom-colors") ; use "doom-colors" for less minimal icon theme
 (with-eval-after-load 'doom-themes
@@ -374,8 +377,8 @@
 ;; Add frame borders and window dividers
 
 
-(setq org-latex-image-default-scale '2.0
- org-preview-latex-default-process 'dvipng)
+(setq org-latex-image-default-scale '1.0
+ org-preview-latex-default-process 'dvisvgm)
 (use-package! theme-magic
   :commands theme-magic-from-emacs
   :config
@@ -409,15 +412,11 @@
 (add-hook 'TeX-after-compilation-finished-functions
            #'TeX-revert-document-buffer)
 
-(after! company
-  (setq company-idle-delay 0.5
-        company-minimum-prefix-length 2)
-  (setq company-show-numbers t)
-  (add-hook 'evil-normal-state-entry-hook #'company-abort)) ;; make aborting less annoying.
 (setq-default history-length 1000)
 (setq-default prescient-history-length 1000)
 
-
+(after! lsp-mode
+    (setq lsp-tex-server 'digestif))
 (use-package! vlf-setup
   :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
 
@@ -425,3 +424,14 @@
   (interactive)
   (unload-feature 'tablist-filter t)
   (load-file (find-library-name "tablist-filter")))
+
+(defun iensu/switch-left-and-right-option-keys ()
+    "Switch left and right option keys.
+
+     On some external keyboards the left and right option keys are swapped,
+     this command switches the keys so that they work as expected."
+    (interactive)
+    (let ((current-left  mac-option-modifier)
+          (current-right mac-right-option-modifier))
+      (setq mac-option-modifier       current-right
+            mac-right-option-modifier current-left)))
