@@ -31,7 +31,7 @@
        ;;deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
-       ;;doom-quit         ; DOOM quit-message prompts when you quit Emacs
+       doom-quit         ; DOOM quit-message prompts when you quit Emacs
        (emoji +ascii +github +unicode)  ; 🙂
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
@@ -145,7 +145,7 @@
        ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
        (julia +lsp)             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
-       (latex +latexmk +cdlatex +fold +lsp)             ; writing papers in Emacs has never been so fun
+       (latex +latexmk  +fold +lsp)             ; writing papers in Emacs has never been so fun
        ;;lean              ; for folks with too much to prove
        ;;ledger            ; be audit you can be
        ;;lua               ; one-based indices? one-based indices
@@ -164,41 +164,41 @@
         +pomodoro                 ; be fruitful with the tomato technique
         +present                    ; using org-mode for presentations
         +roam2)                     ; wander around notes
-       ;;php               ; perl's insecure younger brother
-       ;;plantuml          ; diagrams for confusing people more
-       ;;purescript        ; javascript, but functional
-       (python +cython +lsp +pyright +pyenv +conda)           ; beautiful is better than ugly
-       ;;qt                ; the 'cutest' gui framework ever
-       ;;racket            ; a DSL for DSLs
-       ;;raku              ; the artist formerly known as perl6
-       ;;rest              ; Emacs as a REST client
-       ;;rst               ; ReST in peace
-       ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-       ;;(rust +lsp)       ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
-       ;;scala             ; java, but good
-       ;;(scheme +guile)   ; a fully conniving family of lisps
-       (sh +lsp +powershell)                ; she sells {ba,z,fi}sh shells on the C xor
-       ;;sml
-       ;;solidity          ; do you need a blockchain? No.
-       ;;swift             ; who asked for emoji variables?
-       ;;terra             ; Earth and Moon in alignment for performance.
-       ;;web               ; the tubes
-       ;;yaml              ; JSON, but readable
-       ;;zig               ; C, but simpler
+        ;;php               ; perl's insecure younger brother
+        ;;plantuml          ; diagrams for confusing people more
+        ;;purescript        ; javascript, but functional
+        (python  +lsp +pyright  +conda)           ; beautiful is better than ugly
+        ;;qt                ; the 'cutest' gui framework ever
+        ;;racket            ; a DSL for DSLs
+        ;;raku              ; the artist formerly known as perl6
+        ;;rest              ; Emacs as a REST client
+        ;;rst               ; ReST in peace
+        ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
+        ;;(rust +lsp)       ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+        ;;scala             ; java, but good
+        ;;(scheme +guile)   ; a fully conniving family of lisps
+        (sh +lsp +powershell)                ; she sells {ba,z,fi}sh shells on the C xor
+        ;;sml
+        ;;solidity          ; do you need a blockchain? No.
+        ;;swift             ; who asked for emoji variables?
+        ;;terra             ; Earth and Moon in alignment for performance.
+        ;;web               ; the tubes
+        ;;yaml              ; JSON, but readable
+        ;;zig               ; C, but simpler
 
-       :email
-       ;;(mu4e +org +gmail)
-       ;;notmuch
-       ;;(wanderlust +gmail)
+        :email
+        ;;(mu4e +org +gmail)
+        ;;notmuch
+        ;;(wanderlust +gmail)
 
-       :app
-       ;;calendar
-       ;;emms
-       ;;everywhere        ; *leave* Emacs!? You must be joking
-       ;;irc               ; how neckbeards socialize
-       ;;(rss +org)        ; emacs as an RSS reader
-       ;;twitter           ; twitter client https://twitter.com/vnought
+        :app
+        ;;calendar
+        ;;emms
+        ;;everywhere        ; *leave* Emacs!? You must be joking
+        ;;irc               ; how neckbeards socialize
+        ;;(rss +org)        ; emacs as an RSS reader
+        ;;twitter           ; twitter client https://twitter.com/vnought
 
-       :config
-       ;;literate
-       (default +bindings +smartparens))
+        :config
+        ;;literate
+        (default +bindings +smartparens))
