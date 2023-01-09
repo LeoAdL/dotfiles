@@ -36,7 +36,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-nord)
+(setq doom-theme 'doom-nord-aurora)
 ;; or for treemacs users
 (setq doom-themes-treemacs-theme "doom-colors") ; use "doom-colors" for less minimal icon theme
 (with-eval-after-load 'doom-themes
@@ -403,7 +403,6 @@
      (face-attribute 'default :foreground))))
 (setq ein:output-area-inlined-images t)
 
-(add-hook'pdf-tools-enabled-hook 'pdf-view-themed-minor-mode)
 ;; Use pdf-tools to open PDF files
 (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
       TeX-source-correlate-start-server t)

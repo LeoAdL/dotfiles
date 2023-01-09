@@ -6,7 +6,7 @@
  '(custom-safe-themes
    '("ddcbca57afcb429dc36de557df1b2bc7fc7855f24365294b5604ba2536dcb0e2" "7e068da4ba88162324d9773ec066d93c447c76e9f4ae711ddd0c5d3863489c52" "7ea883b13485f175d3075c72fceab701b5bf76b2076f024da50dff4107d0db25" "180641b59315dcbf610ac82acbd80eb878ed969ba57a371345b4c58cff35d309" "1a1ac598737d0fcdc4dfab3af3d6f46ab2d5048b8e72bc22f50271fd6d393a00" default))
  '(org-agenda-files '("~/org/todo.org" "/Users/leoap/Org/todo.org"))
- '(package-selected-packages '(eglot))
+ '(package-selected-packages '(emacsql eglot))
  '(reftex-section-levels
    '(("part" . 0)
      ("chapter" . 1)
