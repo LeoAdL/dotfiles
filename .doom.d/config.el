@@ -341,9 +341,62 @@
   (org-cite-activate-processor 'citar)
   (citar-bibliography org-cite-global-bibliography)
   ;; optional: org-cite-insert is also bound to C-c C-x C-@
-  :bind
-  (:map org-mode-map :package org ("C-c b" . #'org-cite-insert)))
+  (setq citar-symbols
+      `((file ,(all-the-icons-faicon "file-o" :face 'all-the-icons-green :v-adjust -0.1) . " ")
+        (note ,(all-the-icons-material "speaker_notes" :face 'all-the-icons-blue :v-adjust -0.3) . " ")
+        (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " "))))
 
+
+;;; Org-Cite configuration
+
+(map! :after org
+      :map org-mode-map
+      :localleader
+      :desc "Insert citation" "@" #'org-cite-insert)
+
+(use-package! oc
+  :after org citar
+  :config
+  (require 'ox)
+  (setq org-cite-global-bibliography
+        (let ((paths (or citar-bibliography
+                         (bound-and-true-p bibtex-completion-bibliography))))
+          ;; Always return bibliography paths as list for org-cite.
+          (if (stringp paths) (list paths) paths)))
+  ;; setup export processor; default csl/citeproc-el, with biblatex for latex
+  (setq org-cite-export-processors
+        '((t csl))))
+
+  ;;; Org-cite processors
+(use-package! oc-biblatex
+  :after oc)
+
+(use-package! oc-csl
+  :after oc
+  :config
+  (setq org-cite-csl-styles-dir "~/Zotero/styles"))
+
+(use-package! oc-natbib
+  :after oc)
+
+(use-package! oc-csl-activate
+  :after oc
+  :config
+  (setq org-cite-csl-activate-use-document-style t)
+  (defun +org-cite-csl-activate/enable ()
+    (interactive)
+    (setq org-cite-activate-processor 'csl-activate)
+    (add-hook! 'org-mode-hook '((lambda () (cursor-sensor-mode 1)) org-cite-csl-activate-render-all))
+    (defadvice! +org-cite-csl-activate-render-all-silent (orig-fn)
+      :around #'org-cite-csl-activate-render-all
+      (with-silent-modifications (funcall orig-fn)))
+    (when (eq major-mode 'org-mode)
+      (with-silent-modifications
+        (save-excursion
+          (goto-char (point-min))
+          (org-cite-activate (point-max)))
+        (org-cite-csl-activate-render-all)))
+    (fmakunbound #'+org-cite-csl-activate/enable)))
 
 (setq org-format-latex-header "\\documentclass[12pt]
 {article}
