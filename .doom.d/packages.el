@@ -26,6 +26,8 @@
 (package! org-chef)
 (package! org-super-agenda)
 (package! vlfi)
+(package! citeproc)
+(package! org-cite-csl-activate :recipe (:host github :repo "andras-simonyi/org-cite-csl-activate"))
 ;; If the package you are trying to install does not contain a PACKAGENAME.el
 ;; file, or is located in a subdirectory of the repo, you'll need to specify
 ;; `:files' in the `:recipe':
