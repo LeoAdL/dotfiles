@@ -22,8 +22,7 @@
 ;; accept. For example:
 ;;
 (setq doom-font (font-spec :family "Iosevka" :size 13)
-            doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 13)
-      doom-unicode-font (font-spec :family "Symbola")
+      doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 13)
       doom-big-font (font-spec :family "Iosevka" :size 24)
       doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light))
 
@@ -146,8 +145,8 @@
 
 ;; org-agenda-config
 (after! org-agenda
-  (setq org-agenda-files (list "~/Org/agenda.org"
-                               "~/Org/todo.org")))
+  (setq org-agenda-files (list "~/org/agenda.org"
+                               "~/org/todo.org")))
 
 (use-package! org-roam
   :after org
@@ -200,16 +199,6 @@
   :after org
   :hook (org-mode . org-fragtog-mode)
   )
-
-(use-package! org-roam-bibtex
-  :after org-roam
-  :hook (org-mode . org-roam-bibtex-mode)
-  :config
-  (require 'org-ref)
-  (setq orb-preformat-keywords
-        '("citekey" "title" "url" "file" "author-or-editor" "keywords" "pdf" "doi" "author" "tags" "year" "author-bbrev")))
-                                        ;)
-
 
 (after! org
   (setq org-src-fontify-natively t
@@ -343,6 +332,17 @@
                            :order 90)
                           (:discard (:tag ("Chore" "Routine" "Daily")))))))))))
 
+(use-package! citar
+  :no-require
+  :custom
+  (org-cite-global-bibliography '("~/org/Lecture_Notes/MyLibrary.bib"))
+  (org-cite-insert-processor 'citar)
+  (org-cite-follow-processor 'citar)
+  (org-cite-activate-processor 'citar)
+  (citar-bibliography org-cite-global-bibliography)
+  ;; optional: org-cite-insert is also bound to C-c C-x C-@
+  :bind
+  (:map org-mode-map :package org ("C-c b" . #'org-cite-insert)))
 
 
 (setq org-format-latex-header "\\documentclass[12pt]
@@ -378,7 +378,7 @@
 
 
 (setq org-latex-image-default-scale '1.0
- org-preview-latex-default-process 'dvisvgm)
+      org-preview-latex-default-process 'dvisvgm)
 (use-package! theme-magic
   :commands theme-magic-from-emacs
   :config
@@ -409,13 +409,13 @@
 
 ;; Update PDF buffers after successful LaTeX runs
 (add-hook 'TeX-after-compilation-finished-functions
-           #'TeX-revert-document-buffer)
+          #'TeX-revert-document-buffer)
 
 (setq-default history-length 1000)
 (setq-default prescient-history-length 1000)
 
 (after! lsp-mode
-    (setq lsp-tex-server 'digestif))
+  (setq lsp-tex-server 'digestif))
 (use-package! vlf-setup
   :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
 
@@ -425,12 +425,12 @@
   (load-file (find-library-name "tablist-filter")))
 
 (defun iensu/switch-left-and-right-option-keys ()
-    "Switch left and right option keys.
+  "Switch left and right option keys.
 
      On some external keyboards the left and right option keys are swapped,
      this command switches the keys so that they work as expected."
-    (interactive)
-    (let ((current-left  mac-option-modifier)
-          (current-right mac-right-option-modifier))
-      (setq mac-option-modifier       current-right
-            mac-right-option-modifier current-left)))
+  (interactive)
+  (let ((current-left  mac-option-modifier)
+        (current-right mac-right-option-modifier))
+    (setq mac-option-modifier       current-right
+          mac-right-option-modifier current-left)))
