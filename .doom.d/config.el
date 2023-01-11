@@ -340,11 +340,13 @@
   (org-cite-follow-processor 'citar)
   (org-cite-activate-processor 'citar)
   (citar-bibliography org-cite-global-bibliography)
-  ;; optional: org-cite-insert is also bound to C-c C-x C-@
-  (setq citar-symbols
-        `((file ,(all-the-icons-faicon "file-o" :face 'all-the-icons-green :v-adjust -0.1) . " ")
-          (note ,(all-the-icons-material "speaker_notes" :face 'all-the-icons-blue :v-adjust -0.3) . " ")
-          (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " "))))
+  ( citar-symbols
+    `((file ,(all-the-icons-faicon "file-o" :face 'all-the-icons-green :v-adjust -0.1) . " ")
+      (note ,(all-the-icons-material "speaker_notes" :face 'all-the-icons-blue :v-adjust -0.3) . " ")
+      (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " ")))
+  ( citar-symbol-separator "  "))
+(use-package! citeproc
+  :defer t)
 
 
 ;;; Org-Cite configuration
@@ -358,11 +360,7 @@
   :after org citar
   :config
   (require 'ox)
-  (setq org-cite-global-bibliography
-        (let ((paths (or citar-bibliography
-                         (bound-and-true-p bibtex-completion-bibliography))))
-          ;; Always return bibliography paths as list for org-cite.
-          (if (stringp paths) (list paths) paths)))
+  (setq org-cite-global-bibliography org-cite-global-bibliography)
   ;; setup export processor; default csl/citeproc-el, with biblatex for latex
   (setq org-cite-export-processors
         '((t csl))))
