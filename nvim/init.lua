@@ -90,7 +90,7 @@ local config = {
       bg = "#1e222a",
     },
     highlights = function(hl) -- or a function that returns a new table of colors to set
-      local C = require "default_theme.colors"
+      local C = require("default_theme.colors")
 
       hl.Normal = { fg = C.fg, bg = C.bg }
 
@@ -248,7 +248,7 @@ local config = {
       ["catppuccin/nvim"] = {
         as = catppuccin,
         config = function()
-          require("catppuccin").setup {
+          require("catppuccin").setup({
             flavour = "mocha", -- latte, frappe, macchiato, mocha
             background = { -- :h background
               light = "latte",
@@ -315,28 +315,48 @@ local config = {
               which_key = true,
               -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
             },
-          }
+          })
         end,
       },
       ["rebelot/kanagawa.nvim"] = {},
       ["shaunsingh/nord.nvim"] = {},
       ["simrat39/symbols-outline.nvim"] = {
-        config = function() require("symbols-outline").setup() end,
+        config = function()
+          require("symbols-outline").setup()
+        end,
       },
-      ["lervag/vimtex"] = { config = function() require "user.plugins.vimtex" end },
+      ["lervag/vimtex"] = {
+        config = function()
+          require("user.plugins.vimtex")
+        end,
+      },
       ["kdheepak/lazygit.nvim"] = {},
-      ["folke/trouble.nvim"] = { config = function() require "user.plugins.trouble" end },
+      ["folke/trouble.nvim"] = {
+        config = function()
+          require("user.plugins.trouble")
+        end,
+      },
       ["karb94/neoscroll.nvim"] = {
-        config = function() require("neoscroll").setup() end,
+        config = function()
+          require("neoscroll").setup()
+        end,
       },
       ["goerz/jupytext.vim"] = {},
       ["ggandor/leap.nvim"] = {
-        config = function() require("leap").add_default_mappings() end,
+        config = function()
+          require("leap").add_default_mappings()
+        end,
       },
       ["numToStr/Navigator.nvim"] = {
-        config = function() require("Navigator").setup() end,
+        config = function()
+          require("Navigator").setup()
+        end,
       },
-      ["hkupty/iron.nvim"] = { config = function() require "user.plugins.iron" end },
+      ["hkupty/iron.nvim"] = {
+        config = function()
+          require("user.plugins.iron")
+        end,
+      },
       ["RRethy/vim-illuminate"] = {},
       ["mbbill/undotree"] = {},
       ["knubie/vim-kitty-navigator"] = {},
@@ -345,7 +365,7 @@ local config = {
     -- All other entries override the require("<key>").setup({...}) call for default plugins
     ["null-ls"] = function(config) -- overrides `require("null-ls").setup(config)`
       -- config variable is the default configuration table for the setup function call
-      local null_ls = require "null-ls"
+      local null_ls = require("null-ls")
 
       -- Check supported formatters and linters
       -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
