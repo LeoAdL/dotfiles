@@ -25,7 +25,6 @@
       doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 13)
       doom-big-font (font-spec :family "Iosevka" :size 24)
       doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light))
-
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -345,10 +344,12 @@
       (note ,(all-the-icons-material "speaker_notes" :face 'all-the-icons-blue :v-adjust -0.3) . " ")
       (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " ")))
   ( citar-symbol-separator "  "))
+
 (use-package! citeproc
   :defer t)
 
-
+;; (use-package! pdf-tool
+;; :hook (pdf-tools-enabled . pdf-view-themed-minor-mode ))
 ;;; Org-Cite configuration
 
 (map! :after org
