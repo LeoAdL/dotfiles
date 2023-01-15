@@ -16,13 +16,13 @@ autoload -Uz compinit && compinit
 zstyle ':fzf-tab:*' switch-group ',' '.'
 
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS="--layout=reverse --height 70% --info=inline --border --margin=1 --padding=1 \
---color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
---color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
---color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
+      --color=fg:#e5e9f0,bg:#3b4252,hl:#81a1c1 \
+    --color=fg+:#e5e9f0,bg+:#3b4252,hl+:#81a1c1 \
+    --color=info:#eacb8a,prompt:#bf6069,pointer:#b48dac \
+    --color=marker:#a3be8b,spinner:#b48dac,header:#a3be8b"
 export FZF_PREVIEW_ADVANCED=true
 alias s="kitty +kitten ssh"
 alias d="kitty +kitten diff"
@@ -44,7 +44,12 @@ unset __conda_setup
 
 export PATH="/Applications/MacPorts/Emacs.app/Contents/MacOS:$PATH"
 export EDITOR=nvim
-
-
+export LANG="en_US.UTF-8"
+export DBUS_SESSION_BUS_ADDRESS="unix:path=$DBUS_LAUNCHD_SESSION_BUS_SOCKET"
+export BAT_THEME="Nord"
+BLK="0B" CHR="0B" DIR="04" EXE="06" REG="00" HARDLINK="06" SYMLINK="06" MISSING="00" ORPHAN="09" FIFO="06" SOCK="0B" OTHER="06"
+export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
+export NNN_FIFO=/tmp/nnn.fifo
+export NNN_PLUG='f:fzcd;h:fzhist;o:fzopen;v:preview-tui'
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
