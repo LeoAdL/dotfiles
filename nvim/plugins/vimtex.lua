@@ -1,4 +1,4 @@
-vim.g.vimtex_view_method = "skim"
+vim.g.vimtex_view_method = "sioyek"
 vim.g.maplocalleader = " "
 vim.g.vimtex_view_skim_sync = 1
 vim.cmd([[function! s:write_server_name() abort
