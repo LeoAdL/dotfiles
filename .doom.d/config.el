@@ -346,7 +346,7 @@
 (after! org
   (setq org-src-fontify-natively t
         org-fontify-whole-heading-line t
-        org-pretty-entities t
+        org-pretty-entities \nil
         org-ellipsis "  " ;; folding symbol
         org-agenda-block-separator ""
         org-fontify-done-headline t
@@ -499,7 +499,6 @@
       :map org-mode-map
       :localleader
       :desc "Insert citation" "@" #'org-cite-insert)
-
 (use-package! oc
   :after org citar
   :config
@@ -541,22 +540,12 @@
         (org-cite-csl-activate-render-all)))
     (fmakunbound #'+org-cite-csl-activate/enable)))
 
-
+(setq org-beamer-theme "{Nord}")
 
 (setq org-format-latex-header "\\documentclass[12pt]
 {article}
 \\usepackage[usenames]{xcolor}
-
-\\usepackage[T1]{fontenc}
-
 \\usepackage{booktabs}
-
-\\usepackage{xfrac}
-\\usepackage{siunitx}
-\\usepackage{diffcoeff}
-\\usepackage{nicematrix}
-\\usepackage{newpxtext}
-\\usepackage[varbb]{newpxmath}
 \\pagestyle{empty}             % do not remove
 % The settings below are copied from fullpage.sty
 \\setlength{\\textwidth}{\\paperwidth}
@@ -571,11 +560,35 @@
 \\addtolength{\\textheight}{-3cm}
 \\setlength{\\topmargin}{1.5cm}
 \\addtolength{\\topmargin}{-2.54cm}
-% my custom stuff")
+% my custom stuff
+\\usepackage{xfrac}
+\\usepackage{siunitx}
+\\usepackage{diffcoeff}
+\\usepackage{nicematrix}
+\\usepackage{newpxtext}
+\\usepackage[varbb]{newpxmath}
+")
 ;; Add frame borders and window dividers
 
+(add-to-list 'org-latex-classes
+             '("beamer"
+               "\\documentclass[c]{beamer}
+
+\\DeclareMathOperator{\\cov}{Cov}
+\\DeclareMathOperator{\\E}{\\mathbb{E}}
+\\DeclareMathOperator*{\\argmax}{arg\\max}
+\\DeclareMathOperator*{\\argmin}{arg\\min}
+\\newcommand{\\Et}[2]{\\E_{#2} \\left[#1\\right]}
+\\newcommand{\\Covt}[3]{\\cov_{#3}\\left(#1 #2\\right)}
+\\newcommand{\\Vart}[2]{\\Var_{#2} \\left[#1\\right]}"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 (after! org
-  (  setq org-format-latex-options (plist-put org-format-latex-options :scale 0.85))
+  (  setq org-format-latex-options
+         (plist-put org-format-latex-options :background "Transparent"))
   (setq   org-preview-latex-default-process 'dvipng))
 
 (setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
