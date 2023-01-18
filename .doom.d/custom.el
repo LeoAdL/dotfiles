@@ -20,7 +20,8 @@
      ("subparagraph" . 6)
      ("addchap" . -1)
      ("addsec" . -2)
-     ("frame" . -3))))
+     ("frame" . -3)))
+ '(warning-suppress-types '((org-roam) (org-roam) (defvaralias))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
