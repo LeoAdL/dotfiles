@@ -540,7 +540,7 @@
         (org-cite-csl-activate-render-all)))
     (fmakunbound #'+org-cite-csl-activate/enable)))
 
-(setq org-beamer-theme "{Nord}")
+(setq org-beamer-theme "[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]{metropolis}")
 
 (setq org-format-latex-header "\\documentclass[12pt]
 {article}
@@ -571,27 +571,185 @@
 ;; Add frame borders and window dividers
 
 (add-to-list 'org-latex-classes
-             '("beamer"
-               "\\documentclass[c]{beamer}
-
+             '("beamer-template"
+"\\documentclass[c]{beamer}
+\\usepackage[american]{babel}
+\\usetheme[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]{metropolis}
+\\usepackage{booktabs}
+\\usepackage{float}
+\\usepackage{mathtools}
+\\usepackage{amsthm}
+\\usepackage{amssymb}
+\\usepackage[varbb]{newpxmath}
+\\usepackage[]{xfrac}
+\\usepackage{siunitx}
+\\usepackage{graphicx}
+\\usepackage{caption}
+\\captionsetup{labelfont=bf,font={small,singlespacing}}
+\\usepackage{subcaption}
+\\usepackage{cancel}
+\\usepackage{setspace}
+\\usepackage{xcolor}
+\\usepackage{diffcoeff}
+\\usepackage{nicematrix}
+\\usepackage{acronym}
+\\usepackage{appendixnumberbeamer}
+\\usepackage{dirtytalk}
+\\usepackage[authoryear]{natbib}
+\\usepackage{xurl}
+\\bibliographystyle{ecta}
+\\DeclareMathOperator{\\Var}{Var}
 \\DeclareMathOperator{\\cov}{Cov}
 \\DeclareMathOperator{\\E}{\\mathbb{E}}
-\\DeclareMathOperator*{\\argmax}{arg\\max}
-\\DeclareMathOperator*{\\argmin}{arg\\min}
+\\DeclareMathOperator*{\\argmax}{arg\\,max}
+\\DeclareMathOperator*{\\argmin}{arg\\,min}
 \\newcommand{\\Et}[2]{\\E_{#2} \\left[#1\\right]}
-\\newcommand{\\Covt}[3]{\\cov_{#3}\\left(#1 #2\\right)}
-\\newcommand{\\Vart}[2]{\\Var_{#2} \\left[#1\\right]}"
+\\newcommand{\\Covt}[3]{\\cov_{#3}\\left(#1, #2\\right)}
+\\newcommand{\\Vart}[2]{\\Var_{#2} \\left[#1\\right]}
+\\DeclarePairedDelimiter\\abs{\\lvert}{\\rvert}
+\\DeclarePairedDelimiter\\norm{\\lVert}{\\rVert}
+\\DeclarePairedDelimiterX\\innerp[2]{\\langle}{\\rangle}{#1,#2}
+\\DeclarePairedDelimiterX\\braket[3]{\\langle}{\\rangle}%
+{#1\\,\\delimsize\\vert\\,\\mathopen{}#2\\,\\delimsize\\vert\\,\\mathopen{}#3}
+\\providecommand\\given{}
+\\DeclarePairedDelimiterXPP\\Prob[1]{\\mathbb{P}} (){}{
+\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
+#1}
+\\DeclarePairedDelimiterXPP\\condE[1]{\\E} (){}{
+\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
+#1}
+\\DeclarePairedDelimiterXPP\\condVar[2]{\\Var} (){}{
+\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
+#1,#2}
+\\DeclarePairedDelimiterXPP\\condCov[2]{\\cov} (){}{
+\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
+#1,#2}
+\\theoremstyle{plain}% default
+\\newtheorem{thm}{Theorem}
+\\newtheorem{lem}[thm]{Lemma}
+\\newtheorem{prop}[thm]{Proposition}
+\\newtheorem*{cor}{Corollary}
+\\theoremstyle{definition}
+\\newtheorem{defn}{Definition}
+\\newtheorem{exmp}{Example}
+\\providecommand*{\\defnautorefname}{Definition}
+\\theoremstyle{remark}
+\\newtheorem*{rem}{Remark}
+\\newtheorem{case}{Case}
+
+
+\\definecolor{dblue}{HTML}{2E3440}
+\\definecolor{umber}{HTML}{8FBCBB}
+\\definecolor{alertcolor}{HTML}{88C0D0}
+\\definecolor{examplecolor}{HTML}{BF616A}
+
+\\definecolor{pale}{HTML}{ECEFF4}
+\\definecolor{bluish}{HTML}{88C0D0}
+\\definecolor{cream}{HTML}{E5E9F0}
+\\setbeamercolor{progress bar}{fg=bluish,bg=cream}
+\\setbeamercolor{frametitle}{fg=umber,bg=pale}
+\\setbeamercolor{normal text}{fg=dblue,bg=pale}
+\\setbeamercolor{alerted text}{fg=alertcolor,bg=pale}
+\\setbeamercolor{example text}{fg=examplecolor}
+\\setbeamercovered{dynamic}
+
+\\usecolortheme{rose}
+      [NO-DEFAULT-PACKAGES]
+      [PACKAGES]
+      [EXTRA]"
                ("\\section{%s}" . "\\section*{%s}")
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                ("\\paragraph{%s}" . "\\paragraph*{%s}")
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+(add-to-list 'org-latex-classes
+             '("article"
+"\\documentclass[12pt]{article}
+\\usepackage[american]{babel}
+\\usepackage[margin=1.25in]{geometry}
+\\usepackage{parskip}
+\\usepackage{booktabs}
+\\usepackage{float}
+\\usepackage{microtype}
+\\usepackage{graphicx}
+\\usepackage{mathtools}
+\\usepackage{wrapfig}
+\\usepackage{amsthm}
+\\usepackage{amssymb}
+\\usepackage{newpxtext}
+\\usepackage[varbb]{newpxmath}
+\\usepackage{xfrac}
+\\usepackage{siunitx}
+\\usepackage{caption}
+\\captionsetup{labelfont=bf,font={small,singlespacing}}
+\\usepackage{subcaption}
+\\usepackage{cancel}
+\\usepackage{setspace}
+\\usepackage{xcolor}
+\\usepackage{diffcoeff}
+\\usepackage{nicematrix}
+\\usepackage{enumitem}
+\\usepackage{acronym}
+\\usepackage[authoryear,longnamesfirst]{natbib}
+\\usepackage{xurl}
+\\definecolor{mint}{HTML}{d73a49}
+\\usepackage[colorlinks=true, allcolors= mint]{hyperref}
+\\onehalfspacing{}
+\\DeclareMathOperator{\\Var}{Var}
+\\DeclareMathOperator{\\cov}{Cov}
+\\DeclareMathOperator{\\E}{\\mathbb{E}}
+\\DeclareMathOperator*{\\argmax}{arg\\,max}
+\\DeclareMathOperator*{\\argmin}{arg\\,min}
+\\newcommand{\\Et}[2]{\\E_{#2} \\left[#1\\right]}
+\\newcommand{\\Covt}[3]{\\cov_{#3}\\left(#1, #2\\right)}
+\\newcommand{\\Vart}[2]{\\Var_{#2} \\left[#1\\right]}
+\\DeclarePairedDelimiter\\abs{\\lvert}{\\rvert}
+\\DeclarePairedDelimiter\\norm{\\lVert}{\\rVert}
+\\DeclarePairedDelimiterX\\innerp[2]{\\langle}{\\rangle}{#1,#2}
+\\DeclarePairedDelimiterX\\braket[3]{\\langle}{\\rangle}%
+{#1\\,\\delimsize\\vert\\,\\mathopen{}#2\\,\\delimsize\\vert\\,\\mathopen{}#3}
+\\providecommand\\given{}
+\\DeclarePairedDelimiterXPP\\Prob[1]{\\mathbb{P}} (){}{
+\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
+#1}
+\\DeclarePairedDelimiterXPP\\condE[1]{\\E} (){}{
+\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
+#1}
+\\DeclarePairedDelimiterXPP\\condVar[2]{\\Var} (){}{
+\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
+#1,#2}
+\\DeclarePairedDelimiterXPP\\condCov[2]{\\cov} (){}{
+\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
+#1,#2}
+\\theoremstyle{plain}% default
+\\newtheorem{thm}{Theorem}
+\\newtheorem{lem}[thm]{Lemma}
+\\newtheorem{prop}[thm]{Proposition}
+\\newtheorem*{cor}{Corollary}
+\\theoremstyle{definition}
+\\newtheorem{defn}{Definition}
+\\newtheorem{exmp}{Example}
+\\providecommand*{\\defnautorefname}{Definition}
+\\theoremstyle{remark}
+\\newtheorem*{rem}{Remark}
+\\newtheorem*{note}{Note}
+\\newtheorem{case}{Case}
+
+\\renewcommand{\\leq}{\\leqslant}
+\\renewcommand{\\geq}{\\geqslant}
+      [NO-DEFAULT-PACKAGES]
+      [PACKAGES]
+      [EXTRA]"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")))
 (after! org
   (  setq org-format-latex-options
-         (plist-put org-format-latex-options :background "Transparent"))
+          (plist-put org-format-latex-options :background "Transparent"))
   (setq   org-preview-latex-default-process 'dvipng))
 
-(setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
+(setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -pdflatex=xelatex -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
 
 (defun +org-export-latex-fancy-item-checkboxes (text backend info)
   (when (org-export-derived-backend-p backend 'latex)
