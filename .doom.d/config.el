@@ -540,7 +540,7 @@
         (org-cite-csl-activate-render-all)))
     (fmakunbound #'+org-cite-csl-activate/enable)))
 
-(setq org-beamer-theme "[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]{metropolis}")
+(setq org-beamer-theme "[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]metropolis")
 
 (setq org-format-latex-header "\\documentclass[12pt]
 {article}
@@ -571,7 +571,7 @@
 ;; Add frame borders and window dividers
 
 (add-to-list 'org-latex-classes
-             '("beamer-template"
+             '("beamer"
 "\\documentclass[c]{beamer}
 \\usepackage[american]{babel}
 \\usetheme[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]{metropolis}
@@ -638,14 +638,14 @@
 \\newtheorem{case}{Case}
 
 
-\\definecolor{dblue}{HTML}{2E3440}
-\\definecolor{umber}{HTML}{8FBCBB}
-\\definecolor{alertcolor}{HTML}{88C0D0}
-\\definecolor{examplecolor}{HTML}{BF616A}
+\\definecolor{dblue}{HTML}{4c4f69}
+\\definecolor{umber}{HTML}{dc8a78}
+\\definecolor{alertcolor}{HTML}{dd7878}
+\\definecolor{examplecolor}{HTML}{209fb5}
 
-\\definecolor{pale}{HTML}{ECEFF4}
-\\definecolor{bluish}{HTML}{88C0D0}
-\\definecolor{cream}{HTML}{E5E9F0}
+\\definecolor{pale}{HTML}{eff1f5}
+\\definecolor{bluish}{HTML}{8c8fa1}
+\\definecolor{cream}{HTML}{e6e9ef}
 \\setbeamercolor{progress bar}{fg=bluish,bg=cream}
 \\setbeamercolor{frametitle}{fg=umber,bg=pale}
 \\setbeamercolor{normal text}{fg=dblue,bg=pale}
@@ -664,7 +664,7 @@
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 (add-to-list 'org-latex-classes
              '("article"
-"\\documentclass[12pt]{article}
+"\\documentclass[c]{article}
 \\usepackage[american]{babel}
 \\usepackage[margin=1.25in]{geometry}
 \\usepackage{parskip}
@@ -749,7 +749,7 @@
           (plist-put org-format-latex-options :background "Transparent"))
   (setq   org-preview-latex-default-process 'dvipng))
 
-(setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -pdflatex=xelatex -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
+(setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -lualatex -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
 
 (defun +org-export-latex-fancy-item-checkboxes (text backend info)
   (when (org-export-derived-backend-p backend 'latex)
