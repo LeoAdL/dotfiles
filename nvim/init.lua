@@ -26,7 +26,7 @@ local config = {
 	},
 
 	-- Set colorscheme to use
-	colorscheme = "nord",
+	colorscheme = "catppuccin",
 
 	-- Add highlight groups in any theme
 	-- set vim options here (vim.<first_key>.<second_key> = value)
@@ -247,15 +247,15 @@ local config = {
 				as = catppuccin,
 				config = function()
 					require("catppuccin").setup({
-						flavour = "mocha", -- latte, frappe, macchiato, mocha
+						flavour = "frappe", -- latte, frappe, macchiato, mocha
 						background = { -- :h background
 							light = "latte",
-							dark = "mocha",
+							dark = "frappe",
 						},
-						transparent_background = false,
-						term_colors = false,
+						transparent_background = true,
+						term_colors = true,
 						dim_inactive = {
-							enabled = false,
+							enabled = true,
 							shade = "dark",
 							percentage = 0.15,
 						},
@@ -286,7 +286,7 @@ local config = {
 							mini = false,
 							indent_blankline = {
 								enabled = true,
-								colored_indent_levels = false,
+								colored_indent_levels = true,
 							},
 							native_lsp = {
 								enabled = true,
