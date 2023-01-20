@@ -34,7 +34,10 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-nord-aurora)
+(setq doom-theme 'catppuccin)
+(load-theme 'catppuccin t t)
+(setq catppuccin-flavor 'frappe) ;; or 'latte, 'macchiato, or 'mocha
+(catppuccin-reload)
 ;; or for treemacs users
 (setq doom-themes-treemacs-theme "doom-colors") ; use "doom-colors" for less minimal icon theme
 (with-eval-after-load 'doom-themes
