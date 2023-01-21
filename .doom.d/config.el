@@ -69,8 +69,8 @@
 
 
 ;; set transparency
-(set-frame-parameter (selected-frame) 'alpha '(95 95))
-(add-to-list 'default-frame-alist '(alpha 95 95))
+(set-frame-parameter (selected-frame) 'alpha '(92 92))
+(add-to-list 'default-frame-alist '(alpha 92 92))
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (setq fancy-splash-image (expand-file-name "themes/doom-emacs-gray.svg" doom-user-dir))
@@ -570,6 +570,11 @@
 \\usepackage{nicematrix}
 \\usepackage{newpxtext}
 \\usepackage[varbb]{newpxmath}
+\\DeclareMathOperator{\\Var}{Var}
+\\DeclareMathOperator{\\cov}{Cov}
+\\DeclareMathOperator{\\E}{\\mathbb{E}}
+\\DeclareMathOperator*{\\argmax}{arg\\,max}
+\\DeclareMathOperator*{\\argmin}{arg\\,min}
 ")
 ;; Add frame borders and window dividers
 
