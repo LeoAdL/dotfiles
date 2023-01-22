@@ -153,7 +153,10 @@
 (use-package! org-roam
   :after org
   :config
-  (setq org-roam-v2-ack t)
+  (setq                   org-enable-roam-support t
+                          org-roam-directory (concat org-directory "/Roam")
+                          org-roam-db-location (concat org-roam-directory "/db/org-roam.db")
+                          org-roam-v2-ack t)
   (org-roam-db-autosync-enable))
 
 (defadvice! doom-modeline--buffer-file-name-roam-aware-a (orig-fun)
@@ -580,7 +583,7 @@
 
 (add-to-list 'org-latex-classes
              '("beamer"
-"\\documentclass[c]{beamer}
+               "\\documentclass[c]{beamer}
 \\usepackage[american]{babel}
 \\usetheme[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]{metropolis}
 \\usepackage{booktabs}
@@ -672,7 +675,7 @@
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 (add-to-list 'org-latex-classes
              '("article"
-"\\documentclass[c]{article}
+               "\\documentclass[c]{article}
 \\usepackage[american]{babel}
 \\usepackage[margin=1.25in]{geometry}
 \\usepackage{parskip}
@@ -1110,7 +1113,6 @@ is selected, only the bare key is returned."
         (when buffer (kill-buffer buffer))))))
 (advice-add 'org-mks :override #'org-mks-pretty)
 (use-package lsp-ltex
-  :ensure t
   :hook (text-mode . (lambda ()
                        (require 'lsp-ltex)
                        (lsp)))  ; or lsp-deferred
