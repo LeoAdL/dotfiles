@@ -1,51 +1,3 @@
-;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
-
-;; Place your private configuration here! Remember, you do not need to run 'doom
-;; sync' after modifying this file!
-
-
-;; Some functionality uses this to identify you, e.g. GPG configuration, email
-;; clients, file templates and snippets. It is optional.
-(setq user-full-name "Leo Aparisi de Lannoy"
-      user-mail-address "leoaparisi@gmail.com")
-
-;; Doom exposes five (optional) variables for controlling fonts in Doom:
-;;
-;; - `doom-font' -- the primary font to use
-;; - `doom-variable-pitch-font' -- a non-monospace font (where applicable)
-;; - `doom-big-font' -- used for `doom-big-font-mode'; use this for
-;;   presentations or streaming.
-;; - `doom-unicode-font' -- for unicode glyphs
-;; - `doom-serif-font' -- for the `fixed-pitch-serif' face
-;;
-;; See 'C-h v doom-font' for documentation and more examples of what they
-;; accept. For example:
-;;
-(setq doom-font (font-spec :family "Iosevka" :size 13)
-      doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 13)
-      doom-big-font (font-spec :family "Iosevka" :size 24)
-      doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light))
-;;
-;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
-;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
-;; refresh your font settings. If Emacs still can't find your font, it likely
-;; wasn't installed correctly. Font issues are rarely Doom issues!
-
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. This is the default:
-(setq doom-theme 'catppuccin)
-(load-theme 'catppuccin t t)
-(setq catppuccin-flavor 'frappe) ;; or 'latte, 'macchiato, or 'mocha
-(catppuccin-reload)
-;; or for treemacs users
-(setq doom-themes-treemacs-theme "doom-colors") ; use "doom-colors" for less minimal icon theme
-(with-eval-after-load 'doom-themes
-  (doom-themes-treemacs-config))
-
-
-
-
 (setq-default
  delete-by-moving-to-trash t                      ; Delete files to trash
  window-combination-resize t                      ; take new window space from all other windows (not just current)
@@ -64,37 +16,6 @@
 
 (global-subword-mode 1)                           ; Iterate through CamelCase words
 
-;; Corrects (and improves) org-mode's native fontification.
-(doom-themes-org-config)
-
-
-;; set transparency
-(set-frame-parameter (selected-frame) 'alpha '(92 92))
-(add-to-list 'default-frame-alist '(alpha 92 92))
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-
-(setq fancy-splash-image (expand-file-name "themes/doom-emacs-gray.svg" doom-user-dir))
-
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
-;;
-(setq display-line-numbers-type `relative)
-(setq-default tab-width 4)
-(setq byte-compile-warnings '(cl-functions))
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/"      org-use-property-inheritance t              ; it's convenient to have properties inherited
-      org-log-done 'time                          ; having the time a item is done sounds convenient
-      org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
-      org-export-in-background t                  ; run export processes in external emacs process
-      org-fold-catch-invisible-edits 'smart            ; try not to accidently do weird stuff in invisible regions
-      org-export-with-sub-superscripts '{})       ; don't treat lone _ / ^ as sub/superscripts, require _{} / ^{}
-
-(setq
- org-superstar-headline-bullets-list '("⁖" "◉" "○" "✸" "✿")
- )
-(setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a.")))
-
 (setq browse-url-chrome-program "brave")
 
 (setq which-key-idle-delay 0.5 ;; Default is 1.0
@@ -106,37 +27,52 @@
             '((""       . "\\`+?evil[-:]?\\(?:a-\\)?\\(.*\\)") . (nil . "🅔·\\1"))
             '(("\\`g s" . "\\`evilem--?motion-\\(.*\\)")       . (nil . "Ⓔ·\\1"))))
 
-;; Whenever you reconfigure a package, make sure to wrap your config in an
-;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
-;;
-;;   (after! PACKAGE
-;;     (setq x y))
-;;
-;; The exceptions to this rule:
-;;
-;;   - Setting file/directory variables (like `org-directory')
-;;   - Setting variables which explicitly tell you to set them before their
-;;     package is loaded (see 'C-h v VARIABLE' to look up their documentation).
-;;   - Setting doom variables (which start with 'doom-' or '+').
-;;
-;; Here are some additional functions/macros that will help you configure Doom.
-;;
-;; - `load!' for loading external *.el files relative to this one
-;; - `use-package!' for configuring packages
-;; - `after!' for running code after a package has loaded
-;; - `add-load-path!' for adding directories to the `load-path', relative to
-;;   this file. Emacs searches the `load-path' when you load packages with
-;;   `require' or `use-package'.
-;; - `map!' for binding new keys
-;;
-;; To get information about any of these functions/macros, move the cursor over
-;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
-;; This will open documentation for it, including demos of how they are used.
-;; Alternatively, use `C-h o' to look up a symbol (functions, variables, faces,
-;; etc).
-;;
-;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
-;; they are implemented.
+(setq doom-font (font-spec :family "Iosevka" :size 13)
+      doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 13)
+      doom-big-font (font-spec :family "Iosevka" :size 24)
+      doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light))
+
+(load-theme 'catppuccin t t)
+(setq catppuccin-flavor 'frappe) ;; or 'latte, 'macchiato, or 'mocha
+(catppuccin-reload)
+
+(setq doom-themes-treemacs-theme "doom-colors") ; use "doom-colors" for less minimal icon theme
+(with-eval-after-load 'doom-themes
+  (doom-themes-treemacs-config))
+
+;; Corrects (and improves) org-mode's native fontification.
+(doom-themes-org-config)
+
+
+;; set transparency
+(set-frame-parameter (selected-frame) 'alpha '(92 92))
+(add-to-list 'default-frame-alist '(alpha 92 92))
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+(setq fancy-splash-image (expand-file-name "themes/doom-emacs-gray.svg" doom-user-dir))
+
+(use-package! theme-magic
+  :commands theme-magic-from-emacs
+  :config
+  (defadvice! theme-magic--auto-extract-16-doom-colors ()
+    :override #'theme-magic--auto-extract-16-colors
+    (list
+     (face-attribute 'default :background)
+     (doom-color 'error)
+     (doom-color 'success)
+     (doom-color 'type)
+     (doom-color 'keywords)
+     (doom-color 'constants)
+     (doom-color 'functions)
+     (face-attribute 'default :foreground)
+     (face-attribute 'shadow :foreground)
+     (doom-blend 'base8 'error 0.1)
+     (doom-blend 'base8 'success 0.1)
+     (doom-blend 'base8 'type 0.1)
+     (doom-blend 'base8 'keywords 0.1)
+     (doom-blend 'base8 'constants 0.1)
+     (doom-blend 'base8 'functions 0.1)
+     (face-attribute 'default :foreground))))
 
 (use-package! info-colors
   :commands (info-colors-fontify-node))
@@ -145,80 +81,61 @@
 (set-file-template! "\\.tex$" :trigger "__" :mode 'latex-mode)
 (set-file-template! "\\.org$" :trigger "__" :mode 'org-mode)
 
-;; org-agenda-config
-(after! org-agenda
-  (setq org-agenda-files (list "~/org/agenda.org"
-                               "~/org/todo.org")))
+(setq display-line-numbers-type `relative)
+(setq-default tab-width 4)
+(setq byte-compile-warnings '(cl-functions))
 
-(use-package! org-roam
-  :after org
-  :config
-  (setq                   org-enable-roam-support t
-                          org-roam-directory (concat org-directory "/Roam")
-                          org-roam-db-location (concat org-roam-directory "/db/org-roam.db")
-                          org-roam-v2-ack t)
-  (org-roam-db-autosync-enable))
+(setq org-directory "~/org/"      org-use-property-inheritance t              ; it's convenient to have properties inherited
+      org-log-done 'time                          ; having the time a item is done sounds convenient
+      org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
+      org-export-in-background t                  ; run export processes in external emacs process
+      org-fold-catch-invisible-edits 'smart            ; try not to accidently do weird stuff in invisible regions
+      org-export-with-sub-superscripts '{})       ; don't treat lone _ / ^ as sub/superscripts, require _{} / ^{}
 
-(defadvice! doom-modeline--buffer-file-name-roam-aware-a (orig-fun)
-  :around #'doom-modeline-buffer-file-name ; takes no args
-  (if (s-contains-p org-roam-directory (or buffer-file-name ""))
-      (replace-regexp-in-string
-       "\\(?:^\\|.*/\\)\\([0-9]\\{4\\}\\)\\([0-9]\\{2\\}\\)\\([0-9]\\{2\\}\\)[0-9]*-"
-       "🢔(\\1-\\2-\\3) "
-       (subst-char-in-string ?_ ?  buffer-file-name))
-    (funcall orig-fun)))
-(use-package! websocket
-  :after org-roam)
-(use-package! org-roam-ui
-  :after org-roam
-  :commands org-roam-ui-open
-  :hook (org-roam . org-roam-ui-mode)
-  :config
-  (setq org-roam-ui-sync-theme t
-        org-roam-ui-follow t
-        org-roam-ui-update-on-save t
-        org-roam-ui-open-on-start t)
-  (require 'org-roam) ; in case autoloaded
-  (defun org-roam-ui-open ()
-    "Ensure the server is active, then open the roam graph."
-    (interactive)
-    (unless org-roam-ui-mode (org-roam-ui-mode 1))
-    (browse-url--browser (format "http://localhost:%d" org-roam-ui-port))))
-(after! org-roam
-  (setq +org-roam-open-buffer-on-find-file nil))
-(setq org-roam-dailies-directory "daily/")
+(setq org-ascii-charset 'utf-8)
+(after! org
+  (setq org-src-fontify-natively t
+        org-fontify-whole-heading-line t
+        org-pretty-entities \nil
+        org-ellipsis "  " ;; folding symbol
+        org-agenda-block-separator ""
+        org-fontify-done-headline t
+        prot/scroll-center-cursor-mode t
+        org-fontify-quote-and-verse-blocks t
+        org-startup-with-inline-images t
+        org-startup-indented t))
 
-(setq org-roam-dailies-capture-templates
-      '(("d" "default" entry
-         "* %?"
-         :target (file+head "%<%Y-%m-%d>.org"
-                            "#+title: %<%Y-%m-%d>\n"))))
+(lambda () (progn
+             (setq left-margin-width 2)
+             (setq right-margin-width 2)
+             (set-window-buffer nil (current-buffer))))
+(custom-set-faces!
+  '(outline-1 :weight extra-bold :height 1.25)
+  '(outline-2 :weight bold :height 1.15)
+  '(outline-3 :weight bold :height 1.12)
+  '(outline-4 :weight semi-bold :height 1.09)
+  '(outline-5 :weight semi-bold :height 1.06)
+  '(outline-6 :weight semi-bold :height 1.03)
+  '(outline-8 :weight semi-bold)
+  '(outline-9 :weight semi-bold))
+(custom-set-faces!
+  '(org-document-title :height 1.2))
+
+(setq
+ org-superstar-headline-bullets-list '("⁖" "◉" "○" "✸" "✿")
+ )
+(setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a.")))
+
 (use-package! org-appear
   :hook (org-mode . org-appear-mode)
   :config
   (setq org-appear-autoemphasis t
         org-appear-autosubmarkers t
-        org-appear-autolinks nil)
+        org-appear-autolinks t)
   ;; for proper first-time setup, `org-appear--set-elements'
   ;; needs to be run after other hooks have acted.
   (run-at-time nil nil #'org-appear--set-elements))
-(use-package! orgdiff
-  :defer t
-  :config
-  (defun +orgdiff-nicer-change-colours ()
-    (goto-char (point-min))
-    ;; Set red/blue based on whether chameleon is being used
-    (if (search-forward "%% make document follow Emacs theme" nil t)
-        (setq red  (substring (doom-blend 'red 'fg 0.8) 1)
-              blue (substring (doom-blend 'blue 'teal 0.6) 1))
-      (setq red  "c82829"
-            blue "00618a"))
-    (when (and (search-forward "%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF" nil t)
-               (search-forward "\\RequirePackage{color}" nil t))
-      (when (re-search-forward "definecolor{red}{rgb}{1,0,0}" (cdr (bounds-of-thing-at-point 'line)) t)
-        (replace-match (format "definecolor{red}{HTML}{%s}" red)))
-      (when (re-search-forward "definecolor{blue}{rgb}{0,0,1}" (cdr (bounds-of-thing-at-point 'line)) t)
-        (replace-match (format "definecolor{blue}{HTML}{%s}"))))))
+
 (appendq! +ligatures-extra-symbols
           `(:checkbox      "☐"
             :pending       "◼"
@@ -259,54 +176,9 @@
             :priority_c   ,(propertize "■" 'face 'all-the-icons-yellow)
             :priority_d   ,(propertize "⬇" 'face 'all-the-icons-green)
             :priority_e   ,(propertize "❓" 'face 'all-the-icons-blue)))
-(set-ligatures! 'org-mode
-  :merge t
-  :checkbox      "[ ]"
-  :pending       "[-]"
-  :checkedbox    "[X]"
-  :list_property "::"
-  :em_dash       "---"
-  :ellipsis      "..."
-  :arrow_right   "->"
-  :arrow_left    "<-"
-  :title         "#+title:"
-  :subtitle      "#+subtitle:"
-  :author        "#+author:"
-  :date          "#+date:"
-  :property      "#+property:"
-  :options       "#+options:"
-  :startup       "#+startup:"
-  :macro         "#+macro:"
-  :html_head     "#+html_head:"
-  :html          "#+html:"
-  :latex_class   "#+latex_class:"
-  :latex_header  "#+latex_header:"
-  :beamer_header "#+beamer_header:"
-  :latex         "#+latex:"
-  :attr_latex    "#+attr_latex:"
-  :attr_html     "#+attr_html:"
-  :attr_org      "#+attr_org:"
-  :begin_quote   "#+begin_quote"
-  :end_quote     "#+end_quote"
-  :caption       "#+caption:"
-  :header        "#+header:"
-  :begin_export  "#+begin_export"
-  :end_export    "#+end_export"
-  :results       "#+RESULTS:"
-  :property      ":PROPERTIES:"
-  :end           ":END:"
-  :priority_a    "[#A]"
-  :priority_b    "[#B]"
-  :priority_c    "[#C]"
-  :priority_d    "[#D]"
-  :priority_e    "[#E]")
-(plist-put +ligatures-extra-symbols :name "⁍")
 
 (use-package! org-pretty-table
   :commands (org-pretty-table-mode global-org-pretty-table-mode))
-
-(use-package! org-pandoc-import
-  :after org)
 
 (setq org-highlight-latex-and-related '(native script entities))
 
@@ -318,94 +190,11 @@
   :hook (org-mode . org-fragtog-mode)
   )
 
-(add-hook 'org-mode-hook 'turn-on-flyspell)
-
-(map! :map org-mode-map
-
-      :localleader
-      :desc "View exported file" "v" #'org-view-output-file)
-
-(defun org-view-output-file (&optional org-file-path)
-  "Visit buffer open on the first output file (if any) found, using `org-view-output-file-extensions'"
-  (interactive)
-  (let* ((org-file-path (or org-file-path (buffer-file-name) ""))
-         (dir (file-name-directory org-file-path))
-         (basename (file-name-base org-file-path))
-         (output-file nil))
-    (dolist (ext org-view-output-file-extensions)
-      (unless output-file
-        (when (file-exists-p
-               (concat dir basename "." ext))
-          (setq output-file (concat dir basename "." ext)))))
-    (if output-file
-        (if (member (file-name-extension output-file) org-view-external-file-extensions)
-            (browse-url-xdg-open output-file)
-          (pop-to-buffer (or (find-buffer-visiting output-file)
-                             (find-file-noselect output-file))))
-      (message "No exported file found"))))
-
-(defvar org-view-output-file-extensions '("pdf" "md" "rst" "txt" "tex" "html")
-  "Search for output files with these extensions, in order, viewing the first that matches")
-(defvar org-view-external-file-extensions '("html")
-  "File formats that should be opened externally.")
-
-(after! org
-  (setq org-src-fontify-natively t
-        org-fontify-whole-heading-line t
-        org-pretty-entities \nil
-        org-ellipsis "  " ;; folding symbol
-        org-agenda-block-separator ""
-        org-fontify-done-headline t
-        prot/scroll-center-cursor-mode t
-        org-fontify-quote-and-verse-blocks t
-        org-startup-with-inline-images t
-        org-startup-indented t))
-
-(lambda () (progn
-             (setq left-margin-width 2)
-             (setq right-margin-width 2)
-             (set-window-buffer nil (current-buffer))))
-(custom-set-faces!
-  '(outline-1 :weight extra-bold :height 1.25)
-  '(outline-2 :weight bold :height 1.15)
-  '(outline-3 :weight bold :height 1.12)
-  '(outline-4 :weight semi-bold :height 1.09)
-  '(outline-5 :weight semi-bold :height 1.06)
-  '(outline-6 :weight semi-bold :height 1.03)
-  '(outline-8 :weight semi-bold)
-  '(outline-9 :weight semi-bold))
-(custom-set-faces!
-  '(org-document-title :height 1.2))
-
 (setq org-agenda-deadline-faces
       '((1.001 . error)
         (1.0 . org-warning)
         (0.5 . org-upcoming-deadline)
         (0.0 . org-upcoming-distant-deadline)))
-
-
-
-(after! org (require 'org-zotxt))
-(use-package org-chef)
-
-(use-package! orgdiff
-  :defer t
-  :config
-  (defun +orgdiff-nicer-change-colours ()
-    (goto-char (point-min))
-    ;; Set red/blue based on whether chameleon is being used
-    (if (search-forward "%% make document follow Emacs theme" nil t)
-        (setq red  (substring (doom-blend 'red 'fg 0.8) 1)
-              blue (substring (doom-blend 'blue 'teal 0.6) 1))
-      (setq red  "c82829"
-            blue "00618a"))
-    (when (and (search-forward "%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF" nil t)
-               (search-forward "\\RequirePackage{color}" nil t))
-      (when (re-search-forward "definecolor{red}{rgb}{1,0,0}" (cdr (bounds-of-thing-at-point 'line)) t)
-        (replace-match (format "definecolor{red}{HTML}{%s}" red)))
-      (when (re-search-forward "definecolor{blue}{rgb}{0,0,1}" (cdr (bounds-of-thing-at-point 'line)) t)
-        (replace-match (format "definecolor{blue}{HTML}{%s}" blue)))))
-  (add-to-list 'orgdiff-latexdiff-postprocess-hooks #'+orgdiff-nicer-change-colours))
 
 (use-package! org-super-agenda
   :commands org-super-agenda-mode)
@@ -480,6 +269,107 @@
                            :order 90)
                           (:discard (:tag ("Chore" "Routine" "Daily")))))))))))
 
+(use-package! org-roam
+  :after org
+  :config
+  (setq                   org-enable-roam-support t
+                          org-roam-directory (concat org-directory "/Roam")
+                          org-roam-db-location (concat org-roam-directory "/db/org-roam.db")
+                          org-roam-v2-ack t)
+  (org-roam-db-autosync-enable))
+
+(after! org-roam
+  (setq +org-roam-open-buffer-on-find-file nil))
+(setq org-roam-dailies-directory "daily/")
+
+(setq org-roam-dailies-capture-templates
+      '(("d" "default" entry
+         "* %?"
+         :target (file+head "%<%Y-%m-%d>.org"
+                            "#+title: %<%Y-%m-%d>\n"))))
+
+(defadvice! doom-modeline--buffer-file-name-roam-aware-a (orig-fun)
+  :around #'doom-modeline-buffer-file-name ; takes no args
+  (if (s-contains-p org-roam-directory (or buffer-file-name ""))
+      (replace-regexp-in-string
+       "\\(?:^\\|.*/\\)\\([0-9]\\{4\\}\\)\\([0-9]\\{2\\}\\)\\([0-9]\\{2\\}\\)[0-9]*-"
+       "🢔(\\1-\\2-\\3) "
+       (subst-char-in-string ?_ ?  buffer-file-name))
+    (funcall orig-fun)))
+(use-package! websocket
+  :after org-roam)
+(use-package! org-roam-ui
+  :after org-roam
+  :commands org-roam-ui-open
+  :hook (org-roam . org-roam-ui-mode)
+  :config
+  (setq org-roam-ui-sync-theme t
+        org-roam-ui-follow t
+        org-roam-ui-update-on-save t
+        org-roam-ui-open-on-start t)
+  (require 'org-roam) ; in case autoloaded
+  (defun org-roam-ui-open ()
+    "Ensure the server is active, then open the roam graph."
+    (interactive)
+    (unless org-roam-ui-mode (org-roam-ui-mode 1))
+    (browse-url--browser (format "http://localhost:%d" org-roam-ui-port))))
+
+(use-package! orgdiff
+  :defer t
+  :config
+  (defun +orgdiff-nicer-change-colours ()
+    (goto-char (point-min))
+    ;; Set red/blue based on whether chameleon is being used
+    (if (search-forward "%% make document follow Emacs theme" nil t)
+        (setq red  (substring (doom-blend 'red 'fg 0.8) 1)
+              blue (substring (doom-blend 'blue 'teal 0.6) 1))
+      (setq red  "c82829"
+            blue "00618a"))
+    (when (and (search-forward "%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF" nil t)
+               (search-forward "\\RequirePackage{color}" nil t))
+      (when (re-search-forward "definecolor{red}{rgb}{1,0,0}" (cdr (bounds-of-thing-at-point 'line)) t)
+        (replace-match (format "definecolor{red}{HTML}{%s}" red)))
+      (when (re-search-forward "definecolor{blue}{rgb}{0,0,1}" (cdr (bounds-of-thing-at-point 'line)) t)
+        (replace-match (format "definecolor{blue}{HTML}{%s}"))))))
+
+(use-package! org-pandoc-import
+  :after org)
+
+(map! :map org-mode-map
+
+      :localleader
+      :desc "View exported file" "v" #'org-view-output-file)
+
+(defun org-view-output-file (&optional org-file-path)
+  "Visit buffer open on the first output file (if any) found, using `org-view-output-file-extensions'"
+  (interactive)
+  (let* ((org-file-path (or org-file-path (buffer-file-name) ""))
+         (dir (file-name-directory org-file-path))
+         (basename (file-name-base org-file-path))
+         (output-file nil))
+    (dolist (ext org-view-output-file-extensions)
+      (unless output-file
+        (when (file-exists-p
+               (concat dir basename "." ext))
+          (setq output-file (concat dir basename "." ext)))))
+    (if output-file
+        (if (member (file-name-extension output-file) org-view-external-file-extensions)
+            (browse-url-xdg-open output-file)
+          (pop-to-buffer (or (find-buffer-visiting output-file)
+                             (find-file-noselect output-file))))
+      (message "No exported file found"))))
+
+(defvar org-view-output-file-extensions '("pdf" "md" "rst" "txt" "tex" "html")
+  "Search for output files with these extensions, in order, viewing the first that matches")
+(defvar org-view-external-file-extensions '("html")
+  "File formats that should be opened externally.")
+
+(add-hook 'org-mode-hook 'turn-on-flyspell)
+
+(after! org (require 'org-zotxt))
+
+(use-package org-chef)
+
 (use-package! citar
   :no-require
   :custom
@@ -526,27 +416,10 @@
 (use-package! oc-natbib
   :after oc)
 
-(use-package! oc-csl-activate
-  :after oc
-  :config
-  (setq org-cite-csl-activate-use-document-style t)
-  (setq org-cite-csl-activate-use-citar-cache t)
-  (defun +org-cite-csl-activate/enable ()
-    (interactive)
-    (setq org-cite-activate-processor 'csl-activate)
-    (add-hook! 'org-mode-hook '((lambda () (cursor-sensor-mode 1)) org-cite-csl-activate-render-all))
-    (defadvice! +org-cite-csl-activate-render-all-silent (orig-fn)
-      :around #'org-cite-csl-activate-render-all
-      (with-silent-modifications (funcall orig-fn)))
-    (when (eq major-mode 'org-mode)
-      (with-silent-modifications
-        (save-excursion
-          (goto-char (point-min))
-          (org-cite-activate (point-max)))
-        (org-cite-csl-activate-render-all)))
-    (fmakunbound #'+org-cite-csl-activate/enable)))
-
-(setq org-beamer-theme "[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]metropolis")
+(after! org
+  (  setq org-format-latex-options
+          (plist-put org-format-latex-options :background "Transparent"))
+  (setq   org-preview-latex-default-process 'dvipng))
 
 (setq org-format-latex-header "\\documentclass[12pt]
 {article}
@@ -579,8 +452,185 @@
 \\DeclareMathOperator*{\\argmax}{arg\\,max}
 \\DeclareMathOperator*{\\argmin}{arg\\,min}
 ")
-;; Add frame borders and window dividers
 
+(with-eval-after-load 'ox-latex
+(add-to-list 'org-latex-classes
+             '("article"
+               "\\documentclass[c]{article}
+\\usepackage[american]{babel}
+\\usepackage[margin=1.25in]{geometry}
+\\usepackage{parskip}
+\\usepackage{booktabs}
+\\usepackage{float}
+\\usepackage{microtype}
+\\usepackage{graphicx}
+\\usepackage{mathtools}
+\\usepackage{wrapfig}
+\\usepackage{amsthm}
+\\usepackage{amssymb}
+\\usepackage{newpxtext}
+\\usepackage[varbb]{newpxmath}
+\\usepackage{xfrac}
+\\usepackage{siunitx}
+\\usepackage{caption}
+\\captionsetup{labelfont=bf,font={small,singlespacing}}
+\\usepackage{subcaption}
+\\usepackage{cancel}
+\\usepackage{setspace}
+\\usepackage{xcolor}
+\\usepackage{diffcoeff}
+\\usepackage{nicematrix}
+\\usepackage{enumitem}
+\\usepackage{acronym}
+\\usepackage[authoryear,longnamesfirst]{natbib}
+\\usepackage{xurl}
+\\definecolor{mint}{HTML}{d73a49}
+\\usepackage[colorlinks=true, allcolors= mint]{hyperref}
+\\onehalfspacing{}
+\\DeclareMathOperator{\\Var}{Var}
+\\DeclareMathOperator{\\cov}{Cov}
+\\DeclareMathOperator{\\E}{\\mathbb{E}}
+\\DeclareMathOperator*{\\argmax}{arg\\,max}
+\\DeclareMathOperator*{\\argmin}{arg\\,min}
+\\newcommand{\\Et}[2]{\\E_{#2} \\left[#1\\right]}
+\\newcommand{\\Covt}[3]{\\cov_{#3}\\left(#1, #2\\right)}
+\\newcommand{\\Vart}[2]{\\Var_{#2} \\left[#1\\right]}
+\\DeclarePairedDelimiter\\abs{\\lvert}{\\rvert}
+\\DeclarePairedDelimiter\\norm{\\lVert}{\\rVert}
+\\DeclarePairedDelimiterX\\innerp[2]{\\langle}{\\rangle}{#1,#2}
+\\DeclarePairedDelimiterX\\braket[3]{\\langle}{\\rangle}%
+{#1\\,\\delimsize\\vert\\,\\mathopen{}#2\\,\\delimsize\\vert\\,\\mathopen{}#3}
+\\providecommand\\given{}
+\\DeclarePairedDelimiterXPP\\Prob[1]{\\mathbb{P}} (){}{
+\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
+#1}
+\\DeclarePairedDelimiterXPP\\condE[1]{\\E} (){}{
+\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
+#1}
+\\DeclarePairedDelimiterXPP\\condVar[2]{\\Var} (){}{
+\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
+#1,#2}
+\\DeclarePairedDelimiterXPP\\condCov[2]{\\cov} (){}{
+\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
+#1,#2}
+\\theoremstyle{plain}% default
+\\newtheorem{thm}{Theorem}
+\\newtheorem{lem}[thm]{Lemma}
+\\newtheorem{prop}[thm]{Proposition}
+\\newtheorem*{cor}{Corollary}
+\\theoremstyle{definition}
+\\newtheorem{defn}{Definition}
+\\newtheorem{exmp}{Example}
+\\providecommand*{\\defnautorefname}{Definition}
+\\theoremstyle{remark}
+\\newtheorem*{rem}{Remark}
+\\newtheorem*{note}{Note}
+\\newtheorem{case}{Case}
+
+\\renewcommand{\\leq}{\\leqslant}
+\\renewcommand{\\geq}{\\geqslant}
+      [NO-DEFAULT-PACKAGES]
+      [PACKAGES]
+      [EXTRA]"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}"))
+'("beamer"
+               "\\documentclass[c]{beamer}
+\\usepackage[american]{babel}
+\\usetheme[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]{metropolis}
+\\usepackage{booktabs}
+\\usepackage{float}
+\\usepackage{mathtools}
+\\usepackage{amsthm}
+\\usepackage{amssymb}
+\\usepackage[varbb]{newpxmath}
+\\usepackage[]{xfrac}
+\\usepackage{siunitx}
+\\usepackage{graphicx}
+\\usepackage{caption}
+\\captionsetup{labelfont=bf,font={small,singlespacing}}
+\\usepackage{subcaption}
+\\usepackage{cancel}
+\\usepackage{setspace}
+\\usepackage{xcolor}
+\\usepackage{diffcoeff}
+\\usepackage{nicematrix}
+\\usepackage{acronym}
+\\usepackage{appendixnumberbeamer}
+\\usepackage{dirtytalk}
+\\usepackage[authoryear]{natbib}
+\\usepackage{xurl}
+\\bibliographystyle{ecta}
+\\DeclareMathOperator{\\Var}{Var}
+\\DeclareMathOperator{\\cov}{Cov}
+\\DeclareMathOperator{\\E}{\\mathbb{E}}
+\\DeclareMathOperator*{\\argmax}{arg\\,max}
+\\DeclareMathOperator*{\\argmin}{arg\\,min}
+\\newcommand{\\Et}[2]{\\E_{#2} \\left[#1\\right]}
+\\newcommand{\\Covt}[3]{\\cov_{#3}\\left(#1, #2\\right)}
+\\newcommand{\\Vart}[2]{\\Var_{#2} \\left[#1\\right]}
+\\DeclarePairedDelimiter\\abs{\\lvert}{\\rvert}
+\\DeclarePairedDelimiter\\norm{\\lVert}{\\rVert}
+\\DeclarePairedDelimiterX\\innerp[2]{\\langle}{\\rangle}{#1,#2}
+\\DeclarePairedDelimiterX\\braket[3]{\\langle}{\\rangle}%
+{#1\\,\\delimsize\\vert\\,\\mathopen{}#2\\,\\delimsize\\vert\\,\\mathopen{}#3}
+\\providecommand\\given{}
+\\DeclarePairedDelimiterXPP\\Prob[1]{\\mathbb{P}} (){}{
+\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
+#1}
+\\DeclarePairedDelimiterXPP\\condE[1]{\\E} (){}{
+\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
+#1}
+\\DeclarePairedDelimiterXPP\\condVar[2]{\\Var} (){}{
+\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
+#1,#2}
+\\DeclarePairedDelimiterXPP\\condCov[2]{\\cov} (){}{
+\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
+#1,#2}
+\\theoremstyle{plain}% default
+\\newtheorem{thm}{Theorem}
+\\newtheorem{lem}[thm]{Lemma}
+\\newtheorem{prop}[thm]{Proposition}
+\\newtheorem*{cor}{Corollary}
+\\theoremstyle{definition}
+\\newtheorem{defn}{Definition}
+\\newtheorem{exmp}{Example}
+\\providecommand*{\\defnautorefname}{Definition}
+\\theoremstyle{remark}
+\\newtheorem*{rem}{Remark}
+\\newtheorem{case}{Case}
+
+
+\\definecolor{dblue}{HTML}{4c4f69}
+\\definecolor{umber}{HTML}{dc8a78}
+\\definecolor{alertcolor}{HTML}{dd7878}
+\\definecolor{examplecolor}{HTML}{209fb5}
+
+\\definecolor{pale}{HTML}{eff1f5}
+\\definecolor{bluish}{HTML}{8c8fa1}
+\\definecolor{cream}{HTML}{e6e9ef}
+\\setbeamercolor{progress bar}{fg=bluish,bg=cream}
+\\setbeamercolor{frametitle}{fg=umber,bg=pale}
+\\setbeamercolor{normal text}{fg=dblue,bg=pale}
+\\setbeamercolor{alerted text}{fg=alertcolor,bg=pale}
+\\setbeamercolor{example text}{fg=examplecolor}
+\\setbeamercovered{dynamic}
+
+\\usecolortheme{rose}
+      [NO-DEFAULT-PACKAGES]
+      [PACKAGES]
+      [EXTRA]"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+
+(setq org-beamer-theme "[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]metropolis")
+
+(with-eval-after-load 'ox-latex
 (add-to-list 'org-latex-classes
              '("beamer"
                "\\documentclass[c]{beamer}
@@ -672,148 +722,25 @@
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                ("\\paragraph{%s}" . "\\paragraph*{%s}")
-               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-(add-to-list 'org-latex-classes
-             '("article"
-               "\\documentclass[c]{article}
-\\usepackage[american]{babel}
-\\usepackage[margin=1.25in]{geometry}
-\\usepackage{parskip}
-\\usepackage{booktabs}
-\\usepackage{float}
-\\usepackage{microtype}
-\\usepackage{graphicx}
-\\usepackage{mathtools}
-\\usepackage{wrapfig}
-\\usepackage{amsthm}
-\\usepackage{amssymb}
-\\usepackage{newpxtext}
-\\usepackage[varbb]{newpxmath}
-\\usepackage{xfrac}
-\\usepackage{siunitx}
-\\usepackage{caption}
-\\captionsetup{labelfont=bf,font={small,singlespacing}}
-\\usepackage{subcaption}
-\\usepackage{cancel}
-\\usepackage{setspace}
-\\usepackage{xcolor}
-\\usepackage{diffcoeff}
-\\usepackage{nicematrix}
-\\usepackage{enumitem}
-\\usepackage{acronym}
-\\usepackage[authoryear,longnamesfirst]{natbib}
-\\usepackage{xurl}
-\\definecolor{mint}{HTML}{d73a49}
-\\usepackage[colorlinks=true, allcolors= mint]{hyperref}
-\\onehalfspacing{}
-\\DeclareMathOperator{\\Var}{Var}
-\\DeclareMathOperator{\\cov}{Cov}
-\\DeclareMathOperator{\\E}{\\mathbb{E}}
-\\DeclareMathOperator*{\\argmax}{arg\\,max}
-\\DeclareMathOperator*{\\argmin}{arg\\,min}
-\\newcommand{\\Et}[2]{\\E_{#2} \\left[#1\\right]}
-\\newcommand{\\Covt}[3]{\\cov_{#3}\\left(#1, #2\\right)}
-\\newcommand{\\Vart}[2]{\\Var_{#2} \\left[#1\\right]}
-\\DeclarePairedDelimiter\\abs{\\lvert}{\\rvert}
-\\DeclarePairedDelimiter\\norm{\\lVert}{\\rVert}
-\\DeclarePairedDelimiterX\\innerp[2]{\\langle}{\\rangle}{#1,#2}
-\\DeclarePairedDelimiterX\\braket[3]{\\langle}{\\rangle}%
-{#1\\,\\delimsize\\vert\\,\\mathopen{}#2\\,\\delimsize\\vert\\,\\mathopen{}#3}
-\\providecommand\\given{}
-\\DeclarePairedDelimiterXPP\\Prob[1]{\\mathbb{P}} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1}
-\\DeclarePairedDelimiterXPP\\condE[1]{\\E} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1}
-\\DeclarePairedDelimiterXPP\\condVar[2]{\\Var} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1,#2}
-\\DeclarePairedDelimiterXPP\\condCov[2]{\\cov} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1,#2}
-\\theoremstyle{plain}% default
-\\newtheorem{thm}{Theorem}
-\\newtheorem{lem}[thm]{Lemma}
-\\newtheorem{prop}[thm]{Proposition}
-\\newtheorem*{cor}{Corollary}
-\\theoremstyle{definition}
-\\newtheorem{defn}{Definition}
-\\newtheorem{exmp}{Example}
-\\providecommand*{\\defnautorefname}{Definition}
-\\theoremstyle{remark}
-\\newtheorem*{rem}{Remark}
-\\newtheorem*{note}{Note}
-\\newtheorem{case}{Case}
-
-\\renewcommand{\\leq}{\\leqslant}
-\\renewcommand{\\geq}{\\geqslant}
-      [NO-DEFAULT-PACKAGES]
-      [PACKAGES]
-      [EXTRA]"
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-               ("\\paragraph{%s}" . "\\paragraph*{%s}")))
-(after! org
-  (  setq org-format-latex-options
-          (plist-put org-format-latex-options :background "Transparent"))
-  (setq   org-preview-latex-default-process 'dvipng))
-
-(setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -lualatex -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
-
-(defun +org-export-latex-fancy-item-checkboxes (text backend info)
-  (when (org-export-derived-backend-p backend 'latex)
-    (replace-regexp-in-string
-     "\\\\item\\[{$\\\\\\(\\w+\\)$}\\]"
-     (lambda (fullmatch)
-       (concat "\\\\item[" (pcase (substring fullmatch 9 -3) ; content of capture group
-                             ("square"   "\\\\checkboxUnchecked")
-                             ("boxminus" "\\\\checkboxTransitive")
-                             ("boxtimes" "\\\\checkboxChecked")
-                             (_ (substring fullmatch 9 -3))) "]"))
-     text)))
-
-(add-to-list 'org-export-filter-item-functions
-             '+org-export-latex-fancy-item-checkboxes)
-(setq org-ascii-charset 'utf-8)
-(use-package! theme-magic
-  :commands theme-magic-from-emacs
-  :config
-  (defadvice! theme-magic--auto-extract-16-doom-colors ()
-    :override #'theme-magic--auto-extract-16-colors
-    (list
-     (face-attribute 'default :background)
-     (doom-color 'error)
-     (doom-color 'success)
-     (doom-color 'type)
-     (doom-color 'keywords)
-     (doom-color 'constants)
-     (doom-color 'functions)
-     (face-attribute 'default :foreground)
-     (face-attribute 'shadow :foreground)
-     (doom-blend 'base8 'error 0.1)
-     (doom-blend 'base8 'success 0.1)
-     (doom-blend 'base8 'type 0.1)
-     (doom-blend 'base8 'keywords 0.1)
-     (doom-blend 'base8 'constants 0.1)
-     (doom-blend 'base8 'functions 0.1)
-     (face-attribute 'default :foreground))))
-(setq ein:output-area-inlined-images t)
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
 ;; Use pdf-tools to open PDF files
 (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
       TeX-source-correlate-start-server t)
-
-;; Update PDF buffers after successful LaTeX runs
-(add-hook 'TeX-after-compilation-finished-functions
-          #'TeX-revert-document-buffer)
 
 (setq-default history-length 1000)
 (setq-default prescient-history-length 1000)
 
 (after! lsp-mode
   (setq lsp-tex-server 'digestif))
+
+(use-package lsp-ltex
+  :hook (text-mode . (lambda ()
+                       (require 'lsp-ltex)
+                       (lsp)))  ; or lsp-deferred
+  :init
+  (setq lsp-ltex-version "15.2.0"))  ; make sure you have set this, see below
+
 (use-package! vlf-setup
   :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
 
@@ -824,7 +751,6 @@
 
 (defun iensu/switch-left-and-right-option-keys ()
   "Switch left and right option keys.
-
      On some external keyboards the left and right option keys are swapped,
      this command switches the keys so that they work as expected."
   (interactive)
@@ -832,289 +758,3 @@
         (current-right mac-right-option-modifier))
     (setq mac-option-modifier       current-right
           mac-right-option-modifier current-left)))
-
-
-(use-package! doct
-  :commands doct)
-(after! org-capture
-
-
-  (defun +doct-icon-declaration-to-icon (declaration)
-    "Convert :icon declaration to icon"
-    (let ((name (pop declaration))
-          (set  (intern (concat "all-the-icons-" (plist-get declaration :set))))
-          (face (intern (concat "all-the-icons-" (plist-get declaration :color))))
-          (v-adjust (or (plist-get declaration :v-adjust) 0.01)))
-      (apply set `(,name :face ,face :v-adjust ,v-adjust))))
-
-  (defun +doct-iconify-capture-templates (groups)
-    "Add declaration's :icon to each template group in GROUPS."
-    (let ((templates (doct-flatten-lists-in groups)))
-      (setq doct-templates (mapcar (lambda (template)
-                                     (when-let* ((props (nthcdr (if (= (length template) 4) 2 5) template))
-                                                 (spec (plist-get (plist-get props :doct) :icon)))
-                                       (setf (nth 1 template) (concat (+doct-icon-declaration-to-icon spec)
-                                                                      "\t"
-                                                                      (nth 1 template))))
-                                     template)
-                                   templates))))
-
-  (setq doct-after-conversion-functions '(+doct-iconify-capture-templates))
-
-  (defvar +org-capture-recipies  "~/org/Recipes")
-
-  (defun set-org-capture-templates ()
-    (setq org-capture-templates
-          (doct `(("Personal todo" :keys "t"
-                   :icon ("checklist" :set "octicon" :color "green")
-                   :file +org-capture-todo-file
-                   :prepend t
-                   :headline "Inbox"
-                   :type entry
-                   :template ("* TODO %?"
-                              "%i %a"))
-                  ("Personal note" :keys "n"
-                   :icon ("sticky-note-o" :set "faicon" :color "green")
-                   :file +org-capture-todo-file
-                   :prepend t
-                   :headline "Inbox"
-                   :type entry
-                   :template ("* %?"
-                              "%i %a"))
-                  ("Email" :keys "e"
-                   :icon ("envelope" :set "faicon" :color "blue")
-                   :file +org-capture-todo-file
-                   :prepend t
-                   :headline "Inbox"
-                   :type entry
-                   :template ("* TODO %^{type|reply to|contact} %\\3 %? :email:"
-                              "Send an email %^{urgancy|soon|ASAP|anon|at some point|eventually} to %^{recipiant}"
-                              "about %^{topic}"
-                              "%U %i %a"))
-                  ("Meeting" :keys "m"
-                   :icon ("users" :set "faicon")
-                   :file "~/org/meeting.org"
-                   :preprend t
-                   :headline "Meetings"
-                   :type entry
-                   :template ("* %^{Topic}
-                                + Attendees:  %^{Attendees},Leo
-                                + Date: %U
-                                ** Notes
-                                   +  %?
-                                ** Actions
-                                   + [ ]     "))
-                  ("Interesting" :keys "i"
-                   :icon ("eye" :set "faicon" :color "lcyan")
-                   :file +org-capture-todo-file
-                   :prepend t
-                   :headline "Interesting"
-                   :type entry
-                   :template ("* [ ] %{desc}%? :%{i-type}:"
-                              "%i %a")
-                   :children (("Webpage" :keys "w"
-                               :icon ("globe" :set "faicon" :color "green")
-                               :desc "%(org-cliplink-capture) "
-                               :i-type "read:web")
-                              ("Article" :keys "a"
-                               :icon ("file-text" :set "octicon" :color "yellow")
-                               :desc ""
-                               :i-type "read:reaserch")
-                              ("\tRecipie" :keys "r"
-                               :icon ("spoon" :set "faicon" :color "dorange")
-                               :file +org-capture-recipies
-                               :headline "Unsorted"
-                               :template "%(org-chef-get-recipe-from-url)")
-                              ("Information" :keys "i"
-                               :icon ("info-circle" :set "faicon" :color "blue")
-                               :desc ""
-                               :i-type "read:info")
-                              ("Idea" :keys "I"
-                               :icon ("bubble_chart" :set "material" :color "silver")
-                               :desc ""
-                               :i-type "idea")))
-                  ("Tasks" :keys "k"
-                   :icon ("inbox" :set "octicon" :color "yellow")
-                   :file +org-capture-todo-file
-                   :prepend t
-                   :headline "Tasks"
-                   :type entry
-                   :template ("* TODO %? %^G%{extra}"
-                              "%i %a")
-                   :children (("General Task" :keys "k"
-                               :icon ("inbox" :set "octicon" :color "yellow")
-                               :extra "")
-                              ("Task with deadline" :keys "d"
-                               :icon ("timer" :set "material" :color "orange" :v-adjust -0.1)
-                               :extra "\nDEADLINE: %^{Deadline:}t")
-                              ("Scheduled Task" :keys "s"
-                               :icon ("calendar" :set "octicon" :color "orange")
-                               :extra "\nSCHEDULED: %^{Start time:}t")))
-                  ("Project" :keys "p"
-                   :icon ("repo" :set "octicon" :color "silver")
-                   :prepend t
-                   :type entry
-                   :headline "Inbox"
-                   :template ("* %{time-or-todo} %?"
-                              "%i"
-                              "%a")
-                   :file ""
-                   :custom (:time-or-todo "")
-                   :children (("Project-local todo" :keys "t"
-                               :icon ("checklist" :set "octicon" :color "green")
-                               :time-or-todo "TODO"
-                               :file +org-capture-project-todo-file)
-                              ("Project-local note" :keys "n"
-                               :icon ("sticky-note" :set "faicon" :color "yellow")
-                               :time-or-todo "%U"
-                               :file +org-capture-project-notes-file)
-                              ("Project-local changelog" :keys "c"
-                               :icon ("list" :set "faicon" :color "blue")
-                               :time-or-todo "%U"
-                               :heading "Unreleased"
-                               :file +org-capture-project-changelog-file)))
-                  ("\tCentralised project templates"
-                   :keys "o"
-                   :type entry
-                   :prepend t
-                   :template ("* %{time-or-todo} %?"
-                              "%i"
-                              "%a")
-                   :children (("Project todo"
-                               :keys "t"
-                               :prepend nil
-                               :time-or-todo "TODO"
-                               :heading "Tasks"
-                               :file +org-capture-central-project-todo-file)
-                              ("Project note"
-                               :keys "n"
-                               :time-or-todo "%U"
-                               :heading "Notes"
-                               :file +org-capture-central-project-notes-file)
-                              ("Project changelog"
-                               :keys "c"
-                               :time-or-todo "%U"
-                               :heading "Unreleased"
-                               :file +org-capture-central-project-changelog-file)))))))
-  (set-org-capture-templates)
-  (unless (display-graphic-p)
-    (add-hook 'server-after-make-frame-hook
-              (defun org-capture-reinitialise-hook ()
-                (when (display-graphic-p)
-                  (set-org-capture-templates)
-                  (remove-hook 'server-after-make-frame-hook
-                               #'org-capture-reinitialise-hook))))))
-(defun org-capture-select-template-prettier (&optional keys)
-  "Select a capture template, in a prettier way than default
-Lisp programs can force the template by setting KEYS to a string."
-  (let ((org-capture-templates
-         (or (org-contextualize-keys
-              (org-capture-upgrade-templates org-capture-templates)
-              org-capture-templates-contexts)
-             '(("t" "Task" entry (file+headline "" "Tasks")
-                "* TODO %?\n  %u\n  %a")))))
-    (if keys
-        (or (assoc keys org-capture-templates)
-            (error "No capture template referred to by \"%s\" keys" keys))
-      (org-mks org-capture-templates
-               "Select a capture template\n━━━━━━━━━━━━━━━━━━━━━━━━━"
-               "Template key: "
-               `(("q" ,(concat (all-the-icons-octicon "stop" :face 'all-the-icons-red :v-adjust 0.01) "\tAbort")))))))
-(advice-add 'org-capture-select-template :override #'org-capture-select-template-prettier)
-
-(defun org-mks-pretty (table title &optional prompt specials)
-  "Select a member of an alist with multiple keys. Prettified.
-
-TABLE is the alist which should contain entries where the car is a string.
-There should be two types of entries.
-
-1. prefix descriptions like (\"a\" \"Description\")
-   This indicates that `a' is a prefix key for multi-letter selection, and
-   that there are entries following with keys like \"ab\", \"ax\"…
-
-2. Select-able members must have more than two elements, with the first
-   being the string of keys that lead to selecting it, and the second a
-   short description string of the item.
-
-The command will then make a temporary buffer listing all entries
-that can be selected with a single key, and all the single key
-prefixes.  When you press the key for a single-letter entry, it is selected.
-When you press a prefix key, the commands (and maybe further prefixes)
-under this key will be shown and offered for selection.
-
-TITLE will be placed over the selection in the temporary buffer,
-PROMPT will be used when prompting for a key.  SPECIALS is an
-alist with (\"key\" \"description\") entries.  When one of these
-is selected, only the bare key is returned."
-  (save-window-excursion
-    (let ((inhibit-quit t)
-          (buffer (org-switch-to-buffer-other-window "*Org Select*"))
-          (prompt (or prompt "Select: "))
-          case-fold-search
-          current)
-      (unwind-protect
-          (catch 'exit
-            (while t
-              (setq-local evil-normal-state-cursor (list nil))
-              (erase-buffer)
-              (insert title "\n\n")
-              (let ((des-keys nil)
-                    (allowed-keys '("\C-g"))
-                    (tab-alternatives '("\s" "\t" "\r"))
-                    (cursor-type nil))
-                ;; Populate allowed keys and descriptions keys
-                ;; available with CURRENT selector.
-                (let ((re (format "\\`%s\\(.\\)\\'"
-                                  (if current (regexp-quote current) "")))
-                      (prefix (if current (concat current " ") "")))
-                  (dolist (entry table)
-                    (pcase entry
-                      ;; Description.
-                      (`(,(and key (pred (string-match re))) ,desc)
-                       (let ((k (match-string 1 key)))
-                         (push k des-keys)
-                         ;; Keys ending in tab, space or RET are equivalent.
-                         (if (member k tab-alternatives)
-                             (push "\t" allowed-keys)
-                           (push k allowed-keys))
-                         (insert (propertize prefix 'face 'font-lock-comment-face) (propertize k 'face 'bold) (propertize "›" 'face 'font-lock-comment-face) "  " desc "…" "\n")))
-                      ;; Usable entry.
-                      (`(,(and key (pred (string-match re))) ,desc . ,_)
-                       (let ((k (match-string 1 key)))
-                         (insert (propertize prefix 'face 'font-lock-comment-face) (propertize k 'face 'bold) "   " desc "\n")
-                         (push k allowed-keys)))
-                      (_ nil))))
-                ;; Insert special entries, if any.
-                (when specials
-                  (insert "─────────────────────────\n")
-                  (pcase-dolist (`(,key ,description) specials)
-                    (insert (format "%s   %s\n" (propertize key 'face '(bold all-the-icons-red)) description))
-                    (push key allowed-keys)))
-                ;; Display UI and let user select an entry or
-                ;; a sub-level prefix.
-                (goto-char (point-min))
-                (unless (pos-visible-in-window-p (point-max))
-                  (org-fit-window-to-buffer))
-                (let ((pressed (org--mks-read-key allowed-keys
-                                                  prompt
-                                                  (not (pos-visible-in-window-p (1- (point-max)))))))
-                  (setq current (concat current pressed))
-                  (cond
-                   ((equal pressed "\C-g") (user-error "Abort"))
-                   ;; Selection is a prefix: open a new menu.
-                   ((member pressed des-keys))
-                   ;; Selection matches an association: return it.
-                   ((let ((entry (assoc current table)))
-                      (and entry (throw 'exit entry))))
-                   ;; Selection matches a special entry: return the
-                   ;; selection prefix.
-                   ((assoc current specials) (throw 'exit current))
-                   (t (error "No entry available")))))))
-        (when buffer (kill-buffer buffer))))))
-(advice-add 'org-mks :override #'org-mks-pretty)
-(use-package lsp-ltex
-  :hook (text-mode . (lambda ()
-                       (require 'lsp-ltex)
-                       (lsp)))  ; or lsp-deferred
-  :init
-  (setq lsp-ltex-version "15.2.0"))  ; make sure you have set this, see below
