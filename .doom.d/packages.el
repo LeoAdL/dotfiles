@@ -31,6 +31,4 @@
 
 (package! doct)
 
-(package! lsp-ltex)
-
 (package! vlfi)

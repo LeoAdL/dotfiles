@@ -731,16 +731,6 @@
 (setq-default history-length 1000)
 (setq-default prescient-history-length 1000)
 
-(after! lsp-mode
-  (setq lsp-tex-server 'digestif))
-
-(use-package lsp-ltex
-  :hook (text-mode . (lambda ()
-                       (require 'lsp-ltex)
-                       (lsp)))  ; or lsp-deferred
-  :init
-  (setq lsp-ltex-version "15.2.0"))  ; make sure you have set this, see below
-
 (use-package! vlf-setup
   :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
 
