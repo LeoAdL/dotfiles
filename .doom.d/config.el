@@ -55,7 +55,7 @@
 (add-to-list 'default-frame-alist '(alpha 92 92))
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-(setq fancy-splash-image (expand-file-name "themes/doom-emacs-gray.svg" doom-user-dir))
+(setq fancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
 
 (use-package! theme-magic
   :commands theme-magic-from-emacs
@@ -237,7 +237,6 @@
 (add-to-list 'org-src-block-faces '("latex" (:inherit default :extend t)))
 
 (use-package! org-fragtog
-  :after org-mode
   :hook (org-mode . org-fragtog-mode))
 
 ;; org-agenda-config
@@ -504,7 +503,7 @@
 (setq org-format-latex-options
       (plist-put org-format-latex-options :background "Transparent"))
 (setq org-format-latex-options
-      (plist-put org-format-latex-options :scale .93))
+      (plist-put org-format-latex-options :scale 1.20))
 
 (setq org-preview-latex-default-process 'dvipng)
 
@@ -820,6 +819,12 @@
 ;; Update PDF buffers after successful LaTeX runs
 (add-hook 'TeX-after-compilation-finished-functions
           #'TeX-revert-document-buffer)
+
+(setq org-latex-listings 'minted
+      org-latex-packages-alist '(("" "minted")))
+(setq org-latex-minted-options '(("breaklines" "true")
+                                 ("breakanywhere" "true")
+                                 ("linenos" "true")))
 
 (use-package! doct
   :commands doct)
