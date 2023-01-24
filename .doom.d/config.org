@@ -81,7 +81,7 @@ Transparency and fontification
 #+end_src
 *** Starting image
 #+begin_src emacs-lisp
-(setq fancy-splash-image (expand-file-name "themes/doom-emacs-gray.svg" doom-user-dir))
+(setq fancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
 #+end_src
 *** Theme Magic
 #+begin_src emacs-lisp :tangle packages.el
@@ -310,7 +310,6 @@ Transparency and fontification
 #+end_src
 #+begin_src emacs-lisp
 (use-package! org-fragtog
-  :after org-mode
   :hook (org-mode . org-fragtog-mode))
 #+end_src
 ** Agenda
@@ -660,7 +659,7 @@ Transparency and fontification
 (setq org-format-latex-options
       (plist-put org-format-latex-options :background "Transparent"))
 (setq org-format-latex-options
-      (plist-put org-format-latex-options :scale .93))
+      (plist-put org-format-latex-options :scale 1.20))
 #+end_src
 #+begin_src emacs-lisp
 (setq org-preview-latex-default-process 'dvipng)
@@ -992,6 +991,14 @@ Define Beamer class:
 ;; Update PDF buffers after successful LaTeX runs
 (add-hook 'TeX-after-compilation-finished-functions
           #'TeX-revert-document-buffer)
+#+end_src
+**** Code blocks
+#+begin_src emacs-lisp
+(setq org-latex-listings 'minted
+      org-latex-packages-alist '(("" "minted")))
+(setq org-latex-minted-options '(("breaklines" "true")
+                                 ("breakanywhere" "true")
+                                 ("linenos" "true")))
 #+end_src
 ** Capture
 *** DocT
