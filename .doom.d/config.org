@@ -46,7 +46,8 @@
 *** Font
 #+begin_src emacs-lisp :tangle yes
 (setq doom-font (font-spec :family "Iosevka" :size 13)
-      doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 13)
+      doom-variable-pitch-font (font-spec :family "Lato")
+      doom-unicode-font (font-spec :family "JuliaMono")
       doom-big-font (font-spec :family "Iosevka" :size 24)
       doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light))
 #+end_src
@@ -118,8 +119,10 @@ Transparency and fontification
 #+begin_src emacs-lisp :tangle yes
 (use-package! info-colors
   :commands (info-colors-fontify-node))
-
 (add-hook 'Info-selection-hook 'info-colors-fontify-node)
+#+end_src
+** File Templates
+#+begin_src elisp
 (set-file-template! "\\.tex$" :trigger "__" :mode 'latex-mode)
 (set-file-template! "\\.org$" :trigger "__" :mode 'org-mode)
 #+end_src
@@ -159,6 +162,7 @@ Transparency and fontification
              (setq left-margin-width 2)
              (setq right-margin-width 2)
              (set-window-buffer nil (current-buffer))))
+(add-hook 'org-mode-hook #'+org-pretty-mode)
 (custom-set-faces!
   '(outline-1 :weight extra-bold :height 1.25)
   '(outline-2 :weight bold :height 1.15)
@@ -294,19 +298,19 @@ Transparency and fontification
   :commands (org-pretty-table-mode global-org-pretty-table-mode))
 #+end_src
 *** Latex improvement
-#+begin_src emacs-lisp :tangle packages.el
-(package! org-fragtog)
-#+end_src
 #+begin_src emacs-lisp :tangle yes
 (setq org-highlight-latex-and-related '(native script entities))
-
+#+end_src
+#+begin_src elisp
 (require 'org-src)
 (add-to-list 'org-src-block-faces '("latex" (:inherit default :extend t)))
-
+#+end_src
+#+begin_src elisp :tangle packages.el
+(package! org-fragtog)
+#+end_src
+#+begin_src elisp
 (use-package! org-fragtog
-  :after org
-  :hook (org-mode . org-fragtog-mode)
-  )
+  :hook (org-mode . org-fragtog-mode))
 #+end_src
 ** Agenda
 *** Defaults
@@ -569,8 +573,8 @@ Transparency and fontification
 (package! org-chef)
 #+end_src
 #+begin_src emacs-lisp :tangle yes
-
-(use-package org-chef)
+(use-package! org-chef
+  :commands (org-chef-insert-recipe org-chef-get-recipe-from-url))
 #+end_src
 
 ** Bibtex-Integration
@@ -652,12 +656,12 @@ Transparency and fontification
 ** Latex templates
 *** Preview
 **** PNG
-#+begin_src emacs-lisp :tangle yes
-
-(after! org
-  (  setq org-format-latex-options
-          (plist-put org-format-latex-options :background "Transparent"))
-  (setq   org-preview-latex-default-process 'dvipng))
+#+begin_src elisp
+(plist-put org-format-latex-options :background "Transparent")
+(plist-put org-format-latex-options :scale 2.0)
+#+end_src
+#+begin_src elisp
+(setq org-preview-latex-default-process 'dvisvgm)
 #+end_src
 **** Header
 #+begin_src emacs-lisp :tangle yes
@@ -1250,6 +1254,11 @@ is selected, only the bare key is returned."
 * Company
 Improve the history size:
 #+begin_src emacs-lisp :tangle yes
+(after! company
+  (setq company-idle-delay 0.5
+        company-minimum-prefix-length 2)
+  (setq company-show-numbers t)
+  (add-hook 'evil-normal-state-entry-hook #'company-abort)) ;; make aborting less annoying.
 (setq-default history-length 1000)
 (setq-default prescient-history-length 1000)
 #+end_src
@@ -1293,4 +1302,19 @@ Improve the history size:
         (current-right mac-right-option-modifier))
     (setq mac-option-modifier       current-right
           mac-right-option-modifier current-left)))
+#+end_src
+
+
+* Centaur
+#+begin_src elisp
+(after! centaur-tabs
+  (centaur-tabs-mode -1)
+  (setq centaur-tabs-height 36
+        centaur-tabs-set-icons t
+        centaur-tabs-modified-marker "o"
+        centaur-tabs-close-button "×"
+        centaur-tabs-set-bar 'above
+        centaur-tabs-gray-out-icons 'buffer)
+  (centaur-tabs-change-fonts "P22 Underground Book" 160))
+;; (setq x-underline-at-descent-line t)
 #+end_src

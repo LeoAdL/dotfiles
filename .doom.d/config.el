@@ -28,7 +28,8 @@
             '(("\\`g s" . "\\`evilem--?motion-\\(.*\\)")       . (nil . "Ⓔ·\\1"))))
 
 (setq doom-font (font-spec :family "Iosevka" :size 13)
-      doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 13)
+      doom-variable-pitch-font (font-spec :family "Lato")
+      doom-unicode-font (font-spec :family "JuliaMono")
       doom-big-font (font-spec :family "Iosevka" :size 24)
       doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light))
 
@@ -76,10 +77,7 @@
 
 (use-package! info-colors
   :commands (info-colors-fontify-node))
-
 (add-hook 'Info-selection-hook 'info-colors-fontify-node)
-(set-file-template! "\\.tex$" :trigger "__" :mode 'latex-mode)
-(set-file-template! "\\.org$" :trigger "__" :mode 'org-mode)
 
 (setq display-line-numbers-type `relative)
 (setq-default tab-width 4)
@@ -109,6 +107,7 @@
              (setq left-margin-width 2)
              (setq right-margin-width 2)
              (set-window-buffer nil (current-buffer))))
+(add-hook 'org-mode-hook #'+org-pretty-mode)
 (custom-set-faces!
   '(outline-1 :weight extra-bold :height 1.25)
   '(outline-2 :weight bold :height 1.15)
@@ -181,14 +180,6 @@
   :commands (org-pretty-table-mode global-org-pretty-table-mode))
 
 (setq org-highlight-latex-and-related '(native script entities))
-
-(require 'org-src)
-(add-to-list 'org-src-block-faces '("latex" (:inherit default :extend t)))
-
-(use-package! org-fragtog
-  :after org
-  :hook (org-mode . org-fragtog-mode)
-  )
 
 (setq org-agenda-deadline-faces
       '((1.001 . error)
@@ -368,7 +359,8 @@
 
 (after! org (require 'org-zotxt))
 
-(use-package org-chef)
+(use-package! org-chef
+  :commands (org-chef-insert-recipe org-chef-get-recipe-from-url))
 
 (use-package! citar
   :no-require
@@ -415,11 +407,6 @@
 
 (use-package! oc-natbib
   :after oc)
-
-(after! org
-  (  setq org-format-latex-options
-          (plist-put org-format-latex-options :background "Transparent"))
-  (setq   org-preview-latex-default-process 'dvipng))
 
 (setq org-format-latex-header "\\documentclass[12pt]
 {article}
@@ -728,6 +715,11 @@
 (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
       TeX-source-correlate-start-server t)
 
+(after! company
+  (setq company-idle-delay 0.5
+        company-minimum-prefix-length 2)
+  (setq company-show-numbers t)
+  (add-hook 'evil-normal-state-entry-hook #'company-abort)) ;; make aborting less annoying.
 (setq-default history-length 1000)
 (setq-default prescient-history-length 1000)
 
