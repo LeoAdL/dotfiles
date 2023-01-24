@@ -2,12 +2,12 @@
 #+author: Leo Aparisi de Lannoy
 * Basic
 ** ID
-#+begin_src elisp
+#+begin_src emacs-lisp
 (setq user-full-name "Leo Aparisi de Lannoy"
       user-mail-address "leoaparisi@gmail.com")
 #+end_src
 ** Good defaults
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (setq-default
  delete-by-moving-to-trash t                      ; Delete files to trash
  window-combination-resize t                      ; take new window space from all other windows (not just current)
@@ -27,12 +27,12 @@
 (global-subword-mode 1)                           ; Iterate through CamelCase words
 #+end_src
 *** Browser
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 
 (setq browse-url-chrome-program "brave")
 #+end_src
 *** Which-key
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (setq which-key-idle-delay 0.5 ;; Default is 1.0
       which-key-idle-secondary-delay 0.05) ;; Default is nil
 (setq which-key-allow-multiple-replacements t)
@@ -44,7 +44,7 @@
 #+end_src
 ** Visual
 *** Font
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (setq doom-font (font-spec :family "Iosevka" :size 13)
       doom-variable-pitch-font (font-spec :family "Lato")
       doom-unicode-font (font-spec :family "JuliaMono")
@@ -53,23 +53,23 @@
 #+end_src
 *** Theme
 **** Catppuccin theme
-#+begin_src elisp
+#+begin_src emacs-lisp
 (setq doom-theme 'catppuccin)
 #+end_src
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (load-theme 'catppuccin t t)
 (setq catppuccin-flavor 'frappe) ;; or 'latte, 'macchiato, or 'mocha
 (catppuccin-reload)
 #+end_src
 **** Treemac styling
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (setq doom-themes-treemacs-theme "doom-colors") ; use "doom-colors" for less minimal icon theme
 (with-eval-after-load 'doom-themes
   (doom-themes-treemacs-config))
 #+end_src
 *** Default visual
 Transparency and fontification
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 ;; Corrects (and improves) org-mode's native fontification.
 (doom-themes-org-config)
 
@@ -80,14 +80,14 @@ Transparency and fontification
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 #+end_src
 *** Starting image
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (setq fancy-splash-image (expand-file-name "themes/doom-emacs-gray.svg" doom-user-dir))
 #+end_src
 *** Theme Magic
 #+begin_src emacs-lisp :tangle packages.el
 (package! theme-magic)
 #+end_src
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (use-package! theme-magic
   :commands theme-magic-from-emacs
   :config
@@ -116,25 +116,25 @@ Transparency and fontification
 #+begin_src emacs-lisp :tangle packages.el
 (package! info-colors)
 #+end_src
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (use-package! info-colors
   :commands (info-colors-fontify-node))
 (add-hook 'Info-selection-hook 'info-colors-fontify-node)
 #+end_src
 ** File Templates
-#+begin_src elisp
+#+begin_src emacs-lisp
 (set-file-template! "\\.tex$" :trigger "__" :mode 'latex-mode)
 (set-file-template! "\\.org$" :trigger "__" :mode 'org-mode)
 #+end_src
 ** Editor config
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (setq display-line-numbers-type `relative)
 (setq-default tab-width 4)
 (setq byte-compile-warnings '(cl-functions))
 #+end_src
 * Org-Mode
 ** Defaults
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (setq org-directory "~/org/"      org-use-property-inheritance t              ; it's convenient to have properties inherited
       org-log-done 'time                          ; having the time a item is done sounds convenient
       org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
@@ -144,7 +144,7 @@ Transparency and fontification
 #+end_src
 ** Visuals
 *** General
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (setq org-ascii-charset 'utf-8)
 (after! org
   (setq org-src-fontify-natively t
@@ -177,7 +177,7 @@ Transparency and fontification
 
 #+end_src
 *** Bullets
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (setq
  org-superstar-headline-bullets-list '("⁖" "◉" "○" "✸" "✿")
  )
@@ -187,7 +187,7 @@ Transparency and fontification
 #+begin_src emacs-lisp :tangle packages.el
 (package! org-appear)
 #+end_src
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 
 (use-package! org-appear
   :hook (org-mode . org-appear-mode)
@@ -200,7 +200,7 @@ Transparency and fontification
   (run-at-time nil nil #'org-appear--set-elements))
 #+end_src
 *** Ligatures
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (appendq! +ligatures-extra-symbols
           `(:checkbox      "☐"
             :pending       "◼"
@@ -242,7 +242,7 @@ Transparency and fontification
             :priority_d   ,(propertize "⬇" 'face 'all-the-icons-green)
             :priority_e   ,(propertize "❓" 'face 'all-the-icons-blue)))
 #+end_src
-#+begin_src elisp
+#+begin_src emacs-lisp
 (set-ligatures! 'org-mode
   :merge t
   :checkbox      "[ ]"
@@ -285,45 +285,45 @@ Transparency and fontification
   :priority_d    "[#D]"
   :priority_e    "[#E]")
 #+end_src
-#+begin_src elisp
+#+begin_src emacs-lisp
 (plist-put +ligatures-extra-symbols :name "⁍")
 #+end_src
 *** Pretty tables
 #+begin_src emacs-lisp :tangle packages.el
 (package! org-pretty-table :recipe (:host github :repo "Fuco1/org-pretty-table") :pin "7bd68b420d3402826fea16ee5099d04aa9879b78")
 #+end_src
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 
 (use-package! org-pretty-table
   :commands (org-pretty-table-mode global-org-pretty-table-mode))
 #+end_src
 *** Latex improvement
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (setq org-highlight-latex-and-related '(native script entities))
 #+end_src
-#+begin_src elisp
+#+begin_src emacs-lisp
 (require 'org-src)
 (add-to-list 'org-src-block-faces '("latex" (:inherit default :extend t)))
 #+end_src
-#+begin_src elisp :tangle packages.el
+#+begin_src emacs-lisp :tangle packages.el
 (package! org-fragtog)
 #+end_src
-#+begin_src elisp
+#+begin_src emacs-lisp
 (use-package! org-fragtog
+  :after org-mode
   :hook (org-mode . org-fragtog-mode))
 #+end_src
 ** Agenda
 *** Defaults
 
-
+#+begin_src emacs-lisp
 ;; org-agenda-config
 (after! org-agenda
   (setq org-agenda-files (list "~/org/agenda.org"
                                "~/org/todo.org")))
 #+end_src
 *** Visual
-#+begin_src emacs-lisp :tangle yes
-
+#+begin_src emacs-lisp
 (setq org-agenda-deadline-faces
       '((1.001 . error)
         (1.0 . org-warning)
@@ -335,7 +335,7 @@ Transparency and fontification
 (package! org-super-agenda)
 #+end_src
 *** Config
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 
 (use-package! org-super-agenda
   :commands org-super-agenda-mode)
@@ -351,7 +351,7 @@ Transparency and fontification
       org-agenda-compact-blocks t)
 #+end_src
 *** Customize
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (setq org-agenda-custom-commands
       '(("o" "Overview"
          ((agenda "" ((org-agenda-span 'day)
@@ -414,7 +414,7 @@ Transparency and fontification
 #+end_src
 ** Roam
 *** Defaults
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 
 (use-package! org-roam
   :after org
@@ -426,7 +426,7 @@ Transparency and fontification
   (org-roam-db-autosync-enable))
 
 #+end_src
-#+begin_src elisp
+#+begin_src emacs-lisp
 (defadvice! doom-modeline--buffer-file-name-roam-aware-a (orig-fun)
   :around #'doom-modeline-buffer-file-name ; takes no args
   (if (s-contains-p org-roam-directory (or buffer-file-name ""))
@@ -437,7 +437,7 @@ Transparency and fontification
     (funcall orig-fun)))
 #+end_src
 *** Daily
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 
 (after! org-roam
   (setq +org-roam-open-buffer-on-find-file nil))
@@ -455,7 +455,7 @@ Transparency and fontification
 (package! org-roam-ui)
 (package! websocket)
 #+end_src
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 
 (defadvice! doom-modeline--buffer-file-name-roam-aware-a (orig-fun)
   :around #'doom-modeline-buffer-file-name ; takes no args
@@ -490,7 +490,7 @@ Transparency and fontification
   :recipe (:host github
            :repo "tecosaur/orgdiff"))
 #+end_src
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 
 (use-package! orgdiff
   :defer t
@@ -517,14 +517,14 @@ Transparency and fontification
            :repo "tecosaur/org-pandoc-import"
            :files ("*.el" "filters" "preprocessors")))
 #+end_src
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 
 (use-package! org-pandoc-import
   :after org)
 #+end_src
 ** Export
 *** Preview
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 
 (map! :map org-mode-map
 
@@ -556,7 +556,7 @@ Transparency and fontification
   "File formats that should be opened externally.")
 #+end_src
 ** Spellchecker
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 
 (add-hook 'org-mode-hook 'turn-on-flyspell)
 #+end_src
@@ -564,7 +564,7 @@ Transparency and fontification
 #+begin_src emacs-lisp :tangle packages.el
 (package! zotxt)
 #+end_src
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 
 (after! org (require 'org-zotxt))
 #+end_src
@@ -572,7 +572,7 @@ Transparency and fontification
 #+begin_src emacs-lisp :tangle packages.el
 (package! org-chef)
 #+end_src
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (use-package! org-chef
   :commands (org-chef-insert-recipe org-chef-get-recipe-from-url))
 #+end_src
@@ -583,7 +583,7 @@ Transparency and fontification
 (package! citeproc)
 (package! org-cite-csl-activate :recipe (:host github :repo "andras-simonyi/org-cite-csl-activate"))
 #+end_src
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (use-package! citar
   :no-require
   :custom
@@ -632,7 +632,7 @@ Transparency and fontification
 
 
 #+end_src
-#+begin_src elisp
+#+begin_src emacs-lisp
 (use-package! oc-csl-activate
   :after oc
   :config
@@ -656,15 +656,17 @@ Transparency and fontification
 ** Latex templates
 *** Preview
 **** PNG
-#+begin_src elisp
-(plist-put org-format-latex-options :background "Transparent")
-(plist-put org-format-latex-options :scale 2.0)
+#+begin_src emacs-lisp
+(setq org-format-latex-options
+      (plist-put org-format-latex-options :background "Transparent"))
+(setq org-format-latex-options
+      (plist-put org-format-latex-options :scale .93))
 #+end_src
-#+begin_src elisp
-(setq org-preview-latex-default-process 'dvisvgm)
+#+begin_src emacs-lisp
+(setq org-preview-latex-default-process 'dvipng)
 #+end_src
 **** Header
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (setq org-format-latex-header "\\documentclass[12pt]
 {article}
 \\usepackage[usenames]{xcolor}
@@ -699,7 +701,7 @@ Transparency and fontification
 
 #+end_src
 *** Article
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (with-eval-after-load 'ox-latex
 (add-to-list 'org-latex-classes
              '("article"
@@ -876,11 +878,11 @@ Transparency and fontification
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 #+end_src
 *** Beamer
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (setq org-beamer-theme "[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]metropolis")
 #+end_src
 Define Beamer class:
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 
 (with-eval-after-load 'ox-latex
 (add-to-list 'org-latex-classes
@@ -977,16 +979,16 @@ Define Beamer class:
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 #+end_src
 *** Export
-#+begin_src elisp
+#+begin_src emacs-lisp
 (setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -lualatex -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
 #+end_src
 **** Preview
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 ;; Use pdf-tools to open PDF files
 (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
       TeX-source-correlate-start-server t)
 #+end_src
-#+begin_src elisp
+#+begin_src emacs-lisp
 ;; Update PDF buffers after successful LaTeX runs
 (add-hook 'TeX-after-compilation-finished-functions
           #'TeX-revert-document-buffer)
@@ -997,14 +999,12 @@ Define Beamer class:
 (package! doct)
 #+end_src
 Prettify the captures:
-#+begin_src elisp
+#+begin_src emacs-lisp
 (use-package! doct
   :commands doct)
 #+end_src
-#+begin_src elisp
+#+begin_src emacs-lisp
 (after! org-capture
-  <<prettify-capture>>
-
   (defun +doct-icon-declaration-to-icon (declaration)
     "Convert :icon declaration to icon"
     (let ((name (pop declaration))
@@ -1159,7 +1159,7 @@ Prettify the captures:
                   (remove-hook 'server-after-make-frame-hook
                                #'org-capture-reinitialise-hook))))))
 #+end_src
-#+begin_src elisp
+#+begin_src emacs-lisp
 (defun org-mks-pretty (table title &optional prompt specials)
   "Select a member of an alist with multiple keys. Prettified.
 
@@ -1253,7 +1253,7 @@ is selected, only the bare key is returned."
 #+end_src
 * Company
 Improve the history size:
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (after! company
   (setq company-idle-delay 0.5
         company-minimum-prefix-length 2)
@@ -1265,34 +1265,25 @@ Improve the history size:
 * LSP
 ** Eglot
 ** LTex
-#+begin_src elisp
-(use-package eglot-ltex
-  :ensure t
-  :hook (text-mode . (lambda ()
-                       (require 'eglot-ltex)
-                       (call-interactively #'eglot)))
-  :init
-  (setq eglot-languagetool-server-path "/opt/homebrew/bin/ltex-ls"))
-#+end_src
 * VLFI
 #+begin_src emacs-lisp :tangle packages.el
 (package! vlfi)
 #+end_src
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (use-package! vlf-setup
   :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
 #+end_src
 
 * PDF-Tools
 ** Fix annotation bug
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (defun my-fix-tablist ()
   (interactive)
   (unload-feature 'tablist-filter t)
   (load-file (find-library-name "tablist-filter")))
 #+end_src
 * Option key Fix
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (defun iensu/switch-left-and-right-option-keys ()
   "Switch left and right option keys.
      On some external keyboards the left and right option keys are swapped,
@@ -1306,7 +1297,7 @@ Improve the history size:
 
 
 * Centaur
-#+begin_src elisp
+#+begin_src emacs-lisp
 (after! centaur-tabs
   (centaur-tabs-mode -1)
   (setq centaur-tabs-height 36
