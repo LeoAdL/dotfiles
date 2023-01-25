@@ -649,10 +649,10 @@ Transparency and fontification
 (setq org-format-latex-options
       (plist-put org-format-latex-options :background "Transparent"))
 (setq org-format-latex-options
-      (plist-put org-format-latex-options :scale 1.20))
+      (plist-put org-format-latex-options :scale 3))
 #+end_src
 #+begin_src emacs-lisp
-(setq org-preview-latex-default-process 'dvipng)
+(setq org-preview-latex-default-process 'dvisvgm)
 #+end_src
 **** Header
 #+begin_src emacs-lisp
@@ -679,8 +679,6 @@ Transparency and fontification
 \\usepackage{siunitx}
 \\usepackage{diffcoeff}
 \\usepackage{nicematrix}
-\\usepackage{newpxtext}
-\\usepackage[varbb]{newpxmath}
 \\DeclareMathOperator{\\Var}{Var}
 \\DeclareMathOperator{\\cov}{Cov}
 \\DeclareMathOperator{\\E}{\\mathbb{E}}

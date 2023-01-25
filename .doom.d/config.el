@@ -497,9 +497,9 @@
 (setq org-format-latex-options
       (plist-put org-format-latex-options :background "Transparent"))
 (setq org-format-latex-options
-      (plist-put org-format-latex-options :scale 1.20))
+      (plist-put org-format-latex-options :scale 3))
 
-(setq org-preview-latex-default-process 'dvipng)
+(setq org-preview-latex-default-process 'dvisvgm)
 
 (setq org-format-latex-header "\\documentclass[12pt]
 {article}
@@ -524,8 +524,6 @@
 \\usepackage{siunitx}
 \\usepackage{diffcoeff}
 \\usepackage{nicematrix}
-\\usepackage{newpxtext}
-\\usepackage[varbb]{newpxmath}
 \\DeclareMathOperator{\\Var}{Var}
 \\DeclareMathOperator{\\cov}{Cov}
 \\DeclareMathOperator{\\E}{\\mathbb{E}}
