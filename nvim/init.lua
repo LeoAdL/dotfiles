@@ -26,7 +26,7 @@ local config = {
 	},
 
 	-- Set colorscheme to use
-	colorscheme = "catppuccin",
+	colorscheme = "nord",
 
 	-- Add highlight groups in any theme
 	-- set vim options here (vim.<first_key>.<second_key> = value)

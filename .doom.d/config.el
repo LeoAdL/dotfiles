@@ -36,11 +36,7 @@
       doom-big-font (font-spec :family "Iosevka" :size 24)
       doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light))
 
-(setq doom-theme 'catppuccin)
-
-(load-theme 'catppuccin t t)
-(setq catppuccin-flavor 'frappe) ;; or 'latte, 'macchiato, or 'mocha
-(catppuccin-reload)
+(setq doom-theme 'doom-nord)
 
 (setq doom-themes-treemacs-theme "doom-colors") ; use "doom-colors" for less minimal icon theme
 (with-eval-after-load 'doom-themes
@@ -426,8 +422,6 @@
   "Search for output files with these extensions, in order, viewing the first that matches")
 (defvar org-view-external-file-extensions '("html")
   "File formats that should be opened externally.")
-
-(add-hook 'org-mode-hook 'turn-on-flyspell)
 
 (after! org (require 'org-zotxt))
 
@@ -1082,6 +1076,15 @@ is selected, only the bare key is returned."
   (add-hook 'evil-normal-state-entry-hook #'company-abort)) ;; make aborting less annoying.
 (setq-default history-length 1000)
 (setq-default prescient-history-length 1000)
+
+(set-company-backend!
+  '(text-mode
+    markdown-mode
+    gfm-mode)
+  '(:seperate
+    company-ispell
+    company-files
+    company-yasnippet))
 
 (use-package! vlf-setup
   :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)

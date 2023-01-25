@@ -54,14 +54,9 @@
 *** Theme
 **** Catppuccin theme
 #+begin_src emacs-lisp
-(setq doom-theme 'catppuccin)
+(setq doom-theme 'doom-nord)
 #+end_src
-#+begin_src emacs-lisp
-(load-theme 'catppuccin t t)
-(setq catppuccin-flavor 'frappe) ;; or 'latte, 'macchiato, or 'mocha
-(catppuccin-reload)
-#+end_src
-**** Treemac styling
+**** Treemacs styling
 #+begin_src emacs-lisp
 (setq doom-themes-treemacs-theme "doom-colors") ; use "doom-colors" for less minimal icon theme
 (with-eval-after-load 'doom-themes
@@ -554,11 +549,6 @@ Transparency and fontification
 (defvar org-view-external-file-extensions '("html")
   "File formats that should be opened externally.")
 #+end_src
-** Spellchecker
-#+begin_src emacs-lisp
-
-(add-hook 'org-mode-hook 'turn-on-flyspell)
-#+end_src
 ** Zotero Integration
 #+begin_src emacs-lisp :tangle packages.el
 (package! zotxt)
@@ -1001,7 +991,7 @@ Define Beamer class:
                                  ("linenos" "true")))
 #+end_src
 ** Capture
-*** DocT
+*** Doct
 #+begin_src emacs-lisp :tangle packages.el
 (package! doct)
 #+end_src
@@ -1269,6 +1259,16 @@ Improve the history size:
 (setq-default history-length 1000)
 (setq-default prescient-history-length 1000)
 #+end_src
+#+begin_src emacs-lisp
+(set-company-backend!
+  '(text-mode
+    markdown-mode
+    gfm-mode)
+  '(:seperate
+    company-ispell
+    company-files
+    company-yasnippet))
+#+end_src
 * LSP
 ** Eglot
 ** LTex
@@ -1301,7 +1301,6 @@ Improve the history size:
     (setq mac-option-modifier       current-right
           mac-right-option-modifier current-left)))
 #+end_src
-
 
 * Centaur
 #+begin_src emacs-lisp
