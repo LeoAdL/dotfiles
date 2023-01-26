@@ -70,8 +70,8 @@ Transparency and fontification
 
 
 ;; set transparency
-(set-frame-parameter (selected-frame) 'alpha '(92 92))
-(add-to-list 'default-frame-alist '(alpha 92 92))
+(set-frame-parameter (selected-frame) 'alpha '(95 95))
+(add-to-list 'default-frame-alist '(alpha 95 95))
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 #+end_src
 *** Starting image
@@ -1022,7 +1022,7 @@ Prettify the captures:
 
   (setq doct-after-conversion-functions '(+doct-iconify-capture-templates))
 
-  (defvar +org-capture-recipies  "~/Desktop/TEC/Organisation/recipies.org")
+  (defvar +org-capture-recipies  "~/Org/recipies.org")
 
   (defun set-org-capture-templates ()
     (setq org-capture-templates
