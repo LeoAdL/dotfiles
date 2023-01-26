@@ -47,8 +47,8 @@
 
 
 ;; set transparency
-(set-frame-parameter (selected-frame) 'alpha '(92 92))
-(add-to-list 'default-frame-alist '(alpha 92 92))
+(set-frame-parameter (selected-frame) 'alpha '(95 95))
+(add-to-list 'default-frame-alist '(alpha 95 95))
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (setq fancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
@@ -844,7 +844,7 @@
 
   (setq doct-after-conversion-functions '(+doct-iconify-capture-templates))
 
-  (defvar +org-capture-recipies  "~/Desktop/TEC/Organisation/recipies.org")
+  (defvar +org-capture-recipies  "~/Org/recipies.org")
 
   (defun set-org-capture-templates ()
     (setq org-capture-templates
