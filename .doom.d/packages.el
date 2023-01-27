@@ -31,4 +31,6 @@
 
 (package! doct)
 
+(package! lsp-ltex :recipe (:host github :repo "emacs-languagetool/lsp-ltex"))
+
 (package! vlfi)

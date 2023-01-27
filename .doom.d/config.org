@@ -1268,8 +1268,25 @@ Improve the history size:
     company-yasnippet))
 #+end_src
 * LSP
-** Eglot
+** Digestif
+#+begin_src emacs-lisp
+(after! lsp-mode
+  (setq lsp-tex-server 'digestif)
+)
+#+end_src
 ** LTex
+#+begin_src emacs-lisp :tangle packages.el
+(package! lsp-ltex :recipe (:host github :repo "emacs-languagetool/lsp-ltex"))
+#+end_src
+#+begin_src emacs-lisp
+(use-package lsp-ltex
+  :ensure t
+  :hook (text-mode . (lambda ()
+                       (require 'lsp-ltex)
+                       (lsp)))  ; or lsp-deferred
+  :init
+  (setq lsp-ltex-version "15.2.0"))  ; make sure you have set this, see below
+#+end_src
 * VLFI
 #+begin_src emacs-lisp :tangle packages.el
 (package! vlfi)

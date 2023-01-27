@@ -1083,6 +1083,18 @@ is selected, only the bare key is returned."
     company-files
     company-yasnippet))
 
+(after! lsp-mode
+  (setq lsp-tex-server 'digestif)
+)
+
+(use-package lsp-ltex
+  :ensure t
+  :hook (text-mode . (lambda ()
+                       (require 'lsp-ltex)
+                       (lsp)))  ; or lsp-deferred
+  :init
+  (setq lsp-ltex-version "15.2.0"))  ; make sure you have set this, see below
+
 (use-package! vlf-setup
   :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
 
