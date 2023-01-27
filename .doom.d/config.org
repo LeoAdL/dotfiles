@@ -54,7 +54,7 @@
 *** Theme
 **** Catppuccin theme
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-nord)
+(setq doom-theme 'doom-nord-aurora)
 #+end_src
 **** Treemacs styling
 #+begin_src emacs-lisp
