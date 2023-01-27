@@ -45,7 +45,6 @@
 ;; Corrects (and improves) org-mode's native fontification.
 (doom-themes-org-config)
 
-
 ;; set transparency
 (set-frame-parameter (selected-frame) 'alpha '(95 95))
 (add-to-list 'default-frame-alist '(alpha 95 95))
