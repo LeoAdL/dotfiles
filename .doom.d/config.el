@@ -444,8 +444,8 @@
 (use-package! citeproc
   :defer t)
 
-;; (use-package! pdf-tool
-;; :hook (pdf-tools-enabled . pdf-view-themed-minor-mode ))
+ (use-package! pdf-tool
+ :hook (pdf-tools-enabled . pdf-view-themed-minor-mode ))
 ;;; Org-Cite configuration
 
 (map! :after org
@@ -1088,7 +1088,6 @@ is selected, only the bare key is returned."
 )
 
 (use-package lsp-ltex
-  :ensure t
   :hook (text-mode . (lambda ()
                        (require 'lsp-ltex)
                        (lsp)))  ; or lsp-deferred

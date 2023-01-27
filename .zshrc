@@ -56,6 +56,7 @@ if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
   export PATH=`gem environment gemdir`/bin:$PATH
 fi
 export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
+export LESSOPEN="|$(brew --prefix)/bin/lesspipe.sh %s"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 PATH="/usr/local/bin:$PATH"
