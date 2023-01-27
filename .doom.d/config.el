@@ -1112,13 +1112,13 @@ is selected, only the bare key is returned."
     (setq mac-option-modifier       current-right
           mac-right-option-modifier current-left)))
 
-(after! centaur-tabs
-  (centaur-tabs-mode -1)
-  (setq centaur-tabs-height 36
-        centaur-tabs-set-icons t
-        centaur-tabs-modified-marker "o"
-        centaur-tabs-close-button "×"
-        centaur-tabs-set-bar 'above
-        centaur-tabs-gray-out-icons 'buffer)
-  (centaur-tabs-change-fonts "P22 Underground Book" 160))
+;; (after! centaur-tabs
+;;   (centaur-tabs-mode -1)
+;;   (setq centaur-tabs-height 36
+;;         centaur-tabs-set-icons t
+;;         centaur-tabs-modified-marker "o"
+;;         centaur-tabs-close-button "×"
+;;         centaur-tabs-set-bar 'above
+;;         centaur-tabs-gray-out-icons 'buffer)
+;;   (centaur-tabs-change-fonts "P22 Underground Book" 160))
 ;; (setq x-underline-at-descent-line t)
