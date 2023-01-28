@@ -52,7 +52,7 @@
 
 (setq fancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
 
-(use-package! theme-magic
+(after! theme-magic
   :commands theme-magic-from-emacs
   :config
   (defadvice! theme-magic--auto-extract-16-doom-colors ()
@@ -75,9 +75,9 @@
      (doom-blend 'base8 'functions 0.1)
      (face-attribute 'default :foreground))))
 
-(use-package! info-colors
+(after! info-colors
   :commands (info-colors-fontify-node))
-(add-hook 'Info-selection-hook 'info-colors-fontify-node)
+(add-hook! 'Info-selection-hook 'info-colors-fontify-node)
 
 (set-file-template! "\\.tex$" :trigger "__" :mode 'latex-mode)
 (set-file-template! "\\.org$" :trigger "__" :mode 'org-mode)
@@ -86,7 +86,8 @@
 (setq-default tab-width 4)
 (setq byte-compile-warnings '(cl-functions))
 
-(setq org-directory "~/org/"      org-use-property-inheritance t              ; it's convenient to have properties inherited
+(setq org-directory "~/org/"
+      org-use-property-inheritance t              ; it's convenient to have properties inherited
       org-log-done 'time                          ; having the time a item is done sounds convenient
       org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
       org-export-in-background t                  ; run export processes in external emacs process
@@ -94,23 +95,20 @@
       org-export-with-sub-superscripts '{})       ; don't treat lone _ / ^ as sub/superscripts, require _{} / ^{}
 
 (setq org-ascii-charset 'utf-8)
-(after! org
   (setq org-src-fontify-natively t
         org-fontify-whole-heading-line t
         org-pretty-entities \nil
         org-ellipsis "  " ;; folding symbol
-        org-agenda-block-separator ""
         org-fontify-done-headline t
-        prot/scroll-center-cursor-mode t
         org-fontify-quote-and-verse-blocks t
         org-startup-with-inline-images t
-        org-startup-indented t))
+        org-startup-indented t)
 
 (lambda () (progn
              (setq left-margin-width 2)
              (setq right-margin-width 2)
              (set-window-buffer nil (current-buffer))))
-(add-hook 'org-mode-hook #'+org-pretty-mode)
+(add-hook! 'org-mode-hook #'+org-pretty-mode)
 (custom-set-faces!
   '(outline-1 :weight extra-bold :height 1.25)
   '(outline-2 :weight bold :height 1.15)
@@ -128,7 +126,7 @@
  )
 (setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a.")))
 
-(use-package! org-appear
+(after! org-appear
   :hook (org-mode . org-appear-mode)
   :config
   (setq org-appear-autoemphasis t
@@ -223,7 +221,7 @@
 
 (plist-put +ligatures-extra-symbols :name "⁍")
 
-(use-package! org-pretty-table
+(after! org-pretty-table
   :commands (org-pretty-table-mode global-org-pretty-table-mode))
 
 (setq org-highlight-latex-and-related '(native script entities))
@@ -231,7 +229,7 @@
 (require 'org-src)
 (add-to-list 'org-src-block-faces '("latex" (:inherit default :extend t)))
 
-(use-package! org-fragtog
+(after! org-fragtog
   :hook (org-mode . org-fragtog-mode))
 
 ;; org-agenda-config
@@ -245,7 +243,7 @@
         (0.5 . org-upcoming-deadline)
         (0.0 . org-upcoming-distant-deadline)))
 
-(use-package! org-super-agenda
+(after! org-super-agenda
   :commands org-super-agenda-mode)
 
 (after! org-agenda
@@ -323,9 +321,7 @@
   :config
   (setq                   org-enable-roam-support t
                           org-roam-directory (concat org-directory "/Roam")
-                          org-roam-db-location (concat org-roam-directory "/db/org-roam.db")
-                          org-roam-v2-ack t)
-  (org-roam-db-autosync-enable))
+                          org-roam-v2-ack t))
 
 (defadvice! doom-modeline--buffer-file-name-roam-aware-a (orig-fun)
   :around #'doom-modeline-buffer-file-name ; takes no args
@@ -336,8 +332,6 @@
        (subst-char-in-string ?_ ?  buffer-file-name))
     (funcall orig-fun)))
 
-(after! org-roam
-  (setq +org-roam-open-buffer-on-find-file nil))
 (setq org-roam-dailies-directory "daily/")
 
 (setq org-roam-dailies-capture-templates
@@ -422,12 +416,13 @@
 (defvar org-view-external-file-extensions '("html")
   "File formats that should be opened externally.")
 
-(after! org (require 'org-zotxt))
+(use-package! zotxt
+  :after org)
 
-(use-package! org-chef
+(after! org-chef
   :commands (org-chef-insert-recipe org-chef-get-recipe-from-url))
 
-(use-package! citar
+(after! citar
   :no-require
   :custom
   (org-cite-global-bibliography '("~/org/Lecture_Notes/MyLibrary.bib"))
@@ -444,14 +439,10 @@
 (use-package! citeproc
   :defer t)
 
- (use-package! pdf-tool
+ (after! pdf-tool
  :hook (pdf-tools-enabled . pdf-view-themed-minor-mode ))
 ;;; Org-Cite configuration
 
-(map! :after org
-      :map org-mode-map
-      :localleader
-      :desc "Insert citation" "@" #'org-cite-insert)
 (use-package! oc
   :after org citar
   :config
@@ -481,7 +472,7 @@
   (defun +org-cite-csl-activate/enable ()
     (interactive)
     (setq org-cite-activate-processor 'csl-activate)
-    (add-hook! 'org-mode-hook '((lambda () (cursor-sensor-mode 1)) org-cite-csl-activate-render-all))
+    (add-hook 'org-mode-hook '((lambda () (cursor-sensor-mode 1)) org-cite-csl-activate-render-all))
     (defadvice! +org-cite-csl-activate-render-all-silent (orig-fn)
       :around #'org-cite-csl-activate-render-all
       (with-silent-modifications (funcall orig-fn)))
@@ -808,7 +799,7 @@
       TeX-source-correlate-start-server t)
 
 ;; Update PDF buffers after successful LaTeX runs
-(add-hook 'TeX-after-compilation-finished-functions
+(add-hook! 'TeX-after-compilation-finished-functions
           #'TeX-revert-document-buffer)
 
 (setq org-latex-listings 'minted
@@ -817,10 +808,8 @@
                                  ("breakanywhere" "true")
                                  ("linenos" "true")))
 
-(use-package! doct
-  :commands doct)
-
 (after! org-capture
+
   (defun +doct-icon-declaration-to-icon (declaration)
     "Convert :icon declaration to icon"
     (let ((name (pop declaration))
@@ -968,7 +957,7 @@
 
   (set-org-capture-templates)
   (unless (display-graphic-p)
-    (add-hook 'server-after-make-frame-hook
+    (add-hook! 'server-after-make-frame-hook
               (defun org-capture-reinitialise-hook ()
                 (when (display-graphic-p)
                   (set-org-capture-templates)
@@ -1070,7 +1059,7 @@ is selected, only the bare key is returned."
   (setq company-idle-delay 0.5
         company-minimum-prefix-length 2)
   (setq company-show-numbers t)
-  (add-hook 'evil-normal-state-entry-hook #'company-abort)) ;; make aborting less annoying.
+  (add-hook! 'evil-normal-state-entry-hook #'company-abort)) ;; make aborting less annoying.
 (setq-default history-length 1000)
 (setq-default prescient-history-length 1000)
 
@@ -1087,7 +1076,7 @@ is selected, only the bare key is returned."
   (setq lsp-tex-server 'digestif)
 )
 
-(use-package lsp-ltex
+(after! lsp-ltex
   :hook (text-mode . (lambda ()
                        (require 'lsp-ltex)
                        (lsp)))  ; or lsp-deferred
