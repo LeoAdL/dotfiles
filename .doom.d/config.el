@@ -36,7 +36,10 @@
       doom-big-font (font-spec :family "Iosevka" :size 24)
       doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light))
 
-(setq doom-theme 'doom-nord-aurora)
+(load-theme 'catppuccin t t)
+(setq doom-theme 'catppuccin)
+(setq catppuccin-flavor 'frappe) ;; or 'latte, 'macchiato, or 'mocha
+(catppuccin-reload)
 
 (setq doom-themes-treemacs-theme "doom-colors") ; use "doom-colors" for less minimal icon theme
 (with-eval-after-load 'doom-themes
@@ -598,104 +601,15 @@
 
 \\renewcommand{\\leq}{\\leqslant}
 \\renewcommand{\\geq}{\\geqslant}
-      [NO-DEFAULT-PACKAGES]
-      [PACKAGES]
-      [EXTRA]"
+\\definecolor{bgcolorminted}{gray}{0.9}
+[NO-DEFAULT-PACKAGES]
+[PACKAGES]
+[EXTRA]
+\\usemintedstyle{vs}"
                ("\\section{%s}" . "\\section*{%s}")
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-               ("\\paragraph{%s}" . "\\paragraph*{%s}"))
-'("beamer"
-               "\\documentclass[c]{beamer}
-\\usepackage[american]{babel}
-\\usetheme[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]{metropolis}
-\\usepackage{booktabs}
-\\usepackage{float}
-\\usepackage{mathtools}
-\\usepackage{amsthm}
-\\usepackage{amssymb}
-\\usepackage[varbb]{newpxmath}
-\\usepackage[]{xfrac}
-\\usepackage{siunitx}
-\\usepackage{graphicx}
-\\usepackage{caption}
-\\captionsetup{labelfont=bf,font={small,singlespacing}}
-\\usepackage{subcaption}
-\\usepackage{cancel}
-\\usepackage{setspace}
-\\usepackage{xcolor}
-\\usepackage{diffcoeff}
-\\usepackage{nicematrix}
-\\usepackage{acronym}
-\\usepackage{appendixnumberbeamer}
-\\usepackage{dirtytalk}
-\\usepackage[authoryear]{natbib}
-\\usepackage{xurl}
-\\bibliographystyle{ecta}
-\\DeclareMathOperator{\\Var}{Var}
-\\DeclareMathOperator{\\cov}{Cov}
-\\DeclareMathOperator{\\E}{\\mathbb{E}}
-\\DeclareMathOperator*{\\argmax}{arg\\,max}
-\\DeclareMathOperator*{\\argmin}{arg\\,min}
-\\newcommand{\\Et}[2]{\\E_{#2} \\left[#1\\right]}
-\\newcommand{\\Covt}[3]{\\cov_{#3}\\left(#1, #2\\right)}
-\\newcommand{\\Vart}[2]{\\Var_{#2} \\left[#1\\right]}
-\\DeclarePairedDelimiter\\abs{\\lvert}{\\rvert}
-\\DeclarePairedDelimiter\\norm{\\lVert}{\\rVert}
-\\DeclarePairedDelimiterX\\innerp[2]{\\langle}{\\rangle}{#1,#2}
-\\DeclarePairedDelimiterX\\braket[3]{\\langle}{\\rangle}%
-{#1\\,\\delimsize\\vert\\,\\mathopen{}#2\\,\\delimsize\\vert\\,\\mathopen{}#3}
-\\providecommand\\given{}
-\\DeclarePairedDelimiterXPP\\Prob[1]{\\mathbb{P}} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1}
-\\DeclarePairedDelimiterXPP\\condE[1]{\\E} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1}
-\\DeclarePairedDelimiterXPP\\condVar[2]{\\Var} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1,#2}
-\\DeclarePairedDelimiterXPP\\condCov[2]{\\cov} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1,#2}
-\\theoremstyle{plain}% default
-\\newtheorem{thm}{Theorem}
-\\newtheorem{lem}[thm]{Lemma}
-\\newtheorem{prop}[thm]{Proposition}
-\\newtheorem*{cor}{Corollary}
-\\theoremstyle{definition}
-\\newtheorem{defn}{Definition}
-\\newtheorem{exmp}{Example}
-\\providecommand*{\\defnautorefname}{Definition}
-\\theoremstyle{remark}
-\\newtheorem*{rem}{Remark}
-\\newtheorem{case}{Case}
-
-
-\\definecolor{dblue}{HTML}{4c4f69}
-\\definecolor{umber}{HTML}{dc8a78}
-\\definecolor{alertcolor}{HTML}{dd7878}
-\\definecolor{examplecolor}{HTML}{209fb5}
-
-\\definecolor{pale}{HTML}{eff1f5}
-\\definecolor{bluish}{HTML}{8c8fa1}
-\\definecolor{cream}{HTML}{e6e9ef}
-\\setbeamercolor{progress bar}{fg=bluish,bg=cream}
-\\setbeamercolor{frametitle}{fg=umber,bg=pale}
-\\setbeamercolor{normal text}{fg=dblue,bg=pale}
-\\setbeamercolor{alerted text}{fg=alertcolor,bg=pale}
-\\setbeamercolor{example text}{fg=examplecolor}
-\\setbeamercovered{dynamic}
-
-\\usecolortheme{rose}
-      [NO-DEFAULT-PACKAGES]
-      [PACKAGES]
-      [EXTRA]"
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-               ("\\paragraph{%s}" . "\\paragraph*{%s}")
-               ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+               ("\\paragraph{%s}" . "\\paragraph*{%s}"))))
 
 (setq org-beamer-theme "[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]metropolis")
 
@@ -784,9 +698,11 @@
 \\setbeamercovered{dynamic}
 
 \\usecolortheme{rose}
-      [NO-DEFAULT-PACKAGES]
-      [PACKAGES]
-      [EXTRA]"
+\\definecolor{bgcolorminted}{gray}{0.9}
+[NO-DEFAULT-PACKAGES]
+[PACKAGES]
+[EXTRA]
+\\usemintedstyle{vs}"
                ("\\section{%s}" . "\\section*{%s}")
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -807,6 +723,7 @@
       org-latex-packages-alist '(("" "minted")))
 (setq org-latex-minted-options '(("breaklines" "true")
                                  ("breakanywhere" "true")
+                                 ("bgcolor" "bgcolorminted")
                                  ("linenos" "true")))
 
 (after! org-capture

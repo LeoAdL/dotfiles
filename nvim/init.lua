@@ -26,7 +26,7 @@ local config = {
 	},
 
 	-- Set colorscheme to use
-	colorscheme = "nord",
+	colorscheme = "catppuccin",
 
 	-- Add highlight groups in any theme
 	-- set vim options here (vim.<first_key>.<second_key> = value)
@@ -304,14 +304,14 @@ local config = {
 								},
 							},
 							hop = true,
-							mason = true,
 							treesitter = true,
+							mason = true,
 							treesitter_context = true,
 							ts_rainbow = true,
 							symbols_outline = true,
 							lsp_trouble = true,
 							which_key = true,
-							-- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+							beacon = true,
 						},
 					})
 				end,
