@@ -126,7 +126,7 @@
  )
 (setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a.")))
 
-(after! org-appear
+(use-package! org-appear
   :hook (org-mode . org-appear-mode)
   :config
   (setq org-appear-autoemphasis t
@@ -221,7 +221,8 @@
 
 (plist-put +ligatures-extra-symbols :name "⁍")
 
-(after! org-pretty-table
+(use-package! org-pretty-table
+  :after org
   :commands (org-pretty-table-mode global-org-pretty-table-mode))
 
 (setq org-highlight-latex-and-related '(native script entities))
@@ -229,7 +230,7 @@
 (require 'org-src)
 (add-to-list 'org-src-block-faces '("latex" (:inherit default :extend t)))
 
-(after! org-fragtog
+(use-package! org-fragtog
   :hook (org-mode . org-fragtog-mode))
 
 ;; org-agenda-config
@@ -419,10 +420,10 @@
 (use-package! zotxt
   :after org)
 
-(after! org-chef
+(use-package! org-chef
   :commands (org-chef-insert-recipe org-chef-get-recipe-from-url))
 
-(after! citar
+(use-package! citar
   :no-require
   :custom
   (org-cite-global-bibliography '("~/org/Lecture_Notes/MyLibrary.bib"))
@@ -439,7 +440,7 @@
 (use-package! citeproc
   :defer t)
 
- (after! pdf-tool
+ (use-package! pdf-tool
  :hook (pdf-tools-enabled . pdf-view-themed-minor-mode ))
 ;;; Org-Cite configuration
 
@@ -1076,11 +1077,11 @@ is selected, only the bare key is returned."
   (setq lsp-tex-server 'digestif)
 )
 
-(after! lsp-ltex
+(use-package! lsp-ltex
   :hook (text-mode . (lambda ()
                        (require 'lsp-ltex)
                        (lsp)))  ; or lsp-deferred
-  :init
+  :config
   (setq lsp-ltex-version "15.2.0"))  ; make sure you have set this, see below
 
 (use-package! vlf-setup
