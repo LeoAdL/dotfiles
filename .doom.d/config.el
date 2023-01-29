@@ -370,6 +370,10 @@
     (unless org-roam-ui-mode (org-roam-ui-mode 1))
     (browse-url--browser (format "http://localhost:%d" org-roam-ui-port))))
 
+(add-hook 'ob-async-pre-execute-src-block-hook
+        #'(lambda ()
+           (setq inferior-julia-program-name "/usr/local/bin/julia")))
+
 (use-package! orgdiff
   :defer t
   :config
@@ -974,10 +978,9 @@ is selected, only the bare key is returned."
 (advice-add 'org-mks :override #'org-mks-pretty)
 
 (after! company
-  (setq company-idle-delay 0.5
-        company-minimum-prefix-length 2)
-  (setq company-show-numbers t)
-  (add-hook! 'evil-normal-state-entry-hook #'company-abort)) ;; make aborting less annoying.
+  (setq company-idle-delay 0.2
+        company-minimum-prefix-length 3)
+  (setq company-show-numbers t)) ;; make aborting less annoying.
 (setq-default history-length 1000)
 (setq-default prescient-history-length 1000)
 
@@ -990,16 +993,9 @@ is selected, only the bare key is returned."
     company-files
     company-yasnippet))
 
-(after! lsp-mode
-  (setq lsp-tex-server 'digestif)
-)
 
-(use-package! lsp-ltex
-  :hook (text-mode . (lambda ()
-                       (require 'lsp-ltex)
-                       (lsp)))  ; or lsp-deferred
-  :config
-  (setq lsp-ltex-version "15.2.0"))  ; make sure you have set this, see below
+
+
 
 (use-package! vlf-setup
   :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
