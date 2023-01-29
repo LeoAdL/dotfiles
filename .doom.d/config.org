@@ -474,6 +474,13 @@ Transparency and fontification
     (unless org-roam-ui-mode (org-roam-ui-mode 1))
     (browse-url--browser (format "http://localhost:%d" org-roam-ui-port))))
 #+end_src
+** Ob-async
+*** Julia support
+#+begin_src emacs-lisp
+(add-hook 'ob-async-pre-execute-src-block-hook
+        #'(lambda ()
+           (setq inferior-julia-program-name "/usr/local/bin/julia")))
+#+end_src
 ** Org-Diff
 #+begin_src emacs-lisp :tangle packages.el
 
@@ -1155,10 +1162,9 @@ is selected, only the bare key is returned."
 Improve the history size:
 #+begin_src emacs-lisp
 (after! company
-  (setq company-idle-delay 0.5
-        company-minimum-prefix-length 2)
-  (setq company-show-numbers t)
-  (add-hook! 'evil-normal-state-entry-hook #'company-abort)) ;; make aborting less annoying.
+  (setq company-idle-delay 0.2
+        company-minimum-prefix-length 3)
+  (setq company-show-numbers t)) ;; make aborting less annoying.
 (setq-default history-length 1000)
 (setq-default prescient-history-length 1000)
 #+end_src
@@ -1175,21 +1181,11 @@ Improve the history size:
 * LSP
 ** Digestif
 #+begin_src emacs-lisp
-(after! lsp-mode
-  (setq lsp-tex-server 'digestif)
-)
 #+end_src
 ** LTex
 #+begin_src emacs-lisp :tangle packages.el
-(package! lsp-ltex :recipe (:host github :repo "emacs-languagetool/lsp-ltex"))
 #+end_src
 #+begin_src emacs-lisp
-(use-package! lsp-ltex
-  :hook (text-mode . (lambda ()
-                       (require 'lsp-ltex)
-                       (lsp)))  ; or lsp-deferred
-  :config
-  (setq lsp-ltex-version "15.2.0"))  ; make sure you have set this, see below
 #+end_src
 * VLFI
 #+begin_src emacs-lisp :tangle packages.el
