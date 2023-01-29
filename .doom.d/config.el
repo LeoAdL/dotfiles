@@ -374,6 +374,8 @@
         #'(lambda ()
            (setq inferior-julia-program-name "/usr/local/bin/julia")))
 
+(setq ob-async-no-async-languages-alist '("jupyter-python" "jupyter-julia"))
+
 (use-package! orgdiff
   :defer t
   :config
