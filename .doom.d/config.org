@@ -481,6 +481,10 @@ Transparency and fontification
         #'(lambda ()
            (setq inferior-julia-program-name "/usr/local/bin/julia")))
 #+end_src
+*** Jupyter Integration
+#+begin_src emacs-lisp
+(setq ob-async-no-async-languages-alist '("jupyter-python" "jupyter-julia"))
+#+end_src
 ** Org-Diff
 #+begin_src emacs-lisp :tangle packages.el
 
