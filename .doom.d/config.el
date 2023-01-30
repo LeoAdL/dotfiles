@@ -49,9 +49,9 @@
 (doom-themes-org-config)
 
 ;; set transparency
-(set-frame-parameter (selected-frame) 'alpha '(95 95))
-(add-to-list 'default-frame-alist '(alpha 95 95))
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+(set-frame-parameter (selected-frame) 'alpha '(97 97))
+(add-to-list 'default-frame-alist '(alpha 97 97))
+(add-to-list 'default-frame-alist '(fullscreen . fullboth))
 
 (setq fancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
 
@@ -241,11 +241,12 @@
   (setq org-agenda-files (list "~/org/agenda.org"
                                "~/org/todo.org")))
 
-(setq org-agenda-deadline-faces
+(after! org-agenda
+  (setq org-agenda-deadline-faces
       '((1.001 . error)
         (1.0 . org-warning)
         (0.5 . org-upcoming-deadline)
-        (0.0 . org-upcoming-distant-deadline)))
+        (0.0 . org-upcoming-distant-deadline))))
 
 (after! org-super-agenda
   :commands org-super-agenda-mode)
@@ -449,8 +450,6 @@
 (use-package! citeproc
   :defer t)
 
- (use-package! pdf-tool
- :hook (pdf-tools-enabled . pdf-view-themed-minor-mode ))
 ;;; Org-Cite configuration
 
 (use-package! oc
@@ -1027,3 +1026,7 @@ is selected, only the bare key is returned."
 ;;         centaur-tabs-gray-out-icons 'buffer)
 ;;   (centaur-tabs-change-fonts "P22 Underground Book" 160))
 ;; (setq x-underline-at-descent-line t)
+
+(use-package! python-black
+  :after python
+  :hook (python-mode . python-black-on-save-mode-enable-dwim))

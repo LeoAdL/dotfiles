@@ -73,9 +73,9 @@ Transparency and fontification
 #+end_src
 #+begin_src emacs-lisp
 ;; set transparency
-(set-frame-parameter (selected-frame) 'alpha '(95 95))
-(add-to-list 'default-frame-alist '(alpha 95 95))
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+(set-frame-parameter (selected-frame) 'alpha '(97 97))
+(add-to-list 'default-frame-alist '(alpha 97 97))
+(add-to-list 'default-frame-alist '(fullscreen . fullboth))
 #+end_src
 *** Starting image
 #+begin_src emacs-lisp
@@ -319,11 +319,12 @@ Transparency and fontification
 #+end_src
 *** Visual
 #+begin_src emacs-lisp
-(setq org-agenda-deadline-faces
+(after! org-agenda
+  (setq org-agenda-deadline-faces
       '((1.001 . error)
         (1.0 . org-warning)
         (0.5 . org-upcoming-deadline)
-        (0.0 . org-upcoming-distant-deadline)))
+        (0.0 . org-upcoming-distant-deadline))))
 #+end_src
 ** Super-Agenda
 #+begin_src emacs-lisp :tangle packages.el
@@ -599,8 +600,6 @@ Transparency and fontification
 (use-package! citeproc
   :defer t)
 
- (use-package! pdf-tool
- :hook (pdf-tools-enabled . pdf-view-themed-minor-mode ))
 ;;; Org-Cite configuration
 
 (use-package! oc
@@ -1233,4 +1232,15 @@ Improve the history size:
 ;;         centaur-tabs-gray-out-icons 'buffer)
 ;;   (centaur-tabs-change-fonts "P22 Underground Book" 160))
 ;; (setq x-underline-at-descent-line t)
+#+end_src
+
+* Python
+** Black Formatter
+#+begin_src emacs-lisp :tangle packages.el
+(package! python-black)
+#+end_src
+#+begin_src emacs-lisp
+(use-package! python-black
+  :after python
+  :hook (python-mode . python-black-on-save-mode-enable-dwim))
 #+end_src
