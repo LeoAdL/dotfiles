@@ -1233,14 +1233,3 @@ Improve the history size:
 ;;   (centaur-tabs-change-fonts "P22 Underground Book" 160))
 ;; (setq x-underline-at-descent-line t)
 #+end_src
-
-* Python
-** Black Formatter
-#+begin_src emacs-lisp :tangle packages.el
-(package! python-black)
-#+end_src
-#+begin_src emacs-lisp
-(use-package! python-black
-  :after python
-  :hook (python-mode . python-black-on-save-mode-enable-dwim))
-#+end_src

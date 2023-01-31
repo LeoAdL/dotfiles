@@ -34,5 +34,3 @@
 
 
 (package! vlfi)
-
-(package! python-black)

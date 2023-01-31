@@ -1026,7 +1026,3 @@ is selected, only the bare key is returned."
 ;;         centaur-tabs-gray-out-icons 'buffer)
 ;;   (centaur-tabs-change-fonts "P22 Underground Book" 160))
 ;; (setq x-underline-at-descent-line t)
-
-(use-package! python-black
-  :after python
-  :hook (python-mode . python-black-on-save-mode-enable-dwim))
