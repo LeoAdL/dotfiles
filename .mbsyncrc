@@ -1,4 +1,8 @@
 
+# GLOBAL OPTIONS
+BufferLimit 50mb             # Global option:   Default buffer size is 10M, too small for modern machines.
+Sync All                     # Channels global: Sync everything "Pull Push New ReNew Delete Flags" (default option)
+CopyArrivalDate yes          # Channels global: Propagate arrival time with the messages
 # =====================================================================
 
 IMAPAccount gmail
@@ -54,7 +58,7 @@ Channel UChicago
 Far :UChicago-remote:
 Near :UChicago-local:
 # Or include everything
-#Patterns *
+Patterns *
 # Automatically create missing.maildirboxes, both locally and on the server
 Create Near
 # Sync the movement of messages between folders and deletions, add after making sure the sync works
