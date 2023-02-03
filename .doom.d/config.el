@@ -1030,31 +1030,51 @@ is selected, only the bare key is returned."
 ;; add to $DOOMDIR/config.el
 (after! mu4e
   (setq sendmail-program (executable-find "msmtp")
-send-mail-function #'smtpmail-send-it
-message-sendmail-f-is-evil t
-message-sendmail-extra-arguments '("--read-envelope-from")
-message-send-mail-function #'message-send-mail-with-sendmail)
+        send-mail-function #'smtpmail-send-it
+        message-sendmail-f-is-evil t
+        message-sendmail-extra-arguments '("--read-envelope-from")
+        message-send-mail-function #'message-send-mail-with-sendmail)
   ;; this command is called to sync imap servers:
-(setq mu4e-get-mail-command (concat (executable-find "mbsync") " -a"))
-;; how often to call it in seconds:
-(setq mu4e-update-interval 10)
-  (setq mu4e-attachment-dir "~/Desktop")
+  (setq mu4e-get-mail-command (concat (executable-find "mbsync") " -a"))
+  ;; how often to call it in seconds:
+  (setq   mu4e-sent-messages-behavior 'sent ;; Save sent messages
+          mu4e-context-policy 'pick-first   ;; Start with the first context
+          mu4e-compose-context-policy 'ask) ;; Always ask which context to use when composing a new mail
+  (setq mu4e-update-interval 60)
+  (setq mu4e-attachment-dir "~/Downloads")
   (set-email-account! "gmail"
-  '((mu4e-sent-folder       . "/gmail/Sent Mail")
-    (mu4e-drafts-folder     . "/gmail/Drafts")
-    (mu4e-trash-folder      . "/gmail/Trash")
-    (mu4e-refile-folder     . "/gmail/All Mail")
-    (smtpmail-smtp-user     . "leoaparisi@gmail.com")
-    (user-mail-address      . "leoaparisi@gmail.com")    ;; only needed for mu < 1.4
-    (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
-  t)
+                      '((mu4e-sent-folder       . "/gmail/Sent Mail")
+                        (mu4e-drafts-folder     . "/gmail/Drafts")
+                        (mu4e-trash-folder      . "/gmail/Trash")
+                        (mu4e-refile-folder     . "/gmail/All Mail")
+                        (smtpmail-smtp-user     . "leoaparisi@gmail.com")
+                        (user-mail-address      . "leoaparisi@gmail.com")    ;; only needed for mu < 1.4
+                        (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
+                      t)
   (set-email-account! "U Chicago"
-  '((mu4e-sent-folder       . "/UChicago/Sent Mail")
-    (mu4e-drafts-folder     . "/UChicago/Drafts")
-    (mu4e-trash-folder      . "/UChicago/Trash")
-    (mu4e-refile-folder     . "/UChicago/All Mail")
-    (smtpmail-smtp-user     . "laparisidelannoy@uchicago.edu")
-    (user-mail-address      . "laparisidelannoy@uchicago.edu")    ;; only needed for mu < 1.4
-    (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
-  t)
-)
+                      '((mu4e-sent-folder       . "/UChicago/Sent Mail")
+                        (mu4e-drafts-folder     . "/UChicago/Drafts")
+                        (mu4e-trash-folder      . "/UChicago/Trash")
+                        (mu4e-refile-folder     . "/UChicago/All Mail")
+                        (smtpmail-smtp-user     . "laparisidelannoy@uchicago.edu")
+                        (user-mail-address      . "laparisidelannoy@uchicago.edu")    ;; only needed for mu < 1.4
+                        (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
+                      t)
+  (setq mu4e-headers-fields
+        '((:flags . 6)
+          (:account-stripe . 2)
+          (:from-or-to . 25)
+          (:recipnum . 2)
+          (:subject . 80)
+          (:human-date . 8))
+        +mu4e-min-header-frame-width 142
+        mu4e-headers-date-format "%d/%m/%y"
+        mu4e-headers-time-format "⧖ %H:%M"
+        mu4e-headers-results-limit 1000
+        mu4e-index-cleanup t)
+    ;; Add a unified inbox shortcut
+  (add-to-list
+   'mu4e-bookmarks
+   '(:name "Unified inbox" :query "maildir:/.*inbox/" :key ?i) t)
+
+  )
