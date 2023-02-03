@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nv}{package!}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}pandoc\PYGZhy{}import}
+\PYG{+w}{  }\PYG{l+s+ss}{:recipe}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s+ss}{:host}\PYG{+w}{ }\PYG{n+nv}{github}
+\PYG{+w}{           }\PYG{l+s+ss}{:repo}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}tecosaur/org\PYGZhy{}pandoc\PYGZhy{}import\PYGZdq{}}
+\PYG{+w}{           }\PYG{l+s+ss}{:files}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}*.el\PYGZdq{}}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}filters\PYGZdq{}}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}preprocessors\PYGZdq{}}\PYG{p}{)))}
+\end{Verbatim}

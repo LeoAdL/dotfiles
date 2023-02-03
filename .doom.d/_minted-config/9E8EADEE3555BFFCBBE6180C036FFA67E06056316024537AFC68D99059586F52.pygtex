@@ -1,0 +1,28 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+
+\PYG{p}{(}\PYG{n+nv}{defadvice!}\PYG{+w}{ }\PYG{n+nv}{doom\PYGZhy{}modeline\PYGZhy{}\PYGZhy{}buffer\PYGZhy{}file\PYGZhy{}name\PYGZhy{}roam\PYGZhy{}aware\PYGZhy{}a}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{orig\PYGZhy{}fun}\PYG{p}{)}
+\PYG{+w}{  }\PYG{l+s+ss}{:around}\PYG{+w}{ }\PYG{n+nf}{\PYGZsh{}\PYGZsq{}}\PYG{n+nv}{doom\PYGZhy{}modeline\PYGZhy{}buffer\PYGZhy{}file\PYGZhy{}name}\PYG{+w}{ }\PYG{c+c1}{; takes no args}
+\PYG{+w}{  }\PYG{p}{(}\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{s\PYGZhy{}contains\PYGZhy{}p}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}roam\PYGZhy{}directory}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{or}\PYG{+w}{ }\PYG{n+nv}{buffer\PYGZhy{}file\PYGZhy{}name}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZdq{}}\PYG{p}{))}
+\PYG{+w}{      }\PYG{p}{(}\PYG{n+nv}{replace\PYGZhy{}regexp\PYGZhy{}in\PYGZhy{}string}
+\PYG{+w}{       }\PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}(?:\PYGZca{}\PYGZbs{}\PYGZbs{}|.*/\PYGZbs{}\PYGZbs{})\PYGZbs{}\PYGZbs{}([0\PYGZhy{}9]\PYGZbs{}\PYGZbs{}\PYGZob{}4\PYGZbs{}\PYGZbs{}\PYGZcb{}\PYGZbs{}\PYGZbs{})\PYGZbs{}\PYGZbs{}([0\PYGZhy{}9]\PYGZbs{}\PYGZbs{}\PYGZob{}2\PYGZbs{}\PYGZbs{}\PYGZcb{}\PYGZbs{}\PYGZbs{})\PYGZbs{}\PYGZbs{}([0\PYGZhy{}9]\PYGZbs{}\PYGZbs{}\PYGZob{}2\PYGZbs{}\PYGZbs{}\PYGZcb{}\PYGZbs{}\PYGZbs{})[0\PYGZhy{}9]*\PYGZhy{}\PYGZdq{}}
+\PYG{+w}{       }\PYG{l+s}{\PYGZdq{}🢔(\PYGZbs{}\PYGZbs{}1\PYGZhy{}\PYGZbs{}\PYGZbs{}2\PYGZhy{}\PYGZbs{}\PYGZbs{}3) \PYGZdq{}}
+\PYG{+w}{       }\PYG{p}{(}\PYG{n+nv}{subst\PYGZhy{}char\PYGZhy{}in\PYGZhy{}string}\PYG{+w}{ }\PYG{n+nv}{?\PYGZus{}}\PYG{+w}{ }\PYG{n+nv}{?}\PYG{+w}{  }\PYG{n+nv}{buffer\PYGZhy{}file\PYGZhy{}name}\PYG{p}{))}
+\PYG{+w}{    }\PYG{p}{(}\PYG{n+nb}{funcall}\PYG{+w}{ }\PYG{n+nv}{orig\PYGZhy{}fun}\PYG{p}{)))}
+\PYG{p}{(}\PYG{n+nv}{use\PYGZhy{}package!}\PYG{+w}{ }\PYG{n+nv}{websocket}
+\PYG{+w}{  }\PYG{l+s+ss}{:after}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}roam}\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nv}{use\PYGZhy{}package!}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}roam\PYGZhy{}ui}
+\PYG{+w}{  }\PYG{l+s+ss}{:after}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}roam}
+\PYG{+w}{  }\PYG{l+s+ss}{:commands}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}roam\PYGZhy{}ui\PYGZhy{}open}
+\PYG{+w}{  }\PYG{l+s+ss}{:hook}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{org\PYGZhy{}roam}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}roam\PYGZhy{}ui\PYGZhy{}mode}\PYG{p}{)}
+\PYG{+w}{  }\PYG{l+s+ss}{:config}
+\PYG{+w}{  }\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}roam\PYGZhy{}ui\PYGZhy{}sync\PYGZhy{}theme}\PYG{+w}{ }\PYG{n+no}{t}
+\PYG{+w}{        }\PYG{n+nv}{org\PYGZhy{}roam\PYGZhy{}ui\PYGZhy{}follow}\PYG{+w}{ }\PYG{n+no}{t}
+\PYG{+w}{        }\PYG{n+nv}{org\PYGZhy{}roam\PYGZhy{}ui\PYGZhy{}update\PYGZhy{}on\PYGZhy{}save}\PYG{+w}{ }\PYG{n+no}{t}
+\PYG{+w}{        }\PYG{n+nv}{org\PYGZhy{}roam\PYGZhy{}ui\PYGZhy{}open\PYGZhy{}on\PYGZhy{}start}\PYG{+w}{ }\PYG{n+no}{t}\PYG{p}{)}
+\PYG{+w}{  }\PYG{p}{(}\PYG{n+nb}{require}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}org\PYGZhy{}roam}\PYG{p}{)}\PYG{+w}{ }\PYG{c+c1}{; in case autoloaded}
+\PYG{+w}{  }\PYG{p}{(}\PYG{n+nb}{defun}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}roam\PYGZhy{}ui\PYGZhy{}open}\PYG{+w}{ }\PYG{p}{()}
+\PYG{+w}{    }\PYG{l+s}{\PYGZdq{}Ensure the server is active, then open the roam graph.\PYGZdq{}}
+\PYG{+w}{    }\PYG{p}{(}\PYG{n+nv}{interactive}\PYG{p}{)}
+\PYG{+w}{    }\PYG{p}{(}\PYG{n+nb}{unless}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}roam\PYGZhy{}ui\PYGZhy{}mode}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{org\PYGZhy{}roam\PYGZhy{}ui\PYGZhy{}mode}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{))}
+\PYG{+w}{    }\PYG{p}{(}\PYG{n+nv}{browse\PYGZhy{}url\PYGZhy{}\PYGZhy{}browser}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{format}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}http://localhost:\PYGZpc{}d\PYGZdq{}}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}roam\PYGZhy{}ui\PYGZhy{}port}\PYG{p}{))))}
+\end{Verbatim}

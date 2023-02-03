@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+
+\PYG{p}{(}\PYG{n+nv}{use\PYGZhy{}package!}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}roam}
+\PYG{+w}{  }\PYG{l+s+ss}{:after}\PYG{+w}{ }\PYG{n+nv}{org}
+\PYG{+w}{  }\PYG{l+s+ss}{:config}
+\PYG{+w}{  }\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{                   }\PYG{n+nv}{org\PYGZhy{}enable\PYGZhy{}roam\PYGZhy{}support}\PYG{+w}{ }\PYG{n+no}{t}
+\PYG{+w}{                          }\PYG{n+nv}{org\PYGZhy{}roam\PYGZhy{}directory}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{concat}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}directory}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}/Roam\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                          }\PYG{n+nv}{org\PYGZhy{}roam\PYGZhy{}v2\PYGZhy{}ack}\PYG{+w}{ }\PYG{n+no}{t}\PYG{p}{))}
+
+\end{Verbatim}

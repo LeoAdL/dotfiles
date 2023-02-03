@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+
+\PYG{p}{(}\PYG{n+nv}{use\PYGZhy{}package!}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}appear}
+\PYG{+w}{  }\PYG{l+s+ss}{:hook}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{org\PYGZhy{}mode}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}appear\PYGZhy{}mode}\PYG{p}{)}
+\PYG{+w}{  }\PYG{l+s+ss}{:config}
+\PYG{+w}{  }\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}appear\PYGZhy{}autoemphasis}\PYG{+w}{ }\PYG{n+no}{t}
+\PYG{+w}{        }\PYG{n+nv}{org\PYGZhy{}appear\PYGZhy{}autosubmarkers}\PYG{+w}{ }\PYG{n+no}{t}
+\PYG{+w}{        }\PYG{n+nv}{org\PYGZhy{}appear\PYGZhy{}autolinks}\PYG{+w}{ }\PYG{n+no}{t}\PYG{p}{)}
+\PYG{+w}{  }\PYG{c+c1}{;; for proper first\PYGZhy{}time setup, `org\PYGZhy{}appear\PYGZhy{}\PYGZhy{}set\PYGZhy{}elements\PYGZsq{}}
+\PYG{+w}{  }\PYG{c+c1}{;; needs to be run after other hooks have acted.}
+\PYG{+w}{  }\PYG{p}{(}\PYG{n+nv}{run\PYGZhy{}at\PYGZhy{}time}\PYG{+w}{ }\PYG{n+no}{nil}\PYG{+w}{ }\PYG{n+no}{nil}\PYG{+w}{ }\PYG{n+nf}{\PYGZsh{}\PYGZsq{}}\PYG{n+nv}{org\PYGZhy{}appear\PYGZhy{}\PYGZhy{}set\PYGZhy{}elements}\PYG{p}{))}
+\end{Verbatim}

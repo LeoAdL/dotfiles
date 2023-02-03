@@ -1233,3 +1233,39 @@ Improve the history size:
 ;;   (centaur-tabs-change-fonts "P22 Underground Book" 160))
 ;; (setq x-underline-at-descent-line t)
 #+end_src
+
+* Email
+** mu4e
+#+begin_src emacs-lisp
+;; add to $DOOMDIR/config.el
+(after! mu4e
+  (setq sendmail-program (executable-find "msmtp")
+send-mail-function #'smtpmail-send-it
+message-sendmail-f-is-evil t
+message-sendmail-extra-arguments '("--read-envelope-from")
+message-send-mail-function #'message-send-mail-with-sendmail)
+  ;; this command is called to sync imap servers:
+(setq mu4e-get-mail-command (concat (executable-find "mbsync") " -a"))
+;; how often to call it in seconds:
+(setq mu4e-update-interval 10)
+  (setq mu4e-attachment-dir "~/Desktop")
+  (set-email-account! "gmail"
+  '((mu4e-sent-folder       . "/gmail/Sent Mail")
+    (mu4e-drafts-folder     . "/gmail/Drafts")
+    (mu4e-trash-folder      . "/gmail/Trash")
+    (mu4e-refile-folder     . "/gmail/All Mail")
+    (smtpmail-smtp-user     . "leoaparisi@gmail.com")
+    (user-mail-address      . "leoaparisi@gmail.com")    ;; only needed for mu < 1.4
+    (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
+  t)
+  (set-email-account! "U Chicago"
+  '((mu4e-sent-folder       . "/UChicago/Sent Mail")
+    (mu4e-drafts-folder     . "/UChicago/Drafts")
+    (mu4e-trash-folder      . "/UChicago/Trash")
+    (mu4e-refile-folder     . "/UChicago/All Mail")
+    (smtpmail-smtp-user     . "laparisidelannoy@uchicago.edu")
+    (user-mail-address      . "laparisidelannoy@uchicago.edu")    ;; only needed for mu < 1.4
+    (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
+  t)
+)
+#+end_src

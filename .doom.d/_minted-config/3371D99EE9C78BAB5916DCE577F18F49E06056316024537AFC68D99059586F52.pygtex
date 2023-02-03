@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+
+\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}roam\PYGZhy{}dailies\PYGZhy{}directory}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}daily/\PYGZdq{}}\PYG{p}{)}
+
+\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}roam\PYGZhy{}dailies\PYGZhy{}capture\PYGZhy{}templates}
+\PYG{+w}{      }\PYG{o}{\PYGZsq{}}\PYG{p}{((}\PYG{l+s}{\PYGZdq{}d\PYGZdq{}}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}default\PYGZdq{}}\PYG{+w}{ }\PYG{n+nv}{entry}
+\PYG{+w}{         }\PYG{l+s}{\PYGZdq{}* \PYGZpc{}?\PYGZdq{}}
+\PYG{+w}{         }\PYG{l+s+ss}{:target}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{file+head}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZpc{}\PYGZlt{}\PYGZpc{}Y\PYGZhy{}\PYGZpc{}m\PYGZhy{}\PYGZpc{}d\PYGZgt{}.org\PYGZdq{}}
+\PYG{+w}{                            }\PYG{l+s}{\PYGZdq{}\PYGZsh{}+title: \PYGZpc{}\PYGZlt{}\PYGZpc{}Y\PYGZhy{}\PYGZpc{}m\PYGZhy{}\PYGZpc{}d\PYGZgt{}\PYGZbs{}n\PYGZdq{}}\PYG{p}{))))}
+\end{Verbatim}

@@ -1,0 +1,157 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nv}{after!}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}capture}
+
+\PYG{+w}{  }\PYG{p}{(}\PYG{n+nb}{defun}\PYG{+w}{ }\PYG{n+nv}{+doct\PYGZhy{}icon\PYGZhy{}declaration\PYGZhy{}to\PYGZhy{}icon}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{declaration}\PYG{p}{)}
+\PYG{+w}{    }\PYG{l+s}{\PYGZdq{}Convert :icon declaration to icon\PYGZdq{}}
+\PYG{+w}{    }\PYG{p}{(}\PYG{k}{let}\PYG{+w}{ }\PYG{p}{((}\PYG{n+nv}{name}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{pop}\PYG{+w}{ }\PYG{n+nv}{declaration}\PYG{p}{))}
+\PYG{+w}{          }\PYG{p}{(}\PYG{n+nb}{set}\PYG{+w}{  }\PYG{p}{(}\PYG{n+nb}{intern}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{concat}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}all\PYGZhy{}the\PYGZhy{}icons\PYGZhy{}\PYGZdq{}}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{plist\PYGZhy{}get}\PYG{+w}{ }\PYG{n+nv}{declaration}\PYG{+w}{ }\PYG{l+s+ss}{:set}\PYG{p}{))))}
+\PYG{+w}{          }\PYG{p}{(}\PYG{n+nv}{face}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{intern}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{concat}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}all\PYGZhy{}the\PYGZhy{}icons\PYGZhy{}\PYGZdq{}}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{plist\PYGZhy{}get}\PYG{+w}{ }\PYG{n+nv}{declaration}\PYG{+w}{ }\PYG{l+s+ss}{:color}\PYG{p}{))))}
+\PYG{+w}{          }\PYG{p}{(}\PYG{n+nv}{v\PYGZhy{}adjust}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{or}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{plist\PYGZhy{}get}\PYG{+w}{ }\PYG{n+nv}{declaration}\PYG{+w}{ }\PYG{l+s+ss}{:v\PYGZhy{}adjust}\PYG{p}{)}\PYG{+w}{ }\PYG{l+m+mf}{0.01}\PYG{p}{)))}
+\PYG{+w}{      }\PYG{p}{(}\PYG{n+nb}{apply}\PYG{+w}{ }\PYG{n+nb}{set}\PYG{+w}{ }\PYG{o}{`}\PYG{p}{(}\PYG{o}{,}\PYG{n+nv}{name}\PYG{+w}{ }\PYG{l+s+ss}{:face}\PYG{+w}{ }\PYG{o}{,}\PYG{n+nv}{face}\PYG{+w}{ }\PYG{l+s+ss}{:v\PYGZhy{}adjust}\PYG{+w}{ }\PYG{o}{,}\PYG{n+nv}{v\PYGZhy{}adjust}\PYG{p}{))))}
+
+\PYG{+w}{  }\PYG{p}{(}\PYG{n+nb}{defun}\PYG{+w}{ }\PYG{n+nv}{+doct\PYGZhy{}iconify\PYGZhy{}capture\PYGZhy{}templates}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{groups}\PYG{p}{)}
+\PYG{+w}{    }\PYG{l+s}{\PYGZdq{}Add declaration\PYGZsq{}s :icon to each template group in GROUPS.\PYGZdq{}}
+\PYG{+w}{    }\PYG{p}{(}\PYG{k}{let}\PYG{+w}{ }\PYG{p}{((}\PYG{n+nv}{templates}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{doct\PYGZhy{}flatten\PYGZhy{}lists\PYGZhy{}in}\PYG{+w}{ }\PYG{n+nv}{groups}\PYG{p}{)))}
+\PYG{+w}{      }\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{doct\PYGZhy{}templates}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{mapcar}\PYG{+w}{ }\PYG{p}{(}\PYG{k}{lambda}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{template}\PYG{p}{)}
+\PYG{+w}{                                     }\PYG{p}{(}\PYG{n+nv}{when\PYGZhy{}let*}\PYG{+w}{ }\PYG{p}{((}\PYG{n+nv}{props}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{nthcdr}\PYG{+w}{ }\PYG{p}{(}\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{=}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{length}\PYG{+w}{ }\PYG{n+nv}{template}\PYG{p}{)}\PYG{+w}{ }\PYG{l+m+mi}{4}\PYG{p}{)}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{+w}{ }\PYG{l+m+mi}{5}\PYG{p}{)}\PYG{+w}{ }\PYG{n+nv}{template}\PYG{p}{))}
+\PYG{+w}{                                                 }\PYG{p}{(}\PYG{n+nv}{spec}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{plist\PYGZhy{}get}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{plist\PYGZhy{}get}\PYG{+w}{ }\PYG{n+nv}{props}\PYG{+w}{ }\PYG{l+s+ss}{:doct}\PYG{p}{)}\PYG{+w}{ }\PYG{l+s+ss}{:icon}\PYG{p}{)))}
+\PYG{+w}{                                       }\PYG{p}{(}\PYG{n+nb}{setf}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{nth}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{n+nv}{template}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{concat}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{+doct\PYGZhy{}icon\PYGZhy{}declaration\PYGZhy{}to\PYGZhy{}icon}\PYG{+w}{ }\PYG{n+nv}{spec}\PYG{p}{)}
+\PYG{+w}{                                                                      }\PYG{l+s}{\PYGZdq{}\PYGZbs{}t\PYGZdq{}}
+\PYG{+w}{                                                                      }\PYG{p}{(}\PYG{n+nb}{nth}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{n+nv}{template}\PYG{p}{))))}
+\PYG{+w}{                                     }\PYG{n+nv}{template}\PYG{p}{)}
+\PYG{+w}{                                   }\PYG{n+nv}{templates}\PYG{p}{))))}
+
+\PYG{+w}{  }\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{doct\PYGZhy{}after\PYGZhy{}conversion\PYGZhy{}functions}\PYG{+w}{ }\PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{n+nv}{+doct\PYGZhy{}iconify\PYGZhy{}capture\PYGZhy{}templates}\PYG{p}{))}
+
+\PYG{+w}{  }\PYG{p}{(}\PYG{n+nb}{defvar}\PYG{+w}{ }\PYG{n+nv}{+org\PYGZhy{}capture\PYGZhy{}recipies}\PYG{+w}{  }\PYG{l+s}{\PYGZdq{}\PYGZti{}/Org/recipies.org\PYGZdq{}}\PYG{p}{)}
+
+\PYG{+w}{  }\PYG{p}{(}\PYG{n+nb}{defun}\PYG{+w}{ }\PYG{n+nv}{set\PYGZhy{}org\PYGZhy{}capture\PYGZhy{}templates}\PYG{+w}{ }\PYG{p}{()}
+\PYG{+w}{    }\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}capture\PYGZhy{}templates}
+\PYG{+w}{          }\PYG{p}{(}\PYG{n+nv}{doct}\PYG{+w}{ }\PYG{o}{`}\PYG{p}{((}\PYG{l+s}{\PYGZdq{}Personal todo\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:keys}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}t\PYGZdq{}}
+\PYG{+w}{                   }\PYG{l+s+ss}{:icon}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}checklist\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:set}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}octicon\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:color}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}green\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                   }\PYG{l+s+ss}{:file}\PYG{+w}{ }\PYG{n+nv}{+org\PYGZhy{}capture\PYGZhy{}todo\PYGZhy{}file}
+\PYG{+w}{                   }\PYG{l+s+ss}{:prepend}\PYG{+w}{ }\PYG{n+no}{t}
+\PYG{+w}{                   }\PYG{l+s+ss}{:headline}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Inbox\PYGZdq{}}
+\PYG{+w}{                   }\PYG{l+s+ss}{:type}\PYG{+w}{ }\PYG{n+nv}{entry}
+\PYG{+w}{                   }\PYG{l+s+ss}{:template}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}* TODO \PYGZpc{}?\PYGZdq{}}
+\PYG{+w}{                              }\PYG{l+s}{\PYGZdq{}\PYGZpc{}i \PYGZpc{}a\PYGZdq{}}\PYG{p}{))}
+\PYG{+w}{                  }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Personal note\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:keys}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}n\PYGZdq{}}
+\PYG{+w}{                   }\PYG{l+s+ss}{:icon}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}sticky\PYGZhy{}note\PYGZhy{}o\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:set}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}faicon\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:color}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}green\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                   }\PYG{l+s+ss}{:file}\PYG{+w}{ }\PYG{n+nv}{+org\PYGZhy{}capture\PYGZhy{}todo\PYGZhy{}file}
+\PYG{+w}{                   }\PYG{l+s+ss}{:prepend}\PYG{+w}{ }\PYG{n+no}{t}
+\PYG{+w}{                   }\PYG{l+s+ss}{:headline}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Inbox\PYGZdq{}}
+\PYG{+w}{                   }\PYG{l+s+ss}{:type}\PYG{+w}{ }\PYG{n+nv}{entry}
+\PYG{+w}{                   }\PYG{l+s+ss}{:template}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}* \PYGZpc{}?\PYGZdq{}}
+\PYG{+w}{                              }\PYG{l+s}{\PYGZdq{}\PYGZpc{}i \PYGZpc{}a\PYGZdq{}}\PYG{p}{))}
+\PYG{+w}{                  }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Email\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:keys}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}e\PYGZdq{}}
+\PYG{+w}{                   }\PYG{l+s+ss}{:icon}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}envelope\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:set}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}faicon\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:color}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}blue\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                   }\PYG{l+s+ss}{:file}\PYG{+w}{ }\PYG{n+nv}{+org\PYGZhy{}capture\PYGZhy{}todo\PYGZhy{}file}
+\PYG{+w}{                   }\PYG{l+s+ss}{:prepend}\PYG{+w}{ }\PYG{n+no}{t}
+\PYG{+w}{                   }\PYG{l+s+ss}{:headline}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Inbox\PYGZdq{}}
+\PYG{+w}{                   }\PYG{l+s+ss}{:type}\PYG{+w}{ }\PYG{n+nv}{entry}
+\PYG{+w}{                   }\PYG{l+s+ss}{:template}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}* TODO \PYGZpc{}\PYGZca{}\PYGZob{}type|reply to|contact\PYGZcb{} \PYGZpc{}\PYGZbs{}\PYGZbs{}3 \PYGZpc{}? :email:\PYGZdq{}}
+\PYG{+w}{                              }\PYG{l+s}{\PYGZdq{}Send an email \PYGZpc{}\PYGZca{}\PYGZob{}urgancy|soon|ASAP|anon|at some point|eventually\PYGZcb{} to \PYGZpc{}\PYGZca{}\PYGZob{}recipiant\PYGZcb{}\PYGZdq{}}
+\PYG{+w}{                              }\PYG{l+s}{\PYGZdq{}about \PYGZpc{}\PYGZca{}\PYGZob{}topic\PYGZcb{}\PYGZdq{}}
+\PYG{+w}{                              }\PYG{l+s}{\PYGZdq{}\PYGZpc{}U \PYGZpc{}i \PYGZpc{}a\PYGZdq{}}\PYG{p}{))}
+\PYG{+w}{                  }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Interesting\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:keys}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}i\PYGZdq{}}
+\PYG{+w}{                   }\PYG{l+s+ss}{:icon}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}eye\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:set}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}faicon\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:color}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}lcyan\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                   }\PYG{l+s+ss}{:file}\PYG{+w}{ }\PYG{n+nv}{+org\PYGZhy{}capture\PYGZhy{}todo\PYGZhy{}file}
+\PYG{+w}{                   }\PYG{l+s+ss}{:prepend}\PYG{+w}{ }\PYG{n+no}{t}
+\PYG{+w}{                   }\PYG{l+s+ss}{:headline}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Interesting\PYGZdq{}}
+\PYG{+w}{                   }\PYG{l+s+ss}{:type}\PYG{+w}{ }\PYG{n+nv}{entry}
+\PYG{+w}{                   }\PYG{l+s+ss}{:template}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}* [ ] \PYGZpc{}\PYGZob{}desc\PYGZcb{}\PYGZpc{}? :\PYGZpc{}\PYGZob{}i\PYGZhy{}type\PYGZcb{}:\PYGZdq{}}
+\PYG{+w}{                              }\PYG{l+s}{\PYGZdq{}\PYGZpc{}i \PYGZpc{}a\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                   }\PYG{l+s+ss}{:children}\PYG{+w}{ }\PYG{p}{((}\PYG{l+s}{\PYGZdq{}Webpage\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:keys}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}w\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:icon}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}globe\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:set}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}faicon\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:color}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}green\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                               }\PYG{l+s+ss}{:desc}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZpc{}(org\PYGZhy{}cliplink\PYGZhy{}capture) \PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:i\PYGZhy{}type}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}read:web\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                              }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Article\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:keys}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}a\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:icon}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}file\PYGZhy{}text\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:set}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}octicon\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:color}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}yellow\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                               }\PYG{l+s+ss}{:desc}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:i\PYGZhy{}type}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}read:reaserch\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                              }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZbs{}tRecipie\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:keys}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}r\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:icon}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}spoon\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:set}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}faicon\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:color}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}dorange\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                               }\PYG{l+s+ss}{:file}\PYG{+w}{ }\PYG{n+nv}{+org\PYGZhy{}capture\PYGZhy{}recipies}
+\PYG{+w}{                               }\PYG{l+s+ss}{:headline}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Unsorted\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:template}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZpc{}(org\PYGZhy{}chef\PYGZhy{}get\PYGZhy{}recipe\PYGZhy{}from\PYGZhy{}url)\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                              }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Information\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:keys}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}i\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:icon}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}info\PYGZhy{}circle\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:set}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}faicon\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:color}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}blue\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                               }\PYG{l+s+ss}{:desc}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:i\PYGZhy{}type}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}read:info\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                              }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Idea\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:keys}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}I\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:icon}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}bubble\PYGZus{}chart\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:set}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}material\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:color}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}silver\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                               }\PYG{l+s+ss}{:desc}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:i\PYGZhy{}type}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}idea\PYGZdq{}}\PYG{p}{)))}
+\PYG{+w}{                  }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Tasks\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:keys}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}k\PYGZdq{}}
+\PYG{+w}{                   }\PYG{l+s+ss}{:icon}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}inbox\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:set}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}octicon\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:color}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}yellow\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                   }\PYG{l+s+ss}{:file}\PYG{+w}{ }\PYG{n+nv}{+org\PYGZhy{}capture\PYGZhy{}todo\PYGZhy{}file}
+\PYG{+w}{                   }\PYG{l+s+ss}{:prepend}\PYG{+w}{ }\PYG{n+no}{t}
+\PYG{+w}{                   }\PYG{l+s+ss}{:headline}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Tasks\PYGZdq{}}
+\PYG{+w}{                   }\PYG{l+s+ss}{:type}\PYG{+w}{ }\PYG{n+nv}{entry}
+\PYG{+w}{                   }\PYG{l+s+ss}{:template}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}* TODO \PYGZpc{}? \PYGZpc{}\PYGZca{}G\PYGZpc{}\PYGZob{}extra\PYGZcb{}\PYGZdq{}}
+\PYG{+w}{                              }\PYG{l+s}{\PYGZdq{}\PYGZpc{}i \PYGZpc{}a\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                   }\PYG{l+s+ss}{:children}\PYG{+w}{ }\PYG{p}{((}\PYG{l+s}{\PYGZdq{}General Task\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:keys}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}k\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:icon}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}inbox\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:set}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}octicon\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:color}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}yellow\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                               }\PYG{l+s+ss}{:extra}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                              }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Task with deadline\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:keys}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}d\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:icon}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}timer\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:set}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}material\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:color}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}orange\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:v\PYGZhy{}adjust}\PYG{+w}{ }\PYG{l+m+mf}{\PYGZhy{}0.1}\PYG{p}{)}
+\PYG{+w}{                               }\PYG{l+s+ss}{:extra}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZbs{}nDEADLINE: \PYGZpc{}\PYGZca{}\PYGZob{}Deadline:\PYGZcb{}t\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                              }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Scheduled Task\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:keys}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}s\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:icon}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}calendar\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:set}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}octicon\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:color}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}orange\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                               }\PYG{l+s+ss}{:extra}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZbs{}nSCHEDULED: \PYGZpc{}\PYGZca{}\PYGZob{}Start time:\PYGZcb{}t\PYGZdq{}}\PYG{p}{)))}
+\PYG{+w}{                  }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Project\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:keys}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}p\PYGZdq{}}
+\PYG{+w}{                   }\PYG{l+s+ss}{:icon}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}repo\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:set}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}octicon\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:color}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}silver\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                   }\PYG{l+s+ss}{:prepend}\PYG{+w}{ }\PYG{n+no}{t}
+\PYG{+w}{                   }\PYG{l+s+ss}{:type}\PYG{+w}{ }\PYG{n+nv}{entry}
+\PYG{+w}{                   }\PYG{l+s+ss}{:headline}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Inbox\PYGZdq{}}
+\PYG{+w}{                   }\PYG{l+s+ss}{:template}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}* \PYGZpc{}\PYGZob{}time\PYGZhy{}or\PYGZhy{}todo\PYGZcb{} \PYGZpc{}?\PYGZdq{}}
+\PYG{+w}{                              }\PYG{l+s}{\PYGZdq{}\PYGZpc{}i\PYGZdq{}}
+\PYG{+w}{                              }\PYG{l+s}{\PYGZdq{}\PYGZpc{}a\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                   }\PYG{l+s+ss}{:file}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZdq{}}
+\PYG{+w}{                   }\PYG{l+s+ss}{:custom}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s+ss}{:time\PYGZhy{}or\PYGZhy{}todo}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                   }\PYG{l+s+ss}{:children}\PYG{+w}{ }\PYG{p}{((}\PYG{l+s}{\PYGZdq{}Project\PYGZhy{}local todo\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:keys}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}t\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:icon}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}checklist\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:set}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}octicon\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:color}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}green\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                               }\PYG{l+s+ss}{:time\PYGZhy{}or\PYGZhy{}todo}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}TODO\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:file}\PYG{+w}{ }\PYG{n+nv}{+org\PYGZhy{}capture\PYGZhy{}project\PYGZhy{}todo\PYGZhy{}file}\PYG{p}{)}
+\PYG{+w}{                              }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Project\PYGZhy{}local note\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:keys}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}n\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:icon}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}sticky\PYGZhy{}note\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:set}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}faicon\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:color}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}yellow\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                               }\PYG{l+s+ss}{:time\PYGZhy{}or\PYGZhy{}todo}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZpc{}U\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:file}\PYG{+w}{ }\PYG{n+nv}{+org\PYGZhy{}capture\PYGZhy{}project\PYGZhy{}notes\PYGZhy{}file}\PYG{p}{)}
+\PYG{+w}{                              }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Project\PYGZhy{}local changelog\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:keys}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}c\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:icon}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}list\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:set}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}faicon\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:color}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}blue\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                               }\PYG{l+s+ss}{:time\PYGZhy{}or\PYGZhy{}todo}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZpc{}U\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:heading}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Unreleased\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:file}\PYG{+w}{ }\PYG{n+nv}{+org\PYGZhy{}capture\PYGZhy{}project\PYGZhy{}changelog\PYGZhy{}file}\PYG{p}{)))}
+\PYG{+w}{                  }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZbs{}tCentralised project templates\PYGZdq{}}
+\PYG{+w}{                   }\PYG{l+s+ss}{:keys}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}o\PYGZdq{}}
+\PYG{+w}{                   }\PYG{l+s+ss}{:type}\PYG{+w}{ }\PYG{n+nv}{entry}
+\PYG{+w}{                   }\PYG{l+s+ss}{:prepend}\PYG{+w}{ }\PYG{n+no}{t}
+\PYG{+w}{                   }\PYG{l+s+ss}{:template}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}* \PYGZpc{}\PYGZob{}time\PYGZhy{}or\PYGZhy{}todo\PYGZcb{} \PYGZpc{}?\PYGZdq{}}
+\PYG{+w}{                              }\PYG{l+s}{\PYGZdq{}\PYGZpc{}i\PYGZdq{}}
+\PYG{+w}{                              }\PYG{l+s}{\PYGZdq{}\PYGZpc{}a\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                   }\PYG{l+s+ss}{:children}\PYG{+w}{ }\PYG{p}{((}\PYG{l+s}{\PYGZdq{}Project todo\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:keys}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}t\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:prepend}\PYG{+w}{ }\PYG{n+no}{nil}
+\PYG{+w}{                               }\PYG{l+s+ss}{:time\PYGZhy{}or\PYGZhy{}todo}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}TODO\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:heading}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Tasks\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:file}\PYG{+w}{ }\PYG{n+nv}{+org\PYGZhy{}capture\PYGZhy{}central\PYGZhy{}project\PYGZhy{}todo\PYGZhy{}file}\PYG{p}{)}
+\PYG{+w}{                              }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Project note\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:keys}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}n\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:time\PYGZhy{}or\PYGZhy{}todo}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZpc{}U\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:heading}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Notes\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:file}\PYG{+w}{ }\PYG{n+nv}{+org\PYGZhy{}capture\PYGZhy{}central\PYGZhy{}project\PYGZhy{}notes\PYGZhy{}file}\PYG{p}{)}
+\PYG{+w}{                              }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Project changelog\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:keys}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}c\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:time\PYGZhy{}or\PYGZhy{}todo}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZpc{}U\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:heading}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Unreleased\PYGZdq{}}
+\PYG{+w}{                               }\PYG{l+s+ss}{:file}\PYG{+w}{ }\PYG{n+nv}{+org\PYGZhy{}capture\PYGZhy{}central\PYGZhy{}project\PYGZhy{}changelog\PYGZhy{}file}\PYG{p}{)))))))}
+
+\PYG{+w}{  }\PYG{p}{(}\PYG{n+nv}{set\PYGZhy{}org\PYGZhy{}capture\PYGZhy{}templates}\PYG{p}{)}
+\PYG{+w}{  }\PYG{p}{(}\PYG{n+nb}{unless}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{display\PYGZhy{}graphic\PYGZhy{}p}\PYG{p}{)}
+\PYG{+w}{    }\PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}hook!}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}server\PYGZhy{}after\PYGZhy{}make\PYGZhy{}frame\PYGZhy{}hook}
+\PYG{+w}{              }\PYG{p}{(}\PYG{n+nb}{defun}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}capture\PYGZhy{}reinitialise\PYGZhy{}hook}\PYG{+w}{ }\PYG{p}{()}
+\PYG{+w}{                }\PYG{p}{(}\PYG{n+nb}{when}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{display\PYGZhy{}graphic\PYGZhy{}p}\PYG{p}{)}
+\PYG{+w}{                  }\PYG{p}{(}\PYG{n+nv}{set\PYGZhy{}org\PYGZhy{}capture\PYGZhy{}templates}\PYG{p}{)}
+\PYG{+w}{                  }\PYG{p}{(}\PYG{n+nv}{remove\PYGZhy{}hook}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}server\PYGZhy{}after\PYGZhy{}make\PYGZhy{}frame\PYGZhy{}hook}
+\PYG{+w}{                               }\PYG{n+nf}{\PYGZsh{}\PYGZsq{}}\PYG{n+nv}{org\PYGZhy{}capture\PYGZhy{}reinitialise\PYGZhy{}hook}\PYG{p}{))))))}
+\end{Verbatim}

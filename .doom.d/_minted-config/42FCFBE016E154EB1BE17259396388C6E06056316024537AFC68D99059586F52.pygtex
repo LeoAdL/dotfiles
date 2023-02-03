@@ -1,0 +1,45 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nv}{use\PYGZhy{}package!}\PYG{+w}{ }\PYG{n+nv}{citar}
+\PYG{+w}{  }\PYG{l+s+ss}{:no\PYGZhy{}require}
+\PYG{+w}{  }\PYG{l+s+ss}{:custom}
+\PYG{+w}{  }\PYG{p}{(}\PYG{n+nv}{org\PYGZhy{}cite\PYGZhy{}global\PYGZhy{}bibliography}\PYG{+w}{ }\PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZti{}/org/Lecture\PYGZus{}Notes/MyLibrary.bib\PYGZdq{}}\PYG{p}{))}
+\PYG{+w}{  }\PYG{p}{(}\PYG{n+nv}{org\PYGZhy{}cite\PYGZhy{}insert\PYGZhy{}processor}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}citar}\PYG{p}{)}
+\PYG{+w}{  }\PYG{p}{(}\PYG{n+nv}{org\PYGZhy{}cite\PYGZhy{}follow\PYGZhy{}processor}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}citar}\PYG{p}{)}
+\PYG{+w}{  }\PYG{p}{(}\PYG{n+nv}{org\PYGZhy{}cite\PYGZhy{}activate\PYGZhy{}processor}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}citar}\PYG{p}{)}
+\PYG{+w}{  }\PYG{p}{(}\PYG{n+nv}{citar\PYGZhy{}bibliography}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}cite\PYGZhy{}global\PYGZhy{}bibliography}\PYG{p}{)}
+\PYG{+w}{  }\PYG{p}{(}\PYG{+w}{ }\PYG{n+nv}{citar\PYGZhy{}symbols}
+\PYG{+w}{    }\PYG{o}{`}\PYG{p}{((}\PYG{n+nv}{file}\PYG{+w}{ }\PYG{o}{,}\PYG{p}{(}\PYG{n+nv}{all\PYGZhy{}the\PYGZhy{}icons\PYGZhy{}faicon}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}file\PYGZhy{}o\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:face}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}all\PYGZhy{}the\PYGZhy{}icons\PYGZhy{}green}\PYG{+w}{ }\PYG{l+s+ss}{:v\PYGZhy{}adjust}\PYG{+w}{ }\PYG{l+m+mf}{\PYGZhy{}0.1}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{} \PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{      }\PYG{p}{(}\PYG{n+nv}{note}\PYG{+w}{ }\PYG{o}{,}\PYG{p}{(}\PYG{n+nv}{all\PYGZhy{}the\PYGZhy{}icons\PYGZhy{}material}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}speaker\PYGZus{}notes\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:face}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}all\PYGZhy{}the\PYGZhy{}icons\PYGZhy{}blue}\PYG{+w}{ }\PYG{l+s+ss}{:v\PYGZhy{}adjust}\PYG{+w}{ }\PYG{l+m+mf}{\PYGZhy{}0.3}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{} \PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{      }\PYG{p}{(}\PYG{n+nv}{link}\PYG{+w}{ }\PYG{o}{,}\PYG{p}{(}\PYG{n+nv}{all\PYGZhy{}the\PYGZhy{}icons\PYGZhy{}octicon}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}link\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:face}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}all\PYGZhy{}the\PYGZhy{}icons\PYGZhy{}orange}\PYG{+w}{ }\PYG{l+s+ss}{:v\PYGZhy{}adjust}\PYG{+w}{ }\PYG{l+m+mf}{0.01}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{} \PYGZdq{}}\PYG{p}{)))}
+\PYG{+w}{  }\PYG{p}{(}\PYG{+w}{ }\PYG{n+nv}{citar\PYGZhy{}symbol\PYGZhy{}separator}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}  \PYGZdq{}}\PYG{p}{))}
+
+\PYG{p}{(}\PYG{n+nv}{use\PYGZhy{}package!}\PYG{+w}{ }\PYG{n+nv}{citeproc}
+\PYG{+w}{  }\PYG{l+s+ss}{:defer}\PYG{+w}{ }\PYG{n+no}{t}\PYG{p}{)}
+
+\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{use\PYGZhy{}package!}\PYG{+w}{ }\PYG{n+nv}{pdf\PYGZhy{}tool}
+\PYG{+w}{ }\PYG{l+s+ss}{:hook}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{pdf\PYGZhy{}tools\PYGZhy{}enabled}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{n+nv}{pdf\PYGZhy{}view\PYGZhy{}themed\PYGZhy{}minor\PYGZhy{}mode}\PYG{+w}{ }\PYG{p}{))}
+\PYG{c+c1}{;;; Org\PYGZhy{}Cite configuration}
+
+\PYG{p}{(}\PYG{n+nv}{use\PYGZhy{}package!}\PYG{+w}{ }\PYG{n+nv}{oc}
+\PYG{+w}{  }\PYG{l+s+ss}{:after}\PYG{+w}{ }\PYG{n+nv}{org}\PYG{+w}{ }\PYG{n+nv}{citar}
+\PYG{+w}{  }\PYG{l+s+ss}{:config}
+\PYG{+w}{  }\PYG{p}{(}\PYG{n+nb}{require}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}ox}\PYG{p}{)}
+\PYG{+w}{  }\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}cite\PYGZhy{}global\PYGZhy{}bibliography}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}cite\PYGZhy{}global\PYGZhy{}bibliography}\PYG{p}{)}
+\PYG{+w}{  }\PYG{c+c1}{;; setup export processor; default csl/citeproc\PYGZhy{}el, with biblatex for latex}
+\PYG{+w}{  }\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}cite\PYGZhy{}export\PYGZhy{}processors}
+\PYG{+w}{        }\PYG{o}{\PYGZsq{}}\PYG{p}{((}\PYG{n+no}{t}\PYG{+w}{ }\PYG{n+nv}{csl}\PYG{p}{))))}
+
+\PYG{+w}{  }\PYG{c+c1}{;;; Org\PYGZhy{}cite processors}
+\PYG{p}{(}\PYG{n+nv}{use\PYGZhy{}package!}\PYG{+w}{ }\PYG{n+nv}{oc\PYGZhy{}biblatex}
+\PYG{+w}{  }\PYG{l+s+ss}{:after}\PYG{+w}{ }\PYG{n+nv}{oc}\PYG{p}{)}
+
+\PYG{p}{(}\PYG{n+nv}{use\PYGZhy{}package!}\PYG{+w}{ }\PYG{n+nv}{oc\PYGZhy{}csl}
+\PYG{+w}{  }\PYG{l+s+ss}{:after}\PYG{+w}{ }\PYG{n+nv}{oc}
+\PYG{+w}{  }\PYG{l+s+ss}{:config}
+\PYG{+w}{  }\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}cite\PYGZhy{}csl\PYGZhy{}styles\PYGZhy{}dir}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZti{}/Zotero/styles\PYGZdq{}}\PYG{p}{))}
+
+\PYG{p}{(}\PYG{n+nv}{use\PYGZhy{}package!}\PYG{+w}{ }\PYG{n+nv}{oc\PYGZhy{}natbib}
+\PYG{+w}{  }\PYG{l+s+ss}{:after}\PYG{+w}{ }\PYG{n+nv}{oc}\PYG{p}{)}
+
+
+\end{Verbatim}

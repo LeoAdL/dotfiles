@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nv}{plist\PYGZhy{}put}\PYG{+w}{ }\PYG{n+nv}{+ligatures\PYGZhy{}extra\PYGZhy{}symbols}\PYG{+w}{ }\PYG{l+s+ss}{:name}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}⁍\PYGZdq{}}\PYG{p}{)}
+\end{Verbatim}

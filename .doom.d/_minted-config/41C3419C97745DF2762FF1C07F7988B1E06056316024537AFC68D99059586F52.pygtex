@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nv}{use\PYGZhy{}package!}\PYG{+w}{ }\PYG{n+nv}{lsp\PYGZhy{}ltex}
+\PYG{+w}{  }\PYG{l+s+ss}{:hook}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{text\PYGZhy{}mode}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{p}{(}\PYG{k}{lambda}\PYG{+w}{ }\PYG{p}{()}
+\PYG{+w}{                       }\PYG{p}{(}\PYG{n+nb}{require}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}lsp\PYGZhy{}ltex}\PYG{p}{)}
+\PYG{+w}{                       }\PYG{p}{(}\PYG{n+nv}{lsp}\PYG{p}{)))}\PYG{+w}{  }\PYG{c+c1}{; or lsp\PYGZhy{}deferred}
+\PYG{+w}{  }\PYG{l+s+ss}{:config}
+\PYG{+w}{  }\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{lsp\PYGZhy{}ltex\PYGZhy{}version}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}15.2.0\PYGZdq{}}\PYG{p}{))}\PYG{+w}{  }\PYG{c+c1}{; make sure you have set this, see below}
+\end{Verbatim}

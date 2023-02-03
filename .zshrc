@@ -59,3 +59,4 @@ export LESSOPEN="|$(brew --prefix)/bin/lesspipe.sh %s"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 PATH="/usr/local/bin:$PATH"
+export PATH="/opt/homebrew/opt/cyrus-sasl/sbin:$PATH"
