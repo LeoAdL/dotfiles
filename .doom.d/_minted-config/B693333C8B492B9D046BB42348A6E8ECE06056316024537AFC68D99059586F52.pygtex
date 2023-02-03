@@ -1,0 +1,92 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{defun}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}mks\PYGZhy{}pretty}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{table}\PYG{+w}{ }\PYG{n+nv}{title}\PYG{+w}{ }\PYG{k}{\PYGZam{}optional}\PYG{+w}{ }\PYG{n+nv}{prompt}\PYG{+w}{ }\PYG{n+nv}{specials}\PYG{p}{)}
+\PYG{+w}{  }\PYG{l+s}{\PYGZdq{}Select a member of an alist with multiple keys. Prettified.}
+
+\PYG{l+s}{TABLE is the alist which should contain entries where the car is a string.}
+\PYG{l+s}{There should be two types of entries.}
+
+\PYG{l+s}{1. prefix descriptions like (\PYGZbs{}\PYGZdq{}a\PYGZbs{}\PYGZdq{} \PYGZbs{}\PYGZdq{}Description\PYGZbs{}\PYGZdq{})}
+\PYG{l+s}{   This indicates that `a\PYGZsq{} is a prefix key for multi\PYGZhy{}letter selection, and}
+\PYG{l+s}{   that there are entries following with keys like \PYGZbs{}\PYGZdq{}ab\PYGZbs{}\PYGZdq{}, \PYGZbs{}\PYGZdq{}ax\PYGZbs{}\PYGZdq{}…}
+
+\PYG{l+s}{2. Select\PYGZhy{}able members must have more than two elements, with the first}
+\PYG{l+s}{   being the string of keys that lead to selecting it, and the second a}
+\PYG{l+s}{   short description string of the item.}
+
+\PYG{l+s}{The command will then make a temporary buffer listing all entries}
+\PYG{l+s}{that can be selected with a single key, and all the single key}
+\PYG{l+s}{prefixes.  When you press the key for a single\PYGZhy{}letter entry, it is selected.}
+\PYG{l+s}{When you press a prefix key, the commands (and maybe further prefixes)}
+\PYG{l+s}{under this key will be shown and offered for selection.}
+
+\PYG{l+s}{TITLE will be placed over the selection in the temporary buffer,}
+\PYG{l+s}{PROMPT will be used when prompting for a key.  SPECIALS is an}
+\PYG{l+s}{alist with (\PYGZbs{}\PYGZdq{}key\PYGZbs{}\PYGZdq{} \PYGZbs{}\PYGZdq{}description\PYGZbs{}\PYGZdq{}) entries.  When one of these}
+\PYG{l+s}{is selected, only the bare key is returned.\PYGZdq{}}
+\PYG{+w}{  }\PYG{p}{(}\PYG{n+nv}{save\PYGZhy{}window\PYGZhy{}excursion}
+\PYG{+w}{    }\PYG{p}{(}\PYG{k}{let}\PYG{+w}{ }\PYG{p}{((}\PYG{n+nv}{inhibit\PYGZhy{}quit}\PYG{+w}{ }\PYG{n+no}{t}\PYG{p}{)}
+\PYG{+w}{          }\PYG{p}{(}\PYG{n+nv}{buffer}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{org\PYGZhy{}switch\PYGZhy{}to\PYGZhy{}buffer\PYGZhy{}other\PYGZhy{}window}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}*Org Select*\PYGZdq{}}\PYG{p}{))}
+\PYG{+w}{          }\PYG{p}{(}\PYG{n+nv}{prompt}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{or}\PYG{+w}{ }\PYG{n+nv}{prompt}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Select: \PYGZdq{}}\PYG{p}{))}
+\PYG{+w}{          }\PYG{n+nv}{case\PYGZhy{}fold\PYGZhy{}search}
+\PYG{+w}{          }\PYG{n+nv}{current}\PYG{p}{)}
+\PYG{+w}{      }\PYG{p}{(}\PYG{k}{unwind\PYGZhy{}protect}
+\PYG{+w}{          }\PYG{p}{(}\PYG{k}{catch}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}exit}
+\PYG{+w}{            }\PYG{p}{(}\PYG{n+nv}{while}\PYG{+w}{ }\PYG{n+no}{t}
+\PYG{+w}{              }\PYG{p}{(}\PYG{n+nv}{setq\PYGZhy{}local}\PYG{+w}{ }\PYG{n+nv}{evil\PYGZhy{}normal\PYGZhy{}state\PYGZhy{}cursor}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{list}\PYG{+w}{ }\PYG{n+no}{nil}\PYG{p}{))}
+\PYG{+w}{              }\PYG{p}{(}\PYG{n+nv}{erase\PYGZhy{}buffer}\PYG{p}{)}
+\PYG{+w}{              }\PYG{p}{(}\PYG{n+nv}{insert}\PYG{+w}{ }\PYG{n+nv}{title}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZbs{}n\PYGZbs{}n\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{              }\PYG{p}{(}\PYG{k}{let}\PYG{+w}{ }\PYG{p}{((}\PYG{n+nv}{des\PYGZhy{}keys}\PYG{+w}{ }\PYG{n+no}{nil}\PYG{p}{)}
+\PYG{+w}{                    }\PYG{p}{(}\PYG{n+nv}{allowed\PYGZhy{}keys}\PYG{+w}{ }\PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZbs{}C\PYGZhy{}g\PYGZdq{}}\PYG{p}{))}
+\PYG{+w}{                    }\PYG{p}{(}\PYG{n+nv}{tab\PYGZhy{}alternatives}\PYG{+w}{ }\PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZbs{}s\PYGZdq{}}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZbs{}t\PYGZdq{}}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZbs{}r\PYGZdq{}}\PYG{p}{))}
+\PYG{+w}{                    }\PYG{p}{(}\PYG{n+nv}{cursor\PYGZhy{}type}\PYG{+w}{ }\PYG{n+no}{nil}\PYG{p}{))}
+\PYG{+w}{                }\PYG{c+c1}{;; Populate allowed keys and descriptions keys}
+\PYG{+w}{                }\PYG{c+c1}{;; available with CURRENT selector.}
+\PYG{+w}{                }\PYG{p}{(}\PYG{k}{let}\PYG{+w}{ }\PYG{p}{((}\PYG{n+nv}{re}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{format}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}`\PYGZpc{}s\PYGZbs{}\PYGZbs{}(.\PYGZbs{}\PYGZbs{})\PYGZbs{}\PYGZbs{}\PYGZsq{}\PYGZdq{}}
+\PYG{+w}{                                  }\PYG{p}{(}\PYG{k}{if}\PYG{+w}{ }\PYG{n+nv}{current}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{regexp\PYGZhy{}quote}\PYG{+w}{ }\PYG{n+nv}{current}\PYG{p}{)}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZdq{}}\PYG{p}{)))}
+\PYG{+w}{                      }\PYG{p}{(}\PYG{n+nv}{prefix}\PYG{+w}{ }\PYG{p}{(}\PYG{k}{if}\PYG{+w}{ }\PYG{n+nv}{current}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{concat}\PYG{+w}{ }\PYG{n+nv}{current}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{} \PYGZdq{}}\PYG{p}{)}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZdq{}}\PYG{p}{)))}
+\PYG{+w}{                  }\PYG{p}{(}\PYG{n+nb}{dolist}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{entry}\PYG{+w}{ }\PYG{n+nv}{table}\PYG{p}{)}
+\PYG{+w}{                    }\PYG{p}{(}\PYG{n+nv}{pcase}\PYG{+w}{ }\PYG{n+nv}{entry}
+\PYG{+w}{                      }\PYG{c+c1}{;; Description.}
+\PYG{+w}{                      }\PYG{p}{(}\PYG{o}{`}\PYG{p}{(}\PYG{o}{,}\PYG{p}{(}\PYG{n+nb}{and}\PYG{+w}{ }\PYG{n+nv}{key}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{pred}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{string\PYGZhy{}match}\PYG{+w}{ }\PYG{n+nv}{re}\PYG{p}{)))}\PYG{+w}{ }\PYG{o}{,}\PYG{n+nv}{desc}\PYG{p}{)}
+\PYG{+w}{                       }\PYG{p}{(}\PYG{k}{let}\PYG{+w}{ }\PYG{p}{((}\PYG{n+nv}{k}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{match\PYGZhy{}string}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{n+nv}{key}\PYG{p}{)))}
+\PYG{+w}{                         }\PYG{p}{(}\PYG{n+nb}{push}\PYG{+w}{ }\PYG{n+nv}{k}\PYG{+w}{ }\PYG{n+nv}{des\PYGZhy{}keys}\PYG{p}{)}
+\PYG{+w}{                         }\PYG{c+c1}{;; Keys ending in tab, space or RET are equivalent.}
+\PYG{+w}{                         }\PYG{p}{(}\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{member}\PYG{+w}{ }\PYG{n+nv}{k}\PYG{+w}{ }\PYG{n+nv}{tab\PYGZhy{}alternatives}\PYG{p}{)}
+\PYG{+w}{                             }\PYG{p}{(}\PYG{n+nb}{push}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZbs{}t\PYGZdq{}}\PYG{+w}{ }\PYG{n+nv}{allowed\PYGZhy{}keys}\PYG{p}{)}
+\PYG{+w}{                           }\PYG{p}{(}\PYG{n+nb}{push}\PYG{+w}{ }\PYG{n+nv}{k}\PYG{+w}{ }\PYG{n+nv}{allowed\PYGZhy{}keys}\PYG{p}{))}
+\PYG{+w}{                         }\PYG{p}{(}\PYG{n+nv}{insert}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{propertize}\PYG{+w}{ }\PYG{n+nv}{prefix}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}face}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}font\PYGZhy{}lock\PYGZhy{}comment\PYGZhy{}face}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{propertize}\PYG{+w}{ }\PYG{n+nv}{k}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}face}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}bold}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{propertize}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}›\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}face}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}font\PYGZhy{}lock\PYGZhy{}comment\PYGZhy{}face}\PYG{p}{)}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}  \PYGZdq{}}\PYG{+w}{ }\PYG{n+nv}{desc}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}…\PYGZdq{}}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZbs{}n\PYGZdq{}}\PYG{p}{)))}
+\PYG{+w}{                      }\PYG{c+c1}{;; Usable entry.}
+\PYG{+w}{                      }\PYG{p}{(}\PYG{o}{`}\PYG{p}{(}\PYG{o}{,}\PYG{p}{(}\PYG{n+nb}{and}\PYG{+w}{ }\PYG{n+nv}{key}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{pred}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{string\PYGZhy{}match}\PYG{+w}{ }\PYG{n+nv}{re}\PYG{p}{)))}\PYG{+w}{ }\PYG{o}{,}\PYG{n+nv}{desc}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{o}{,}\PYG{n+nv}{\PYGZus{}}\PYG{p}{)}
+\PYG{+w}{                       }\PYG{p}{(}\PYG{k}{let}\PYG{+w}{ }\PYG{p}{((}\PYG{n+nv}{k}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{match\PYGZhy{}string}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{n+nv}{key}\PYG{p}{)))}
+\PYG{+w}{                         }\PYG{p}{(}\PYG{n+nv}{insert}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{propertize}\PYG{+w}{ }\PYG{n+nv}{prefix}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}face}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}font\PYGZhy{}lock\PYGZhy{}comment\PYGZhy{}face}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{propertize}\PYG{+w}{ }\PYG{n+nv}{k}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}face}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}bold}\PYG{p}{)}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}   \PYGZdq{}}\PYG{+w}{ }\PYG{n+nv}{desc}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZbs{}n\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                         }\PYG{p}{(}\PYG{n+nb}{push}\PYG{+w}{ }\PYG{n+nv}{k}\PYG{+w}{ }\PYG{n+nv}{allowed\PYGZhy{}keys}\PYG{p}{)))}
+\PYG{+w}{                      }\PYG{p}{(}\PYG{n+nv}{\PYGZus{}}\PYG{+w}{ }\PYG{n+no}{nil}\PYG{p}{))))}
+\PYG{+w}{                }\PYG{c+c1}{;; Insert special entries, if any.}
+\PYG{+w}{                }\PYG{p}{(}\PYG{n+nb}{when}\PYG{+w}{ }\PYG{n+nv}{specials}
+\PYG{+w}{                  }\PYG{p}{(}\PYG{n+nv}{insert}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}─────────────────────────\PYGZbs{}n\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                  }\PYG{p}{(}\PYG{n+nv}{pcase\PYGZhy{}dolist}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{`}\PYG{p}{(}\PYG{o}{,}\PYG{n+nv}{key}\PYG{+w}{ }\PYG{o}{,}\PYG{n+nv}{description}\PYG{p}{)}\PYG{+w}{ }\PYG{n+nv}{specials}\PYG{p}{)}
+\PYG{+w}{                    }\PYG{p}{(}\PYG{n+nv}{insert}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{format}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZpc{}s   \PYGZpc{}s\PYGZbs{}n\PYGZdq{}}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{propertize}\PYG{+w}{ }\PYG{n+nv}{key}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}face}\PYG{+w}{ }\PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{n+nv}{bold}\PYG{+w}{ }\PYG{n+nv}{all\PYGZhy{}the\PYGZhy{}icons\PYGZhy{}red}\PYG{p}{))}\PYG{+w}{ }\PYG{n+nv}{description}\PYG{p}{))}
+\PYG{+w}{                    }\PYG{p}{(}\PYG{n+nb}{push}\PYG{+w}{ }\PYG{n+nv}{key}\PYG{+w}{ }\PYG{n+nv}{allowed\PYGZhy{}keys}\PYG{p}{)))}
+\PYG{+w}{                }\PYG{c+c1}{;; Display UI and let user select an entry or}
+\PYG{+w}{                }\PYG{c+c1}{;; a sub\PYGZhy{}level prefix.}
+\PYG{+w}{                }\PYG{p}{(}\PYG{n+nv}{goto\PYGZhy{}char}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{point\PYGZhy{}min}\PYG{p}{))}
+\PYG{+w}{                }\PYG{p}{(}\PYG{n+nb}{unless}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{pos\PYGZhy{}visible\PYGZhy{}in\PYGZhy{}window\PYGZhy{}p}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{point\PYGZhy{}max}\PYG{p}{))}
+\PYG{+w}{                  }\PYG{p}{(}\PYG{n+nv}{org\PYGZhy{}fit\PYGZhy{}window\PYGZhy{}to\PYGZhy{}buffer}\PYG{p}{))}
+\PYG{+w}{                }\PYG{p}{(}\PYG{k}{let}\PYG{+w}{ }\PYG{p}{((}\PYG{n+nv}{pressed}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{org\PYGZhy{}\PYGZhy{}mks\PYGZhy{}read\PYGZhy{}key}\PYG{+w}{ }\PYG{n+nv}{allowed\PYGZhy{}keys}
+\PYG{+w}{                                                  }\PYG{n+nv}{prompt}
+\PYG{+w}{                                                  }\PYG{p}{(}\PYG{n+nb}{not}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{pos\PYGZhy{}visible\PYGZhy{}in\PYGZhy{}window\PYGZhy{}p}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{1\PYGZhy{}}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{point\PYGZhy{}max}\PYG{p}{)))))))}
+\PYG{+w}{                  }\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{current}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{concat}\PYG{+w}{ }\PYG{n+nv}{current}\PYG{+w}{ }\PYG{n+nv}{pressed}\PYG{p}{))}
+\PYG{+w}{                  }\PYG{p}{(}\PYG{n+nb}{cond}
+\PYG{+w}{                   }\PYG{p}{((}\PYG{n+nb}{equal}\PYG{+w}{ }\PYG{n+nv}{pressed}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZbs{}C\PYGZhy{}g\PYGZdq{}}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{user\PYGZhy{}error}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Abort\PYGZdq{}}\PYG{p}{))}
+\PYG{+w}{                   }\PYG{c+c1}{;; Selection is a prefix: open a new menu.}
+\PYG{+w}{                   }\PYG{p}{((}\PYG{n+nb}{member}\PYG{+w}{ }\PYG{n+nv}{pressed}\PYG{+w}{ }\PYG{n+nv}{des\PYGZhy{}keys}\PYG{p}{))}
+\PYG{+w}{                   }\PYG{c+c1}{;; Selection matches an association: return it.}
+\PYG{+w}{                   }\PYG{p}{((}\PYG{k}{let}\PYG{+w}{ }\PYG{p}{((}\PYG{n+nv}{entry}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{assoc}\PYG{+w}{ }\PYG{n+nv}{current}\PYG{+w}{ }\PYG{n+nv}{table}\PYG{p}{)))}
+\PYG{+w}{                      }\PYG{p}{(}\PYG{n+nb}{and}\PYG{+w}{ }\PYG{n+nv}{entry}\PYG{+w}{ }\PYG{p}{(}\PYG{k}{throw}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}exit}\PYG{+w}{ }\PYG{n+nv}{entry}\PYG{p}{))))}
+\PYG{+w}{                   }\PYG{c+c1}{;; Selection matches a special entry: return the}
+\PYG{+w}{                   }\PYG{c+c1}{;; selection prefix.}
+\PYG{+w}{                   }\PYG{p}{((}\PYG{n+nb}{assoc}\PYG{+w}{ }\PYG{n+nv}{current}\PYG{+w}{ }\PYG{n+nv}{specials}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{(}\PYG{k}{throw}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}exit}\PYG{+w}{ }\PYG{n+nv}{current}\PYG{p}{))}
+\PYG{+w}{                   }\PYG{p}{(}\PYG{n+no}{t}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{error}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}No entry available\PYGZdq{}}\PYG{p}{)))))))}
+\PYG{+w}{        }\PYG{p}{(}\PYG{n+nb}{when}\PYG{+w}{ }\PYG{n+nv}{buffer}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{kill\PYGZhy{}buffer}\PYG{+w}{ }\PYG{n+nv}{buffer}\PYG{p}{))))))}
+\PYG{p}{(}\PYG{n+nv}{advice\PYGZhy{}add}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}org\PYGZhy{}mks}\PYG{+w}{ }\PYG{l+s+ss}{:override}\PYG{+w}{ }\PYG{n+nf}{\PYGZsh{}\PYGZsq{}}\PYG{n+nv}{org\PYGZhy{}mks\PYGZhy{}pretty}\PYG{p}{)}
+\end{Verbatim}

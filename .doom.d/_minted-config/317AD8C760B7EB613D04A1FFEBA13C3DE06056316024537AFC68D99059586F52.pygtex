@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{k}{setq}
+\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}superstar\PYGZhy{}headline\PYGZhy{}bullets\PYGZhy{}list}\PYG{+w}{ }\PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}⁖\PYGZdq{}}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}◉\PYGZdq{}}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}○\PYGZdq{}}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}✸\PYGZdq{}}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}✿\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{ }\PYG{p}{)}
+\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}list\PYGZhy{}demote\PYGZhy{}modify\PYGZhy{}bullet}\PYG{+w}{ }\PYG{o}{\PYGZsq{}}\PYG{p}{((}\PYG{l+s}{\PYGZdq{}+\PYGZdq{}}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZhy{}\PYGZdq{}}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZhy{}\PYGZdq{}}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}+\PYGZdq{}}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}*\PYGZdq{}}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}+\PYGZdq{}}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}1.\PYGZdq{}}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}a.\PYGZdq{}}\PYG{p}{)))}
+\end{Verbatim}

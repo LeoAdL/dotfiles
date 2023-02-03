@@ -1,6 +1,110 @@
+% Created 2023-01-28 Sat 17:23
+% Intended LaTeX compiler: pdflatex
+\documentclass[c]{article}
+\usepackage[american]{babel}
+\usepackage[margin=1.25in]{geometry}
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{mathtools}
+\usepackage{wrapfig}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{newpxtext}
+\usepackage[varbb]{newpxmath}
+\usepackage{xfrac}
+\usepackage{siunitx}
+\usepackage{caption}
+\captionsetup{labelfont=bf,font={small,singlespacing}}
+\usepackage{subcaption}
+\usepackage{cancel}
+\usepackage{setspace}
+\usepackage{xcolor}
+\usepackage{diffcoeff}
+\usepackage{nicematrix}
+\usepackage{enumitem}
+\usepackage{acronym}
+\usepackage[authoryear,longnamesfirst]{natbib}
+\usepackage{xurl}
+\definecolor{mint}{HTML}{d73a49}
+\usepackage[colorlinks=true, allcolors= mint]{hyperref}
+\onehalfspacing{}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\cov}{Cov}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newcommand{\Et}[2]{\E_{#2} \left[#1\right]}
+\newcommand{\Covt}[3]{\cov_{#3}\left(#1, #2\right)}
+\newcommand{\Vart}[2]{\Var_{#2} \left[#1\right]}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+\DeclarePairedDelimiterX\innerp[2]{\langle}{\rangle}{#1,#2}
+\DeclarePairedDelimiterX\braket[3]{\langle}{\rangle}%
+{#1\,\delimsize\vert\,\mathopen{}#2\,\delimsize\vert\,\mathopen{}#3}
+\providecommand\given{}
+\DeclarePairedDelimiterXPP\Prob[1]{\mathbb{P}} (){}{
+\renewcommand\given{\nonscript\:\delimsize\vert\nonscript\:\mathopen{}}
+#1}
+\DeclarePairedDelimiterXPP\condE[1]{\E} (){}{
+\renewcommand\given{\nonscript\:\delimsize\vert\nonscript\:\mathopen{}}
+#1}
+\DeclarePairedDelimiterXPP\condVar[2]{\Var} (){}{
+\renewcommand\given{\nonscript\:\delimsize\vert\nonscript\:\mathopen{}}
+#1,#2}
+\DeclarePairedDelimiterXPP\condCov[2]{\cov} (){}{
+\renewcommand\given{\nonscript\:\delimsize\vert\nonscript\:\mathopen{}}
+#1,#2}
+\theoremstyle{plain}% default
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem*{cor}{Corollary}
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+\newtheorem{exmp}{Example}
+\providecommand*{\defnautorefname}{Definition}
+\theoremstyle{remark}
+\newtheorem*{rem}{Remark}
+\newtheorem*{note}{Note}
+\newtheorem{case}{Case}
+
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\definecolor{bgcolorminted}{gray}{0.9}
+\usepackage{minted}
+
+\usemintedstyle{vs}
+\author{Leo Aparisi de Lannoy}
+\date{\today}
+\title{Config}
+\hypersetup{
+ pdfauthor={Leo Aparisi de Lannoy},
+ pdftitle={Config},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 28.2 (Org mode 9.6)}, 
+ pdflang={English}}
+\usepackage{biblatex}
+\addbibresource{~/org/Lecture_Notes/MyLibrary.bib}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{Basic}
+\label{sec:org4e6fddd}
+\subsection{ID}
+\label{sec:org998d0de}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq user-full-name "Leo Aparisi de Lannoy"
       user-mail-address "leoaparisi@gmail.com")
-
+\end{minted}
+\subsection{Good defaults}
+\label{sec:orgf64d032}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq-default
  delete-by-moving-to-trash t                      ; Delete files to trash
  window-combination-resize t                      ; take new window space from all other windows (not just current)
@@ -18,9 +122,15 @@
   (display-battery-mode 1))                       ; it's nice to know how much power you have
 
 (global-subword-mode 1)                           ; Iterate through CamelCase words
-
+\end{minted}
+\subsubsection{Browser}
+\label{sec:orge128d9b}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq browse-url-chrome-program "brave")
-
+\end{minted}
+\subsubsection{Which-key}
+\label{sec:org7395894}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq which-key-idle-delay 0.5 ;; Default is 1.0
       which-key-idle-secondary-delay 0.05) ;; Default is nil
 (setq which-key-allow-multiple-replacements t)
@@ -29,32 +139,61 @@
   (pushnew! which-key-replacement-alist
             '((""       . "\\`+?evil[-:]?\\(?:a-\\)?\\(.*\\)") . (nil . "🅔·\\1"))
             '(("\\`g s" . "\\`evilem--?motion-\\(.*\\)")       . (nil . "Ⓔ·\\1"))))
-
+\end{minted}
+\subsection{Visual}
+\label{sec:org482c269}
+\subsubsection{Font}
+\label{sec:org585a56b}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq doom-font (font-spec :family "Iosevka" :size 13)
       doom-variable-pitch-font (font-spec :family "Lato")
       doom-unicode-font (font-spec :family "JuliaMono")
       doom-big-font (font-spec :family "Iosevka" :size 24)
       doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light))
-
+\end{minted}
+\subsubsection{Theme}
+\label{sec:orgfd17940}
+\begin{enumerate}
+\item Catppuccin theme
+\label{sec:orgb9aebba}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (load-theme 'catppuccin t t)
 (setq doom-theme 'catppuccin)
 (setq catppuccin-flavor 'frappe) ;; or 'latte, 'macchiato, or 'mocha
 (catppuccin-reload)
-
+\end{minted}
+\item Treemacs styling
+\label{sec:org14e0ea8}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq doom-themes-treemacs-theme "doom-colors") ; use "doom-colors" for less minimal icon theme
 (with-eval-after-load 'doom-themes
   (doom-themes-treemacs-config))
-
+\end{minted}
+\end{enumerate}
+\subsubsection{Default visual}
+\label{sec:org9b1ad5d}
+Transparency and fontification
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 ;; Corrects (and improves) org-mode's native fontification.
 (doom-themes-org-config)
-
+\end{minted}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 ;; set transparency
-(set-frame-parameter (selected-frame) 'alpha '(97 97))
-(add-to-list 'default-frame-alist '(alpha 97 97))
-(add-to-list 'default-frame-alist '(fullscreen . fullboth))
-
+(set-frame-parameter (selected-frame) 'alpha '(95 95))
+(add-to-list 'default-frame-alist '(alpha 95 95))
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+\end{minted}
+\subsubsection{Starting image}
+\label{sec:org47a4690}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq fancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
-
+\end{minted}
+\subsubsection{Theme Magic}
+\label{sec:org57a29e0}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
+(package! theme-magic)
+\end{minted}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (after! theme-magic
   :commands theme-magic-from-emacs
   :config
@@ -78,17 +217,35 @@
      (doom-blend 'base8 'functions 0.1)
      (face-attribute 'default :foreground))))
 
+\end{minted}
+\subsection{Marginalia}
+\label{sec:org05b7323}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
+(package! info-colors)
+\end{minted}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (after! info-colors
   :commands (info-colors-fontify-node))
 (add-hook! 'Info-selection-hook 'info-colors-fontify-node)
-
+\end{minted}
+\subsection{File Templates}
+\label{sec:org6e2fe82}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (set-file-template! "\\.tex$" :trigger "__" :mode 'latex-mode)
 (set-file-template! "\\.org$" :trigger "__" :mode 'org-mode)
-
+\end{minted}
+\subsection{Editor config}
+\label{sec:org786f569}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq display-line-numbers-type `relative)
 (setq-default tab-width 4)
 (setq byte-compile-warnings '(cl-functions))
-
+\end{minted}
+\section{Org-Mode}
+\label{sec:org3a2b2a4}
+\subsection{Defaults}
+\label{sec:org4e993dd}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq org-directory "~/org/"
       org-use-property-inheritance t              ; it's convenient to have properties inherited
       org-log-done 'time                          ; having the time a item is done sounds convenient
@@ -96,7 +253,12 @@
       org-export-in-background t                  ; run export processes in external emacs process
       org-fold-catch-invisible-edits 'smart            ; try not to accidently do weird stuff in invisible regions
       org-export-with-sub-superscripts '{})       ; don't treat lone _ / ^ as sub/superscripts, require _{} / ^{}
-
+\end{minted}
+\subsection{Visuals}
+\label{sec:orga9d547a}
+\subsubsection{General}
+\label{sec:orgdaf3af1}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq org-ascii-charset 'utf-8)
   (setq org-src-fontify-natively t
         org-fontify-whole-heading-line t
@@ -123,11 +285,21 @@
   '(outline-9 :weight semi-bold))
 (custom-set-faces!
   '(org-document-title :height 1.2))
-
+\end{minted}
+\subsubsection{Bullets}
+\label{sec:org006492d}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq
  org-superstar-headline-bullets-list '("⁖" "◉" "○" "✸" "✿")
  )
 (setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a.")))
+\end{minted}
+\subsubsection{Org-appear}
+\label{sec:orgbbb238f}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
+(package! org-appear)
+\end{minted}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 
 (use-package! org-appear
   :hook (org-mode . org-appear-mode)
@@ -138,7 +310,10 @@
   ;; for proper first-time setup, `org-appear--set-elements'
   ;; needs to be run after other hooks have acted.
   (run-at-time nil nil #'org-appear--set-elements))
-
+\end{minted}
+\subsubsection{Ligatures}
+\label{sec:orgd05717a}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (appendq! +ligatures-extra-symbols
           `(:checkbox      "☐"
             :pending       "◼"
@@ -179,7 +354,8 @@
             :priority_c   ,(propertize "■" 'face 'all-the-icons-yellow)
             :priority_d   ,(propertize "⬇" 'face 'all-the-icons-green)
             :priority_e   ,(propertize "❓" 'face 'all-the-icons-blue)))
-
+\end{minted}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (set-ligatures! 'org-mode
   :merge t
   :checkbox      "[ ]"
@@ -221,32 +397,65 @@
   :priority_c    "[#C]"
   :priority_d    "[#D]"
   :priority_e    "[#E]")
-
+\end{minted}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (plist-put +ligatures-extra-symbols :name "⁍")
+\end{minted}
+\subsubsection{Pretty tables}
+\label{sec:org5963126}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
+(package! org-pretty-table :recipe (:host github :repo "Fuco1/org-pretty-table") :pin "7bd68b420d3402826fea16ee5099d04aa9879b78")
+\end{minted}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 
 (use-package! org-pretty-table
   :after org
   :commands (org-pretty-table-mode global-org-pretty-table-mode))
-
+\end{minted}
+\subsubsection{Latex improvement}
+\label{sec:org54ad584}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq org-highlight-latex-and-related '(native script entities))
-
+\end{minted}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (require 'org-src)
 (add-to-list 'org-src-block-faces '("latex" (:inherit default :extend t)))
-
+\end{minted}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
+(package! org-fragtog)
+\end{minted}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (use-package! org-fragtog
   :hook (org-mode . org-fragtog-mode))
+\end{minted}
+\subsection{Agenda}
+\label{sec:orgb27f9c6}
+\subsubsection{Defaults}
+\label{sec:org1f5b424}
 
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 ;; org-agenda-config
 (after! org-agenda
   (setq org-agenda-files (list "~/org/agenda.org"
                                "~/org/todo.org")))
-
-(after! org-agenda
-  (setq org-agenda-deadline-faces
+\end{minted}
+\subsubsection{Visual}
+\label{sec:org98babf8}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
+(setq org-agenda-deadline-faces
       '((1.001 . error)
         (1.0 . org-warning)
         (0.5 . org-upcoming-deadline)
-        (0.0 . org-upcoming-distant-deadline))))
+        (0.0 . org-upcoming-distant-deadline)))
+\end{minted}
+\subsection{Super-Agenda}
+\label{sec:org36f5461}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
+(package! org-super-agenda)
+\end{minted}
+\subsubsection{Config}
+\label{sec:orgca1e48e}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 
 (after! org-super-agenda
   :commands org-super-agenda-mode)
@@ -260,7 +469,10 @@
       org-agenda-block-separator nil
       org-agenda-tags-column 100 ;; from testing this seems to be a good value
       org-agenda-compact-blocks t)
-
+\end{minted}
+\subsubsection{Customize}
+\label{sec:orga576211}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq org-agenda-custom-commands
       '(("o" "Overview"
          ((agenda "" ((org-agenda-span 'day)
@@ -320,6 +532,12 @@
                            :todo ("SOMEDAY" )
                            :order 90)
                           (:discard (:tag ("Chore" "Routine" "Daily")))))))))))
+\end{minted}
+\subsection{Roam}
+\label{sec:orgcd17f30}
+\subsubsection{Defaults}
+\label{sec:org5532d0e}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 
 (use-package! org-roam
   :after org
@@ -328,6 +546,8 @@
                           org-roam-directory (concat org-directory "/Roam")
                           org-roam-v2-ack t))
 
+\end{minted}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (defadvice! doom-modeline--buffer-file-name-roam-aware-a (orig-fun)
   :around #'doom-modeline-buffer-file-name ; takes no args
   (if (s-contains-p org-roam-directory (or buffer-file-name ""))
@@ -336,6 +556,10 @@
        "🢔(\\1-\\2-\\3) "
        (subst-char-in-string ?_ ?  buffer-file-name))
     (funcall orig-fun)))
+\end{minted}
+\subsubsection{Daily}
+\label{sec:org3b27053}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 
 (setq org-roam-dailies-directory "daily/")
 
@@ -344,6 +568,17 @@
          "* %?"
          :target (file+head "%<%Y-%m-%d>.org"
                             "#+title: %<%Y-%m-%d>\n"))))
+\end{minted}
+\subsubsection{Visuals}
+\label{sec:org24e4ccd}
+\begin{enumerate}
+\item UI and visualization
+\label{sec:orgd8b1cf9}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
+(package! org-roam-ui)
+(package! websocket)
+\end{minted}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 
 (defadvice! doom-modeline--buffer-file-name-roam-aware-a (orig-fun)
   :around #'doom-modeline-buffer-file-name ; takes no args
@@ -370,12 +605,17 @@
     (interactive)
     (unless org-roam-ui-mode (org-roam-ui-mode 1))
     (browse-url--browser (format "http://localhost:%d" org-roam-ui-port))))
+\end{minted}
+\end{enumerate}
+\subsection{Org-Diff}
+\label{sec:org116d4c7}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 
-(add-hook 'ob-async-pre-execute-src-block-hook
-        #'(lambda ()
-           (setq inferior-julia-program-name "/usr/local/bin/julia")))
-
-(setq ob-async-no-async-languages-alist '("jupyter-python" "jupyter-julia"))
+(package! org-diff
+  :recipe (:host github
+           :repo "tecosaur/orgdiff"))
+\end{minted}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 
 (use-package! orgdiff
   :defer t
@@ -394,9 +634,25 @@
         (replace-match (format "definecolor{red}{HTML}{%s}" red)))
       (when (re-search-forward "definecolor{blue}{rgb}{0,0,1}" (cdr (bounds-of-thing-at-point 'line)) t)
         (replace-match (format "definecolor{blue}{HTML}{%s}"))))))
+\end{minted}
+\subsection{Pandoc import}
+\label{sec:orgb04730a}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
+(package! org-pandoc-import
+  :recipe (:host github
+           :repo "tecosaur/org-pandoc-import"
+           :files ("*.el" "filters" "preprocessors")))
+\end{minted}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 
 (use-package! org-pandoc-import
   :after org)
+\end{minted}
+\subsection{Export}
+\label{sec:org0eb03fc}
+\subsubsection{Preview}
+\label{sec:orgfb73b81}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 
 (map! :map org-mode-map
 
@@ -426,13 +682,36 @@
   "Search for output files with these extensions, in order, viewing the first that matches")
 (defvar org-view-external-file-extensions '("html")
   "File formats that should be opened externally.")
+\end{minted}
+\subsection{Zotero Integration}
+\label{sec:orga910ddd}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
+(package! zotxt)
+\end{minted}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 
 (use-package! zotxt
   :after org)
-
+\end{minted}
+\subsection{Org-Chef}
+\label{sec:org3b8a609}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
+(package! org-chef)
+\end{minted}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (use-package! org-chef
   :commands (org-chef-insert-recipe org-chef-get-recipe-from-url))
+\end{minted}
 
+\subsection{Bibtex-Integration}
+\label{sec:orgd95d330}
+\subsubsection{Citar}
+\label{sec:orgcb0df12}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
+(package! citeproc)
+(package! org-cite-csl-activate :recipe (:host github :repo "andras-simonyi/org-cite-csl-activate"))
+\end{minted}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (use-package! citar
   :no-require
   :custom
@@ -450,6 +729,8 @@
 (use-package! citeproc
   :defer t)
 
+ (use-package! pdf-tool
+ :hook (pdf-tools-enabled . pdf-view-themed-minor-mode ))
 ;;; Org-Cite configuration
 
 (use-package! oc
@@ -473,6 +754,9 @@
 (use-package! oc-natbib
   :after oc)
 
+
+\end{minted}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (use-package! oc-csl-activate
   :after oc
   :config
@@ -492,14 +776,26 @@
           (org-cite-activate (point-max)))
         (org-cite-csl-activate-render-all)))
     (fmakunbound #'+org-cite-csl-activate/enable)))
-
+\end{minted}
+\subsection{Latex templates}
+\label{sec:org42fdf7a}
+\subsubsection{Preview}
+\label{sec:org4a6e02b}
+\begin{enumerate}
+\item PNG
+\label{sec:orga8f1663}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq org-format-latex-options
       (plist-put org-format-latex-options :background "Transparent"))
 (setq org-format-latex-options
       (plist-put org-format-latex-options :scale 3))
-
+\end{minted}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq org-preview-latex-default-process 'dvisvgm)
-
+\end{minted}
+\item Header
+\label{sec:orga39c94f}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq org-format-latex-header "\\documentclass[12pt]
 {article}
 \\usepackage[usenames]{xcolor}
@@ -530,6 +826,11 @@
 \\DeclareMathOperator*{\\argmin}{arg\\,min}
 ")
 
+\end{minted}
+\end{enumerate}
+\subsubsection{Article}
+\label{sec:org42a7371}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (with-eval-after-load 'ox-latex
 (add-to-list 'org-latex-classes
              '("article"
@@ -615,8 +916,14 @@
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                ("\\paragraph{%s}" . "\\paragraph*{%s}"))))
-
+\end{minted}
+\subsubsection{Beamer}
+\label{sec:org55b642f}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq org-beamer-theme "[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]metropolis")
+\end{minted}
+Define Beamer class:
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 
 (with-eval-after-load 'ox-latex
 (add-to-list 'org-latex-classes
@@ -713,24 +1020,45 @@
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                ("\\paragraph{%s}" . "\\paragraph*{%s}")
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
-
+\end{minted}
+\subsubsection{Export}
+\label{sec:org1a59de4}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -lualatex -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
-
+\end{minted}
+\begin{enumerate}
+\item Preview
+\label{sec:org1b07478}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 ;; Use pdf-tools to open PDF files
 (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
       TeX-source-correlate-start-server t)
-
+\end{minted}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 ;; Update PDF buffers after successful LaTeX runs
 (add-hook! 'TeX-after-compilation-finished-functions
           #'TeX-revert-document-buffer)
-
+\end{minted}
+\item Code blocks
+\label{sec:org16ccf46}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq org-latex-listings 'minted
       org-latex-packages-alist '(("" "minted")))
 (setq org-latex-minted-options '(("breaklines" "true")
                                  ("breakanywhere" "true")
                                  ("bgcolor" "bgcolorminted")
                                  ("linenos" "true")))
-
+\end{minted}
+\end{enumerate}
+\subsection{Capture}
+\label{sec:org4fc88b5}
+\subsubsection{Doct}
+\label{sec:org64f9b23}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
+(package! doct)
+\end{minted}
+Prettify the captures:
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (after! org-capture
 
   (defun +doct-icon-declaration-to-icon (declaration)
@@ -886,7 +1214,8 @@
                   (set-org-capture-templates)
                   (remove-hook 'server-after-make-frame-hook
                                #'org-capture-reinitialise-hook))))))
-
+\end{minted}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (defun org-mks-pretty (table title &optional prompt specials)
   "Select a member of an alist with multiple keys. Prettified.
 
@@ -977,14 +1306,20 @@ is selected, only the bare key is returned."
                    (t (error "No entry available")))))))
         (when buffer (kill-buffer buffer))))))
 (advice-add 'org-mks :override #'org-mks-pretty)
-
+\end{minted}
+\section{Company}
+\label{sec:org0177653}
+Improve the history size:
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (after! company
-  (setq company-idle-delay 0.2
-        company-minimum-prefix-length 3)
-  (setq company-show-numbers t)) ;; make aborting less annoying.
+  (setq company-idle-delay 0.5
+        company-minimum-prefix-length 2)
+  (setq company-show-numbers t)
+  (add-hook! 'evil-normal-state-entry-hook #'company-abort)) ;; make aborting less annoying.
 (setq-default history-length 1000)
 (setq-default prescient-history-length 1000)
-
+\end{minted}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (set-company-backend!
   '(text-mode
     markdown-mode
@@ -993,19 +1328,52 @@ is selected, only the bare key is returned."
     company-ispell
     company-files
     company-yasnippet))
-
-
-
-
-
+\end{minted}
+\section{LSP}
+\label{sec:orga6c5624}
+\subsection{Digestif}
+\label{sec:orga8b424c}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
+(after! lsp-mode
+  (setq lsp-tex-server 'digestif)
+)
+\end{minted}
+\subsection{LTex}
+\label{sec:org296c169}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
+(package! lsp-ltex :recipe (:host github :repo "emacs-languagetool/lsp-ltex"))
+\end{minted}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
+(use-package! lsp-ltex
+  :hook (text-mode . (lambda ()
+                       (require 'lsp-ltex)
+                       (lsp)))  ; or lsp-deferred
+  :config
+  (setq lsp-ltex-version "15.2.0"))  ; make sure you have set this, see below
+\end{minted}
+\section{VLFI}
+\label{sec:orgc674a62}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
+(package! vlfi)
+\end{minted}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (use-package! vlf-setup
   :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
+\end{minted}
 
+\section{PDF-Tools}
+\label{sec:orgc0b8e17}
+\subsection{Fix annotation bug}
+\label{sec:org2d205fe}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (defun my-fix-tablist ()
   (interactive)
   (unload-feature 'tablist-filter t)
   (load-file (find-library-name "tablist-filter")))
-
+\end{minted}
+\section{Option key Fix}
+\label{sec:orgccc0605}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (defun iensu/switch-left-and-right-option-keys ()
   "Switch left and right option keys.
      On some external keyboards the left and right option keys are swapped,
@@ -1015,7 +1383,11 @@ is selected, only the bare key is returned."
         (current-right mac-right-option-modifier))
     (setq mac-option-modifier       current-right
           mac-right-option-modifier current-left)))
+\end{minted}
 
+\section{Centaur}
+\label{sec:orgf693d09}
+\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 ;; (after! centaur-tabs
 ;;   (centaur-tabs-mode -1)
 ;;   (setq centaur-tabs-height 36
@@ -1026,35 +1398,5 @@ is selected, only the bare key is returned."
 ;;         centaur-tabs-gray-out-icons 'buffer)
 ;;   (centaur-tabs-change-fonts "P22 Underground Book" 160))
 ;; (setq x-underline-at-descent-line t)
-
-;; add to $DOOMDIR/config.el
-(after! mu4e
-  (setq sendmail-program (executable-find "msmtp")
-send-mail-function #'smtpmail-send-it
-message-sendmail-f-is-evil t
-message-sendmail-extra-arguments '("--read-envelope-from")
-message-send-mail-function #'message-send-mail-with-sendmail)
-  ;; this command is called to sync imap servers:
-(setq mu4e-get-mail-command (concat (executable-find "mbsync") " -a"))
-;; how often to call it in seconds:
-(setq mu4e-update-interval 10)
-  (setq mu4e-attachment-dir "~/Desktop")
-  (set-email-account! "gmail"
-  '((mu4e-sent-folder       . "/gmail/Sent Mail")
-    (mu4e-drafts-folder     . "/gmail/Drafts")
-    (mu4e-trash-folder      . "/gmail/Trash")
-    (mu4e-refile-folder     . "/gmail/All Mail")
-    (smtpmail-smtp-user     . "leoaparisi@gmail.com")
-    (user-mail-address      . "leoaparisi@gmail.com")    ;; only needed for mu < 1.4
-    (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
-  t)
-  (set-email-account! "U Chicago"
-  '((mu4e-sent-folder       . "/UChicago/Sent Mail")
-    (mu4e-drafts-folder     . "/UChicago/Drafts")
-    (mu4e-trash-folder      . "/UChicago/Trash")
-    (mu4e-refile-folder     . "/UChicago/All Mail")
-    (smtpmail-smtp-user     . "laparisidelannoy@uchicago.edu")
-    (user-mail-address      . "laparisidelannoy@uchicago.edu")    ;; only needed for mu < 1.4
-    (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
-  t)
-)
+\end{minted}
+\end{document}

@@ -1,0 +1,32 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}format\PYGZhy{}latex\PYGZhy{}header}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}documentclass[12pt]}
+\PYG{l+s}{\PYGZob{}article\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage[usenames]\PYGZob{}xcolor\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage\PYGZob{}booktabs\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}pagestyle\PYGZob{}empty\PYGZcb{}             \PYGZpc{} do not remove}
+\PYG{l+s}{\PYGZpc{} The settings below are copied from fullpage.sty}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}setlength\PYGZob{}\PYGZbs{}\PYGZbs{}textwidth\PYGZcb{}\PYGZob{}\PYGZbs{}\PYGZbs{}paperwidth\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}addtolength\PYGZob{}\PYGZbs{}\PYGZbs{}textwidth\PYGZcb{}\PYGZob{}\PYGZhy{}3cm\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}setlength\PYGZob{}\PYGZbs{}\PYGZbs{}oddsidemargin\PYGZcb{}\PYGZob{}1.5cm\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}addtolength\PYGZob{}\PYGZbs{}\PYGZbs{}oddsidemargin\PYGZcb{}\PYGZob{}\PYGZhy{}2.54cm\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}setlength\PYGZob{}\PYGZbs{}\PYGZbs{}evensidemargin\PYGZcb{}\PYGZob{}\PYGZbs{}\PYGZbs{}oddsidemargin\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}setlength\PYGZob{}\PYGZbs{}\PYGZbs{}textheight\PYGZcb{}\PYGZob{}\PYGZbs{}\PYGZbs{}paperheight\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}addtolength\PYGZob{}\PYGZbs{}\PYGZbs{}textheight\PYGZcb{}\PYGZob{}\PYGZhy{}\PYGZbs{}\PYGZbs{}headheight\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}addtolength\PYGZob{}\PYGZbs{}\PYGZbs{}textheight\PYGZcb{}\PYGZob{}\PYGZhy{}\PYGZbs{}\PYGZbs{}headsep\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}addtolength\PYGZob{}\PYGZbs{}\PYGZbs{}textheight\PYGZcb{}\PYGZob{}\PYGZhy{}\PYGZbs{}\PYGZbs{}footskip\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}addtolength\PYGZob{}\PYGZbs{}\PYGZbs{}textheight\PYGZcb{}\PYGZob{}\PYGZhy{}3cm\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}setlength\PYGZob{}\PYGZbs{}\PYGZbs{}topmargin\PYGZcb{}\PYGZob{}1.5cm\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}addtolength\PYGZob{}\PYGZbs{}\PYGZbs{}topmargin\PYGZcb{}\PYGZob{}\PYGZhy{}2.54cm\PYGZcb{}}
+\PYG{l+s}{\PYGZpc{} my custom stuff}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage\PYGZob{}xfrac\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage\PYGZob{}siunitx\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage\PYGZob{}diffcoeff\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage\PYGZob{}nicematrix\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}DeclareMathOperator\PYGZob{}\PYGZbs{}\PYGZbs{}Var\PYGZcb{}\PYGZob{}Var\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}DeclareMathOperator\PYGZob{}\PYGZbs{}\PYGZbs{}cov\PYGZcb{}\PYGZob{}Cov\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}DeclareMathOperator\PYGZob{}\PYGZbs{}\PYGZbs{}E\PYGZcb{}\PYGZob{}\PYGZbs{}\PYGZbs{}mathbb\PYGZob{}E\PYGZcb{}\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}DeclareMathOperator*\PYGZob{}\PYGZbs{}\PYGZbs{}argmax\PYGZcb{}\PYGZob{}arg\PYGZbs{}\PYGZbs{},max\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}DeclareMathOperator*\PYGZob{}\PYGZbs{}\PYGZbs{}argmin\PYGZcb{}\PYGZob{}arg\PYGZbs{}\PYGZbs{},min\PYGZcb{}}
+\PYG{l+s}{\PYGZdq{}}\PYG{p}{)}
+
+\end{Verbatim}

@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;; Use pdf\PYGZhy{}tools to open PDF files}
+\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{TeX\PYGZhy{}view\PYGZhy{}program\PYGZhy{}selection}\PYG{+w}{ }\PYG{o}{\PYGZsq{}}\PYG{p}{((}\PYG{n+nv}{output\PYGZhy{}pdf}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}PDF Tools\PYGZdq{}}\PYG{p}{))}
+\PYG{+w}{      }\PYG{n+nv}{TeX\PYGZhy{}source\PYGZhy{}correlate\PYGZhy{}start\PYGZhy{}server}\PYG{+w}{ }\PYG{n+no}{t}\PYG{p}{)}
+\end{Verbatim}

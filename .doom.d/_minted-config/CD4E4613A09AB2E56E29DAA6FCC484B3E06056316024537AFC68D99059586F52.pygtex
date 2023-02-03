@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nv}{package!}\PYG{+w}{ }\PYG{n+nv}{citeproc}\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nv}{package!}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}cite\PYGZhy{}csl\PYGZhy{}activate}\PYG{+w}{ }\PYG{l+s+ss}{:recipe}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s+ss}{:host}\PYG{+w}{ }\PYG{n+nv}{github}\PYG{+w}{ }\PYG{l+s+ss}{:repo}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}andras\PYGZhy{}simonyi/org\PYGZhy{}cite\PYGZhy{}csl\PYGZhy{}activate\PYGZdq{}}\PYG{p}{))}
+\end{Verbatim}

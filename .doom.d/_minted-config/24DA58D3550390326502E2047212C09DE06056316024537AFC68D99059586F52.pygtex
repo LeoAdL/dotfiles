@@ -1,0 +1,20 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+
+\PYG{p}{(}\PYG{n+nv}{use\PYGZhy{}package!}\PYG{+w}{ }\PYG{n+nv}{orgdiff}
+\PYG{+w}{  }\PYG{l+s+ss}{:defer}\PYG{+w}{ }\PYG{n+no}{t}
+\PYG{+w}{  }\PYG{l+s+ss}{:config}
+\PYG{+w}{  }\PYG{p}{(}\PYG{n+nb}{defun}\PYG{+w}{ }\PYG{n+nv}{+orgdiff\PYGZhy{}nicer\PYGZhy{}change\PYGZhy{}colours}\PYG{+w}{ }\PYG{p}{()}
+\PYG{+w}{    }\PYG{p}{(}\PYG{n+nv}{goto\PYGZhy{}char}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{point\PYGZhy{}min}\PYG{p}{))}
+\PYG{+w}{    }\PYG{c+c1}{;; Set red/blue based on whether chameleon is being used}
+\PYG{+w}{    }\PYG{p}{(}\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{search\PYGZhy{}forward}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZpc{}\PYGZpc{} make document follow Emacs theme\PYGZdq{}}\PYG{+w}{ }\PYG{n+no}{nil}\PYG{+w}{ }\PYG{n+no}{t}\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{red}\PYG{+w}{  }\PYG{p}{(}\PYG{n+nv}{substring}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{doom\PYGZhy{}blend}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}red}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}fg}\PYG{+w}{ }\PYG{l+m+mf}{0.8}\PYG{p}{)}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{+w}{              }\PYG{n+nv}{blue}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{substring}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{doom\PYGZhy{}blend}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}blue}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}teal}\PYG{+w}{ }\PYG{l+m+mf}{0.6}\PYG{p}{)}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{))}
+\PYG{+w}{      }\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{red}\PYG{+w}{  }\PYG{l+s}{\PYGZdq{}c82829\PYGZdq{}}
+\PYG{+w}{            }\PYG{n+nv}{blue}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}00618a\PYGZdq{}}\PYG{p}{))}
+\PYG{+w}{    }\PYG{p}{(}\PYG{n+nb}{when}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{and}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{search\PYGZhy{}forward}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZpc{}DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF\PYGZdq{}}\PYG{+w}{ }\PYG{n+no}{nil}\PYG{+w}{ }\PYG{n+no}{t}\PYG{p}{)}
+\PYG{+w}{               }\PYG{p}{(}\PYG{n+nv}{search\PYGZhy{}forward}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}RequirePackage\PYGZob{}color\PYGZcb{}\PYGZdq{}}\PYG{+w}{ }\PYG{n+no}{nil}\PYG{+w}{ }\PYG{n+no}{t}\PYG{p}{))}
+\PYG{+w}{      }\PYG{p}{(}\PYG{n+nb}{when}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{re\PYGZhy{}search\PYGZhy{}forward}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}definecolor\PYGZob{}red\PYGZcb{}\PYGZob{}rgb\PYGZcb{}\PYGZob{}1,0,0\PYGZcb{}\PYGZdq{}}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{cdr}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{bounds\PYGZhy{}of\PYGZhy{}thing\PYGZhy{}at\PYGZhy{}point}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}line}\PYG{p}{))}\PYG{+w}{ }\PYG{n+no}{t}\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{(}\PYG{n+nv}{replace\PYGZhy{}match}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{format}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}definecolor\PYGZob{}red\PYGZcb{}\PYGZob{}HTML\PYGZcb{}\PYGZob{}\PYGZpc{}s\PYGZcb{}\PYGZdq{}}\PYG{+w}{ }\PYG{n+nv}{red}\PYG{p}{)))}
+\PYG{+w}{      }\PYG{p}{(}\PYG{n+nb}{when}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{re\PYGZhy{}search\PYGZhy{}forward}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}definecolor\PYGZob{}blue\PYGZcb{}\PYGZob{}rgb\PYGZcb{}\PYGZob{}0,0,1\PYGZcb{}\PYGZdq{}}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{cdr}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{bounds\PYGZhy{}of\PYGZhy{}thing\PYGZhy{}at\PYGZhy{}point}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}line}\PYG{p}{))}\PYG{+w}{ }\PYG{n+no}{t}\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{(}\PYG{n+nv}{replace\PYGZhy{}match}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{format}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}definecolor\PYGZob{}blue\PYGZcb{}\PYGZob{}HTML\PYGZcb{}\PYGZob{}\PYGZpc{}s\PYGZcb{}\PYGZdq{}}\PYG{p}{))))))}
+\end{Verbatim}

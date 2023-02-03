@@ -1,0 +1,87 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nv}{with\PYGZhy{}eval\PYGZhy{}after\PYGZhy{}load}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}ox\PYGZhy{}latex}
+\PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}to\PYGZhy{}list}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}org\PYGZhy{}latex\PYGZhy{}classes}
+\PYG{+w}{             }\PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}article\PYGZdq{}}
+\PYG{+w}{               }\PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}documentclass[c]\PYGZob{}article\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage[american]\PYGZob{}babel\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage[margin=1.25in]\PYGZob{}geometry\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage\PYGZob{}parskip\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage\PYGZob{}booktabs\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage\PYGZob{}float\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage\PYGZob{}microtype\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage\PYGZob{}graphicx\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage\PYGZob{}mathtools\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage\PYGZob{}wrapfig\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage\PYGZob{}amsthm\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage\PYGZob{}amssymb\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage\PYGZob{}newpxtext\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage[varbb]\PYGZob{}newpxmath\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage\PYGZob{}xfrac\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage\PYGZob{}siunitx\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage\PYGZob{}caption\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}captionsetup\PYGZob{}labelfont=bf,font=\PYGZob{}small,singlespacing\PYGZcb{}\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage\PYGZob{}subcaption\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage\PYGZob{}cancel\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage\PYGZob{}setspace\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage\PYGZob{}xcolor\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage\PYGZob{}diffcoeff\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage\PYGZob{}nicematrix\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage\PYGZob{}enumitem\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage\PYGZob{}acronym\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage[authoryear,longnamesfirst]\PYGZob{}natbib\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage\PYGZob{}xurl\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}definecolor\PYGZob{}mint\PYGZcb{}\PYGZob{}HTML\PYGZcb{}\PYGZob{}d73a49\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usepackage[colorlinks=true, allcolors= mint]\PYGZob{}hyperref\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}onehalfspacing\PYGZob{}\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}DeclareMathOperator\PYGZob{}\PYGZbs{}\PYGZbs{}Var\PYGZcb{}\PYGZob{}Var\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}DeclareMathOperator\PYGZob{}\PYGZbs{}\PYGZbs{}cov\PYGZcb{}\PYGZob{}Cov\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}DeclareMathOperator\PYGZob{}\PYGZbs{}\PYGZbs{}E\PYGZcb{}\PYGZob{}\PYGZbs{}\PYGZbs{}mathbb\PYGZob{}E\PYGZcb{}\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}DeclareMathOperator*\PYGZob{}\PYGZbs{}\PYGZbs{}argmax\PYGZcb{}\PYGZob{}arg\PYGZbs{}\PYGZbs{},max\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}DeclareMathOperator*\PYGZob{}\PYGZbs{}\PYGZbs{}argmin\PYGZcb{}\PYGZob{}arg\PYGZbs{}\PYGZbs{},min\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}newcommand\PYGZob{}\PYGZbs{}\PYGZbs{}Et\PYGZcb{}[2]\PYGZob{}\PYGZbs{}\PYGZbs{}E\PYGZus{}\PYGZob{}\PYGZsh{}2\PYGZcb{} \PYGZbs{}\PYGZbs{}left[\PYGZsh{}1\PYGZbs{}\PYGZbs{}right]\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}newcommand\PYGZob{}\PYGZbs{}\PYGZbs{}Covt\PYGZcb{}[3]\PYGZob{}\PYGZbs{}\PYGZbs{}cov\PYGZus{}\PYGZob{}\PYGZsh{}3\PYGZcb{}\PYGZbs{}\PYGZbs{}left(\PYGZsh{}1, \PYGZsh{}2\PYGZbs{}\PYGZbs{}right)\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}newcommand\PYGZob{}\PYGZbs{}\PYGZbs{}Vart\PYGZcb{}[2]\PYGZob{}\PYGZbs{}\PYGZbs{}Var\PYGZus{}\PYGZob{}\PYGZsh{}2\PYGZcb{} \PYGZbs{}\PYGZbs{}left[\PYGZsh{}1\PYGZbs{}\PYGZbs{}right]\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}DeclarePairedDelimiter\PYGZbs{}\PYGZbs{}abs\PYGZob{}\PYGZbs{}\PYGZbs{}lvert\PYGZcb{}\PYGZob{}\PYGZbs{}\PYGZbs{}rvert\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}DeclarePairedDelimiter\PYGZbs{}\PYGZbs{}norm\PYGZob{}\PYGZbs{}\PYGZbs{}lVert\PYGZcb{}\PYGZob{}\PYGZbs{}\PYGZbs{}rVert\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}DeclarePairedDelimiterX\PYGZbs{}\PYGZbs{}innerp[2]\PYGZob{}\PYGZbs{}\PYGZbs{}langle\PYGZcb{}\PYGZob{}\PYGZbs{}\PYGZbs{}rangle\PYGZcb{}\PYGZob{}\PYGZsh{}1,\PYGZsh{}2\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}DeclarePairedDelimiterX\PYGZbs{}\PYGZbs{}braket[3]\PYGZob{}\PYGZbs{}\PYGZbs{}langle\PYGZcb{}\PYGZob{}\PYGZbs{}\PYGZbs{}rangle\PYGZcb{}\PYGZpc{}}
+\PYG{l+s}{\PYGZob{}\PYGZsh{}1\PYGZbs{}\PYGZbs{},\PYGZbs{}\PYGZbs{}delimsize\PYGZbs{}\PYGZbs{}vert\PYGZbs{}\PYGZbs{},\PYGZbs{}\PYGZbs{}mathopen\PYGZob{}\PYGZcb{}\PYGZsh{}2\PYGZbs{}\PYGZbs{},\PYGZbs{}\PYGZbs{}delimsize\PYGZbs{}\PYGZbs{}vert\PYGZbs{}\PYGZbs{},\PYGZbs{}\PYGZbs{}mathopen\PYGZob{}\PYGZcb{}\PYGZsh{}3\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}providecommand\PYGZbs{}\PYGZbs{}given\PYGZob{}\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}DeclarePairedDelimiterXPP\PYGZbs{}\PYGZbs{}Prob[1]\PYGZob{}\PYGZbs{}\PYGZbs{}mathbb\PYGZob{}P\PYGZcb{}\PYGZcb{} ()\PYGZob{}\PYGZcb{}\PYGZob{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}renewcommand\PYGZbs{}\PYGZbs{}given\PYGZob{}\PYGZbs{}\PYGZbs{}nonscript\PYGZbs{}\PYGZbs{}:\PYGZbs{}\PYGZbs{}delimsize\PYGZbs{}\PYGZbs{}vert\PYGZbs{}\PYGZbs{}nonscript\PYGZbs{}\PYGZbs{}:\PYGZbs{}\PYGZbs{}mathopen\PYGZob{}\PYGZcb{}\PYGZcb{}}
+\PYG{l+s}{\PYGZsh{}1\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}DeclarePairedDelimiterXPP\PYGZbs{}\PYGZbs{}condE[1]\PYGZob{}\PYGZbs{}\PYGZbs{}E\PYGZcb{} ()\PYGZob{}\PYGZcb{}\PYGZob{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}renewcommand\PYGZbs{}\PYGZbs{}given\PYGZob{}\PYGZbs{}\PYGZbs{}nonscript\PYGZbs{}\PYGZbs{}:\PYGZbs{}\PYGZbs{}delimsize\PYGZbs{}\PYGZbs{}vert\PYGZbs{}\PYGZbs{}nonscript\PYGZbs{}\PYGZbs{}:\PYGZbs{}\PYGZbs{}mathopen\PYGZob{}\PYGZcb{}\PYGZcb{}}
+\PYG{l+s}{\PYGZsh{}1\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}DeclarePairedDelimiterXPP\PYGZbs{}\PYGZbs{}condVar[2]\PYGZob{}\PYGZbs{}\PYGZbs{}Var\PYGZcb{} ()\PYGZob{}\PYGZcb{}\PYGZob{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}renewcommand\PYGZbs{}\PYGZbs{}given\PYGZob{}\PYGZbs{}\PYGZbs{}nonscript\PYGZbs{}\PYGZbs{}:\PYGZbs{}\PYGZbs{}delimsize\PYGZbs{}\PYGZbs{}vert\PYGZbs{}\PYGZbs{}nonscript\PYGZbs{}\PYGZbs{}:\PYGZbs{}\PYGZbs{}mathopen\PYGZob{}\PYGZcb{}\PYGZcb{}}
+\PYG{l+s}{\PYGZsh{}1,\PYGZsh{}2\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}DeclarePairedDelimiterXPP\PYGZbs{}\PYGZbs{}condCov[2]\PYGZob{}\PYGZbs{}\PYGZbs{}cov\PYGZcb{} ()\PYGZob{}\PYGZcb{}\PYGZob{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}renewcommand\PYGZbs{}\PYGZbs{}given\PYGZob{}\PYGZbs{}\PYGZbs{}nonscript\PYGZbs{}\PYGZbs{}:\PYGZbs{}\PYGZbs{}delimsize\PYGZbs{}\PYGZbs{}vert\PYGZbs{}\PYGZbs{}nonscript\PYGZbs{}\PYGZbs{}:\PYGZbs{}\PYGZbs{}mathopen\PYGZob{}\PYGZcb{}\PYGZcb{}}
+\PYG{l+s}{\PYGZsh{}1,\PYGZsh{}2\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}theoremstyle\PYGZob{}plain\PYGZcb{}\PYGZpc{} default}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}newtheorem\PYGZob{}thm\PYGZcb{}\PYGZob{}Theorem\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}newtheorem\PYGZob{}lem\PYGZcb{}[thm]\PYGZob{}Lemma\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}newtheorem\PYGZob{}prop\PYGZcb{}[thm]\PYGZob{}Proposition\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}newtheorem*\PYGZob{}cor\PYGZcb{}\PYGZob{}Corollary\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}theoremstyle\PYGZob{}definition\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}newtheorem\PYGZob{}defn\PYGZcb{}\PYGZob{}Definition\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}newtheorem\PYGZob{}exmp\PYGZcb{}\PYGZob{}Example\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}providecommand*\PYGZob{}\PYGZbs{}\PYGZbs{}defnautorefname\PYGZcb{}\PYGZob{}Definition\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}theoremstyle\PYGZob{}remark\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}newtheorem*\PYGZob{}rem\PYGZcb{}\PYGZob{}Remark\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}newtheorem*\PYGZob{}note\PYGZcb{}\PYGZob{}Note\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}newtheorem\PYGZob{}case\PYGZcb{}\PYGZob{}Case\PYGZcb{}}
+
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}renewcommand\PYGZob{}\PYGZbs{}\PYGZbs{}leq\PYGZcb{}\PYGZob{}\PYGZbs{}\PYGZbs{}leqslant\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}renewcommand\PYGZob{}\PYGZbs{}\PYGZbs{}geq\PYGZcb{}\PYGZob{}\PYGZbs{}\PYGZbs{}geqslant\PYGZcb{}}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}definecolor\PYGZob{}bgcolorminted\PYGZcb{}\PYGZob{}black\PYGZcb{}\PYGZob{}0.9\PYGZcb{}}
+\PYG{l+s}{[NO\PYGZhy{}DEFAULT\PYGZhy{}PACKAGES]}
+\PYG{l+s}{[PACKAGES]}
+\PYG{l+s}{[EXTRA]}
+\PYG{l+s}{\PYGZbs{}\PYGZbs{}usemintedstyle\PYGZob{}nord\PYGZhy{}darker\PYGZcb{}\PYGZdq{}}
+\PYG{+w}{               }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}section\PYGZob{}\PYGZpc{}s\PYGZcb{}\PYGZdq{}}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}section*\PYGZob{}\PYGZpc{}s\PYGZcb{}\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{               }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}subsection\PYGZob{}\PYGZpc{}s\PYGZcb{}\PYGZdq{}}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}subsection*\PYGZob{}\PYGZpc{}s\PYGZcb{}\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{               }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}subsubsection\PYGZob{}\PYGZpc{}s\PYGZcb{}\PYGZdq{}}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}subsubsection*\PYGZob{}\PYGZpc{}s\PYGZcb{}\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{               }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}paragraph\PYGZob{}\PYGZpc{}s\PYGZcb{}\PYGZdq{}}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}paragraph*\PYGZob{}\PYGZpc{}s\PYGZcb{}\PYGZdq{}}\PYG{p}{))))}
+\end{Verbatim}

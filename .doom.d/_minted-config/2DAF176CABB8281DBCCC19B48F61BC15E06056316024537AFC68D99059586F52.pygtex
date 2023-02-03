@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{fancy\PYGZhy{}splash\PYGZhy{}image}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{expand\PYGZhy{}file\PYGZhy{}name}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}themes/doom\PYGZhy{}emacs\PYGZhy{}bw\PYGZhy{}light.svg\PYGZdq{}}\PYG{+w}{ }\PYG{n+nv}{doom\PYGZhy{}user\PYGZhy{}dir}\PYG{p}{))}
+\end{Verbatim}

@@ -1,0 +1,42 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nv}{appendq!}\PYG{+w}{ }\PYG{n+nv}{+ligatures\PYGZhy{}extra\PYGZhy{}symbols}
+\PYG{+w}{          }\PYG{o}{`}\PYG{p}{(}\PYG{l+s+ss}{:checkbox}\PYG{+w}{      }\PYG{l+s}{\PYGZdq{}☐\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:pending}\PYG{+w}{       }\PYG{l+s}{\PYGZdq{}◼\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:checkedbox}\PYG{+w}{    }\PYG{l+s}{\PYGZdq{}☑\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:list\PYGZus{}property}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}∷\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:em\PYGZus{}dash}\PYG{+w}{       }\PYG{l+s}{\PYGZdq{}—\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:ellipses}\PYG{+w}{      }\PYG{l+s}{\PYGZdq{}…\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:arrow\PYGZus{}right}\PYG{+w}{   }\PYG{l+s}{\PYGZdq{}→\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:arrow\PYGZus{}left}\PYG{+w}{    }\PYG{l+s}{\PYGZdq{}←\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:title}\PYG{+w}{         }\PYG{l+s}{\PYGZdq{}𝙏\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:subtitle}\PYG{+w}{      }\PYG{l+s}{\PYGZdq{}𝙩\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:author}\PYG{+w}{        }\PYG{l+s}{\PYGZdq{}𝘼\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:date}\PYG{+w}{          }\PYG{l+s}{\PYGZdq{}𝘿\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:property}\PYG{+w}{      }\PYG{l+s}{\PYGZdq{}☸\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:options}\PYG{+w}{       }\PYG{l+s}{\PYGZdq{}⌥\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:startup}\PYG{+w}{       }\PYG{l+s}{\PYGZdq{}⏻\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:macro}\PYG{+w}{         }\PYG{l+s}{\PYGZdq{}𝓜\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:html\PYGZus{}head}\PYG{+w}{     }\PYG{l+s}{\PYGZdq{}🅷\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:html}\PYG{+w}{          }\PYG{l+s}{\PYGZdq{}🅗\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:latex\PYGZus{}class}\PYG{+w}{   }\PYG{l+s}{\PYGZdq{}🄻\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:latex\PYGZus{}header}\PYG{+w}{  }\PYG{l+s}{\PYGZdq{}🅻\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:beamer\PYGZus{}header}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}🅑\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:latex}\PYG{+w}{         }\PYG{l+s}{\PYGZdq{}🅛\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:attr\PYGZus{}latex}\PYG{+w}{    }\PYG{l+s}{\PYGZdq{}🄛\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:attr\PYGZus{}html}\PYG{+w}{     }\PYG{l+s}{\PYGZdq{}🄗\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:attr\PYGZus{}org}\PYG{+w}{      }\PYG{l+s}{\PYGZdq{}⒪\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:begin\PYGZus{}quote}\PYG{+w}{   }\PYG{l+s}{\PYGZdq{}❝\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:end\PYGZus{}quote}\PYG{+w}{     }\PYG{l+s}{\PYGZdq{}❞\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:caption}\PYG{+w}{       }\PYG{l+s}{\PYGZdq{}☰\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:header}\PYG{+w}{        }\PYG{l+s}{\PYGZdq{}›\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:results}\PYG{+w}{       }\PYG{l+s}{\PYGZdq{}🠶\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:begin\PYGZus{}export}\PYG{+w}{  }\PYG{l+s}{\PYGZdq{}⏩\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:end\PYGZus{}export}\PYG{+w}{    }\PYG{l+s}{\PYGZdq{}⏪\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:properties}\PYG{+w}{    }\PYG{l+s}{\PYGZdq{}⚙\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:end}\PYG{+w}{           }\PYG{l+s}{\PYGZdq{}∎\PYGZdq{}}
+\PYG{+w}{            }\PYG{l+s+ss}{:priority\PYGZus{}a}\PYG{+w}{   }\PYG{o}{,}\PYG{p}{(}\PYG{n+nv}{propertize}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}⚑\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}face}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}all\PYGZhy{}the\PYGZhy{}icons\PYGZhy{}red}\PYG{p}{)}
+\PYG{+w}{            }\PYG{l+s+ss}{:priority\PYGZus{}b}\PYG{+w}{   }\PYG{o}{,}\PYG{p}{(}\PYG{n+nv}{propertize}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}⬆\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}face}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}all\PYGZhy{}the\PYGZhy{}icons\PYGZhy{}orange}\PYG{p}{)}
+\PYG{+w}{            }\PYG{l+s+ss}{:priority\PYGZus{}c}\PYG{+w}{   }\PYG{o}{,}\PYG{p}{(}\PYG{n+nv}{propertize}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}■\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}face}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}all\PYGZhy{}the\PYGZhy{}icons\PYGZhy{}yellow}\PYG{p}{)}
+\PYG{+w}{            }\PYG{l+s+ss}{:priority\PYGZus{}d}\PYG{+w}{   }\PYG{o}{,}\PYG{p}{(}\PYG{n+nv}{propertize}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}⬇\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}face}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}all\PYGZhy{}the\PYGZhy{}icons\PYGZhy{}green}\PYG{p}{)}
+\PYG{+w}{            }\PYG{l+s+ss}{:priority\PYGZus{}e}\PYG{+w}{   }\PYG{o}{,}\PYG{p}{(}\PYG{n+nv}{propertize}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}❓\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}face}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}all\PYGZhy{}the\PYGZhy{}icons\PYGZhy{}blue}\PYG{p}{)))}
+\end{Verbatim}

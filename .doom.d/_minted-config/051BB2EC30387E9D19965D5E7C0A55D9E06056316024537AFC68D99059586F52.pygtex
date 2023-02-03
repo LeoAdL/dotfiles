@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nv}{defadvice!}\PYG{+w}{ }\PYG{n+nv}{doom\PYGZhy{}modeline\PYGZhy{}\PYGZhy{}buffer\PYGZhy{}file\PYGZhy{}name\PYGZhy{}roam\PYGZhy{}aware\PYGZhy{}a}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{orig\PYGZhy{}fun}\PYG{p}{)}
+\PYG{+w}{  }\PYG{l+s+ss}{:around}\PYG{+w}{ }\PYG{n+nf}{\PYGZsh{}\PYGZsq{}}\PYG{n+nv}{doom\PYGZhy{}modeline\PYGZhy{}buffer\PYGZhy{}file\PYGZhy{}name}\PYG{+w}{ }\PYG{c+c1}{; takes no args}
+\PYG{+w}{  }\PYG{p}{(}\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{s\PYGZhy{}contains\PYGZhy{}p}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}roam\PYGZhy{}directory}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{or}\PYG{+w}{ }\PYG{n+nv}{buffer\PYGZhy{}file\PYGZhy{}name}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZdq{}}\PYG{p}{))}
+\PYG{+w}{      }\PYG{p}{(}\PYG{n+nv}{replace\PYGZhy{}regexp\PYGZhy{}in\PYGZhy{}string}
+\PYG{+w}{       }\PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}(?:\PYGZca{}\PYGZbs{}\PYGZbs{}|.*/\PYGZbs{}\PYGZbs{})\PYGZbs{}\PYGZbs{}([0\PYGZhy{}9]\PYGZbs{}\PYGZbs{}\PYGZob{}4\PYGZbs{}\PYGZbs{}\PYGZcb{}\PYGZbs{}\PYGZbs{})\PYGZbs{}\PYGZbs{}([0\PYGZhy{}9]\PYGZbs{}\PYGZbs{}\PYGZob{}2\PYGZbs{}\PYGZbs{}\PYGZcb{}\PYGZbs{}\PYGZbs{})\PYGZbs{}\PYGZbs{}([0\PYGZhy{}9]\PYGZbs{}\PYGZbs{}\PYGZob{}2\PYGZbs{}\PYGZbs{}\PYGZcb{}\PYGZbs{}\PYGZbs{})[0\PYGZhy{}9]*\PYGZhy{}\PYGZdq{}}
+\PYG{+w}{       }\PYG{l+s}{\PYGZdq{}🢔(\PYGZbs{}\PYGZbs{}1\PYGZhy{}\PYGZbs{}\PYGZbs{}2\PYGZhy{}\PYGZbs{}\PYGZbs{}3) \PYGZdq{}}
+\PYG{+w}{       }\PYG{p}{(}\PYG{n+nv}{subst\PYGZhy{}char\PYGZhy{}in\PYGZhy{}string}\PYG{+w}{ }\PYG{n+nv}{?\PYGZus{}}\PYG{+w}{ }\PYG{n+nv}{?}\PYG{+w}{  }\PYG{n+nv}{buffer\PYGZhy{}file\PYGZhy{}name}\PYG{p}{))}
+\PYG{+w}{    }\PYG{p}{(}\PYG{n+nb}{funcall}\PYG{+w}{ }\PYG{n+nv}{orig\PYGZhy{}fun}\PYG{p}{)))}
+\end{Verbatim}
