@@ -1,5 +1,6 @@
 #+title: Config
 #+author: Leo Aparisi de Lannoy
+#+latex_class: article
 * Basic
 ** ID
 #+begin_src emacs-lisp
@@ -28,7 +29,6 @@
 #+end_src
 *** Browser
 #+begin_src emacs-lisp
-
 (setq browse-url-chrome-program "brave")
 #+end_src
 *** Which-key
@@ -54,7 +54,10 @@
 *** Theme
 **** Catppuccin theme
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-nord-aurora)
+(load-theme 'catppuccin t t)
+(setq doom-theme 'catppuccin)
+(setq catppuccin-flavor 'frappe) ;; or 'latte, 'macchiato, or 'mocha
+(catppuccin-reload)
 #+end_src
 **** Treemacs styling
 #+begin_src emacs-lisp
@@ -70,9 +73,9 @@ Transparency and fontification
 #+end_src
 #+begin_src emacs-lisp
 ;; set transparency
-(set-frame-parameter (selected-frame) 'alpha '(95 95))
-(add-to-list 'default-frame-alist '(alpha 95 95))
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+(set-frame-parameter (selected-frame) 'alpha '(97 97))
+(add-to-list 'default-frame-alist '(alpha 97 97))
+(add-to-list 'default-frame-alist '(fullscreen . fullboth))
 #+end_src
 *** Starting image
 #+begin_src emacs-lisp
@@ -83,7 +86,7 @@ Transparency and fontification
 (package! theme-magic)
 #+end_src
 #+begin_src emacs-lisp
-(use-package! theme-magic
+(after! theme-magic
   :commands theme-magic-from-emacs
   :config
   (defadvice! theme-magic--auto-extract-16-doom-colors ()
@@ -112,9 +115,9 @@ Transparency and fontification
 (package! info-colors)
 #+end_src
 #+begin_src emacs-lisp
-(use-package! info-colors
+(after! info-colors
   :commands (info-colors-fontify-node))
-(add-hook 'Info-selection-hook 'info-colors-fontify-node)
+(add-hook! 'Info-selection-hook 'info-colors-fontify-node)
 #+end_src
 ** File Templates
 #+begin_src emacs-lisp
@@ -130,7 +133,8 @@ Transparency and fontification
 * Org-Mode
 ** Defaults
 #+begin_src emacs-lisp
-(setq org-directory "~/org/"      org-use-property-inheritance t              ; it's convenient to have properties inherited
+(setq org-directory "~/org/"
+      org-use-property-inheritance t              ; it's convenient to have properties inherited
       org-log-done 'time                          ; having the time a item is done sounds convenient
       org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
       org-export-in-background t                  ; run export processes in external emacs process
@@ -141,23 +145,20 @@ Transparency and fontification
 *** General
 #+begin_src emacs-lisp
 (setq org-ascii-charset 'utf-8)
-(after! org
   (setq org-src-fontify-natively t
         org-fontify-whole-heading-line t
         org-pretty-entities \nil
         org-ellipsis "  " ;; folding symbol
-        org-agenda-block-separator ""
         org-fontify-done-headline t
-        prot/scroll-center-cursor-mode t
         org-fontify-quote-and-verse-blocks t
         org-startup-with-inline-images t
-        org-startup-indented t))
+        org-startup-indented t)
 
 (lambda () (progn
              (setq left-margin-width 2)
              (setq right-margin-width 2)
              (set-window-buffer nil (current-buffer))))
-(add-hook 'org-mode-hook #'+org-pretty-mode)
+(add-hook! 'org-mode-hook #'+org-pretty-mode)
 (custom-set-faces!
   '(outline-1 :weight extra-bold :height 1.25)
   '(outline-2 :weight bold :height 1.15)
@@ -169,7 +170,6 @@ Transparency and fontification
   '(outline-9 :weight semi-bold))
 (custom-set-faces!
   '(org-document-title :height 1.2))
-
 #+end_src
 *** Bullets
 #+begin_src emacs-lisp
@@ -290,6 +290,7 @@ Transparency and fontification
 #+begin_src emacs-lisp
 
 (use-package! org-pretty-table
+  :after org
   :commands (org-pretty-table-mode global-org-pretty-table-mode))
 #+end_src
 *** Latex improvement
@@ -318,11 +319,12 @@ Transparency and fontification
 #+end_src
 *** Visual
 #+begin_src emacs-lisp
-(setq org-agenda-deadline-faces
+(after! org-agenda
+  (setq org-agenda-deadline-faces
       '((1.001 . error)
         (1.0 . org-warning)
         (0.5 . org-upcoming-deadline)
-        (0.0 . org-upcoming-distant-deadline)))
+        (0.0 . org-upcoming-distant-deadline))))
 #+end_src
 ** Super-Agenda
 #+begin_src emacs-lisp :tangle packages.el
@@ -331,7 +333,7 @@ Transparency and fontification
 *** Config
 #+begin_src emacs-lisp
 
-(use-package! org-super-agenda
+(after! org-super-agenda
   :commands org-super-agenda-mode)
 
 (after! org-agenda
@@ -415,9 +417,7 @@ Transparency and fontification
   :config
   (setq                   org-enable-roam-support t
                           org-roam-directory (concat org-directory "/Roam")
-                          org-roam-db-location (concat org-roam-directory "/db/org-roam.db")
-                          org-roam-v2-ack t)
-  (org-roam-db-autosync-enable))
+                          org-roam-v2-ack t))
 
 #+end_src
 #+begin_src emacs-lisp
@@ -433,8 +433,6 @@ Transparency and fontification
 *** Daily
 #+begin_src emacs-lisp
 
-(after! org-roam
-  (setq +org-roam-open-buffer-on-find-file nil))
 (setq org-roam-dailies-directory "daily/")
 
 (setq org-roam-dailies-capture-templates
@@ -476,6 +474,17 @@ Transparency and fontification
     (interactive)
     (unless org-roam-ui-mode (org-roam-ui-mode 1))
     (browse-url--browser (format "http://localhost:%d" org-roam-ui-port))))
+#+end_src
+** Ob-async
+*** Julia support
+#+begin_src emacs-lisp
+(add-hook 'ob-async-pre-execute-src-block-hook
+        #'(lambda ()
+           (setq inferior-julia-program-name "/usr/local/bin/julia")))
+#+end_src
+*** Jupyter Integration
+#+begin_src emacs-lisp
+(setq ob-async-no-async-languages-alist '("jupyter-python" "jupyter-julia"))
 #+end_src
 ** Org-Diff
 #+begin_src emacs-lisp :tangle packages.el
@@ -555,7 +564,8 @@ Transparency and fontification
 #+end_src
 #+begin_src emacs-lisp
 
-(after! org (require 'org-zotxt))
+(use-package! zotxt
+  :after org)
 #+end_src
 ** Org-Chef
 #+begin_src emacs-lisp :tangle packages.el
@@ -590,14 +600,8 @@ Transparency and fontification
 (use-package! citeproc
   :defer t)
 
- (use-package! pdf-tool
- :hook (pdf-tools-enabled . pdf-view-themed-minor-mode ))
 ;;; Org-Cite configuration
 
-(map! :after org
-      :map org-mode-map
-      :localleader
-      :desc "Insert citation" "@" #'org-cite-insert)
 (use-package! oc
   :after org citar
   :config
@@ -630,7 +634,7 @@ Transparency and fontification
   (defun +org-cite-csl-activate/enable ()
     (interactive)
     (setq org-cite-activate-processor 'csl-activate)
-    (add-hook! 'org-mode-hook '((lambda () (cursor-sensor-mode 1)) org-cite-csl-activate-render-all))
+    (add-hook 'org-mode-hook '((lambda () (cursor-sensor-mode 1)) org-cite-csl-activate-render-all))
     (defadvice! +org-cite-csl-activate-render-all-silent (orig-fn)
       :around #'org-cite-csl-activate-render-all
       (with-silent-modifications (funcall orig-fn)))
@@ -765,104 +769,15 @@ Transparency and fontification
 
 \\renewcommand{\\leq}{\\leqslant}
 \\renewcommand{\\geq}{\\geqslant}
-      [NO-DEFAULT-PACKAGES]
-      [PACKAGES]
-      [EXTRA]"
+\\definecolor{bgcolorminted}{gray}{0.9}
+[NO-DEFAULT-PACKAGES]
+[PACKAGES]
+[EXTRA]
+\\usemintedstyle{vs}"
                ("\\section{%s}" . "\\section*{%s}")
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-               ("\\paragraph{%s}" . "\\paragraph*{%s}"))
-'("beamer"
-               "\\documentclass[c]{beamer}
-\\usepackage[american]{babel}
-\\usetheme[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]{metropolis}
-\\usepackage{booktabs}
-\\usepackage{float}
-\\usepackage{mathtools}
-\\usepackage{amsthm}
-\\usepackage{amssymb}
-\\usepackage[varbb]{newpxmath}
-\\usepackage[]{xfrac}
-\\usepackage{siunitx}
-\\usepackage{graphicx}
-\\usepackage{caption}
-\\captionsetup{labelfont=bf,font={small,singlespacing}}
-\\usepackage{subcaption}
-\\usepackage{cancel}
-\\usepackage{setspace}
-\\usepackage{xcolor}
-\\usepackage{diffcoeff}
-\\usepackage{nicematrix}
-\\usepackage{acronym}
-\\usepackage{appendixnumberbeamer}
-\\usepackage{dirtytalk}
-\\usepackage[authoryear]{natbib}
-\\usepackage{xurl}
-\\bibliographystyle{ecta}
-\\DeclareMathOperator{\\Var}{Var}
-\\DeclareMathOperator{\\cov}{Cov}
-\\DeclareMathOperator{\\E}{\\mathbb{E}}
-\\DeclareMathOperator*{\\argmax}{arg\\,max}
-\\DeclareMathOperator*{\\argmin}{arg\\,min}
-\\newcommand{\\Et}[2]{\\E_{#2} \\left[#1\\right]}
-\\newcommand{\\Covt}[3]{\\cov_{#3}\\left(#1, #2\\right)}
-\\newcommand{\\Vart}[2]{\\Var_{#2} \\left[#1\\right]}
-\\DeclarePairedDelimiter\\abs{\\lvert}{\\rvert}
-\\DeclarePairedDelimiter\\norm{\\lVert}{\\rVert}
-\\DeclarePairedDelimiterX\\innerp[2]{\\langle}{\\rangle}{#1,#2}
-\\DeclarePairedDelimiterX\\braket[3]{\\langle}{\\rangle}%
-{#1\\,\\delimsize\\vert\\,\\mathopen{}#2\\,\\delimsize\\vert\\,\\mathopen{}#3}
-\\providecommand\\given{}
-\\DeclarePairedDelimiterXPP\\Prob[1]{\\mathbb{P}} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1}
-\\DeclarePairedDelimiterXPP\\condE[1]{\\E} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1}
-\\DeclarePairedDelimiterXPP\\condVar[2]{\\Var} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1,#2}
-\\DeclarePairedDelimiterXPP\\condCov[2]{\\cov} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1,#2}
-\\theoremstyle{plain}% default
-\\newtheorem{thm}{Theorem}
-\\newtheorem{lem}[thm]{Lemma}
-\\newtheorem{prop}[thm]{Proposition}
-\\newtheorem*{cor}{Corollary}
-\\theoremstyle{definition}
-\\newtheorem{defn}{Definition}
-\\newtheorem{exmp}{Example}
-\\providecommand*{\\defnautorefname}{Definition}
-\\theoremstyle{remark}
-\\newtheorem*{rem}{Remark}
-\\newtheorem{case}{Case}
-
-
-\\definecolor{dblue}{HTML}{4c4f69}
-\\definecolor{umber}{HTML}{dc8a78}
-\\definecolor{alertcolor}{HTML}{dd7878}
-\\definecolor{examplecolor}{HTML}{209fb5}
-
-\\definecolor{pale}{HTML}{eff1f5}
-\\definecolor{bluish}{HTML}{8c8fa1}
-\\definecolor{cream}{HTML}{e6e9ef}
-\\setbeamercolor{progress bar}{fg=bluish,bg=cream}
-\\setbeamercolor{frametitle}{fg=umber,bg=pale}
-\\setbeamercolor{normal text}{fg=dblue,bg=pale}
-\\setbeamercolor{alerted text}{fg=alertcolor,bg=pale}
-\\setbeamercolor{example text}{fg=examplecolor}
-\\setbeamercovered{dynamic}
-
-\\usecolortheme{rose}
-      [NO-DEFAULT-PACKAGES]
-      [PACKAGES]
-      [EXTRA]"
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-               ("\\paragraph{%s}" . "\\paragraph*{%s}")
-               ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+               ("\\paragraph{%s}" . "\\paragraph*{%s}"))))
 #+end_src
 *** Beamer
 #+begin_src emacs-lisp
@@ -956,9 +871,11 @@ Define Beamer class:
 \\setbeamercovered{dynamic}
 
 \\usecolortheme{rose}
-      [NO-DEFAULT-PACKAGES]
-      [PACKAGES]
-      [EXTRA]"
+\\definecolor{bgcolorminted}{gray}{0.9}
+[NO-DEFAULT-PACKAGES]
+[PACKAGES]
+[EXTRA]
+\\usemintedstyle{vs}"
                ("\\section{%s}" . "\\section*{%s}")
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -977,7 +894,7 @@ Define Beamer class:
 #+end_src
 #+begin_src emacs-lisp
 ;; Update PDF buffers after successful LaTeX runs
-(add-hook 'TeX-after-compilation-finished-functions
+(add-hook! 'TeX-after-compilation-finished-functions
           #'TeX-revert-document-buffer)
 #+end_src
 **** Code blocks
@@ -986,6 +903,7 @@ Define Beamer class:
       org-latex-packages-alist '(("" "minted")))
 (setq org-latex-minted-options '(("breaklines" "true")
                                  ("breakanywhere" "true")
+                                 ("bgcolor" "bgcolorminted")
                                  ("linenos" "true")))
 #+end_src
 ** Capture
@@ -995,11 +913,8 @@ Define Beamer class:
 #+end_src
 Prettify the captures:
 #+begin_src emacs-lisp
-(use-package! doct
-  :commands doct)
-#+end_src
-#+begin_src emacs-lisp
 (after! org-capture
+
   (defun +doct-icon-declaration-to-icon (declaration)
     "Convert :icon declaration to icon"
     (let ((name (pop declaration))
@@ -1147,7 +1062,7 @@ Prettify the captures:
 
   (set-org-capture-templates)
   (unless (display-graphic-p)
-    (add-hook 'server-after-make-frame-hook
+    (add-hook! 'server-after-make-frame-hook
               (defun org-capture-reinitialise-hook ()
                 (when (display-graphic-p)
                   (set-org-capture-templates)
@@ -1250,10 +1165,9 @@ is selected, only the bare key is returned."
 Improve the history size:
 #+begin_src emacs-lisp
 (after! company
-  (setq company-idle-delay 0.5
-        company-minimum-prefix-length 2)
-  (setq company-show-numbers t)
-  (add-hook 'evil-normal-state-entry-hook #'company-abort)) ;; make aborting less annoying.
+  (setq company-idle-delay 0.2
+        company-minimum-prefix-length 3)
+  (setq company-show-numbers t)) ;; make aborting less annoying.
 (setq-default history-length 1000)
 (setq-default prescient-history-length 1000)
 #+end_src
@@ -1270,21 +1184,11 @@ Improve the history size:
 * LSP
 ** Digestif
 #+begin_src emacs-lisp
-(after! lsp-mode
-  (setq lsp-tex-server 'digestif)
-)
 #+end_src
 ** LTex
 #+begin_src emacs-lisp :tangle packages.el
-(package! lsp-ltex :recipe (:host github :repo "emacs-languagetool/lsp-ltex"))
 #+end_src
 #+begin_src emacs-lisp
-(use-package lsp-ltex
-  :hook (text-mode . (lambda ()
-                       (require 'lsp-ltex)
-                       (lsp)))  ; or lsp-deferred
-  :init
-  (setq lsp-ltex-version "15.2.0"))  ; make sure you have set this, see below
 #+end_src
 * VLFI
 #+begin_src emacs-lisp :tangle packages.el
@@ -1318,15 +1222,76 @@ Improve the history size:
 
 * Centaur
 #+begin_src emacs-lisp
-(after! centaur-tabs
-  (centaur-tabs-mode -1)
-  (setq centaur-tabs-height 36
-        centaur-tabs-set-icons t
-        centaur-tabs-modified-marker "o"
-        centaur-tabs-close-button "×"
-        centaur-tabs-set-bar 'above
-        centaur-tabs-gray-out-icons 'buffer)
-  (centaur-tabs-change-fonts "P22 Underground Book" 160))
+;; (after! centaur-tabs
+;;   (centaur-tabs-mode -1)
+;;   (setq centaur-tabs-height 36
+;;         centaur-tabs-set-icons t
+;;         centaur-tabs-modified-marker "o"
+;;         centaur-tabs-close-button "×"
+;;         centaur-tabs-set-bar 'above
+;;         centaur-tabs-gray-out-icons 'buffer)
+;;   (centaur-tabs-change-fonts "P22 Underground Book" 160))
 ;; (setq x-underline-at-descent-line t)
 #+end_src
 
+* Email
+** mu4e
+#+begin_src emacs-lisp
+;; add to $DOOMDIR/config.el
+(after! mu4e
+  (setq sendmail-program (executable-find "msmtp")
+        send-mail-function #'smtpmail-send-it
+        message-sendmail-f-is-evil t
+        message-sendmail-extra-arguments '("--read-envelope-from")
+        message-send-mail-function #'message-send-mail-with-sendmail)
+  ;; this command is called to sync imap servers:
+  (setq mu4e-get-mail-command (concat (executable-find "mbsync") " -a"))
+  ;; how often to call it in seconds:
+  (setq   mu4e-sent-messages-behavior 'sent ;; Save sent messages
+          mu4e-context-policy 'pick-first   ;; Start with the first context
+          mu4e-compose-context-policy 'ask) ;; Always ask which context to use when composing a new mail
+  (setq mu4e-update-interval 60)
+  (setq mu4e-attachment-dir "~/Downloads")
+  (set-email-account! "gmail"
+                      '((mu4e-sent-folder       . "/gmail/Sent Mail")
+                        (mu4e-drafts-folder     . "/gmail/Drafts")
+                        (mu4e-trash-folder      . "/gmail/Trash")
+                        (mu4e-refile-folder     . "/gmail/All Mail")
+                        (smtpmail-smtp-user     . "leoaparisi@gmail.com")
+                        (user-mail-address      . "leoaparisi@gmail.com")    ;; only needed for mu < 1.4
+                        (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
+                      t)
+  (set-email-account! "U Chicago"
+                      '((mu4e-sent-folder       . "/UChicago/Sent Mail")
+                        (mu4e-drafts-folder     . "/UChicago/Drafts")
+                        (mu4e-trash-folder      . "/UChicago/Trash")
+                        (mu4e-refile-folder     . "/UChicago/All Mail")
+                        (smtpmail-smtp-user     . "laparisidelannoy@uchicago.edu")
+                        (user-mail-address      . "laparisidelannoy@uchicago.edu")    ;; only needed for mu < 1.4
+                        (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
+                      t)
+  (setq mu4e-headers-fields
+        '((:flags . 6)
+          (:account-stripe . 2)
+          (:from-or-to . 25)
+          (:recipnum . 2)
+          (:subject . 80)
+          (:human-date . 8))
+        +mu4e-min-header-frame-width 142
+        mu4e-headers-date-format "%d/%m/%y"
+        mu4e-headers-time-format "⧖ %H:%M"
+        mu4e-headers-results-limit 1000
+        mu4e-index-cleanup t)
+  (setq mu4e-compose-format-flowed t)
+    ;; Add a unified inbox shortcut
+  (add-to-list
+   'mu4e-bookmarks
+   '(:name "Unified inbox" :query "maildir:/.*inbox/" :key ?i) t)
+
+  )
+#+end_src
+** Notification
+#+begin_src emacs-lisp
+(mu4e-alert-set-default-style 'notifier)
+(add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
+#+end_src
