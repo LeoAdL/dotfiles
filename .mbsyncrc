@@ -40,6 +40,7 @@ Port 1143 # or however you decide to run da.maildir
 User laparisidelannoy@uchicago.edu
 PassCmd "security find-generic-password -s mu4e-UChicago -a laparisidelannoy@uchicago.edu -w"
 TLSType NONE
+TLSVersions +1.2
 AuthMechs LOGIN
 SystemCertificates no
 CertificateFile ~/.maildir/certificates/root-certificates.pem
