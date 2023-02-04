@@ -1040,7 +1040,7 @@ is selected, only the bare key is returned."
   (setq   mu4e-sent-messages-behavior 'sent ;; Save sent messages
           mu4e-context-policy 'pick-first   ;; Start with the first context
           mu4e-compose-context-policy 'ask) ;; Always ask which context to use when composing a new mail
-  (setq mu4e-update-interval 60)
+  (setq mu4e-update-interval 180)
   (setq mu4e-attachment-dir "~/Downloads")
   (set-email-account! "gmail"
                       '((mu4e-sent-folder       . "/gmail/Sent Mail")
