@@ -1250,7 +1250,7 @@ Improve the history size:
   (setq   mu4e-sent-messages-behavior 'sent ;; Save sent messages
           mu4e-context-policy 'pick-first   ;; Start with the first context
           mu4e-compose-context-policy 'ask) ;; Always ask which context to use when composing a new mail
-  (setq mu4e-update-interval 180)
+  (setq mu4e-update-interval 60)
   (setq mu4e-attachment-dir "~/Downloads")
   (set-email-account! "gmail"
                       '((mu4e-sent-folder       . "/gmail/Sent Mail")
@@ -1282,10 +1282,16 @@ Improve the history size:
         mu4e-headers-time-format "⧖ %H:%M"
         mu4e-headers-results-limit 1000
         mu4e-index-cleanup t)
+  (setq mu4e-compose-format-flowed t)
     ;; Add a unified inbox shortcut
   (add-to-list
    'mu4e-bookmarks
    '(:name "Unified inbox" :query "maildir:/.*inbox/" :key ?i) t)
 
   )
+#+end_src
+** Notification
+#+begin_src emacs-lisp
+(mu4e-alert-set-default-style 'notifier)
+(add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
 #+end_src
