@@ -780,6 +780,9 @@ Transparency and fontification
 #+end_src
 *** Beamer
 #+begin_src emacs-lisp
+(setq org-beamer-frame-level 2)
+#+end_src
+#+begin_src emacs-lisp
 (setq org-beamer-theme "[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]metropolis")
 #+end_src
 Define Beamer class:

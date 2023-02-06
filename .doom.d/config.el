@@ -615,6 +615,8 @@
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                ("\\paragraph{%s}" . "\\paragraph*{%s}"))))
 
+(setq org-beamer-frame-level 2)
+
 (setq org-beamer-theme "[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]metropolis")
 
 (with-eval-after-load 'ox-latex
