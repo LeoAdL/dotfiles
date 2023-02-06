@@ -49,7 +49,9 @@ export BAT_THEME="Nord"
 BLK="0B" CHR="0B" DIR="04" EXE="06" REG="00" HARDLINK="06" SYMLINK="06" MISSING="00" ORPHAN="09" FIFO="06" SOCK="0B" OTHER="06"
 export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
 export NNN_FIFO=/tmp/nnn.fifo
-export NNN_PLUG='f:fzcd;h:fzhist;o:fzopen;v:preview-tui'
+export NNN_PLUG='f:fzcd;h:fzhist;o:fzopen;v:preview-tui;u:getplugs'
+export NNN_TMPFILE='/tmp/.lastd'
+alias nnn="nnn -H -P v -T V"
 if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
   export PATH=/opt/homebrew/opt/ruby/bin:$PATH
   export PATH=`gem environment gemdir`/bin:$PATH
