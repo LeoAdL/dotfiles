@@ -49,9 +49,9 @@
 (doom-themes-org-config)
 
 ;; set transparency
-(set-frame-parameter (selected-frame) 'alpha '(97 97))
-(add-to-list 'default-frame-alist '(alpha 97 97))
-(add-to-list 'default-frame-alist '(fullscreen . fullboth))
+(set-frame-parameter (selected-frame) 'alpha '(95 95))
+(add-to-list 'default-frame-alist '(alpha 95 95))
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (setq fancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
 
@@ -559,7 +559,6 @@
 \\usepackage{nicematrix}
 \\usepackage{enumitem}
 \\usepackage{acronym}
-\\usepackage[authoryear,longnamesfirst]{natbib}
 \\usepackage{xurl}
 \\definecolor{mint}{HTML}{d73a49}
 \\usepackage[colorlinks=true, allcolors= mint]{hyperref}
@@ -644,9 +643,7 @@
 \\usepackage{acronym}
 \\usepackage{appendixnumberbeamer}
 \\usepackage{dirtytalk}
-\\usepackage[authoryear]{natbib}
 \\usepackage{xurl}
-\\bibliographystyle{ecta}
 \\DeclareMathOperator{\\Var}{Var}
 \\DeclareMathOperator{\\cov}{Cov}
 \\DeclareMathOperator{\\E}{\\mathbb{E}}
@@ -714,7 +711,7 @@
                ("\\paragraph{%s}" . "\\paragraph*{%s}")
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
-(setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -lualatex -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
+(setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -lualatex -f  -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
 
 ;; Use pdf-tools to open PDF files
 (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
@@ -1060,6 +1057,7 @@ is selected, only the bare key is returned."
                         (user-mail-address      . "laparisidelannoy@uchicago.edu")    ;; only needed for mu < 1.4
                         (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
                       t)
+  (setq +mu4e-gmail-accounts '(("leoaparisi@gmail.com" . "/gmail")))
   (setq mu4e-headers-fields
         '((:flags . 6)
           (:account-stripe . 2)
@@ -1070,7 +1068,6 @@ is selected, only the bare key is returned."
         +mu4e-min-header-frame-width 142
         mu4e-headers-date-format "%d/%m/%y"
         mu4e-headers-time-format "⧖ %H:%M"
-        mu4e-headers-results-limit 1000
         mu4e-index-cleanup t)
   (setq mu4e-compose-format-flowed t)
     ;; Add a unified inbox shortcut

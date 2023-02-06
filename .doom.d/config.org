@@ -73,9 +73,9 @@ Transparency and fontification
 #+end_src
 #+begin_src emacs-lisp
 ;; set transparency
-(set-frame-parameter (selected-frame) 'alpha '(97 97))
-(add-to-list 'default-frame-alist '(alpha 97 97))
-(add-to-list 'default-frame-alist '(fullscreen . fullboth))
+(set-frame-parameter (selected-frame) 'alpha '(95 95))
+(add-to-list 'default-frame-alist '(alpha 95 95))
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 #+end_src
 *** Starting image
 #+begin_src emacs-lisp
@@ -722,7 +722,6 @@ Transparency and fontification
 \\usepackage{nicematrix}
 \\usepackage{enumitem}
 \\usepackage{acronym}
-\\usepackage[authoryear,longnamesfirst]{natbib}
 \\usepackage{xurl}
 \\definecolor{mint}{HTML}{d73a49}
 \\usepackage[colorlinks=true, allcolors= mint]{hyperref}
@@ -812,9 +811,7 @@ Define Beamer class:
 \\usepackage{acronym}
 \\usepackage{appendixnumberbeamer}
 \\usepackage{dirtytalk}
-\\usepackage[authoryear]{natbib}
 \\usepackage{xurl}
-\\bibliographystyle{ecta}
 \\DeclareMathOperator{\\Var}{Var}
 \\DeclareMathOperator{\\cov}{Cov}
 \\DeclareMathOperator{\\E}{\\mathbb{E}}
@@ -884,7 +881,7 @@ Define Beamer class:
 #+end_src
 *** Export
 #+begin_src emacs-lisp
-(setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -lualatex -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
+(setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -lualatex -f  -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
 #+end_src
 **** Preview
 #+begin_src emacs-lisp
@@ -1270,6 +1267,7 @@ Improve the history size:
                         (user-mail-address      . "laparisidelannoy@uchicago.edu")    ;; only needed for mu < 1.4
                         (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
                       t)
+  (setq +mu4e-gmail-accounts '(("leoaparisi@gmail.com" . "/gmail")))
   (setq mu4e-headers-fields
         '((:flags . 6)
           (:account-stripe . 2)
@@ -1280,7 +1278,6 @@ Improve the history size:
         +mu4e-min-header-frame-width 142
         mu4e-headers-date-format "%d/%m/%y"
         mu4e-headers-time-format "⧖ %H:%M"
-        mu4e-headers-results-limit 1000
         mu4e-index-cleanup t)
   (setq mu4e-compose-format-flowed t)
     ;; Add a unified inbox shortcut
@@ -1295,3 +1292,4 @@ Improve the history size:
 (mu4e-alert-set-default-style 'notifier)
 (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
 #+end_src
+

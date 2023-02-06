@@ -8,7 +8,7 @@ CopyArrivalDate yes          # Channels global: Propagate arrival time with the 
 IMAPAccount gmail
 Host imap.gmail.com
 User leoaparisi@gmail.com
-PassCmd "security find-generic-password -s mu4e-gmail -a leoaparisi@gmail.com -w"
+PassCmd "pass leoaparisi@gmail.com"
 Port 993
 TLSType IMAPS
 TLSVersions +1.2
@@ -28,7 +28,7 @@ Channel gmail
 Far :gmail-remote:
 Near :gmail-local:
 Patterns *
-Create Near
+Create Both
 Expunge Both
 SyncState *
 # =====================================================================
@@ -38,7 +38,7 @@ IMAPAccount UChicago
 Host localhost
 Port 1143 # or however you decide to run da.maildir
 User laparisidelannoy@uchicago.edu
-PassCmd "security find-generic-password -s mu4e-UChicago -a laparisidelannoy@uchicago.edu -w"
+PassCmd "pass laparisidelannoy@uchicago.edu"
 TLSType NONE
 TLSVersions +1.2
 AuthMechs LOGIN
@@ -61,8 +61,9 @@ Near :UChicago-local:
 # Or include everything
 Patterns *
 # Automatically create missing.maildirboxes, both locally and on the server
-Create Near
+Create Both
 # Sync the movement of messages between folders and deletions, add after making sure the sync works
 Expunge Both
 # Save the synchronization state files in the relevant directory
 SyncState *
+

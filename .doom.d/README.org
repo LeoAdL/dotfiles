@@ -1209,7 +1209,7 @@ Improve the history size:
 #+end_src
 * Option key Fix
 #+begin_src emacs-lisp
-(defun iensu/switch-left-and-right-option-keys ()
+(defun switch-left-and-right-option-keys ()
   "Switch left and right option keys.
      On some external keyboards the left and right option keys are swapped,
      this command switches the keys so that they work as expected."
