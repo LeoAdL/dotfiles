@@ -1,1 +1,1 @@
-.dotfiles/.doom.d/config.org
+dot_files/.doom.d/config.org
