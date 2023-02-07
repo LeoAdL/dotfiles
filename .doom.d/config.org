@@ -55,9 +55,9 @@
 **** Catppuccin theme
 #+begin_src emacs-lisp
 (load-theme 'catppuccin t t)
-(setq doom-theme 'catppuccin)
-(setq catppuccin-flavor 'frappe) ;; or 'latte, 'macchiato, or 'mocha
-(catppuccin-reload)
+(setq doom-theme 'doom-nord)
+;; (setq catppuccin-flavor 'frappe) ;; or 'latte, 'macchiato, or 'mocha
+;; (catppuccin-reload)
 #+end_src
 **** Treemacs styling
 #+begin_src emacs-lisp
