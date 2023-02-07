@@ -627,36 +627,31 @@ Transparency and fontification
 #+end_src
 #+begin_src emacs-lisp
 (use-package! oc-csl-activate
-  :after oc
   :config
+  (setq org-cite-activate-processor 'csl-activate)
   (setq org-cite-csl-activate-use-document-style t)
-  (setq org-cite-csl-activate-use-citar-cache t)
-  (defun +org-cite-csl-activate/enable ()
-    (interactive)
-    (setq org-cite-activate-processor 'csl-activate)
-    (add-hook 'org-mode-hook '((lambda () (cursor-sensor-mode 1)) org-cite-csl-activate-render-all))
-    (defadvice! +org-cite-csl-activate-render-all-silent (orig-fn)
-      :around #'org-cite-csl-activate-render-all
-      (with-silent-modifications (funcall orig-fn)))
-    (when (eq major-mode 'org-mode)
-      (with-silent-modifications
-        (save-excursion
-          (goto-char (point-min))
-          (org-cite-activate (point-max)))
-        (org-cite-csl-activate-render-all)))
-    (fmakunbound #'+org-cite-csl-activate/enable)))
+  (setq org-cite-csl-activate-use-document-locale t)
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (cursor-sensor-mode 1)
+              (org-cite-csl-activate-render-all))))
 #+end_src
 ** Latex templates
 *** Preview
 **** PNG
 #+begin_src emacs-lisp
-(setq org-format-latex-options
-      (plist-put org-format-latex-options :background "Transparent"))
-(setq org-format-latex-options
-      (plist-put org-format-latex-options :scale 3))
+(after! org
+  ;; ORG LATEX PREVIEW
+  (setq org-startup-with-latex-preview t)
+  (setq org-format-latex-options
+        (plist-put org-format-latex-options :background "Transparent"))
+  (setq org-format-latex-options
+        (plist-put org-format-latex-options :scale 2))
+  (setq org-preview-latex-default-process 'dvisvgm)
+  (setq org-preview-latex-image-directory "~/.cache/ltximg/")
+  )
 #+end_src
 #+begin_src emacs-lisp
-(setq org-preview-latex-default-process 'dvisvgm)
 #+end_src
 **** Header
 #+begin_src emacs-lisp
