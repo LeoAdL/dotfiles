@@ -1,1 +1,1 @@
-dot_files/blob/master/.doom.d/config.org
+config.org
