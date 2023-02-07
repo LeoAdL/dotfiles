@@ -1000,7 +1000,7 @@ is selected, only the bare key is returned."
 
 (add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode)
 
-(defun iensu/switch-left-and-right-option-keys ()
+(defun switch-left-and-right-option-keys ()
   "Switch left and right option keys.
      On some external keyboards the left and right option keys are swapped,
      this command switches the keys so that they work as expected."
@@ -1032,6 +1032,9 @@ is selected, only the bare key is returned."
   (setq mu4e-get-mail-command (concat (executable-find "mbsync") " -a"))
   ;; how often to call it in seconds:
   (setq   mu4e-sent-messages-behavior 'sent ;; Save sent messages
+          mu4e-headers-auto-update t                ; avoid to type `g' to update
+          mu4e-compose-signature-auto-include nil   ; I don't want a message signature
+          mu4e-use-fancy-chars t                   ; allow fancy icons for mail threads
           mu4e-context-policy 'pick-first   ;; Start with the first context
           mu4e-compose-context-policy 'ask) ;; Always ask which context to use when composing a new mail
   (setq mu4e-update-interval 60)
@@ -1066,8 +1069,9 @@ is selected, only the bare key is returned."
         mu4e-headers-date-format "%d/%m/%y"
         mu4e-headers-time-format "⧖ %H:%M"
         mu4e-index-cleanup t)
+  (setq mu4e-compose-dont-reply-to-self t)
   (setq mu4e-compose-format-flowed t)
-    ;; Add a unified inbox shortcut
+  ;; Add a unified inbox shortcut
   (add-to-list
    'mu4e-bookmarks
    '(:name "Unified inbox" :query "maildir:/.*inbox/" :key ?i) t)
