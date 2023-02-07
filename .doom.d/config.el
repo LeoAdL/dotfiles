@@ -36,7 +36,7 @@
       doom-big-font (font-spec :family "Iosevka" :size 24)
       doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light))
 
-(load-theme 'catppuccin t t)
+;; (load-theme 'catppuccin t t)
 (setq doom-theme 'doom-nord)
 ;; (setq catppuccin-flavor 'frappe) ;; or 'latte, 'macchiato, or 'mocha
 ;; (catppuccin-reload)
@@ -1004,6 +1004,8 @@ is selected, only the bare key is returned."
   (interactive)
   (unload-feature 'tablist-filter t)
   (load-file (find-library-name "tablist-filter")))
+
+(add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode)
 
 (defun iensu/switch-left-and-right-option-keys ()
   "Switch left and right option keys.
