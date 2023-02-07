@@ -485,16 +485,13 @@
 
 (after! org
   ;; ORG LATEX PREVIEW
-  (setq org-startup-with-latex-preview t)
   (setq org-format-latex-options
         (plist-put org-format-latex-options :background "Transparent"))
   (setq org-format-latex-options
-        (plist-put org-format-latex-options :scale 2))
+        (plist-put org-format-latex-options :scale 1))
   (setq org-preview-latex-default-process 'dvisvgm)
   (setq org-preview-latex-image-directory "~/.cache/ltximg/")
   )
-
-
 
 (setq org-format-latex-header "\\documentclass[12pt]
 {article}
