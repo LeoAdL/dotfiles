@@ -1,1 +1,1 @@
-/Users/leoap/.dotfiles/.doom.d/config.org
+.dotfiles/.doom.d/config.org
