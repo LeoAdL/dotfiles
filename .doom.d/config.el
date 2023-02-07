@@ -37,9 +37,9 @@
       doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light))
 
 (load-theme 'catppuccin t t)
-(setq doom-theme 'catppuccin)
-(setq catppuccin-flavor 'frappe) ;; or 'latte, 'macchiato, or 'mocha
-(catppuccin-reload)
+(setq doom-theme 'doom-nord)
+;; (setq catppuccin-flavor 'frappe) ;; or 'latte, 'macchiato, or 'mocha
+;; (catppuccin-reload)
 
 (setq doom-themes-treemacs-theme "doom-colors") ; use "doom-colors" for less minimal icon theme
 (with-eval-after-load 'doom-themes
