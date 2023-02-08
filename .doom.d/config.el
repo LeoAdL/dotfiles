@@ -266,18 +266,12 @@
     :priority_d    "[#D]"
     :priority_e    "[#E]"))
 
-(use-package! org-pretty-table
-  :after org
-  :commands (org-pretty-table-mode global-org-pretty-table-mode))
-
 (setq org-highlight-latex-and-related '(native script entities))
 
 (require 'org-src)
 (add-to-list 'org-src-block-faces '("latex" (:inherit default :extend t)))
 
-;; (use-package! org-fragtog
 ;;   :hook (org-mode . org-fragtog-mode))
-(add-hook 'org-mode-hook #'org-latex-preview-auto-mode)
 
 (after! org-agenda
   (setq org-agenda-deadline-faces
@@ -485,33 +479,17 @@
       (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " ")))
   ( citar-symbol-separator "  "))
 
-(use-package! citeproc
-  :defer t)
-
-;;; Org-Cite configuration
-
-(use-package! oc
-  :after org citar
-  :config
-  (require 'ox)
-  (setq org-cite-global-bibliography org-cite-global-bibliography)
-  ;; setup export processor; default csl/citeproc-el, with biblatex for latex
-  (setq org-cite-export-processors
-        '((t csl))))
-
-  ;;; Org-cite processors
-(use-package! oc-biblatex
-  :after oc)
-
 (use-package! oc-csl
   :after oc
   :config
   (setq org-cite-csl-styles-dir "~/Zotero/styles"))
 
-(use-package! oc-natbib
-  :after oc)
+
+(after! oc
+  (setq org-cite-export-processors '((t csl))))
 
 (use-package! oc-csl-activate
+  :after org
   :config
   (setq org-cite-activate-processor 'csl-activate)
   (setq org-cite-csl-activate-use-document-style t)

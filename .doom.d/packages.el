@@ -6,8 +6,6 @@
 
 (package! org-appear)
 
-(package! org-pretty-table :recipe (:host github :repo "Fuco1/org-pretty-table") :pin "7bd68b420d3402826fea16ee5099d04aa9879b78")
-
 ;; (package! org-fragtog)
 
 (package! org-super-agenda)
@@ -28,7 +26,6 @@
 
 (package! org-chef)
 
-(package! citeproc)
 (package! org-cite-csl-activate :recipe (:host github :repo "andras-simonyi/org-cite-csl-activate"))
 
 (package! doct)

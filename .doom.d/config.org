@@ -335,16 +335,6 @@ Transparency and fontification
     :priority_d    "[#D]"
     :priority_e    "[#E]"))
 #+end_src
-*** Pretty tables
-#+begin_src emacs-lisp :tangle packages.el
-(package! org-pretty-table :recipe (:host github :repo "Fuco1/org-pretty-table") :pin "7bd68b420d3402826fea16ee5099d04aa9879b78")
-#+end_src
-#+begin_src emacs-lisp
-
-(use-package! org-pretty-table
-  :after org
-  :commands (org-pretty-table-mode global-org-pretty-table-mode))
-#+end_src
 *** Latex improvement
 #+begin_src emacs-lisp
 (setq org-highlight-latex-and-related '(native script entities))
@@ -357,9 +347,7 @@ Transparency and fontification
 ;; (package! org-fragtog)
 #+end_src
 #+begin_src emacs-lisp
-;; (use-package! org-fragtog
 ;;   :hook (org-mode . org-fragtog-mode))
-(add-hook 'org-mode-hook #'org-latex-preview-auto-mode)
 #+end_src
 ** Agenda
 *** Visual
@@ -624,7 +612,6 @@ Transparency and fontification
 ** Bibtex-Integration
 *** Citar
 #+begin_src emacs-lisp :tangle packages.el
-(package! citeproc)
 (package! org-cite-csl-activate :recipe (:host github :repo "andras-simonyi/org-cite-csl-activate"))
 #+end_src
 #+begin_src emacs-lisp
@@ -642,36 +629,18 @@ Transparency and fontification
       (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " ")))
   ( citar-symbol-separator "  "))
 
-(use-package! citeproc
-  :defer t)
-
-;;; Org-Cite configuration
-
-(use-package! oc
-  :after org citar
-  :config
-  (require 'ox)
-  (setq org-cite-global-bibliography org-cite-global-bibliography)
-  ;; setup export processor; default csl/citeproc-el, with biblatex for latex
-  (setq org-cite-export-processors
-        '((t csl))))
-
-  ;;; Org-cite processors
-(use-package! oc-biblatex
-  :after oc)
-
 (use-package! oc-csl
   :after oc
   :config
   (setq org-cite-csl-styles-dir "~/Zotero/styles"))
 
-(use-package! oc-natbib
-  :after oc)
 
-
+(after! oc
+  (setq org-cite-export-processors '((t csl))))
 #+end_src
 #+begin_src emacs-lisp
 (use-package! oc-csl-activate
+  :after org
   :config
   (setq org-cite-activate-processor 'csl-activate)
   (setq org-cite-csl-activate-use-document-style t)
