@@ -162,6 +162,7 @@ Transparency and fontification
 #+end_src
 #+begin_src emacs-lisp
 (use-package! org-modern
+  :after org
   :hook (org-mode . org-modern-mode)
   :config
   (setq org-modern-star '("◉" "○" "✸" "✿" "✤" "✜" "◆" "▶")
@@ -289,6 +290,7 @@ Transparency and fontification
 #+begin_src emacs-lisp
 
 (use-package! org-appear
+  :after org
   :hook (org-mode . org-appear-mode)
   :config
   (setq org-appear-autoemphasis t
