@@ -273,6 +273,16 @@
 
 ;;   :hook (org-mode . org-fragtog-mode))
 
+(use-package! org-latex-impatient
+  :after org
+  :hook (org-mode . org-latex-impatient-mode)
+  :init
+  (setq org-latex-impatient-border-width 0
+        org-latex-impatient-scale 1.0)
+  (setq org-latex-impatient-tex2svg-bin
+        ;; location of tex2svg executable
+        "~/node_modules/mathjax-node-cli/bin/tex2svg"))
+
 (after! org-agenda
   (setq org-agenda-deadline-faces
       '((1.001 . error)

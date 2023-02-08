@@ -8,6 +8,8 @@
 
 ;; (package! org-fragtog)
 
+(package! org-latex-impatient)
+
 (package! org-super-agenda)
 
 (package! org-roam-ui)
