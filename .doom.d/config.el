@@ -110,6 +110,7 @@
         (:comments . "link")))
 
 (use-package! org-modern
+  :after org
   :hook (org-mode . org-modern-mode)
   :config
   (setq org-modern-star '("◉" "○" "✸" "✿" "✤" "✜" "◆" "▶")
@@ -221,6 +222,17 @@
 (custom-set-faces!
   '(org-document-title :height 1.2))
 
+(use-package! org-appear
+  :after org
+  :hook (org-mode . org-appear-mode)
+  :config
+  (setq org-appear-autoemphasis t
+        org-appear-autosubmarkers t
+        org-appear-autolinks t)
+  ;; for proper first-time setup, `org-appear--set-elements'
+  ;; needs to be run after other hooks have acted.
+  (run-at-time nil nil #'org-appear--set-elements))
+
 (appendq! +ligatures-extra-symbols
           (list :list_property "∷"
                 :em_dash       "—"
@@ -253,21 +265,6 @@
     :priority_c    "[#C]"
     :priority_d    "[#D]"
     :priority_e    "[#E]"))
-
-(setq
- org-superstar-headline-bullets-list '("⁖" "◉" "○" "✸" "✿")
- )
-(setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a.")))
-
-(use-package! org-appear
-  :hook (org-mode . org-appear-mode)
-  :config
-  (setq org-appear-autoemphasis t
-        org-appear-autosubmarkers t
-        org-appear-autolinks t)
-  ;; for proper first-time setup, `org-appear--set-elements'
-  ;; needs to be run after other hooks have acted.
-  (run-at-time nil nil #'org-appear--set-elements))
 
 (use-package! org-pretty-table
   :after org
