@@ -2,7 +2,7 @@
 
 (package! info-colors)
 
-(package! org-modern :pin "7d037569bc4a05f40262ea110c4cda05c69b5c52")
+(package! org-modern)
 
 (package! org-appear)
 
