@@ -2,11 +2,13 @@
 
 (package! info-colors)
 
+(package! org-modern :pin "7d037569bc4a05f40262ea110c4cda05c69b5c52")
+
 (package! org-appear)
 
 (package! org-pretty-table :recipe (:host github :repo "Fuco1/org-pretty-table") :pin "7bd68b420d3402826fea16ee5099d04aa9879b78")
 
-(package! org-fragtog)
+;; (package! org-fragtog)
 
 (package! org-super-agenda)
 

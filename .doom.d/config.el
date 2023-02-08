@@ -89,29 +89,77 @@
 (setq-default tab-width 4)
 (setq byte-compile-warnings '(cl-functions))
 
-(setq org-directory "~/org/"
-      org-use-property-inheritance t              ; it's convenient to have properties inherited
-      org-log-done 'time                          ; having the time a item is done sounds convenient
-      org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
-      org-export-in-background t                  ; run export processes in external emacs process
-      org-fold-catch-invisible-edits 'smart            ; try not to accidently do weird stuff in invisible regions
-      org-export-with-sub-superscripts '{})       ; don't treat lone _ / ^ as sub/superscripts, require _{} / ^{}
+(setq org-directory "~/org/ "
+      org-agenda-files (list org-directory)                  ; Seems like the obvious place.
+      org-use-property-inheritance t                         ; It's convenient to have properties inherited.
+      org-log-done 'time                                     ; Having the time a item is done sounds convenient.
+      org-list-allow-alphabetical t                          ; Have a. A. a) A) list bullets.
+      org-catch-invisible-edits 'smart                       ; Try not to accidently do weird stuff in invisible regions.
+      org-export-with-sub-superscripts '{}                   ; Don't treat lone _ / ^ as sub/superscripts, require _{} / ^{}.
+      org-export-allow-bind-keywords t                       ; Bind keywords can be handy
+      org-image-actual-width '(0.9))                         ; Make the in-buffer display closer to the exported result..#+end_src
 
-(setq org-ascii-charset 'utf-8)
-  (setq org-src-fontify-natively t
-        org-fontify-whole-heading-line t
-        org-pretty-entities \nil
-        org-ellipsis "  " ;; folding symbol
-        org-fontify-done-headline t
-        org-fontify-quote-and-verse-blocks t
-        org-startup-with-inline-images t
-        org-startup-indented t)
+(appendq! +ligatures-extra-symbols
+          (list :list_property "∷"
+                :em_dash       "—"
+                :ellipses      "…"
+                :arrow_right   "→"
+                :arrow_left    "←"
+                :arrow_lr      "↔"
+                :properties    "⚙"
+                :end           "∎"
+                :priority_a    #("⚑" 0 1 (face all-the-icons-red))
+                :priority_b    #("⬆" 0 1 (face all-the-icons-orange))
+                :priority_c    #("■" 0 1 (face all-the-icons-yellow))
+                :priority_d    #("⬇" 0 1 (face all-the-icons-green))
+                :priority_e    #("❓" 0 1 (face all-the-icons-blue))))
 
-(lambda () (progn
-             (setq left-margin-width 2)
-             (setq right-margin-width 2)
-             (set-window-buffer nil (current-buffer))))
-(add-hook! 'org-mode-hook #'+org-pretty-mode)
+(defadvice! +org-init-appearance-h--no-ligatures-a ()
+  :after #'+org-init-appearance-h
+  (set-ligatures! 'org-mode nil)
+  (set-ligatures! 'org-mode
+    :list_property "::"
+    :em_dash       "---"
+    :ellipsis      "..."
+    :arrow_right   "->"
+    :arrow_left    "<-"
+    :arrow_lr      "<->"
+    :properties    ":PROPERTIES:"
+    :end           ":END:"
+    :priority_a    "[#A]"
+    :priority_b    "[#B]"
+    :priority_c    "[#C]"
+    :priority_d    "[#D]"
+    :priority_e    "[#E]"))
+
+(after! spell-fu
+  (cl-pushnew 'org-modern-tag (alist-get 'org-mode +spell-excluded-faces-alist)))
+
+(add-hook 'org-mode-hook #'+org-pretty-mode)
+
+(setq org-src-fontify-natively t
+      org-fontify-whole-heading-line t
+      org-fontify-done-headline t
+      org-fontify-quote-and-verse-blocks t
+      org-startup-with-inline-images t
+      org-startup-indented t)
+
+(setq org-ellipsis " ▾ "
+      org-hide-leading-stars t
+      org-priority-highest ?A
+      org-priority-lowest ?E
+      org-priority-faces
+      '((?A . 'all-the-icons-red)
+        (?B . 'all-the-icons-orange)
+        (?C . 'all-the-icons-yellow)
+        (?D . 'all-the-icons-green)
+        (?E . 'all-the-icons-blue)))
+
+
+(setq org-inline-src-prettify-results '("⟨" . "⟩"))
+
+(setq doom-themes-org-fontify-special-tags nil)
+
 (custom-set-faces!
   '(outline-1 :weight extra-bold :height 1.25)
   '(outline-2 :weight bold :height 1.15)
@@ -233,13 +281,9 @@
 (require 'org-src)
 (add-to-list 'org-src-block-faces '("latex" (:inherit default :extend t)))
 
-(use-package! org-fragtog
-  :hook (org-mode . org-fragtog-mode))
-
-;; org-agenda-config
-(after! org-agenda
-  (setq org-agenda-files (list "~/org/agenda.org"
-                               "~/org/todo.org")))
+;; (use-package! org-fragtog
+;;   :hook (org-mode . org-fragtog-mode))
+(add-hook 'org-mode-hook #'org-latex-preview-auto-mode)
 
 (after! org-agenda
   (setq org-agenda-deadline-faces
