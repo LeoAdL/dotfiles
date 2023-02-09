@@ -30,7 +30,7 @@
             '((""       . "\\`+?evil[-:]?\\(?:a-\\)?\\(.*\\)") . (nil . "🅔·\\1"))
             '(("\\`g s" . "\\`evilem--?motion-\\(.*\\)")       . (nil . "Ⓔ·\\1"))))
 
-(setq doom-font (font-spec :family "Iosevka" :size 13)
+(setq doom-font (font-spec :family "Iosevka" :size 14)
       doom-variable-pitch-font (font-spec :family "Lato")
       doom-unicode-font (font-spec :family "JuliaMono")
       doom-big-font (font-spec :family "Iosevka" :size 24)
@@ -89,7 +89,7 @@
 (setq-default tab-width 4)
 (setq byte-compile-warnings '(cl-functions))
 
-(setq org-directory "~/org/ "
+(setq org-directory "~/org/"
       org-agenda-files (list org-directory)                  ; Seems like the obvious place.
       org-use-property-inheritance t                         ; It's convenient to have properties inherited.
       org-log-done 'time                                     ; Having the time a item is done sounds convenient.
@@ -273,15 +273,7 @@
 
 ;;   :hook (org-mode . org-fragtog-mode))
 
-(use-package! org-latex-impatient
-  :after org
-  :hook (org-mode . org-latex-impatient-mode)
-  :init
-  (setq org-latex-impatient-border-width 0
-        org-latex-impatient-scale 1.0)
-  (setq org-latex-impatient-tex2svg-bin
-        ;; location of tex2svg executable
-        "~/node_modules/mathjax-node-cli/bin/tex2svg"))
+(setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a.")))
 
 (after! org-agenda
   (setq org-agenda-deadline-faces
@@ -803,6 +795,19 @@
                               "Send an email %^{urgancy|soon|ASAP|anon|at some point|eventually} to %^{recipiant}"
                               "about %^{topic}"
                               "%U %i %a"))
+                  ("Meeting" :keys "m"
+                   :icon ("users" :set "faicon")
+                   :file "~/org/meeting.org"
+                   :preprend t
+                   :headline "Meetings"
+                   :type entry
+                   :template ("* %^{Topic}
+                                + Attendees:  %^{Attendees},Leo
+                                + Date: %U
+                                ** Notes
+                                   +  %?
+                                ** Actions
+                                   + [ ]     "))
                   ("Interesting" :keys "i"
                    :icon ("eye" :set "faicon" :color "lcyan")
                    :file +org-capture-todo-file
@@ -1063,7 +1068,7 @@ is selected, only the bare key is returned."
           mu4e-use-fancy-chars t                   ; allow fancy icons for mail threads
           mu4e-context-policy 'pick-first   ;; Start with the first context
           mu4e-compose-context-policy 'ask) ;; Always ask which context to use when composing a new mail
-  (setq mu4e-update-interval 60)
+  (setq mu4e-update-interval (* 2 60))
   (setq mu4e-attachment-dir "~/Downloads")
   (set-email-account! "gmail"
                       '((mu4e-sent-folder       . "/gmail/Sent Mail")
