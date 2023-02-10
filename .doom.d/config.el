@@ -19,7 +19,7 @@
 
 (global-subword-mode 1)                           ; Iterate through CamelCase words
 
-(setq browse-url-chrome-program "firefox")
+(setq browse-url-chrome-program "brave")
 
 (setq which-key-idle-delay 0.5 ;; Default is 1.0
       which-key-idle-secondary-delay 0.05) ;; Default is nil
@@ -49,8 +49,8 @@
 (doom-themes-org-config)
 
 ;; set transparency
-(set-frame-parameter (selected-frame) 'alpha '(95 95))
-(add-to-list 'default-frame-alist '(alpha 95 95))
+;; (set-frame-parameter (selected-frame) 'alpha '(95 95))
+;; (add-to-list 'default-frame-alist '(alpha 95 95))
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (setq fancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
@@ -282,11 +282,12 @@
         (0.5 . org-upcoming-deadline)
         (0.0 . org-upcoming-distant-deadline))))
 
-(after! org-super-agenda
+(use-package! org-super-agenda
   :commands org-super-agenda-mode)
 
 (after! org-agenda
-  (org-super-agenda-mode))
+  (let ((inhibit-message t))
+    (org-super-agenda-mode)))
 
 (setq org-agenda-skip-scheduled-if-done t
       org-agenda-skip-deadline-if-done t
@@ -1111,3 +1112,5 @@ is selected, only the bare key is returned."
 
 (mu4e-alert-set-default-style 'notifier)
 (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
+
+(add-hook! 'elfeed-search-mode-hook #'elfeed-update)
