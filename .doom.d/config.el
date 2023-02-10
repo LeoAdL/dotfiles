@@ -1150,7 +1150,7 @@ is selected, only the bare key is returned."
                 default-text-properties '(line-height 1.2))
     (let ((inhibit-read-only t)
           (inhibit-modification-hooks t))
-       (setq-local shr-current-font '(:family "Merriweather" :height 1.2))
+       (setq-local shr-current-font '(:family "Lato" :height 1.2))
       (set-buffer-modified-p nil)))
 
   (defun +rss/elfeed-search-print-entry (entry)

@@ -1,4 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c+c1}{;; Corrects (and improves) org\PYGZhy{}mode\PYGZsq{}s native fontification.}
-\PYG{p}{(}\PYG{n+nv}{doom\PYGZhy{}themes\PYGZhy{}org\PYGZhy{}config}\PYG{p}{)}
-\end{Verbatim}

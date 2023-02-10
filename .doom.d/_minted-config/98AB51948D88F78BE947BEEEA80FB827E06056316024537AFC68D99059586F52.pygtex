@@ -1,7 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{doom\PYGZhy{}font}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{font\PYGZhy{}spec}\PYG{+w}{ }\PYG{l+s+ss}{:family}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Iosevka\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:size}\PYG{+w}{ }\PYG{l+m+mi}{13}\PYG{p}{)}
-\PYG{+w}{      }\PYG{n+nv}{doom\PYGZhy{}variable\PYGZhy{}pitch\PYGZhy{}font}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{font\PYGZhy{}spec}\PYG{+w}{ }\PYG{l+s+ss}{:family}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Lato\PYGZdq{}}\PYG{p}{)}
-\PYG{+w}{      }\PYG{n+nv}{doom\PYGZhy{}unicode\PYGZhy{}font}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{font\PYGZhy{}spec}\PYG{+w}{ }\PYG{l+s+ss}{:family}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}JuliaMono\PYGZdq{}}\PYG{p}{)}
-\PYG{+w}{      }\PYG{n+nv}{doom\PYGZhy{}big\PYGZhy{}font}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{font\PYGZhy{}spec}\PYG{+w}{ }\PYG{l+s+ss}{:family}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Iosevka\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:size}\PYG{+w}{ }\PYG{l+m+mi}{24}\PYG{p}{)}
-\PYG{+w}{      }\PYG{n+nv}{doom\PYGZhy{}serif\PYGZhy{}font}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{font\PYGZhy{}spec}\PYG{+w}{ }\PYG{l+s+ss}{:family}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Iosevka Aile\PYGZdq{}}\PYG{+w}{ }\PYG{l+s+ss}{:weight}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}light}\PYG{p}{))}
-\end{Verbatim}

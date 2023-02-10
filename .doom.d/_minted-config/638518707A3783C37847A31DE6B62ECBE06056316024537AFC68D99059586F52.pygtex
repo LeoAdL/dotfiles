@@ -1,6 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-
-\PYG{p}{(}\PYG{n+nv}{package!}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}diff}
-\PYG{+w}{  }\PYG{l+s+ss}{:recipe}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s+ss}{:host}\PYG{+w}{ }\PYG{n+nv}{github}
-\PYG{+w}{           }\PYG{l+s+ss}{:repo}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}tecosaur/orgdiff\PYGZdq{}}\PYG{p}{))}
-\end{Verbatim}

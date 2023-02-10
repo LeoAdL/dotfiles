@@ -1,3 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{p}{(}\PYG{n+nv}{package!}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}pretty\PYGZhy{}table}\PYG{+w}{ }\PYG{l+s+ss}{:recipe}\PYG{+w}{ }\PYG{p}{(}\PYG{l+s+ss}{:host}\PYG{+w}{ }\PYG{n+nv}{github}\PYG{+w}{ }\PYG{l+s+ss}{:repo}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Fuco1/org\PYGZhy{}pretty\PYGZhy{}table\PYGZdq{}}\PYG{p}{)}\PYG{+w}{ }\PYG{l+s+ss}{:pin}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}7bd68b420d3402826fea16ee5099d04aa9879b78\PYGZdq{}}\PYG{p}{)}
-\end{Verbatim}

@@ -1,8 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}latex\PYGZhy{}listings}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}minted}
-\PYG{+w}{      }\PYG{n+nv}{org\PYGZhy{}latex\PYGZhy{}packages\PYGZhy{}alist}\PYG{+w}{ }\PYG{o}{\PYGZsq{}}\PYG{p}{((}\PYG{l+s}{\PYGZdq{}\PYGZdq{}}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}minted\PYGZdq{}}\PYG{p}{)))}
-\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}latex\PYGZhy{}minted\PYGZhy{}options}\PYG{+w}{ }\PYG{o}{\PYGZsq{}}\PYG{p}{((}\PYG{l+s}{\PYGZdq{}breaklines\PYGZdq{}}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}true\PYGZdq{}}\PYG{p}{)}
-\PYG{+w}{                                 }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}breakanywhere\PYGZdq{}}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}true\PYGZdq{}}\PYG{p}{)}
-\PYG{+w}{                                 }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}bgcolor\PYGZdq{}}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}bgcolorminted\PYGZdq{}}\PYG{p}{)}
-\PYG{+w}{                                 }\PYG{p}{(}\PYG{l+s}{\PYGZdq{}linenos\PYGZdq{}}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}true\PYGZdq{}}\PYG{p}{)))}
-\end{Verbatim}

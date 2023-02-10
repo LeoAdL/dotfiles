@@ -1,5 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c+c1}{;; Update PDF buffers after successful LaTeX runs}
-\PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}hook!}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}TeX\PYGZhy{}after\PYGZhy{}compilation\PYGZhy{}finished\PYGZhy{}functions}
-\PYG{+w}{          }\PYG{n+nf}{\PYGZsh{}\PYGZsq{}}\PYG{n+nv}{TeX\PYGZhy{}revert\PYGZhy{}document\PYGZhy{}buffer}\PYG{p}{)}
-\end{Verbatim}

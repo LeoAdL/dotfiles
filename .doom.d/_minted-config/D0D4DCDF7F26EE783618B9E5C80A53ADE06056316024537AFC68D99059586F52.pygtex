@@ -1,5 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{doom\PYGZhy{}themes\PYGZhy{}treemacs\PYGZhy{}theme}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}doom\PYGZhy{}colors\PYGZdq{}}\PYG{p}{)}\PYG{+w}{ }\PYG{c+c1}{; use \PYGZdq{}doom\PYGZhy{}colors\PYGZdq{} for less minimal icon theme}
-\PYG{p}{(}\PYG{n+nv}{with\PYGZhy{}eval\PYGZhy{}after\PYGZhy{}load}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}doom\PYGZhy{}themes}
-\PYG{+w}{  }\PYG{p}{(}\PYG{n+nv}{doom\PYGZhy{}themes\PYGZhy{}treemacs\PYGZhy{}config}\PYG{p}{))}
-\end{Verbatim}

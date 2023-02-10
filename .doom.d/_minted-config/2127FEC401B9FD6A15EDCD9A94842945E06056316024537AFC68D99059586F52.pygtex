@@ -1,6 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c+c1}{;; org\PYGZhy{}agenda\PYGZhy{}config}
-\PYG{p}{(}\PYG{n+nv}{after!}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}agenda}
-\PYG{+w}{  }\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}agenda\PYGZhy{}files}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{list}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZti{}/org/agenda.org\PYGZdq{}}
-\PYG{+w}{                               }\PYG{l+s}{\PYGZdq{}\PYGZti{}/org/todo.org\PYGZdq{}}\PYG{p}{)))}
-\end{Verbatim}
