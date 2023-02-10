@@ -1,9 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{p}{(}\PYG{n+nv}{after!}\PYG{+w}{ }\PYG{n+nv}{company}
-\PYG{+w}{  }\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{company\PYGZhy{}idle\PYGZhy{}delay}\PYG{+w}{ }\PYG{l+m+mf}{0.5}
-\PYG{+w}{        }\PYG{n+nv}{company\PYGZhy{}minimum\PYGZhy{}prefix\PYGZhy{}length}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{)}
-\PYG{+w}{  }\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{company\PYGZhy{}show\PYGZhy{}numbers}\PYG{+w}{ }\PYG{n+no}{t}\PYG{p}{)}
-\PYG{+w}{  }\PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}hook!}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}evil\PYGZhy{}normal\PYGZhy{}state\PYGZhy{}entry\PYGZhy{}hook}\PYG{+w}{ }\PYG{n+nf}{\PYGZsh{}\PYGZsq{}}\PYG{n+nv}{company\PYGZhy{}abort}\PYG{p}{))}\PYG{+w}{ }\PYG{c+c1}{;; make aborting less annoying.}
-\PYG{p}{(}\PYG{n+nv}{setq\PYGZhy{}default}\PYG{+w}{ }\PYG{n+nv}{history\PYGZhy{}length}\PYG{+w}{ }\PYG{l+m+mi}{1000}\PYG{p}{)}
-\PYG{p}{(}\PYG{n+nv}{setq\PYGZhy{}default}\PYG{+w}{ }\PYG{n+nv}{prescient\PYGZhy{}history\PYGZhy{}length}\PYG{+w}{ }\PYG{l+m+mi}{1000}\PYG{p}{)}
-\end{Verbatim}

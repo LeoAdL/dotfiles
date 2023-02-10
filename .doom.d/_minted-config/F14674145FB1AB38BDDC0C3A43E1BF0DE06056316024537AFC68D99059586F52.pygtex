@@ -1,4 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{p}{(}\PYG{n+nv}{use\PYGZhy{}package!}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}chef}
-\PYG{+w}{  }\PYG{l+s+ss}{:commands}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{org\PYGZhy{}chef\PYGZhy{}insert\PYGZhy{}recipe}\PYG{+w}{ }\PYG{n+nv}{org\PYGZhy{}chef\PYGZhy{}get\PYGZhy{}recipe\PYGZhy{}from\PYGZhy{}url}\PYG{p}{))}
-\end{Verbatim}
