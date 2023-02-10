@@ -1119,7 +1119,7 @@ is selected, only the bare key is returned."
   (setq rmh-elfeed-org-files '("~/Org/elfeed.org")))
 
 (after! elfeed
-  (setq elfeed-search-filter "@1-week-ago +unread"
+  (setq elfeed-search-filter "@1-week-ago +unread !FR"
         elfeed-search-print-entry-function '+rss/elfeed-search-print-entry
         elfeed-search-title-min-width 80
         elfeed-show-entry-switch #'switch-to-buffer
