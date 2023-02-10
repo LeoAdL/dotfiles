@@ -29,7 +29,7 @@
 #+end_src
 *** Browser
 #+begin_src emacs-lisp
-(setq browse-url-chrome-program "firefox")
+(setq browse-url-chrome-program "brave")
 #+end_src
 *** Which-key
 #+begin_src emacs-lisp
@@ -73,8 +73,8 @@ Transparency and fontification
 #+end_src
 #+begin_src emacs-lisp
 ;; set transparency
-(set-frame-parameter (selected-frame) 'alpha '(95 95))
-(add-to-list 'default-frame-alist '(alpha 95 95))
+;; (set-frame-parameter (selected-frame) 'alpha '(95 95))
+;; (add-to-list 'default-frame-alist '(alpha 95 95))
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 #+end_src
 *** Starting image
@@ -370,11 +370,12 @@ Transparency and fontification
 *** Config
 #+begin_src emacs-lisp
 
-(after! org-super-agenda
+(use-package! org-super-agenda
   :commands org-super-agenda-mode)
 
 (after! org-agenda
-  (org-super-agenda-mode))
+  (let ((inhibit-message t))
+    (org-super-agenda-mode)))
 
 (setq org-agenda-skip-scheduled-if-done t
       org-agenda-skip-deadline-if-done t
@@ -1325,4 +1326,8 @@ Improve the history size:
 #+begin_src emacs-lisp
 (mu4e-alert-set-default-style 'notifier)
 (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
+#+end_src
+* RSS
+#+begin_src emacs-lisp
+(add-hook! 'elfeed-search-mode-hook #'elfeed-update)
 #+end_src
