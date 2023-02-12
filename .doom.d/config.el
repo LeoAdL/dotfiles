@@ -49,8 +49,8 @@
 (doom-themes-org-config)
 
 ;; set transparency
-;; (set-frame-parameter (selected-frame) 'alpha '(95 95))
-;; (add-to-list 'default-frame-alist '(alpha 95 95))
+(set-frame-parameter (selected-frame) 'alpha '(95 95))
+(add-to-list 'default-frame-alist '(alpha 95 95))
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (setq fancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
@@ -1018,9 +1018,21 @@ is selected, only the bare key is returned."
     company-files
     company-yasnippet))
 
+;; (after! lsp-mode
+;;   (setq lsp-tex-server 'digestif))
 
-
-
+;; (use-package! lsp-ltex
+;;   :hook (text-mode . (lambda ()
+;;                        (require 'lsp-ltex)
+;;                        (lsp)))  ; or lsp-deferred
+;;   :init
+;;   (setq lsp-ltex-version "15.2.0"))  ; make sure you have set this, see below
+(use-package! eglot-ltex
+  :hook (text-mode . (lambda ()
+                       (require 'eglot-ltex)
+                       (call-interactively #'eglot)))
+  :init
+  (setq eglot-languagetool-server-path "/opt/homebrew/Cellar/ltex-ls/15.2.0"))
 
 (use-package! vlf-setup
   :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
@@ -1060,8 +1072,6 @@ is selected, only the bare key is returned."
         message-sendmail-f-is-evil t
         message-sendmail-extra-arguments '("--read-envelope-from")
         message-send-mail-function #'message-send-mail-with-sendmail)
-  ;; this command is called to sync imap servers:
-  (setq mu4e-get-mail-command (concat (executable-find "mbsync") " -a"))
   ;; how often to call it in seconds:
   (setq   mu4e-sent-messages-behavior 'sent ;; Save sent messages
           mu4e-headers-auto-update t                ; avoid to type `g' to update
@@ -1090,17 +1100,6 @@ is selected, only the bare key is returned."
                         (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
                       t)
   (setq +mu4e-gmail-accounts '(("leoaparisi@gmail.com" . "/gmail")))
-  (setq mu4e-headers-fields
-        '((:flags . 6)
-          (:account-stripe . 2)
-          (:from-or-to . 25)
-          (:recipnum . 2)
-          (:subject . 80)
-          (:human-date . 8))
-        +mu4e-min-header-frame-width 142
-        mu4e-headers-date-format "%d/%m/%y"
-        mu4e-headers-time-format "⧖ %H:%M"
-        mu4e-index-cleanup t)
   (setq mu4e-compose-dont-reply-to-self t)
   (setq mu4e-compose-format-flowed t)
   ;; Add a unified inbox shortcut
@@ -1119,7 +1118,7 @@ is selected, only the bare key is returned."
   (setq rmh-elfeed-org-files '("~/Org/elfeed.org")))
 
 (after! elfeed
-  (setq elfeed-search-filter "@1-week-ago +unread !FR"
+  (setq elfeed-search-filter "@1-week-ago +unread"
         elfeed-search-print-entry-function '+rss/elfeed-search-print-entry
         elfeed-search-title-min-width 80
         elfeed-show-entry-switch #'switch-to-buffer
