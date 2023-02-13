@@ -49,8 +49,8 @@
 (doom-themes-org-config)
 
 ;; set transparency
-(set-frame-parameter (selected-frame) 'alpha '(95 95))
-(add-to-list 'default-frame-alist '(alpha 95 95))
+;; (set-frame-parameter (selected-frame) 'alpha '(95 95))
+;; (add-to-list 'default-frame-alist '(alpha 95 95))
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (setq fancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
@@ -195,7 +195,6 @@
       org-startup-indented t
 
       ;; Org styling, hide markup etc.
-      org-hide-emphasis-markers t
       org-pretty-entities t
       )
 
@@ -557,11 +556,11 @@
 
 \\renewcommand{\\leq}{\\leqslant}
 \\renewcommand{\\geq}{\\geqslant}
-\\definecolor{bgcolorminted}{gray}{0.9}
+\\definecolor{bgcolorminted}{HTML}{2E3440}
 [NO-DEFAULT-PACKAGES]
 [PACKAGES]
 [EXTRA]
-\\usemintedstyle{vs}"
+\\usemintedstyle{nord}"
                ("\\section{%s}" . "\\section*{%s}")
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -638,14 +637,15 @@
 \\newtheorem{case}{Case}
 
 
-\\definecolor{dblue}{HTML}{4c4f69}
-\\definecolor{umber}{HTML}{dc8a78}
-\\definecolor{alertcolor}{HTML}{dd7878}
-\\definecolor{examplecolor}{HTML}{209fb5}
+\\definecolor{dblue}{HTML}{2E3440}
+\\definecolor{umber}{HTML}{8FBCBB}
+\\definecolor{alertcolor}{HTML}{D08770}
+\\definecolor{examplecolor}{HTML}{EBCB8B}
 
-\\definecolor{pale}{HTML}{eff1f5}
-\\definecolor{bluish}{HTML}{8c8fa1}
-\\definecolor{cream}{HTML}{e6e9ef}
+\\definecolor{pale}{HTML}{ECEFF4}
+\\definecolor{bluish}{HTML}{B48EAD}
+\\definecolor{cream}{HTML}{D8DEE9}
+\\definecolor{bgcolorminted}{HTML}{2E3440}
 \\setbeamercolor{progress bar}{fg=bluish,bg=cream}
 \\setbeamercolor{frametitle}{fg=umber,bg=pale}
 \\setbeamercolor{normal text}{fg=dblue,bg=pale}
@@ -654,18 +654,17 @@
 \\setbeamercovered{dynamic}
 
 \\usecolortheme{rose}
-\\definecolor{bgcolorminted}{gray}{0.9}
 [NO-DEFAULT-PACKAGES]
 [PACKAGES]
 [EXTRA]
-\\usemintedstyle{vs}"
+\\usemintedstyle{nord}"
                ("\\section{%s}" . "\\section*{%s}")
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                ("\\paragraph{%s}" . "\\paragraph*{%s}")
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
-(setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -lualatex -f  -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
+(setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -xelatex -f  -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
 
 ;; Use pdf-tools to open PDF files
 (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
