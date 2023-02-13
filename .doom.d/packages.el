@@ -8,7 +8,7 @@
 
 ;; (package! org-fragtog)
 
-(package! org-super-agenda)
+;; (package! org-super-agenda)
 
 (package! org-roam-ui)
 (package! websocket)
@@ -31,6 +31,6 @@
 (package! doct)
 
 ;; (package! lsp-ltex)
-(package! eglot-ltex :recipe (:host github :repo "emacs-languagetool/eglot-ltex"))
+;; (package! eglot-ltex :recipe (:host github :repo "emacs-languagetool/eglot-ltex"))
 
 (package! vlfi)

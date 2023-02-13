@@ -192,7 +192,12 @@
       org-fontify-done-headline t
       org-fontify-quote-and-verse-blocks t
       org-startup-with-inline-images t
-      org-startup-indented t)
+      org-startup-indented t
+
+      ;; Org styling, hide markup etc.
+      org-hide-emphasis-markers t
+      org-pretty-entities t
+      )
 
 (setq org-ellipsis " ▾ "
       org-hide-leading-stars t
@@ -282,79 +287,14 @@
         (0.5 . org-upcoming-deadline)
         (0.0 . org-upcoming-distant-deadline))))
 
-(use-package! org-super-agenda
-  :commands org-super-agenda-mode)
-
-(after! org-agenda
-  (let ((inhibit-message t))
-    (org-super-agenda-mode)))
-
-(setq org-agenda-skip-scheduled-if-done t
-      org-agenda-skip-deadline-if-done t
-      org-agenda-include-deadlines t
-      org-agenda-block-separator nil
-      org-agenda-tags-column 100 ;; from testing this seems to be a good value
-      org-agenda-compact-blocks t)
-
-(setq org-agenda-custom-commands
-      '(("o" "Overview"
-         ((agenda "" ((org-agenda-span 'day)
-                      (org-super-agenda-groups
-                       '((:name "Today"
-                          :time-grid t
-                          :date today
-                          :todo "TODAY"
-                          :scheduled today
-                          :order 1)))))
-          (alltodo "" ((org-agenda-overriding-header "")
-                       (org-super-agenda-groups
-                        '((:name "Next to do"
-                           :todo "NEXT"
-                           :order 1)
-                          (:name "Important"
-                           :tag "Important"
-                           :priority "A"
-                           :order 6)
-                          (:name "Due Today"
-                           :deadline today
-                           :order 2)
-                          (:name "Due Soon"
-                           :deadline future
-                           :order 8)
-                          (:name "Overdue"
-                           :deadline past
-                           :face error
-                           :order 7)
-                          (:name "Assignments"
-                           :tag "Assignment"
-                           :order 10)
-                          (:name "Issues"
-                           :tag "Issue"
-                           :order 12)
-                          (:name "Emacs"
-                           :tag "Emacs"
-                           :order 13)
-                          (:name "Projects"
-                           :tag "Project"
-                           :order 14)
-                          (:name "Research"
-                           :tag "Research"
-                           :order 15)
-                          (:name "To read"
-                           :tag "Read"
-                           :order 30)
-                          (:name "Waiting"
-                           :todo "WAITING"
-                           :order 20)
-                          (:name "University"
-                           :tag "uni"
-                           :order 32)
-                          (:name "Trivial"
-                           :priority<= "E"
-                           :tag ("Trivial" "Unimportant")
-                           :todo ("SOMEDAY" )
-                           :order 90)
-                          (:discard (:tag ("Chore" "Routine" "Daily")))))))))))
+(setq  org-agenda-tags-column 0
+       org-agenda-block-separator ?─
+       org-agenda-time-grid
+       '((daily today require-timed)
+         (800 1000 1200 1400 1600 1800 2000)
+         " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+       org-agenda-current-time-string
+       "⭠ now ─────────────────────────────────────────────────")
 
 (use-package! org-roam
   :after org
@@ -1027,12 +967,12 @@ is selected, only the bare key is returned."
 ;;                        (lsp)))  ; or lsp-deferred
 ;;   :init
 ;;   (setq lsp-ltex-version "15.2.0"))  ; make sure you have set this, see below
-(use-package! eglot-ltex
-  :hook (text-mode . (lambda ()
-                       (require 'eglot-ltex)
-                       (call-interactively #'eglot)))
-  :init
-  (setq eglot-languagetool-server-path "/opt/homebrew/Cellar/ltex-ls/15.2.0"))
+;; (use-package! eglot-ltex
+;;   :hook (text-mode . (lambda ()
+;;                        (require 'eglot-ltex)
+;;                        (call-interactively #'eglot)))
+;;   :init
+;;   (setq eglot-languagetool-server-path "/opt/homebrew/Cellar/ltex-ls/15.2.0"))
 
 (use-package! vlf-setup
   :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
