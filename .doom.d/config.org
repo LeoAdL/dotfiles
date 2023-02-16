@@ -714,6 +714,7 @@ Transparency and fontification
 \\renewcommand{\\leq}{\\leqslant}
 \\renewcommand{\\geq}{\\geqslant}
 \\definecolor{bgcolorminted}{HTML}{2E3440}
+\\usepackage{hyperref}
 [NO-DEFAULT-PACKAGES]
 [PACKAGES]
 [EXTRA]
@@ -817,6 +818,7 @@ Define Beamer class:
 \\setbeamercovered{dynamic}
 
 \\usecolortheme{rose}
+\\usepackage{hyperref}
 [NO-DEFAULT-PACKAGES]
 [PACKAGES]
 [EXTRA]
@@ -834,25 +836,25 @@ Define Beamer class:
 #+begin_src emacs-lisp
 (setq org-latex-tables-booktabs t
       org-latex-hyperref-template "\\providecolor{url}{HTML}{81a1c1}
-        \\providecolor{link}{HTML}{d08770}
-        \\providecolor{cite}{HTML}{d08770}
-        \\hypersetup{
-        pdfauthor={%a},
-        pdftitle={%t},
-        pdfkeywords={%k},
-        pdfsubject={%d},
-        pdfcreator={%c},
-        pdflang={%L},
-        breaklinks=true,
-        colorlinks=true,
-        linkcolor=link,
-        urlcolor=url,
-        citecolor=cite
-        }
-        \\urlstyle{same}
-        %% hide links styles in toc
-        \\NewCommandCopy{\\oldtoc}{\\tableofcontents}
-        \\renewcommand{\\tableofcontents}{\\begingroup\\hypersetup{hidelinks}\\oldtoc\\endgroup}
+\\providecolor{link}{HTML}{d08770}
+\\providecolor{cite}{HTML}{d08770}
+\\hypersetup{
+pdfauthor={%a},
+pdftitle={%t},
+pdfkeywords={%k},
+pdfsubject={%d},
+pdfcreator={%c},
+pdflang={%L},
+breaklinks=true,
+colorlinks=true,
+linkcolor=link,
+urlcolor=url,
+citecolor=cite
+}
+\\urlstyle{same}
+%% hide links styles in toc
+\\NewCommandCopy{\\oldtoc}{\\tableofcontents}
+\\renewcommand{\\tableofcontents}{\\begingroup\\hypersetup{hidelinks}\\oldtoc\\endgroup}
 "
       org-latex-reference-command "\\autoref{%s}")
 #+end_src
