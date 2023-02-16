@@ -37,7 +37,7 @@
       doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light))
 
 ;; (load-theme 'catppuccin t t)
-(setq doom-theme 'doom-nord)
+(setq doom-theme 'doom-nord-aurora)
 ;; (setq catppuccin-flavor 'frappe) ;; or 'latte, 'macchiato, or 'mocha
 ;; (catppuccin-reload)
 
@@ -49,9 +49,9 @@
 (doom-themes-org-config)
 
 ;; set transparency
-;; (set-frame-parameter (selected-frame) 'alpha '(95 95))
-;; (add-to-list 'default-frame-alist '(alpha 95 95))
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+(set-frame-parameter (selected-frame) 'alpha '(95 95))
+(add-to-list 'default-frame-alist '(alpha 95 95))
+(add-to-list 'default-frame-alist '(fullscreen . fullboth))
 
 (setq fancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
 
@@ -302,15 +302,6 @@
                           org-roam-directory (concat org-directory "/Roam")
                           org-roam-v2-ack t))
 
-(defadvice! doom-modeline--buffer-file-name-roam-aware-a (orig-fun)
-  :around #'doom-modeline-buffer-file-name ; takes no args
-  (if (s-contains-p org-roam-directory (or buffer-file-name ""))
-      (replace-regexp-in-string
-       "\\(?:^\\|.*/\\)\\([0-9]\\{4\\}\\)\\([0-9]\\{2\\}\\)\\([0-9]\\{2\\}\\)[0-9]*-"
-       "🢔(\\1-\\2-\\3) "
-       (subst-char-in-string ?_ ?  buffer-file-name))
-    (funcall orig-fun)))
-
 (setq org-roam-dailies-directory "daily/")
 
 (setq org-roam-dailies-capture-templates
@@ -511,8 +502,6 @@
 \\usepackage{enumitem}
 \\usepackage{acronym}
 \\usepackage{xurl}
-\\definecolor{mint}{HTML}{d73a49}
-\\usepackage[colorlinks=true, allcolors= mint]{hyperref}
 \\onehalfspacing{}
 \\DeclareMathOperator{\\Var}{Var}
 \\DeclareMathOperator{\\cov}{Cov}
@@ -639,11 +628,11 @@
 
 \\definecolor{dblue}{HTML}{2E3440}
 \\definecolor{umber}{HTML}{8FBCBB}
-\\definecolor{alertcolor}{HTML}{D08770}
+\\definecolor{alertcolor}{HTML}{BF616A}
 \\definecolor{examplecolor}{HTML}{EBCB8B}
 
 \\definecolor{pale}{HTML}{ECEFF4}
-\\definecolor{bluish}{HTML}{B48EAD}
+\\definecolor{bluish}{HTML}{88C0D0}
 \\definecolor{cream}{HTML}{D8DEE9}
 \\definecolor{bgcolorminted}{HTML}{2E3440}
 \\setbeamercolor{progress bar}{fg=bluish,bg=cream}
@@ -665,6 +654,31 @@
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
 (setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -xelatex -f  -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
+(setq org-latex-tables-booktabs t
+      org-latex-hyperref-template
+      <<grab("latex-fancy-hyperref")>>
+      org-latex-reference-command "\\autoref{%s}")
+
+\providecolor{url}{HTML}{81a1c1}
+\providecolor{link}{HTML}{d08770}
+\providecolor{cite}{HTML}{d08770}
+\hypersetup{
+  pdfauthor={%a},
+  pdftitle={%t},
+  pdfkeywords={%k},
+  pdfsubject={%d},
+  pdfcreator={%c},
+  pdflang={%L},
+  breaklinks=true,
+  colorlinks=true,
+  linkcolor=link,
+  urlcolor=url,
+  citecolor=cite
+}
+\urlstyle{same}
+%% hide links styles in toc
+\NewCommandCopy{\oldtoc}{\tableofcontents}
+\renewcommand{\tableofcontents}{\begingroup\hypersetup{hidelinks}\oldtoc\endgroup}
 
 ;; Use pdf-tools to open PDF files
 (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
@@ -981,7 +995,7 @@ is selected, only the bare key is returned."
   (unload-feature 'tablist-filter t)
   (load-file (find-library-name "tablist-filter")))
 
-(add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode)
+;; (add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode)
 
 (defun switch-left-and-right-option-keys ()
   "Switch left and right option keys.
@@ -1018,7 +1032,7 @@ is selected, only the bare key is returned."
           mu4e-use-fancy-chars t                   ; allow fancy icons for mail threads
           mu4e-context-policy 'pick-first   ;; Start with the first context
           mu4e-compose-context-policy 'ask) ;; Always ask which context to use when composing a new mail
-  (setq mu4e-update-interval (* 2 60))
+  (setq mu4e-update-interval (* 1 60))
   (setq mu4e-attachment-dir "~/Downloads")
   (set-email-account! "gmail"
                       '((mu4e-sent-folder       . "/gmail/Sent Mail")
