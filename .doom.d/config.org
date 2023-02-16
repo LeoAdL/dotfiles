@@ -830,32 +830,33 @@ Define Beamer class:
 *** Export
 #+begin_src emacs-lisp
 (setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -xelatex -f  -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
+#+end_src
+#+begin_src emacs-lisp
 (setq org-latex-tables-booktabs t
-      org-latex-hyperref-template
-      <<grab("latex-fancy-hyperref")>>
+      org-latex-hyperref-template "\\providecolor{url}{HTML}{81a1c1}
+        \\providecolor{link}{HTML}{d08770}
+        \\providecolor{cite}{HTML}{d08770}
+        \\hypersetup{
+        pdfauthor={%a},
+        pdftitle={%t},
+        pdfkeywords={%k},
+        pdfsubject={%d},
+        pdfcreator={%c},
+        pdflang={%L},
+        breaklinks=true,
+        colorlinks=true,
+        linkcolor=link,
+        urlcolor=url,
+        citecolor=cite
+        }
+        \\urlstyle{same}
+        %% hide links styles in toc
+        \\NewCommandCopy{\\oldtoc}{\\tableofcontents}
+        \\renewcommand{\\tableofcontents}{\\begingroup\\hypersetup{hidelinks}\\oldtoc\\endgroup}
+"
       org-latex-reference-command "\\autoref{%s}")
 #+end_src
 #+begin_src latex-fancy-hyperref
-\providecolor{url}{HTML}{81a1c1}
-\providecolor{link}{HTML}{d08770}
-\providecolor{cite}{HTML}{d08770}
-\hypersetup{
-  pdfauthor={%a},
-  pdftitle={%t},
-  pdfkeywords={%k},
-  pdfsubject={%d},
-  pdfcreator={%c},
-  pdflang={%L},
-  breaklinks=true,
-  colorlinks=true,
-  linkcolor=link,
-  urlcolor=url,
-  citecolor=cite
-}
-\urlstyle{same}
-%% hide links styles in toc
-\NewCommandCopy{\oldtoc}{\tableofcontents}
-\renewcommand{\tableofcontents}{\begingroup\hypersetup{hidelinks}\oldtoc\endgroup}
 #+end_src
 **** Preview
 #+begin_src emacs-lisp

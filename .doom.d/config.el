@@ -654,31 +654,32 @@
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
 (setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -xelatex -f  -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
+
 (setq org-latex-tables-booktabs t
-      org-latex-hyperref-template
-      <<grab("latex-fancy-hyperref")>>
+      org-latex-hyperref-template "\\providecolor{url}{HTML}{81a1c1}
+        \\providecolor{link}{HTML}{d08770}
+        \\providecolor{cite}{HTML}{d08770}
+        \\hypersetup{
+        pdfauthor={%a},
+        pdftitle={%t},
+        pdfkeywords={%k},
+        pdfsubject={%d},
+        pdfcreator={%c},
+        pdflang={%L},
+        breaklinks=true,
+        colorlinks=true,
+        linkcolor=link,
+        urlcolor=url,
+        citecolor=cite
+        }
+        \\urlstyle{same}
+        %% hide links styles in toc
+        \\NewCommandCopy{\\oldtoc}{\\tableofcontents}
+        \\renewcommand{\\tableofcontents}{\\begingroup\\hypersetup{hidelinks}\\oldtoc\\endgroup}
+"
       org-latex-reference-command "\\autoref{%s}")
 
-\providecolor{url}{HTML}{81a1c1}
-\providecolor{link}{HTML}{d08770}
-\providecolor{cite}{HTML}{d08770}
-\hypersetup{
-  pdfauthor={%a},
-  pdftitle={%t},
-  pdfkeywords={%k},
-  pdfsubject={%d},
-  pdfcreator={%c},
-  pdflang={%L},
-  breaklinks=true,
-  colorlinks=true,
-  linkcolor=link,
-  urlcolor=url,
-  citecolor=cite
-}
-\urlstyle{same}
-%% hide links styles in toc
-\NewCommandCopy{\oldtoc}{\tableofcontents}
-\renewcommand{\tableofcontents}{\begingroup\hypersetup{hidelinks}\oldtoc\endgroup}
+
 
 ;; Use pdf-tools to open PDF files
 (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
