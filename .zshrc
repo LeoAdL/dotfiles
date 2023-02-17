@@ -43,7 +43,8 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 export PATH="/Applications/MacPorts/Emacs.app/Contents/MacOS:$PATH"
-export EDITOR=nvim
+export VISUAL="emacs -nw"
+export EDITOR="emacs -nw"
 export LANG="en_US.UTF-8"
 export DBUS_SESSION_BUS_ADDRESS="unix:path=$DBUS_LAUNCHD_SESSION_BUS_SOCKET"
 export BAT_THEME="Nord"
