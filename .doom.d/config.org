@@ -1,16 +1,6 @@
 #+title: Config
 #+author: Leo Aparisi de Lannoy
 #+latex_class: article
-* Fix Emacs 28-29
-#+begin_src emacs-lisp :tangle packages.el
-(package! transient
-      :pin "c2bdf7e12c530eb85476d3aef317eb2941ab9440"
-      :recipe (:host github :repo "magit/transient"))
-
-(package! with-editor
-          :pin "bbc60f68ac190f02da8a100b6fb67cf1c27c53ab"
-          :recipe (:host github :repo "magit/with-editor"))
-#+end_src
 * Basic
 ** ID
 #+begin_src emacs-lisp
@@ -591,6 +581,31 @@ Transparency and fontification
               (cursor-sensor-mode 1)
               (org-cite-csl-activate-render-all))))
 #+end_src
+*** Org-Roam integration
+#+begin_src emacs-lisp :tangle packages.el
+(package! citar-org-roam  :recipe (:host github :repo "emacs-citar/citar-org-roam"))
+#+end_src
+#+begin_src emacs-lisp
+(use-package! citar-org-roam
+  :after citar org-roam
+  :config (citar-org-roam-mode))
+(setq org-roam-capture-templates
+      '(("d" "default" plain
+         "%?"
+         :target
+         (file+head
+          "%<%Y%m%d%H%M%S>-${slug}.org"
+          "#+title: ${title}\n")
+         :unnarrowed t)
+        ("n" "literature note" plain
+         "%?"
+         :target
+         (file+head
+          "%(expand-file-name \"literature\" org-roam-directory)/${citekey}.org"
+          "#+title: ${citekey}. ${title}.\n#+created: %U\n#+last_modified: %U\n\n")
+         :unnarrowed t)))
+(setq citar-org-roam-capture-template-key "n")
+#+end_src
 ** Latex templates
 *** Preview
 **** PNG
@@ -715,7 +730,7 @@ Transparency and fontification
 \\renewcommand{\\geq}{\\geqslant}
 \\definecolor{bgcolorminted}{HTML}{2E3440}
 \\usepackage{hyperref}
-\\usepackage{cleveref}
+\\usepackage[]{cleveref}
 [NO-DEFAULT-PACKAGES]
 [PACKAGES]
 [EXTRA]
@@ -913,7 +928,7 @@ Prettify the captures:
 
   (setq doct-after-conversion-functions '(+doct-iconify-capture-templates))
 
-  (defvar +org-capture-recipies  "~/Org/recipies.org")
+  (defvar +org-capture-recipies  "~/org/recipies.org")
 
   (defun set-org-capture-templates ()
     (setq org-capture-templates
@@ -1300,7 +1315,7 @@ Improve the history size:
 (add-hook! 'elfeed-search-mode-hook #'elfeed-update)
 (after! elfeed
   (setq elfeed-goodies/entry-pane-position 'bottom)
-  (setq rmh-elfeed-org-files '("~/Org/elfeed.org")))
+  (setq rmh-elfeed-org-files '("~/org/elfeed.org")))
 #+end_src
 ** Visual
     #+begin_src emacs-lisp

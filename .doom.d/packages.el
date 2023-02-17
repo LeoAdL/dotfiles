@@ -1,11 +1,3 @@
-(package! transient
-      :pin "c2bdf7e12c530eb85476d3aef317eb2941ab9440"
-      :recipe (:host github :repo "magit/transient"))
-
-(package! with-editor
-          :pin "bbc60f68ac190f02da8a100b6fb67cf1c27c53ab"
-          :recipe (:host github :repo "magit/with-editor"))
-
 (package! theme-magic)
 
 (package! info-colors)
@@ -35,6 +27,8 @@
 (package! org-chef)
 
 (package! org-cite-csl-activate :recipe (:host github :repo "andras-simonyi/org-cite-csl-activate"))
+
+(package! citar-org-roam  :recipe (:host github :repo "emacs-citar/citar-org-roam"))
 
 (package! doct)
 

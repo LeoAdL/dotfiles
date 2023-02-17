@@ -432,6 +432,26 @@
               (cursor-sensor-mode 1)
               (org-cite-csl-activate-render-all))))
 
+(use-package! citar-org-roam
+  :after citar org-roam
+  :config (citar-org-roam-mode))
+(setq org-roam-capture-templates
+      '(("d" "default" plain
+         "%?"
+         :target
+         (file+head
+          "%<%Y%m%d%H%M%S>-${slug}.org"
+          "#+title: ${title}\n")
+         :unnarrowed t)
+        ("n" "literature note" plain
+         "%?"
+         :target
+         (file+head
+          "%(expand-file-name \"literature\" org-roam-directory)/${citekey}.org"
+          "#+title: ${citekey}. ${title}.\n#+created: %U\n#+last_modified: %U\n\n")
+         :unnarrowed t)))
+(setq citar-org-roam-capture-template-key "n")
+
 (after! org
   ;; ORG LATEX PREVIEW
   (setq org-format-latex-options
@@ -547,7 +567,7 @@
 \\renewcommand{\\geq}{\\geqslant}
 \\definecolor{bgcolorminted}{HTML}{2E3440}
 \\usepackage{hyperref}
-\\usepackage{cleveref}
+\\usepackage[]{cleveref}
 [NO-DEFAULT-PACKAGES]
 [PACKAGES]
 [EXTRA]
@@ -724,7 +744,7 @@ citecolor=cite
 
   (setq doct-after-conversion-functions '(+doct-iconify-capture-templates))
 
-  (defvar +org-capture-recipies  "~/Org/recipies.org")
+  (defvar +org-capture-recipies  "~/org/recipies.org")
 
   (defun set-org-capture-templates ()
     (setq org-capture-templates
@@ -1073,7 +1093,7 @@ is selected, only the bare key is returned."
 (add-hook! 'elfeed-search-mode-hook #'elfeed-update)
 (after! elfeed
   (setq elfeed-goodies/entry-pane-position 'bottom)
-  (setq rmh-elfeed-org-files '("~/Org/elfeed.org")))
+  (setq rmh-elfeed-org-files '("~/org/elfeed.org")))
 
 (after! elfeed
   (setq elfeed-search-filter "@1-week-ago +unread"
