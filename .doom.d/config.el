@@ -547,6 +547,7 @@
 \\renewcommand{\\geq}{\\geqslant}
 \\definecolor{bgcolorminted}{HTML}{2E3440}
 \\usepackage{hyperref}
+\\usepackage{cleveref}
 [NO-DEFAULT-PACKAGES]
 [PACKAGES]
 [EXTRA]
@@ -645,6 +646,7 @@
 
 \\usecolortheme{rose}
 \\usepackage{hyperref}
+\\usepackage{cleveref}
 [NO-DEFAULT-PACKAGES]
 [PACKAGES]
 [EXTRA]
@@ -679,7 +681,7 @@ citecolor=cite
 \\NewCommandCopy{\\oldtoc}{\\tableofcontents}
 \\renewcommand{\\tableofcontents}{\\begingroup\\hypersetup{hidelinks}\\oldtoc\\endgroup}
 "
-      org-latex-reference-command "\\autoref{%s}")
+      org-latex-reference-command "\\cref{%s}")
 
 
 
