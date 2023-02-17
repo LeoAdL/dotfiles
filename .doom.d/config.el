@@ -49,9 +49,9 @@
 (doom-themes-org-config)
 
 ;; set transparency
-(set-frame-parameter (selected-frame) 'alpha '(95 95))
-(add-to-list 'default-frame-alist '(alpha 95 95))
-(add-to-list 'default-frame-alist '(fullscreen . fullboth))
+(set-frame-parameter (selected-frame) 'alpha '(97 97))
+(add-to-list 'default-frame-alist '(alpha 97 97))
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (setq fancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
 
@@ -1084,7 +1084,7 @@ is selected, only the bare key is returned."
   (add-to-list
    'mu4e-bookmarks
    '(:name "Unified inbox" :query "maildir:/.*inbox/" :key ?i) t)
-
+(add-hook 'mu4e-compose-mode-hook 'company-mode)
   )
 
 (mu4e-alert-set-default-style 'notifier)
