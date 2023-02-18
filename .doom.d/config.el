@@ -1,6 +1,3 @@
-brew tap railwaycat/emacsmacport
-brew install emacs-mac --with-mac-metal --with-natural-title-bar --with-native-compilation --with-xwidget
-
 (setq user-full-name "Leo Aparisi de Lannoy"
       user-mail-address "leoaparisi@gmail.com")
 
