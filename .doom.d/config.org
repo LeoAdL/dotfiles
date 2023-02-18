@@ -2,10 +2,10 @@
 #+author: Leo Aparisi de Lannoy
 #+latex_class: article
 * Compilation
-#+BEGIN_QUOTE
+#+begin_src text
 brew tap railwaycat/emacsmacport
 brew install emacs-mac --with-mac-metal --with-natural-title-bar --with-native-compilation --with-xwidget
-#+end_quote
+#+end_src
 * Basic
 ** ID
 #+begin_src emacs-lisp
