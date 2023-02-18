@@ -1,6 +1,11 @@
 #+title: Config
 #+author: Leo Aparisi de Lannoy
 #+latex_class: article
+* Compilation
+#+begin_src console
+brew tap railwaycat/emacsmacport
+brew install emacs-mac --with-mac-metal --with-natural-title-bar --with-native-compilation --with-xwidget
+#+end_src
 * Basic
 ** ID
 #+begin_src emacs-lisp
