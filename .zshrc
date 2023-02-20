@@ -6,7 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # initialize plugins statically with ${ZDOTDIR:-~}/.zsh_plugins.txt
-
+bindkey -v
 source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
 
 antidote load
