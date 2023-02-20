@@ -1,5 +1,5 @@
-brew tap railwaycat/emacsmacport
-brew install emacs-mac --with-mac-metal --with-natural-title-bar --with-native-compilation --with-xwidget
+;; brew tap railwaycat/emacsmacport
+;; brew install emacs-mac --with-mac-metal --with-natural-title-bar --with-native-compilation --with-xwidget
 
 (setq user-full-name "Leo Aparisi de Lannoy"
       user-mail-address "leoaparisi@gmail.com")
@@ -52,8 +52,8 @@ brew install emacs-mac --with-mac-metal --with-natural-title-bar --with-native-c
 (doom-themes-org-config)
 
 ;; set transparency
-(set-frame-parameter (selected-frame) 'alpha '(97 97))
-(add-to-list 'default-frame-alist '(alpha 97 97))
+(set-frame-parameter (selected-frame) 'alpha '(99 99))
+(add-to-list 'default-frame-alist '(alpha 99 99))
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (setq fancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
@@ -568,13 +568,13 @@ brew install emacs-mac --with-mac-metal --with-natural-title-bar --with-native-c
 
 \\renewcommand{\\leq}{\\leqslant}
 \\renewcommand{\\geq}{\\geqslant}
-\\definecolor{bgcolorminted}{HTML}{2E3440}
+\\definecolor{bgcolorminted}{HTML}{f9f5d7}
 \\usepackage{hyperref}
 \\usepackage[]{cleveref}
 [NO-DEFAULT-PACKAGES]
 [PACKAGES]
 [EXTRA]
-\\usemintedstyle{nord}"
+\\usemintedstyle{gruvbox-light}"
                ("\\section{%s}" . "\\section*{%s}")
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -651,7 +651,7 @@ brew install emacs-mac --with-mac-metal --with-natural-title-bar --with-native-c
 \\newtheorem{case}{Case}
 
 
-\\definecolor{dblue}{HTML}{2E3440}
+\\definecolor{dblue}{HTML}{f9f5d7}
 \\definecolor{umber}{HTML}{8FBCBB}
 \\definecolor{alertcolor}{HTML}{BF616A}
 \\definecolor{examplecolor}{HTML}{EBCB8B}
@@ -659,7 +659,7 @@ brew install emacs-mac --with-mac-metal --with-natural-title-bar --with-native-c
 \\definecolor{pale}{HTML}{ECEFF4}
 \\definecolor{bluish}{HTML}{88C0D0}
 \\definecolor{cream}{HTML}{D8DEE9}
-\\definecolor{bgcolorminted}{HTML}{2E3440}
+\\definecolor{bgcolorminted}{HTML}{f9f5d7}
 \\setbeamercolor{progress bar}{fg=bluish,bg=cream}
 \\setbeamercolor{frametitle}{fg=umber,bg=pale}
 \\setbeamercolor{normal text}{fg=dblue,bg=pale}
@@ -673,7 +673,7 @@ brew install emacs-mac --with-mac-metal --with-natural-title-bar --with-native-c
 [NO-DEFAULT-PACKAGES]
 [PACKAGES]
 [EXTRA]
-\\usemintedstyle{nord}"
+\\usemintedstyle{gruvbox-light}"
                ("\\section{%s}" . "\\section*{%s}")
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -1063,10 +1063,10 @@ is selected, only the bare key is returned."
   (setq mu4e-update-interval (* 1 60))
   (setq mu4e-attachment-dir "~/Downloads")
   (set-email-account! "gmail"
-                      '((mu4e-sent-folder       . "/gmail/Sent Mail")
-                        (mu4e-drafts-folder     . "/gmail/Drafts")
-                        (mu4e-trash-folder      . "/gmail/Trash")
-                        (mu4e-refile-folder     . "/gmail/All Mail")
+                      '((mu4e-sent-folder       . "/gmail/[Gmail]/Sent Mail")
+                        (mu4e-drafts-folder     . "/gmail/[Gmail]/Drafts")
+                        (mu4e-trash-folder      . "/gmail/[Gmail]/Trash")
+                        (mu4e-refile-folder     . "/gmail/[Gmail]/All Mail")
                         (smtpmail-smtp-user     . "leoaparisi@gmail.com")
                         (user-mail-address      . "leoaparisi@gmail.com")    ;; only needed for mu < 1.4
                         (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
