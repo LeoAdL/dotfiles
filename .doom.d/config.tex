@@ -1,4 +1,4 @@
-% Created 2023-02-19 Sun 21:25
+% Created 2023-02-19 Sun 22:20
 % Intended LaTeX compiler: pdflatex
 \documentclass[c]{article}
 \usepackage[american]{babel}
@@ -110,21 +110,21 @@ citecolor=cite
 \tableofcontents
 
 \section{Compilation}
-\label{sec:org7ba11ab}
+\label{sec:org893613f}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 ;; brew tap railwaycat/emacsmacport
 ;; brew install emacs-mac --with-mac-metal --with-natural-title-bar --with-native-compilation --with-xwidget
 \end{minted}
 \section{Basic}
-\label{sec:org6dada8f}
+\label{sec:org019876c}
 \subsection{ID}
-\label{sec:orgab0727d}
+\label{sec:org7345421}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq user-full-name "Leo Aparisi de Lannoy"
       user-mail-address "leoaparisi@gmail.com")
 \end{minted}
 \subsection{Good defaults}
-\label{sec:org66071e6}
+\label{sec:org59ae812}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq-default
  delete-by-moving-to-trash t                      ; Delete files to trash
@@ -145,12 +145,12 @@ citecolor=cite
 (global-subword-mode 1)                           ; Iterate through CamelCase words
 \end{minted}
 \subsubsection{Browser}
-\label{sec:org211036a}
+\label{sec:orgb595bdd}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq browse-url-chrome-program "brave")
 \end{minted}
 \subsubsection{Which-key}
-\label{sec:org97f737e}
+\label{sec:orga8a080a}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq which-key-idle-delay 0.5 ;; Default is 1.0
       which-key-idle-secondary-delay 0.05) ;; Default is nil
@@ -162,9 +162,9 @@ citecolor=cite
             '(("\\`g s" . "\\`evilem--?motion-\\(.*\\)")       . (nil . "Ⓔ·\\1"))))
 \end{minted}
 \subsection{Visual}
-\label{sec:org694fc7d}
+\label{sec:orgaa29e9d}
 \subsubsection{Font}
-\label{sec:org870a117}
+\label{sec:orgc9000ca}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq doom-font (font-spec :family "Iosevka" :size 14)
       doom-variable-pitch-font (font-spec :family "Lato")
@@ -173,10 +173,10 @@ citecolor=cite
       doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light))
 \end{minted}
 \subsubsection{Theme}
-\label{sec:orgbd85507}
+\label{sec:orga23e6f5}
 \begin{enumerate}
 \item Catppuccin theme
-\label{sec:org9c5a4e8}
+\label{sec:org4b6b4d5}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 ;; (load-theme 'catppuccin t t)
 (setq doom-theme 'doom-nord-aurora)
@@ -184,7 +184,7 @@ citecolor=cite
 ;; (catppuccin-reload)
 \end{minted}
 \item Treemacs styling
-\label{sec:org37cf77b}
+\label{sec:org52cd5e5}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq doom-themes-treemacs-theme "doom-colors") ; use "doom-colors" for less minimal icon theme
 (with-eval-after-load 'doom-themes
@@ -192,7 +192,7 @@ citecolor=cite
 \end{minted}
 \end{enumerate}
 \subsubsection{Default visual}
-\label{sec:org262c76f}
+\label{sec:orgcdefbc5}
 Transparency and fontification
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 ;; Corrects (and improves) org-mode's native fontification.
@@ -205,12 +205,12 @@ Transparency and fontification
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 \end{minted}
 \subsubsection{Starting image}
-\label{sec:org0c24ec2}
+\label{sec:org6f9e64d}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq fancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
 \end{minted}
 \subsubsection{Theme Magic}
-\label{sec:org8fe2ae5}
+\label{sec:orgbb93282}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (package! theme-magic)
 \end{minted}
@@ -240,7 +240,7 @@ Transparency and fontification
 
 \end{minted}
 \subsection{Marginalia}
-\label{sec:org89839fd}
+\label{sec:org8debb37}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (package! info-colors)
 \end{minted}
@@ -250,22 +250,22 @@ Transparency and fontification
 (add-hook! 'Info-selection-hook 'info-colors-fontify-node)
 \end{minted}
 \subsection{File Templates}
-\label{sec:orga390dbc}
+\label{sec:org9b715ca}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (set-file-template! "\\.tex$" :trigger "__" :mode 'latex-mode)
 (set-file-template! "\\.org$" :trigger "__" :mode 'org-mode)
 \end{minted}
 \subsection{Editor config}
-\label{sec:orgfa5e501}
+\label{sec:org0a4c882}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq display-line-numbers-type `relative)
 (setq-default tab-width 4)
 (setq byte-compile-warnings '(cl-functions))
 \end{minted}
 \section{Org-Mode}
-\label{sec:org063ed9e}
+\label{sec:orge58d545}
 \subsection{Defaults}
-\label{sec:org170b7ef}
+\label{sec:orgea013c1}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq org-directory "~/org/"
       org-agenda-files (list org-directory)                  ; Seems like the obvious place.
@@ -278,7 +278,7 @@ Transparency and fontification
       org-image-actual-width '(0.9))                         ; Make the in-buffer display closer to the exported result..#+end_src
 \end{minted}
 \subsection{Babel}
-\label{sec:org0c61e97}
+\label{sec:orgac44884}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq org-babel-default-header-args
       '((:session . "none")
@@ -291,9 +291,9 @@ Transparency and fontification
         (:comments . "link")))
 \end{minted}
 \subsection{Visuals}
-\label{sec:org7fa329b}
+\label{sec:orgf57fea2}
 \subsubsection{Org-modern}
-\label{sec:org127605d}
+\label{sec:org8e10436}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (package! org-modern)
 \end{minted}
@@ -376,7 +376,7 @@ Transparency and fontification
   (cl-pushnew 'org-modern-tag (alist-get 'org-mode +spell-excluded-faces-alist)))
 \end{minted}
 \subsubsection{General}
-\label{sec:orga4768e9}
+\label{sec:org5acd819}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (add-hook 'org-mode-hook #'+org-pretty-mode)
 \end{minted}
@@ -425,7 +425,7 @@ Transparency and fontification
 \end{minted}
 
 \subsubsection{Org-appear}
-\label{sec:orgd760fe6}
+\label{sec:org20d6a55}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (package! org-appear)
 \end{minted}
@@ -443,7 +443,7 @@ Transparency and fontification
   (run-at-time nil nil #'org-appear--set-elements))
 \end{minted}
 \subsubsection{Ligatures}
-\label{sec:orgb7db492}
+\label{sec:org071640d}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (appendq! +ligatures-extra-symbols
           (list :list_property "∷"
@@ -479,7 +479,7 @@ Transparency and fontification
     :priority_e    "[#E]"))
 \end{minted}
 \subsubsection{Latex improvement}
-\label{sec:org97f7dc8}
+\label{sec:org409a464}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq org-highlight-latex-and-related '(native script entities))
 \end{minted}
@@ -494,14 +494,14 @@ Transparency and fontification
 ;;   :hook (org-mode . org-fragtog-mode))
 \end{minted}
 \subsection{Bullets}
-\label{sec:org6fef5a4}
+\label{sec:org61a3d4a}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a.")))
 \end{minted}
 \subsection{Agenda}
-\label{sec:org5fa0618}
+\label{sec:org3ce1ff7}
 \subsubsection{Visual}
-\label{sec:org97cbfd7}
+\label{sec:org188ab09}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (after! org-agenda
   (setq org-agenda-deadline-faces
@@ -511,12 +511,12 @@ Transparency and fontification
         (0.0 . org-upcoming-distant-deadline))))
 \end{minted}
 \subsection{Super-Agenda}
-\label{sec:orgfd2c80c}
+\label{sec:orga7de647}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 ;; (package! org-super-agenda)
 \end{minted}
 \subsubsection{Config}
-\label{sec:orgd6b38e0}
+\label{sec:orgbdd8655}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq  org-agenda-tags-column 0
        org-agenda-block-separator ?─
@@ -528,11 +528,11 @@ Transparency and fontification
        "⭠ now ─────────────────────────────────────────────────")
 \end{minted}
 \subsubsection{Customize}
-\label{sec:orga09a249}
+\label{sec:orgc933bde}
 \subsection{Roam}
-\label{sec:org35a9f2e}
+\label{sec:orgdb50d29}
 \subsubsection{Defaults}
-\label{sec:org7a6a337}
+\label{sec:org4a5e6d6}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 
 (use-package! org-roam
@@ -544,7 +544,7 @@ Transparency and fontification
 
 \end{minted}
 \subsubsection{Daily}
-\label{sec:org948a2d1}
+\label{sec:org9c952cd}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 
 (setq org-roam-dailies-directory "daily/")
@@ -556,10 +556,10 @@ Transparency and fontification
                             "#+title: %<%Y-%m-%d>\n"))))
 \end{minted}
 \subsubsection{Visuals}
-\label{sec:orga061905}
+\label{sec:org6cdf184}
 \begin{enumerate}
 \item UI and visualization
-\label{sec:org2f0349e}
+\label{sec:org77ba95d}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (package! org-roam-ui)
 (package! websocket)
@@ -594,21 +594,21 @@ Transparency and fontification
 \end{minted}
 \end{enumerate}
 \subsection{Ob-async}
-\label{sec:orgdfcdc33}
+\label{sec:orge0c78ae}
 \subsubsection{Julia support}
-\label{sec:orgd43fce0}
+\label{sec:orgbb6171f}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (add-hook 'ob-async-pre-execute-src-block-hook
         #'(lambda ()
            (setq inferior-julia-program-name "/usr/local/bin/julia")))
 \end{minted}
 \subsubsection{Jupyter Integration}
-\label{sec:org91df395}
+\label{sec:org739e5a2}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq ob-async-no-async-languages-alist '("jupyter-python" "jupyter-julia"))
 \end{minted}
 \subsection{Org-Diff}
-\label{sec:org8e3435e}
+\label{sec:orgc2229f4}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 
 (package! org-diff
@@ -636,7 +636,7 @@ Transparency and fontification
         (replace-match (format "definecolor{blue}{HTML}{%s}"))))))
 \end{minted}
 \subsection{Pandoc import}
-\label{sec:orgc8a054b}
+\label{sec:org29102e8}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (package! org-pandoc-import
   :recipe (:host github
@@ -649,9 +649,9 @@ Transparency and fontification
   :after org)
 \end{minted}
 \subsection{Export}
-\label{sec:org792810d}
+\label{sec:org8f25767}
 \subsubsection{Preview}
-\label{sec:org86739e4}
+\label{sec:org4b909a1}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 
 (map! :map org-mode-map
@@ -684,7 +684,7 @@ Transparency and fontification
   "File formats that should be opened externally.")
 \end{minted}
 \subsection{Zotero Integration}
-\label{sec:org0d4a3c2}
+\label{sec:org27e58c3}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (package! zotxt)
 \end{minted}
@@ -694,7 +694,7 @@ Transparency and fontification
   :after org)
 \end{minted}
 \subsection{Org-Chef}
-\label{sec:orgb48b91c}
+\label{sec:orgde6bd44}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (package! org-chef)
 \end{minted}
@@ -704,9 +704,9 @@ Transparency and fontification
 \end{minted}
 
 \subsection{Bibtex-Integration}
-\label{sec:org8579f8e}
+\label{sec:orgb88cdbe}
 \subsubsection{Citar}
-\label{sec:org2292cf0}
+\label{sec:org31cd205}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (package! org-cite-csl-activate :recipe (:host github :repo "andras-simonyi/org-cite-csl-activate"))
 \end{minted}
@@ -747,7 +747,7 @@ Transparency and fontification
               (org-cite-csl-activate-render-all))))
 \end{minted}
 \subsubsection{Org-Roam integration}
-\label{sec:org3a0d24f}
+\label{sec:org1254feb}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (package! citar-org-roam  :recipe (:host github :repo "emacs-citar/citar-org-roam"))
 \end{minted}
@@ -773,12 +773,12 @@ Transparency and fontification
 (setq citar-org-roam-capture-template-key "n")
 \end{minted}
 \subsection{Latex templates}
-\label{sec:org99a3e79}
+\label{sec:org9efb4e6}
 \subsubsection{Preview}
-\label{sec:org6e2db0d}
+\label{sec:org232f45a}
 \begin{enumerate}
 \item PNG
-\label{sec:org6647991}
+\label{sec:orge3179aa}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (after! org
   ;; ORG LATEX PREVIEW
@@ -791,7 +791,7 @@ Transparency and fontification
   )
 \end{minted}
 \item Header
-\label{sec:orge366d92}
+\label{sec:org0825462}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq org-format-latex-header "\\documentclass[12pt]
 {article}
@@ -826,7 +826,7 @@ Transparency and fontification
 \end{minted}
 \end{enumerate}
 \subsubsection{Article}
-\label{sec:orgae9c778}
+\label{sec:orga2e0675}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (with-eval-after-load 'ox-latex
 (add-to-list 'org-latex-classes
@@ -914,7 +914,7 @@ Transparency and fontification
                ("\\paragraph{%s}" . "\\paragraph*{%s}"))))
 \end{minted}
 \subsubsection{Beamer}
-\label{sec:orgdd881f1}
+\label{sec:org21d3d38}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq org-beamer-frame-level 2)
 \end{minted}
@@ -991,7 +991,7 @@ Define Beamer class:
 \\newtheorem{case}{Case}
 
 
-\\definecolor{dblue}{HTML}{f9f5d7}
+\\definecolor{dblue}{HTML}{2E3440}
 \\definecolor{umber}{HTML}{8FBCBB}
 \\definecolor{alertcolor}{HTML}{BF616A}
 \\definecolor{examplecolor}{HTML}{EBCB8B}
@@ -1021,9 +1021,9 @@ Define Beamer class:
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 \end{minted}
 \subsubsection{Export}
-\label{sec:orgf5a6d9d}
+\label{sec:org6b5b98a}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -xelatex -f  -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
+(setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
 \end{minted}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq org-latex-tables-booktabs t
@@ -1052,7 +1052,7 @@ citecolor=cite
 \end{minted}
 \begin{enumerate}
 \item Preview
-\label{sec:org1a4bb5a}
+\label{sec:org13c4e01}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 ;; Use pdf-tools to open PDF files
 (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
@@ -1064,7 +1064,7 @@ citecolor=cite
           #'TeX-revert-document-buffer)
 \end{minted}
 \item Code blocks
-\label{sec:org35422e6}
+\label{sec:orgdc255b3}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (setq org-latex-listings 'minted
       org-latex-packages-alist '(("" "minted")))
@@ -1075,9 +1075,9 @@ citecolor=cite
 \end{minted}
 \end{enumerate}
 \subsection{Capture}
-\label{sec:org3e655b0}
+\label{sec:org668bd38}
 \subsubsection{Doct}
-\label{sec:org8f0bc62}
+\label{sec:orga0e6882}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (package! doct)
 \end{minted}
@@ -1345,7 +1345,7 @@ is selected, only the bare key is returned."
 (advice-add 'org-mks :override #'org-mks-pretty)
 \end{minted}
 \section{Company}
-\label{sec:org84af213}
+\label{sec:org86d2217}
 Improve the history size:
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (after! company
@@ -1366,15 +1366,15 @@ Improve the history size:
     company-yasnippet))
 \end{minted}
 \section{LSP}
-\label{sec:org911f333}
+\label{sec:orga0e4dc3}
 \subsection{Digestif}
-\label{sec:org7ba07b9}
+\label{sec:org778d23a}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 ;; (after! lsp-mode
 ;;   (setq lsp-tex-server 'digestif))
 \end{minted}
 \subsection{LTex}
-\label{sec:org9b59723}
+\label{sec:org3510e7e}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 ;; (package! lsp-ltex)
 ;; (package! eglot-ltex :recipe (:host github :repo "emacs-languagetool/eglot-ltex"))
@@ -1394,7 +1394,7 @@ Improve the history size:
 ;;   (setq eglot-languagetool-server-path "/opt/homebrew/Cellar/ltex-ls/15.2.0"))
 \end{minted}
 \section{VLFI}
-\label{sec:org7aff677}
+\label{sec:orgc56605b}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (package! vlfi)
 \end{minted}
@@ -1404,9 +1404,9 @@ Improve the history size:
 \end{minted}
 
 \section{PDF-Tools}
-\label{sec:orgb2bad18}
+\label{sec:org8f81b44}
 \subsection{Fix annotation bug}
-\label{sec:org148f085}
+\label{sec:org7c5a11a}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (defun my-fix-tablist ()
   (interactive)
@@ -1414,12 +1414,12 @@ Improve the history size:
   (load-file (find-library-name "tablist-filter")))
 \end{minted}
 \subsection{Dark mode}
-\label{sec:org3accf36}
+\label{sec:org787af20}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 ;; (add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode)
 \end{minted}
 \section{Option key Fix}
-\label{sec:org87113c5}
+\label{sec:org71d63f0}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (defun switch-left-and-right-option-keys ()
   "Switch left and right option keys.
@@ -1433,7 +1433,7 @@ Improve the history size:
 \end{minted}
 
 \section{Centaur}
-\label{sec:orgffc9c99}
+\label{sec:org96a9c5a}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 ;; (after! centaur-tabs
 ;;   (centaur-tabs-mode -1)
@@ -1448,9 +1448,9 @@ Improve the history size:
 \end{minted}
 
 \section{Email}
-\label{sec:org2240c61}
+\label{sec:orgd46c752}
 \subsection{mu4e}
-\label{sec:orgd6a2b20}
+\label{sec:org55bb9dd}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 ;; add to $DOOMDIR/config.el
 (after! mu4e
@@ -1497,13 +1497,13 @@ Improve the history size:
   )
 \end{minted}
 \subsection{Notification}
-\label{sec:org406c339}
+\label{sec:orgcec9955}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (mu4e-alert-set-default-style 'notifier)
 (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
 \end{minted}
 \section{RSS}
-\label{sec:orgc782f74}
+\label{sec:orgd0e6b09}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (add-hook! 'elfeed-search-mode-hook #'elfeed-update)
 (after! elfeed
@@ -1511,7 +1511,7 @@ Improve the history size:
   (setq rmh-elfeed-org-files '("~/org/elfeed.org")))
 \end{minted}
 \subsection{Visual}
-\label{sec:org95f5c29}
+\label{sec:orgfd5e9ca}
 \begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
 (after! elfeed
   (setq elfeed-search-filter "@1-week-ago +unread"

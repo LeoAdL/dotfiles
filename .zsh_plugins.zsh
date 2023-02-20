@@ -33,8 +33,6 @@ source /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com
 fpath+=( /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-hlissner-SLASH-zsh-autopair )
 source /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-hlissner-SLASH-zsh-autopair/autopair.plugin.zsh
 source /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-hlissner-SLASH-zsh-autopair/zsh-autopair.plugin.zsh
-fpath+=( /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-jeffreytse-SLASH-zsh-vi-mode )
-source /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-jeffreytse-SLASH-zsh-vi-mode/zsh-vi-mode.plugin.zsh
 fpath+=( /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-joshskidmore-SLASH-zsh-fzf-history-search )
 source /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-joshskidmore-SLASH-zsh-fzf-history-search/zsh-fzf-history-search.plugin.zsh
 fpath+=( /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-unixorn-SLASH-fzf-zsh-plugin )
