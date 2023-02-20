@@ -651,7 +651,7 @@
 \\newtheorem{case}{Case}
 
 
-\\definecolor{dblue}{HTML}{f9f5d7}
+\\definecolor{dblue}{HTML}{2E3440}
 \\definecolor{umber}{HTML}{8FBCBB}
 \\definecolor{alertcolor}{HTML}{BF616A}
 \\definecolor{examplecolor}{HTML}{EBCB8B}
@@ -680,7 +680,7 @@
                ("\\paragraph{%s}" . "\\paragraph*{%s}")
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
-(setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -xelatex -f  -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
+(setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
 
 (setq org-latex-tables-booktabs t
       org-latex-hyperref-template "\\providecolor{url}{HTML}{81a1c1}
