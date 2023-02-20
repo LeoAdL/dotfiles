@@ -1082,7 +1082,6 @@ is selected, only the bare key is returned."
                       t)
   (setq +mu4e-gmail-accounts '(("leoaparisi@gmail.com" . "/gmail")))
   (setq mu4e-compose-dont-reply-to-self t)
-  (setq mu4e-compose-format-flowed t)
   ;; Add a unified inbox shortcut
   (add-to-list
    'mu4e-bookmarks
