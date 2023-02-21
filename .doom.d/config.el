@@ -405,24 +405,25 @@
   :no-require
   :custom
   (org-cite-global-bibliography '("~/org/Lecture_Notes/MyLibrary.bib"))
-  (org-cite-insert-processor 'citar)
-  (org-cite-follow-processor 'citar)
-  (org-cite-activate-processor 'citar)
   (citar-bibliography org-cite-global-bibliography)
-  ( citar-symbols
+  (citar-symbols
     `((file ,(all-the-icons-faicon "file-o" :face 'all-the-icons-green :v-adjust -0.1) . " ")
       (note ,(all-the-icons-material "speaker_notes" :face 'all-the-icons-blue :v-adjust -0.3) . " ")
       (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " ")))
-  ( citar-symbol-separator "  "))
+  (citar-symbol-separator "  "))
 
 (use-package! oc-csl
   :after oc
   :config
-  (setq org-cite-csl-styles-dir "~/Zotero/styles"))
+  (setq org-cite-csl-styles-dir "~/Zotero/styles/"))
 
 
 (after! oc
-  (setq org-cite-export-processors '((t csl))))
+  (setq org-cite-export-processors '(
+                                     (beamer natbib)
+                                     (latex biblatex)
+                                     (t csl)
+                                     ))
 
 (use-package! oc-csl-activate
   :after org
@@ -573,8 +574,7 @@
 \\usepackage[]{cleveref}
 [NO-DEFAULT-PACKAGES]
 [PACKAGES]
-[EXTRA]
-\\usemintedstyle{gruvbox-light}"
+[EXTRA]"
                ("\\section{%s}" . "\\section*{%s}")
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -672,8 +672,7 @@
 \\usepackage{cleveref}
 [NO-DEFAULT-PACKAGES]
 [PACKAGES]
-[EXTRA]
-\\usemintedstyle{gruvbox-light}"
+[EXTRA]"
                ("\\section{%s}" . "\\section*{%s}")
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -716,12 +715,15 @@ citecolor=cite
 (add-hook! 'TeX-after-compilation-finished-functions
           #'TeX-revert-document-buffer)
 
-(setq org-latex-listings 'minted
-      org-latex-packages-alist '(("" "minted")))
-(setq org-latex-minted-options '(("breaklines" "true")
-                                 ("breakanywhere" "true")
-                                 ("bgcolor" "bgcolorminted")
-                                 ("linenos" "true")))
+;; (setq org-latex-listings 'minted
+;;       org-latex-packages-alist '(("" "minted")))
+;; (setq org-latex-minted-options '(("breaklines" "true")
+;;                                  ("breakanywhere" "true")
+;;                                  ("bgcolor" "bgcolorminted")
+;;                                  ("linenos" "true")))
+(use-package! engrave-faces-latex
+  :after ox-latex)
+(setq org-latex-src-block-backend 'engraved)
 
 (after! org-capture
 
@@ -1080,7 +1082,7 @@ is selected, only the bare key is returned."
                         (user-mail-address      . "laparisidelannoy@uchicago.edu")    ;; only needed for mu < 1.4
                         (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
                       t)
-  (setq +mu4e-gmail-accounts '(("leoaparisi@gmail.com" . "/gmail")))
+  (setq +mu4e-gmail-accounts '(("leoaparisi@gmail.com" . "/gmail/[Gmail]")))
   (setq mu4e-compose-dont-reply-to-self t)
   ;; Add a unified inbox shortcut
   (add-to-list

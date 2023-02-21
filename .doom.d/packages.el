@@ -28,7 +28,7 @@
 
 (package! org-cite-csl-activate :recipe (:host github :repo "andras-simonyi/org-cite-csl-activate"))
 
-(package! citar-org-roam  :recipe (:host github :repo "emacs-citar/citar-org-roam"))
+(package! engrave-faces)
 
 (package! doct)
 

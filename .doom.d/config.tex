@@ -1,4 +1,4 @@
-% Created 2023-02-19 Sun 22:20
+% Created 2023-02-20 Mon 22:56
 % Intended LaTeX compiler: pdflatex
 \documentclass[c]{article}
 \usepackage[american]{babel}
@@ -70,12 +70,9 @@
 
 \renewcommand{\leq}{\leqslant}
 \renewcommand{\geq}{\geqslant}
-\definecolor{bgcolorminted}{HTML}{f5edca}
+\definecolor{bgcolorminted}{HTML}{f9f5d7}
 \usepackage{hyperref}
 \usepackage[]{cleveref}
-\usepackage{minted}
-
-\usemintedstyle{gruvbox-light}
 \author{Leo Aparisi de Lannoy}
 \date{\today}
 \title{Config}
@@ -87,7 +84,7 @@ pdfauthor={Leo Aparisi de Lannoy},
 pdftitle={Config},
 pdfkeywords={},
 pdfsubject={},
-pdfcreator={Emacs 28.2 (Org mode 9.6)},
+pdfcreator={Emacs 28.2 (Org mode 9.6.1)},
 pdflang={English},
 breaklinks=true,
 colorlinks=true,
@@ -99,1527 +96,1838 @@ citecolor=cite
 % hide links styles in toc
 \NewCommandCopy{\oldtoc}{\tableofcontents}
 \renewcommand{\tableofcontents}{\begingroup\hypersetup{hidelinks}\oldtoc\endgroup}
-\makeatletter
-\newcommand{\citeprocitem}[2]{\hyper@linkstart{cite}{citeproc_bib_item_#1}#2\hyper@linkend}
-\makeatother
 
-\usepackage[notquote]{hanging}
+% Setup for code blocks [1/2]
+
+\usepackage{fvextra}
+
+\fvset{%
+  commandchars=\\\{\},
+  highlightcolor=white!95!black!80!blue,
+  breaklines=true,
+  breaksymbol=\color{white!60!black}\tiny\ensuremath{\hookrightarrow}}
+
+% Make line numbers smaller and grey.
+\renewcommand\theFancyVerbLine{\footnotesize\color{black!40!white}\arabic{FancyVerbLine}}
+
+\usepackage{xcolor}
+
+% In case engrave-faces-latex-gen-preamble has not been run.
+\providecolor{EfD}{HTML}{f7f7f7}
+\providecolor{EFD}{HTML}{28292e}
+
+% Define a Code environment to prettily wrap the fontified code.
+\usepackage[breakable,xparse]{tcolorbox}
+\DeclareTColorBox[]{Code}{o}%
+{colback=EfD!98!EFD, colframe=EfD!95!EFD,
+  fontupper=\footnotesize\setlength{\fboxsep}{0pt},
+  colupper=EFD,
+  IfNoValueTF={#1}%
+  {boxsep=2pt, arc=2.5pt, outer arc=2.5pt,
+    boxrule=0.5pt, left=2pt}%
+  {boxsep=2.5pt, arc=0pt, outer arc=0pt,
+    boxrule=0pt, leftrule=1.5pt, left=0.5pt},
+  right=2pt, top=1pt, bottom=0.5pt,
+  breakable}
+
+% Support listings with captions
+\usepackage{float}
+\floatstyle{plain}
+\newfloat{listing}{htbp}{lst}
+\newcommand{\listingsname}{Listing}
+\floatname{listing}{\listingsname}
+\newcommand{\listoflistingsname}{List of Listings}
+\providecommand{\listoflistings}{\listof{listing}{\listoflistingsname}}
+
+
+% Setup for code blocks [2/2]: syntax highlighting colors
+
+\newcommand\efstrut{\vrule height 2.1ex depth 0.8ex width 0pt}
+\definecolor{EFD}{HTML}{000000}
+\definecolor{EfD}{HTML}{ffffff}
+\newcommand{\EFD}[1]{\textcolor{EFD}{#1}} % default
+\definecolor{EFvp}{HTML}{000000}
+\newcommand{\EFvp}[1]{\textcolor{EFvp}{#1}} % variable-pitch
+\definecolor{EFh}{HTML}{7f7f7f}
+\newcommand{\EFh}[1]{\textcolor{EFh}{#1}} % shadow
+\definecolor{EFsc}{HTML}{228b22}
+\newcommand{\EFsc}[1]{\textcolor{EFsc}{\textbf{#1}}} % success
+\definecolor{EFw}{HTML}{ff8e00}
+\newcommand{\EFw}[1]{\textcolor{EFw}{\textbf{#1}}} % warning
+\definecolor{EFe}{HTML}{ff0000}
+\newcommand{\EFe}[1]{\textcolor{EFe}{\textbf{#1}}} % error
+\definecolor{EFl}{HTML}{ff0000}
+\newcommand{\EFl}[1]{\textcolor{EFl}{#1}} % link
+\definecolor{EFlv}{HTML}{ff0000}
+\newcommand{\EFlv}[1]{\textcolor{EFlv}{#1}} % link-visited
+\definecolor{EFhi}{HTML}{ff0000}
+\newcommand{\EFhi}[1]{\textcolor{EFhi}{#1}} % highlight
+\definecolor{EFc}{HTML}{b22222}
+\newcommand{\EFc}[1]{\textcolor{EFc}{#1}} % font-lock-comment-face
+\definecolor{EFcd}{HTML}{b22222}
+\newcommand{\EFcd}[1]{\textcolor{EFcd}{#1}} % font-lock-comment-delimiter-face
+\definecolor{EFs}{HTML}{8b2252}
+\newcommand{\EFs}[1]{\textcolor{EFs}{#1}} % font-lock-string-face
+\definecolor{EFd}{HTML}{8b2252}
+\newcommand{\EFd}[1]{\textcolor{EFd}{#1}} % font-lock-doc-face
+\definecolor{EFm}{HTML}{008b8b}
+\newcommand{\EFm}[1]{\textcolor{EFm}{#1}} % font-lock-doc-markup-face
+\definecolor{EFk}{HTML}{9370db}
+\newcommand{\EFk}[1]{\textcolor{EFk}{#1}} % font-lock-keyword-face
+\definecolor{EFb}{HTML}{483d8b}
+\newcommand{\EFb}[1]{\textcolor{EFb}{#1}} % font-lock-builtin-face
+\definecolor{EFf}{HTML}{0000ff}
+\newcommand{\EFf}[1]{\textcolor{EFf}{#1}} % font-lock-function-name-face
+\definecolor{EFv}{HTML}{a0522d}
+\newcommand{\EFv}[1]{\textcolor{EFv}{#1}} % font-lock-variable-name-face
+\definecolor{EFt}{HTML}{228b22}
+\newcommand{\EFt}[1]{\textcolor{EFt}{#1}} % font-lock-type-face
+\definecolor{EFo}{HTML}{008b8b}
+\newcommand{\EFo}[1]{\textcolor{EFo}{#1}} % font-lock-constant-face
+\definecolor{EFwr}{HTML}{ff0000}
+\newcommand{\EFwr}[1]{\textcolor{EFwr}{\textbf{#1}}} % font-lock-warning-face
+\newcommand{\EFnc}[1]{#1} % font-lock-negation-char-face
+\definecolor{EFpp}{HTML}{483d8b}
+\newcommand{\EFpp}[1]{\textcolor{EFpp}{#1}} % font-lock-preprocessor-face
+\newcommand{\EFrc}[1]{\textbf{#1}} % font-lock-regexp-grouping-construct
+\newcommand{\EFrb}[1]{\textbf{#1}} % font-lock-regexp-grouping-backslash
+\newcommand{\EFob}[1]{#1} % org-block
+\newcommand{\EFobb}[1]{#1} % org-block-begin-line
+\newcommand{\EFobe}[1]{#1} % org-block-end-line
+\definecolor{EFOa}{HTML}{0000ff}
+\newcommand{\EFOa}[1]{\textcolor{EFOa}{#1}} % outline-1
+\definecolor{EFOb}{HTML}{a0522d}
+\newcommand{\EFOb}[1]{\textcolor{EFOb}{#1}} % outline-2
+\definecolor{EFOc}{HTML}{a020f0}
+\newcommand{\EFOc}[1]{\textcolor{EFOc}{#1}} % outline-3
+\definecolor{EFOd}{HTML}{b22222}
+\newcommand{\EFOd}[1]{\textcolor{EFOd}{#1}} % outline-4
+\definecolor{EFOe}{HTML}{228b22}
+\newcommand{\EFOe}[1]{\textcolor{EFOe}{#1}} % outline-5
+\definecolor{EFOf}{HTML}{008b8b}
+\newcommand{\EFOf}[1]{\textcolor{EFOf}{#1}} % outline-6
+\definecolor{EFOg}{HTML}{483d8b}
+\newcommand{\EFOg}[1]{\textcolor{EFOg}{#1}} % outline-7
+\definecolor{EFOh}{HTML}{8b2252}
+\newcommand{\EFOh}[1]{\textcolor{EFOh}{#1}} % outline-8
+\definecolor{EFhn}{HTML}{008b8b}
+\newcommand{\EFhn}[1]{\textcolor{EFhn}{#1}} % highlight-numbers-number
+\definecolor{EFhq}{HTML}{9370db}
+\newcommand{\EFhq}[1]{\textcolor{EFhq}{#1}} % highlight-quoted-quote
+\definecolor{EFhs}{HTML}{008b8b}
+\newcommand{\EFhs}[1]{\textcolor{EFhs}{#1}} % highlight-quoted-symbol
+\definecolor{EFrda}{HTML}{707183}
+\newcommand{\EFrda}[1]{\textcolor{EFrda}{#1}} % rainbow-delimiters-depth-1-face
+\definecolor{EFrdb}{HTML}{7388d6}
+\newcommand{\EFrdb}[1]{\textcolor{EFrdb}{#1}} % rainbow-delimiters-depth-2-face
+\definecolor{EFrdc}{HTML}{909183}
+\newcommand{\EFrdc}[1]{\textcolor{EFrdc}{#1}} % rainbow-delimiters-depth-3-face
+\definecolor{EFrdd}{HTML}{709870}
+\newcommand{\EFrdd}[1]{\textcolor{EFrdd}{#1}} % rainbow-delimiters-depth-4-face
+\definecolor{EFrde}{HTML}{907373}
+\newcommand{\EFrde}[1]{\textcolor{EFrde}{#1}} % rainbow-delimiters-depth-5-face
+\definecolor{EFrdf}{HTML}{6276ba}
+\newcommand{\EFrdf}[1]{\textcolor{EFrdf}{#1}} % rainbow-delimiters-depth-6-face
+\definecolor{EFrdg}{HTML}{858580}
+\newcommand{\EFrdg}[1]{\textcolor{EFrdg}{#1}} % rainbow-delimiters-depth-7-face
+\definecolor{EFrdh}{HTML}{80a880}
+\newcommand{\EFrdh}[1]{\textcolor{EFrdh}{#1}} % rainbow-delimiters-depth-8-face
+\definecolor{EFrdi}{HTML}{887070}
+\newcommand{\EFrdi}[1]{\textcolor{EFrdi}{#1}} % rainbow-delimiters-depth-9-face
+\usepackage{biblatex}
+\addbibresource{~/org/Lecture_Notes/MyLibrary.bib}
 \begin{document}
 
 \maketitle
 \tableofcontents
 
 \section{Compilation}
-\label{sec:org893613f}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-;; brew tap railwaycat/emacsmacport
-;; brew install emacs-mac --with-mac-metal --with-natural-title-bar --with-native-compilation --with-xwidget
-\end{minted}
+\label{sec:orgc181cba}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFcd{;;} \EFc{brew tap railwaycat/emacsmacport}
+\EFcd{;;} \EFc{brew install emacs-mac --with-mac-metal --with-natural-title-bar --with-native-compilation --with-xwidget}
+\end{Verbatim}
+\end{Code}
 \section{Basic}
-\label{sec:org019876c}
+\label{sec:org1440824}
 \subsection{ID}
-\label{sec:org7345421}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(setq user-full-name "Leo Aparisi de Lannoy"
-      user-mail-address "leoaparisi@gmail.com")
-\end{minted}
+\label{sec:orgf89ef8a}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{setq} \EFv{user-full-name} \EFs{"Leo Aparisi de Lannoy"}
+      \EFv{user-mail-address} \EFs{"leoaparisi@gmail.com"}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsection{Good defaults}
-\label{sec:org59ae812}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(setq-default
- delete-by-moving-to-trash t                      ; Delete files to trash
- window-combination-resize t                      ; take new window space from all other windows (not just current)
- x-stretch-cursor t)                              ; Stretch cursor to the glyph width
+\label{sec:org897a425}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{setq-default}
+ \EFv{delete-by-moving-to-trash} t                      \EFcd{;} \EFc{Delete files to trash}
+ \EFv{window-combination-resize} t                      \EFcd{;} \EFc{take new window space from all other windows (not just current)}
+ \EFv{x-stretch-cursor} t\EFrda{)}                              \EFcd{;} \EFc{Stretch cursor to the glyph width}
 
-(setq undo-limit 80000000                         ; Raise undo-limit to 80Mb
-      evil-want-fine-undo t                       ; By default while in insert all changes are one big blob. Be more granular
-      auto-save-default t                         ; Nobody likes to loose work, I certainly don't
-      truncate-string-ellipsis "…"
-      scroll-margin 2)                            ; It's nice to maintain a little margin
+\EFrda{(}\EFk{setq} \EFv{undo-limit} \EFhn{80000000}                         \EFcd{;} \EFc{Raise undo-limit to 80Mb}
+      \EFv{evil-want-fine-undo} t                       \EFcd{;} \EFc{By default while in insert all changes are one big blob. Be more granular}
+      \EFv{auto-save-default} t                         \EFcd{;} \EFc{Nobody likes to loose work, I certainly don't}
+      \EFv{truncate-string-ellipsis} \EFs{"…"}
+      \EFv{scroll-margin} \EFhn{2}\EFrda{)}                            \EFcd{;} \EFc{It's nice to maintain a little margin}
 
-(display-time-mode 1)                             ; Enable time in the mode-line
+\EFrda{(}\EFv{display-time-mode} \EFhn{1}\EFrda{)}                             \EFcd{;} \EFc{Enable time in the mode-line}
 
-(unless (string-match-p "^Power N/A" (battery))   ; On laptops...
-  (display-battery-mode 1))                       ; it's nice to know how much power you have
+\EFrda{(}\EFk{unless} \EFrdb{(}\EFf{string-match-p} \EFs{"\char94{}Power N/A"} \EFrdc{(}\EFo{battery}\EFrdc{)}\EFrdb{)}   \EFcd{;} \EFc{On laptops...}
+  \EFrdb{(}\EFv{display-battery-mode} \EFhn{1}\EFrdb{)}\EFrda{)}                       \EFcd{;} \EFc{it's nice to know how much power you have}
 
-(global-subword-mode 1)                           ; Iterate through CamelCase words
-\end{minted}
+\EFrda{(}\EFv{global-subword-mode} \EFhn{1}\EFrda{)}                           \EFcd{;} \EFc{Iterate through CamelCase words}
+\end{Verbatim}
+\end{Code}
 \subsubsection{Browser}
-\label{sec:orgb595bdd}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(setq browse-url-chrome-program "brave")
-\end{minted}
+\label{sec:orgf47d828}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{setq} \EFv{browse-url-chrome-program} \EFs{"brave"}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsubsection{Which-key}
-\label{sec:orga8a080a}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(setq which-key-idle-delay 0.5 ;; Default is 1.0
-      which-key-idle-secondary-delay 0.05) ;; Default is nil
-(setq which-key-allow-multiple-replacements t)
+\label{sec:org69bab3a}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{setq} \EFv{which-key-idle-delay} \EFhn{0.5} \EFcd{;;} \EFc{Default is 1.0}
+      \EFv{which-key-idle-secondary-delay} \EFhn{0.05}\EFrda{)} \EFcd{;;} \EFc{Default is nil}
+\EFrda{(}\EFk{setq} \EFv{which-key-allow-multiple-replacements} t\EFrda{)}
 
-(after! which-key
-  (pushnew! which-key-replacement-alist
-            '((""       . "\\`+?evil[-:]?\\(?:a-\\)?\\(.*\\)") . (nil . "🅔·\\1"))
-            '(("\\`g s" . "\\`evilem--?motion-\\(.*\\)")       . (nil . "Ⓔ·\\1"))))
-\end{minted}
+\EFrda{(}\EFk{after!} which-key
+  \EFrdb{(}\EFk{pushnew!} \EFv{which-key-replacement-alist}
+            \EFhq{'}\EFrdc{(}\EFrdd{(}\EFs{""}       . \EFs{"\char92{}\char92{}`+?evil[-:]?}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{(?:}}\EFs{a-}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{)}}\EFs{?}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{(}}\EFs{.*}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{)}}\EFs{"}\EFrdd{)} . \EFrdd{(}nil . \EFs{"🅔·\char92{}\char92{}1"}\EFrdd{)}\EFrdc{)}
+            \EFhq{'}\EFrdc{(}\EFrdd{(}\EFs{"\char92{}\char92{}`g s"} . \EFs{"\char92{}\char92{}`evilem--?motion-}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{(}}\EFs{.*}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{)}}\EFs{"}\EFrdd{)}       . \EFrdd{(}nil . \EFs{"Ⓔ·\char92{}\char92{}1"}\EFrdd{)}\EFrdc{)}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsection{Visual}
-\label{sec:orgaa29e9d}
+\label{sec:org05dbd26}
 \subsubsection{Font}
-\label{sec:orgc9000ca}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(setq doom-font (font-spec :family "Iosevka" :size 14)
-      doom-variable-pitch-font (font-spec :family "Lato")
-      doom-unicode-font (font-spec :family "JuliaMono")
-      doom-big-font (font-spec :family "Iosevka" :size 24)
-      doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light))
-\end{minted}
+\label{sec:orgd2d7fa9}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{setq} \EFv{doom-font} \EFrdb{(}\EFo{font-spec} \EFb{:family} \EFs{"Iosevka"} \EFb{:size} \EFhn{14}\EFrdb{)}
+      \EFv{doom-variable-pitch-font} \EFrdb{(}\EFo{font-spec} \EFb{:family} \EFs{"Lato"}\EFrdb{)}
+      \EFv{doom-unicode-font} \EFrdb{(}\EFo{font-spec} \EFb{:family} \EFs{"JuliaMono"}\EFrdb{)}
+      \EFv{doom-big-font} \EFrdb{(}\EFo{font-spec} \EFb{:family} \EFs{"Iosevka"} \EFb{:size} \EFhn{24}\EFrdb{)}
+      \EFv{doom-serif-font} \EFrdb{(}\EFo{font-spec} \EFb{:family} \EFs{"Iosevka Aile"} \EFb{:weight} \EFhq{'}\EFhs{light}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsubsection{Theme}
-\label{sec:orga23e6f5}
+\label{sec:org6988351}
 \begin{enumerate}
 \item Catppuccin theme
-\label{sec:org4b6b4d5}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-;; (load-theme 'catppuccin t t)
-(setq doom-theme 'doom-nord-aurora)
-;; (setq catppuccin-flavor 'frappe) ;; or 'latte, 'macchiato, or 'mocha
-;; (catppuccin-reload)
-\end{minted}
+\label{sec:org0db22b8}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFcd{;;} \EFc{(load-theme 'catppuccin t t)}
+\EFrda{(}\EFk{setq} \EFv{doom-theme} \EFhq{'}\EFhs{doom-nord-aurora}\EFrda{)}
+\EFcd{;;} \EFc{(setq catppuccin-flavor 'frappe) ;; or 'latte, 'macchiato, or 'mocha}
+\EFcd{;;} \EFc{(catppuccin-reload)}
+\end{Verbatim}
+\end{Code}
 \item Treemacs styling
-\label{sec:org52cd5e5}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(setq doom-themes-treemacs-theme "doom-colors") ; use "doom-colors" for less minimal icon theme
-(with-eval-after-load 'doom-themes
-  (doom-themes-treemacs-config))
-\end{minted}
+\label{sec:org514caea}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{setq} \EFv{doom-themes-treemacs-theme} \EFs{"doom-colors"}\EFrda{)} \EFcd{;} \EFc{use "doom-colors" for less minimal icon theme}
+\EFrda{(}\EFk{with-eval-after-load} \EFhq{'}\EFhs{doom-themes}
+  \EFrdb{(}\EFf{doom-themes-treemacs-config}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \end{enumerate}
 \subsubsection{Default visual}
-\label{sec:orgcdefbc5}
+\label{sec:org6b71937}
 Transparency and fontification
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-;; Corrects (and improves) org-mode's native fontification.
-(doom-themes-org-config)
-\end{minted}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-;; set transparency
-(set-frame-parameter (selected-frame) 'alpha '(99 99))
-(add-to-list 'default-frame-alist '(alpha 99 99))
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-\end{minted}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFcd{;;} \EFc{Corrects (and improves) org-mode's native fontification.}
+\EFrda{(}\EFo{doom-themes-org-config}\EFrda{)}
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFcd{;;} \EFc{set transparency}
+\EFrda{(}\EFo{set-frame-parameter} \EFrdb{(}\EFo{selected-frame}\EFrdb{)} \EFhq{'}\EFhs{alpha} \EFhq{'}\EFrdb{(}\EFhn{99} \EFhn{99}\EFrdb{)}\EFrda{)}
+\EFrda{(}\EFo{add-to-list} \EFhq{'}\EFv{default-frame-alist} \EFhq{'}\EFrdb{(}alpha \EFhn{99} \EFhn{99}\EFrdb{)}\EFrda{)}
+\EFrda{(}\EFo{add-to-list} \EFhq{'}\EFv{default-frame-alist} \EFhq{'}\EFrdb{(}fullscreen . maximized\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsubsection{Starting image}
-\label{sec:org6f9e64d}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(setq fancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
-\end{minted}
+\label{sec:org125a600}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{setq} \EFv{fancy-splash-image} \EFrdb{(}\EFo{expand-file-name} \EFs{"themes/doom-emacs-bw-light.svg"} \EFv{doom-user-dir}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsubsection{Theme Magic}
-\label{sec:orgbb93282}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(package! theme-magic)
-\end{minted}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(after! theme-magic
-  :commands theme-magic-from-emacs
-  :config
-  (defadvice! theme-magic--auto-extract-16-doom-colors ()
-    :override #'theme-magic--auto-extract-16-colors
-    (list
-     (face-attribute 'default :background)
-     (doom-color 'error)
-     (doom-color 'success)
-     (doom-color 'type)
-     (doom-color 'keywords)
-     (doom-color 'constants)
-     (doom-color 'functions)
-     (face-attribute 'default :foreground)
-     (face-attribute 'shadow :foreground)
-     (doom-blend 'base8 'error 0.1)
-     (doom-blend 'base8 'success 0.1)
-     (doom-blend 'base8 'type 0.1)
-     (doom-blend 'base8 'keywords 0.1)
-     (doom-blend 'base8 'constants 0.1)
-     (doom-blend 'base8 'functions 0.1)
-     (face-attribute 'default :foreground))))
+\label{sec:org6538113}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{package!} theme-magic\EFrda{)}
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{after!} theme-magic
+  \EFb{:commands} theme-magic-from-emacs
+  \EFb{:config}
+  \EFrdb{(}\EFk{defadvice!} theme-magic--auto-extract-16-doom-colors \EFrdc{(}\EFrdc{)}
+    \EFb{:override} \EFhq{\#'}\EFhs{theme-magic--auto-extract-16-colors}
+    \EFrdc{(}\EFo{list}
+     \EFrdd{(}\EFo{face-attribute} \EFhq{'}\EFhs{default} \EFb{:background}\EFrdd{)}
+     \EFrdd{(}\EFo{doom-color} \EFhq{'}\EFhs{error}\EFrdd{)}
+     \EFrdd{(}\EFo{doom-color} \EFhq{'}\EFhs{success}\EFrdd{)}
+     \EFrdd{(}\EFo{doom-color} \EFhq{'}\EFhs{type}\EFrdd{)}
+     \EFrdd{(}\EFo{doom-color} \EFhq{'}\EFhs{keywords}\EFrdd{)}
+     \EFrdd{(}\EFo{doom-color} \EFhq{'}\EFhs{constants}\EFrdd{)}
+     \EFrdd{(}\EFo{doom-color} \EFhq{'}\EFhs{functions}\EFrdd{)}
+     \EFrdd{(}\EFo{face-attribute} \EFhq{'}\EFhs{default} \EFb{:foreground}\EFrdd{)}
+     \EFrdd{(}\EFo{face-attribute} \EFhq{'}\EFhs{shadow} \EFb{:foreground}\EFrdd{)}
+     \EFrdd{(}\EFo{doom-blend} \EFhq{'}\EFhs{base8} \EFhq{'}\EFhs{error} \EFhn{0.1}\EFrdd{)}
+     \EFrdd{(}\EFo{doom-blend} \EFhq{'}\EFhs{base8} \EFhq{'}\EFhs{success} \EFhn{0.1}\EFrdd{)}
+     \EFrdd{(}\EFo{doom-blend} \EFhq{'}\EFhs{base8} \EFhq{'}\EFhs{type} \EFhn{0.1}\EFrdd{)}
+     \EFrdd{(}\EFo{doom-blend} \EFhq{'}\EFhs{base8} \EFhq{'}\EFhs{keywords} \EFhn{0.1}\EFrdd{)}
+     \EFrdd{(}\EFo{doom-blend} \EFhq{'}\EFhs{base8} \EFhq{'}\EFhs{constants} \EFhn{0.1}\EFrdd{)}
+     \EFrdd{(}\EFo{doom-blend} \EFhq{'}\EFhs{base8} \EFhq{'}\EFhs{functions} \EFhn{0.1}\EFrdd{)}
+     \EFrdd{(}\EFo{face-attribute} \EFhq{'}\EFhs{default} \EFb{:foreground}\EFrdd{)}\EFrdc{)}\EFrdb{)}\EFrda{)}
 
-\end{minted}
+\end{Verbatim}
+\end{Code}
 \subsection{Marginalia}
-\label{sec:org8debb37}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(package! info-colors)
-\end{minted}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(after! info-colors
-  :commands (info-colors-fontify-node))
-(add-hook! 'Info-selection-hook 'info-colors-fontify-node)
-\end{minted}
+\label{sec:org2ae5b77}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{package!} info-colors\EFrda{)}
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{after!} info-colors
+  \EFb{:commands} \EFrdb{(}\EFo{info-colors-fontify-node}\EFrdb{)}\EFrda{)}
+\EFrda{(}\EFk{add-hook!} \EFhq{'}\EFv{Info-selection-hook} \EFhq{'}\EFhs{info-colors-fontify-node}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsection{File Templates}
-\label{sec:org9b715ca}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(set-file-template! "\\.tex$" :trigger "__" :mode 'latex-mode)
-(set-file-template! "\\.org$" :trigger "__" :mode 'org-mode)
-\end{minted}
+\label{sec:orga9d5282}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFf{set-file-template!} \EFs{"\char92{}\char92{}.tex\$"} \EFb{:trigger} \EFs{"\_\_"} \EFb{:mode} \EFhq{'}\EFhs{latex-mode}\EFrda{)}
+\EFrda{(}\EFf{set-file-template!} \EFs{"\char92{}\char92{}.org\$"} \EFb{:trigger} \EFs{"\_\_"} \EFb{:mode} \EFhq{'}\EFhs{org-mode}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsection{Editor config}
-\label{sec:org0a4c882}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(setq display-line-numbers-type `relative)
-(setq-default tab-width 4)
-(setq byte-compile-warnings '(cl-functions))
-\end{minted}
+\label{sec:org65b8614}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{setq} \EFv{display-line-numbers-type} \EFhq{`}\EFhs{relative}\EFrda{)}
+\EFrda{(}\EFk{setq-default} \EFv{tab-width} \EFhn{4}\EFrda{)}
+\EFrda{(}\EFk{setq} \EFv{byte-compile-warnings} \EFhq{'}\EFrdb{(}cl-functions\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \section{Org-Mode}
-\label{sec:orge58d545}
+\label{sec:org63d5cdf}
 \subsection{Defaults}
-\label{sec:orgea013c1}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(setq org-directory "~/org/"
-      org-agenda-files (list org-directory)                  ; Seems like the obvious place.
-      org-use-property-inheritance t                         ; It's convenient to have properties inherited.
-      org-log-done 'time                                     ; Having the time a item is done sounds convenient.
-      org-list-allow-alphabetical t                          ; Have a. A. a) A) list bullets.
-      org-catch-invisible-edits 'smart                       ; Try not to accidently do weird stuff in invisible regions.
-      org-export-with-sub-superscripts '{}                   ; Don't treat lone _ / ^ as sub/superscripts, require _{} / ^{}.
-      org-export-allow-bind-keywords t                       ; Bind keywords can be handy
-      org-image-actual-width '(0.9))                         ; Make the in-buffer display closer to the exported result..#+end_src
-\end{minted}
+\label{sec:org85c532a}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{setq} \EFv{org-directory} \EFs{"\char126{}/org/"}
+      \EFv{org-agenda-files} \EFrdb{(}\EFo{list} \EFv{org-directory}\EFrdb{)}                  \EFcd{;} \EFc{Seems like the obvious place.}
+      \EFv{org-use-property-inheritance} t                         \EFcd{;} \EFc{It's convenient to have properties inherited.}
+      \EFv{org-log-done} \EFhq{'}\EFhs{time}                                     \EFcd{;} \EFc{Having the time a item is done sounds convenient.}
+      \EFv{org-list-allow-alphabetical} t                          \EFcd{;} \EFc{Have a. A. a) A) list bullets.}
+      \EFv{org-catch-invisible-edits} \EFhq{'}\EFhs{smart}                       \EFcd{;} \EFc{Try not to accidently do weird stuff in invisible regions.}
+      \EFv{org-export-with-sub-superscripts} \EFhq{'}\EFhs{\{\}}                   \EFcd{;} \EFc{Don't treat lone \_ / \char94{} as sub/superscripts, require \_\{\} / \char94{}\{\}.}
+      \EFv{org-export-allow-bind-keywords} t                       \EFcd{;} \EFc{Bind keywords can be handy}
+      \EFv{org-image-actual-width} \EFhq{'}\EFrdb{(}\EFhn{0.9}\EFrdb{)}\EFrda{)}                         \EFcd{;} \EFc{Make the in-buffer display closer to the exported result..\#+end\_src}
+\end{Verbatim}
+\end{Code}
 \subsection{Babel}
-\label{sec:orgac44884}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(setq org-babel-default-header-args
-      '((:session . "none")
-        (:results . "replace")
-        (:exports . "code")
-        (:cache . "no")
-        (:noweb . "no")
-        (:hlines . "no")
-        (:tangle . "no")
-        (:comments . "link")))
-\end{minted}
+\label{sec:org48d1012}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{setq} \EFv{org-babel-default-header-args}
+      \EFhq{'}\EFrdb{(}\EFrdc{(}\EFb{:session} . \EFs{"none"}\EFrdc{)}
+        \EFrdc{(}\EFb{:results} . \EFs{"replace"}\EFrdc{)}
+        \EFrdc{(}\EFb{:exports} . \EFs{"code"}\EFrdc{)}
+        \EFrdc{(}\EFb{:cache} . \EFs{"no"}\EFrdc{)}
+        \EFrdc{(}\EFb{:noweb} . \EFs{"no"}\EFrdc{)}
+        \EFrdc{(}\EFb{:hlines} . \EFs{"no"}\EFrdc{)}
+        \EFrdc{(}\EFb{:tangle} . \EFs{"no"}\EFrdc{)}
+        \EFrdc{(}\EFb{:comments} . \EFs{"link"}\EFrdc{)}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsection{Visuals}
-\label{sec:orgf57fea2}
+\label{sec:orgabbf275}
 \subsubsection{Org-modern}
-\label{sec:org8e10436}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(package! org-modern)
-\end{minted}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(use-package! org-modern
-  :after org
-  :hook (org-mode . org-modern-mode)
-  :config
-  (setq org-modern-star '("◉" "○" "✸" "✿" "✤" "✜" "◆" "▶")
-        org-modern-table-vertical 1
-        org-modern-table-horizontal 0.2
-        org-modern-list '((43 . "➤")
-                          (45 . "–")
-                          (42 . "•"))
-        org-modern-todo-faces
-        '(("TODO" :inverse-video t :inherit org-todo)
-          ("PROJ" :inverse-video t :inherit +org-todo-project)
-          ("STRT" :inverse-video t :inherit +org-todo-active)
-          ("[-]"  :inverse-video t :inherit +org-todo-active)
-          ("HOLD" :inverse-video t :inherit +org-todo-onhold)
-          ("WAIT" :inverse-video t :inherit +org-todo-onhold)
-          ("[?]"  :inverse-video t :inherit +org-todo-onhold)
-          ("KILL" :inverse-video t :inherit +org-todo-cancel)
-          ("NO"   :inverse-video t :inherit +org-todo-cancel))
-        org-modern-footnote
-        (cons nil (cadr org-script-display))
-        org-modern-block-fringe nil
-        org-modern-block-name
-        '((t . t)
-          ("src" "»" "«")
-          ("example" "»–" "–«")
-          ("quote" "❝" "❞")
-          ("export" "⏩" "⏪"))
-        org-modern-progress nil
-        org-modern-priority nil
-        org-modern-horizontal-rule (make-string 36 ?─)
-        org-modern-keyword
-        '((t . t)
-          ("title" . "𝙏")
-          ("subtitle" . "𝙩")
-          ("author" . "𝘼")
-          ("email" . #("" 0 1 (display (raise -0.14))))
-          ("date" . "𝘿")
-          ("property" . "☸")
-          ("options" . "⌥")
-          ("startup" . "⏻")
-          ("macro" . "𝓜")
-          ("bind" . #("" 0 1 (display (raise -0.1))))
-          ("bibliography" . "")
-          ("print_bibliography" . #("" 0 1 (display (raise -0.1))))
-          ("cite_export" . "⮭")
-          ("print_glossary" . #("ᴬᶻ" 0 1 (display (raise -0.1))))
-          ("glossary_sources" . #("" 0 1 (display (raise -0.14))))
-          ("include" . "⇤")
-          ("setupfile" . "⇚")
-          ("html_head" . "🅷")
-          ("html" . "🅗")
-          ("latex_class" . "🄻")
-          ("latex_class_options" . #("🄻" 1 2 (display (raise -0.14))))
-          ("latex_header" . "🅻")
-          ("latex_header_extra" . "🅻⁺")
-          ("latex" . "🅛")
-          ("beamer_theme" . "🄱")
-          ("beamer_color_theme" . #("🄱" 1 2 (display (raise -0.12))))
-          ("beamer_font_theme" . "🄱𝐀")
-          ("beamer_header" . "🅱")
-          ("beamer" . "🅑")
-          ("attr_latex" . "🄛")
-          ("attr_html" . "🄗")
-          ("attr_org" . "⒪")
-          ("call" . #("" 0 1 (display (raise -0.15))))
-          ("name" . "⁍")
-          ("header" . "›")
-          ("caption" . "☰")
-          ("results" . "🠶")))
-  (custom-set-faces! '(org-modern-statistics :inherit org-checkbox-statistics-todo)))
-\end{minted}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(after! spell-fu
-  (cl-pushnew 'org-modern-tag (alist-get 'org-mode +spell-excluded-faces-alist)))
-\end{minted}
+\label{sec:org8ee6e65}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{package!} org-modern\EFrda{)}
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{use-package!} org-modern
+  \EFb{:after} org
+  \EFb{:hook} \EFrdb{(}\EFo{org-mode} . \EFv{org-modern-mode}\EFrdb{)}
+  \EFb{:config}
+  \EFrdb{(}\EFk{setq} \EFv{org-modern-star} \EFhq{'}\EFrdc{(}\EFs{"◉"} \EFs{"○"} \EFs{"✸"} \EFs{"✿"} \EFs{"✤"} \EFs{"✜"} \EFs{"◆"} \EFs{"▶"}\EFrdc{)}
+        \EFv{org-modern-table-vertical} \EFhn{1}
+        \EFv{org-modern-table-horizontal} \EFhn{0.2}
+        \EFv{org-modern-list} \EFhq{'}\EFrdc{(}\EFrdd{(}\EFhn{43} . \EFs{"➤"}\EFrdd{)}
+                          \EFrdd{(}\EFhn{45} . \EFs{"–"}\EFrdd{)}
+                          \EFrdd{(}\EFhn{42} . \EFs{"•"}\EFrdd{)}\EFrdc{)}
+        \EFv{org-modern-todo-faces}
+        \EFhq{'}\EFrdc{(}\EFrdd{(}\EFs{"}\textcolor[HTML]{ff8e00}{\textbf{TODO}}\EFs{"} \EFb{:inverse-video} t \EFb{:inherit} org-todo\EFrdd{)}
+          \EFrdd{(}\EFs{"PROJ"} \EFb{:inverse-video} t \EFb{:inherit} +org-todo-project\EFrdd{)}
+          \EFrdd{(}\EFs{"STRT"} \EFb{:inverse-video} t \EFb{:inherit} +org-todo-active\EFrdd{)}
+          \EFrdd{(}\EFs{"[-]"}  \EFb{:inverse-video} t \EFb{:inherit} +org-todo-active\EFrdd{)}
+          \EFrdd{(}\EFs{"HOLD"} \EFb{:inverse-video} t \EFb{:inherit} +org-todo-onhold\EFrdd{)}
+          \EFrdd{(}\EFs{"WAIT"} \EFb{:inverse-video} t \EFb{:inherit} +org-todo-onhold\EFrdd{)}
+          \EFrdd{(}\EFs{"[?]"}  \EFb{:inverse-video} t \EFb{:inherit} +org-todo-onhold\EFrdd{)}
+          \EFrdd{(}\EFs{"KILL"} \EFb{:inverse-video} t \EFb{:inherit} +org-todo-cancel\EFrdd{)}
+          \EFrdd{(}\EFs{"NO"}   \EFb{:inverse-video} t \EFb{:inherit} +org-todo-cancel\EFrdd{)}\EFrdc{)}
+        \EFv{org-modern-footnote}
+        \EFrdc{(}\EFo{cons} nil \EFrdd{(}\EFo{cadr} \EFv{org-script-display}\EFrdd{)}\EFrdc{)}
+        \EFv{org-modern-block-fringe} nil
+        \EFv{org-modern-block-name}
+        \EFhq{'}\EFrdc{(}\EFrdd{(}t . t\EFrdd{)}
+          \EFrdd{(}\EFs{"src"} \EFs{"»"} \EFs{"«"}\EFrdd{)}
+          \EFrdd{(}\EFs{"example"} \EFs{"»–"} \EFs{"–«"}\EFrdd{)}
+          \EFrdd{(}\EFs{"quote"} \EFs{"❝"} \EFs{"❞"}\EFrdd{)}
+          \EFrdd{(}\EFs{"export"} \EFs{"⏩"} \EFs{"⏪"}\EFrdd{)}\EFrdc{)}
+        \EFv{org-modern-progress} nil
+        \EFv{org-modern-priority} nil
+        \EFv{org-modern-horizontal-rule} \EFrdc{(}\EFo{make-string} \EFhn{36} ?─\EFrdc{)}
+        \EFv{org-modern-keyword}
+        \EFhq{'}\EFrdc{(}\EFrdd{(}t . t\EFrdd{)}
+          \EFrdd{(}\EFs{"title"} . \EFs{"𝙏"}\EFrdd{)}
+          \EFrdd{(}\EFs{"subtitle"} . \EFs{"𝙩"}\EFrdd{)}
+          \EFrdd{(}\EFs{"author"} . \EFs{"𝘼"}\EFrdd{)}
+          \EFrdd{(}\EFs{"email"} . \#\EFrda{(}\EFs{""} \EFhn{0} \EFhn{1} \EFrdb{(}display \EFrdc{(}raise \EFhn{-0.14}\EFrdc{)}\EFrdb{)}\EFrda{)}\EFrdd{)}
+          \EFrdd{(}\EFs{"date"} . \EFs{"𝘿"}\EFrdd{)}
+          \EFrdd{(}\EFs{"property"} . \EFs{"☸"}\EFrdd{)}
+          \EFrdd{(}\EFs{"options"} . \EFs{"⌥"}\EFrdd{)}
+          \EFrdd{(}\EFs{"startup"} . \EFs{"⏻"}\EFrdd{)}
+          \EFrdd{(}\EFs{"macro"} . \EFs{"𝓜"}\EFrdd{)}
+          \EFrdd{(}\EFs{"bind"} . \#\EFrda{(}\EFs{""} \EFhn{0} \EFhn{1} \EFrdb{(}display \EFrdc{(}raise \EFhn{-0.1}\EFrdc{)}\EFrdb{)}\EFrda{)}\EFrdd{)}
+          \EFrdd{(}\EFs{"bibliography"} . \EFs{""}\EFrdd{)}
+          \EFrdd{(}\EFs{"print\_bibliography"} . \#\EFrda{(}\EFs{""} \EFhn{0} \EFhn{1} \EFrdb{(}display \EFrdc{(}raise \EFhn{-0.1}\EFrdc{)}\EFrdb{)}\EFrda{)}\EFrdd{)}
+          \EFrdd{(}\EFs{"cite\_export"} . \EFs{"⮭"}\EFrdd{)}
+          \EFrdd{(}\EFs{"print\_glossary"} . \#\EFrda{(}\EFs{"ᴬᶻ"} \EFhn{0} \EFhn{1} \EFrdb{(}display \EFrdc{(}raise \EFhn{-0.1}\EFrdc{)}\EFrdb{)}\EFrda{)}\EFrdd{)}
+          \EFrdd{(}\EFs{"glossary\_sources"} . \#\EFrda{(}\EFs{""} \EFhn{0} \EFhn{1} \EFrdb{(}display \EFrdc{(}raise \EFhn{-0.14}\EFrdc{)}\EFrdb{)}\EFrda{)}\EFrdd{)}
+          \EFrdd{(}\EFs{"include"} . \EFs{"⇤"}\EFrdd{)}
+          \EFrdd{(}\EFs{"setupfile"} . \EFs{"⇚"}\EFrdd{)}
+          \EFrdd{(}\EFs{"html\_head"} . \EFs{"🅷"}\EFrdd{)}
+          \EFrdd{(}\EFs{"html"} . \EFs{"🅗"}\EFrdd{)}
+          \EFrdd{(}\EFs{"latex\_class"} . \EFs{"🄻"}\EFrdd{)}
+          \EFrdd{(}\EFs{"latex\_class\_options"} . \#\EFrda{(}\EFs{"🄻"} \EFhn{1} \EFhn{2} \EFrdb{(}display \EFrdc{(}raise \EFhn{-0.14}\EFrdc{)}\EFrdb{)}\EFrda{)}\EFrdd{)}
+          \EFrdd{(}\EFs{"latex\_header"} . \EFs{"🅻"}\EFrdd{)}
+          \EFrdd{(}\EFs{"latex\_header\_extra"} . \EFs{"🅻⁺"}\EFrdd{)}
+          \EFrdd{(}\EFs{"latex"} . \EFs{"🅛"}\EFrdd{)}
+          \EFrdd{(}\EFs{"beamer\_theme"} . \EFs{"🄱"}\EFrdd{)}
+          \EFrdd{(}\EFs{"beamer\_color\_theme"} . \#\EFrda{(}\EFs{"🄱"} \EFhn{1} \EFhn{2} \EFrdb{(}display \EFrdc{(}raise \EFhn{-0.12}\EFrdc{)}\EFrdb{)}\EFrda{)}\EFrdd{)}
+          \EFrdd{(}\EFs{"beamer\_font\_theme"} . \EFs{"🄱𝐀"}\EFrdd{)}
+          \EFrdd{(}\EFs{"beamer\_header"} . \EFs{"🅱"}\EFrdd{)}
+          \EFrdd{(}\EFs{"beamer"} . \EFs{"🅑"}\EFrdd{)}
+          \EFrdd{(}\EFs{"attr\_latex"} . \EFs{"🄛"}\EFrdd{)}
+          \EFrdd{(}\EFs{"attr\_html"} . \EFs{"🄗"}\EFrdd{)}
+          \EFrdd{(}\EFs{"attr\_org"} . \EFs{"⒪"}\EFrdd{)}
+          \EFrdd{(}\EFs{"call"} . \#\EFrda{(}\EFs{""} \EFhn{0} \EFhn{1} \EFrdb{(}display \EFrdc{(}raise \EFhn{-0.15}\EFrdc{)}\EFrdb{)}\EFrda{)}\EFrdd{)}
+          \EFrdd{(}\EFs{"name"} . \EFs{"⁍"}\EFrdd{)}
+          \EFrdd{(}\EFs{"header"} . \EFs{"›"}\EFrdd{)}
+          \EFrdd{(}\EFs{"caption"} . \EFs{"☰"}\EFrdd{)}
+          \EFrdd{(}\EFs{"results"} . \EFs{"🠶"}\EFrdd{)}\EFrdc{)}\EFrdb{)}
+  \EFrdb{(}\EFk{custom-set-faces!} \EFhq{'}\EFrdc{(}\EFv{org-modern-statistics} \EFb{:inherit} org-checkbox-statistics-todo\EFrdc{)}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{after!} spell-fu
+  \EFrdb{(}\EFk{cl-pushnew} \EFhq{'}\EFv{org-modern-tag} \EFrdc{(}\EFo{alist-get} \EFhq{'}\EFhs{org-mode} \EFv{+spell-excluded-faces-alist}\EFrdc{)}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsubsection{General}
-\label{sec:org5acd819}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(add-hook 'org-mode-hook #'+org-pretty-mode)
-\end{minted}
+\label{sec:org35ff817}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFo{add-hook} \EFhq{'}\EFv{org-mode-hook} \EFhq{\#'}\EFv{+org-pretty-mode}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(setq org-src-fontify-natively t
-      org-fontify-whole-heading-line t
-      org-fontify-done-headline t
-      org-fontify-quote-and-verse-blocks t
-      org-startup-with-inline-images t
-      org-startup-indented t
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{setq} \EFv{org-src-fontify-natively} t
+      \EFv{org-fontify-whole-heading-line} t
+      \EFv{org-fontify-done-headline} t
+      \EFv{org-fontify-quote-and-verse-blocks} t
+      \EFv{org-startup-with-inline-images} t
+      \EFv{org-startup-indented} t
 
-      ;; Org styling, hide markup etc.
-      org-pretty-entities t
-      )
+      \EFcd{;;} \EFc{Org styling, hide markup etc.}
+      \EFv{org-pretty-entities} t
+      \EFrda{)}
 
-(setq org-ellipsis " ▾ "
-      org-hide-leading-stars t
-      org-priority-highest ?A
-      org-priority-lowest ?E
-      org-priority-faces
-      '((?A . 'all-the-icons-red)
-        (?B . 'all-the-icons-orange)
-        (?C . 'all-the-icons-yellow)
-        (?D . 'all-the-icons-green)
-        (?E . 'all-the-icons-blue)))
+\EFrda{(}\EFk{setq} \EFv{org-ellipsis} \EFs{" ▾ "}
+      \EFv{org-hide-leading-stars} t
+      \EFv{org-priority-highest} ?A
+      \EFv{org-priority-lowest} ?E
+      \EFv{org-priority-faces}
+      \EFhq{'}\EFrdb{(}\EFrdc{(}?A . \EFhq{'}\EFhs{all-the-icons-red}\EFrdc{)}
+        \EFrdc{(}?B . \EFhq{'}\EFhs{all-the-icons-orange}\EFrdc{)}
+        \EFrdc{(}?C . \EFhq{'}\EFhs{all-the-icons-yellow}\EFrdc{)}
+        \EFrdc{(}?D . \EFhq{'}\EFhs{all-the-icons-green}\EFrdc{)}
+        \EFrdc{(}?E . \EFhq{'}\EFhs{all-the-icons-blue}\EFrdc{)}\EFrdb{)}\EFrda{)}
 
 
-(setq org-inline-src-prettify-results '("⟨" . "⟩"))
+\EFrda{(}\EFk{setq} org-inline-src-prettify-results \EFhq{'}\EFrdb{(}\EFs{"⟨"} . \EFs{"⟩"}\EFrdb{)}\EFrda{)}
 
-(setq doom-themes-org-fontify-special-tags nil)
-\end{minted}
+\EFrda{(}\EFk{setq} \EFv{doom-themes-org-fontify-special-tags} nil\EFrda{)}
+\end{Verbatim}
+\end{Code}
 
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(custom-set-faces!
-  '(outline-1 :weight extra-bold :height 1.25)
-  '(outline-2 :weight bold :height 1.15)
-  '(outline-3 :weight bold :height 1.12)
-  '(outline-4 :weight semi-bold :height 1.09)
-  '(outline-5 :weight semi-bold :height 1.06)
-  '(outline-6 :weight semi-bold :height 1.03)
-  '(outline-8 :weight semi-bold)
-  '(outline-9 :weight semi-bold))
-(custom-set-faces!
-  '(org-document-title :height 1.2))
-\end{minted}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{custom-set-faces!}
+  \EFhq{'}\EFrdb{(}outline-1 \EFb{:weight} extra-bold \EFb{:height} \EFhn{1.25}\EFrdb{)}
+  \EFhq{'}\EFrdb{(}outline-2 \EFb{:weight} bold \EFb{:height} \EFhn{1.15}\EFrdb{)}
+  \EFhq{'}\EFrdb{(}outline-3 \EFb{:weight} bold \EFb{:height} \EFhn{1.12}\EFrdb{)}
+  \EFhq{'}\EFrdb{(}outline-4 \EFb{:weight} semi-bold \EFb{:height} \EFhn{1.09}\EFrdb{)}
+  \EFhq{'}\EFrdb{(}outline-5 \EFb{:weight} semi-bold \EFb{:height} \EFhn{1.06}\EFrdb{)}
+  \EFhq{'}\EFrdb{(}outline-6 \EFb{:weight} semi-bold \EFb{:height} \EFhn{1.03}\EFrdb{)}
+  \EFhq{'}\EFrdb{(}outline-8 \EFb{:weight} semi-bold\EFrdb{)}
+  \EFhq{'}\EFrdb{(}outline-9 \EFb{:weight} semi-bold\EFrdb{)}\EFrda{)}
+\EFrda{(}\EFk{custom-set-faces!}
+  \EFhq{'}\EFrdb{(}org-document-title \EFb{:height} \EFhn{1.2}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 
 \subsubsection{Org-appear}
-\label{sec:org20d6a55}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(package! org-appear)
-\end{minted}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-
-(use-package! org-appear
-  :after org
-  :hook (org-mode . org-appear-mode)
-  :config
-  (setq org-appear-autoemphasis t
-        org-appear-autosubmarkers t
-        org-appear-autolinks t)
-  ;; for proper first-time setup, `org-appear--set-elements'
-  ;; needs to be run after other hooks have acted.
-  (run-at-time nil nil #'org-appear--set-elements))
-\end{minted}
+\label{sec:org4c9c37a}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{package!} org-appear\EFrda{)}
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}
+\EFrda{(}\EFk{use-package!} org-appear
+  \EFb{:after} org
+  \EFb{:hook} \EFrdb{(}\EFo{org-mode} . \EFv{org-appear-mode}\EFrdb{)}
+  \EFb{:config}
+  \EFrdb{(}\EFk{setq} \EFv{org-appear-autoemphasis} t
+        \EFv{org-appear-autosubmarkers} t
+        \EFv{org-appear-autolinks} t\EFrdb{)}
+  \EFcd{;;} \EFc{for proper first-time setup, `}\textcolor[HTML]{008b8b}{org-appear--set-elements}\EFc{'}
+  \EFcd{;;} \EFc{needs to be run after other hooks have acted.}
+  \EFrdb{(}\EFo{run-at-time} nil nil \EFhq{\#'}\EFhs{org-appear--set-elements}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsubsection{Ligatures}
-\label{sec:org071640d}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(appendq! +ligatures-extra-symbols
-          (list :list_property "∷"
-                :em_dash       "—"
-                :ellipses      "…"
-                :arrow_right   "→"
-                :arrow_left    "←"
-                :arrow_lr      "↔"
-                :properties    "⚙"
-                :end           "∎"
-                :priority_a    #("⚑" 0 1 (face all-the-icons-red))
-                :priority_b    #("⬆" 0 1 (face all-the-icons-orange))
-                :priority_c    #("■" 0 1 (face all-the-icons-yellow))
-                :priority_d    #("⬇" 0 1 (face all-the-icons-green))
-                :priority_e    #("❓" 0 1 (face all-the-icons-blue))))
+\label{sec:orgb0d8566}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{appendq!} \EFv{+ligatures-extra-symbols}
+          \EFrdb{(}\EFo{list} \EFb{:list\_property} \EFs{"∷"}
+                \EFb{:em\_dash}       \EFs{"—"}
+                \EFb{:ellipses}      \EFs{"…"}
+                \EFb{:arrow\_right}   \EFs{"→"}
+                \EFb{:arrow\_left}    \EFs{"←"}
+                \EFb{:arrow\_lr}      \EFs{"↔"}
+                \EFb{:properties}    \EFs{"⚙"}
+                \EFb{:end}           \EFs{"∎"}
+                \EFb{:priority\_a}    \#\EFrdc{(}\EFs{"⚑"} \EFhn{0} \EFhn{1} \EFrdd{(}face all-the-icons-red\EFrdd{)}\EFrdc{)}
+                \EFb{:priority\_b}    \#\EFrdc{(}\EFs{"⬆"} \EFhn{0} \EFhn{1} \EFrdd{(}face all-the-icons-orange\EFrdd{)}\EFrdc{)}
+                \EFb{:priority\_c}    \#\EFrdc{(}\EFs{"■"} \EFhn{0} \EFhn{1} \EFrdd{(}face all-the-icons-yellow\EFrdd{)}\EFrdc{)}
+                \EFb{:priority\_d}    \#\EFrdc{(}\EFs{"⬇"} \EFhn{0} \EFhn{1} \EFrdd{(}face all-the-icons-green\EFrdd{)}\EFrdc{)}
+                \EFb{:priority\_e}    \#\EFrdc{(}\EFs{"❓"} \EFhn{0} \EFhn{1} \EFrdd{(}face all-the-icons-blue\EFrdd{)}\EFrdc{)}\EFrdb{)}\EFrda{)}
 
-(defadvice! +org-init-appearance-h--no-ligatures-a ()
-  :after #'+org-init-appearance-h
-  (set-ligatures! 'org-mode nil)
-  (set-ligatures! 'org-mode
-    :list_property "::"
-    :em_dash       "---"
-    :ellipsis      "..."
-    :arrow_right   "->"
-    :arrow_left    "<-"
-    :arrow_lr      "<->"
-    :properties    ":PROPERTIES:"
-    :end           ":END:"
-    :priority_a    "[#A]"
-    :priority_b    "[#B]"
-    :priority_c    "[#C]"
-    :priority_d    "[#D]"
-    :priority_e    "[#E]"))
-\end{minted}
+\EFrda{(}\EFk{defadvice!} +org-init-appearance-h--no-ligatures-a \EFrdb{(}\EFrdb{)}
+  \EFb{:after} \EFhq{\#'}\EFhs{+org-init-appearance-h}
+  \EFrdb{(}\EFf{set-ligatures!} \EFhq{'}\EFhs{org-mode} nil\EFrdb{)}
+  \EFrdb{(}\EFf{set-ligatures!} \EFhq{'}\EFhs{org-mode}
+    \EFb{:list\_property} \EFs{"::"}
+    \EFb{:em\_dash}       \EFs{"---"}
+    \EFb{:ellipsis}      \EFs{"..."}
+    \EFb{:arrow\_right}   \EFs{"->"}
+    \EFb{:arrow\_left}    \EFs{"<-"}
+    \EFb{:arrow\_lr}      \EFs{"<->"}
+    \EFb{:properties}    \EFs{":PROPERTIES:"}
+    \EFb{:end}           \EFs{":END:"}
+    \EFb{:priority\_a}    \EFs{"[\#A]"}
+    \EFb{:priority\_b}    \EFs{"[\#B]"}
+    \EFb{:priority\_c}    \EFs{"[\#C]"}
+    \EFb{:priority\_d}    \EFs{"[\#D]"}
+    \EFb{:priority\_e}    \EFs{"[\#E]"}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsubsection{Latex improvement}
-\label{sec:org409a464}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(setq org-highlight-latex-and-related '(native script entities))
-\end{minted}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(require 'org-src)
-(add-to-list 'org-src-block-faces '("latex" (:inherit default :extend t)))
-\end{minted}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-;; (package! org-fragtog)
-\end{minted}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-;;   :hook (org-mode . org-fragtog-mode))
-\end{minted}
+\label{sec:org7e5331c}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{setq} \EFv{org-highlight-latex-and-related} \EFhq{'}\EFrdb{(}native script entities\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFo{require} \EFhq{'}\EFo{org-src}\EFrda{)}
+\EFrda{(}\EFo{add-to-list} \EFhq{'}\EFv{org-src-block-faces} \EFhq{'}\EFrdb{(}\EFs{"latex"} \EFrdc{(}\EFb{:inherit} default \EFb{:extend} t\EFrdc{)}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFcd{;;} \EFc{(package! org-fragtog)}
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFcd{;;}   \EFc{:hook (org-mode . org-fragtog-mode))}
+\end{Verbatim}
+\end{Code}
 \subsection{Bullets}
-\label{sec:org61a3d4a}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a.")))
-\end{minted}
+\label{sec:orgbed45ee}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{setq} \EFv{org-list-demote-modify-bullet} \EFhq{'}\EFrdb{(}\EFrdc{(}\EFs{"+"} . \EFs{"-"}\EFrdc{)} \EFrdc{(}\EFs{"-"} . \EFs{"+"}\EFrdc{)} \EFrdc{(}\EFs{"*"} . \EFs{"+"}\EFrdc{)} \EFrdc{(}\EFs{"1."} . \EFs{"a."}\EFrdc{)}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsection{Agenda}
-\label{sec:org3ce1ff7}
+\label{sec:orgee12b94}
 \subsubsection{Visual}
-\label{sec:org188ab09}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(after! org-agenda
-  (setq org-agenda-deadline-faces
-      '((1.001 . error)
-        (1.0 . org-warning)
-        (0.5 . org-upcoming-deadline)
-        (0.0 . org-upcoming-distant-deadline))))
-\end{minted}
+\label{sec:org8458a55}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{after!} org-agenda
+  \EFrdb{(}\EFk{setq} \EFv{org-agenda-deadline-faces}
+      \EFhq{'}\EFrdc{(}\EFrdd{(}\EFhn{1.001} . error\EFrdd{)}
+        \EFrdd{(}\EFhn{1.0} . org-warning\EFrdd{)}
+        \EFrdd{(}\EFhn{0.5} . org-upcoming-deadline\EFrdd{)}
+        \EFrdd{(}\EFhn{0.0} . org-upcoming-distant-deadline\EFrdd{)}\EFrdc{)}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsection{Super-Agenda}
-\label{sec:orga7de647}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-;; (package! org-super-agenda)
-\end{minted}
+\label{sec:orgbefadd4}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFcd{;;} \EFc{(package! org-super-agenda)}
+\end{Verbatim}
+\end{Code}
 \subsubsection{Config}
-\label{sec:orgbdd8655}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(setq  org-agenda-tags-column 0
-       org-agenda-block-separator ?─
-       org-agenda-time-grid
-       '((daily today require-timed)
-         (800 1000 1200 1400 1600 1800 2000)
-         " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
-       org-agenda-current-time-string
-       "⭠ now ─────────────────────────────────────────────────")
-\end{minted}
+\label{sec:org6ba8be8}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{setq}  \EFv{org-agenda-tags-column} \EFhn{0}
+       \EFv{org-agenda-block-separator} ?─
+       \EFv{org-agenda-time-grid}
+       \EFhq{'}\EFrdb{(}\EFrdc{(}daily today require-timed\EFrdc{)}
+         \EFrdc{(}\EFhn{800} \EFhn{1000} \EFhn{1200} \EFhn{1400} \EFhn{1600} \EFhn{1800} \EFhn{2000}\EFrdc{)}
+         \EFs{" ┄┄┄┄┄ "} \EFs{"┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄"}\EFrdb{)}
+       \EFv{org-agenda-current-time-string}
+       \EFs{"⭠ now ─────────────────────────────────────────────────"}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsubsection{Customize}
-\label{sec:orgc933bde}
+\label{sec:orgf376e1e}
 \subsection{Roam}
-\label{sec:orgdb50d29}
+\label{sec:orgaed6e2f}
 \subsubsection{Defaults}
-\label{sec:org4a5e6d6}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
+\label{sec:orgfb2633e}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}
+\EFrda{(}\EFk{use-package!} org-roam
+  \EFb{:after} org
+  \EFb{:config}
+  \EFrdb{(}\EFk{setq}                   org-enable-roam-support t
+                          \EFv{org-roam-directory} \EFrdc{(}\EFo{concat} \EFv{org-directory} \EFs{"/Roam"}\EFrdc{)}
+                          org-roam-v2-ack t\EFrdb{)}\EFrda{)}
 
-(use-package! org-roam
-  :after org
-  :config
-  (setq                   org-enable-roam-support t
-                          org-roam-directory (concat org-directory "/Roam")
-                          org-roam-v2-ack t))
-
-\end{minted}
+\end{Verbatim}
+\end{Code}
 \subsubsection{Daily}
-\label{sec:org9c952cd}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
+\label{sec:org9d0b999}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}
+\EFrda{(}\EFk{setq} org-roam-dailies-directory \EFs{"daily/"}\EFrda{)}
 
-(setq org-roam-dailies-directory "daily/")
-
-(setq org-roam-dailies-capture-templates
-      '(("d" "default" entry
-         "* %?"
-         :target (file+head "%<%Y-%m-%d>.org"
-                            "#+title: %<%Y-%m-%d>\n"))))
-\end{minted}
+\EFrda{(}\EFk{setq} org-roam-dailies-capture-templates
+      \EFhq{'}\EFrdb{(}\EFrdc{(}\EFs{"d"} \EFs{"default"} entry
+         \EFs{"* \%?"}
+         \EFb{:target} \EFrdd{(}file+head \EFs{"\%<\%Y-\%m-\%d>.org"}
+                            \EFs{"\#+title: \%<\%Y-\%m-\%d>\char92{}n"}\EFrdd{)}\EFrdc{)}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsubsection{Visuals}
-\label{sec:org6cdf184}
+\label{sec:org88e0c57}
 \begin{enumerate}
 \item UI and visualization
-\label{sec:org77ba95d}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(package! org-roam-ui)
-(package! websocket)
-\end{minted}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-
-(defadvice! doom-modeline--buffer-file-name-roam-aware-a (orig-fun)
-  :around #'doom-modeline-buffer-file-name ; takes no args
-  (if (s-contains-p org-roam-directory (or buffer-file-name ""))
-      (replace-regexp-in-string
-       "\\(?:^\\|.*/\\)\\([0-9]\\{4\\}\\)\\([0-9]\\{2\\}\\)\\([0-9]\\{2\\}\\)[0-9]*-"
-       "🢔(\\1-\\2-\\3) "
-       (subst-char-in-string ?_ ?  buffer-file-name))
-    (funcall orig-fun)))
-(use-package! websocket
-  :after org-roam)
-(use-package! org-roam-ui
-  :after org-roam
-  :commands org-roam-ui-open
-  :hook (org-roam . org-roam-ui-mode)
-  :config
-  (setq org-roam-ui-sync-theme t
+\label{sec:orgdf4de40}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{package!} org-roam-ui\EFrda{)}
+\EFrda{(}\EFk{package!} websocket\EFrda{)}
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}
+\EFrda{(}\EFk{defadvice!} doom-modeline--buffer-file-name-roam-aware-a \EFrdb{(}orig-fun\EFrdb{)}
+  \EFb{:around} \EFhq{\#'}\EFhs{doom-modeline-buffer-file-name} \EFcd{;} \EFc{takes no args}
+  \EFrdb{(}\EFk{if} \EFrdc{(}\EFo{s-contains-p} \EFv{org-roam-directory} \EFrdd{(}\EFk{or} \EFv{buffer-file-name} \EFs{""}\EFrdd{)}\EFrdc{)}
+      \EFrdc{(}\EFo{replace-regexp-in-string}
+       \EFs{"}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{(?:}}\EFs{\char94{}}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{|}}\EFs{.*/}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{)}}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{(}}\EFs{[0-9]\char92{}\char92{}\{4\char92{}\char92{}\}}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{)}}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{(}}\EFs{[0-9]\char92{}\char92{}\{2\char92{}\char92{}\}}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{)}}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{(}}\EFs{[0-9]\char92{}\char92{}\{2\char92{}\char92{}\}}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{)}}\EFs{[0-9]*-"}
+       \EFs{"🢔(\char92{}\char92{}1-\char92{}\char92{}2-\char92{}\char92{}3) "}
+       \EFrdd{(}\EFo{subst-char-in-string} ?\_ ?  \EFv{buffer-file-name}\EFrdd{)}\EFrdc{)}
+    \EFrdc{(}\EFo{funcall} orig-fun\EFrdc{)}\EFrdb{)}\EFrda{)}
+\EFrda{(}\EFk{use-package!} websocket
+  \EFb{:after} org-roam\EFrda{)}
+\EFrda{(}\EFk{use-package!} org-roam-ui
+  \EFb{:after} org-roam
+  \EFb{:commands} org-roam-ui-open
+  \EFb{:hook} \EFrdb{(}org-roam . \EFv{org-roam-ui-mode}\EFrdb{)}
+  \EFb{:config}
+  \EFrdb{(}\EFk{setq} org-roam-ui-sync-theme t
         org-roam-ui-follow t
         org-roam-ui-update-on-save t
-        org-roam-ui-open-on-start t)
-  (require 'org-roam) ; in case autoloaded
-  (defun org-roam-ui-open ()
-    "Ensure the server is active, then open the roam graph."
-    (interactive)
-    (unless org-roam-ui-mode (org-roam-ui-mode 1))
-    (browse-url--browser (format "http://localhost:%d" org-roam-ui-port))))
-\end{minted}
+        org-roam-ui-open-on-start t\EFrdb{)}
+  \EFrdb{(}\EFo{require} \EFhq{'}\EFo{org-roam}\EFrdb{)} \EFcd{;} \EFc{in case autoloaded}
+  \EFrdb{(}\EFk{defun} \EFf{org-roam-ui-open} \EFrdc{(}\EFrdc{)}
+    \EFd{"Ensure the server is active, then open the roam graph."}
+    \EFrdc{(}\EFk{interactive}\EFrdc{)}
+    \EFrdc{(}\EFk{unless} \EFv{org-roam-ui-mode} \EFrdd{(}\EFv{org-roam-ui-mode} \EFhn{1}\EFrdd{)}\EFrdc{)}
+    \EFrdc{(}\EFo{browse-url--browser} \EFrdd{(}\EFo{format} \EFs{"http://localhost:\%d"} org-roam-ui-port\EFrdd{)}\EFrdc{)}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \end{enumerate}
 \subsection{Ob-async}
-\label{sec:orge0c78ae}
+\label{sec:org56f6857}
 \subsubsection{Julia support}
-\label{sec:orgbb6171f}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(add-hook 'ob-async-pre-execute-src-block-hook
-        #'(lambda ()
-           (setq inferior-julia-program-name "/usr/local/bin/julia")))
-\end{minted}
+\label{sec:org675e2a4}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFo{add-hook} \EFhq{'}\EFhs{ob-async-pre-execute-src-block-hook}
+        \EFhq{\#'}\EFrdb{(}\EFk{lambda} \EFrdc{(}\EFrdc{)}
+           \EFrdc{(}\EFk{setq} \EFv{inferior-julia-program-name} \EFs{"/usr/local/bin/julia"}\EFrdc{)}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsubsection{Jupyter Integration}
-\label{sec:org739e5a2}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(setq ob-async-no-async-languages-alist '("jupyter-python" "jupyter-julia"))
-\end{minted}
+\label{sec:orgabe4d4c}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{setq} ob-async-no-async-languages-alist \EFhq{'}\EFrdb{(}\EFs{"jupyter-python"} \EFs{"jupyter-julia"}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsection{Org-Diff}
-\label{sec:orgc2229f4}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-
-(package! org-diff
-  :recipe (:host github
-           :repo "tecosaur/orgdiff"))
-\end{minted}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-
-(use-package! orgdiff
-  :defer t
-  :config
-  (defun +orgdiff-nicer-change-colours ()
-    (goto-char (point-min))
-    ;; Set red/blue based on whether chameleon is being used
-    (if (search-forward "%% make document follow Emacs theme" nil t)
-        (setq red  (substring (doom-blend 'red 'fg 0.8) 1)
-              blue (substring (doom-blend 'blue 'teal 0.6) 1))
-      (setq red  "c82829"
-            blue "00618a"))
-    (when (and (search-forward "%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF" nil t)
-               (search-forward "\\RequirePackage{color}" nil t))
-      (when (re-search-forward "definecolor{red}{rgb}{1,0,0}" (cdr (bounds-of-thing-at-point 'line)) t)
-        (replace-match (format "definecolor{red}{HTML}{%s}" red)))
-      (when (re-search-forward "definecolor{blue}{rgb}{0,0,1}" (cdr (bounds-of-thing-at-point 'line)) t)
-        (replace-match (format "definecolor{blue}{HTML}{%s}"))))))
-\end{minted}
+\label{sec:org2713247}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}
+\EFrda{(}\EFk{package!} org-diff
+  \EFb{:recipe} \EFrdb{(}\EFb{:host} github
+           \EFb{:repo} \EFs{"tecosaur/orgdiff"}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}
+\EFrda{(}\EFk{use-package!} orgdiff
+  \EFb{:defer} t
+  \EFb{:config}
+  \EFrdb{(}\EFk{defun} \EFf{+orgdiff-nicer-change-colours} \EFrdc{(}\EFrdc{)}
+    \EFrdc{(}\EFo{goto-char} \EFrdd{(}\EFo{point-min}\EFrdd{)}\EFrdc{)}
+    \EFcd{;;} \EFc{Set red/blue based on whether chameleon is being used}
+    \EFrdc{(}\EFk{if} \EFrdd{(}\EFo{search-forward} \EFs{"\%\% make document follow Emacs theme"} nil t\EFrdd{)}
+        \EFrdd{(}\EFk{setq} red  \EFrda{(}\EFo{substring} \EFrdb{(}\EFo{doom-blend} \EFhq{'}\EFhs{red} \EFhq{'}\EFhs{fg} \EFhn{0.8}\EFrdb{)} \EFhn{1}\EFrda{)}
+              blue \EFrda{(}\EFo{substring} \EFrdb{(}\EFo{doom-blend} \EFhq{'}\EFhs{blue} \EFhq{'}\EFhs{teal} \EFhn{0.6}\EFrdb{)} \EFhn{1}\EFrda{)}\EFrdd{)}
+      \EFrdd{(}\EFk{setq} red  \EFs{"c82829"}
+            blue \EFs{"00618a"}\EFrdd{)}\EFrdc{)}
+    \EFrdc{(}\EFk{when} \EFrdd{(}\EFk{and} \EFrda{(}\EFo{search-forward} \EFs{"\%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF"} nil t\EFrda{)}
+               \EFrda{(}\EFo{search-forward} \EFs{"\char92{}\char92{}RequirePackage\{color\}"} nil t\EFrda{)}\EFrdd{)}
+      \EFrdd{(}\EFk{when} \EFrda{(}\EFo{re-search-forward} \EFs{"definecolor\{red\}\{rgb\}\{1,0,0\}"} \EFrdb{(}\EFo{cdr} \EFrdc{(}\EFo{bounds-of-thing-at-point} \EFhq{'}\EFhs{line}\EFrdc{)}\EFrdb{)} t\EFrda{)}
+        \EFrda{(}\EFo{replace-match} \EFrdb{(}\EFo{format} \EFs{"definecolor\{red\}\{HTML\}\{\%s\}"} red\EFrdb{)}\EFrda{)}\EFrdd{)}
+      \EFrdd{(}\EFk{when} \EFrda{(}\EFo{re-search-forward} \EFs{"definecolor\{blue\}\{rgb\}\{0,0,1\}"} \EFrdb{(}\EFo{cdr} \EFrdc{(}\EFo{bounds-of-thing-at-point} \EFhq{'}\EFhs{line}\EFrdc{)}\EFrdb{)} t\EFrda{)}
+        \EFrda{(}\EFo{replace-match} \EFrdb{(}\EFo{format} \EFs{"definecolor\{blue\}\{HTML\}\{\%s\}"}\EFrdb{)}\EFrda{)}\EFrdd{)}\EFrdc{)}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsection{Pandoc import}
-\label{sec:org29102e8}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(package! org-pandoc-import
-  :recipe (:host github
-           :repo "tecosaur/org-pandoc-import"
-           :files ("*.el" "filters" "preprocessors")))
-\end{minted}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-
-(use-package! org-pandoc-import
-  :after org)
-\end{minted}
+\label{sec:org1e57924}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{package!} org-pandoc-import
+  \EFb{:recipe} \EFrdb{(}\EFb{:host} github
+           \EFb{:repo} \EFs{"tecosaur/org-pandoc-import"}
+           \EFb{:files} \EFrdc{(}\EFs{"*.el"} \EFs{"filters"} \EFs{"preprocessors"}\EFrdc{)}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}
+\EFrda{(}\EFk{use-package!} org-pandoc-import
+  \EFb{:after} org\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsection{Export}
-\label{sec:org8f25767}
+\label{sec:orgd188b0a}
 \subsubsection{Preview}
-\label{sec:org4b909a1}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
+\label{sec:org824302c}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}
+\EFrda{(}\EFk{map!} \EFb{:map} \EFv{org-mode-map}
 
-(map! :map org-mode-map
+      \EFb{:localleader}
+      \EFb{:desc} \EFs{"View exported file"} \EFs{"v"} \EFhq{\#'}\EFhs{org-view-output-file}\EFrda{)}
 
-      :localleader
-      :desc "View exported file" "v" #'org-view-output-file)
+\EFrda{(}\EFk{defun} \EFf{org-view-output-file} \EFrdb{(}\EFt{\&optional} org-file-path\EFrdb{)}
+  \EFd{"Visit buffer open on the first output file (if any) found, using `}\textcolor[HTML]{008b8b}{org-view-output-file-extensions}\EFd{'"}
+  \EFrdb{(}\EFk{interactive}\EFrdb{)}
+  \EFrdb{(}\EFk{let*} \EFrdc{(}\EFrdd{(}org-file-path \EFrda{(}\EFk{or} org-file-path \EFrdb{(}\EFv{buffer-file-name}\EFrdb{)} \EFs{""}\EFrda{)}\EFrdd{)}
+         \EFrdd{(}dir \EFrda{(}\EFo{file-name-directory} org-file-path\EFrda{)}\EFrdd{)}
+         \EFrdd{(}basename \EFrda{(}\EFo{file-name-base} org-file-path\EFrda{)}\EFrdd{)}
+         \EFrdd{(}output-file nil\EFrdd{)}\EFrdc{)}
+    \EFrdc{(}\EFk{dolist} \EFrdd{(}ext \EFv{org-view-output-file-extensions}\EFrdd{)}
+      \EFrdd{(}\EFk{unless} output-file
+        \EFrda{(}\EFk{when} \EFrdb{(}\EFo{file-exists-p}
+               \EFrdc{(}\EFo{concat} dir basename \EFs{"."} ext\EFrdc{)}\EFrdb{)}
+          \EFrdb{(}\EFk{setq} output-file \EFrdc{(}\EFo{concat} dir basename \EFs{"."} ext\EFrdc{)}\EFrdb{)}\EFrda{)}\EFrdd{)}\EFrdc{)}
+    \EFrdc{(}\EFk{if} output-file
+        \EFrdd{(}\EFk{if} \EFrda{(}\EFo{member} \EFrdb{(}\EFo{file-name-extension} output-file\EFrdb{)} \EFv{org-view-external-file-extensions}\EFrda{)}
+            \EFrda{(}\EFo{browse-url-xdg-open} output-file\EFrda{)}
+          \EFrda{(}\EFo{pop-to-buffer} \EFrdb{(}\EFk{or} \EFrdc{(}\EFo{find-buffer-visiting} output-file\EFrdc{)}
+                             \EFrdc{(}\EFo{find-file-noselect} output-file\EFrdc{)}\EFrdb{)}\EFrda{)}\EFrdd{)}
+      \EFrdd{(}\EFo{message} \EFs{"No exported file found"}\EFrdd{)}\EFrdc{)}\EFrdb{)}\EFrda{)}
 
-(defun org-view-output-file (&optional org-file-path)
-  "Visit buffer open on the first output file (if any) found, using `org-view-output-file-extensions'"
-  (interactive)
-  (let* ((org-file-path (or org-file-path (buffer-file-name) ""))
-         (dir (file-name-directory org-file-path))
-         (basename (file-name-base org-file-path))
-         (output-file nil))
-    (dolist (ext org-view-output-file-extensions)
-      (unless output-file
-        (when (file-exists-p
-               (concat dir basename "." ext))
-          (setq output-file (concat dir basename "." ext)))))
-    (if output-file
-        (if (member (file-name-extension output-file) org-view-external-file-extensions)
-            (browse-url-xdg-open output-file)
-          (pop-to-buffer (or (find-buffer-visiting output-file)
-                             (find-file-noselect output-file))))
-      (message "No exported file found"))))
-
-(defvar org-view-output-file-extensions '("pdf" "md" "rst" "txt" "tex" "html")
-  "Search for output files with these extensions, in order, viewing the first that matches")
-(defvar org-view-external-file-extensions '("html")
-  "File formats that should be opened externally.")
-\end{minted}
+\EFrda{(}\EFk{defvar} \EFv{org-view-output-file-extensions} \EFhq{'}\EFrdb{(}\EFs{"pdf"} \EFs{"md"} \EFs{"rst"} \EFs{"txt"} \EFs{"tex"} \EFs{"html"}\EFrdb{)}
+  \EFd{"Search for output files with these extensions, in order, viewing the first that matches"}\EFrda{)}
+\EFrda{(}\EFk{defvar} \EFv{org-view-external-file-extensions} \EFhq{'}\EFrdb{(}\EFs{"html"}\EFrdb{)}
+  \EFd{"File formats that should be opened externally."}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsection{Zotero Integration}
-\label{sec:org27e58c3}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(package! zotxt)
-\end{minted}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-
-(use-package! zotxt
-  :after org)
-\end{minted}
+\label{sec:org32eab3f}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{package!} zotxt\EFrda{)}
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}
+\EFrda{(}\EFk{use-package!} zotxt
+  \EFb{:after} org\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsection{Org-Chef}
-\label{sec:orgde6bd44}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(package! org-chef)
-\end{minted}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(use-package! org-chef
-  :commands (org-chef-insert-recipe org-chef-get-recipe-from-url))
-\end{minted}
+\label{sec:orgb32ca93}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{package!} org-chef\EFrda{)}
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{use-package!} org-chef
+  \EFb{:commands} \EFrdb{(}\EFf{org-chef-insert-recipe} org-chef-get-recipe-from-url\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 
 \subsection{Bibtex-Integration}
-\label{sec:orgb88cdbe}
+\label{sec:org9f2f82a}
 \subsubsection{Citar}
-\label{sec:org31cd205}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(package! org-cite-csl-activate :recipe (:host github :repo "andras-simonyi/org-cite-csl-activate"))
-\end{minted}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(use-package! citar
-  :no-require
-  :custom
-  (org-cite-global-bibliography '("~/org/Lecture_Notes/MyLibrary.bib"))
-  (org-cite-insert-processor 'citar)
-  (org-cite-follow-processor 'citar)
-  (org-cite-activate-processor 'citar)
-  (citar-bibliography org-cite-global-bibliography)
-  ( citar-symbols
-    `((file ,(all-the-icons-faicon "file-o" :face 'all-the-icons-green :v-adjust -0.1) . " ")
-      (note ,(all-the-icons-material "speaker_notes" :face 'all-the-icons-blue :v-adjust -0.3) . " ")
-      (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " ")))
-  ( citar-symbol-separator "  "))
+\label{sec:orgade0980}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{package!} org-cite-csl-activate \EFb{:recipe} \EFrdb{(}\EFb{:host} github \EFb{:repo} \EFs{"andras-simonyi/org-cite-csl-activate"}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{use-package!} citar
+  \EFb{:no-require}
+  \EFb{:custom}
+  \EFrdb{(}\EFv{org-cite-global-bibliography} \EFhq{'}\EFrdc{(}\EFs{"\char126{}/org/Lecture\_Notes/MyLibrary.bib"}\EFrdc{)}\EFrdb{)}
+  \EFrdb{(}\EFv{citar-bibliography} \EFv{org-cite-global-bibliography}\EFrdb{)}
+  \EFrdb{(}\EFv{citar-symbols}
+    \EFhq{`}\EFrdc{(}\EFrdd{(}file ,\EFrda{(}\EFo{all-the-icons-faicon} \EFs{"file-o"} \EFb{:face} \EFhq{'}\EFhs{all-the-icons-green} \EFb{:v-adjust} \EFhn{-0.1}\EFrda{)} . \EFs{" "}\EFrdd{)}
+      \EFrdd{(}note ,\EFrda{(}\EFo{all-the-icons-material} \EFs{"speaker\_notes"} \EFb{:face} \EFhq{'}\EFhs{all-the-icons-blue} \EFb{:v-adjust} \EFhn{-0.3}\EFrda{)} . \EFs{" "}\EFrdd{)}
+      \EFrdd{(}link ,\EFrda{(}\EFo{all-the-icons-octicon} \EFs{"link"} \EFb{:face} \EFhq{'}\EFhs{all-the-icons-orange} \EFb{:v-adjust} \EFhn{0.01}\EFrda{)} . \EFs{" "}\EFrdd{)}\EFrdc{)}\EFrdb{)}
+  \EFrdb{(}\EFv{citar-symbol-separator} \EFs{"  "}\EFrdb{)}\EFrda{)}
 
-(use-package! oc-csl
-  :after oc
-  :config
-  (setq org-cite-csl-styles-dir "~/Zotero/styles"))
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{use-package!} oc-csl
+  \EFb{:after} oc
+  \EFb{:config}
+  \EFrdb{(}\EFk{setq} \EFv{org-cite-csl-styles-dir} \EFs{"\char126{}/Zotero/styles/"}\EFrdb{)}\EFrda{)}
 
 
-(after! oc
-  (setq org-cite-export-processors '((t csl))))
-\end{minted}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(use-package! oc-csl-activate
-  :after org
-  :config
-  (setq org-cite-activate-processor 'csl-activate)
-  (setq org-cite-csl-activate-use-document-style t)
-  (setq org-cite-csl-activate-use-document-locale t)
-  (add-hook 'org-mode-hook
-            (lambda ()
-              (cursor-sensor-mode 1)
-              (org-cite-csl-activate-render-all))))
-\end{minted}
+\EFrda{(}\EFk{after!} oc
+  \EFrdb{(}\EFk{setq} \EFv{org-cite-export-processors} \EFhq{'}\EFrdc{(}
+                                     \EFrdd{(}beamer natbib\EFrdd{)}
+                                     \EFrdd{(}latex biblatex\EFrdd{)}
+                                     \EFrdd{(}t csl\EFrdd{)}
+                                     \EFrdc{)}\EFrdb{)}
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{use-package!} oc-csl-activate
+  \EFb{:after} org
+  \EFb{:config}
+  \EFrdb{(}\EFk{setq} \EFv{org-cite-activate-processor} \EFhq{'}\EFhs{csl-activate}\EFrdb{)}
+  \EFrdb{(}\EFk{setq} \EFv{org-cite-csl-activate-use-document-style} t\EFrdb{)}
+  \EFrdb{(}\EFk{setq} \EFv{org-cite-csl-activate-use-document-locale} t\EFrdb{)}
+  \EFrdb{(}\EFo{add-hook} \EFhq{'}\EFv{org-mode-hook}
+            \EFrdc{(}\EFk{lambda} \EFrdd{(}\EFrdd{)}
+              \EFrdd{(}\EFv{cursor-sensor-mode} \EFhn{1}\EFrdd{)}
+              \EFrdd{(}\EFf{org-cite-csl-activate-render-all}\EFrdd{)}\EFrdc{)}\EFrdb{)}\EFrda{)}
+
+\end{Verbatim}
+\end{Code}
 \subsubsection{Org-Roam integration}
-\label{sec:org1254feb}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(package! citar-org-roam  :recipe (:host github :repo "emacs-citar/citar-org-roam"))
-\end{minted}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(use-package! citar-org-roam
-  :after citar org-roam
-  :config (citar-org-roam-mode))
-(setq org-roam-capture-templates
-      '(("d" "default" plain
-         "%?"
-         :target
-         (file+head
-          "%<%Y%m%d%H%M%S>-${slug}.org"
-          "#+title: ${title}\n")
-         :unnarrowed t)
-        ("n" "literature note" plain
-         "%?"
-         :target
-         (file+head
-          "%(expand-file-name \"literature\" org-roam-directory)/${citekey}.org"
-          "#+title: ${citekey}. ${title}.\n#+created: %U\n#+last_modified: %U\n\n")
-         :unnarrowed t)))
-(setq citar-org-roam-capture-template-key "n")
-\end{minted}
+\label{sec:org45315a5}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{use-package!} citar-org-roam
+  \EFb{:after} citar org-roam
+  \EFb{:config} \EFrdb{(}\EFv{citar-org-roam-mode}\EFrdb{)}\EFrda{)}
+\EFrda{(}\EFk{setq} \EFv{org-roam-capture-templates}
+      \EFhq{'}\EFrdb{(}\EFrdc{(}\EFs{"d"} \EFs{"default"} plain
+         \EFs{"\%?"}
+         \EFb{:target}
+         \EFrdd{(}file+head
+          \EFs{"\%<\%Y\%m\%d\%H\%M\%S>-\$\{slug\}.org"}
+          \EFs{"\#+title: \$\{title\}\char92{}n"}\EFrdd{)}
+         \EFb{:unnarrowed} t\EFrdc{)}
+        \EFrdc{(}\EFs{"n"} \EFs{"literature note"} plain
+         \EFs{"\%?"}
+         \EFb{:target}
+         \EFrdd{(}file+head
+          \EFs{"\%(expand-file-name \char92{}"literature\char92{}" org-roam-directory)/\$\{citekey\}.org"}
+          \EFs{"\#+title: \$\{citekey\}. \$\{title\}.\char92{}n\#+created: \%U\char92{}n\#+last\_modified: \%U\char92{}n\char92{}n"}\EFrdd{)}
+         \EFb{:unnarrowed} t\EFrdc{)}\EFrdb{)}\EFrda{)}
+\EFrda{(}\EFk{setq} citar-org-roam-capture-template-key \EFs{"n"}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsection{Latex templates}
-\label{sec:org9efb4e6}
+\label{sec:org61630f5}
 \subsubsection{Preview}
-\label{sec:org232f45a}
+\label{sec:org75d13e4}
 \begin{enumerate}
 \item PNG
-\label{sec:orge3179aa}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(after! org
-  ;; ORG LATEX PREVIEW
-  (setq org-format-latex-options
-        (plist-put org-format-latex-options :background "Transparent"))
-  (setq org-format-latex-options
-        (plist-put org-format-latex-options :scale 1))
-  (setq org-preview-latex-default-process 'dvisvgm)
-  (setq org-preview-latex-image-directory "~/.cache/ltximg/")
-  )
-\end{minted}
+\label{sec:org733ab45}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{after!} org
+  \EFcd{;;} \EFc{ORG LATEX PREVIEW}
+  \EFrdb{(}\EFk{setq} \EFv{org-format-latex-options}
+        \EFrdc{(}\EFo{plist-put} \EFv{org-format-latex-options} \EFb{:background} \EFs{"Transparent"}\EFrdc{)}\EFrdb{)}
+  \EFrdb{(}\EFk{setq} \EFv{org-format-latex-options}
+        \EFrdc{(}\EFo{plist-put} \EFv{org-format-latex-options} \EFb{:scale} \EFhn{1}\EFrdc{)}\EFrdb{)}
+  \EFrdb{(}\EFk{setq} \EFv{org-preview-latex-default-process} \EFhq{'}\EFhs{dvisvgm}\EFrdb{)}
+  \EFrdb{(}\EFk{setq} \EFv{org-preview-latex-image-directory} \EFs{"\char126{}/.cache/ltximg/"}\EFrdb{)}
+  \EFrda{)}
+\end{Verbatim}
+\end{Code}
 \item Header
-\label{sec:org0825462}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(setq org-format-latex-header "\\documentclass[12pt]
-{article}
-\\usepackage[usenames]{xcolor}
-\\usepackage{booktabs}
-\\pagestyle{empty}             % do not remove
-% The settings below are copied from fullpage.sty
-\\setlength{\\textwidth}{\\paperwidth}
-\\addtolength{\\textwidth}{-3cm}
-\\setlength{\\oddsidemargin}{1.5cm}
-\\addtolength{\\oddsidemargin}{-2.54cm}
-\\setlength{\\evensidemargin}{\\oddsidemargin}
-\\setlength{\\textheight}{\\paperheight}
-\\addtolength{\\textheight}{-\\headheight}
-\\addtolength{\\textheight}{-\\headsep}
-\\addtolength{\\textheight}{-\\footskip}
-\\addtolength{\\textheight}{-3cm}
-\\setlength{\\topmargin}{1.5cm}
-\\addtolength{\\topmargin}{-2.54cm}
-% my custom stuff
-\\usepackage{xfrac}
-\\usepackage{siunitx}
-\\usepackage{diffcoeff}
-\\usepackage{nicematrix}
-\\DeclareMathOperator{\\Var}{Var}
-\\DeclareMathOperator{\\cov}{Cov}
-\\DeclareMathOperator{\\E}{\\mathbb{E}}
-\\DeclareMathOperator*{\\argmax}{arg\\,max}
-\\DeclareMathOperator*{\\argmin}{arg\\,min}
-")
+\label{sec:orgf76edfe}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{setq} \EFv{org-format-latex-header} \EFs{"\char92{}\char92{}documentclass[12pt]}
+\EFs{\{article\}}
+\EFs{\char92{}\char92{}usepackage[usenames]\{xcolor\}}
+\EFs{\char92{}\char92{}usepackage\{booktabs\}}
+\EFs{\char92{}\char92{}pagestyle\{empty\}             \% do not remove}
+\EFs{\% The settings below are copied from fullpage.sty}
+\EFs{\char92{}\char92{}setlength\{\char92{}\char92{}textwidth\}\{\char92{}\char92{}paperwidth\}}
+\EFs{\char92{}\char92{}addtolength\{\char92{}\char92{}textwidth\}\{-3cm\}}
+\EFs{\char92{}\char92{}setlength\{\char92{}\char92{}oddsidemargin\}\{1.5cm\}}
+\EFs{\char92{}\char92{}addtolength\{\char92{}\char92{}oddsidemargin\}\{-2.54cm\}}
+\EFs{\char92{}\char92{}setlength\{\char92{}\char92{}evensidemargin\}\{\char92{}\char92{}oddsidemargin\}}
+\EFs{\char92{}\char92{}setlength\{\char92{}\char92{}textheight\}\{\char92{}\char92{}paperheight\}}
+\EFs{\char92{}\char92{}addtolength\{\char92{}\char92{}textheight\}\{-\char92{}\char92{}headheight\}}
+\EFs{\char92{}\char92{}addtolength\{\char92{}\char92{}textheight\}\{-\char92{}\char92{}headsep\}}
+\EFs{\char92{}\char92{}addtolength\{\char92{}\char92{}textheight\}\{-\char92{}\char92{}footskip\}}
+\EFs{\char92{}\char92{}addtolength\{\char92{}\char92{}textheight\}\{-3cm\}}
+\EFs{\char92{}\char92{}setlength\{\char92{}\char92{}topmargin\}\{1.5cm\}}
+\EFs{\char92{}\char92{}addtolength\{\char92{}\char92{}topmargin\}\{-2.54cm\}}
+\EFs{\% my custom stuff}
+\EFs{\char92{}\char92{}usepackage\{xfrac\}}
+\EFs{\char92{}\char92{}usepackage\{siunitx\}}
+\EFs{\char92{}\char92{}usepackage\{diffcoeff\}}
+\EFs{\char92{}\char92{}usepackage\{nicematrix\}}
+\EFs{\char92{}\char92{}DeclareMathOperator\{\char92{}\char92{}Var\}\{Var\}}
+\EFs{\char92{}\char92{}DeclareMathOperator\{\char92{}\char92{}cov\}\{Cov\}}
+\EFs{\char92{}\char92{}DeclareMathOperator\{\char92{}\char92{}E\}\{\char92{}\char92{}mathbb\{E\}\}}
+\EFs{\char92{}\char92{}DeclareMathOperator*\{\char92{}\char92{}argmax\}\{arg\char92{}\char92{},max\}}
+\EFs{\char92{}\char92{}DeclareMathOperator*\{\char92{}\char92{}argmin\}\{arg\char92{}\char92{},min\}}
+\EFs{"}\EFrda{)}
 
-\end{minted}
+\end{Verbatim}
+\end{Code}
 \end{enumerate}
 \subsubsection{Article}
-\label{sec:orga2e0675}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(with-eval-after-load 'ox-latex
-(add-to-list 'org-latex-classes
-             '("article"
-               "\\documentclass[c]{article}
-\\usepackage[american]{babel}
-\\usepackage[margin=1.25in]{geometry}
-\\usepackage{parskip}
-\\usepackage{booktabs}
-\\usepackage{float}
-\\usepackage{microtype}
-\\usepackage{graphicx}
-\\usepackage{mathtools}
-\\usepackage{wrapfig}
-\\usepackage{amsthm}
-\\usepackage{amssymb}
-\\usepackage{newpxtext}
-\\usepackage[varbb]{newpxmath}
-\\usepackage{xfrac}
-\\usepackage{siunitx}
-\\usepackage{caption}
-\\captionsetup{labelfont=bf,font={small,singlespacing}}
-\\usepackage{subcaption}
-\\usepackage{cancel}
-\\usepackage{setspace}
-\\usepackage{xcolor}
-\\usepackage{diffcoeff}
-\\usepackage{nicematrix}
-\\usepackage{enumitem}
-\\usepackage{acronym}
-\\usepackage{xurl}
-\\onehalfspacing{}
-\\DeclareMathOperator{\\Var}{Var}
-\\DeclareMathOperator{\\cov}{Cov}
-\\DeclareMathOperator{\\E}{\\mathbb{E}}
-\\DeclareMathOperator*{\\argmax}{arg\\,max}
-\\DeclareMathOperator*{\\argmin}{arg\\,min}
-\\newcommand{\\Et}[2]{\\E_{#2} \\left[#1\\right]}
-\\newcommand{\\Covt}[3]{\\cov_{#3}\\left(#1, #2\\right)}
-\\newcommand{\\Vart}[2]{\\Var_{#2} \\left[#1\\right]}
-\\DeclarePairedDelimiter\\abs{\\lvert}{\\rvert}
-\\DeclarePairedDelimiter\\norm{\\lVert}{\\rVert}
-\\DeclarePairedDelimiterX\\innerp[2]{\\langle}{\\rangle}{#1,#2}
-\\DeclarePairedDelimiterX\\braket[3]{\\langle}{\\rangle}%
-{#1\\,\\delimsize\\vert\\,\\mathopen{}#2\\,\\delimsize\\vert\\,\\mathopen{}#3}
-\\providecommand\\given{}
-\\DeclarePairedDelimiterXPP\\Prob[1]{\\mathbb{P}} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1}
-\\DeclarePairedDelimiterXPP\\condE[1]{\\E} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1}
-\\DeclarePairedDelimiterXPP\\condVar[2]{\\Var} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1,#2}
-\\DeclarePairedDelimiterXPP\\condCov[2]{\\cov} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1,#2}
-\\theoremstyle{plain}% default
-\\newtheorem{thm}{Theorem}
-\\newtheorem{lem}[thm]{Lemma}
-\\newtheorem{prop}[thm]{Proposition}
-\\newtheorem*{cor}{Corollary}
-\\theoremstyle{definition}
-\\newtheorem{defn}{Definition}
-\\newtheorem{exmp}{Example}
-\\providecommand*{\\defnautorefname}{Definition}
-\\theoremstyle{remark}
-\\newtheorem*{rem}{Remark}
-\\newtheorem*{note}{Note}
-\\newtheorem{case}{Case}
+\label{sec:orge9ba253}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{with-eval-after-load} \EFhq{'}\EFhs{ox-latex}
+\EFrdb{(}\EFo{add-to-list} \EFhq{'}\EFv{org-latex-classes}
+             \EFhq{'}\EFrdc{(}\EFs{"article"}
+               \EFs{"\char92{}\char92{}documentclass[c]\{article\}}
+\EFs{\char92{}\char92{}usepackage[american]\{babel\}}
+\EFs{\char92{}\char92{}usepackage[margin=1.25in]\{geometry\}}
+\EFs{\char92{}\char92{}usepackage\{parskip\}}
+\EFs{\char92{}\char92{}usepackage\{booktabs\}}
+\EFs{\char92{}\char92{}usepackage\{float\}}
+\EFs{\char92{}\char92{}usepackage\{microtype\}}
+\EFs{\char92{}\char92{}usepackage\{graphicx\}}
+\EFs{\char92{}\char92{}usepackage\{mathtools\}}
+\EFs{\char92{}\char92{}usepackage\{wrapfig\}}
+\EFs{\char92{}\char92{}usepackage\{amsthm\}}
+\EFs{\char92{}\char92{}usepackage\{amssymb\}}
+\EFs{\char92{}\char92{}usepackage\{newpxtext\}}
+\EFs{\char92{}\char92{}usepackage[varbb]\{newpxmath\}}
+\EFs{\char92{}\char92{}usepackage\{xfrac\}}
+\EFs{\char92{}\char92{}usepackage\{siunitx\}}
+\EFs{\char92{}\char92{}usepackage\{caption\}}
+\EFs{\char92{}\char92{}captionsetup\{labelfont=bf,font=\{small,singlespacing\}\}}
+\EFs{\char92{}\char92{}usepackage\{subcaption\}}
+\EFs{\char92{}\char92{}usepackage\{cancel\}}
+\EFs{\char92{}\char92{}usepackage\{setspace\}}
+\EFs{\char92{}\char92{}usepackage\{xcolor\}}
+\EFs{\char92{}\char92{}usepackage\{diffcoeff\}}
+\EFs{\char92{}\char92{}usepackage\{nicematrix\}}
+\EFs{\char92{}\char92{}usepackage\{enumitem\}}
+\EFs{\char92{}\char92{}usepackage\{acronym\}}
+\EFs{\char92{}\char92{}usepackage\{xurl\}}
+\EFs{\char92{}\char92{}onehalfspacing\{\}}
+\EFs{\char92{}\char92{}DeclareMathOperator\{\char92{}\char92{}Var\}\{Var\}}
+\EFs{\char92{}\char92{}DeclareMathOperator\{\char92{}\char92{}cov\}\{Cov\}}
+\EFs{\char92{}\char92{}DeclareMathOperator\{\char92{}\char92{}E\}\{\char92{}\char92{}mathbb\{E\}\}}
+\EFs{\char92{}\char92{}DeclareMathOperator*\{\char92{}\char92{}argmax\}\{arg\char92{}\char92{},max\}}
+\EFs{\char92{}\char92{}DeclareMathOperator*\{\char92{}\char92{}argmin\}\{arg\char92{}\char92{},min\}}
+\EFs{\char92{}\char92{}newcommand\{\char92{}\char92{}Et\}[2]\{\char92{}\char92{}E\_\{\#2\} \char92{}\char92{}left[\#1\char92{}\char92{}right]\}}
+\EFs{\char92{}\char92{}newcommand\{\char92{}\char92{}Covt\}[3]\{\char92{}\char92{}cov\_\{\#3\}\char92{}\char92{}left(\#1, \#2\char92{}\char92{}right)\}}
+\EFs{\char92{}\char92{}newcommand\{\char92{}\char92{}Vart\}[2]\{\char92{}\char92{}Var\_\{\#2\} \char92{}\char92{}left[\#1\char92{}\char92{}right]\}}
+\EFs{\char92{}\char92{}DeclarePairedDelimiter\char92{}\char92{}abs\{\char92{}\char92{}lvert\}\{\char92{}\char92{}rvert\}}
+\EFs{\char92{}\char92{}DeclarePairedDelimiter\char92{}\char92{}norm\{\char92{}\char92{}lVert\}\{\char92{}\char92{}rVert\}}
+\EFs{\char92{}\char92{}DeclarePairedDelimiterX\char92{}\char92{}innerp[2]\{\char92{}\char92{}langle\}\{\char92{}\char92{}rangle\}\{\#1,\#2\}}
+\EFs{\char92{}\char92{}DeclarePairedDelimiterX\char92{}\char92{}braket[3]\{\char92{}\char92{}langle\}\{\char92{}\char92{}rangle\}\%}
+\EFs{\{\#1\char92{}\char92{},\char92{}\char92{}delimsize\char92{}\char92{}vert\char92{}\char92{},\char92{}\char92{}mathopen\{\}\#2\char92{}\char92{},\char92{}\char92{}delimsize\char92{}\char92{}vert\char92{}\char92{},\char92{}\char92{}mathopen\{\}\#3\}}
+\EFs{\char92{}\char92{}providecommand\char92{}\char92{}given\{\}}
+\EFs{\char92{}\char92{}DeclarePairedDelimiterXPP\char92{}\char92{}Prob[1]\{\char92{}\char92{}mathbb\{P\}\} ()\{\}\{}
+\EFs{\char92{}\char92{}renewcommand\char92{}\char92{}given\{\char92{}\char92{}nonscript\char92{}\char92{}:\char92{}\char92{}delimsize\char92{}\char92{}vert\char92{}\char92{}nonscript\char92{}\char92{}:\char92{}\char92{}mathopen\{\}\}}
+\EFs{\#1\}}
+\EFs{\char92{}\char92{}DeclarePairedDelimiterXPP\char92{}\char92{}condE[1]\{\char92{}\char92{}E\} ()\{\}\{}
+\EFs{\char92{}\char92{}renewcommand\char92{}\char92{}given\{\char92{}\char92{}nonscript\char92{}\char92{}:\char92{}\char92{}delimsize\char92{}\char92{}vert\char92{}\char92{}nonscript\char92{}\char92{}:\char92{}\char92{}mathopen\{\}\}}
+\EFs{\#1\}}
+\EFs{\char92{}\char92{}DeclarePairedDelimiterXPP\char92{}\char92{}condVar[2]\{\char92{}\char92{}Var\} ()\{\}\{}
+\EFs{\char92{}\char92{}renewcommand\char92{}\char92{}given\{\char92{}\char92{}nonscript\char92{}\char92{}:\char92{}\char92{}delimsize\char92{}\char92{}vert\char92{}\char92{}nonscript\char92{}\char92{}:\char92{}\char92{}mathopen\{\}\}}
+\EFs{\#1,\#2\}}
+\EFs{\char92{}\char92{}DeclarePairedDelimiterXPP\char92{}\char92{}condCov[2]\{\char92{}\char92{}cov\} ()\{\}\{}
+\EFs{\char92{}\char92{}renewcommand\char92{}\char92{}given\{\char92{}\char92{}nonscript\char92{}\char92{}:\char92{}\char92{}delimsize\char92{}\char92{}vert\char92{}\char92{}nonscript\char92{}\char92{}:\char92{}\char92{}mathopen\{\}\}}
+\EFs{\#1,\#2\}}
+\EFs{\char92{}\char92{}theoremstyle\{plain\}\% default}
+\EFs{\char92{}\char92{}newtheorem\{thm\}\{Theorem\}}
+\EFs{\char92{}\char92{}newtheorem\{lem\}[thm]\{Lemma\}}
+\EFs{\char92{}\char92{}newtheorem\{prop\}[thm]\{Proposition\}}
+\EFs{\char92{}\char92{}newtheorem*\{cor\}\{Corollary\}}
+\EFs{\char92{}\char92{}theoremstyle\{definition\}}
+\EFs{\char92{}\char92{}newtheorem\{defn\}\{Definition\}}
+\EFs{\char92{}\char92{}newtheorem\{exmp\}\{Example\}}
+\EFs{\char92{}\char92{}providecommand*\{\char92{}\char92{}defnautorefname\}\{Definition\}}
+\EFs{\char92{}\char92{}theoremstyle\{remark\}}
+\EFs{\char92{}\char92{}newtheorem*\{rem\}\{Remark\}}
+\EFs{\char92{}\char92{}newtheorem*\{note\}\{Note\}}
+\EFs{\char92{}\char92{}newtheorem\{case\}\{Case\}}
 
-\\renewcommand{\\leq}{\\leqslant}
-\\renewcommand{\\geq}{\\geqslant}
-\\definecolor{bgcolorminted}{HTML}{f9f5d7}
-\\usepackage{hyperref}
-\\usepackage[]{cleveref}
-[NO-DEFAULT-PACKAGES]
-[PACKAGES]
-[EXTRA]
-\\usemintedstyle{gruvbox-light}"
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-               ("\\paragraph{%s}" . "\\paragraph*{%s}"))))
-\end{minted}
+\EFs{\char92{}\char92{}renewcommand\{\char92{}\char92{}leq\}\{\char92{}\char92{}leqslant\}}
+\EFs{\char92{}\char92{}renewcommand\{\char92{}\char92{}geq\}\{\char92{}\char92{}geqslant\}}
+\EFs{\char92{}\char92{}definecolor\{bgcolorminted\}\{HTML\}\{f9f5d7\}}
+\EFs{\char92{}\char92{}usepackage\{hyperref\}}
+\EFs{\char92{}\char92{}usepackage[]\{cleveref\}}
+\EFs{[NO-DEFAULT-PACKAGES]}
+\EFs{[PACKAGES]}
+\EFs{[EXTRA]"}
+               \EFrdd{(}\EFs{"\char92{}\char92{}section\{\%s\}"} . \EFs{"\char92{}\char92{}section*\{\%s\}"}\EFrdd{)}
+               \EFrdd{(}\EFs{"\char92{}\char92{}subsection\{\%s\}"} . \EFs{"\char92{}\char92{}subsection*\{\%s\}"}\EFrdd{)}
+               \EFrdd{(}\EFs{"\char92{}\char92{}subsubsection\{\%s\}"} . \EFs{"\char92{}\char92{}subsubsection*\{\%s\}"}\EFrdd{)}
+               \EFrdd{(}\EFs{"\char92{}\char92{}paragraph\{\%s\}"} . \EFs{"\char92{}\char92{}paragraph*\{\%s\}"}\EFrdd{)}\EFrdc{)}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsubsection{Beamer}
-\label{sec:org21d3d38}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(setq org-beamer-frame-level 2)
-\end{minted}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(setq org-beamer-theme "[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]metropolis")
-\end{minted}
+\label{sec:orgd77b7a8}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{setq} \EFv{org-beamer-frame-level} \EFhn{2}\EFrda{)}
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{setq} \EFv{org-beamer-theme} \EFs{"[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]metropolis"}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 Define Beamer class:
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}
+\EFrda{(}\EFk{with-eval-after-load} \EFhq{'}\EFhs{ox-latex}
+\EFrdb{(}\EFo{add-to-list} \EFhq{'}\EFv{org-latex-classes}
+             \EFhq{'}\EFrdc{(}\EFs{"beamer"}
+               \EFs{"\char92{}\char92{}documentclass[c]\{beamer\}}
+\EFs{\char92{}\char92{}usepackage[american]\{babel\}}
+\EFs{\char92{}\char92{}usetheme[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]\{metropolis\}}
+\EFs{\char92{}\char92{}usepackage\{booktabs\}}
+\EFs{\char92{}\char92{}usepackage\{float\}}
+\EFs{\char92{}\char92{}usepackage\{mathtools\}}
+\EFs{\char92{}\char92{}usepackage\{amsthm\}}
+\EFs{\char92{}\char92{}usepackage\{amssymb\}}
+\EFs{\char92{}\char92{}usepackage[varbb]\{newpxmath\}}
+\EFs{\char92{}\char92{}usepackage[]\{xfrac\}}
+\EFs{\char92{}\char92{}usepackage\{siunitx\}}
+\EFs{\char92{}\char92{}usepackage\{graphicx\}}
+\EFs{\char92{}\char92{}usepackage\{caption\}}
+\EFs{\char92{}\char92{}captionsetup\{labelfont=bf,font=\{small,singlespacing\}\}}
+\EFs{\char92{}\char92{}usepackage\{subcaption\}}
+\EFs{\char92{}\char92{}usepackage\{cancel\}}
+\EFs{\char92{}\char92{}usepackage\{setspace\}}
+\EFs{\char92{}\char92{}usepackage\{xcolor\}}
+\EFs{\char92{}\char92{}usepackage\{diffcoeff\}}
+\EFs{\char92{}\char92{}usepackage\{nicematrix\}}
+\EFs{\char92{}\char92{}usepackage\{acronym\}}
+\EFs{\char92{}\char92{}usepackage\{appendixnumberbeamer\}}
+\EFs{\char92{}\char92{}usepackage\{dirtytalk\}}
+\EFs{\char92{}\char92{}usepackage\{xurl\}}
+\EFs{\char92{}\char92{}DeclareMathOperator\{\char92{}\char92{}Var\}\{Var\}}
+\EFs{\char92{}\char92{}DeclareMathOperator\{\char92{}\char92{}cov\}\{Cov\}}
+\EFs{\char92{}\char92{}DeclareMathOperator\{\char92{}\char92{}E\}\{\char92{}\char92{}mathbb\{E\}\}}
+\EFs{\char92{}\char92{}DeclareMathOperator*\{\char92{}\char92{}argmax\}\{arg\char92{}\char92{},max\}}
+\EFs{\char92{}\char92{}DeclareMathOperator*\{\char92{}\char92{}argmin\}\{arg\char92{}\char92{},min\}}
+\EFs{\char92{}\char92{}newcommand\{\char92{}\char92{}Et\}[2]\{\char92{}\char92{}E\_\{\#2\} \char92{}\char92{}left[\#1\char92{}\char92{}right]\}}
+\EFs{\char92{}\char92{}newcommand\{\char92{}\char92{}Covt\}[3]\{\char92{}\char92{}cov\_\{\#3\}\char92{}\char92{}left(\#1, \#2\char92{}\char92{}right)\}}
+\EFs{\char92{}\char92{}newcommand\{\char92{}\char92{}Vart\}[2]\{\char92{}\char92{}Var\_\{\#2\} \char92{}\char92{}left[\#1\char92{}\char92{}right]\}}
+\EFs{\char92{}\char92{}DeclarePairedDelimiter\char92{}\char92{}abs\{\char92{}\char92{}lvert\}\{\char92{}\char92{}rvert\}}
+\EFs{\char92{}\char92{}DeclarePairedDelimiter\char92{}\char92{}norm\{\char92{}\char92{}lVert\}\{\char92{}\char92{}rVert\}}
+\EFs{\char92{}\char92{}DeclarePairedDelimiterX\char92{}\char92{}innerp[2]\{\char92{}\char92{}langle\}\{\char92{}\char92{}rangle\}\{\#1,\#2\}}
+\EFs{\char92{}\char92{}DeclarePairedDelimiterX\char92{}\char92{}braket[3]\{\char92{}\char92{}langle\}\{\char92{}\char92{}rangle\}\%}
+\EFs{\{\#1\char92{}\char92{},\char92{}\char92{}delimsize\char92{}\char92{}vert\char92{}\char92{},\char92{}\char92{}mathopen\{\}\#2\char92{}\char92{},\char92{}\char92{}delimsize\char92{}\char92{}vert\char92{}\char92{},\char92{}\char92{}mathopen\{\}\#3\}}
+\EFs{\char92{}\char92{}providecommand\char92{}\char92{}given\{\}}
+\EFs{\char92{}\char92{}DeclarePairedDelimiterXPP\char92{}\char92{}Prob[1]\{\char92{}\char92{}mathbb\{P\}\} ()\{\}\{}
+\EFs{\char92{}\char92{}renewcommand\char92{}\char92{}given\{\char92{}\char92{}nonscript\char92{}\char92{}:\char92{}\char92{}delimsize\char92{}\char92{}vert\char92{}\char92{}nonscript\char92{}\char92{}:\char92{}\char92{}mathopen\{\}\}}
+\EFs{\#1\}}
+\EFs{\char92{}\char92{}DeclarePairedDelimiterXPP\char92{}\char92{}condE[1]\{\char92{}\char92{}E\} ()\{\}\{}
+\EFs{\char92{}\char92{}renewcommand\char92{}\char92{}given\{\char92{}\char92{}nonscript\char92{}\char92{}:\char92{}\char92{}delimsize\char92{}\char92{}vert\char92{}\char92{}nonscript\char92{}\char92{}:\char92{}\char92{}mathopen\{\}\}}
+\EFs{\#1\}}
+\EFs{\char92{}\char92{}DeclarePairedDelimiterXPP\char92{}\char92{}condVar[2]\{\char92{}\char92{}Var\} ()\{\}\{}
+\EFs{\char92{}\char92{}renewcommand\char92{}\char92{}given\{\char92{}\char92{}nonscript\char92{}\char92{}:\char92{}\char92{}delimsize\char92{}\char92{}vert\char92{}\char92{}nonscript\char92{}\char92{}:\char92{}\char92{}mathopen\{\}\}}
+\EFs{\#1,\#2\}}
+\EFs{\char92{}\char92{}DeclarePairedDelimiterXPP\char92{}\char92{}condCov[2]\{\char92{}\char92{}cov\} ()\{\}\{}
+\EFs{\char92{}\char92{}renewcommand\char92{}\char92{}given\{\char92{}\char92{}nonscript\char92{}\char92{}:\char92{}\char92{}delimsize\char92{}\char92{}vert\char92{}\char92{}nonscript\char92{}\char92{}:\char92{}\char92{}mathopen\{\}\}}
+\EFs{\#1,\#2\}}
+\EFs{\char92{}\char92{}theoremstyle\{plain\}\% default}
+\EFs{\char92{}\char92{}newtheorem\{thm\}\{Theorem\}}
+\EFs{\char92{}\char92{}newtheorem\{lem\}[thm]\{Lemma\}}
+\EFs{\char92{}\char92{}newtheorem\{prop\}[thm]\{Proposition\}}
+\EFs{\char92{}\char92{}newtheorem*\{cor\}\{Corollary\}}
+\EFs{\char92{}\char92{}theoremstyle\{definition\}}
+\EFs{\char92{}\char92{}newtheorem\{defn\}\{Definition\}}
+\EFs{\char92{}\char92{}newtheorem\{exmp\}\{Example\}}
+\EFs{\char92{}\char92{}providecommand*\{\char92{}\char92{}defnautorefname\}\{Definition\}}
+\EFs{\char92{}\char92{}theoremstyle\{remark\}}
+\EFs{\char92{}\char92{}newtheorem*\{rem\}\{Remark\}}
+\EFs{\char92{}\char92{}newtheorem\{case\}\{Case\}}
 
-(with-eval-after-load 'ox-latex
-(add-to-list 'org-latex-classes
-             '("beamer"
-               "\\documentclass[c]{beamer}
-\\usepackage[american]{babel}
-\\usetheme[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]{metropolis}
-\\usepackage{booktabs}
-\\usepackage{float}
-\\usepackage{mathtools}
-\\usepackage{amsthm}
-\\usepackage{amssymb}
-\\usepackage[varbb]{newpxmath}
-\\usepackage[]{xfrac}
-\\usepackage{siunitx}
-\\usepackage{graphicx}
-\\usepackage{caption}
-\\captionsetup{labelfont=bf,font={small,singlespacing}}
-\\usepackage{subcaption}
-\\usepackage{cancel}
-\\usepackage{setspace}
-\\usepackage{xcolor}
-\\usepackage{diffcoeff}
-\\usepackage{nicematrix}
-\\usepackage{acronym}
-\\usepackage{appendixnumberbeamer}
-\\usepackage{dirtytalk}
-\\usepackage{xurl}
-\\DeclareMathOperator{\\Var}{Var}
-\\DeclareMathOperator{\\cov}{Cov}
-\\DeclareMathOperator{\\E}{\\mathbb{E}}
-\\DeclareMathOperator*{\\argmax}{arg\\,max}
-\\DeclareMathOperator*{\\argmin}{arg\\,min}
-\\newcommand{\\Et}[2]{\\E_{#2} \\left[#1\\right]}
-\\newcommand{\\Covt}[3]{\\cov_{#3}\\left(#1, #2\\right)}
-\\newcommand{\\Vart}[2]{\\Var_{#2} \\left[#1\\right]}
-\\DeclarePairedDelimiter\\abs{\\lvert}{\\rvert}
-\\DeclarePairedDelimiter\\norm{\\lVert}{\\rVert}
-\\DeclarePairedDelimiterX\\innerp[2]{\\langle}{\\rangle}{#1,#2}
-\\DeclarePairedDelimiterX\\braket[3]{\\langle}{\\rangle}%
-{#1\\,\\delimsize\\vert\\,\\mathopen{}#2\\,\\delimsize\\vert\\,\\mathopen{}#3}
-\\providecommand\\given{}
-\\DeclarePairedDelimiterXPP\\Prob[1]{\\mathbb{P}} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1}
-\\DeclarePairedDelimiterXPP\\condE[1]{\\E} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1}
-\\DeclarePairedDelimiterXPP\\condVar[2]{\\Var} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1,#2}
-\\DeclarePairedDelimiterXPP\\condCov[2]{\\cov} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1,#2}
-\\theoremstyle{plain}% default
-\\newtheorem{thm}{Theorem}
-\\newtheorem{lem}[thm]{Lemma}
-\\newtheorem{prop}[thm]{Proposition}
-\\newtheorem*{cor}{Corollary}
-\\theoremstyle{definition}
-\\newtheorem{defn}{Definition}
-\\newtheorem{exmp}{Example}
-\\providecommand*{\\defnautorefname}{Definition}
-\\theoremstyle{remark}
-\\newtheorem*{rem}{Remark}
-\\newtheorem{case}{Case}
 
+\EFs{\char92{}\char92{}definecolor\{dblue\}\{HTML\}\{2E3440\}}
+\EFs{\char92{}\char92{}definecolor\{umber\}\{HTML\}\{8FBCBB\}}
+\EFs{\char92{}\char92{}definecolor\{alertcolor\}\{HTML\}\{BF616A\}}
+\EFs{\char92{}\char92{}definecolor\{examplecolor\}\{HTML\}\{EBCB8B\}}
 
-\\definecolor{dblue}{HTML}{2E3440}
-\\definecolor{umber}{HTML}{8FBCBB}
-\\definecolor{alertcolor}{HTML}{BF616A}
-\\definecolor{examplecolor}{HTML}{EBCB8B}
+\EFs{\char92{}\char92{}definecolor\{pale\}\{HTML\}\{ECEFF4\}}
+\EFs{\char92{}\char92{}definecolor\{bluish\}\{HTML\}\{88C0D0\}}
+\EFs{\char92{}\char92{}definecolor\{cream\}\{HTML\}\{D8DEE9\}}
+\EFs{\char92{}\char92{}definecolor\{bgcolorminted\}\{HTML\}\{f9f5d7\}}
+\EFs{\char92{}\char92{}setbeamercolor\{progress bar\}\{fg=bluish,bg=cream\}}
+\EFs{\char92{}\char92{}setbeamercolor\{frametitle\}\{fg=umber,bg=pale\}}
+\EFs{\char92{}\char92{}setbeamercolor\{normal text\}\{fg=dblue,bg=pale\}}
+\EFs{\char92{}\char92{}setbeamercolor\{alerted text\}\{fg=alertcolor,bg=pale\}}
+\EFs{\char92{}\char92{}setbeamercolor\{example text\}\{fg=examplecolor\}}
+\EFs{\char92{}\char92{}setbeamercovered\{dynamic\}}
 
-\\definecolor{pale}{HTML}{ECEFF4}
-\\definecolor{bluish}{HTML}{88C0D0}
-\\definecolor{cream}{HTML}{D8DEE9}
-\\definecolor{bgcolorminted}{HTML}{f9f5d7}
-\\setbeamercolor{progress bar}{fg=bluish,bg=cream}
-\\setbeamercolor{frametitle}{fg=umber,bg=pale}
-\\setbeamercolor{normal text}{fg=dblue,bg=pale}
-\\setbeamercolor{alerted text}{fg=alertcolor,bg=pale}
-\\setbeamercolor{example text}{fg=examplecolor}
-\\setbeamercovered{dynamic}
-
-\\usecolortheme{rose}
-\\usepackage{hyperref}
-\\usepackage{cleveref}
-[NO-DEFAULT-PACKAGES]
-[PACKAGES]
-[EXTRA]
-\\usemintedstyle{gruvbox-light}"
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-               ("\\paragraph{%s}" . "\\paragraph*{%s}")
-               ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
-\end{minted}
+\EFs{\char92{}\char92{}usecolortheme\{rose\}}
+\EFs{\char92{}\char92{}usepackage\{hyperref\}}
+\EFs{\char92{}\char92{}usepackage\{cleveref\}}
+\EFs{[NO-DEFAULT-PACKAGES]}
+\EFs{[PACKAGES]}
+\EFs{[EXTRA]"}
+               \EFrdd{(}\EFs{"\char92{}\char92{}section\{\%s\}"} . \EFs{"\char92{}\char92{}section*\{\%s\}"}\EFrdd{)}
+               \EFrdd{(}\EFs{"\char92{}\char92{}subsection\{\%s\}"} . \EFs{"\char92{}\char92{}subsection*\{\%s\}"}\EFrdd{)}
+               \EFrdd{(}\EFs{"\char92{}\char92{}subsubsection\{\%s\}"} . \EFs{"\char92{}\char92{}subsubsection*\{\%s\}"}\EFrdd{)}
+               \EFrdd{(}\EFs{"\char92{}\char92{}paragraph\{\%s\}"} . \EFs{"\char92{}\char92{}paragraph*\{\%s\}"}\EFrdd{)}
+               \EFrdd{(}\EFs{"\char92{}\char92{}subparagraph\{\%s\}"} . \EFs{"\char92{}\char92{}subparagraph*\{\%s\}"}\EFrdd{)}\EFrdc{)}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsubsection{Export}
-\label{sec:org6b5b98a}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
-\end{minted}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(setq org-latex-tables-booktabs t
-      org-latex-hyperref-template "\\providecolor{url}{HTML}{81a1c1}
-\\providecolor{link}{HTML}{d08770}
-\\providecolor{cite}{HTML}{d08770}
-\\hypersetup{
-pdfauthor={%a},
-pdftitle={%t},
-pdfkeywords={%k},
-pdfsubject={%d},
-pdfcreator={%c},
-pdflang={%L},
-breaklinks=true,
-colorlinks=true,
-linkcolor=link,
-urlcolor=url,
-citecolor=cite
-}
-\\urlstyle{same}
-%% hide links styles in toc
-\\NewCommandCopy{\\oldtoc}{\\tableofcontents}
-\\renewcommand{\\tableofcontents}{\\begingroup\\hypersetup{hidelinks}\\oldtoc\\endgroup}
-"
-      org-latex-reference-command "\\cref{%s}")
-\end{minted}
+\label{sec:org9246cfb}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{setq} \EFv{org-latex-pdf-process} \EFhq{'}\EFrdb{(}\EFs{"LC\_ALL=en\_US.UTF-8 latexmk -f -pdf -\%latex -shell-escape -interaction=nonstopmode -output-directory=\%o \%f"}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{setq} \EFv{org-latex-tables-booktabs} t
+      \EFv{org-latex-hyperref-template} \EFs{"\char92{}\char92{}providecolor\{url\}\{HTML\}\{81a1c1\}}
+\EFs{\char92{}\char92{}providecolor\{link\}\{HTML\}\{d08770\}}
+\EFs{\char92{}\char92{}providecolor\{cite\}\{HTML\}\{d08770\}}
+\EFs{\char92{}\char92{}hypersetup\{}
+\EFs{pdfauthor=\{\%a\},}
+\EFs{pdftitle=\{\%t\},}
+\EFs{pdfkeywords=\{\%k\},}
+\EFs{pdfsubject=\{\%d\},}
+\EFs{pdfcreator=\{\%c\},}
+\EFs{pdflang=\{\%L\},}
+\EFs{breaklinks=true,}
+\EFs{colorlinks=true,}
+\EFs{linkcolor=link,}
+\EFs{urlcolor=url,}
+\EFs{citecolor=cite}
+\EFs{\}}
+\EFs{\char92{}\char92{}urlstyle\{same\}}
+\EFs{\%\% hide links styles in toc}
+\EFs{\char92{}\char92{}NewCommandCopy\{\char92{}\char92{}oldtoc\}\{\char92{}\char92{}tableofcontents\}}
+\EFs{\char92{}\char92{}renewcommand\{\char92{}\char92{}tableofcontents\}\{\char92{}\char92{}begingroup\char92{}\char92{}hypersetup\{hidelinks\}\char92{}\char92{}oldtoc\char92{}\char92{}endgroup\}}
+\EFs{"}
+      \EFv{org-latex-reference-command} \EFs{"\char92{}\char92{}cref\{\%s\}"}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \begin{enumerate}
 \item Preview
-\label{sec:org13c4e01}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-;; Use pdf-tools to open PDF files
-(setq TeX-view-program-selection '((output-pdf "PDF Tools"))
-      TeX-source-correlate-start-server t)
-\end{minted}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-;; Update PDF buffers after successful LaTeX runs
-(add-hook! 'TeX-after-compilation-finished-functions
-          #'TeX-revert-document-buffer)
-\end{minted}
+\label{sec:org402cd5f}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFcd{;;} \EFc{Use pdf-tools to open PDF files}
+\EFrda{(}\EFk{setq} \EFv{TeX-view-program-selection} \EFhq{'}\EFrdb{(}\EFrdc{(}output-pdf \EFs{"PDF Tools"}\EFrdc{)}\EFrdb{)}
+      \EFv{TeX-source-correlate-start-server} t\EFrda{)}
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFcd{;;} \EFc{Update PDF buffers after successful LaTeX runs}
+\EFrda{(}\EFk{add-hook!} \EFhq{'}\EFv{TeX-after-compilation-finished-functions}
+          \EFhq{\#'}\EFhs{TeX-revert-document-buffer}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \item Code blocks
-\label{sec:orgdc255b3}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(setq org-latex-listings 'minted
-      org-latex-packages-alist '(("" "minted")))
-(setq org-latex-minted-options '(("breaklines" "true")
-                                 ("breakanywhere" "true")
-                                 ("bgcolor" "bgcolorminted")
-                                 ("linenos" "true")))
-\end{minted}
+\label{sec:orgdcae980}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{package!} engrave-faces\EFrda{)}
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFcd{;;} \EFc{(setq org-latex-listings 'minted}
+\EFcd{;;}       \EFc{org-latex-packages-alist '(("" "minted")))}
+\EFcd{;;} \EFc{(setq org-latex-minted-options '(("breaklines" "true")}
+\EFcd{;;}                                  \EFc{("breakanywhere" "true")}
+\EFcd{;;}                                  \EFc{("bgcolor" "bgcolorminted")}
+\EFcd{;;}                                  \EFc{("linenos" "true")))}
+\EFrda{(}\EFk{use-package!} engrave-faces-latex
+  \EFb{:after} ox-latex\EFrda{)}
+\EFrda{(}\EFk{setq} \EFv{org-latex-src-block-backend} \EFhq{'}\EFhs{engraved}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \end{enumerate}
 \subsection{Capture}
-\label{sec:org668bd38}
+\label{sec:org1e30bce}
 \subsubsection{Doct}
-\label{sec:orga0e6882}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(package! doct)
-\end{minted}
+\label{sec:orge99f655}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{package!} doct\EFrda{)}
+\end{Verbatim}
+\end{Code}
 Prettify the captures:
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(after! org-capture
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{after!} org-capture
 
-  (defun +doct-icon-declaration-to-icon (declaration)
-    "Convert :icon declaration to icon"
-    (let ((name (pop declaration))
-          (set  (intern (concat "all-the-icons-" (plist-get declaration :set))))
-          (face (intern (concat "all-the-icons-" (plist-get declaration :color))))
-          (v-adjust (or (plist-get declaration :v-adjust) 0.01)))
-      (apply set `(,name :face ,face :v-adjust ,v-adjust))))
+  \EFrdb{(}\EFk{defun} \EFf{+doct-icon-declaration-to-icon} \EFrdc{(}declaration\EFrdc{)}
+    \EFd{"Convert :icon declaration to icon"}
+    \EFrdc{(}\EFk{let} \EFrdd{(}\EFrda{(}name \EFrdb{(}\EFk{pop} declaration\EFrdb{)}\EFrda{)}
+          \EFrda{(}\EFo{set}  \EFrdb{(}\EFo{intern} \EFrdc{(}\EFo{concat} \EFs{"all-the-icons-"} \EFrdd{(}\EFo{plist-get} declaration \EFb{:set}\EFrdd{)}\EFrdc{)}\EFrdb{)}\EFrda{)}
+          \EFrda{(}face \EFrdb{(}\EFo{intern} \EFrdc{(}\EFo{concat} \EFs{"all-the-icons-"} \EFrdd{(}\EFo{plist-get} declaration \EFb{:color}\EFrdd{)}\EFrdc{)}\EFrdb{)}\EFrda{)}
+          \EFrda{(}v-adjust \EFrdb{(}\EFk{or} \EFrdc{(}\EFo{plist-get} declaration \EFb{:v-adjust}\EFrdc{)} \EFhn{0.01}\EFrdb{)}\EFrda{)}\EFrdd{)}
+      \EFrdd{(}\EFo{apply} set \EFhq{`}\EFrda{(},name \EFb{:face} ,face \EFb{:v-adjust} ,v-adjust\EFrda{)}\EFrdd{)}\EFrdc{)}\EFrdb{)}
 
-  (defun +doct-iconify-capture-templates (groups)
-    "Add declaration's :icon to each template group in GROUPS."
-    (let ((templates (doct-flatten-lists-in groups)))
-      (setq doct-templates (mapcar (lambda (template)
-                                     (when-let* ((props (nthcdr (if (= (length template) 4) 2 5) template))
-                                                 (spec (plist-get (plist-get props :doct) :icon)))
-                                       (setf (nth 1 template) (concat (+doct-icon-declaration-to-icon spec)
-                                                                      "\t"
-                                                                      (nth 1 template))))
-                                     template)
-                                   templates))))
+  \EFrdb{(}\EFk{defun} \EFf{+doct-iconify-capture-templates} \EFrdc{(}groups\EFrdc{)}
+    \EFd{"Add declaration's :icon to each template group in GROUPS."}
+    \EFrdc{(}\EFk{let} \EFrdd{(}\EFrda{(}templates \EFrdb{(}\EFo{doct-flatten-lists-in} groups\EFrdb{)}\EFrda{)}\EFrdd{)}
+      \EFrdd{(}\EFk{setq} \EFv{doct-templates} \EFrda{(}\EFo{mapcar} \EFrdb{(}\EFk{lambda} \EFrdc{(}template\EFrdc{)}
+                                     \EFrdc{(}\EFk{when-let*} \EFrdd{(}\EFrda{(}props \EFrdb{(}\EFo{nthcdr} \EFrdc{(}\EFk{if} \EFrdd{(}\EFo{=} \EFrda{(}\EFo{length} template\EFrda{)} \EFhn{4}\EFrdd{)} \EFhn{2} \EFhn{5}\EFrdc{)} template\EFrdb{)}\EFrda{)}
+                                                 \EFrda{(}spec \EFrdb{(}\EFo{plist-get} \EFrdc{(}\EFo{plist-get} props \EFb{:doct}\EFrdc{)} \EFb{:icon}\EFrdb{)}\EFrda{)}\EFrdd{)}
+                                       \EFrdd{(}\EFk{setf} \EFrda{(}\EFo{nth} \EFhn{1} template\EFrda{)} \EFrda{(}\EFo{concat} \EFrdb{(}\EFf{+doct-icon-declaration-to-icon} spec\EFrdb{)}
+                                                                      \EFs{"\char92{}t"}
+                                                                      \EFrdb{(}\EFo{nth} \EFhn{1} template\EFrdb{)}\EFrda{)}\EFrdd{)}\EFrdc{)}
+                                     template\EFrdb{)}
+                                   templates\EFrda{)}\EFrdd{)}\EFrdc{)}\EFrdb{)}
 
-  (setq doct-after-conversion-functions '(+doct-iconify-capture-templates))
+  \EFrdb{(}\EFk{setq} \EFv{doct-after-conversion-functions} \EFhq{'}\EFrdc{(}+doct-iconify-capture-templates\EFrdc{)}\EFrdb{)}
 
-  (defvar +org-capture-recipies  "~/org/recipies.org")
+  \EFrdb{(}\EFk{defvar} \EFv{+org-capture-recipies}  \EFs{"\char126{}/org/recipies.org"}\EFrdb{)}
 
-  (defun set-org-capture-templates ()
-    (setq org-capture-templates
-          (doct `(("Personal todo" :keys "t"
-                   :icon ("checklist" :set "octicon" :color "green")
-                   :file +org-capture-todo-file
-                   :prepend t
-                   :headline "Inbox"
-                   :type entry
-                   :template ("* TODO %?"
-                              "%i %a"))
-                  ("Personal note" :keys "n"
-                   :icon ("sticky-note-o" :set "faicon" :color "green")
-                   :file +org-capture-todo-file
-                   :prepend t
-                   :headline "Inbox"
-                   :type entry
-                   :template ("* %?"
-                              "%i %a"))
-                  ("Email" :keys "e"
-                   :icon ("envelope" :set "faicon" :color "blue")
-                   :file +org-capture-todo-file
-                   :prepend t
-                   :headline "Inbox"
-                   :type entry
-                   :template ("* TODO %^{type|reply to|contact} %\\3 %? :email:"
-                              "Send an email %^{urgancy|soon|ASAP|anon|at some point|eventually} to %^{recipiant}"
-                              "about %^{topic}"
-                              "%U %i %a"))
-                  ("Meeting" :keys "m"
-                   :icon ("users" :set "faicon")
-                   :file "~/org/meeting.org"
-                   :preprend t
-                   :headline "Meetings"
-                   :type entry
-                   :template ("* %^{Topic}
-                                + Attendees:  %^{Attendees},Leo
-                                + Date: %U
-                                ** Notes
-                                   +  %?
-                                ** Actions
-                                   + [ ]     "))
-                  ("Interesting" :keys "i"
-                   :icon ("eye" :set "faicon" :color "lcyan")
-                   :file +org-capture-todo-file
-                   :prepend t
-                   :headline "Interesting"
-                   :type entry
-                   :template ("* [ ] %{desc}%? :%{i-type}:"
-                              "%i %a")
-                   :children (("Webpage" :keys "w"
-                               :icon ("globe" :set "faicon" :color "green")
-                               :desc "%(org-cliplink-capture) "
-                               :i-type "read:web")
-                              ("Article" :keys "a"
-                               :icon ("file-text" :set "octicon" :color "yellow")
-                               :desc ""
-                               :i-type "read:reaserch")
-                              ("\tRecipie" :keys "r"
-                               :icon ("spoon" :set "faicon" :color "dorange")
-                               :file +org-capture-recipies
-                               :headline "Unsorted"
-                               :template "%(org-chef-get-recipe-from-url)")
-                              ("Information" :keys "i"
-                               :icon ("info-circle" :set "faicon" :color "blue")
-                               :desc ""
-                               :i-type "read:info")
-                              ("Idea" :keys "I"
-                               :icon ("bubble_chart" :set "material" :color "silver")
-                               :desc ""
-                               :i-type "idea")))
-                  ("Tasks" :keys "k"
-                   :icon ("inbox" :set "octicon" :color "yellow")
-                   :file +org-capture-todo-file
-                   :prepend t
-                   :headline "Tasks"
-                   :type entry
-                   :template ("* TODO %? %^G%{extra}"
-                              "%i %a")
-                   :children (("General Task" :keys "k"
-                               :icon ("inbox" :set "octicon" :color "yellow")
-                               :extra "")
-                              ("Task with deadline" :keys "d"
-                               :icon ("timer" :set "material" :color "orange" :v-adjust -0.1)
-                               :extra "\nDEADLINE: %^{Deadline:}t")
-                              ("Scheduled Task" :keys "s"
-                               :icon ("calendar" :set "octicon" :color "orange")
-                               :extra "\nSCHEDULED: %^{Start time:}t")))
-                  ("Project" :keys "p"
-                   :icon ("repo" :set "octicon" :color "silver")
-                   :prepend t
-                   :type entry
-                   :headline "Inbox"
-                   :template ("* %{time-or-todo} %?"
-                              "%i"
-                              "%a")
-                   :file ""
-                   :custom (:time-or-todo "")
-                   :children (("Project-local todo" :keys "t"
-                               :icon ("checklist" :set "octicon" :color "green")
-                               :time-or-todo "TODO"
-                               :file +org-capture-project-todo-file)
-                              ("Project-local note" :keys "n"
-                               :icon ("sticky-note" :set "faicon" :color "yellow")
-                               :time-or-todo "%U"
-                               :file +org-capture-project-notes-file)
-                              ("Project-local changelog" :keys "c"
-                               :icon ("list" :set "faicon" :color "blue")
-                               :time-or-todo "%U"
-                               :heading "Unreleased"
-                               :file +org-capture-project-changelog-file)))
-                  ("\tCentralised project templates"
-                   :keys "o"
-                   :type entry
-                   :prepend t
-                   :template ("* %{time-or-todo} %?"
-                              "%i"
-                              "%a")
-                   :children (("Project todo"
-                               :keys "t"
-                               :prepend nil
-                               :time-or-todo "TODO"
-                               :heading "Tasks"
-                               :file +org-capture-central-project-todo-file)
-                              ("Project note"
-                               :keys "n"
-                               :time-or-todo "%U"
-                               :heading "Notes"
-                               :file +org-capture-central-project-notes-file)
-                              ("Project changelog"
-                               :keys "c"
-                               :time-or-todo "%U"
-                               :heading "Unreleased"
-                               :file +org-capture-central-project-changelog-file)))))))
+  \EFrdb{(}\EFk{defun} \EFf{set-org-capture-templates} \EFrdc{(}\EFrdc{)}
+    \EFrdc{(}\EFk{setq} \EFv{org-capture-templates}
+          \EFrdd{(}\EFo{doct} \EFhq{`}\EFrda{(}\EFrdb{(}\EFs{"Personal todo"} \EFb{:keys} \EFs{"t"}
+                   \EFb{:icon} \EFrdc{(}\EFs{"checklist"} \EFb{:set} \EFs{"octicon"} \EFb{:color} \EFs{"green"}\EFrdc{)}
+                   \EFb{:file} \EFv{+org-capture-todo-file}
+                   \EFb{:prepend} t
+                   \EFb{:headline} \EFs{"Inbox"}
+                   \EFb{:type} entry
+                   \EFb{:template} \EFrdc{(}\EFs{"*} \textcolor[HTML]{ff8e00}{\textbf{TODO}} \EFs{\%?"}
+                              \EFs{"\%i \%a"}\EFrdc{)}\EFrdb{)}
+                  \EFrdb{(}\EFs{"Personal note"} \EFb{:keys} \EFs{"n"}
+                   \EFb{:icon} \EFrdc{(}\EFs{"sticky-note-o"} \EFb{:set} \EFs{"faicon"} \EFb{:color} \EFs{"green"}\EFrdc{)}
+                   \EFb{:file} \EFv{+org-capture-todo-file}
+                   \EFb{:prepend} t
+                   \EFb{:headline} \EFs{"Inbox"}
+                   \EFb{:type} entry
+                   \EFb{:template} \EFrdc{(}\EFs{"* \%?"}
+                              \EFs{"\%i \%a"}\EFrdc{)}\EFrdb{)}
+                  \EFrdb{(}\EFs{"Email"} \EFb{:keys} \EFs{"e"}
+                   \EFb{:icon} \EFrdc{(}\EFs{"envelope"} \EFb{:set} \EFs{"faicon"} \EFb{:color} \EFs{"blue"}\EFrdc{)}
+                   \EFb{:file} \EFv{+org-capture-todo-file}
+                   \EFb{:prepend} t
+                   \EFb{:headline} \EFs{"Inbox"}
+                   \EFb{:type} entry
+                   \EFb{:template} \EFrdc{(}\EFs{"*} \textcolor[HTML]{ff8e00}{\textbf{TODO}} \EFs{\%\char94{}\{type|reply to|contact\} \%\char92{}\char92{}3 \%? :email:"}
+                              \EFs{"Send an email \%\char94{}\{urgancy|soon|ASAP|anon|at some point|eventually\} to \%\char94{}\{recipiant\}"}
+                              \EFs{"about \%\char94{}\{topic\}"}
+                              \EFs{"\%U \%i \%a"}\EFrdc{)}\EFrdb{)}
+                  \EFrdb{(}\EFs{"Meeting"} \EFb{:keys} \EFs{"m"}
+                   \EFb{:icon} \EFrdc{(}\EFs{"users"} \EFb{:set} \EFs{"faicon"}\EFrdc{)}
+                   \EFb{:file} \EFs{"\char126{}/org/meeting.org"}
+                   \EFb{:preprend} t
+                   \EFb{:headline} \EFs{"Meetings"}
+                   \EFb{:type} entry
+                   \EFb{:template} \EFrdc{(}\EFs{"* \%\char94{}\{Topic\}}
+                                \EFs{+ Attendees:  \%\char94{}\{Attendees\},Leo}
+                                \EFs{+ Date: \%U}
+                                \EFs{** Notes}
+                                   \EFs{+  \%?}
+                                \EFs{** Actions}
+                                   \EFs{+ [ ]     "}\EFrdc{)}\EFrdb{)}
+                  \EFrdb{(}\EFs{"Interesting"} \EFb{:keys} \EFs{"i"}
+                   \EFb{:icon} \EFrdc{(}\EFs{"eye"} \EFb{:set} \EFs{"faicon"} \EFb{:color} \EFs{"lcyan"}\EFrdc{)}
+                   \EFb{:file} \EFv{+org-capture-todo-file}
+                   \EFb{:prepend} t
+                   \EFb{:headline} \EFs{"Interesting"}
+                   \EFb{:type} entry
+                   \EFb{:template} \EFrdc{(}\EFs{"* [ ] \%\{desc\}\%? :\%\{i-type\}:"}
+                              \EFs{"\%i \%a"}\EFrdc{)}
+                   \EFb{:children} \EFrdc{(}\EFrdd{(}\EFs{"Webpage"} \EFb{:keys} \EFs{"w"}
+                               \EFb{:icon} \EFrda{(}\EFs{"globe"} \EFb{:set} \EFs{"faicon"} \EFb{:color} \EFs{"green"}\EFrda{)}
+                               \EFb{:desc} \EFs{"\%(org-cliplink-capture) "}
+                               \EFb{:i-type} \EFs{"read:web"}\EFrdd{)}
+                              \EFrdd{(}\EFs{"Article"} \EFb{:keys} \EFs{"a"}
+                               \EFb{:icon} \EFrda{(}\EFs{"file-text"} \EFb{:set} \EFs{"octicon"} \EFb{:color} \EFs{"yellow"}\EFrda{)}
+                               \EFb{:desc} \EFs{""}
+                               \EFb{:i-type} \EFs{"read:reaserch"}\EFrdd{)}
+                              \EFrdd{(}\EFs{"\char92{}tRecipie"} \EFb{:keys} \EFs{"r"}
+                               \EFb{:icon} \EFrda{(}\EFs{"spoon"} \EFb{:set} \EFs{"faicon"} \EFb{:color} \EFs{"dorange"}\EFrda{)}
+                               \EFb{:file} \EFv{+org-capture-recipies}
+                               \EFb{:headline} \EFs{"Unsorted"}
+                               \EFb{:template} \EFs{"\%(org-chef-get-recipe-from-url)"}\EFrdd{)}
+                              \EFrdd{(}\EFs{"Information"} \EFb{:keys} \EFs{"i"}
+                               \EFb{:icon} \EFrda{(}\EFs{"info-circle"} \EFb{:set} \EFs{"faicon"} \EFb{:color} \EFs{"blue"}\EFrda{)}
+                               \EFb{:desc} \EFs{""}
+                               \EFb{:i-type} \EFs{"read:info"}\EFrdd{)}
+                              \EFrdd{(}\EFs{"Idea"} \EFb{:keys} \EFs{"I"}
+                               \EFb{:icon} \EFrda{(}\EFs{"bubble\_chart"} \EFb{:set} \EFs{"material"} \EFb{:color} \EFs{"silver"}\EFrda{)}
+                               \EFb{:desc} \EFs{""}
+                               \EFb{:i-type} \EFs{"idea"}\EFrdd{)}\EFrdc{)}\EFrdb{)}
+                  \EFrdb{(}\EFs{"Tasks"} \EFb{:keys} \EFs{"k"}
+                   \EFb{:icon} \EFrdc{(}\EFs{"inbox"} \EFb{:set} \EFs{"octicon"} \EFb{:color} \EFs{"yellow"}\EFrdc{)}
+                   \EFb{:file} \EFv{+org-capture-todo-file}
+                   \EFb{:prepend} t
+                   \EFb{:headline} \EFs{"Tasks"}
+                   \EFb{:type} entry
+                   \EFb{:template} \EFrdc{(}\EFs{"*} \textcolor[HTML]{ff8e00}{\textbf{TODO}} \EFs{\%? \%\char94{}G\%\{extra\}"}
+                              \EFs{"\%i \%a"}\EFrdc{)}
+                   \EFb{:children} \EFrdc{(}\EFrdd{(}\EFs{"General Task"} \EFb{:keys} \EFs{"k"}
+                               \EFb{:icon} \EFrda{(}\EFs{"inbox"} \EFb{:set} \EFs{"octicon"} \EFb{:color} \EFs{"yellow"}\EFrda{)}
+                               \EFb{:extra} \EFs{""}\EFrdd{)}
+                              \EFrdd{(}\EFs{"Task with deadline"} \EFb{:keys} \EFs{"d"}
+                               \EFb{:icon} \EFrda{(}\EFs{"timer"} \EFb{:set} \EFs{"material"} \EFb{:color} \EFs{"orange"} \EFb{:v-adjust} \EFhn{-0.1}\EFrda{)}
+                               \EFb{:extra} \EFs{"\char92{}nDEADLINE: \%\char94{}\{Deadline:\}t"}\EFrdd{)}
+                              \EFrdd{(}\EFs{"Scheduled Task"} \EFb{:keys} \EFs{"s"}
+                               \EFb{:icon} \EFrda{(}\EFs{"calendar"} \EFb{:set} \EFs{"octicon"} \EFb{:color} \EFs{"orange"}\EFrda{)}
+                               \EFb{:extra} \EFs{"\char92{}nSCHEDULED: \%\char94{}\{Start time:\}t"}\EFrdd{)}\EFrdc{)}\EFrdb{)}
+                  \EFrdb{(}\EFs{"Project"} \EFb{:keys} \EFs{"p"}
+                   \EFb{:icon} \EFrdc{(}\EFs{"repo"} \EFb{:set} \EFs{"octicon"} \EFb{:color} \EFs{"silver"}\EFrdc{)}
+                   \EFb{:prepend} t
+                   \EFb{:type} entry
+                   \EFb{:headline} \EFs{"Inbox"}
+                   \EFb{:template} \EFrdc{(}\EFs{"* \%\{time-or-todo\} \%?"}
+                              \EFs{"\%i"}
+                              \EFs{"\%a"}\EFrdc{)}
+                   \EFb{:file} \EFs{""}
+                   \EFb{:custom} \EFrdc{(}\EFb{:time-or-todo} \EFs{""}\EFrdc{)}
+                   \EFb{:children} \EFrdc{(}\EFrdd{(}\EFs{"Project-local todo"} \EFb{:keys} \EFs{"t"}
+                               \EFb{:icon} \EFrda{(}\EFs{"checklist"} \EFb{:set} \EFs{"octicon"} \EFb{:color} \EFs{"green"}\EFrda{)}
+                               \EFb{:time-or-todo} \EFs{"}\textcolor[HTML]{ff8e00}{\textbf{TODO}}\EFs{"}
+                               \EFb{:file} +org-capture-project-todo-file\EFrdd{)}
+                              \EFrdd{(}\EFs{"Project-local note"} \EFb{:keys} \EFs{"n"}
+                               \EFb{:icon} \EFrda{(}\EFs{"sticky-note"} \EFb{:set} \EFs{"faicon"} \EFb{:color} \EFs{"yellow"}\EFrda{)}
+                               \EFb{:time-or-todo} \EFs{"\%U"}
+                               \EFb{:file} +org-capture-project-notes-file\EFrdd{)}
+                              \EFrdd{(}\EFs{"Project-local changelog"} \EFb{:keys} \EFs{"c"}
+                               \EFb{:icon} \EFrda{(}\EFs{"list"} \EFb{:set} \EFs{"faicon"} \EFb{:color} \EFs{"blue"}\EFrda{)}
+                               \EFb{:time-or-todo} \EFs{"\%U"}
+                               \EFb{:heading} \EFs{"Unreleased"}
+                               \EFb{:file} +org-capture-project-changelog-file\EFrdd{)}\EFrdc{)}\EFrdb{)}
+                  \EFrdb{(}\EFs{"\char92{}tCentralised project templates"}
+                   \EFb{:keys} \EFs{"o"}
+                   \EFb{:type} entry
+                   \EFb{:prepend} t
+                   \EFb{:template} \EFrdc{(}\EFs{"* \%\{time-or-todo\} \%?"}
+                              \EFs{"\%i"}
+                              \EFs{"\%a"}\EFrdc{)}
+                   \EFb{:children} \EFrdc{(}\EFrdd{(}\EFs{"Project todo"}
+                               \EFb{:keys} \EFs{"t"}
+                               \EFb{:prepend} nil
+                               \EFb{:time-or-todo} \EFs{"}\textcolor[HTML]{ff8e00}{\textbf{TODO}}\EFs{"}
+                               \EFb{:heading} \EFs{"Tasks"}
+                               \EFb{:file} +org-capture-central-project-todo-file\EFrdd{)}
+                              \EFrdd{(}\EFs{"Project note"}
+                               \EFb{:keys} \EFs{"n"}
+                               \EFb{:time-or-todo} \EFs{"\%U"}
+                               \EFb{:heading} \EFs{"Notes"}
+                               \EFb{:file} +org-capture-central-project-notes-file\EFrdd{)}
+                              \EFrdd{(}\EFs{"Project changelog"}
+                               \EFb{:keys} \EFs{"c"}
+                               \EFb{:time-or-todo} \EFs{"\%U"}
+                               \EFb{:heading} \EFs{"Unreleased"}
+                               \EFb{:file} +org-capture-central-project-changelog-file\EFrdd{)}\EFrdc{)}\EFrdb{)}\EFrda{)}\EFrdd{)}\EFrdc{)}\EFrdb{)}
 
-  (set-org-capture-templates)
-  (unless (display-graphic-p)
-    (add-hook! 'server-after-make-frame-hook
-              (defun org-capture-reinitialise-hook ()
-                (when (display-graphic-p)
-                  (set-org-capture-templates)
-                  (remove-hook 'server-after-make-frame-hook
-                               #'org-capture-reinitialise-hook))))))
-\end{minted}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(defun org-mks-pretty (table title &optional prompt specials)
-  "Select a member of an alist with multiple keys. Prettified.
+  \EFrdb{(}\EFf{set-org-capture-templates}\EFrdb{)}
+  \EFrdb{(}\EFk{unless} \EFrdc{(}\EFo{display-graphic-p}\EFrdc{)}
+    \EFrdc{(}\EFk{add-hook!} \EFhq{'}\EFv{server-after-make-frame-hook}
+              \EFrdd{(}\EFk{defun} \EFf{org-capture-reinitialise-hook} \EFrda{(}\EFrda{)}
+                \EFrda{(}\EFk{when} \EFrdb{(}\EFo{display-graphic-p}\EFrdb{)}
+                  \EFrdb{(}\EFf{set-org-capture-templates}\EFrdb{)}
+                  \EFrdb{(}\EFo{remove-hook} \EFhq{'}\EFv{server-after-make-frame-hook}
+                               \EFhq{\#'}\EFhs{org-capture-reinitialise-hook}\EFrdb{)}\EFrda{)}\EFrdd{)}\EFrdc{)}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{defun} \EFf{org-mks-pretty} \EFrdb{(}table title \EFt{\&optional} prompt specials\EFrdb{)}
+  \EFd{"Select a member of an alist with multiple keys. Prettified.}
 
-TABLE is the alist which should contain entries where the car is a string.
-There should be two types of entries.
+\EFd{TABLE is the alist which should contain entries where the car is a string.}
+\EFd{There should be two types of entries.}
 
-1. prefix descriptions like (\"a\" \"Description\")
-   This indicates that `a' is a prefix key for multi-letter selection, and
-   that there are entries following with keys like \"ab\", \"ax\"…
+\EFd{1. prefix descriptions like (\char92{}"a\char92{}" \char92{}"Description\char92{}")}
+   \EFd{This indicates that `}\textcolor[HTML]{008b8b}{a}\EFd{' is a prefix key for multi-letter selection, and}
+   \EFd{that there are entries following with keys like \char92{}"ab\char92{}", \char92{}"ax\char92{}"…}
 
-2. Select-able members must have more than two elements, with the first
-   being the string of keys that lead to selecting it, and the second a
-   short description string of the item.
+\EFd{2. Select-able members must have more than two elements, with the first}
+   \EFd{being the string of keys that lead to selecting it, and the second a}
+   \EFd{short description string of the item.}
 
-The command will then make a temporary buffer listing all entries
-that can be selected with a single key, and all the single key
-prefixes.  When you press the key for a single-letter entry, it is selected.
-When you press a prefix key, the commands (and maybe further prefixes)
-under this key will be shown and offered for selection.
+\EFd{The command will then make a temporary buffer listing all entries}
+\EFd{that can be selected with a single key, and all the single key}
+\EFd{prefixes.  When you press the key for a single-letter entry, it is selected.}
+\EFd{When you press a prefix key, the commands (and maybe further prefixes)}
+\EFd{under this key will be shown and offered for selection.}
 
-TITLE will be placed over the selection in the temporary buffer,
-PROMPT will be used when prompting for a key.  SPECIALS is an
-alist with (\"key\" \"description\") entries.  When one of these
-is selected, only the bare key is returned."
-  (save-window-excursion
-    (let ((inhibit-quit t)
-          (buffer (org-switch-to-buffer-other-window "*Org Select*"))
-          (prompt (or prompt "Select: "))
-          case-fold-search
-          current)
-      (unwind-protect
-          (catch 'exit
-            (while t
-              (setq-local evil-normal-state-cursor (list nil))
-              (erase-buffer)
-              (insert title "\n\n")
-              (let ((des-keys nil)
-                    (allowed-keys '("\C-g"))
-                    (tab-alternatives '("\s" "\t" "\r"))
-                    (cursor-type nil))
-                ;; Populate allowed keys and descriptions keys
-                ;; available with CURRENT selector.
-                (let ((re (format "\\`%s\\(.\\)\\'"
-                                  (if current (regexp-quote current) "")))
-                      (prefix (if current (concat current " ") "")))
-                  (dolist (entry table)
-                    (pcase entry
-                      ;; Description.
-                      (`(,(and key (pred (string-match re))) ,desc)
-                       (let ((k (match-string 1 key)))
-                         (push k des-keys)
-                         ;; Keys ending in tab, space or RET are equivalent.
-                         (if (member k tab-alternatives)
-                             (push "\t" allowed-keys)
-                           (push k allowed-keys))
-                         (insert (propertize prefix 'face 'font-lock-comment-face) (propertize k 'face 'bold) (propertize "›" 'face 'font-lock-comment-face) "  " desc "…" "\n")))
-                      ;; Usable entry.
-                      (`(,(and key (pred (string-match re))) ,desc . ,_)
-                       (let ((k (match-string 1 key)))
-                         (insert (propertize prefix 'face 'font-lock-comment-face) (propertize k 'face 'bold) "   " desc "\n")
-                         (push k allowed-keys)))
-                      (_ nil))))
-                ;; Insert special entries, if any.
-                (when specials
-                  (insert "─────────────────────────\n")
-                  (pcase-dolist (`(,key ,description) specials)
-                    (insert (format "%s   %s\n" (propertize key 'face '(bold all-the-icons-red)) description))
-                    (push key allowed-keys)))
-                ;; Display UI and let user select an entry or
-                ;; a sub-level prefix.
-                (goto-char (point-min))
-                (unless (pos-visible-in-window-p (point-max))
-                  (org-fit-window-to-buffer))
-                (let ((pressed (org--mks-read-key allowed-keys
+\EFd{TITLE will be placed over the selection in the temporary buffer,}
+\EFd{PROMPT will be used when prompting for a key.  SPECIALS is an}
+\EFd{alist with (\char92{}"key\char92{}" \char92{}"description\char92{}") entries.  When one of these}
+\EFd{is selected, only the bare key is returned."}
+  \EFrdb{(}\EFk{save-window-excursion}
+    \EFrdc{(}\EFk{let} \EFrdd{(}\EFrda{(}\EFv{inhibit-quit} t\EFrda{)}
+          \EFrda{(}buffer \EFrdb{(}\EFo{org-switch-to-buffer-other-window} \EFs{"*Org Select*"}\EFrdb{)}\EFrda{)}
+          \EFrda{(}prompt \EFrdb{(}\EFk{or} prompt \EFs{"Select: "}\EFrdb{)}\EFrda{)}
+          \EFv{case-fold-search}
+          current\EFrdd{)}
+      \EFrdd{(}\EFk{unwind-protect}
+          \EFrda{(}\EFk{catch} \EFhq{'}\EFo{exit}
+            \EFrdb{(}\EFk{while} t
+              \EFrdc{(}\EFk{setq-local} \EFv{evil-normal-state-cursor} \EFrdd{(}\EFo{list} nil\EFrdd{)}\EFrdc{)}
+              \EFrdc{(}\EFo{erase-buffer}\EFrdc{)}
+              \EFrdc{(}\EFo{insert} title \EFs{"\char92{}n\char92{}n"}\EFrdc{)}
+              \EFrdc{(}\EFk{let} \EFrdd{(}\EFrda{(}des-keys nil\EFrda{)}
+                    \EFrda{(}allowed-keys \EFhq{'}\EFrdb{(}\EFs{"\char92{}C-g"}\EFrdb{)}\EFrda{)}
+                    \EFrda{(}tab-alternatives \EFhq{'}\EFrdb{(}\EFs{"\char92{}s"} \EFs{"\char92{}t"} \EFs{"\char92{}r"}\EFrdb{)}\EFrda{)}
+                    \EFrda{(}\EFv{cursor-type} nil\EFrda{)}\EFrdd{)}
+                \EFcd{;;} \EFc{Populate allowed keys and descriptions keys}
+                \EFcd{;;} \EFc{available with CURRENT selector.}
+                \EFrdd{(}\EFk{let} \EFrda{(}\EFrdb{(}re \EFrdc{(}\EFo{format} \EFs{"\char92{}\char92{}`\%s}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{(}}\EFs{.}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{)}}\EFs{\char92{}\char92{}'"}
+                                  \EFrdd{(}\EFk{if} current \EFrda{(}\EFo{regexp-quote} current\EFrda{)} \EFs{""}\EFrdd{)}\EFrdc{)}\EFrdb{)}
+                      \EFrdb{(}prefix \EFrdc{(}\EFk{if} current \EFrdd{(}\EFo{concat} current \EFs{" "}\EFrdd{)} \EFs{""}\EFrdc{)}\EFrdb{)}\EFrda{)}
+                  \EFrda{(}\EFk{dolist} \EFrdb{(}entry table\EFrdb{)}
+                    \EFrdb{(}\EFk{pcase} entry
+                      \EFcd{;;} \EFc{Description.}
+                      \EFrdc{(}\EFhq{`}\EFrdd{(},\EFrda{(}\EFk{and} key \EFrdb{(}pred \EFrdc{(}\EFo{string-match} re\EFrdc{)}\EFrdb{)}\EFrda{)} ,desc\EFrdd{)}
+                       \EFrdd{(}\EFk{let} \EFrda{(}\EFrdb{(}k \EFrdc{(}\EFo{match-string} \EFhn{1} key\EFrdc{)}\EFrdb{)}\EFrda{)}
+                         \EFrda{(}\EFk{push} k des-keys\EFrda{)}
+                         \EFcd{;;} \EFc{Keys ending in tab, space or RET are equivalent.}
+                         \EFrda{(}\EFk{if} \EFrdb{(}\EFo{member} k tab-alternatives\EFrdb{)}
+                             \EFrdb{(}\EFk{push} \EFs{"\char92{}t"} allowed-keys\EFrdb{)}
+                           \EFrdb{(}\EFk{push} k allowed-keys\EFrdb{)}\EFrda{)}
+                         \EFrda{(}\EFo{insert} \EFrdb{(}\EFo{propertize} prefix \EFhq{'}\EFhs{face} \EFhq{'}\EFv{font-lock-comment-face}\EFrdb{)} \EFrdb{(}\EFo{propertize} k \EFhq{'}\EFhs{face} \EFhq{'}\EFhs{bold}\EFrdb{)} \EFrdb{(}\EFo{propertize} \EFs{"›"} \EFhq{'}\EFhs{face} \EFhq{'}\EFv{font-lock-comment-face}\EFrdb{)} \EFs{"  "} desc \EFs{"…"} \EFs{"\char92{}n"}\EFrda{)}\EFrdd{)}\EFrdc{)}
+                      \EFcd{;;} \EFc{Usable entry.}
+                      \EFrdc{(}\EFhq{`}\EFrdd{(},\EFrda{(}\EFk{and} key \EFrdb{(}pred \EFrdc{(}\EFo{string-match} re\EFrdc{)}\EFrdb{)}\EFrda{)} ,desc . ,\_\EFrdd{)}
+                       \EFrdd{(}\EFk{let} \EFrda{(}\EFrdb{(}k \EFrdc{(}\EFo{match-string} \EFhn{1} key\EFrdc{)}\EFrdb{)}\EFrda{)}
+                         \EFrda{(}\EFo{insert} \EFrdb{(}\EFo{propertize} prefix \EFhq{'}\EFhs{face} \EFhq{'}\EFv{font-lock-comment-face}\EFrdb{)} \EFrdb{(}\EFo{propertize} k \EFhq{'}\EFhs{face} \EFhq{'}\EFhs{bold}\EFrdb{)} \EFs{"   "} desc \EFs{"\char92{}n"}\EFrda{)}
+                         \EFrda{(}\EFk{push} k allowed-keys\EFrda{)}\EFrdd{)}\EFrdc{)}
+                      \EFrdc{(}\_ nil\EFrdc{)}\EFrdb{)}\EFrda{)}\EFrdd{)}
+                \EFcd{;;} \EFc{Insert special entries, if any.}
+                \EFrdd{(}\EFk{when} specials
+                  \EFrda{(}\EFo{insert} \EFs{"─────────────────────────\char92{}n"}\EFrda{)}
+                  \EFrda{(}\EFk{pcase-dolist} \EFrdb{(}\EFhq{`}\EFrdc{(},key ,description\EFrdc{)} specials\EFrdb{)}
+                    \EFrdb{(}\EFo{insert} \EFrdc{(}\EFo{format} \EFs{"\%s   \%s\char92{}n"} \EFrdd{(}\EFo{propertize} key \EFhq{'}\EFhs{face} \EFhq{'}\EFrda{(}bold all-the-icons-red\EFrda{)}\EFrdd{)} description\EFrdc{)}\EFrdb{)}
+                    \EFrdb{(}\EFk{push} key allowed-keys\EFrdb{)}\EFrda{)}\EFrdd{)}
+                \EFcd{;;} \EFc{Display UI and let user select an entry or}
+                \EFcd{;;} \EFc{a sub-level prefix.}
+                \EFrdd{(}\EFo{goto-char} \EFrda{(}\EFo{point-min}\EFrda{)}\EFrdd{)}
+                \EFrdd{(}\EFk{unless} \EFrda{(}\EFo{pos-visible-in-window-p} \EFrdb{(}\EFo{point-max}\EFrdb{)}\EFrda{)}
+                  \EFrda{(}\EFo{org-fit-window-to-buffer}\EFrda{)}\EFrdd{)}
+                \EFrdd{(}\EFk{let} \EFrda{(}\EFrdb{(}pressed \EFrdc{(}\EFo{org--mks-read-key} allowed-keys
                                                   prompt
-                                                  (not (pos-visible-in-window-p (1- (point-max)))))))
-                  (setq current (concat current pressed))
-                  (cond
-                   ((equal pressed "\C-g") (user-error "Abort"))
-                   ;; Selection is a prefix: open a new menu.
-                   ((member pressed des-keys))
-                   ;; Selection matches an association: return it.
-                   ((let ((entry (assoc current table)))
-                      (and entry (throw 'exit entry))))
-                   ;; Selection matches a special entry: return the
-                   ;; selection prefix.
-                   ((assoc current specials) (throw 'exit current))
-                   (t (error "No entry available")))))))
-        (when buffer (kill-buffer buffer))))))
-(advice-add 'org-mks :override #'org-mks-pretty)
-\end{minted}
+                                                  \EFrdd{(}\EFo{not} \EFrda{(}\EFo{pos-visible-in-window-p} \EFrdb{(}\EFo{1-} \EFrdc{(}\EFo{point-max}\EFrdc{)}\EFrdb{)}\EFrda{)}\EFrdd{)}\EFrdc{)}\EFrdb{)}\EFrda{)}
+                  \EFrda{(}\EFk{setq} current \EFrdb{(}\EFo{concat} current pressed\EFrdb{)}\EFrda{)}
+                  \EFrda{(}\EFk{cond}
+                   \EFrdb{(}\EFrdc{(}\EFo{equal} pressed \EFs{"\char92{}C-g"}\EFrdc{)} \EFrdc{(}\EFo{user-error} \EFs{"Abort"}\EFrdc{)}\EFrdb{)}
+                   \EFcd{;;} \EFc{Selection is a prefix: open a new menu.}
+                   \EFrdb{(}\EFrdc{(}\EFo{member} pressed des-keys\EFrdc{)}\EFrdb{)}
+                   \EFcd{;;} \EFc{Selection matches an association: return it.}
+                   \EFrdb{(}\EFrdc{(}\EFk{let} \EFrdd{(}\EFrda{(}entry \EFrdb{(}\EFo{assoc} current table\EFrdb{)}\EFrda{)}\EFrdd{)}
+                      \EFrdd{(}\EFk{and} entry \EFrda{(}\EFo{throw} \EFhq{'}\EFo{exit} entry\EFrda{)}\EFrdd{)}\EFrdc{)}\EFrdb{)}
+                   \EFcd{;;} \EFc{Selection matches a special entry: return the}
+                   \EFcd{;;} \EFc{selection prefix.}
+                   \EFrdb{(}\EFrdc{(}\EFo{assoc} current specials\EFrdc{)} \EFrdc{(}\EFo{throw} \EFhq{'}\EFo{exit} current\EFrdc{)}\EFrdb{)}
+                   \EFrdb{(}t \EFrdc{(}\EFo{error} \EFs{"No entry available"}\EFrdc{)}\EFrdb{)}\EFrda{)}\EFrdd{)}\EFrdc{)}\EFrdb{)}\EFrda{)}
+        \EFrda{(}\EFk{when} buffer \EFrdb{(}\EFo{kill-buffer} buffer\EFrdb{)}\EFrda{)}\EFrdd{)}\EFrdc{)}\EFrdb{)}\EFrda{)}
+\EFrda{(}\EFo{advice-add} \EFhq{'}\EFhs{org-mks} \EFb{:override} \EFhq{\#'}\EFhs{org-mks-pretty}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \section{Company}
-\label{sec:org86d2217}
+\label{sec:org9e3b6bb}
 Improve the history size:
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(after! company
-  (setq company-idle-delay 0.2
-        company-minimum-prefix-length 3)
-  (setq company-show-numbers t)) ;; make aborting less annoying.
-(setq-default history-length 1000)
-(setq-default prescient-history-length 1000)
-\end{minted}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(set-company-backend!
-  '(text-mode
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{after!} company
+  \EFrdb{(}\EFk{setq} \EFv{company-idle-delay} \EFhn{0.2}
+        \EFv{company-minimum-prefix-length} \EFhn{3}\EFrdb{)}
+  \EFrdb{(}\EFk{setq} \EFv{company-show-numbers} t\EFrdb{)}\EFrda{)} \EFcd{;;} \EFc{make aborting less annoying.}
+\EFrda{(}\EFk{setq-default} \EFv{history-length} \EFhn{1000}\EFrda{)}
+\EFrda{(}\EFk{setq-default} prescient-history-length \EFhn{1000}\EFrda{)}
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFf{set-company-backend!}
+  \EFhq{'}\EFrdb{(}text-mode
     markdown-mode
-    gfm-mode)
-  '(:seperate
+    gfm-mode\EFrdb{)}
+  \EFhq{'}\EFrdb{(}\EFb{:seperate}
     company-ispell
     company-files
-    company-yasnippet))
-\end{minted}
+    company-yasnippet\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \section{LSP}
-\label{sec:orga0e4dc3}
+\label{sec:org7c45244}
 \subsection{Digestif}
-\label{sec:org778d23a}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-;; (after! lsp-mode
-;;   (setq lsp-tex-server 'digestif))
-\end{minted}
+\label{sec:orgcb9431b}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFcd{;;} \EFc{(after! lsp-mode}
+\EFcd{;;}   \EFc{(setq lsp-tex-server 'digestif))}
+\end{Verbatim}
+\end{Code}
 \subsection{LTex}
-\label{sec:org3510e7e}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-;; (package! lsp-ltex)
-;; (package! eglot-ltex :recipe (:host github :repo "emacs-languagetool/eglot-ltex"))
-\end{minted}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-;; (use-package! lsp-ltex
-;;   :hook (text-mode . (lambda ()
-;;                        (require 'lsp-ltex)
-;;                        (lsp)))  ; or lsp-deferred
-;;   :init
-;;   (setq lsp-ltex-version "15.2.0"))  ; make sure you have set this, see below
-;; (use-package! eglot-ltex
-;;   :hook (text-mode . (lambda ()
-;;                        (require 'eglot-ltex)
-;;                        (call-interactively #'eglot)))
-;;   :init
-;;   (setq eglot-languagetool-server-path "/opt/homebrew/Cellar/ltex-ls/15.2.0"))
-\end{minted}
+\label{sec:org0af3f70}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFcd{;;} \EFc{(package! lsp-ltex)}
+\EFcd{;;} \EFc{(package! eglot-ltex :recipe (:host github :repo "emacs-languagetool/eglot-ltex"))}
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFcd{;;} \EFc{(use-package! lsp-ltex}
+\EFcd{;;}   \EFc{:hook (text-mode . (lambda ()}
+\EFcd{;;}                        \EFc{(require 'lsp-ltex)}
+\EFcd{;;}                        \EFc{(lsp)))  ; or lsp-deferred}
+\EFcd{;;}   \EFc{:init}
+\EFcd{;;}   \EFc{(setq lsp-ltex-version "15.2.0"))  ; make sure you have set this, see below}
+\EFcd{;;} \EFc{(use-package! eglot-ltex}
+\EFcd{;;}   \EFc{:hook (text-mode . (lambda ()}
+\EFcd{;;}                        \EFc{(require 'eglot-ltex)}
+\EFcd{;;}                        \EFc{(call-interactively \#'eglot)))}
+\EFcd{;;}   \EFc{:init}
+\EFcd{;;}   \EFc{(setq eglot-languagetool-server-path "/opt/homebrew/Cellar/ltex-ls/15.2.0"))}
+\end{Verbatim}
+\end{Code}
 \section{VLFI}
-\label{sec:orgc56605b}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(package! vlfi)
-\end{minted}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(use-package! vlf-setup
-  :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
-\end{minted}
+\label{sec:org343d8b2}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{package!} vlfi\EFrda{)}
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{use-package!} vlf-setup
+  \EFb{:defer-incrementally} vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf\EFrda{)}
+\end{Verbatim}
+\end{Code}
 
 \section{PDF-Tools}
-\label{sec:org8f81b44}
+\label{sec:orgb38be8e}
 \subsection{Fix annotation bug}
-\label{sec:org7c5a11a}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(defun my-fix-tablist ()
-  (interactive)
-  (unload-feature 'tablist-filter t)
-  (load-file (find-library-name "tablist-filter")))
-\end{minted}
+\label{sec:org1583a7b}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{defun} \EFf{my-fix-tablist} \EFrdb{(}\EFrdb{)}
+  \EFrdb{(}\EFk{interactive}\EFrdb{)}
+  \EFrdb{(}\EFf{unload-feature} \EFhq{'}\EFhs{tablist-filter} t\EFrdb{)}
+  \EFrdb{(}\EFo{load-file} \EFrdc{(}\EFo{find-library-name} \EFs{"tablist-filter"}\EFrdc{)}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsection{Dark mode}
-\label{sec:org787af20}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-;; (add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode)
-\end{minted}
+\label{sec:org84a39be}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFcd{;;} \EFc{(add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode)}
+\end{Verbatim}
+\end{Code}
 \section{Option key Fix}
-\label{sec:org71d63f0}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(defun switch-left-and-right-option-keys ()
-  "Switch left and right option keys.
-     On some external keyboards the left and right option keys are swapped,
-     this command switches the keys so that they work as expected."
-  (interactive)
-  (let ((current-left  mac-option-modifier)
-        (current-right mac-right-option-modifier))
-    (setq mac-option-modifier       current-right
-          mac-right-option-modifier current-left)))
-\end{minted}
+\label{sec:org222760d}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{defun} \EFf{switch-left-and-right-option-keys} \EFrdb{(}\EFrdb{)}
+  \EFd{"Switch left and right option keys.}
+     \EFd{On some external keyboards the left and right option keys are swapped,}
+     \EFd{this command switches the keys so that they work as expected."}
+  \EFrdb{(}\EFk{interactive}\EFrdb{)}
+  \EFrdb{(}\EFk{let} \EFrdc{(}\EFrdd{(}current-left  \EFv{mac-option-modifier}\EFrdd{)}
+        \EFrdd{(}current-right \EFv{mac-right-option-modifier}\EFrdd{)}\EFrdc{)}
+    \EFrdc{(}\EFk{setq} \EFv{mac-option-modifier}       current-right
+          \EFv{mac-right-option-modifier} current-left\EFrdc{)}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 
 \section{Centaur}
-\label{sec:org96a9c5a}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-;; (after! centaur-tabs
-;;   (centaur-tabs-mode -1)
-;;   (setq centaur-tabs-height 36
-;;         centaur-tabs-set-icons t
-;;         centaur-tabs-modified-marker "o"
-;;         centaur-tabs-close-button "×"
-;;         centaur-tabs-set-bar 'above
-;;         centaur-tabs-gray-out-icons 'buffer)
-;;   (centaur-tabs-change-fonts "P22 Underground Book" 160))
-;; (setq x-underline-at-descent-line t)
-\end{minted}
+\label{sec:org3b2c0e8}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFcd{;;} \EFc{(after! centaur-tabs}
+\EFcd{;;}   \EFc{(centaur-tabs-mode -1)}
+\EFcd{;;}   \EFc{(setq centaur-tabs-height 36}
+\EFcd{;;}         \EFc{centaur-tabs-set-icons t}
+\EFcd{;;}         \EFc{centaur-tabs-modified-marker "o"}
+\EFcd{;;}         \EFc{centaur-tabs-close-button "×"}
+\EFcd{;;}         \EFc{centaur-tabs-set-bar 'above}
+\EFcd{;;}         \EFc{centaur-tabs-gray-out-icons 'buffer)}
+\EFcd{;;}   \EFc{(centaur-tabs-change-fonts "P22 Underground Book" 160))}
+\EFcd{;;} \EFc{(setq x-underline-at-descent-line t)}
+\end{Verbatim}
+\end{Code}
 
 \section{Email}
-\label{sec:orgd46c752}
+\label{sec:org18fa256}
 \subsection{mu4e}
-\label{sec:org55bb9dd}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-;; add to $DOOMDIR/config.el
-(after! mu4e
-  (setq sendmail-program (executable-find "msmtp")
-        send-mail-function #'smtpmail-send-it
-        message-sendmail-f-is-evil t
-        message-sendmail-extra-arguments '("--read-envelope-from")
-        message-send-mail-function #'message-send-mail-with-sendmail)
-  ;; how often to call it in seconds:
-  (setq   mu4e-sent-messages-behavior 'sent ;; Save sent messages
-          mu4e-headers-auto-update t                ; avoid to type `g' to update
-          mu4e-compose-signature-auto-include nil   ; I don't want a message signature
-          mu4e-use-fancy-chars t                   ; allow fancy icons for mail threads
-          mu4e-context-policy 'pick-first   ;; Start with the first context
-          mu4e-compose-context-policy 'ask) ;; Always ask which context to use when composing a new mail
-  (setq mu4e-update-interval (* 1 60))
-  (setq mu4e-attachment-dir "~/Downloads")
-  (set-email-account! "gmail"
-                      '((mu4e-sent-folder       . "/gmail/[Gmail]/Sent Mail")
-                        (mu4e-drafts-folder     . "/gmail/[Gmail]/Drafts")
-                        (mu4e-trash-folder      . "/gmail/[Gmail]/Trash")
-                        (mu4e-refile-folder     . "/gmail/[Gmail]/All Mail")
-                        (smtpmail-smtp-user     . "leoaparisi@gmail.com")
-                        (user-mail-address      . "leoaparisi@gmail.com")    ;; only needed for mu < 1.4
-                        (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
-                      t)
-  (set-email-account! "U Chicago"
-                      '((mu4e-sent-folder       . "/UChicago/Sent Mail")
-                        (mu4e-drafts-folder     . "/UChicago/Drafts")
-                        (mu4e-trash-folder      . "/UChicago/Trash")
-                        (mu4e-refile-folder     . "/UChicago/All Mail")
-                        (smtpmail-smtp-user     . "laparisidelannoy@uchicago.edu")
-                        (user-mail-address      . "laparisidelannoy@uchicago.edu")    ;; only needed for mu < 1.4
-                        (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
-                      t)
-  (setq +mu4e-gmail-accounts '(("leoaparisi@gmail.com" . "/gmail")))
-  (setq mu4e-compose-dont-reply-to-self t)
-  (setq mu4e-compose-format-flowed t)
-  ;; Add a unified inbox shortcut
-  (add-to-list
-   'mu4e-bookmarks
-   '(:name "Unified inbox" :query "maildir:/.*inbox/" :key ?i) t)
-(add-hook 'mu4e-compose-mode-hook 'company-mode)
-  )
-\end{minted}
+\label{sec:org98dea11}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFcd{;;} \EFc{add to \$DOOMDIR/config.el}
+\EFrda{(}\EFk{after!} mu4e
+  \EFrdb{(}\EFk{setq} \EFv{sendmail-program} \EFrdc{(}\EFo{executable-find} \EFs{"msmtp"}\EFrdc{)}
+        \EFv{send-mail-function} \EFhq{\#'}\EFhs{smtpmail-send-it}
+        \EFv{message-sendmail-f-is-evil} t
+        \EFv{message-sendmail-extra-arguments} \EFhq{'}\EFrdc{(}\EFs{"--read-envelope-from"}\EFrdc{)}
+        \EFv{message-send-mail-function} \EFhq{\#'}\EFhs{message-send-mail-with-sendmail}\EFrdb{)}
+  \EFcd{;;} \EFc{how often to call it in seconds:}
+  \EFrdb{(}\EFk{setq}   \EFv{mu4e-sent-messages-behavior} \EFhq{'}\EFhs{sent} \EFcd{;;} \EFc{Save sent messages}
+          \EFv{mu4e-headers-auto-update} t                \EFcd{;} \EFc{avoid to type `}\textcolor[HTML]{008b8b}{g}\EFc{' to update}
+          \EFv{mu4e-compose-signature-auto-include} nil   \EFcd{;} \EFc{I don't want a message signature}
+          \EFv{mu4e-use-fancy-chars} t                   \EFcd{;} \EFc{allow fancy icons for mail threads}
+          \EFv{mu4e-context-policy} \EFhq{'}\EFhs{pick-first}   \EFcd{;;} \EFc{Start with the first context}
+          \EFv{mu4e-compose-context-policy} \EFhq{'}\EFhs{ask}\EFrdb{)} \EFcd{;;} \EFc{Always ask which context to use when composing a new mail}
+  \EFrdb{(}\EFk{setq} \EFv{mu4e-update-interval} \EFrdc{(}\EFo{*} \EFhn{1} \EFhn{60}\EFrdc{)}\EFrdb{)}
+  \EFrdb{(}\EFk{setq} \EFv{mu4e-attachment-dir} \EFs{"\char126{}/Downloads"}\EFrdb{)}
+  \EFrdb{(}\EFf{set-email-account!} \EFs{"gmail"}
+                      \EFhq{'}\EFrdc{(}\EFrdd{(}\EFv{mu4e-sent-folder}       . \EFs{"/gmail/[Gmail]/Sent Mail"}\EFrdd{)}
+                        \EFrdd{(}\EFv{mu4e-drafts-folder}     . \EFs{"/gmail/[Gmail]/Drafts"}\EFrdd{)}
+                        \EFrdd{(}\EFv{mu4e-trash-folder}      . \EFs{"/gmail/[Gmail]/Trash"}\EFrdd{)}
+                        \EFrdd{(}\EFv{mu4e-refile-folder}     . \EFs{"/gmail/[Gmail]/All Mail"}\EFrdd{)}
+                        \EFrdd{(}\EFv{smtpmail-smtp-user}     . \EFs{"leoaparisi@gmail.com"}\EFrdd{)}
+                        \EFrdd{(}\EFv{user-mail-address}      . \EFs{"leoaparisi@gmail.com"}\EFrdd{)}    \EFcd{;;} \EFc{only needed for mu < 1.4}
+                        \EFrdd{(}\EFv{mu4e-compose-signature} . \EFs{"---\char92{}nLeo Aparisi de Lannoy"}\EFrdd{)}\EFrdc{)}
+                      t\EFrdb{)}
+  \EFrdb{(}\EFf{set-email-account!} \EFs{"U Chicago"}
+                      \EFhq{'}\EFrdc{(}\EFrdd{(}\EFv{mu4e-sent-folder}       . \EFs{"/UChicago/Sent Mail"}\EFrdd{)}
+                        \EFrdd{(}\EFv{mu4e-drafts-folder}     . \EFs{"/UChicago/Drafts"}\EFrdd{)}
+                        \EFrdd{(}\EFv{mu4e-trash-folder}      . \EFs{"/UChicago/Trash"}\EFrdd{)}
+                        \EFrdd{(}\EFv{mu4e-refile-folder}     . \EFs{"/UChicago/All Mail"}\EFrdd{)}
+                        \EFrdd{(}\EFv{smtpmail-smtp-user}     . \EFs{"laparisidelannoy@uchicago.edu"}\EFrdd{)}
+                        \EFrdd{(}\EFv{user-mail-address}      . \EFs{"laparisidelannoy@uchicago.edu"}\EFrdd{)}    \EFcd{;;} \EFc{only needed for mu < 1.4}
+                        \EFrdd{(}\EFv{mu4e-compose-signature} . \EFs{"---\char92{}nLeo Aparisi de Lannoy"}\EFrdd{)}\EFrdc{)}
+                      t\EFrdb{)}
+  \EFrdb{(}\EFk{setq} \EFv{+mu4e-gmail-accounts} \EFhq{'}\EFrdc{(}\EFrdd{(}\EFs{"leoaparisi@gmail.com"} . \EFs{"/gmail/[Gmail]"}\EFrdd{)}\EFrdc{)}\EFrdb{)}
+  \EFrdb{(}\EFk{setq} \EFv{mu4e-compose-dont-reply-to-self} t\EFrdb{)}
+  \EFcd{;;} \EFc{Add a unified inbox shortcut}
+  \EFrdb{(}\EFo{add-to-list}
+   \EFhq{'}\EFv{mu4e-bookmarks}
+   \EFhq{'}\EFrdc{(}\EFb{:name} \EFs{"Unified inbox"} \EFb{:query} \EFs{"maildir:/.*inbox/"} \EFb{:key} ?i\EFrdc{)} t\EFrdb{)}
+\EFrdb{(}\EFo{add-hook} \EFhq{'}\EFv{mu4e-compose-mode-hook} \EFhq{'}\EFv{company-mode}\EFrdb{)}
+  \EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsection{Notification}
-\label{sec:orgcec9955}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(mu4e-alert-set-default-style 'notifier)
-(add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
-\end{minted}
+\label{sec:orga69a0ba}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFf{mu4e-alert-set-default-style} \EFhq{'}\EFhs{notifier}\EFrda{)}
+\EFrda{(}\EFo{add-hook} \EFhq{'}\EFv{after-init-hook} \EFhq{\#'}\EFhs{mu4e-alert-enable-notifications}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \section{RSS}
-\label{sec:orgd0e6b09}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(add-hook! 'elfeed-search-mode-hook #'elfeed-update)
-(after! elfeed
-  (setq elfeed-goodies/entry-pane-position 'bottom)
-  (setq rmh-elfeed-org-files '("~/org/elfeed.org")))
-\end{minted}
+\label{sec:org4892509}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{add-hook!} \EFhq{'}\EFhs{elfeed-search-mode-hook} \EFhq{\#'}\EFhs{elfeed-update}\EFrda{)}
+\EFrda{(}\EFk{after!} elfeed
+  \EFrdb{(}\EFk{setq} elfeed-goodies/entry-pane-position \EFhq{'}\EFhs{bottom}\EFrdb{)}
+  \EFrdb{(}\EFk{setq} rmh-elfeed-org-files \EFhq{'}\EFrdc{(}\EFs{"\char126{}/org/elfeed.org"}\EFrdc{)}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsection{Visual}
-\label{sec:orgfd5e9ca}
-\begin{minted}[breaklines=true,breakanywhere=true,bgcolor=bgcolorminted,linenos=true]{common-lisp}
-(after! elfeed
-  (setq elfeed-search-filter "@1-week-ago +unread"
-        elfeed-search-print-entry-function '+rss/elfeed-search-print-entry
-        elfeed-search-title-min-width 80
-        elfeed-show-entry-switch #'switch-to-buffer
-        elfeed-show-entry-delete #'+rss/delete-pane
-        elfeed-show-refresh-function #'+rss/elfeed-show-refresh--better-style
-        shr-max-image-proportion 0.6)
+\label{sec:orgd61f116}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{after!} elfeed
+  \EFrdb{(}\EFk{setq} elfeed-search-filter \EFs{"@1-week-ago +unread"}
+        elfeed-search-print-entry-function \EFhq{'}\EFhs{+rss/elfeed-search-print-entry}
+        elfeed-search-title-min-width \EFhn{80}
+        elfeed-show-entry-switch \EFhq{\#'}\EFhs{switch-to-buffer}
+        elfeed-show-entry-delete \EFhq{\#'}\EFhs{+rss/delete-pane}
+        elfeed-show-refresh-function \EFhq{\#'}\EFhs{+rss/elfeed-show-refresh--better-style}
+        \EFv{shr-max-image-proportion} \EFhn{0.6}\EFrdb{)}
 
-  (add-hook! 'elfeed-show-mode-hook (hide-mode-line-mode 1))
-  (add-hook! 'elfeed-search-update-hook #'hide-mode-line-mode)
+  \EFrdb{(}\EFk{add-hook!} \EFhq{'}\EFhs{elfeed-show-mode-hook} \EFrdc{(}\EFv{hide-mode-line-mode} \EFhn{1}\EFrdc{)}\EFrdb{)}
+  \EFrdb{(}\EFk{add-hook!} \EFhq{'}\EFhs{elfeed-search-update-hook} \EFhq{\#'}\EFv{hide-mode-line-mode}\EFrdb{)}
 
-  (defface elfeed-show-title-face '((t (:weight ultrabold :slant italic :height 1.5)))
-    "title face in elfeed show buffer"
-    :group 'elfeed)
-  (defface elfeed-show-author-face `((t (:weight light)))
-    "title face in elfeed show buffer"
-    :group 'elfeed)
-  (set-face-attribute 'elfeed-search-title-face nil
-                      :foreground 'nil
-                      :weight 'light)
+  \EFrdb{(}\EFk{defface} \EFv{elfeed-show-title-face} \EFhq{'}\EFrdc{(}\EFrdd{(}t \EFrda{(}\EFb{:weight} ultrabold \EFb{:slant} italic \EFb{:height} \EFhn{1.5}\EFrda{)}\EFrdd{)}\EFrdc{)}
+    \EFd{"title face in elfeed show buffer"}
+    \EFb{:group} \EFhq{'}\EFhs{elfeed}\EFrdb{)}
+  \EFrdb{(}\EFk{defface} \EFv{elfeed-show-author-face} \EFhq{`}\EFrdc{(}\EFrdd{(}t \EFrda{(}\EFb{:weight} light\EFrda{)}\EFrdd{)}\EFrdc{)}
+    \EFd{"title face in elfeed show buffer"}
+    \EFb{:group} \EFhq{'}\EFhs{elfeed}\EFrdb{)}
+  \EFrdb{(}\EFo{set-face-attribute} \EFhq{'}\EFhs{elfeed-search-title-face} nil
+                      \EFb{:foreground} \EFhq{'}\EFhs{nil}
+                      \EFb{:weight} \EFhq{'}\EFhs{light}\EFrdb{)}
 
-  (defadvice! +rss-elfeed-wrap-h-nicer ()
-    "Enhances an elfeed entry's readability by wrapping it to a width of
-`fill-column' and centering it with `visual-fill-column-mode'."
-    :override #'+rss-elfeed-wrap-h
-    (setq-local truncate-lines nil
-                shr-width 140
+  \EFrdb{(}\EFk{defadvice!} +rss-elfeed-wrap-h-nicer \EFrdc{(}\EFrdc{)}
+    \EFd{"Enhances an elfeed entry's readability by wrapping it to a width of}
+\EFd{`}\textcolor[HTML]{008b8b}{fill-column}\EFd{' and centering it with `}\textcolor[HTML]{008b8b}{visual-fill-column-mode}\EFd{'."}
+    \EFb{:override} \EFhq{\#'}\EFhs{+rss-elfeed-wrap-h}
+    \EFrdc{(}\EFk{setq-local} \EFv{truncate-lines} nil
+                \EFv{shr-width} \EFhn{140}
                 visual-fill-column-center-text t
-                default-text-properties '(line-height 1.2))
-    (let ((inhibit-read-only t)
-          (inhibit-modification-hooks t))
-       (setq-local shr-current-font '(:family "Lato" :height 1.2))
-      (set-buffer-modified-p nil)))
+                \EFv{default-text-properties} \EFhq{'}\EFrdd{(}line-height \EFhn{1.2}\EFrdd{)}\EFrdc{)}
+    \EFrdc{(}\EFk{let} \EFrdd{(}\EFrda{(}\EFv{inhibit-read-only} t\EFrda{)}
+          \EFrda{(}\EFv{inhibit-modification-hooks} t\EFrda{)}\EFrdd{)}
+       \EFrdd{(}\EFk{setq-local} \EFv{shr-current-font} \EFhq{'}\EFrda{(}\EFb{:family} \EFs{"Lato"} \EFb{:height} \EFhn{1.2}\EFrda{)}\EFrdd{)}
+      \EFrdd{(}\EFo{set-buffer-modified-p} nil\EFrdd{)}\EFrdc{)}\EFrdb{)}
 
-  (defun +rss/elfeed-search-print-entry (entry)
-    "Print ENTRY to the buffer."
-    (let* ((elfeed-goodies/tag-column-width 40)
-           (elfeed-goodies/feed-source-column-width 30)
-           (title (or (elfeed-meta entry :title) (elfeed-entry-title entry) ""))
-           (title-faces (elfeed-search--faces (elfeed-entry-tags entry)))
-           (feed (elfeed-entry-feed entry))
-           (feed-title
-            (when feed
-              (or (elfeed-meta feed :title) (elfeed-feed-title feed))))
-           (tags (mapcar #'symbol-name (elfeed-entry-tags entry)))
-           (tags-str (concat (mapconcat 'identity tags ",")))
-           (title-width (- (window-width) elfeed-goodies/feed-source-column-width
-                           elfeed-goodies/tag-column-width 4))
+  \EFrdb{(}\EFk{defun} \EFf{+rss/elfeed-search-print-entry} \EFrdc{(}entry\EFrdc{)}
+    \EFd{"Print ENTRY to the buffer."}
+    \EFrdc{(}\EFk{let*} \EFrdd{(}\EFrda{(}elfeed-goodies/tag-column-width \EFhn{40}\EFrda{)}
+           \EFrda{(}elfeed-goodies/feed-source-column-width \EFhn{30}\EFrda{)}
+           \EFrda{(}title \EFrdb{(}\EFk{or} \EFrdc{(}elfeed-meta entry \EFb{:title}\EFrdc{)} \EFrdc{(}elfeed-entry-title entry\EFrdc{)} \EFs{""}\EFrdb{)}\EFrda{)}
+           \EFrda{(}title-faces \EFrdb{(}elfeed-search--faces \EFrdc{(}elfeed-entry-tags entry\EFrdc{)}\EFrdb{)}\EFrda{)}
+           \EFrda{(}feed \EFrdb{(}elfeed-entry-feed entry\EFrdb{)}\EFrda{)}
+           \EFrda{(}feed-title
+            \EFrdb{(}\EFk{when} feed
+              \EFrdc{(}\EFk{or} \EFrdd{(}elfeed-meta feed \EFb{:title}\EFrdd{)} \EFrdd{(}elfeed-feed-title feed\EFrdd{)}\EFrdc{)}\EFrdb{)}\EFrda{)}
+           \EFrda{(}tags \EFrdb{(}\EFo{mapcar} \EFhq{\#'}\EFhs{symbol-name} \EFrdc{(}elfeed-entry-tags entry\EFrdc{)}\EFrdb{)}\EFrda{)}
+           \EFrda{(}tags-str \EFrdb{(}\EFo{concat} \EFrdc{(}\EFo{mapconcat} \EFhq{'}\EFhs{identity} tags \EFs{","}\EFrdc{)}\EFrdb{)}\EFrda{)}
+           \EFrda{(}title-width \EFrdb{(}\EFo{-} \EFrdc{(}\EFo{window-width}\EFrdc{)} elfeed-goodies/feed-source-column-width
+                           elfeed-goodies/tag-column-width \EFhn{4}\EFrdb{)}\EFrda{)}
 
-           (tag-column (elfeed-format-column
-                        tags-str (elfeed-clamp (length tags-str)
+           \EFrda{(}tag-column \EFrdb{(}elfeed-format-column
+                        tags-str \EFrdc{(}elfeed-clamp \EFrdd{(}\EFo{length} tags-str\EFrdd{)}
                                                elfeed-goodies/tag-column-width
-                                               elfeed-goodies/tag-column-width)
-                        :left))
-           (feed-column (elfeed-format-column
-                         feed-title (elfeed-clamp elfeed-goodies/feed-source-column-width
+                                               elfeed-goodies/tag-column-width\EFrdc{)}
+                        \EFb{:left}\EFrdb{)}\EFrda{)}
+           \EFrda{(}feed-column \EFrdb{(}elfeed-format-column
+                         feed-title \EFrdc{(}elfeed-clamp elfeed-goodies/feed-source-column-width
                                                   elfeed-goodies/feed-source-column-width
-                                                  elfeed-goodies/feed-source-column-width)
-                         :left)))
+                                                  elfeed-goodies/feed-source-column-width\EFrdc{)}
+                         \EFb{:left}\EFrdb{)}\EFrda{)}\EFrdd{)}
 
-      (insert (propertize feed-column 'face 'elfeed-search-feed-face) " ")
-      (insert (propertize tag-column 'face 'elfeed-search-tag-face) " ")
-      (insert (propertize title 'face title-faces 'kbd-help title))
-      (setq-local line-spacing 0.2)))
+      \EFrdd{(}\EFo{insert} \EFrda{(}\EFo{propertize} feed-column \EFhq{'}\EFhs{face} \EFhq{'}\EFhs{elfeed-search-feed-face}\EFrda{)} \EFs{" "}\EFrdd{)}
+      \EFrdd{(}\EFo{insert} \EFrda{(}\EFo{propertize} tag-column \EFhq{'}\EFhs{face} \EFhq{'}\EFhs{elfeed-search-tag-face}\EFrda{)} \EFs{" "}\EFrdd{)}
+      \EFrdd{(}\EFo{insert} \EFrda{(}\EFo{propertize} title \EFhq{'}\EFhs{face} title-faces \EFhq{'}\EFhs{kbd-help} title\EFrda{)}\EFrdd{)}
+      \EFrdd{(}\EFk{setq-local} \EFv{line-spacing} \EFhn{0.2}\EFrdd{)}\EFrdc{)}\EFrdb{)}
 
-  (defun +rss/elfeed-show-refresh--better-style ()
-    "Update the buffer to match the selected entry, using a mail-style."
-    (interactive)
-    (let* ((inhibit-read-only t)
-           (title (elfeed-entry-title elfeed-show-entry))
-           (date (seconds-to-time (elfeed-entry-date elfeed-show-entry)))
-           (author (elfeed-meta elfeed-show-entry :author))
-           (link (elfeed-entry-link elfeed-show-entry))
-           (tags (elfeed-entry-tags elfeed-show-entry))
-           (tagsstr (mapconcat #'symbol-name tags ", "))
-           (nicedate (format-time-string "%a, %e %b %Y %T %Z" date))
-           (content (elfeed-deref (elfeed-entry-content elfeed-show-entry)))
-           (type (elfeed-entry-content-type elfeed-show-entry))
-           (feed (elfeed-entry-feed elfeed-show-entry))
-           (feed-title (elfeed-feed-title feed))
-           (base (and feed (elfeed-compute-base (elfeed-feed-url feed)))))
-      (erase-buffer)
-      (insert "\n")
-      (insert (format "%s\n\n" (propertize title 'face 'elfeed-show-title-face)))
-      (insert (format "%s\t" (propertize feed-title 'face 'elfeed-search-feed-face)))
-      (when (and author elfeed-show-entry-author)
-        (insert (format "%s\n" (propertize author 'face 'elfeed-show-author-face))))
-      (insert (format "%s\n\n" (propertize nicedate 'face 'elfeed-log-date-face)))
-      (when tags
-        (insert (format "%s\n"
-                        (propertize tagsstr 'face 'elfeed-search-tag-face))))
-      ;; (insert (propertize "Link: " 'face 'message-header-name))
-      ;; (elfeed-insert-link link link)
-      ;; (insert "\n")
-      (cl-loop for enclosure in (elfeed-entry-enclosures elfeed-show-entry)
-               do (insert (propertize "Enclosure: " 'face 'message-header-name))
-               do (elfeed-insert-link (car enclosure))
-               do (insert "\n"))
-      (insert "\n")
-      (if content
-          (if (eq type 'html)
-              (elfeed-insert-html content base)
-            (insert content))
-        (insert (propertize "(empty)\n" 'face 'italic)))
-      (goto-char (point-min))))
+  \EFrdb{(}\EFk{defun} \EFf{+rss/elfeed-show-refresh--better-style} \EFrdc{(}\EFrdc{)}
+    \EFd{"Update the buffer to match the selected entry, using a mail-style."}
+    \EFrdc{(}\EFk{interactive}\EFrdc{)}
+    \EFrdc{(}\EFk{let*} \EFrdd{(}\EFrda{(}\EFv{inhibit-read-only} t\EFrda{)}
+           \EFrda{(}title \EFrdb{(}elfeed-entry-title elfeed-show-entry\EFrdb{)}\EFrda{)}
+           \EFrda{(}date \EFrdb{(}\EFo{seconds-to-time} \EFrdc{(}elfeed-entry-date elfeed-show-entry\EFrdc{)}\EFrdb{)}\EFrda{)}
+           \EFrda{(}author \EFrdb{(}elfeed-meta elfeed-show-entry \EFb{:author}\EFrdb{)}\EFrda{)}
+           \EFrda{(}link \EFrdb{(}elfeed-entry-link elfeed-show-entry\EFrdb{)}\EFrda{)}
+           \EFrda{(}tags \EFrdb{(}elfeed-entry-tags elfeed-show-entry\EFrdb{)}\EFrda{)}
+           \EFrda{(}tagsstr \EFrdb{(}\EFo{mapconcat} \EFhq{\#'}\EFhs{symbol-name} tags \EFs{", "}\EFrdb{)}\EFrda{)}
+           \EFrda{(}nicedate \EFrdb{(}\EFo{format-time-string} \EFs{"\%a, \%e \%b \%Y \%T \%Z"} date\EFrdb{)}\EFrda{)}
+           \EFrda{(}content \EFrdb{(}elfeed-deref \EFrdc{(}elfeed-entry-content elfeed-show-entry\EFrdc{)}\EFrdb{)}\EFrda{)}
+           \EFrda{(}type \EFrdb{(}elfeed-entry-content-type elfeed-show-entry\EFrdb{)}\EFrda{)}
+           \EFrda{(}feed \EFrdb{(}elfeed-entry-feed elfeed-show-entry\EFrdb{)}\EFrda{)}
+           \EFrda{(}feed-title \EFrdb{(}elfeed-feed-title feed\EFrdb{)}\EFrda{)}
+           \EFrda{(}base \EFrdb{(}\EFk{and} feed \EFrdc{(}elfeed-compute-base \EFrdd{(}elfeed-feed-url feed\EFrdd{)}\EFrdc{)}\EFrdb{)}\EFrda{)}\EFrdd{)}
+      \EFrdd{(}\EFo{erase-buffer}\EFrdd{)}
+      \EFrdd{(}\EFo{insert} \EFs{"\char92{}n"}\EFrdd{)}
+      \EFrdd{(}\EFo{insert} \EFrda{(}\EFo{format} \EFs{"\%s\char92{}n\char92{}n"} \EFrdb{(}\EFo{propertize} title \EFhq{'}\EFhs{face} \EFhq{'}\EFhs{elfeed-show-title-face}\EFrdb{)}\EFrda{)}\EFrdd{)}
+      \EFrdd{(}\EFo{insert} \EFrda{(}\EFo{format} \EFs{"\%s\char92{}t"} \EFrdb{(}\EFo{propertize} feed-title \EFhq{'}\EFhs{face} \EFhq{'}\EFhs{elfeed-search-feed-face}\EFrdb{)}\EFrda{)}\EFrdd{)}
+      \EFrdd{(}\EFk{when} \EFrda{(}\EFk{and} author elfeed-show-entry-author\EFrda{)}
+        \EFrda{(}\EFo{insert} \EFrdb{(}\EFo{format} \EFs{"\%s\char92{}n"} \EFrdc{(}\EFo{propertize} author \EFhq{'}\EFhs{face} \EFhq{'}\EFhs{elfeed-show-author-face}\EFrdc{)}\EFrdb{)}\EFrda{)}\EFrdd{)}
+      \EFrdd{(}\EFo{insert} \EFrda{(}\EFo{format} \EFs{"\%s\char92{}n\char92{}n"} \EFrdb{(}\EFo{propertize} nicedate \EFhq{'}\EFhs{face} \EFhq{'}\EFhs{elfeed-log-date-face}\EFrdb{)}\EFrda{)}\EFrdd{)}
+      \EFrdd{(}\EFk{when} tags
+        \EFrda{(}\EFo{insert} \EFrdb{(}\EFo{format} \EFs{"\%s\char92{}n"}
+                        \EFrdc{(}\EFo{propertize} tagsstr \EFhq{'}\EFhs{face} \EFhq{'}\EFhs{elfeed-search-tag-face}\EFrdc{)}\EFrdb{)}\EFrda{)}\EFrdd{)}
+      \EFcd{;;} \EFc{(insert (propertize "Link: " 'face 'message-header-name))}
+      \EFcd{;;} \EFc{(elfeed-insert-link link link)}
+      \EFcd{;;} \EFc{(insert "\char92{}n")}
+      \EFrdd{(}\EFk{cl-loop} for enclosure in \EFrda{(}elfeed-entry-enclosures elfeed-show-entry\EFrda{)}
+               do \EFrda{(}\EFo{insert} \EFrdb{(}\EFo{propertize} \EFs{"Enclosure: "} \EFhq{'}\EFhs{face} \EFhq{'}\EFhs{message-header-name}\EFrdb{)}\EFrda{)}
+               do \EFrda{(}elfeed-insert-link \EFrdb{(}\EFo{car} enclosure\EFrdb{)}\EFrda{)}
+               do \EFrda{(}\EFo{insert} \EFs{"\char92{}n"}\EFrda{)}\EFrdd{)}
+      \EFrdd{(}\EFo{insert} \EFs{"\char92{}n"}\EFrdd{)}
+      \EFrdd{(}\EFk{if} content
+          \EFrda{(}\EFk{if} \EFrdb{(}\EFo{eq} type \EFhq{'}\EFhs{html}\EFrdb{)}
+              \EFrdb{(}elfeed-insert-html content base\EFrdb{)}
+            \EFrdb{(}\EFo{insert} content\EFrdb{)}\EFrda{)}
+        \EFrda{(}\EFo{insert} \EFrdb{(}\EFo{propertize} \EFs{"(empty)\char92{}n"} \EFhq{'}\EFhs{face} \EFhq{'}\EFhs{italic}\EFrdb{)}\EFrda{)}\EFrdd{)}
+      \EFrdd{(}\EFo{goto-char} \EFrda{(}\EFo{point-min}\EFrda{)}\EFrdd{)}\EFrdc{)}\EFrdb{)}
 
-  )
-\end{minted}
+  \EFrda{)}
+\end{Verbatim}
+\end{Code}
 \end{document}
