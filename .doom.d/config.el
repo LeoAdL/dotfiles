@@ -415,7 +415,7 @@
 (use-package! oc-csl
   :after oc
   :config
-  (setq org-cite-csl-styles-dir "~/Zotero/styles"))
+  (setq org-cite-csl-styles-dir "~/Zotero/styles/"))
 
 (use-package! oc-csl-activate
   :after org
@@ -704,8 +704,8 @@ citecolor=cite
       TeX-source-correlate-start-server t)
 
 ;; Update PDF buffers after successful LaTeX runs
-(add-hook! 'TeX-after-compilation-finished-functions
-          #'TeX-revert-document-buffer)
+;; (add-hook! 'TeX-after-compilation-finished-functions
+;;           #'TeX-revert-document-buffer)
 
 ;; (setq org-latex-listings 'minted
 ;;       org-latex-packages-alist '(("" "minted")))

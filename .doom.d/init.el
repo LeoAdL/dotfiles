@@ -157,10 +157,10 @@
         +pretty                     ; yessss my pretties! (nice unicode symbols)
         +dragndrop                  ; drag & drop files/images into org buffers
         +hugo                     ; use Emacs for hugo blogging
-        +noter                      ; enhanced PDF notetaking
+        ;; +noter                      ; enhanced PDF notetaking
         +jupyter                    ; ipython/jupyter support for babel
         +pandoc                     ; export-with-pandoc support
-        +gnuplot                    ; who doesn't like pretty pictures
+        ;; +gnuplot                    ; who doesn't like pretty pictures
         +pomodoro                 ; be fruitful with the tomato technique
         +present                    ; using org-mode for presentations
         +roam2)                     ; wander around notes
@@ -177,7 +177,7 @@
        ;;(rust +lsp)       ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
        ;;(scheme +guile)   ; a fully conniving family of lisps
-       (sh +tree-sitter +lsp +powershell)                ; she sells {ba,z,fi}sh shells on the C xor
+       ;; (sh +tree-sitter +lsp +powershell)                ; she sells {ba,z,fi}sh shells on the C xor
        ;;sml
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
