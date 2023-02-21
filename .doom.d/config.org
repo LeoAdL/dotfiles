@@ -555,24 +555,27 @@ Transparency and fontification
   :no-require
   :custom
   (org-cite-global-bibliography '("~/org/Lecture_Notes/MyLibrary.bib"))
-  (org-cite-insert-processor 'citar)
-  (org-cite-follow-processor 'citar)
-  (org-cite-activate-processor 'citar)
   (citar-bibliography org-cite-global-bibliography)
-  ( citar-symbols
+  (citar-symbols
     `((file ,(all-the-icons-faicon "file-o" :face 'all-the-icons-green :v-adjust -0.1) . " ")
       (note ,(all-the-icons-material "speaker_notes" :face 'all-the-icons-blue :v-adjust -0.3) . " ")
       (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " ")))
-  ( citar-symbol-separator "  "))
+  (citar-symbol-separator "  "))
 
+#+end_src
+#+begin_src emacs-lisp
 (use-package! oc-csl
   :after oc
   :config
-  (setq org-cite-csl-styles-dir "~/Zotero/styles"))
+  (setq org-cite-csl-styles-dir "~/Zotero/styles/"))
 
 
 (after! oc
-  (setq org-cite-export-processors '((t csl))))
+  (setq org-cite-export-processors '(
+                                     (beamer natbib)
+                                     (latex biblatex)
+                                     (t csl)
+                                     ))
 #+end_src
 #+begin_src emacs-lisp
 (use-package! oc-csl-activate
@@ -585,11 +588,9 @@ Transparency and fontification
             (lambda ()
               (cursor-sensor-mode 1)
               (org-cite-csl-activate-render-all))))
+
 #+end_src
 *** Org-Roam integration
-#+begin_src emacs-lisp :tangle packages.el
-(package! citar-org-roam  :recipe (:host github :repo "emacs-citar/citar-org-roam"))
-#+end_src
 #+begin_src emacs-lisp
 (use-package! citar-org-roam
   :after citar org-roam
@@ -738,8 +739,7 @@ Transparency and fontification
 \\usepackage[]{cleveref}
 [NO-DEFAULT-PACKAGES]
 [PACKAGES]
-[EXTRA]
-\\usemintedstyle{gruvbox-light}"
+[EXTRA]"
                ("\\section{%s}" . "\\section*{%s}")
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -843,8 +843,7 @@ Define Beamer class:
 \\usepackage{cleveref}
 [NO-DEFAULT-PACKAGES]
 [PACKAGES]
-[EXTRA]
-\\usemintedstyle{gruvbox-light}"
+[EXTRA]"
                ("\\section{%s}" . "\\section*{%s}")
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -894,13 +893,19 @@ citecolor=cite
           #'TeX-revert-document-buffer)
 #+end_src
 **** Code blocks
+#+begin_src emacs-lisp :tangle packages.el
+(package! engrave-faces)
+#+end_src
 #+begin_src emacs-lisp
-(setq org-latex-listings 'minted
-      org-latex-packages-alist '(("" "minted")))
-(setq org-latex-minted-options '(("breaklines" "true")
-                                 ("breakanywhere" "true")
-                                 ("bgcolor" "bgcolorminted")
-                                 ("linenos" "true")))
+;; (setq org-latex-listings 'minted
+;;       org-latex-packages-alist '(("" "minted")))
+;; (setq org-latex-minted-options '(("breaklines" "true")
+;;                                  ("breakanywhere" "true")
+;;                                  ("bgcolor" "bgcolorminted")
+;;                                  ("linenos" "true")))
+(use-package! engrave-faces-latex
+  :after ox-latex)
+(setq org-latex-src-block-backend 'engraved)
 #+end_src
 ** Capture
 *** Doct
@@ -1300,7 +1305,7 @@ Improve the history size:
                         (user-mail-address      . "laparisidelannoy@uchicago.edu")    ;; only needed for mu < 1.4
                         (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
                       t)
-  (setq +mu4e-gmail-accounts '(("leoaparisi@gmail.com" . "/gmail")))
+  (setq +mu4e-gmail-accounts '(("leoaparisi@gmail.com" . "/gmail/[Gmail]")))
   (setq mu4e-compose-dont-reply-to-self t)
   ;; Add a unified inbox shortcut
   (add-to-list
