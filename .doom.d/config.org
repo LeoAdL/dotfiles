@@ -567,7 +567,7 @@ Transparency and fontification
 (use-package! oc-csl
   :after oc
   :config
-  (setq org-cite-csl-styles-dir "~/Zotero/styles"))
+  (setq org-cite-csl-styles-dir "~/Zotero/styles/"))
 #+end_src
 #+begin_src emacs-lisp
 (use-package! oc-csl-activate
