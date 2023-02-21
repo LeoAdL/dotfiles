@@ -415,15 +415,7 @@
 (use-package! oc-csl
   :after oc
   :config
-  (setq org-cite-csl-styles-dir "~/Zotero/styles/"))
-
-
-(after! oc
-  (setq org-cite-export-processors '(
-                                     (beamer natbib)
-                                     (latex biblatex)
-                                     (t csl)
-                                     ))
+  (setq org-cite-csl-styles-dir "~/Zotero/styles"))
 
 (use-package! oc-csl-activate
   :after org
