@@ -719,6 +719,7 @@ citecolor=cite
 (use-package! engrave-faces-latex
   :after ox-latex)
 (setq org-latex-src-block-backend 'engraved)
+(setq org-latex-engraved-theme 'doom-nord-aurora)
 
 (after! org-capture
 
@@ -1065,7 +1066,6 @@ is selected, only the bare key is returned."
                         (mu4e-trash-folder      . "/gmail/[Gmail]/Trash")
                         (mu4e-refile-folder     . "/gmail/[Gmail]/All Mail")
                         (smtpmail-smtp-user     . "leoaparisi@gmail.com")
-                        (user-mail-address      . "leoaparisi@gmail.com")    ;; only needed for mu < 1.4
                         (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
                       t)
   (set-email-account! "U Chicago"
@@ -1074,7 +1074,6 @@ is selected, only the bare key is returned."
                         (mu4e-trash-folder      . "/UChicago/Trash")
                         (mu4e-refile-folder     . "/UChicago/All Mail")
                         (smtpmail-smtp-user     . "laparisidelannoy@uchicago.edu")
-                        (user-mail-address      . "laparisidelannoy@uchicago.edu")    ;; only needed for mu < 1.4
                         (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
                       t)
   (setq +mu4e-gmail-accounts '(("leoaparisi@gmail.com" . "/gmail/[Gmail]")))
