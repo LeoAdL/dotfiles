@@ -416,6 +416,8 @@
   :after oc
   :config
   (setq org-cite-csl-styles-dir "~/Zotero/styles/"))
+(after! oc
+ (setq org-cite-export-processors '((t csl))))
 
 (use-package! oc-csl-activate
   :after org
@@ -564,6 +566,7 @@
 \\definecolor{bgcolorminted}{HTML}{f9f5d7}
 \\usepackage{hyperref}
 \\usepackage[]{cleveref}
+
 [NO-DEFAULT-PACKAGES]
 [PACKAGES]
 [EXTRA]"
@@ -704,8 +707,8 @@ citecolor=cite
       TeX-source-correlate-start-server t)
 
 ;; Update PDF buffers after successful LaTeX runs
-;; (add-hook! 'TeX-after-compilation-finished-functions
-;;           #'TeX-revert-document-buffer)
+(add-hook! 'TeX-after-compilation-finished-functions
+          #'TeX-revert-document-buffer)
 
 ;; (setq org-latex-listings 'minted
 ;;       org-latex-packages-alist '(("" "minted")))
@@ -1017,7 +1020,7 @@ is selected, only the bare key is returned."
   (unload-feature 'tablist-filter t)
   (load-file (find-library-name "tablist-filter")))
 
-;; (add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode)
+(add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode)
 
 (defun switch-left-and-right-option-keys ()
   "Switch left and right option keys.
