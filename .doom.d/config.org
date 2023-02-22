@@ -568,6 +568,9 @@ Transparency and fontification
   :after oc
   :config
   (setq org-cite-csl-styles-dir "~/Zotero/styles/"))
+(after! oc
+ (setq org-cite-export-processors '((t csl))))
+
 #+end_src
 #+begin_src emacs-lisp
 (use-package! oc-csl-activate
@@ -729,6 +732,7 @@ Transparency and fontification
 \\definecolor{bgcolorminted}{HTML}{f9f5d7}
 \\usepackage{hyperref}
 \\usepackage[]{cleveref}
+
 [NO-DEFAULT-PACKAGES]
 [PACKAGES]
 [EXTRA]"
@@ -1231,7 +1235,7 @@ Improve the history size:
 #+end_src
 ** Dark mode
 #+begin_src emacs-lisp
-;; (add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode)
+ (add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode)
 #+end_src
 * Option key Fix
 #+begin_src emacs-lisp

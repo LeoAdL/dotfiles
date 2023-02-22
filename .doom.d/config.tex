@@ -1,4 +1,4 @@
-% Created 2023-02-20 Mon 22:56
+% Created 2023-02-21 Tue 22:45
 % Intended LaTeX compiler: pdflatex
 \documentclass[c]{article}
 \usepackage[american]{babel}
@@ -234,15 +234,42 @@ citecolor=cite
 \newcommand{\EFrdh}[1]{\textcolor{EFrdh}{#1}} % rainbow-delimiters-depth-8-face
 \definecolor{EFrdi}{HTML}{887070}
 \newcommand{\EFrdi}[1]{\textcolor{EFrdi}{#1}} % rainbow-delimiters-depth-9-face
-\usepackage{biblatex}
-\addbibresource{~/org/Lecture_Notes/MyLibrary.bib}
-\begin{document}
+\usepackage{calc}
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelsep}
+\setlength{\csllabelsep}{0.6em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{0.45em * 0}
+\newenvironment{cslbibliography}[2] % 1st arg. is hanging-indent, 2nd entry spacing.
+ {% By default, paragraphs are not indented.
+  \setlength{\parindent}{0pt}
+  % Hanging indent is turned on when first argument is 1.
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % Set entry spacing based on the second argument.
+  \setlength{\parskip}{\parskip +  #2\baselineskip}
+ }%
+ {}
+\newcommand{\cslblock}[1]{#1\hfill\break}
+\newcommand{\cslleftmargin}[1]{\parbox[t]{\csllabelsep + \csllabelwidth}{#1}}
+\newcommand{\cslrightinline}[1]
+  {\parbox[t]{\linewidth - \csllabelsep - \csllabelwidth}{#1}\break}
+\newcommand{\cslindent}[1]{\hspace{\cslhangindent}#1}
+\newcommand{\cslbibitem}[2]
+  {\leavevmode\vadjust pre{\hypertarget{citeproc_bib_item_#1}{}}#2}
+\makeatletter
+\newcommand{\cslcitation}[2]
+ {\protect\hyper@linkstart{cite}{citeproc_bib_item_#1}#2\hyper@linkend}
+\makeatother\begin{document}
 
 \maketitle
 \tableofcontents
 
 \section{Compilation}
-\label{sec:orgc181cba}
+\label{sec:orgba3192b}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{brew tap railwaycat/emacsmacport}
@@ -250,9 +277,9 @@ citecolor=cite
 \end{Verbatim}
 \end{Code}
 \section{Basic}
-\label{sec:org1440824}
+\label{sec:org603001a}
 \subsection{ID}
-\label{sec:orgf89ef8a}
+\label{sec:org776879c}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{user-full-name} \EFs{"Leo Aparisi de Lannoy"}
@@ -260,7 +287,7 @@ citecolor=cite
 \end{Verbatim}
 \end{Code}
 \subsection{Good defaults}
-\label{sec:org897a425}
+\label{sec:orgdf25431}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq-default}
@@ -283,14 +310,14 @@ citecolor=cite
 \end{Verbatim}
 \end{Code}
 \subsubsection{Browser}
-\label{sec:orgf47d828}
+\label{sec:orgdf8b5fd}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{browse-url-chrome-program} \EFs{"brave"}\EFrda{)}
 \end{Verbatim}
 \end{Code}
 \subsubsection{Which-key}
-\label{sec:org69bab3a}
+\label{sec:org628e435}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{which-key-idle-delay} \EFhn{0.5} \EFcd{;;} \EFc{Default is 1.0}
@@ -304,9 +331,9 @@ citecolor=cite
 \end{Verbatim}
 \end{Code}
 \subsection{Visual}
-\label{sec:org05dbd26}
+\label{sec:orgaae1eae}
 \subsubsection{Font}
-\label{sec:orgd2d7fa9}
+\label{sec:orgf9fb805}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{doom-font} \EFrdb{(}\EFo{font-spec} \EFb{:family} \EFs{"Iosevka"} \EFb{:size} \EFhn{14}\EFrdb{)}
@@ -317,10 +344,10 @@ citecolor=cite
 \end{Verbatim}
 \end{Code}
 \subsubsection{Theme}
-\label{sec:org6988351}
+\label{sec:org2862a71}
 \begin{enumerate}
 \item Catppuccin theme
-\label{sec:org0db22b8}
+\label{sec:orge114b54}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{(load-theme 'catppuccin t t)}
@@ -330,7 +357,7 @@ citecolor=cite
 \end{Verbatim}
 \end{Code}
 \item Treemacs styling
-\label{sec:org514caea}
+\label{sec:org7615539}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{doom-themes-treemacs-theme} \EFs{"doom-colors"}\EFrda{)} \EFcd{;} \EFc{use "doom-colors" for less minimal icon theme}
@@ -340,7 +367,7 @@ citecolor=cite
 \end{Code}
 \end{enumerate}
 \subsubsection{Default visual}
-\label{sec:org6b71937}
+\label{sec:orgddf20aa}
 Transparency and fontification
 \begin{Code}
 \begin{Verbatim}
@@ -357,14 +384,14 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsubsection{Starting image}
-\label{sec:org125a600}
+\label{sec:org11e1101}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{fancy-splash-image} \EFrdb{(}\EFo{expand-file-name} \EFs{"themes/doom-emacs-bw-light.svg"} \EFv{doom-user-dir}\EFrdb{)}\EFrda{)}
 \end{Verbatim}
 \end{Code}
 \subsubsection{Theme Magic}
-\label{sec:org6538113}
+\label{sec:org61f7f54}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} theme-magic\EFrda{)}
@@ -398,7 +425,7 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsection{Marginalia}
-\label{sec:org2ae5b77}
+\label{sec:orgbd15fd3}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} info-colors\EFrda{)}
@@ -412,7 +439,7 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsection{File Templates}
-\label{sec:orga9d5282}
+\label{sec:org4c45a68}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFf{set-file-template!} \EFs{"\char92{}\char92{}.tex\$"} \EFb{:trigger} \EFs{"\_\_"} \EFb{:mode} \EFhq{'}\EFhs{latex-mode}\EFrda{)}
@@ -420,7 +447,7 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsection{Editor config}
-\label{sec:org65b8614}
+\label{sec:org3c320d1}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{display-line-numbers-type} \EFhq{`}\EFhs{relative}\EFrda{)}
@@ -429,9 +456,9 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \section{Org-Mode}
-\label{sec:org63d5cdf}
+\label{sec:org77cde0b}
 \subsection{Defaults}
-\label{sec:org85c532a}
+\label{sec:org9a079aa}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{org-directory} \EFs{"\char126{}/org/"}
@@ -446,7 +473,7 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsection{Babel}
-\label{sec:org48d1012}
+\label{sec:orge4be541}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{org-babel-default-header-args}
@@ -461,9 +488,9 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsection{Visuals}
-\label{sec:orgabbf275}
+\label{sec:orgc989b30}
 \subsubsection{Org-modern}
-\label{sec:org8ee6e65}
+\label{sec:orgb21f1dd}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} org-modern\EFrda{)}
@@ -552,7 +579,7 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsubsection{General}
-\label{sec:org35ff817}
+\label{sec:org21dca8c}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFo{add-hook} \EFhq{'}\EFv{org-mode-hook} \EFhq{\#'}\EFv{+org-pretty-mode}\EFrda{)}
@@ -607,7 +634,7 @@ Transparency and fontification
 \end{Code}
 
 \subsubsection{Org-appear}
-\label{sec:org4c9c37a}
+\label{sec:orgff97b73}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} org-appear\EFrda{)}
@@ -629,7 +656,7 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsubsection{Ligatures}
-\label{sec:orgb0d8566}
+\label{sec:org44ec1e8}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{appendq!} \EFv{+ligatures-extra-symbols}
@@ -667,7 +694,7 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsubsection{Latex improvement}
-\label{sec:org7e5331c}
+\label{sec:org15c01e0}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{org-highlight-latex-and-related} \EFhq{'}\EFrdb{(}native script entities\EFrdb{)}\EFrda{)}
@@ -690,16 +717,16 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsection{Bullets}
-\label{sec:orgbed45ee}
+\label{sec:org29308a7}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{org-list-demote-modify-bullet} \EFhq{'}\EFrdb{(}\EFrdc{(}\EFs{"+"} . \EFs{"-"}\EFrdc{)} \EFrdc{(}\EFs{"-"} . \EFs{"+"}\EFrdc{)} \EFrdc{(}\EFs{"*"} . \EFs{"+"}\EFrdc{)} \EFrdc{(}\EFs{"1."} . \EFs{"a."}\EFrdc{)}\EFrdb{)}\EFrda{)}
 \end{Verbatim}
 \end{Code}
 \subsection{Agenda}
-\label{sec:orgee12b94}
+\label{sec:orgb9ffbd0}
 \subsubsection{Visual}
-\label{sec:org8458a55}
+\label{sec:orged388fa}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{after!} org-agenda
@@ -711,14 +738,14 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsection{Super-Agenda}
-\label{sec:orgbefadd4}
+\label{sec:org374db32}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{(package! org-super-agenda)}
 \end{Verbatim}
 \end{Code}
 \subsubsection{Config}
-\label{sec:org6ba8be8}
+\label{sec:orgdba470c}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq}  \EFv{org-agenda-tags-column} \EFhn{0}
@@ -732,11 +759,11 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsubsection{Customize}
-\label{sec:orgf376e1e}
+\label{sec:org4c33f86}
 \subsection{Roam}
-\label{sec:orgaed6e2f}
+\label{sec:orge1d6134}
 \subsubsection{Defaults}
-\label{sec:orgfb2633e}
+\label{sec:org5f3ab6e}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}
@@ -750,7 +777,7 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsubsection{Daily}
-\label{sec:org9d0b999}
+\label{sec:org9c0008b}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}
@@ -764,10 +791,10 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsubsection{Visuals}
-\label{sec:org88e0c57}
+\label{sec:org504b59e}
 \begin{enumerate}
 \item UI and visualization
-\label{sec:orgdf4de40}
+\label{sec:orgb4d2cd8}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} org-roam-ui\EFrda{)}
@@ -806,9 +833,9 @@ Transparency and fontification
 \end{Code}
 \end{enumerate}
 \subsection{Ob-async}
-\label{sec:org56f6857}
+\label{sec:orgfe36bbe}
 \subsubsection{Julia support}
-\label{sec:org675e2a4}
+\label{sec:org91a6f80}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFo{add-hook} \EFhq{'}\EFhs{ob-async-pre-execute-src-block-hook}
@@ -817,14 +844,14 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsubsection{Jupyter Integration}
-\label{sec:orgabe4d4c}
+\label{sec:org3cfaf90}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} ob-async-no-async-languages-alist \EFhq{'}\EFrdb{(}\EFs{"jupyter-python"} \EFs{"jupyter-julia"}\EFrdb{)}\EFrda{)}
 \end{Verbatim}
 \end{Code}
 \subsection{Org-Diff}
-\label{sec:org2713247}
+\label{sec:orgc048d4b}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}
@@ -856,7 +883,7 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsection{Pandoc import}
-\label{sec:org1e57924}
+\label{sec:org974f999}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} org-pandoc-import
@@ -873,9 +900,9 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsection{Export}
-\label{sec:orgd188b0a}
+\label{sec:orgb9809d9}
 \subsubsection{Preview}
-\label{sec:org824302c}
+\label{sec:orga290e73}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}
@@ -910,7 +937,7 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsection{Zotero Integration}
-\label{sec:org32eab3f}
+\label{sec:orgbda4789}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} zotxt\EFrda{)}
@@ -924,7 +951,7 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsection{Org-Chef}
-\label{sec:orgb32ca93}
+\label{sec:orgde92212}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} org-chef\EFrda{)}
@@ -938,9 +965,9 @@ Transparency and fontification
 \end{Code}
 
 \subsection{Bibtex-Integration}
-\label{sec:org9f2f82a}
+\label{sec:org0228b28}
 \subsubsection{Citar}
-\label{sec:orgade0980}
+\label{sec:orga548dd0}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} org-cite-csl-activate \EFb{:recipe} \EFrdb{(}\EFb{:host} github \EFb{:repo} \EFs{"andras-simonyi/org-cite-csl-activate"}\EFrdb{)}\EFrda{)}
@@ -952,12 +979,12 @@ Transparency and fontification
   \EFb{:no-require}
   \EFb{:custom}
   \EFrdb{(}\EFv{org-cite-global-bibliography} \EFhq{'}\EFrdc{(}\EFs{"\char126{}/org/Lecture\_Notes/MyLibrary.bib"}\EFrdc{)}\EFrdb{)}
-  \EFrdb{(}\EFv{citar-bibliography} \EFv{org-cite-global-bibliography}\EFrdb{)}
-  \EFrdb{(}\EFv{citar-symbols}
+  \EFrdb{(}citar-bibliography \EFv{org-cite-global-bibliography}\EFrdb{)}
+  \EFrdb{(}citar-symbols
     \EFhq{`}\EFrdc{(}\EFrdd{(}file ,\EFrda{(}\EFo{all-the-icons-faicon} \EFs{"file-o"} \EFb{:face} \EFhq{'}\EFhs{all-the-icons-green} \EFb{:v-adjust} \EFhn{-0.1}\EFrda{)} . \EFs{" "}\EFrdd{)}
       \EFrdd{(}note ,\EFrda{(}\EFo{all-the-icons-material} \EFs{"speaker\_notes"} \EFb{:face} \EFhq{'}\EFhs{all-the-icons-blue} \EFb{:v-adjust} \EFhn{-0.3}\EFrda{)} . \EFs{" "}\EFrdd{)}
       \EFrdd{(}link ,\EFrda{(}\EFo{all-the-icons-octicon} \EFs{"link"} \EFb{:face} \EFhq{'}\EFhs{all-the-icons-orange} \EFb{:v-adjust} \EFhn{0.01}\EFrda{)} . \EFs{" "}\EFrdd{)}\EFrdc{)}\EFrdb{)}
-  \EFrdb{(}\EFv{citar-symbol-separator} \EFs{"  "}\EFrdb{)}\EFrda{)}
+  \EFrdb{(}citar-symbol-separator \EFs{"  "}\EFrdb{)}\EFrda{)}
 
 \end{Verbatim}
 \end{Code}
@@ -967,14 +994,9 @@ Transparency and fontification
   \EFb{:after} oc
   \EFb{:config}
   \EFrdb{(}\EFk{setq} \EFv{org-cite-csl-styles-dir} \EFs{"\char126{}/Zotero/styles/"}\EFrdb{)}\EFrda{)}
-
-
 \EFrda{(}\EFk{after!} oc
-  \EFrdb{(}\EFk{setq} \EFv{org-cite-export-processors} \EFhq{'}\EFrdc{(}
-                                     \EFrdd{(}beamer natbib\EFrdd{)}
-                                     \EFrdd{(}latex biblatex\EFrdd{)}
-                                     \EFrdd{(}t csl\EFrdd{)}
-                                     \EFrdc{)}\EFrdb{)}
+ \EFrdb{(}\EFk{setq} \EFv{org-cite-export-processors} \EFhq{'}\EFrdc{(}\EFrdd{(}t csl\EFrdd{)}\EFrdc{)}\EFrdb{)}\EFrda{)}
+
 \end{Verbatim}
 \end{Code}
 \begin{Code}
@@ -993,7 +1015,7 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsubsection{Org-Roam integration}
-\label{sec:org45315a5}
+\label{sec:org74cc2da}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{use-package!} citar-org-roam
@@ -1018,12 +1040,12 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsection{Latex templates}
-\label{sec:org61630f5}
+\label{sec:org889f71d}
 \subsubsection{Preview}
-\label{sec:org75d13e4}
+\label{sec:org5391c1b}
 \begin{enumerate}
 \item PNG
-\label{sec:org733ab45}
+\label{sec:org7c825e8}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{after!} org
@@ -1038,7 +1060,7 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \item Header
-\label{sec:orgf76edfe}
+\label{sec:org79fb2d3}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{org-format-latex-header} \EFs{"\char92{}\char92{}documentclass[12pt]}
@@ -1075,7 +1097,7 @@ Transparency and fontification
 \end{Code}
 \end{enumerate}
 \subsubsection{Article}
-\label{sec:orge9ba253}
+\label{sec:org63b5886}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{with-eval-after-load} \EFhq{'}\EFhs{ox-latex}
@@ -1154,6 +1176,7 @@ Transparency and fontification
 \EFs{\char92{}\char92{}definecolor\{bgcolorminted\}\{HTML\}\{f9f5d7\}}
 \EFs{\char92{}\char92{}usepackage\{hyperref\}}
 \EFs{\char92{}\char92{}usepackage[]\{cleveref\}}
+
 \EFs{[NO-DEFAULT-PACKAGES]}
 \EFs{[PACKAGES]}
 \EFs{[EXTRA]"}
@@ -1164,7 +1187,7 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsubsection{Beamer}
-\label{sec:orgd77b7a8}
+\label{sec:org1173ce3}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{org-beamer-frame-level} \EFhn{2}\EFrda{)}
@@ -1276,7 +1299,7 @@ Define Beamer class:
 \end{Verbatim}
 \end{Code}
 \subsubsection{Export}
-\label{sec:org9246cfb}
+\label{sec:org6a0ce5b}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{org-latex-pdf-process} \EFhq{'}\EFrdb{(}\EFs{"LC\_ALL=en\_US.UTF-8 latexmk -f -pdf -\%latex -shell-escape -interaction=nonstopmode -output-directory=\%o \%f"}\EFrdb{)}\EFrda{)}
@@ -1311,7 +1334,7 @@ Define Beamer class:
 \end{Code}
 \begin{enumerate}
 \item Preview
-\label{sec:org402cd5f}
+\label{sec:org3201ef0}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{Use pdf-tools to open PDF files}
@@ -1327,7 +1350,7 @@ Define Beamer class:
 \end{Verbatim}
 \end{Code}
 \item Code blocks
-\label{sec:orgdcae980}
+\label{sec:orgec050c7}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} engrave-faces\EFrda{)}
@@ -1348,9 +1371,9 @@ Define Beamer class:
 \end{Code}
 \end{enumerate}
 \subsection{Capture}
-\label{sec:org1e30bce}
+\label{sec:org0325f76}
 \subsubsection{Doct}
-\label{sec:orge99f655}
+\label{sec:org274f1db}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} doct\EFrda{)}
@@ -1624,7 +1647,7 @@ Prettify the captures:
 \end{Verbatim}
 \end{Code}
 \section{Company}
-\label{sec:org9e3b6bb}
+\label{sec:org595c4ce}
 Improve the history size:
 \begin{Code}
 \begin{Verbatim}
@@ -1649,9 +1672,9 @@ Improve the history size:
 \end{Verbatim}
 \end{Code}
 \section{LSP}
-\label{sec:org7c45244}
+\label{sec:orgfdc36ab}
 \subsection{Digestif}
-\label{sec:orgcb9431b}
+\label{sec:orgfecca57}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{(after! lsp-mode}
@@ -1659,7 +1682,7 @@ Improve the history size:
 \end{Verbatim}
 \end{Code}
 \subsection{LTex}
-\label{sec:org0af3f70}
+\label{sec:orgafb2ac5}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{(package! lsp-ltex)}
@@ -1683,7 +1706,7 @@ Improve the history size:
 \end{Verbatim}
 \end{Code}
 \section{VLFI}
-\label{sec:org343d8b2}
+\label{sec:org18142e6}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} vlfi\EFrda{)}
@@ -1697,9 +1720,9 @@ Improve the history size:
 \end{Code}
 
 \section{PDF-Tools}
-\label{sec:orgb38be8e}
+\label{sec:org5bc5c0a}
 \subsection{Fix annotation bug}
-\label{sec:org1583a7b}
+\label{sec:org8a75ee8}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{defun} \EFf{my-fix-tablist} \EFrdb{(}\EFrdb{)}
@@ -1709,14 +1732,14 @@ Improve the history size:
 \end{Verbatim}
 \end{Code}
 \subsection{Dark mode}
-\label{sec:org84a39be}
+\label{sec:org64b523a}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{(add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode)}
 \end{Verbatim}
 \end{Code}
 \section{Option key Fix}
-\label{sec:org222760d}
+\label{sec:org2bdbdc0}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{defun} \EFf{switch-left-and-right-option-keys} \EFrdb{(}\EFrdb{)}
@@ -1732,7 +1755,7 @@ Improve the history size:
 \end{Code}
 
 \section{Centaur}
-\label{sec:org3b2c0e8}
+\label{sec:orgfca38de}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{(after! centaur-tabs}
@@ -1749,9 +1772,9 @@ Improve the history size:
 \end{Code}
 
 \section{Email}
-\label{sec:org18fa256}
+\label{sec:orge1ebc3d}
 \subsection{mu4e}
-\label{sec:org98dea11}
+\label{sec:org1a6abc6}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{add to \$DOOMDIR/config.el}
@@ -1799,7 +1822,7 @@ Improve the history size:
 \end{Verbatim}
 \end{Code}
 \subsection{Notification}
-\label{sec:orga69a0ba}
+\label{sec:org23b685d}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFf{mu4e-alert-set-default-style} \EFhq{'}\EFhs{notifier}\EFrda{)}
@@ -1807,7 +1830,7 @@ Improve the history size:
 \end{Verbatim}
 \end{Code}
 \section{RSS}
-\label{sec:org4892509}
+\label{sec:org593e5f3}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{add-hook!} \EFhq{'}\EFhs{elfeed-search-mode-hook} \EFhq{\#'}\EFhs{elfeed-update}\EFrda{)}
@@ -1817,7 +1840,7 @@ Improve the history size:
 \end{Verbatim}
 \end{Code}
 \subsection{Visual}
-\label{sec:orgd61f116}
+\label{sec:org062de68}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{after!} elfeed
