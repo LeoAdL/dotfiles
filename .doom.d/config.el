@@ -565,7 +565,6 @@
 \\renewcommand{\\geq}{\\geqslant}
 \\definecolor{bgcolorminted}{HTML}{f9f5d7}
 \\usepackage{hyperref}
-\\usepackage[]{cleveref}
 
 [NO-DEFAULT-PACKAGES]
 [PACKAGES]
@@ -664,7 +663,7 @@
 
 \\usecolortheme{rose}
 \\usepackage{hyperref}
-\\usepackage{cleveref}
+\\usepackage[]{cleveref}
 [NO-DEFAULT-PACKAGES]
 [PACKAGES]
 [EXTRA]"
@@ -698,6 +697,7 @@ citecolor=cite
 \\NewCommandCopy{\\oldtoc}{\\tableofcontents}
 \\renewcommand{\\tableofcontents}{\\begingroup\\hypersetup{hidelinks}\\oldtoc\\endgroup}
 "
+
       org-latex-reference-command "\\cref{%s}")
 
 
@@ -719,7 +719,7 @@ citecolor=cite
 (use-package! engrave-faces-latex
   :after ox-latex)
 (setq org-latex-src-block-backend 'engraved)
-(setq org-latex-engraved-theme 'doom-nord-aurora)
+(setq org-latex-engraved-theme 'doom-nord-light)
 
 (after! org-capture
 
@@ -1016,12 +1016,7 @@ is selected, only the bare key is returned."
 (use-package! vlf-setup
   :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
 
-(defun my-fix-tablist ()
-  (interactive)
-  (unload-feature 'tablist-filter t)
-  (load-file (find-library-name "tablist-filter")))
-
-(add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode)
+;; (add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode)
 
 (defun switch-left-and-right-option-keys ()
   "Switch left and right option keys.
