@@ -33,7 +33,7 @@
             '((""       . "\\`+?evil[-:]?\\(?:a-\\)?\\(.*\\)") . (nil . "🅔·\\1"))
             '(("\\`g s" . "\\`evilem--?motion-\\(.*\\)")       . (nil . "Ⓔ·\\1"))))
 
-(setq doom-font (font-spec :family "Iosevka Aile" :size 14)
+(setq doom-font (font-spec :family "Iosevka" :size 14)
       doom-variable-pitch-font (font-spec :family "Lato")
       doom-unicode-font (font-spec :family "JuliaMono")
       doom-big-font (font-spec :family "Iosevka" :size 24)
