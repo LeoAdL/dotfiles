@@ -565,7 +565,7 @@
 \\renewcommand{\\geq}{\\geqslant}
 \\definecolor{bgcolorminted}{HTML}{f9f5d7}
 \\usepackage{hyperref}
-
+\\usepackage[]{cleveref}
 [NO-DEFAULT-PACKAGES]
 [PACKAGES]
 [EXTRA]"
@@ -692,10 +692,6 @@ linkcolor=link,
 urlcolor=url,
 citecolor=cite
 }
-\\urlstyle{same}
-%% hide links styles in toc
-\\NewCommandCopy{\\oldtoc}{\\tableofcontents}
-\\renewcommand{\\tableofcontents}{\\begingroup\\hypersetup{hidelinks}\\oldtoc\\endgroup}
 "
 
       org-latex-reference-command "\\cref{%s}")
