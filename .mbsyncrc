@@ -10,8 +10,8 @@ Host imap.gmail.com
 User leoaparisi@gmail.com
 PassCmd "security find-generic-password -s mu4e-gmail -a leoaparisi@gmail.com -w"
 Port 993
-TLSType IMAPS
-TLSVersions +1.2
+SSLType IMAPS
+SSLVersions TLSv1.2
 AuthMechs PLAIN
 SystemCertificates no
 CertificateFile ~/.maildir/certificates/root-certificates.pem
@@ -39,17 +39,15 @@ Host localhost
 Port 1143 # or however you decide to run da.maildir
 User laparisidelannoy@uchicago.edu
 PassCmd "security find-generic-password -s mu4e-UChicago -a laparisidelannoy@uchicago.edu -w"
-TLSType NONE
-TLSVersions +1.2
+SSLType NONE
 AuthMechs LOGIN
-SystemCertificates no
-CertificateFile ~/.maildir/certificates/root-certificates.pem
 
 
 IMAPStore UChicago-remote
 Account UChicago
 
 MaildirStore UChicago-local
+Flatten .
 SubFolders Verbatim
 # The trailing "/" is important
 Path ~/.maildir/UChicago/
