@@ -230,13 +230,6 @@
 (custom-set-faces!
   '(org-document-title :height 1.2))
 
-(use-package! org-appear
-  :after org
-  :config
-  (setq org-appear-autoemphasis t
-        org-appear-autosubmarkers t
-        org-appear-autolinks t)
-
 (appendq! +ligatures-extra-symbols
           (list :list_property "∷"
                 :em_dash       "—"
