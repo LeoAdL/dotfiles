@@ -365,6 +365,22 @@ Transparency and fontification
         (0.5 . org-upcoming-deadline)
         (0.0 . org-upcoming-distant-deadline))))
 #+end_src
+** Super-Agenda
+#+begin_src emacs-lisp :tangle packages.el
+;; (package! org-super-agenda)
+#+end_src
+*** Config
+#+begin_src emacs-lisp
+(setq  org-agenda-tags-column 0
+       org-agenda-block-separator ?─
+       org-agenda-time-grid
+       '((daily today require-timed)
+         (800 1000 1200 1400 1600 1800 2000)
+         " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+       org-agenda-current-time-string
+       "⭠ now ─────────────────────────────────────────────────")
+#+end_src
+*** Customize
 ** Roam
 *** Defaults
 #+begin_src emacs-lisp
