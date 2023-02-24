@@ -471,6 +471,7 @@
 \\usepackage{siunitx}
 \\usepackage{diffcoeff}
 \\usepackage{nicematrix}
+\\usepackage[varbb]{newpxmath}
 \\DeclareMathOperator{\\Var}{Var}
 \\DeclareMathOperator{\\cov}{Cov}
 \\DeclareMathOperator{\\E}{\\mathbb{E}}
