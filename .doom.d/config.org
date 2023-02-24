@@ -1,6 +1,7 @@
 #+title: Config
 #+author: Leo Aparisi de Lannoy
 #+latex_class: article
+#+latex_compiler: lualatex
 * Compilation
 #+begin_src emacs-lisp
 ;; brew tap railwaycat/emacsmacport
@@ -731,7 +732,7 @@ Transparency and fontification
 \\renewcommand{\\geq}{\\geqslant}
 \\definecolor{bgcolorminted}{HTML}{f9f5d7}
 \\usepackage{hyperref}
-
+\\usepackage[]{cleveref}
 [NO-DEFAULT-PACKAGES]
 [PACKAGES]
 [EXTRA]"
@@ -867,10 +868,6 @@ linkcolor=link,
 urlcolor=url,
 citecolor=cite
 }
-\\urlstyle{same}
-%% hide links styles in toc
-\\NewCommandCopy{\\oldtoc}{\\tableofcontents}
-\\renewcommand{\\tableofcontents}{\\begingroup\\hypersetup{hidelinks}\\oldtoc\\endgroup}
 "
 
       org-latex-reference-command "\\cref{%s}")
