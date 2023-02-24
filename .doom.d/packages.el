@@ -4,11 +4,7 @@
 
 (package! org-modern)
 
-(package! org-appear)
-
 ;; (package! org-fragtog)
-
-;; (package! org-super-agenda)
 
 (package! org-roam-ui)
 (package! websocket)

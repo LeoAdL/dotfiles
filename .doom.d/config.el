@@ -184,6 +184,7 @@
           ("caption" . "☰")
           ("results" . "🠶")))
   (custom-set-faces! '(org-modern-statistics :inherit org-checkbox-statistics-todo)))
+(global-org-modern-mode)
 
 (after! spell-fu
   (cl-pushnew 'org-modern-tag (alist-get 'org-mode +spell-excluded-faces-alist)))
@@ -231,14 +232,10 @@
 
 (use-package! org-appear
   :after org
-  :hook (org-mode . org-appear-mode)
   :config
   (setq org-appear-autoemphasis t
         org-appear-autosubmarkers t
         org-appear-autolinks t)
-  ;; for proper first-time setup, `org-appear--set-elements'
-  ;; needs to be run after other hooks have acted.
-  (run-at-time nil nil #'org-appear--set-elements))
 
 (appendq! +ligatures-extra-symbols
           (list :list_property "∷"
@@ -288,15 +285,6 @@
         (1.0 . org-warning)
         (0.5 . org-upcoming-deadline)
         (0.0 . org-upcoming-distant-deadline))))
-
-(setq  org-agenda-tags-column 0
-       org-agenda-block-separator ?─
-       org-agenda-time-grid
-       '((daily today require-timed)
-         (800 1000 1200 1400 1600 1800 2000)
-         " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
-       org-agenda-current-time-string
-       "⭠ now ─────────────────────────────────────────────────")
 
 (use-package! org-roam
   :after org
