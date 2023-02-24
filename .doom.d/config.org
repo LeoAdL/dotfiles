@@ -624,13 +624,13 @@ Transparency and fontification
 \\usepackage{siunitx}
 \\usepackage{diffcoeff}
 \\usepackage{nicematrix}
+\\usepackage[varbb]{newpxmath}
 \\DeclareMathOperator{\\Var}{Var}
 \\DeclareMathOperator{\\cov}{Cov}
 \\DeclareMathOperator{\\E}{\\mathbb{E}}
 \\DeclareMathOperator*{\\argmax}{arg\\,max}
 \\DeclareMathOperator*{\\argmin}{arg\\,min}
 ")
-
 #+end_src
 *** Article
 #+begin_src emacs-lisp
