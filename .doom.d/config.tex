@@ -1,4 +1,4 @@
-% Created 2023-02-26 Sun 16:33
+% Created 2023-02-26 Sun 18:31
 % Intended LaTeX compiler: lualatex
 \documentclass[c]{article}
 \usepackage[american]{babel}
@@ -273,7 +273,7 @@ citecolor=cite
 \tableofcontents
 
 \section{Compilation}
-\label{sec:orgd31a06c}
+\label{sec:orgad937f0}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{brew tap railwaycat/emacsmacport}
@@ -281,9 +281,9 @@ citecolor=cite
 \end{Verbatim}
 \end{Code}
 \section{Basic}
-\label{sec:orgff9226a}
+\label{sec:org63cbcf6}
 \subsection{ID}
-\label{sec:org483a7d7}
+\label{sec:orgf04c170}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{user-full-name} \EFs{"Leo Aparisi de Lannoy"}
@@ -291,7 +291,7 @@ citecolor=cite
 \end{Verbatim}
 \end{Code}
 \subsection{Good defaults}
-\label{sec:orgcabe25f}
+\label{sec:org767213a}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq-default}
@@ -314,14 +314,14 @@ citecolor=cite
 \end{Verbatim}
 \end{Code}
 \subsubsection{Browser}
-\label{sec:org67cc7dd}
+\label{sec:orgcb76b58}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{browse-url-chrome-program} \EFs{"brave"}\EFrda{)}
 \end{Verbatim}
 \end{Code}
 \subsubsection{Which-key}
-\label{sec:org8adc82b}
+\label{sec:orga45c04e}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{which-key-idle-delay} \EFhn{0.5} \EFcd{;;} \EFc{Default is 1.0}
@@ -335,9 +335,9 @@ citecolor=cite
 \end{Verbatim}
 \end{Code}
 \subsection{Visual}
-\label{sec:orgf674153}
+\label{sec:org97b692d}
 \subsubsection{Font}
-\label{sec:org39a0e9a}
+\label{sec:orgd0f19fe}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{doom-font} \EFrdb{(}\EFo{font-spec} \EFb{:family} \EFs{"Iosevka"} \EFb{:size} \EFhn{14}\EFrdb{)}
@@ -348,10 +348,10 @@ citecolor=cite
 \end{Verbatim}
 \end{Code}
 \subsubsection{Theme}
-\label{sec:orgc113407}
+\label{sec:org08f3f8d}
 \begin{enumerate}
 \item Default theme
-\label{sec:org8f4d492}
+\label{sec:org5ec89d6}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{(load-theme 'catppuccin t t)}
@@ -361,7 +361,7 @@ citecolor=cite
 \end{Verbatim}
 \end{Code}
 \item Treemacs styling
-\label{sec:org09fa1c3}
+\label{sec:org9759a42}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{doom-themes-treemacs-theme} \EFs{"doom-colors"}\EFrda{)} \EFcd{;} \EFc{use "doom-colors" for less minimal icon theme}
@@ -371,7 +371,7 @@ citecolor=cite
 \end{Code}
 \end{enumerate}
 \subsubsection{Default visual}
-\label{sec:orgea55d0d}
+\label{sec:org1f63f3c}
 Transparency and fontification
 \begin{Code}
 \begin{Verbatim}
@@ -388,14 +388,14 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsubsection{Starting image}
-\label{sec:orge25d0bb}
+\label{sec:org10f3603}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{fancy-splash-image} \EFrdb{(}\EFo{expand-file-name} \EFs{"themes/doom-emacs-bw-light.svg"} \EFv{doom-user-dir}\EFrdb{)}\EFrda{)}
 \end{Verbatim}
 \end{Code}
 \subsubsection{Theme Magic}
-\label{sec:org5ac6cd8}
+\label{sec:org1bfb075}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} theme-magic\EFrda{)}
@@ -429,7 +429,7 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsection{Marginalia}
-\label{sec:orgc900b8e}
+\label{sec:orgad72b89}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} info-colors\EFrda{)}
@@ -438,12 +438,12 @@ Transparency and fontification
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{after!} info-colors
-  \EFb{:commands} \EFrdb{(}\EFf{info-colors-fontify-node}\EFrdb{)}\EFrda{)}
+  \EFb{:commands} \EFrdb{(}\EFo{info-colors-fontify-node}\EFrdb{)}\EFrda{)}
 \EFrda{(}\EFk{add-hook!} \EFhq{'}\EFv{Info-selection-hook} \EFhq{'}\EFhs{info-colors-fontify-node}\EFrda{)}
 \end{Verbatim}
 \end{Code}
 \subsection{File Templates}
-\label{sec:org738b1e3}
+\label{sec:org3f71672}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFf{set-file-template!} \EFs{"\char92{}\char92{}.tex\$"} \EFb{:trigger} \EFs{"\_\_"} \EFb{:mode} \EFhq{'}\EFhs{latex-mode}\EFrda{)}
@@ -451,7 +451,7 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsection{Editor config}
-\label{sec:orgadcf484}
+\label{sec:org15335f7}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{display-line-numbers-type} \EFhq{`}\EFhs{relative}\EFrda{)}
@@ -460,9 +460,9 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \section{Org-Mode}
-\label{sec:org1f33946}
+\label{sec:org563c780}
 \subsection{Defaults}
-\label{sec:org2c874be}
+\label{sec:org5daa262}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{org-directory} \EFs{"\char126{}/org/"}
@@ -477,7 +477,7 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsection{Babel}
-\label{sec:org5c69a88}
+\label{sec:org1e788e6}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{org-babel-default-header-args}
@@ -492,9 +492,9 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsection{Visuals}
-\label{sec:org469fd65}
+\label{sec:org5f036ee}
 \subsubsection{Org-modern}
-\label{sec:org12de72b}
+\label{sec:org04b28ee}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} org-modern\EFrda{)}
@@ -584,7 +584,7 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsubsection{General}
-\label{sec:orgea2888a}
+\label{sec:org8584f96}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFo{add-hook} \EFhq{'}\EFv{org-mode-hook} \EFhq{\#'}\EFv{+org-pretty-mode}\EFrda{)}
@@ -639,7 +639,7 @@ Transparency and fontification
 \end{Code}
 
 \subsubsection{Ligatures}
-\label{sec:org31690d1}
+\label{sec:org51e4eb9}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{appendq!} \EFv{+ligatures-extra-symbols}
@@ -677,7 +677,7 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsubsection{Latex improvement}
-\label{sec:orgb657761}
+\label{sec:org0dbc1f8}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{org-highlight-latex-and-related} \EFhq{'}\EFrdb{(}native script entities\EFrdb{)}\EFrda{)}
@@ -700,16 +700,16 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsection{Bullets}
-\label{sec:orgee0d6cd}
+\label{sec:org5a8bebe}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{org-list-demote-modify-bullet} \EFhq{'}\EFrdb{(}\EFrdc{(}\EFs{"+"} . \EFs{"-"}\EFrdc{)} \EFrdc{(}\EFs{"-"} . \EFs{"+"}\EFrdc{)} \EFrdc{(}\EFs{"*"} . \EFs{"+"}\EFrdc{)} \EFrdc{(}\EFs{"1."} . \EFs{"a."}\EFrdc{)}\EFrdb{)}\EFrda{)}
 \end{Verbatim}
 \end{Code}
 \subsection{Agenda}
-\label{sec:orgacdc77e}
+\label{sec:org801cafc}
 \subsubsection{Visual}
-\label{sec:orgbbc6dad}
+\label{sec:org88c08bc}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{after!} org-agenda
@@ -721,9 +721,9 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsection{Roam}
-\label{sec:org346483c}
+\label{sec:org437dc59}
 \subsubsection{Defaults}
-\label{sec:orgb0d2381}
+\label{sec:org0e77619}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}
@@ -737,7 +737,7 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsubsection{Daily}
-\label{sec:org2d61f22}
+\label{sec:org9bdcf8f}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}
@@ -751,10 +751,10 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsubsection{Visuals}
-\label{sec:org3bc5893}
+\label{sec:org1642246}
 \begin{enumerate}
 \item UI and visualization
-\label{sec:orgbc3301d}
+\label{sec:org8d56809}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} org-roam-ui\EFrda{)}
@@ -793,9 +793,9 @@ Transparency and fontification
 \end{Code}
 \end{enumerate}
 \subsection{Ob-async}
-\label{sec:org111b068}
+\label{sec:orgf86a0af}
 \subsubsection{Julia support}
-\label{sec:org8491750}
+\label{sec:org4ff9dd8}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFo{add-hook} \EFhq{'}\EFhs{ob-async-pre-execute-src-block-hook}
@@ -804,14 +804,14 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsubsection{Jupyter Integration}
-\label{sec:org0ec1c56}
+\label{sec:org5de4893}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} ob-async-no-async-languages-alist \EFhq{'}\EFrdb{(}\EFs{"jupyter-python"} \EFs{"jupyter-julia"}\EFrdb{)}\EFrda{)}
 \end{Verbatim}
 \end{Code}
 \subsection{Org-Diff}
-\label{sec:orga5825de}
+\label{sec:org61eb12c}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}
@@ -843,7 +843,7 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsection{Pandoc import}
-\label{sec:orgfb66955}
+\label{sec:org830858a}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} org-pandoc-import
@@ -860,9 +860,9 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsection{Export}
-\label{sec:orgd3b8d58}
+\label{sec:org039fe11}
 \subsubsection{Preview}
-\label{sec:org5792c0c}
+\label{sec:orgfd35b5e}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}
@@ -897,7 +897,7 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsection{Zotero Integration}
-\label{sec:org027a67a}
+\label{sec:orgeb58163}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} zotxt\EFrda{)}
@@ -911,7 +911,7 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsection{Org-Chef}
-\label{sec:org99fbcd9}
+\label{sec:org23d5172}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} org-chef\EFrda{)}
@@ -925,9 +925,9 @@ Transparency and fontification
 \end{Code}
 
 \subsection{Bibtex-Integration}
-\label{sec:orgd19c30e}
+\label{sec:org740dca3}
 \subsubsection{Citar}
-\label{sec:orgce091f9}
+\label{sec:org026b5e9}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} org-cite-csl-activate \EFb{:recipe} \EFrdb{(}\EFb{:host} github \EFb{:repo} \EFs{"andras-simonyi/org-cite-csl-activate"}\EFrdb{)}\EFrda{)}
@@ -975,7 +975,7 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsubsection{Org-Roam integration}
-\label{sec:org912e8a6}
+\label{sec:org8a78434}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{use-package!} citar-org-roam
@@ -1000,12 +1000,12 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsection{Latex templates}
-\label{sec:org3c7501d}
+\label{sec:org6c1d274}
 \subsubsection{Preview}
-\label{sec:org4175f6c}
+\label{sec:orgb397035}
 \begin{enumerate}
 \item PNG
-\label{sec:orga89daa9}
+\label{sec:org7c8145c}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{after!} org
@@ -1020,7 +1020,7 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \item Header
-\label{sec:org769d84d}
+\label{sec:org915c02d}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{org-format-latex-header} \EFs{"\char92{}\char92{}documentclass[12pt]}
@@ -1057,7 +1057,7 @@ Transparency and fontification
 \end{Code}
 \end{enumerate}
 \subsubsection{Article}
-\label{sec:orga8a5d53}
+\label{sec:orgcbc6cf6}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{with-eval-after-load} \EFhq{'}\EFhs{ox-latex}
@@ -1146,7 +1146,7 @@ Transparency and fontification
 \end{Verbatim}
 \end{Code}
 \subsubsection{Beamer}
-\label{sec:orgc26234f}
+\label{sec:org9f0dc2e}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{org-beamer-frame-level} \EFhn{2}\EFrda{)}
@@ -1258,7 +1258,7 @@ Define Beamer class:
 \end{Verbatim}
 \end{Code}
 \subsubsection{Export}
-\label{sec:org79545bf}
+\label{sec:org3e21d1e}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{org-latex-pdf-process} \EFhq{'}\EFrdb{(}\EFs{"LC\_ALL=en\_US.UTF-8 latexmk -f -pdf -\%latex -shell-escape -interaction=nonstopmode -output-directory=\%o \%f"}\EFrdb{)}\EFrda{)}
@@ -1290,7 +1290,7 @@ Define Beamer class:
 \end{Code}
 \begin{enumerate}
 \item Preview
-\label{sec:orged2d81a}
+\label{sec:org502c313}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{Use pdf-tools to open PDF files}
@@ -1306,7 +1306,7 @@ Define Beamer class:
 \end{Verbatim}
 \end{Code}
 \item Code blocks
-\label{sec:orgd09db25}
+\label{sec:org7ef299e}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} engrave-faces\EFrda{)}
@@ -1328,9 +1328,9 @@ Define Beamer class:
 \end{Code}
 \end{enumerate}
 \subsection{Capture}
-\label{sec:orga5722a2}
+\label{sec:org170363e}
 \subsubsection{Doct}
-\label{sec:orgbce4cec}
+\label{sec:orge3f5808}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} doct\EFrda{)}
@@ -1604,7 +1604,7 @@ Prettify the captures:
 \end{Verbatim}
 \end{Code}
 \section{Company}
-\label{sec:orgd30d1fc}
+\label{sec:org4c01b59}
 Improve the history size:
 \begin{Code}
 \begin{Verbatim}
@@ -1629,9 +1629,9 @@ Improve the history size:
 \end{Verbatim}
 \end{Code}
 \section{LSP}
-\label{sec:orgac819ca}
+\label{sec:orgec5ec36}
 \subsection{Digestif}
-\label{sec:org6ecf7bb}
+\label{sec:org54b39df}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{(after! lsp-mode}
@@ -1639,11 +1639,11 @@ Improve the history size:
 \end{Verbatim}
 \end{Code}
 \subsection{LTex}
-\label{sec:org808f6c8}
+\label{sec:orgb528c1d}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{(package! lsp-ltex)}
-\EFcd{;;} \EFc{(package! eglot-ltex :recipe (:host github :repo "emacs-languagetool/eglot-ltex"))}
+\EFrda{(}\EFk{package!} eglot-ltex \EFb{:recipe} \EFrdb{(}\EFb{:host} github \EFb{:repo} \EFs{"emacs-languagetool/eglot-ltex"}\EFrdb{)}\EFrda{)}
 \end{Verbatim}
 \end{Code}
 \begin{Code}
@@ -1654,16 +1654,17 @@ Improve the history size:
 \EFcd{;;}                        \EFc{(lsp)))  ; or lsp-deferred}
 \EFcd{;;}   \EFc{:init}
 \EFcd{;;}   \EFc{(setq lsp-ltex-version "15.2.0"))  ; make sure you have set this, see below}
-\EFcd{;;} \EFc{(use-package! eglot-ltex}
-\EFcd{;;}   \EFc{:hook (text-mode . (lambda ()}
-\EFcd{;;}                        \EFc{(require 'eglot-ltex)}
-\EFcd{;;}                        \EFc{(call-interactively \#'eglot)))}
-\EFcd{;;}   \EFc{:init}
-\EFcd{;;}   \EFc{(setq eglot-languagetool-server-path "/opt/homebrew/Cellar/ltex-ls/15.2.0"))}
+\EFrda{(}\EFk{use-package!} eglot-ltex
+  \EFb{:after} org
+  \EFb{:hook} \EFrdb{(}\EFo{org-mode} . \EFrdc{(}\EFk{lambda} \EFrdd{(}\EFrdd{)}
+                       \EFrdd{(}\EFo{require} \EFhq{'}\EFo{eglot-ltex}\EFrdd{)}
+                       \EFrdd{(}\EFo{call-interactively} \EFhq{\#'}\EFhs{eglot}\EFrdd{)}\EFrdc{)}\EFrdb{)}
+  \EFb{:init}
+  \EFrdb{(}\EFk{setq} \EFv{eglot-languagetool-server-path} \EFs{"/opt/homebrew/Cellar/ltex-ls/15.2.0"}\EFrdb{)}\EFrda{)}
 \end{Verbatim}
 \end{Code}
 \section{VLFI}
-\label{sec:orgf7240b0}
+\label{sec:org78395d4}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} vlfi\EFrda{)}
@@ -1677,16 +1678,16 @@ Improve the history size:
 \end{Code}
 
 \section{PDF-Tools}
-\label{sec:orga228fa1}
+\label{sec:org7a21064}
 \subsection{Dark mode}
-\label{sec:orga6e78e3}
+\label{sec:org365ff17}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD} \EFcd{;;} \EFc{(add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode)}
 \end{Verbatim}
 \end{Code}
 \section{Option key Fix}
-\label{sec:org4e315ff}
+\label{sec:org2cb2a81}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{defun} \EFf{switch-left-and-right-option-keys} \EFrdb{(}\EFrdb{)}
@@ -1702,7 +1703,7 @@ Improve the history size:
 \end{Code}
 
 \section{Centaur}
-\label{sec:org5bd062b}
+\label{sec:org7efeb65}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{(after! centaur-tabs}
@@ -1719,9 +1720,9 @@ Improve the history size:
 \end{Code}
 
 \section{Email}
-\label{sec:orgd9707fc}
+\label{sec:org1987302}
 \subsection{mu4e}
-\label{sec:orgdfeef23}
+\label{sec:org3294943}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{add to \$DOOMDIR/config.el}
@@ -1767,7 +1768,7 @@ Improve the history size:
 \end{Verbatim}
 \end{Code}
 \subsection{Notification}
-\label{sec:org064bae4}
+\label{sec:org9929f81}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFf{mu4e-alert-set-default-style} \EFhq{'}\EFhs{notifier}\EFrda{)}
@@ -1775,30 +1776,30 @@ Improve the history size:
 \end{Verbatim}
 \end{Code}
 \section{RSS}
-\label{sec:org9f61513}
+\label{sec:orgaa6e703}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{add-hook!} \EFhq{'}\EFhs{elfeed-search-mode-hook} \EFhq{\#'}\EFhs{elfeed-update}\EFrda{)}
 \EFrda{(}\EFk{after!} elfeed
-  \EFrdb{(}\EFk{setq} \EFv{elfeed-goodies/entry-pane-position} \EFhq{'}\EFhs{bottom}\EFrdb{)}
-  \EFrdb{(}\EFk{setq} \EFv{rmh-elfeed-org-files} \EFhq{'}\EFrdc{(}\EFs{"\char126{}/org/elfeed.org"}\EFrdc{)}\EFrdb{)}\EFrda{)}
+  \EFrdb{(}\EFk{setq} elfeed-goodies/entry-pane-position \EFhq{'}\EFhs{bottom}\EFrdb{)}
+  \EFrdb{(}\EFk{setq} rmh-elfeed-org-files \EFhq{'}\EFrdc{(}\EFs{"\char126{}/org/elfeed.org"}\EFrdc{)}\EFrdb{)}\EFrda{)}
 \end{Verbatim}
 \end{Code}
 \subsection{Visual}
-\label{sec:orgc6d1427}
+\label{sec:orge04d7ce}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{after!} elfeed
-  \EFrdb{(}\EFk{setq} \EFv{elfeed-search-filter} \EFs{"@1-week-ago +unread"}
-        \EFv{elfeed-search-print-entry-function} \EFhq{'}\EFhs{+rss/elfeed-search-print-entry}
-        \EFv{elfeed-search-title-min-width} \EFhn{80}
-        \EFv{elfeed-show-entry-switch} \EFhq{\#'}\EFhs{switch-to-buffer}
-        \EFv{elfeed-show-entry-delete} \EFhq{\#'}\EFhs{+rss/delete-pane}
-        \EFv{elfeed-show-refresh-function} \EFhq{\#'}\EFhs{+rss/elfeed-show-refresh--better-style}
+  \EFrdb{(}\EFk{setq} elfeed-search-filter \EFs{"@1-week-ago +unread"}
+        elfeed-search-print-entry-function \EFhq{'}\EFhs{+rss/elfeed-search-print-entry}
+        elfeed-search-title-min-width \EFhn{80}
+        elfeed-show-entry-switch \EFhq{\#'}\EFhs{switch-to-buffer}
+        elfeed-show-entry-delete \EFhq{\#'}\EFhs{+rss/delete-pane}
+        elfeed-show-refresh-function \EFhq{\#'}\EFhs{+rss/elfeed-show-refresh--better-style}
         \EFv{shr-max-image-proportion} \EFhn{0.6}\EFrdb{)}
 
   \EFrdb{(}\EFk{add-hook!} \EFhq{'}\EFhs{elfeed-show-mode-hook} \EFrdc{(}\EFv{hide-mode-line-mode} \EFhn{1}\EFrdc{)}\EFrdb{)}
-  \EFrdb{(}\EFk{add-hook!} \EFhq{'}\EFv{elfeed-search-update-hook} \EFhq{\#'}\EFv{hide-mode-line-mode}\EFrdb{)}
+  \EFrdb{(}\EFk{add-hook!} \EFhq{'}\EFhs{elfeed-search-update-hook} \EFhq{\#'}\EFv{hide-mode-line-mode}\EFrdb{)}
 
   \EFrdb{(}\EFk{defface} \EFv{elfeed-show-title-face} \EFhq{'}\EFrdc{(}\EFrdd{(}t \EFrda{(}\EFb{:weight} ultrabold \EFb{:slant} italic \EFb{:height} \EFhn{1.5}\EFrda{)}\EFrdd{)}\EFrdc{)}
     \EFd{"title face in elfeed show buffer"}
@@ -1825,28 +1826,28 @@ Improve the history size:
 
   \EFrdb{(}\EFk{defun} \EFf{+rss/elfeed-search-print-entry} \EFrdc{(}entry\EFrdc{)}
     \EFd{"Print ENTRY to the buffer."}
-    \EFrdc{(}\EFk{let*} \EFrdd{(}\EFrda{(}\EFv{elfeed-goodies/tag-column-width} \EFhn{40}\EFrda{)}
-           \EFrda{(}\EFv{elfeed-goodies/feed-source-column-width} \EFhn{30}\EFrda{)}
-           \EFrda{(}title \EFrdb{(}\EFk{or} \EFrdc{(}\EFo{elfeed-meta} entry \EFb{:title}\EFrdc{)} \EFrdc{(}\EFo{elfeed-entry-title} entry\EFrdc{)} \EFs{""}\EFrdb{)}\EFrda{)}
-           \EFrda{(}title-faces \EFrdb{(}\EFo{elfeed-search--faces} \EFrdc{(}\EFo{elfeed-entry-tags} entry\EFrdc{)}\EFrdb{)}\EFrda{)}
-           \EFrda{(}feed \EFrdb{(}\EFo{elfeed-entry-feed} entry\EFrdb{)}\EFrda{)}
+    \EFrdc{(}\EFk{let*} \EFrdd{(}\EFrda{(}elfeed-goodies/tag-column-width \EFhn{40}\EFrda{)}
+           \EFrda{(}elfeed-goodies/feed-source-column-width \EFhn{30}\EFrda{)}
+           \EFrda{(}title \EFrdb{(}\EFk{or} \EFrdc{(}elfeed-meta entry \EFb{:title}\EFrdc{)} \EFrdc{(}elfeed-entry-title entry\EFrdc{)} \EFs{""}\EFrdb{)}\EFrda{)}
+           \EFrda{(}title-faces \EFrdb{(}elfeed-search--faces \EFrdc{(}elfeed-entry-tags entry\EFrdc{)}\EFrdb{)}\EFrda{)}
+           \EFrda{(}feed \EFrdb{(}elfeed-entry-feed entry\EFrdb{)}\EFrda{)}
            \EFrda{(}feed-title
             \EFrdb{(}\EFk{when} feed
-              \EFrdc{(}\EFk{or} \EFrdd{(}\EFo{elfeed-meta} feed \EFb{:title}\EFrdd{)} \EFrdd{(}\EFo{elfeed-feed-title} feed\EFrdd{)}\EFrdc{)}\EFrdb{)}\EFrda{)}
-           \EFrda{(}tags \EFrdb{(}\EFo{mapcar} \EFhq{\#'}\EFhs{symbol-name} \EFrdc{(}\EFo{elfeed-entry-tags} entry\EFrdc{)}\EFrdb{)}\EFrda{)}
+              \EFrdc{(}\EFk{or} \EFrdd{(}elfeed-meta feed \EFb{:title}\EFrdd{)} \EFrdd{(}elfeed-feed-title feed\EFrdd{)}\EFrdc{)}\EFrdb{)}\EFrda{)}
+           \EFrda{(}tags \EFrdb{(}\EFo{mapcar} \EFhq{\#'}\EFhs{symbol-name} \EFrdc{(}elfeed-entry-tags entry\EFrdc{)}\EFrdb{)}\EFrda{)}
            \EFrda{(}tags-str \EFrdb{(}\EFo{concat} \EFrdc{(}\EFo{mapconcat} \EFhq{'}\EFhs{identity} tags \EFs{","}\EFrdc{)}\EFrdb{)}\EFrda{)}
-           \EFrda{(}title-width \EFrdb{(}\EFo{-} \EFrdc{(}\EFo{window-width}\EFrdc{)} \EFv{elfeed-goodies/feed-source-column-width}
-                           \EFv{elfeed-goodies/tag-column-width} \EFhn{4}\EFrdb{)}\EFrda{)}
+           \EFrda{(}title-width \EFrdb{(}\EFo{-} \EFrdc{(}\EFo{window-width}\EFrdc{)} elfeed-goodies/feed-source-column-width
+                           elfeed-goodies/tag-column-width \EFhn{4}\EFrdb{)}\EFrda{)}
 
-           \EFrda{(}tag-column \EFrdb{(}\EFo{elfeed-format-column}
-                        tags-str \EFrdc{(}\EFo{elfeed-clamp} \EFrdd{(}\EFo{length} tags-str\EFrdd{)}
-                                               \EFv{elfeed-goodies/tag-column-width}
-                                               \EFv{elfeed-goodies/tag-column-width}\EFrdc{)}
+           \EFrda{(}tag-column \EFrdb{(}elfeed-format-column
+                        tags-str \EFrdc{(}elfeed-clamp \EFrdd{(}\EFo{length} tags-str\EFrdd{)}
+                                               elfeed-goodies/tag-column-width
+                                               elfeed-goodies/tag-column-width\EFrdc{)}
                         \EFb{:left}\EFrdb{)}\EFrda{)}
-           \EFrda{(}feed-column \EFrdb{(}\EFo{elfeed-format-column}
-                         feed-title \EFrdc{(}\EFo{elfeed-clamp} \EFv{elfeed-goodies/feed-source-column-width}
-                                                  \EFv{elfeed-goodies/feed-source-column-width}
-                                                  \EFv{elfeed-goodies/feed-source-column-width}\EFrdc{)}
+           \EFrda{(}feed-column \EFrdb{(}elfeed-format-column
+                         feed-title \EFrdc{(}elfeed-clamp elfeed-goodies/feed-source-column-width
+                                                  elfeed-goodies/feed-source-column-width
+                                                  elfeed-goodies/feed-source-column-width\EFrdc{)}
                          \EFb{:left}\EFrdb{)}\EFrda{)}\EFrdd{)}
 
       \EFrdd{(}\EFo{insert} \EFrda{(}\EFo{propertize} feed-column \EFhq{'}\EFhs{face} \EFhq{'}\EFhs{elfeed-search-feed-face}\EFrda{)} \EFs{" "}\EFrdd{)}
@@ -1858,23 +1859,23 @@ Improve the history size:
     \EFd{"Update the buffer to match the selected entry, using a mail-style."}
     \EFrdc{(}\EFk{interactive}\EFrdc{)}
     \EFrdc{(}\EFk{let*} \EFrdd{(}\EFrda{(}\EFv{inhibit-read-only} t\EFrda{)}
-           \EFrda{(}title \EFrdb{(}\EFo{elfeed-entry-title} \EFv{elfeed-show-entry}\EFrdb{)}\EFrda{)}
-           \EFrda{(}date \EFrdb{(}\EFo{seconds-to-time} \EFrdc{(}\EFo{elfeed-entry-date} \EFv{elfeed-show-entry}\EFrdc{)}\EFrdb{)}\EFrda{)}
-           \EFrda{(}author \EFrdb{(}\EFo{elfeed-meta} \EFv{elfeed-show-entry} \EFb{:author}\EFrdb{)}\EFrda{)}
-           \EFrda{(}link \EFrdb{(}\EFo{elfeed-entry-link} \EFv{elfeed-show-entry}\EFrdb{)}\EFrda{)}
-           \EFrda{(}tags \EFrdb{(}\EFo{elfeed-entry-tags} \EFv{elfeed-show-entry}\EFrdb{)}\EFrda{)}
+           \EFrda{(}title \EFrdb{(}elfeed-entry-title elfeed-show-entry\EFrdb{)}\EFrda{)}
+           \EFrda{(}date \EFrdb{(}\EFo{seconds-to-time} \EFrdc{(}elfeed-entry-date elfeed-show-entry\EFrdc{)}\EFrdb{)}\EFrda{)}
+           \EFrda{(}author \EFrdb{(}elfeed-meta elfeed-show-entry \EFb{:author}\EFrdb{)}\EFrda{)}
+           \EFrda{(}link \EFrdb{(}elfeed-entry-link elfeed-show-entry\EFrdb{)}\EFrda{)}
+           \EFrda{(}tags \EFrdb{(}elfeed-entry-tags elfeed-show-entry\EFrdb{)}\EFrda{)}
            \EFrda{(}tagsstr \EFrdb{(}\EFo{mapconcat} \EFhq{\#'}\EFhs{symbol-name} tags \EFs{", "}\EFrdb{)}\EFrda{)}
            \EFrda{(}nicedate \EFrdb{(}\EFo{format-time-string} \EFs{"\%a, \%e \%b \%Y \%T \%Z"} date\EFrdb{)}\EFrda{)}
-           \EFrda{(}content \EFrdb{(}\EFo{elfeed-deref} \EFrdc{(}\EFo{elfeed-entry-content} \EFv{elfeed-show-entry}\EFrdc{)}\EFrdb{)}\EFrda{)}
-           \EFrda{(}type \EFrdb{(}\EFo{elfeed-entry-content-type} \EFv{elfeed-show-entry}\EFrdb{)}\EFrda{)}
-           \EFrda{(}feed \EFrdb{(}\EFo{elfeed-entry-feed} \EFv{elfeed-show-entry}\EFrdb{)}\EFrda{)}
-           \EFrda{(}feed-title \EFrdb{(}\EFo{elfeed-feed-title} feed\EFrdb{)}\EFrda{)}
-           \EFrda{(}base \EFrdb{(}\EFk{and} feed \EFrdc{(}\EFo{elfeed-compute-base} \EFrdd{(}\EFo{elfeed-feed-url} feed\EFrdd{)}\EFrdc{)}\EFrdb{)}\EFrda{)}\EFrdd{)}
+           \EFrda{(}content \EFrdb{(}elfeed-deref \EFrdc{(}elfeed-entry-content elfeed-show-entry\EFrdc{)}\EFrdb{)}\EFrda{)}
+           \EFrda{(}type \EFrdb{(}elfeed-entry-content-type elfeed-show-entry\EFrdb{)}\EFrda{)}
+           \EFrda{(}feed \EFrdb{(}elfeed-entry-feed elfeed-show-entry\EFrdb{)}\EFrda{)}
+           \EFrda{(}feed-title \EFrdb{(}elfeed-feed-title feed\EFrdb{)}\EFrda{)}
+           \EFrda{(}base \EFrdb{(}\EFk{and} feed \EFrdc{(}elfeed-compute-base \EFrdd{(}elfeed-feed-url feed\EFrdd{)}\EFrdc{)}\EFrdb{)}\EFrda{)}\EFrdd{)}
       \EFrdd{(}\EFo{erase-buffer}\EFrdd{)}
       \EFrdd{(}\EFo{insert} \EFs{"\char92{}n"}\EFrdd{)}
       \EFrdd{(}\EFo{insert} \EFrda{(}\EFo{format} \EFs{"\%s\char92{}n\char92{}n"} \EFrdb{(}\EFo{propertize} title \EFhq{'}\EFhs{face} \EFhq{'}\EFhs{elfeed-show-title-face}\EFrdb{)}\EFrda{)}\EFrdd{)}
       \EFrdd{(}\EFo{insert} \EFrda{(}\EFo{format} \EFs{"\%s\char92{}t"} \EFrdb{(}\EFo{propertize} feed-title \EFhq{'}\EFhs{face} \EFhq{'}\EFhs{elfeed-search-feed-face}\EFrdb{)}\EFrda{)}\EFrdd{)}
-      \EFrdd{(}\EFk{when} \EFrda{(}\EFk{and} author \EFv{elfeed-show-entry-author}\EFrda{)}
+      \EFrdd{(}\EFk{when} \EFrda{(}\EFk{and} author elfeed-show-entry-author\EFrda{)}
         \EFrda{(}\EFo{insert} \EFrdb{(}\EFo{format} \EFs{"\%s\char92{}n"} \EFrdc{(}\EFo{propertize} author \EFhq{'}\EFhs{face} \EFhq{'}\EFhs{elfeed-show-author-face}\EFrdc{)}\EFrdb{)}\EFrda{)}\EFrdd{)}
       \EFrdd{(}\EFo{insert} \EFrda{(}\EFo{format} \EFs{"\%s\char92{}n\char92{}n"} \EFrdb{(}\EFo{propertize} nicedate \EFhq{'}\EFhs{face} \EFhq{'}\EFhs{elfeed-log-date-face}\EFrdb{)}\EFrda{)}\EFrdd{)}
       \EFrdd{(}\EFk{when} tags
@@ -1883,14 +1884,14 @@ Improve the history size:
       \EFcd{;;} \EFc{(insert (propertize "Link: " 'face 'message-header-name))}
       \EFcd{;;} \EFc{(elfeed-insert-link link link)}
       \EFcd{;;} \EFc{(insert "\char92{}n")}
-      \EFrdd{(}\EFk{cl-loop} for enclosure in \EFrda{(}\EFo{elfeed-entry-enclosures} \EFv{elfeed-show-entry}\EFrda{)}
+      \EFrdd{(}\EFk{cl-loop} for enclosure in \EFrda{(}elfeed-entry-enclosures elfeed-show-entry\EFrda{)}
                do \EFrda{(}\EFo{insert} \EFrdb{(}\EFo{propertize} \EFs{"Enclosure: "} \EFhq{'}\EFhs{face} \EFhq{'}\EFhs{message-header-name}\EFrdb{)}\EFrda{)}
-               do \EFrda{(}\EFo{elfeed-insert-link} \EFrdb{(}\EFo{car} enclosure\EFrdb{)}\EFrda{)}
+               do \EFrda{(}elfeed-insert-link \EFrdb{(}\EFo{car} enclosure\EFrdb{)}\EFrda{)}
                do \EFrda{(}\EFo{insert} \EFs{"\char92{}n"}\EFrda{)}\EFrdd{)}
       \EFrdd{(}\EFo{insert} \EFs{"\char92{}n"}\EFrdd{)}
       \EFrdd{(}\EFk{if} content
           \EFrda{(}\EFk{if} \EFrdb{(}\EFo{eq} type \EFhq{'}\EFhs{html}\EFrdb{)}
-              \EFrdb{(}\EFo{elfeed-insert-html} content base\EFrdb{)}
+              \EFrdb{(}elfeed-insert-html content base\EFrdb{)}
             \EFrdb{(}\EFo{insert} content\EFrdb{)}\EFrda{)}
         \EFrda{(}\EFo{insert} \EFrdb{(}\EFo{propertize} \EFs{"(empty)\char92{}n"} \EFhq{'}\EFhs{face} \EFhq{'}\EFhs{italic}\EFrdb{)}\EFrda{)}\EFrdd{)}
       \EFrdd{(}\EFo{goto-char} \EFrda{(}\EFo{point-min}\EFrda{)}\EFrdd{)}\EFrdc{)}\EFrdb{)}

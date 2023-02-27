@@ -984,12 +984,13 @@ is selected, only the bare key is returned."
 ;;                        (lsp)))  ; or lsp-deferred
 ;;   :init
 ;;   (setq lsp-ltex-version "15.2.0"))  ; make sure you have set this, see below
-;; (use-package! eglot-ltex
-;;   :hook (text-mode . (lambda ()
-;;                        (require 'eglot-ltex)
-;;                        (call-interactively #'eglot)))
-;;   :init
-;;   (setq eglot-languagetool-server-path "/opt/homebrew/Cellar/ltex-ls/15.2.0"))
+(use-package! eglot-ltex
+  :after org
+  :hook (org-mode . (lambda ()
+                       (require 'eglot-ltex)
+                       (call-interactively #'eglot)))
+  :init
+  (setq eglot-languagetool-server-path "/opt/homebrew/Cellar/ltex-ls/15.2.0"))
 
 (use-package! vlf-setup
   :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
