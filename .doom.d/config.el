@@ -545,12 +545,13 @@
 
 \\renewcommand{\\leq}{\\leqslant}
 \\renewcommand{\\geq}{\\geqslant}
-\\definecolor{bgcolorminted}{HTML}{f9f5d7}
+\\definecolor{bgcolorminted}{HTML}{2e3440}
 \\usepackage{hyperref}
 \\usepackage[]{cleveref}
 [NO-DEFAULT-PACKAGES]
 [PACKAGES]
-[EXTRA]"
+[EXTRA]
+\\usemintedstyle{nord}"
                ("\\section{%s}" . "\\section*{%s}")
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -635,20 +636,20 @@
 \\definecolor{pale}{HTML}{ECEFF4}
 \\definecolor{bluish}{HTML}{88C0D0}
 \\definecolor{cream}{HTML}{D8DEE9}
-\\definecolor{bgcolorminted}{HTML}{f9f5d7}
+\\definecolor{bgcolorminted}{HTML}{2e3440}
 \\setbeamercolor{progress bar}{fg=bluish,bg=cream}
 \\setbeamercolor{frametitle}{fg=umber,bg=pale}
 \\setbeamercolor{normal text}{fg=dblue,bg=pale}
 \\setbeamercolor{alerted text}{fg=alertcolor,bg=pale}
 \\setbeamercolor{example text}{fg=examplecolor}
 \\setbeamercovered{dynamic}
-
 \\usecolortheme{rose}
 \\usepackage{hyperref}
 \\usepackage[]{cleveref}
 [NO-DEFAULT-PACKAGES]
 [PACKAGES]
-[EXTRA]"
+[EXTRA]
+\\usemintedstyle{nord}"
                ("\\section{%s}" . "\\section*{%s}")
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -688,16 +689,16 @@ citecolor=cite
 (add-hook! 'TeX-after-compilation-finished-functions
           #'TeX-revert-document-buffer)
 
-;; (setq org-latex-listings 'minted
-;;       org-latex-packages-alist '(("" "minted")))
-;; (setq org-latex-minted-options '(("breaklines" "true")
-;;                                  ("breakanywhere" "true")
-;;                                  ("bgcolor" "bgcolorminted")
-;;                                  ("linenos" "true")))
-(use-package! engrave-faces-latex
-  :after ox-latex)
-(setq org-latex-src-block-backend 'engraved)
-(setq org-latex-engraved-theme 'doom-nord-light)
+(setq org-latex-listings 'minted
+      org-latex-packages-alist '(("" "minted")))
+(setq org-latex-minted-options '(("breaklines" "true")
+                                 ("breakanywhere" "true")
+                                 ("bgcolor" "bgcolorminted")
+                                 ("linenos" "true")))
+;; (use-package! engrave-faces-latex
+;;   :after ox-latex)
+;; (setq org-latex-src-block-backend 'engraved)
+;; (setq org-latex-engraved-theme 'doom-nord-light)
 
 (after! org-capture
 
