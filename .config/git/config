@@ -6,10 +6,6 @@
 [user]
 	email = laparisidelannoy@uchicago.edu
 	name = Leo Aparisi de Lannoy
-[credential]
-	helper = /usr/local/share/gcm-core/git-credential-manager
-[credential "https://dev.azure.com"]
-	useHttpPath = true
 [diff]
     tool = kitty
     guitool = kitty.gui
@@ -22,3 +18,8 @@
     cmd = kitty kitty +kitten diff $LOCAL $REMOTE
 [diff "org"]
   xfuncname = "^(\\*+ +.*)$"
+[credential]
+	helper = 
+	helper = /usr/local/share/gcm-core/git-credential-manager
+[credential "https://dev.azure.com"]
+	useHttpPath = true
