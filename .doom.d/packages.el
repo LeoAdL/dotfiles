@@ -29,6 +29,6 @@
 (package! doct)
 
 ;; (package! lsp-ltex)
-;; (package! eglot-ltex :recipe (:host github :repo "emacs-languagetool/eglot-ltex"))
+(package! eglot-ltex :recipe (:host github :repo "emacs-languagetool/eglot-ltex"))
 
 (package! vlfi)
