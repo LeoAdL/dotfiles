@@ -24,7 +24,7 @@
 
 (package! org-cite-csl-activate :recipe (:host github :repo "andras-simonyi/org-cite-csl-activate"))
 
-(package! engrave-faces)
+;; (package! engrave-faces)
 
 (package! doct)
 
