@@ -787,19 +787,19 @@ Define Beamer class:
 \\newtheorem{case}{Case}
 
 
-\\definecolor{dblue}{HTML}{2E3440}
-\\definecolor{umber}{HTML}{8FBCBB}
+\\definecolor{textcolor}{HTML}{2E3440}
+\\definecolor{titlecolor}{HTML}{a3be8c}
 \\definecolor{alertcolor}{HTML}{BF616A}
 \\definecolor{examplecolor}{HTML}{EBCB8B}
 
-\\definecolor{pale}{HTML}{ECEFF4}
-\\definecolor{bluish}{HTML}{88C0D0}
-\\definecolor{cream}{HTML}{D8DEE9}
+\\definecolor{bgcolor}{HTML}{ECEFF4}
+\\definecolor{barcolor}{HTML}{88C0D0}
+\\definecolor{bgbarcolor}{HTML}{D8DEE9}
 \\definecolor{bgcolorminted}{HTML}{2e3440}
-\\setbeamercolor{progress bar}{fg=bluish,bg=cream}
-\\setbeamercolor{frametitle}{fg=umber,bg=pale}
-\\setbeamercolor{normal text}{fg=dblue,bg=pale}
-\\setbeamercolor{alerted text}{fg=alertcolor,bg=pale}
+\\setbeamercolor{progress bar}{fg=barcolor,bg=bgbarcolor}
+\\setbeamercolor{frametitle}{fg=titlecolor,bg=bgcolor}
+\\setbeamercolor{normal text}{fg=textcolor,bg=bgcolor}
+\\setbeamercolor{alerted text}{fg=alertcolor,bg=bgcolor}
 \\setbeamercolor{example text}{fg=examplecolor}
 \\setbeamercovered{dynamic}
 \\usecolortheme{rose}
