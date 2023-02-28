@@ -987,9 +987,6 @@ is selected, only the bare key is returned."
 ;;   (setq lsp-ltex-version "15.2.0"))  ; make sure you have set this, see below
 (use-package! eglot-ltex
   :after org
-  :hook (org-mode . (lambda ()
-                       (require 'eglot-ltex)
-                       (call-interactively #'eglot)))
   :init
   (setq eglot-languagetool-server-path "/opt/homebrew/Cellar/ltex-ls/15.2.0"))
 
@@ -1063,7 +1060,7 @@ is selected, only the bare key is returned."
 (mu4e-alert-set-default-style 'notifier)
 (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
 
-(add-hook! 'elfeed-search-mode-hook #'elfeed-update)
+(add-hook! 'elfeed-search-mode-hook #'elfeed-update) ;
 (after! elfeed
   (setq elfeed-goodies/entry-pane-position 'bottom)
   (setq rmh-elfeed-org-files '("~/org/elfeed.org")))
@@ -1072,8 +1069,8 @@ is selected, only the bare key is returned."
   (setq elfeed-search-filter "@1-week-ago +unread"
         elfeed-search-print-entry-function '+rss/elfeed-search-print-entry
         elfeed-search-title-min-width 80
-        elfeed-show-entry-switch #'switch-to-buffer
-        elfeed-show-entry-delete #'+rss/delete-pane
+        elfeed-show-entry-switch #'pop-to-buffer
+        elfeed-show-entry-delete #'elfeed-kill-buffer
         elfeed-show-refresh-function #'+rss/elfeed-show-refresh--better-style
         shr-max-image-proportion 0.6)
 
