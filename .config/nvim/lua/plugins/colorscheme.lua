@@ -1,7 +1,7 @@
 return {
   -- add gruvbox
   {
-    "shaunsingh/nord.nvim",
+    "gbprod/nord.nvim",
   },
   { "nvim-lualine/lualine.nvim", opts = { theme = "nord" } },
   -- Configure LazyVim to load gruvbox
