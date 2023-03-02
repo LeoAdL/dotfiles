@@ -4,3 +4,4 @@
 
 vim.opt.conceallevel = 2 -- hide * markup for bold and italic
 vim.opt.conceallevel = 2 -- hide * markup for bold and italic
+vim.opt.autochdir = true
