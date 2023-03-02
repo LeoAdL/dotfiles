@@ -13,7 +13,7 @@ return {
           -- open using defaults
           neogit.open()
         end,
-        "Neogit",
+        desc = "Neogit",
       },
     },
   },
