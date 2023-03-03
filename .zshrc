@@ -54,6 +54,7 @@ export NNN_FIFO=/tmp/nnn.fifo
 export NNN_PLUG='f:fzcd;h:fzhist;o:fzopen;v:preview-tui;u:getplugs'
 export NNN_TMPFILE='/tmp/.lastd'
 alias nnn="nnn -H -P v -T V"
+alias pinentry='pinentry-mac'
 if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
   export PATH=/opt/homebrew/opt/ruby/bin:$PATH
   export PATH=`gem environment gemdir`/bin:$PATH
