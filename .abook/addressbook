@@ -1,0 +1,983 @@
+# abook addressbook file
+
+[format]
+program=abook
+version=0.6.1
+
+
+[0]
+name=411 & More
+mobile=411
+
+[1]
+name=Adrien
+mobile=06 01 33 13 55
+
+[2]
+name=Agustín
+mobile=+1-312-468-9255
+
+[3]
+name=Agustin Gutierrez
+email=agusting@uchicago.edu
+
+[4]
+name=Alejandra
+phone=+33 6 48 94 65 36
+
+[5]
+name=Aleksei
+mobile=+1-312-856-6451
+
+[6]
+name=Aleksei Oskolkov
+email=aoskolkov@uchicago.edu
+
+[7]
+name=Alexander
+mobile=06 44 84 18 27
+
+[8]
+name=Alexandra
+mobile=+33645213221
+
+[9]
+name=Alexandra Roulet
+mobile=068-220-0681
+
+[10]
+name=Alexandre B.
+mobile=06 80 91 79 17
+
+[11]
+name=Alexandre Bayle
+phone=+33634251957
+
+[12]
+name=Alexandre Carlot
+mobile=0649470076
+
+[13]
+name=Alexandre Combralier
+mobile=061-706-0109
+
+[14]
+name=Alexandre Poka
+phone=06 11 85 04 02
+
+[15]
+name=Alexandre.H
+mobile=+33633375764
+
+[16]
+name=Alois
+phone=+33760401895
+
+[17]
+name=Anatole
+phone=+33608956957
+
+[18]
+name=Anmol B
+mobile=+1 917-544-6457
+
+[19]
+name=Anmol Bhandari
+email=meetanmol@gmail.com,bhandari@umn.edu
+
+[20]
+name=Anmol Bhandari
+email=bhandari@umn.edu,meetanmol@gmail.com
+
+[21]
+name=Annah
+phone=0677670755
+
+[22]
+name=Annette Johnson
+email=ajohnson@macapartments.com
+
+[23]
+name=Antoine Clopoqui
+workphone=06 59 15 25 82
+
+[24]
+name=Antonis Tsiflis
+email=atsiflis@uchicago.edu
+
+[25]
+name=Arjun
+mobile=+1-312-404-1579
+
+[26]
+name=Armel Gontier
+mobile=0688163041
+
+[27]
+name=Arsenyi
+mobile=+1-312-722-3618
+
+[28]
+name=Arthur
+mobile=+33618200949
+
+[29]
+name=Augustin
+phone=+33613367506
+mobile=+1 312-358-8365
+
+[30]
+name=Béatrix
+mobile=+33 6 13 08 43 01
+
+[31]
+name=Ben
+mobile=+1-312-678-9514
+
+[32]
+name=Benjamin
+mobile=+33615817625
+
+[33]
+name=Benjamin B.
+mobile=06 07 49 05 96
+
+[34]
+name=Benoît
+mobile=06 50 08 25 18
+
+[35]
+name=Benoît Chatard
+mobile=+33677115493
+
+[36]
+name=Bill(ENS)
+mobile=06 17 55 38 53
+
+[37]
+name=Borislav Antonov
+email=borislav.antonov@gmail.com
+
+[38]
+name=Boutique
+mobile=0143269765
+
+[39]
+name=Brune-Lorraine 
+mobile=+33695187864
+
+[40]
+name=Camille
+phone=+33618736715
+
+[41]
+name=Cavaleri, Filippo
+email=fcavaler@chicagobooth.edu
+
+[42]
+name=Cécile
+mobile=06 22 65 52 32
+
+[43]
+name=Charline
+mobile=+33 6 66 21 07 21
+
+[44]
+name=Chase
+mobile=+1-561-436-8295
+
+[45]
+name=Cherazade
+mobile=0633110307
+
+[46]
+name=Chloé
+phone=+33787004984
+
+[47]
+name=Chris Raff
+mobile=312-286-9670
+
+[48]
+name=Claire P.
+mobile=065-929-2072
+
+[49]
+name=Code Istanbul
+nick=1569#
+
+[50]
+name=Colette aka Solange
+phone=+33 6 45 40 01 67
+mobile=06 38 14 92 68
+
+[51]
+name=Constantin
+mobile=06 59 74 09 70
+
+[52]
+name=Cristiba
+mobile=+34629342574
+
+[53]
+name=Cristine DIAZ
+mobile=8667837489#61502
+
+[54]
+name=Customer Care
+mobile=611
+
+[55]
+name=Damien Capelle
+mobile=+1-609-510-7642
+
+[56]
+name=Danyelle Hamilton
+email=dhamilton@macapartments.com
+
+[57]
+name=Églantine 
+mobile=+33664673954
+
+[58]
+name=Elena
+mobile=+1-224-704-7737
+
+[59]
+name=Elie
+phone=+33678753958
+
+[60]
+name=Estefano
+mobile=+1-773-630-8772
+
+[61]
+name=Esther
+mobile=+33 6 64 38 10 64
+
+[62]
+name=Étienne Dassigny
+mobile=+33 6 47 91 48 04
+
+[63]
+name=Fabien
+mobile=06 07 53 57 10
+
+[64]
+name=Fazia (Stage)
+mobile=06 23 69 39 34
+
+[65]
+name=Fernando Alvarez
+email=falvare@uchicago.edu
+
+[66]
+name=Francesco
+phone=1-312-483-4844
+mobile=+393331231948
+
+[67]
+name=Francesco Ruggieri
+email=ruggieri@uchicago.edu
+
+[68]
+name=Françoise (Pata)
+phone=014-272-5783
+anniversary=4
+
+[69]
+name=Furkan
+mobile=+1-346-414-2880
+
+[70]
+name=Furkan Kilic
+email=furkankilic@uchicago.edu
+
+[71]
+name=Gabriel L.
+mobile=0623271753
+
+[72]
+name=Gabrielle R.
+phone=0627112580
+
+[73]
+name=Gautier
+mobile=06 79 58 55 06
+
+[74]
+name=Guerrieri, Veronica
+email=Veronica.Guerrieri@chicagobooth.edu
+
+[75]
+name=Guillaume Nevo
+mobile=+33669911455
+
+[76]
+name=Hannah (Sonos)
+mobile=+44 7792 574509
+
+[77]
+name=Harald Uhlig
+email=huhlig@uchicago.edu
+
+[78]
+name=Hatim
+phone=+33631133940
+
+[79]
+name=Hazen
+mobile=+1-281-684-9370
+
+[80]
+name=Hélène
+mobile=   +33 6 18 91 83 73
+
+[81]
+name=Hélène Daccord
+mobile=+33677847214
+
+[82]
+name=Héloïse
+mobile=+33777731784
+
+[83]
+name=Henri
+mobile=+33695088183
+
+[84]
+name=Hillman, Cynthia
+email=Cynthia.Hillman@chicagobooth.edu
+
+[85]
+name=Hugo
+mobile=06 22 56 68 69
+
+[86]
+name=Ignacia
+mobile=+1-202-751-1031
+
+[87]
+name=Ines
+mobile=+33601340124
+
+[88]
+name=Insurance
+mobile=+1-952-367-8000
+
+[89]
+name=Interphone
+mobile=1-773-217-7233
+
+[90]
+name=Isabel Di Tella
+mobile=+1-617-417-0212
+
+[91]
+name=Jack
+mobile=+1-312-282-5285
+
+[92]
+name=James Traina
+email=traina.james@gmail.com,traina@uchicago.edu
+
+[93]
+name=Jean
+mobile=06 24 65 71 54
+
+[94]
+name=Jeanne
+mobile=060-419-5628
+
+[95]
+name=Jeanne (PhD)
+mobile=+33635334339
+
+[96]
+name=Jenuzhan
+phone=0625768233
+
+[97]
+name=Jeremy Toledano
+phone=+33612391974
+mobile=+1 857-241-0996
+
+[98]
+name=Johanna
+mobile=+1-206-617-4230
+
+[99]
+name=Jonas
+mobile=773-943-1250
+
+[100]
+name=Jonathan (Desk)
+mobile=973-204-6645
+
+[101]
+name=Joy Serletic
+email=jserletic@uchicago.edu
+
+[102]
+name=Jules 
+mobile=06 16 04 10 16
+
+[103]
+name=Julie Z.
+mobile=06 86 31 75 97
+
+[104]
+name=Juliette
+mobile=06 32 93 28 82
+
+[105]
+name=Juliette Delalande
+mobile=06 13 77 51 09
+
+[106]
+name=June
+mobile=+1-352-275-1256
+
+[107]
+name=Karine Le Lan
+mobile=+33608273185
+
+[108]
+name=Karthik Srinivasan
+workphone=+1-404-556-2887
+
+[109]
+name=Kathryn Falzareno
+email=kfalzareno@uchicago.edu
+
+[110]
+name=Kevin
+mobile=0651507766
+
+[111]
+name=Kimberly Mayer
+email=kimberly.mayer@chicagobooth.edu
+phone=773-702-7298
+
+[112]
+name=Kroszner, Randall S.
+email=Randall.Kroszner@chicagobooth.edu
+
+[113]
+name=Lamp
+mobile=773-641-4341
+
+[114]
+name=Lars Peter Hansen
+email=lhansen@uchicago.edu
+
+[115]
+name=Lea Diane
+mobile=0624984343
+
+[116]
+name=Léo Aparisi de Lannoy
+email=leoaparisi@gmail.com
+
+[117]
+name=Leo Rafael Aparisi Aparisi de Lannoy
+email=laparisidelannoy@uchicago.edu,laparisidelannoy@chicagobooth.edu
+
+[118]
+name=Léon
+mobile=07 69 16 16 19
+
+[119]
+name=Léonard Bocquet
+mobile=06 58 96 71 71
+
+[120]
+name=Libération
+mobile=06 10 86 91 10
+
+[121]
+name=Lilian
+mobile=+1-917-747-9685
+
+[122]
+name=Lise 
+mobile=+33666145156
+
+[123]
+name=Lorraine
+mobile=0637217687
+
+[124]
+name=Louis (fixe)
+mobile=0143651070
+
+[125]
+name=Louis Daumas
+mobile=06 35 34 69 34
+
+[126]
+name=Louis H.
+mobile=0686318556
+
+[127]
+name=Louis Mockly
+mobile=+33647617293
+
+[128]
+name=Louise C.
+email=louise.emma.condon@yahoo.fr
+phone=0668772560
+
+[129]
+name=Louise M.
+phone=+33675380727
+
+[130]
+name=Lucie 
+mobile=+33 6 12 91 85 67
+
+[131]
+name=Lucy
+mobile=+1-708-420-7259
+
+[132]
+name=M.Tarisien (Stage)
+mobile=+33 6 98 79 73 47
+
+[133]
+name=Madi
+mobile=0033682259767
+notes=Code : B1806
+
+[134]
+name=Maison
+mobile=0148871539
+
+[135]
+name=Maman
+mobile=+33 6 83 59 39 08
+
+[136]
+name=Marc
+mobile=+33689132609
+
+[137]
+name=Marco
+mobile=+1-773-431-0864
+
+[138]
+name=Marcos
+mobile=+1-773-484-9686
+
+[139]
+name=Marcos Sora
+email=soramarcos@uchicago.edu
+
+[140]
+name=Marie-Ophelie
+phone=+33677199619
+
+[141]
+name=Marine 
+mobile=+33663835311
+
+[142]
+name=Marius (Parrain)
+mobile=06 37 92 37 23
+
+[143]
+name=Marta Prato
+email=mprato@uchicago.edu
+
+[144]
+name=Mathias
+mobile=06 58 96 69 60
+
+[145]
+name=Mathieu
+mobile=0667045732
+
+[146]
+name=Matias
+mobile=(872) 235-5279
+
+[147]
+name=Matteo PhD
+mobile=+39 392 307 4575
+
+[148]
+name=Maxime (Cdf)
+mobile=+33664990901
+
+[149]
+name=Mehdi
+mobile=+33 6 23 81 70 76
+
+[150]
+name=Michael Heng
+mobile=0649150441
+
+[151]
+name=Michael Varley
+email=varleyma@uchicago.edu,varleym0@chicagobooth.edu
+
+[152]
+name=Michael Varley
+email=varleyma@uchicago.edu
+mobile=+1-407-761-0010
+
+[153]
+name=Mikhail Golosov
+email=golosov@uchicago.edu
+
+[154]
+name=Mikhail Golosov
+email=golosov@uchicago.edu
+
+[155]
+name=Morgan
+mobile=06 15 79 33 94
+
+[156]
+name=Mounir
+mobile=+33 7 68 75 96 39
+
+[157]
+name=Mui Cheung
+email=mcheung@nber.org
+
+[158]
+name=Nadine
+mobile=+41797040150
+
+[159]
+name=Nicolas E
+mobile=0620941835
+
+[160]
+name=Nicolas E fixe
+mobile=0142725038
+
+[161]
+name=Noémie C.
+phone=0636361669
+
+[162]
+name=Noitakis alexandra
+mobile=+306944226518
+
+[163]
+name=Noriko
+mobile=06 22 83 84 86
+
+[164]
+name=Olimpia
+mobile=+33618451105
+
+[165]
+name=Olivia
+mobile=+1-857-310-8097
+
+[166]
+name=Paco
+mobile=065-198-2901
+
+[167]
+name=Papa
+mobile=+33 6 71 65 87 43
+notes=Code 19A33
+
+[168]
+name=Paul
+workphone=+33 6 01 49 54 13
+
+[169]
+name=Pauline Mourot
+mobile=+33632711840
+
+[170]
+name=Philippe L
+mobile=+33614805461
+notes=Code 34A78
+
+[171]
+name=Philomène Vuillard
+mobile=+33632846635
+
+[172]
+name=Pierèth M'Dwino a.k.a Mockly II
+mobile=076-047-2268
+
+[173]
+name=Pierre
+mobile=06 95 92 65 53
+
+[174]
+name=Pierre-Aurelien
+mobile=06 10 22 74 33
+
+[175]
+name=Pierre-Louis
+mobile=+33628065502
+
+[176]
+name=Piotr Zoch
+email=pzoch@uchicago.edu
+
+[177]
+name=Pranav
+mobile=+1-312-369-0350
+
+[178]
+name=Rafael
+
+[179]
+name=Raphaëlle Barbier
+mobile=06 77 87 89 76
+
+[180]
+name=Raphaelle G
+mobile=+33648355213
+
+[181]
+name=Rebekah Dix
+mobile=+1-715-441-8182
+
+[182]
+name=Reouven
+mobile=06 95 40 41 80
+
+[183]
+name=Robert Webster
+mobile=203-435-0173
+
+[184]
+name=Roberto (Stage)
+mobile=+33 6 70 48 02 52
+
+[185]
+name=Sacha
+mobile=+33608067685
+
+[186]
+name=Salomon
+mobile=0777837691
+
+[187]
+name=Samuel 
+mobile=+33659236141
+
+[188]
+name=Samuel (OFCE)
+mobile=+33633899627
+
+[189]
+name=Sangmin S. Oh
+email=oh@chicagobooth.edu
+
+[190]
+name=Santiago
+mobile=+1-312-647-7255
+
+[191]
+name=Sarah A.
+mobile=0643504203
+
+[192]
+name=Sarah Gertler
+mobile=+1-646-753-0029
+
+[193]
+name=Secretariat LLG
+email=secretariat@ns3302954.ovh.net
+
+[194]
+name=Seginus
+mobile=06 79 01 64 66
+
+[195]
+name=Simon
+mobile=+33669144487
+
+[196]
+name=Simon (PhD)
+mobile=+1-267-969-2102
+
+[197]
+name=Simon MARGOLIN
+mobile=+33619869750
+
+[198]
+name=Simon Weber
+email=wimon.seber@gmail.com
+mobile=+33602320121
+
+[199]
+name=Stella
+phone=0627285348
+
+[200]
+name=Sulagna
+mobile=+1-872-713-4603
+
+[201]
+name=Suleyman Gozen
+email=sgozen@uchicago.edu
+
+[202]
+name=Sylvie de lannoy
+email=Sylviedla@gmail.com,sylviedla@gmail.com
+
+[203]
+name=Sylvie de lannoy
+email=Sylviedla@gmail.com
+
+[204]
+name=Tak
+mobile=+1-773-230-1548
+
+[205]
+name=Tanisha Bond
+email=tbond@macapartments.com
+
+[206]
+name=Tarik
+phone=+33622902437
+
+[207]
+name=Thomas Bourany
+mobile=+33 6 26 80 01 84
+
+[208]
+name=Thomas Bourany
+email=thomasbourany@uchicago.edu
+
+[209]
+name=Thomas C.
+mobile=+33673792120
+
+[210]
+name=Thomas Kergonou
+mobile=+33783144689
+
+[211]
+name=Thomas W.
+mobile=+33609181787
+
+[212]
+name=Tom
+mobile=062-022-6159
+
+[213]
+name=Tom Dages 
+mobile=06 61 97 12 06
+
+[214]
+name=Tomas
+email=tomas.aparisi@gmail.com
+mobile=+33 6 09 26 65 81
+notes=17 avenue Gambetta
+
+[215]
+name=Traque
+mobile=06 50 25 18 28
+
+[216]
+name=Traque2
+mobile=06 86 70 29 28
+
+[217]
+name=Tugce Turk
+email=tturk@uchicago.edu
+
+[218]
+name=Tuğçe Turk
+email=tturk@uchicago.edu
+mobile=+1-312-934-3921
+
+[219]
+name=Ufuk Akcigit
+mobile=+1-617-642-6812
+
+[220]
+name=Urgence(Ulm)
+mobile=01 44 32 37 77
+
+[221]
+name=Valentina E Solano
+email=vsolano@uchicago.edu
+
+[222]
+name=Valentine
+mobile=+33 6 47 22 35 90
+
+[223]
+name=Veronica De Falco
+mobile=+393351561963
+
+[224]
+name=Voice Mail
+workphone=+18056377243
+mobile=+1-805-637-7243
+
+[225]
+name=William
+mobile=07 61 68 30 61
+
+[226]
+name=Xavier RAGOT
+mobile=+33673898011
+
+[227]
+name=Yacine
+phone=+33659941008
+
+[228]
+name=Yiran Fan
+email=yiran.fan@chicagobooth.edu,yiranfan@uchicago.edu
+
+[229]
+name=Younes
+mobile=069/5619382
+
+[230]
+name=Youssr
+mobile=06 86 34 79 56
+
+[231]
+name=Yulia
+mobile=+1-312-877-9141
+
+[232]
+name=Zakary (fixe)
+mobile=0145871110
+
+[233]
+name=Zakary Hammoutou
+email=zakary.hammoutou@orange.fr
+mobile=0671141025
+
+[234]
+name=Zhiyu
+mobile=+1-773-936-6753
+
+[235]
+name=Zhiyu Fu
+email=zhiyufu@uchicago.edu,zhiyufu0@chicagobooth.edu
+
+[236]
+name=Ziho
+mobile=+1-773-849-3170
+
+[237]
+name=leoaparisi
+email=leoaparisi@gmail.com
+
+[238]
+name=soh41@uchicago.edu
+email=soh41@uchicago.edu
+
+[239]
+name=tomas aparisi
+email=aparisitomas@gmail.com
+

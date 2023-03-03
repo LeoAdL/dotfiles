@@ -29,9 +29,8 @@ Host localhost
 Port 1143
 User laparisidelannoy@uchicago.edu
 PassCmd "pass laparisidelannoy@uchicago.edu"
+SSLType NONE
 AuthMechs LOGIN
-SSLType IMAPS
-CertificateFile /etc/ssl/cert.pem
 
 MaildirStore laparisidelannoy@uchicago.edu-local
 Subfolders Verbatim
