@@ -3,7 +3,6 @@
 -- Add any additional keymaps here
 -- Move to window using the <ctrl> hjkl keys
 
-local Util = require("lazyvim.util")
 local function map(mode, lhs, rhs, opts)
   local keys = require("lazy.core.handler").handlers.keys
   ---@cast keys LazyKeysHandler
@@ -19,3 +18,5 @@ map("n", "<C-h>", "<cmd>lua require'tmux'.move_left()<cr>", { desc = "Go to left
 map("n", "<C-j>", "<cmd>lua require'tmux'.move_bottom()<cr>", { desc = "Go to lower window" })
 map("n", "<C-k>", "<cmd>lua require'tmux'.move_top()<cr>", { desc = "Go to upper window" })
 map("n", "<C-l>", "<cmd>lua require'tmux'.move_right()<cr>", { desc = "Go to right window" })
+-- lazy
+--

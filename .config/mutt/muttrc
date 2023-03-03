@@ -2,3 +2,7 @@
 source /usr/local/share/mutt-wizard/mutt-wizard.muttrc
 source /Users/leoap/.config/mutt/accounts/leoaparisi@gmail.com.muttrc
 macro index,pager i1 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/leoaparisi@gmail.com.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to leoaparisi@gmail.com"
+macro index,pager i1 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/leoaparisi@gmail.com.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to leoaparisi@gmail.com"
+macro index,pager i1 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/leoaparisi@gmail.com.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to leoaparisi@gmail.com"
+macro index,pager i1 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/leoaparisi@gmail.com.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to leoaparisi@gmail.com"
+macro index,pager i1 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/laparisidelannoy@uchicago.edu.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to laparisidelannoy@uchicago.edu"
