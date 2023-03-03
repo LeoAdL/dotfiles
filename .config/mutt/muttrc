@@ -1,11 +1,11 @@
 # vim: filetype=neomuttrc
 source /usr/local/share/mutt-wizard/mutt-wizard.muttrc
-source /Users/leoap/.config/mutt/accounts/leoaparisi@gmail.com.muttrc
+source /Users/leoap/.config/mutt/accounts/laparisidelannoy@uchicago.edu.muttrc
 macro index,pager i1 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/leoaparisi@gmail.com.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to leoaparisi@gmail.com"
 macro index,pager i1 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/leoaparisi@gmail.com.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to leoaparisi@gmail.com"
 macro index,pager i1 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/leoaparisi@gmail.com.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to leoaparisi@gmail.com"
 macro index,pager i1 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/leoaparisi@gmail.com.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to leoaparisi@gmail.com"
-macro index,pager i1 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/laparisidelannoy@uchicago.edu.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to laparisidelannoy@uchicago.edu"
+macro index,pager i2 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/laparisidelannoy@uchicago.edu.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to laparisidelannoy@uchicago.edu"
 
 bind index,pager,browser \Cd half-down
 bind index,pager,browser \Cu half-up
@@ -14,10 +14,9 @@ bind index,pager,browser \Cu half-up
 bind index,pager O sidebar-open
 bind index,pager K sidebar-prev
 bind index,pager J sidebar-next
-bind index,pager P sidebar-prev-new
-bind index,pager N sidebar-next-new
+bind index,pager N search-opposite
 
-set use_threads=threads sort=last-date sort_aux=date
+set use_threads=threads sort=reverse-last-date sort_aux=reverse-last-date
 set abort_key = "<Esc>"
-
-
+set nm_default_uri="notmuch:///Users/leoap/.local/share/mail/" # path to the maildir
+set virtual_spoolfile=yes                          # enable virtual folders

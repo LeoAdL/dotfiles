@@ -1341,3 +1341,7 @@ Improve the history size:
   )
     #+end_src
 
+* Mail
+#+begin_src emacs-lisp
+(setq +notmuch-sync-backend 'mbsync)
+#+end_src
