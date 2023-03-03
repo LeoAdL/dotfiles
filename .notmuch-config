@@ -1,0 +1,20 @@
+[database]
+path=/Users/leoap/.local/share/mail
+
+[user]
+name=Leo Aparisi de Lannoy
+primary_email=leoaparisi@gmail.com
+other_email=laparisidelannoy@uchicago.edu
+
+[new]
+tags=unread;inbox;
+ignore=.mbsyncstate;.uidvalidity
+
+[search]
+exclude_tags=deleted;spam;
+
+[maildir]
+synchronize_flags=true
+
+[crypto]
+gpg_path=gpg
