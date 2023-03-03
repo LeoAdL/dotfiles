@@ -2,6 +2,12 @@
 set drawbox true
 set shell zsh
 set icons true
+set info size
+set dircounts
+set hidden
+set number
+set relativenumber
+set preview
 # set '-eu' options for shell commands
 # These options are used to have safer shell commands. Option '-e' is used to
 # exit on error and option '-u' is used to give error for unset variables.
@@ -100,6 +106,7 @@ cmd zip ${{
 }}
 
 set previewer ~/.config/lf/lf_kitty_preview
+set previewer ~/.config/lf/preview.sh
 set cleaner ~/.config/lf/lf_kitty_clean
 
 cmd fzf_jump ${{
