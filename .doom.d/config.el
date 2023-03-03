@@ -1129,3 +1129,5 @@ is selected, only the bare key is returned."
       (goto-char (point-min))))
 
   )
+
+(setq +notmuch-sync-backend 'mbsync)
