@@ -1,67 +1,50 @@
 
-# GLOBAL OPTIONS
-BufferLimit 50mb             # Global option:   Default buffer size is 10M, too small for modern machines.
-Sync All                     # Channels global: Sync everything "Pull Push New ReNew Delete Flags" (default option)
-CopyArrivalDate yes          # Channels global: Propagate arrival time with the messages
-# =====================================================================
-
-IMAPAccount gmail
+IMAPStore leoaparisi@gmail.com-remote
 Host imap.gmail.com
-User leoaparisi@gmail.com
-PassCmd "security find-generic-password -s mu4e-gmail -a leoaparisi@gmail.com -w"
 Port 993
-SSLType IMAPS
-SSLVersions TLSv1.2
-AuthMechs PLAIN
-SystemCertificates no
-CertificateFile ~/.maildir/certificates/root-certificates.pem
-
-IMAPStore gmail-remote
-Account gmail
-
-MaildirStore gmail-local
-SubFolders Verbatim
-Path ~/.maildir/gmail/
-Inbox ~/.maildir/gmail/INBOX
-
-Channel gmail
-Far :gmail-remote:
-Near :gmail-local:
-Patterns *
-Create Both
-Expunge Both
-SyncState *
-# =====================================================================
-
-IMAPAccount UChicago
-# Address to connect to
-Host localhost
-Port 1143 # or however you decide to run da.maildir
-User laparisidelannoy@uchicago.edu
-PassCmd "security find-generic-password -s mu4e-UChicago -a laparisidelannoy@uchicago.edu -w"
-SSLType NONE
+User leoaparisi@gmail.com
+PassCmd "pass leoaparisi@gmail.com"
 AuthMechs LOGIN
+SSLType IMAPS
+CertificateFile /etc/ssl/cert.pem
 
+MaildirStore leoaparisi@gmail.com-local
+Subfolders Verbatim
+Path /Users/leoap/.local/share/mail/leoaparisi@gmail.com/
+Inbox /Users/leoap/.local/share/mail/leoaparisi@gmail.com/INBOX
 
-IMAPStore UChicago-remote
-Account UChicago
-
-MaildirStore UChicago-local
-Flatten .
-SubFolders Verbatim
-# The trailing "/" is important
-Path ~/.maildir/UChicago/
-Inbox ~/.maildir/UChicago/Inbox
-
-Channel UChicago
-Far :UChicago-remote:
-Near :UChicago-local:
-# Or include everything
-Patterns *
-# Automatically create missing.maildirboxes, both locally and on the server
-Create Both
-# Sync the movement of messages between folders and deletions, add after making sure the sync works
+Channel leoaparisi@gmail.com
 Expunge Both
-# Save the synchronization state files in the relevant directory
+Far :leoaparisi@gmail.com-remote:
+Near :leoaparisi@gmail.com-local:
+Patterns * !"[Gmail]/All Mail"
+Create Both
 SyncState *
+MaxMessages 0
+ExpireUnread no
+# End profile
 
+IMAPStore laparisidelannoy@uchicago.edu-remote
+Host localhost
+Port 1143
+User laparisidelannoy@uchicago.edu
+PassCmd "pass laparisidelannoy@uchicago.edu"
+AuthMechs LOGIN
+SSLType IMAPS
+CertificateFile /etc/ssl/cert.pem
+
+MaildirStore laparisidelannoy@uchicago.edu-local
+Subfolders Verbatim
+Path /Users/leoap/.local/share/mail/laparisidelannoy@uchicago.edu/
+Inbox /Users/leoap/.local/share/mail/laparisidelannoy@uchicago.edu/INBOX
+
+Channel laparisidelannoy@uchicago.edu
+Expunge Both
+Far :laparisidelannoy@uchicago.edu-remote:
+Near :laparisidelannoy@uchicago.edu-local:
+Patterns *
+Create Both
+SyncState *
+MaxMessages 0
+ExpireUnread no
+# End profile

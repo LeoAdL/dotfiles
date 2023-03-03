@@ -1,6 +1,6 @@
 account leoaparisi@gmail.com
 host smtp.gmail.com
-port 587
+port 465
 from leoaparisi@gmail.com
 user leoaparisi@gmail.com
 passwordeval "pass leoaparisi@gmail.com"
@@ -8,5 +8,16 @@ auth on
 tls on
 tls_trust_file	/etc/ssl/cert.pem
 logfile /Users/leoap/.cache/msmtp/msmtp.log
-# tls_starttls
+tls_starttls off
 
+account laparisidelannoy@uchicago.edu
+host localhost
+port 1025
+from laparisidelannoy@uchicago.edu
+user laparisidelannoy@uchicago.edu
+passwordeval "pass laparisidelannoy@uchicago.edu"
+auth on
+tls on
+tls_trust_file	/etc/ssl/cert.pem
+logfile /Users/leoap/.cache/msmtp/msmtp.log
+tls_starttls off
