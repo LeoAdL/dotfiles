@@ -2,9 +2,6 @@
 source /usr/local/share/mutt-wizard/mutt-wizard.muttrc
 source /Users/leoap/.config/mutt/accounts/laparisidelannoy@uchicago.edu.muttrc
 macro index,pager i2 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/leoaparisi@gmail.com.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to leoaparisi@gmail.com"
-macro index,pager i2 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/leoaparisi@gmail.com.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to leoaparisi@gmail.com"
-macro index,pager i2 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/leoaparisi@gmail.com.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to leoaparisi@gmail.com"
-macro index,pager i2 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/leoaparisi@gmail.com.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to leoaparisi@gmail.com"
 macro index,pager i1 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/laparisidelannoy@uchicago.edu.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to laparisidelannoy@uchicago.edu"
 
 bind index,pager,browser \Cd half-down
@@ -19,5 +16,5 @@ bind index,pager N search-opposite
 
 set use_threads=threads sort=reverse-last-date sort_aux=reverse-last-date
 set abort_key = "<Esc>"
-set nm_default_uri="notmuch:///Users/leoap/.local/share/mail/" # path to the maildir
-set virtual_spoolfile=yes                          # enable virtual folders
+set nm_default_url="notmuch:///Users/leoap/.local/share/mail/" # path to the maildir
+virtual-mailboxes "Unified Inbox" "notmuch://?query=tag:inbox&limit=1000"
