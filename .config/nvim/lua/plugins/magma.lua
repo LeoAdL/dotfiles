@@ -1,7 +1,7 @@
 return {
   {
     "WhiteBlackGoose/magma-nvim-goose",
-    run = ":UpdateRemotePlugins",
+    build = ":UpdateRemotePlugins",
     config = function()
       vim.g.magma_automatically_open_output = false
       vim.g.magma_image_provider = "kitty"
