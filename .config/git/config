@@ -9,9 +9,6 @@
 [diff]
     tool = kitty
     guitool = kitty.gui
-[difftool]
-    prompt = false
-    trustExitCode = true
 [difftool "kitty"]
     cmd = kitty +kitten diff $LOCAL $REMOTE
 [difftool "kitty.gui"]
@@ -23,3 +20,6 @@
 	helper = /usr/local/share/gcm-core/git-credential-manager
 [credential "https://dev.azure.com"]
 	useHttpPath = true
+[core]
+	pager = delta --line-numbers --dark --diff-so-fancy
+[delta]
