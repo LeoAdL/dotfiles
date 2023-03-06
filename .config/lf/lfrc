@@ -106,7 +106,6 @@ cmd zip ${{
 }}
 
 set previewer ~/.config/lf/lf_kitty_preview
-set previewer ~/.config/lf/preview.sh
 set cleaner ~/.config/lf/lf_kitty_clean
 
 cmd fzf_jump ${{

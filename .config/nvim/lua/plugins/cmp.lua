@@ -8,7 +8,7 @@ return {
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
-      "hrsh7th/cmp-emoji",
+      "jghauser/papis.nvim",
     },
     ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
