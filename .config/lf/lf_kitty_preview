@@ -17,6 +17,15 @@ if [[ "$filetype" =~ ^video ]]; then
     # https://raw.githubusercontent.com/duganchen/kitty-pistol-previewer/main/vidthumb
     kitty +kitten icat --silent --stdin no --transfer-mode file --place "${w}x${h}@${x}x${y}" "$(vidthumb "$file")" < /dev/null > /dev/tty
     exit 1
-fi
+  else
+    case "$1" in
+      *.zip) zipinfo "$1";;
+      *.tar.gz) tar -ztvf "$1";;
+      *.tar.bz2) tar -jtvf "$1";;
+      *.tar) tar -tvf "$1";;
+      *) bat --color=always --style=plain --pager=never "$1" "$@";;
+      *.pdf) pdftotext "$1" -;;
+      esac
 
+fi
 pistol "$file"
