@@ -33,18 +33,18 @@ fzf-extra-flags = ["--ansi", "--multi", "-i",
 fzf-extra-bindings = ["ctrl-s:jump",
                       "ctrl-t:toggle-preview"]
 
-fzf-header-format = {c.Fore.MAGENTA}{doc[title]}{c.Style.RESET_ALL}~~ {c.Fore.CYAN}{doc[author]}{c.Style.RESET_ALL}~~ {c.Fore.YELLOW}«{doc[year]}»{c.Style.RESET_ALL}~~ {c.Fore.YELLOW}{doc[journal]}{c.Style.RESET_ALL}~~ :{doc[tags]}
+fzf-header-format = {c.Fore.MAGENTA}{doc[title]}{c.Style.RESET_ALL}~~ {c.Fore.CYAN}{doc[author]}{c.Style.RESET_ALL}~~ {c.Fore.YELLOW}«{doc[date]}»{c.Style.RESET_ALL}~~ {c.Fore.YELLOW}{doc[abstractNote]}{c.Style.RESET_ALL}~~ :{doc[tags]}
 
 #
 # Define custom default match and header formats
 #
-match-format = {doc[tags]}{doc.subfolder}{doc[title]}{doc[author]}{doc[year]}
+match-format = {doc[tags]}{doc.subfolder}{doc[title]}{doc[author]}{doc[date]}
 #
 # Define header format with colors and multiline support
 #
 header-format = <red>{doc.html_escape[title]}</red>
   <span color='#ff00ff'>  {doc.html_escape[author]}</span>
-  <yellow>   ({doc.html_escape[year]})</yellow>
+  <yellow>   ({doc.html_escape[date]})</yellow>
 
 [tui]
 editmode = vi
@@ -56,6 +56,6 @@ options_list.unselected_margin_style =
 dir = ~/Documents/papers
 # use whoosh as a database for papers
 database-backend = whoosh
-whoosh-schema-fields = ['doi', 'ref','author','date','tags']
+whoosh-schema-fields = ['doi', 'ref','author','date','tags','title','abstractNote']
 # rename files added by author and title
 add-file-name = {doc[author]}{doc[title]}
