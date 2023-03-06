@@ -1,7 +1,9 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 return {
-	font = wezterm.font_with_fallback({ "Iosevka" }),
+	font = wezterm.font({
+		family = "Iosevka Term",
+	}),
 	font_size = 16.0,
 	color_scheme = "Nord (base16)",
 	use_fancy_tab_bar = true,
@@ -9,6 +11,8 @@ return {
 	window_background_opacity = 0.95,
 	enable_kitty_graphics = true,
 	text_background_opacity = 1,
+	native_macos_fullscreen_mode = true,
+	freetype_load_target = "Light",
 	window_decorations = "RESIZE",
 	leader = { key = "A", mods = "CTRL" },
 	inactive_pane_hsb = {
