@@ -74,6 +74,7 @@ export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@3/lib/pkgconfig"
 export PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH"
 export PYTHONPATH="/opt/homebrew/opt/notmuch/libexec/lib/python3.11/site-packages"$PYTHONPATH
+export MPV_HOME="/Users/leoap/.config/mpv"
 lfcd () {
     tmp="$(mktemp)"
     # `command` is needed in case `lfcd` is aliased to `lf`
