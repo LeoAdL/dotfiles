@@ -1,0 +1,1 @@
+/Users/leoap/.mplug/github/AN3223/dotfiles/.config/mpv/scripts/auto-save-state.lua
