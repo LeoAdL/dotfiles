@@ -17,7 +17,7 @@ return {
       diagnostics = {
         underline = true,
         update_in_insert = false,
-        virtual_text = { spacing = 4, prefix = "●" },
+        virtual_text = false,
         severity_sort = true,
       },
       -- Automatically format on save
@@ -64,5 +64,11 @@ return {
         -- ["*"] = function(server, opts) end,
       },
     },
+  },
+  {
+    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    config = function()
+      require("lsp_lines").setup()
+    end,
   },
 }

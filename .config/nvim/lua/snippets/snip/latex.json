@@ -103,8 +103,7 @@
       "",
       "$0",
       "",
-      "\\end{document}",
-      ""
+      "\\end{document}"
     ],
     "description": "Generates a simple LaTeX template"
   },
@@ -225,7 +224,7 @@
       "",
       "\\begin{frame}{}",
       "  \\begin{itemize}",
-      "\t\\item $0",
+      "\\item $0",
       "  \\end{itemize}",
       "\\end{frame}",
       "",
@@ -234,8 +233,7 @@
       "\\begin{frame}[allowframebreaks]{Bibliography}",
       "  \\bibliography{}",
       "\\end{frame}",
-      "\\end{document}",
-      ""
+      "\\end{document}"
     ],
     "description": "beamer_template"
   }
