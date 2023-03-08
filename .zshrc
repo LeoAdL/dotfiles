@@ -19,10 +19,9 @@ zstyle ':fzf-tab:*' switch-group ',' '.'
 export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS="--layout=reverse --height 70% --info=inline --border --margin=1 --padding=1 \
-    --color=fg:#e5e9f0,bg:#3b4252,hl:#81a1c1 \
-    --color=fg+:#e5e9f0,bg+:#3b4252,hl+:#81a1c1 \
-    --color=info:#eacb8a,prompt:#bf6069,pointer:#b48dac \
-    --color=marker:#a3be8b,spinner:#b48dac,header:#a3be8b"
+--color=bg+:#414559,bg:#303446,spinner:#f2d5cf,hl:#e78284 \
+--color=fg:#c6d0f5,header:#e78284,info:#ca9ee6,pointer:#f2d5cf \
+--color=marker:#f2d5cf,fg+:#c6d0f5,prompt:#ca9ee6,hl+:#e78284"
 export FZF_PREVIEW_ADVANCED=true
 alias s="kitty +kitten ssh"
 alias d="kitty +kitten diff"
@@ -47,13 +46,7 @@ export VISUAL="nvim"
 export EDITOR="nvim"
 export LANG="en_US.UTF-8"
 export DBUS_SESSION_BUS_ADDRESS="unix:path=$DBUS_LAUNCHD_SESSION_BUS_SOCKET"
-export BAT_THEME="Nord"
-BLK="0B" CHR="0B" DIR="04" EXE="06" REG="00" HARDLINK="06" SYMLINK="06" MISSING="00" ORPHAN="09" FIFO="06" SOCK="0B" OTHER="06"
-export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
-export NNN_FIFO=/tmp/nnn.fifo
-export NNN_PLUG='f:fzcd;h:fzhist;o:fzopen;v:preview-tui;u:getplugs'
-export NNN_TMPFILE='/tmp/.lastd'
-alias nnn="nnn -H -P v -T V"
+export BAT_THEME="Catppuccin-frappe"
 alias pinentry='pinentry-mac'
 if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
   export PATH=/opt/homebrew/opt/ruby/bin:$PATH

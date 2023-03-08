@@ -5,7 +5,7 @@ return {
 		family = "Iosevka Term",
 	}),
 	font_size = 16.0,
-	color_scheme = "Nord (base16)",
+	color_scheme = "Catppuccin Frappe",
 	use_fancy_tab_bar = true,
 	tab_bar_at_bottom = true,
 	window_background_opacity = 0.95,
