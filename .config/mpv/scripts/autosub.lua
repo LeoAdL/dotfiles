@@ -1,0 +1,1 @@
+/Users/leoap/.mplug/github/davidde/mpv-autosub/autosub.lua
