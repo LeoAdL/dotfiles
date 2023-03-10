@@ -1,5 +1,5 @@
-"query:Today's Articles:(age=1) and ((tags # \"blog\") or (tags # \"news\"))"
-"query:Today's Videos:(age=1) and (tags # \"Youtube\")"
+"query:Today's Articles:(age<1) and ((tags # \"blog\") or (tags # \"news\"))"
+"query:Today's Videos:(age<1) and (tags # \"Youtube\")"
 https://www.ft.com/myft/following/a93f130e-d08e-4aee-a3b2-88d466123da4.rss "news" "~FT: My Topics"
 https://feeds.a.dj.com/rss/RSSMarketsMain.xml "news" "~WSJ Market"
 https://feeds.feedblitz.com/marginalrevolution "blog"

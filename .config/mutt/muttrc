@@ -4,6 +4,11 @@ source /Users/leoap/.config/mutt/accounts/laparisidelannoy@uchicago.edu.muttrc
 macro index,pager i2 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/leoaparisi@gmail.com.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to leoaparisi@gmail.com"
 macro index,pager i1 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/laparisidelannoy@uchicago.edu.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to laparisidelannoy@uchicago.edu"
 
+set header_cache=~/.cache/hcache
+set help
+set imap_idle
+set text_flowed
+
 bind index,pager,browser \Cd half-down
 bind index,pager,browser \Cu half-up
 

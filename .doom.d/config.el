@@ -39,10 +39,10 @@
       doom-big-font (font-spec :family "Iosevka" :size 24)
       doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light))
 
-;; (load-theme 'catppuccin t t)
-(setq doom-theme 'doom-nord-aurora)
-;; (setq catppuccin-flavor 'frappe) ;; or 'latte, 'macchiato, or 'mocha
-;; (catppuccin-reload)
+(load-theme 'catppuccin t t)
+(setq doom-theme 'catppuccin)
+ (setq catppuccin-flavor 'frappe) ;; or 'latte, 'macchiato, or 'mocha
+ (catppuccin-reload)
 
 (setq doom-themes-treemacs-theme "doom-colors") ; use "doom-colors" for less minimal icon theme
 (with-eval-after-load 'doom-themes
@@ -430,6 +430,8 @@
           "#+title: ${citekey}. ${title}.\n#+created: %U\n#+last_modified: %U\n\n")
          :unnarrowed t)))
 (setq citar-org-roam-capture-template-key "n")
+
+(use-package! papis)
 
 (after! org
   ;; ORG LATEX PREVIEW
@@ -1130,4 +1132,46 @@ is selected, only the bare key is returned."
 
   )
 
-(setq +notmuch-sync-backend 'mbsync)
+;; add to $DOOMDIR/config.el
+(after! mu4e
+  (setq sendmail-program (executable-find "msmtp")
+        send-mail-function #'smtpmail-send-it
+        message-sendmail-f-is-evil t
+        message-sendmail-extra-arguments '("--read-envelope-from")
+        message-send-mail-function #'message-send-mail-with-sendmail)
+  ;; how often to call it in seconds:
+  (setq   mu4e-sent-messages-behavior 'sent ;; Save sent messages
+          mu4e-headers-auto-update t                ; avoid to type `g' to update
+          mu4e-compose-signature-auto-include nil   ; I don't want a message signature
+          mu4e-use-fancy-chars t                   ; allow fancy icons for mail threads
+          mu4e-context-policy 'pick-first   ;; Start with the first context
+          mu4e-compose-context-policy 'ask) ;; Always ask which context to use when composing a new mail
+  (setq mu4e-update-interval (* 1 60))
+  (setq mu4e-attachment-dir "~/Downloads")
+  (set-email-account! "gmail"
+                      '((mu4e-sent-folder       . "/gmail/[Gmail]/Sent Mail")
+                        (mu4e-drafts-folder     . "/gmail/[Gmail]/Drafts")
+                        (mu4e-trash-folder      . "/gmail/[Gmail]/Trash")
+                        (mu4e-refile-folder     . "/gmail/[Gmail]/All Mail")
+                        (smtpmail-smtp-user     . "leoaparisi@gmail.com")
+                        (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
+                      t)
+  (set-email-account! "U Chicago"
+                      '((mu4e-sent-folder       . "/UChicago/Sent Mail")
+                        (mu4e-drafts-folder     . "/UChicago/Drafts")
+                        (mu4e-trash-folder      . "/UChicago/Trash")
+                        (mu4e-refile-folder     . "/UChicago/All Mail")
+                        (smtpmail-smtp-user     . "laparisidelannoy@uchicago.edu")
+                        (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
+                      t)
+  (setq +mu4e-gmail-accounts '(("leoaparisi@gmail.com" . "/gmail/[Gmail]")))
+  (setq mu4e-compose-dont-reply-to-self t)
+  ;; Add a unified inbox shortcut
+  (add-to-list
+   'mu4e-bookmarks
+   '(:name "Unified inbox" :query "maildir:/.*inbox/" :key ?i) t)
+(add-hook 'mu4e-compose-mode-hook 'company-mode)
+  )
+
+(mu4e-alert-set-default-style 'notifier)
+(add-hook 'after-init-hook #'mu4e-alert-enable-notifications)

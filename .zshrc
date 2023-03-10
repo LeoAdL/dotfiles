@@ -83,3 +83,5 @@ lfcd () {
     fi
 }
 alias lf=lfcd
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
