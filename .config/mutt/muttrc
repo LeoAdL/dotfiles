@@ -5,9 +5,11 @@ macro index,pager i2 '<sync-mailbox><enter-command>source /Users/leoap/.config/m
 macro index,pager i1 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/laparisidelannoy@uchicago.edu.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to laparisidelannoy@uchicago.edu"
 
 set header_cache=~/.cache/hcache
-set help
-set imap_idle
-set text_flowed
+set help = no
+set imap_idle = yes
+set text_flowed = yes
+set implicit_autoview = yes
+set message_cachedir=~/.cache/bcache
 
 bind index,pager,browser \Cd half-down
 bind index,pager,browser \Cu half-up
