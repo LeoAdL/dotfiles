@@ -187,8 +187,8 @@
        ;;zig               ; C, but simpler
 
        :email
-       ;; (mu4e +org +gmail)
-       (notmuch +org)
+        (mu4e +org +gmail)
+       ;; (notmuch +org)
        ;;(wanderlust +gmail)
 
        :app

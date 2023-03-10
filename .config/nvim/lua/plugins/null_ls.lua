@@ -7,7 +7,6 @@ return {
         sources = {
           nls.builtins.formatting.black,
           nls.builtins.formatting.latexindent,
-          nls.builtins.diagnostics.ruff,
           nls.builtins.formatting.isort,
           nls.builtins.code_actions.proselint,
           nls.builtins.formatting.ruff,

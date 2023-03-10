@@ -24,6 +24,8 @@
 
 (package! org-cite-csl-activate :recipe (:host github :repo "andras-simonyi/org-cite-csl-activate"))
 
+(package! papis :recipe (:host github :repo "papis/papis.el"))
+
 ;; (package! engrave-faces)
 
 (package! doct)

@@ -17,7 +17,7 @@ return {
       diagnostics = {
         underline = true,
         update_in_insert = false,
-        virtual_text = false,
+        virtual_text = { spacing = 4, prefix = "●" },
         severity_sort = true,
       },
       -- Automatically format on save
@@ -37,6 +37,7 @@ return {
         julials = {},
         pyright = {},
         jsonls = {},
+        ltex = {},
         lua_ls = {
           -- mason = false, -- set to false if you don't want this server to be installed with mason
           settings = {
@@ -64,11 +65,5 @@ return {
         -- ["*"] = function(server, opts) end,
       },
     },
-  },
-  {
-    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-    config = function()
-      require("lsp_lines").setup()
-    end,
   },
 }
