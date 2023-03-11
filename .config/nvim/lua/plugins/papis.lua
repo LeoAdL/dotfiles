@@ -27,5 +27,6 @@ return {
         },
       })
     end,
+    build = ":PapisStart",
   },
 }
