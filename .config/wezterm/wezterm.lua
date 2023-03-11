@@ -2,7 +2,7 @@ local wezterm = require("wezterm")
 local act = wezterm.action
 return {
 	font = wezterm.font({
-		family = "Iosevka Term",
+		family = "Iosevka",
 	}),
 	font_size = 16.0,
 	color_scheme = "Catppuccin Frappe",
