@@ -1,0 +1,9 @@
+/find
+:print
+:statusline
+:open .pdf
+:open Dropbox/ECO529_Notes.pdf
+:open zathura Downloads/CMPS.pdf
+:open Downloads/CMPS.pdf
+:q
+:help
