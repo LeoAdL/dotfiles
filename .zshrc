@@ -23,9 +23,8 @@ export FZF_DEFAULT_OPTS="--layout=reverse --height 70% --info=inline --border --
 --color=fg:#c6d0f5,header:#e78284,info:#ca9ee6,pointer:#f2d5cf \
 --color=marker:#f2d5cf,fg+:#c6d0f5,prompt:#ca9ee6,hl+:#e78284"
 export FZF_PREVIEW_ADVANCED=true
-alias s="kitty +kitten ssh"
-alias d="kitty +kitten diff"
-alias gd="git difftool --no-symlinks --dir-diff"
+alias ssh="wezterm ssh"
+alias imgcat="wezterm imgcat"
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/opt/homebrew/Caskroom/miniforge/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -85,7 +84,7 @@ lfcd () {
 alias lf=lfcd
 fb() {
     # save newline separated string into an array
-    echo "$(buku -p -f 5 | column -ts$'\t' | fzf --multi)" >> website
+    echo "$(buku -p -f 5 | column -ts$'\t' | fzf --multi)" > website
     arr=("${(f@)mapfile[website]}")
     # open each website
     for i in "${arr[@]}"; do
