@@ -53,7 +53,7 @@ options_list.unselected_margin_style =
 
 # Define a lib
 [papers]
-dir = ~/Documents/papers
+dir = ~/Library/papers
 # use whoosh as a database for papers
 database-backend = whoosh
 whoosh-schema-fields = ['doi', 'ref','author','date','tags','title','abstractNote']

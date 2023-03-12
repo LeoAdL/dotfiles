@@ -7,12 +7,12 @@ return {
       vim.g.magma_image_provider = "kitty"
     end,
     keys = {
-      { "<LocalLeader>r", "<cmd>MagmaEvaluateVisual<cr>", mode = "v", desc = "Evaluate Operator" },
-      { "<LocalLeader>r", "<CMD>MagmaEvaluateOperator<CR>", desc = "MagmaEvaluateOperator" },
-      { "<LocalLeader>rr", "<CMD>MagmaEvaluateLine<CR>", desc = "MagmaEvaluateLine" },
-      { "<LocalLeader>rc", "<CMD>MagmaReevaluateCell<CR>", desc = "MagmaReevaluateCell" },
-      { "<LocalLeader>rd", "<CMD>MagmaDelete<CR>", desc = "MagmaDelete" },
-      { "<LocalLeader>ro", "<CMD>MagmaShowOutput<CR>", desc = "MagmaShowOutput" },
+      { "<LocalLeader>R", "<cmd>MagmaEvaluateVisual<cr>", mode = "v", desc = "Evaluate Operator" },
+      { "<LocalLeader>R", "<CMD>MagmaEvaluateOperator<CR>", desc = "MagmaEvaluateOperator" },
+      { "<LocalLeader>Rr", "<CMD>MagmaEvaluateLine<CR>", desc = "MagmaEvaluateLine" },
+      { "<LocalLeader>Rc", "<CMD>MagmaReevaluateCell<CR>", desc = "MagmaReevaluateCell" },
+      { "<LocalLeader>Rd", "<CMD>MagmaDelete<CR>", desc = "MagmaDelete" },
+      { "<LocalLeader>Ro", "<CMD>MagmaShowOutput<CR>", desc = "MagmaShowOutput" },
     },
   },
 }
