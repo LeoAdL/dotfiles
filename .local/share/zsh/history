@@ -1,0 +1,38 @@
+: 1668574558:0;brew install exa\
+
+: 1670902791:0;antibody update
+: 1670903196:0;brew uninstall antibody
+: 1670903222:0;dd
+: 1670903241:0;antidote purge romkatv/powerlevel10k
+: 1670903275:0;p10k configure
+: 1670903383:0;nvim
+: 1670903517:0;enable-fzf-tab
+: 1670903531:0;antidote bundle
+: 1670903817:0;promptinit\
+prompt pure\
+\
+compinit\
+
+: 1670903844:0;autoload -U compinit promptinit\
+
+: 1670903937:0;antidote update
+: 1670904110:0;antidote load
+: 1670907735:0;antidote purge belak/zsh-utils path:editor\
+belak/zsh-utils path:history\
+belak/zsh-utils path:utility\
+belak/zsh-utils path:completion\
+
+: 1676097358:0;kp
+: 1676097364:0;kp spotify
+: 1676097369:0;fd
+: 1676097374:0;fd spotify
+: 1676097387:0;kp
+: 1676097392:0;kp Spotify
+: 1676097500:0;cd .dotfiles
+: 1676097503:0;nvim
+: 1676097531:0;antidote purge belak/zsh-utils path:editor\
+belak/zsh-utils path:history\
+belak/zsh-utils path:utility\
+belak/zsh-utils path:completion\
+
+: 1676097538:0;antidote install

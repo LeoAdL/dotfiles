@@ -1,0 +1,12 @@
+templates:
+  education-research:
+    preprocessors: []
+    pandoc:
+      from: markdown
+      to: html
+      standalone: true
+      csl: 'apa.csl'
+      toc: true
+      bibliography: /path/to/bibliography.bib
+      mathjax: true
+    postprocessors: []
