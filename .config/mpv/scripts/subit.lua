@@ -1,1 +1,0 @@
-/Users/leoap/.mplug/github/wiiaboo/mpv-scripts/subit.lua

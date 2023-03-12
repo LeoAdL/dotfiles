@@ -8,6 +8,7 @@ return {
 	color_scheme = "Catppuccin Frappe",
 	use_fancy_tab_bar = true,
 	tab_bar_at_bottom = true,
+	hide_tab_bar_if_only_one_tab = true,
 	window_background_opacity = 0.95,
 	enable_kitty_graphics = true,
 	text_background_opacity = 1,

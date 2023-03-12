@@ -83,5 +83,15 @@ lfcd () {
     fi
 }
 alias lf=lfcd
-
+fb() {
+    # save newline separated string into an array
+    echo "$(buku -p -f 5 | column -ts$'\t' | fzf --multi)" >> website
+    arr=("${(f@)mapfile[website]}")
+    # open each website
+    for i in "${arr[@]}"; do
+        index="$(echo "$i" | awk '{print $1}')"
+        buku -p "$index"
+        buku -o "$index"
+    done
+}
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
