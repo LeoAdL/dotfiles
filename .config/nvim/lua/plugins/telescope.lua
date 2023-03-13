@@ -19,6 +19,10 @@ return {
     },
   },
   {
+    "nvim-telescope/telescope-file-browser.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+  },
+  {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -33,6 +37,7 @@ return {
         },
       })
       require("telescope").load_extension("undo")
+      require("telescope").load_extension("file_browser")
       -- optional: vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
     end,
     keys = {
