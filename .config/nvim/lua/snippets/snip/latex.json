@@ -110,7 +110,7 @@
   "Beamer": {
     "prefix": "beamer-slides",
     "body": [
-      "% !TEX program = lualatex",
+      "% !TEX program = xelatex",
       "\\documentclass[12pt,aspectratio=169]{beamer}",
       "\\usepackage[american]{babel}",
       "\\usetheme[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]{metropolis}",
