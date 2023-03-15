@@ -9,7 +9,7 @@ return {
 	use_fancy_tab_bar = true,
 	tab_bar_at_bottom = true,
 	hide_tab_bar_if_only_one_tab = true,
-	window_background_opacity = 0.95,
+	window_background_opacity = 0.97,
 	enable_kitty_graphics = true,
 	text_background_opacity = 1,
 	native_macos_fullscreen_mode = true,

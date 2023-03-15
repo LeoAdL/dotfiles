@@ -98,4 +98,5 @@ rga-fzf() {
     xdg-open "$file"
 }
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"

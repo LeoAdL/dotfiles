@@ -52,3 +52,5 @@ fpath+=( /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.c
 source /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-mattmc3-SLASH-zman/zman.plugin.zsh
 fpath+=( /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-randomphrase-SLASH-vterm-zsh-plugin )
 source /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-randomphrase-SLASH-vterm-zsh-plugin/vterm.plugin.zsh
+fpath+=( /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-ChrisPenner-SLASH-session-sauce )
+source /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-ChrisPenner-SLASH-session-sauce/session-sauce.plugin.zsh
