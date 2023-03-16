@@ -9,7 +9,7 @@ return {
 	tab_bar_at_bottom = true,
 	hide_tab_bar_if_only_one_tab = true,
 	use_fancy_tab_bar = false,
-	front_end = WebGpu,
+	front_end = "WebGpu",
 	window_background_opacity = 1.00,
 	enable_kitty_graphics = true,
 	text_background_opacity = 1,
