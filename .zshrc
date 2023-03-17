@@ -16,7 +16,6 @@ export FZF_DEFAULT_OPTS="--layout=reverse --height 70% --info=inline --border --
 --color=fg:#c6d0f5,header:#e78284,info:#ca9ee6,pointer:#f2d5cf \
 --color=marker:#f2d5cf,fg+:#c6d0f5,prompt:#ca9ee6,hl+:#e78284"
 export FZF_PREVIEW_ADVANCED=true
-alias ssh="wezterm ssh"
 alias imgcat="wezterm imgcat"
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

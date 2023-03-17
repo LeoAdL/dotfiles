@@ -8,7 +8,7 @@ return {
 	color_scheme = "Catppuccin Frappe",
 	tab_bar_at_bottom = true,
 	hide_tab_bar_if_only_one_tab = true,
-	front_end = "WebGpu",
+	window_background_opacity = 0.97,
 	window_decorations = "RESIZE",
 	inactive_pane_hsb = {
 		-- NOTE: these values are multipliers, applied on normal pane values

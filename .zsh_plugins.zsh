@@ -42,6 +42,8 @@ fpath+=( /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.c
 source /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-zsh-vi-more-SLASH-evil-registers/evil-registers.plugin.zsh
 fpath+=( /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-conda-incubator-SLASH-conda-zsh-completion )
 source /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-conda-incubator-SLASH-conda-zsh-completion/conda-zsh-completion.plugin.zsh
+fpath+=( /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-kalsowerus-SLASH-zsh-bitwarden )
+source /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-kalsowerus-SLASH-zsh-bitwarden/zsh-bitwarden.plugin.zsh
 fpath+=( /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-wfxr-SLASH-forgit )
 source /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-wfxr-SLASH-forgit/forgit.plugin.zsh
 fpath+=( /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-smeagol74-SLASH-zsh-fzf-pass )
@@ -54,3 +56,13 @@ fpath+=( /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.c
 source /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-randomphrase-SLASH-vterm-zsh-plugin/vterm.plugin.zsh
 fpath+=( /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-ChrisPenner-SLASH-session-sauce )
 source /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-ChrisPenner-SLASH-session-sauce/session-sauce.plugin.zsh
+fpath+=( /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-z-shell-SLASH-zsh-fancy-completions )
+source /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-z-shell-SLASH-zsh-fancy-completions/zsh-fancy-completions.plugin.zsh
+fpath+=( /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-sinetoami-SLASH-antibody-completion )
+source /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-sinetoami-SLASH-antibody-completion/antibody-completion.plugin.zsh
+fpath+=( /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-clarketm-SLASH-zsh-completions )
+source /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-clarketm-SLASH-zsh-completions/zsh-completions.plugin.zsh
+fpath+=( /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-zchee-SLASH-zsh-completions )
+source /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-zchee-SLASH-zsh-completions/zsh-completions.plugin.zsh
+fpath+=( /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-z-shell-SLASH-zzcomplete )
+source /Users/leoap/Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-z-shell-SLASH-zzcomplete/zzcomplete.plugin.zsh

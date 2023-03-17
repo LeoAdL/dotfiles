@@ -2,7 +2,7 @@ env:
   TERM: xterm-256color
 window:
   decorations: buttonless
-  opacity: 1
+  opacity: 0.97
   startup_mode: Windowed
   dynamic_title: true
   option_as_alt: Both
