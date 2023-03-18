@@ -5,7 +5,6 @@
 : 1670903222:0;dd
 : 1670903241:0;antidote purge romkatv/powerlevel10k
 : 1670903275:0;p10k configure
-: 1670903383:0;nvim
 : 1670903517:0;enable-fzf-tab
 : 1670903531:0;antidote bundle
 : 1670903817:0;promptinit\
@@ -17,12 +16,6 @@ compinit\
 
 : 1670903937:0;antidote update
 : 1670904110:0;antidote load
-: 1670907735:0;antidote purge belak/zsh-utils path:editor\
-belak/zsh-utils path:history\
-belak/zsh-utils path:utility\
-belak/zsh-utils path:completion\
-
-: 1676097358:0;kp
 : 1676097364:0;kp spotify
 : 1676097369:0;fd
 : 1676097374:0;fd spotify
@@ -36,3 +29,55 @@ belak/zsh-utils path:utility\
 belak/zsh-utils path:completion\
 
 : 1676097538:0;antidote install
+: 1679097481:0;antidote purge greymd/tmux-xpanes
+: 1679097602:0;antidote purge ChrisPenner/session-sauce
+: 1679097633:0;antidote purge kalsowerus/zsh-bitwarden
+: 1679097788:0;env STARSHIP_LOG=trace starship module rust
+: 1679097800:0;env STARSHIP_LOG=trace starship timings
+: 1679097851:0;for plugin ($plugins); do\
+  timer=$(($(gdate +%s%N)/1000000))\
+  if [ -f $ZSH_CUSTOM/plugins/$plugin/$plugin.plugin.zsh ]; then\
+    source $ZSH_CUSTOM/plugins/$plugin/$plugin.plugin.zsh\
+  elif [ -f $ZSH/plugins/$plugin/$plugin.plugin.zsh ]; then\
+    source $ZSH/plugins/$plugin/$plugin.plugin.zsh\
+  fi\
+  now=$(($(gdate +%s%N)/1000000))\
+  elapsed=$(($now-$timer))\
+  echo $elapsed":" $plugin\
+done
+: 1679097893:0;zmodload zsh/zprof
+: 1679097987:0;antidote purge zdharma-continuum/fast-syntax-highlighting
+: 1679098197:0;antidote purge z-shell/F-Sy-H
+: 1679098231:0;nvim .zsh_plugins.txt
+: 1679098262:0;zprof
+: 1679098350:0;nvim .zshrc
+: 1679098410:0;for i in $(seq 1 10); do /usr/bin/time $SHELL -i -c exit; done
+: 1679098461:0;exec zsh
+: 1679098465:0;antidote update
+: 1679098491:0;unset PARAMETER
+: 1679098493:0;unset *
+: 1679098524:0;nvim .zsh_plugins.txt
+: 1679098551:0;lf
+: 1679098593:0;stow .
+: 1679098599:0;antidote update
+: 1679098606:0;nvim .zsh_plugins.txt
+: 1679098649:0;lf
+: 1679098688:0;antidote update
+: 1679098707:0;unset --a
+: 1679098727:0;zprof
+: 1679098731:0;zmodload zsh/zprof
+: 1679098732:0;zprof
+: 1679098759:0;lf
+: 1679098806:0;antidote update
+: 1679098809:0;lf
+: 1679099024:0;antidote home
+: 1679099028:0;lf
+: 1679099094:0;antidote update
+: 1679099109:0;antidote install
+: 1679099111:0;antidote install *
+: 1679099117:0;antidote bundle
+: 1679099120:0;antidote bundle 
+: 1679099128:0;lf
+: 1679099272:0;for i in $(seq 1 10); do /usr/bin/time $SHELL -i -c exit; done
+: 1679099285:0;cd .dotfiles
+: 1679099290:0;lazygit

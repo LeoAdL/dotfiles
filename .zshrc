@@ -1,9 +1,7 @@
 # initialize plugins statically with ${ZDOTDIR:-~}/.zsh_plugins.txt
 bindkey -v
 source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
-
 antidote load
-autoload -Uz compinit && compinit
 
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
@@ -36,7 +34,6 @@ export PATH="/Applications/MacPorts/Emacs.app/Contents/MacOS:$PATH"
 export VISUAL="nvim"
 export EDITOR="nvim"
 export LANG="en_US.UTF-8"
-export DBUS_SESSION_BUS_ADDRESS="unix:path=$DBUS_LAUNCHD_SESSION_BUS_SOCKET"
 export BAT_THEME="Catppuccin-frappe"
 alias pinentry='pinentry-mac'
 if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
@@ -46,16 +43,12 @@ fi
 export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
 export LESSOPEN="|$(brew --prefix)/bin/lesspipe.sh %s"
 export PATH="/Users/leoap/.local/bin:$PATH"
-export PATH="/opt/homebrew/opt/cyrus-sasl/sbin:$PATH"
-export PATH="/opt/homebrew/opt/qt@5/bin:$PATH"
-export PATH="/opt/homebrew/opt/pyqt@5/bin:$PATH"
 export PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
 export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
 export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@3/lib/pkgconfig"
 export PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH"
-export PYTHONPATH="/opt/homebrew/opt/notmuch/libexec/lib/python3.11/site-packages"$PYTHONPATH
 export MPV_HOME="/Users/leoap/.config/mpv"
 lfcd () {
     tmp="$(mktemp)"
