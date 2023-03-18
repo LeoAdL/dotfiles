@@ -6,7 +6,6 @@
 : 1670903241:0;antidote purge romkatv/powerlevel10k
 : 1670903275:0;p10k configure
 : 1670903517:0;enable-fzf-tab
-: 1670903531:0;antidote bundle
 : 1670903817:0;promptinit\
 prompt pure\
 \
@@ -14,21 +13,17 @@ compinit\
 
 : 1670903844:0;autoload -U compinit promptinit\
 
-: 1670903937:0;antidote update
 : 1670904110:0;antidote load
 : 1676097364:0;kp spotify
 : 1676097369:0;fd
 : 1676097374:0;fd spotify
 : 1676097387:0;kp
 : 1676097392:0;kp Spotify
-: 1676097500:0;cd .dotfiles
-: 1676097503:0;nvim
 : 1676097531:0;antidote purge belak/zsh-utils path:editor\
 belak/zsh-utils path:history\
 belak/zsh-utils path:utility\
 belak/zsh-utils path:completion\
 
-: 1676097538:0;antidote install
 : 1679097481:0;antidote purge greymd/tmux-xpanes
 : 1679097602:0;antidote purge ChrisPenner/session-sauce
 : 1679097633:0;antidote purge kalsowerus/zsh-bitwarden
@@ -45,39 +40,63 @@ belak/zsh-utils path:completion\
   elapsed=$(($now-$timer))\
   echo $elapsed":" $plugin\
 done
-: 1679097893:0;zmodload zsh/zprof
 : 1679097987:0;antidote purge zdharma-continuum/fast-syntax-highlighting
 : 1679098197:0;antidote purge z-shell/F-Sy-H
-: 1679098231:0;nvim .zsh_plugins.txt
-: 1679098262:0;zprof
 : 1679098350:0;nvim .zshrc
-: 1679098410:0;for i in $(seq 1 10); do /usr/bin/time $SHELL -i -c exit; done
-: 1679098461:0;exec zsh
-: 1679098465:0;antidote update
 : 1679098491:0;unset PARAMETER
 : 1679098493:0;unset *
-: 1679098524:0;nvim .zsh_plugins.txt
-: 1679098551:0;lf
 : 1679098593:0;stow .
-: 1679098599:0;antidote update
 : 1679098606:0;nvim .zsh_plugins.txt
-: 1679098649:0;lf
-: 1679098688:0;antidote update
 : 1679098707:0;unset --a
-: 1679098727:0;zprof
 : 1679098731:0;zmodload zsh/zprof
 : 1679098732:0;zprof
-: 1679098759:0;lf
-: 1679098806:0;antidote update
-: 1679098809:0;lf
 : 1679099024:0;antidote home
-: 1679099028:0;lf
-: 1679099094:0;antidote update
 : 1679099109:0;antidote install
 : 1679099111:0;antidote install *
 : 1679099117:0;antidote bundle
 : 1679099120:0;antidote bundle 
-: 1679099128:0;lf
-: 1679099272:0;for i in $(seq 1 10); do /usr/bin/time $SHELL -i -c exit; done
 : 1679099285:0;cd .dotfiles
-: 1679099290:0;lazygit
+: 1679099388:0;papis open gov
+: 1679099391:0;papis open government
+: 1679099533:0;exec zsh
+: 1679099536:0;time exec zsh
+: 1679099539:0;time exec zsh =l
+: 1679099541:0;time exec zsh -l
+: 1679099596:0;rga
+: 1679099605:0;fb-rga
+: 1679099607:0;bf
+: 1679099608:0;fb
+: 1679107460:0;cd
+: 1679107469:0;tmux a
+: 1679107481:0;lazygit
+: 1679107651:0;for i in $(seq 1 10); do /usr/bin/time $SHELL -i -c exit; done
+: 1679107657:0;lf
+: 1679107739:0;antidote upg
+: 1679107754:0;brew update
+: 1679108325:0;antidote update
+: 1679109013:0;topgrade
+: 1679110143:0;iina "https://www.youtube.com/watch?time_continue=5&v=FdX6FFGVVFQ"
+: 1679111403:0;nvim .fzf/BUILD.md 
+: 1679111581:0;brew install pandoc
+: 1679111598:0;tmux 
+: 1679111605:0;neomutt
+: 1679111621:0;nvim
+: 1679155217:0;tmux a
+: 1679155248:0;topgrade
+: 1679155260:0;nvim 
+: 1679155269:0;cd
+: 1679155274:0;nvim .dotfiles/.config/topgrade.toml 
+: 1679155294:0;topgrade
+: 1679155309:0;nvim .dotfiles/.config/topgrade.toml 
+: 1679155317:0;topgrade
+: 1679155411:0;nvim
+: 1679155431:0;antidote update
+: 1679155438:0;git add
+: 1679155441:0;cd .dotfiles
+: 1679155443:0;git add
+: 1679155447:0;ga
+: 1679155458:0;gi
+: 1679155478:0;alias
+: 1679155503:0;forgit 
+: 1679155538:0;lazygit
+: 1679155570:0;forgit::add
