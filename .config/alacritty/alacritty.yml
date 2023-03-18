@@ -3,7 +3,7 @@ env:
 window:
   decorations: buttonless
   opacity: 0.97
-  startup_mode: Windowed
+  startup_mode: Maximized
   dynamic_title: true
   option_as_alt: Both
 font:
