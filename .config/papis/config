@@ -27,9 +27,7 @@ default-library = papers
 picktool = fzf
 fzf-extra-flags = ["--ansi", "--multi", "-i",
                    "--preview", "echo {} | sed -r 's/~~/\\n/g; /^ *$/d' ",
-                   "--preview-window", "bottom:wrap:20%%",
-                   "--color", "preview-fg:#F6E6E4,preview-bg:#5B6D5B"]
-
+                   "--preview-window", "bottom:wrap:20%%"]
 fzf-extra-bindings = ["ctrl-s:jump",
                       "ctrl-t:toggle-preview"]
 
