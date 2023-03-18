@@ -1,34 +1,17 @@
-#
-# .zsh_plugins.txt
-#
+birdhackor/zsh-exa-ls-plugin
+greymd/tmux-xpanes
+hlissner/zsh-autopair
+unixorn/fzf-zsh-plugin
+wfxr/forgit
+smeagol74/zsh-fzf-pass
+redxtech/zsh-fzf-utils
+mattmc3/zman
+ChrisPenner/session-sauce
 
-### Overview
-#
-# The `.zsh_plugins.txt` file is used by antidote to configure Zsh bundles. Bundles are
-# just a fancy way of referring to Zsh utilities, frameworks, prompts, or plugins.
-# `.zsh_plugins.txt` is used by antidote to generate a static `.zsh_plugins.zsh` file,
-# which can then be sourced in your `.zshrc`. You can use this file as a starting point
-# for your own config. Strip out instructional comments (ie: lines beginning with a '#')
-# and any plugins you don't need, then add what you like and make it yours!
-#
-# NOTE: Order matters in this file! Some bundles need to be last, and others are
-# prerequisites. Read the documentation for the plugins you use to ensure proper
-# configuration.
-#
-###
+belak/zsh-utils path:history
+belak/zsh-utils path:utility
+#belak/zsh-utils path:completion
 
-### Prompts
-#
-# You can make certain themes available to the built-in Zsh prompt command using the
-# `kind:fpath` annotation. A theme is not active for the prompt until this command is
-# run:
-#
-#   autoload -Uz promptinit && promptinit
-#   prompt promptname
-#
-###
-
-ohmyzsh/ohmyzsh path:plugins/colored-man-pages
 ### Completions
 #
 # You may want to add some additional completions to Zsh. Completions look in your fpath
@@ -44,63 +27,17 @@ ohmyzsh/ohmyzsh path:plugins/colored-man-pages
 #
 ###
 zsh-users/zsh-completions path:src kind:fpath
-Aloxaf/fzf-tab
-olets/zsh-abbr    kind:defer
+belak/zsh-utils path:completion
+b0o/zfzf
 
 
-# belak/zsh-utils path:editor
-# belak/zsh-utils path:history
-# belak/zsh-utils path:utility
+kalsowerus/zsh-bitwarden
+joshskidmore/zsh-fzf-history-search 
+Aloxaf/fzf-tab kind:defer
+Freed-Wu/fzf-tab-source kind:defer
 
-### Deferred Plugins
-#
-# Antidote allows you to defer loading plugins. This is similar to concepts like "turbo
-# mode" in other plugin managers. Antidote handles deferring plugins by leveraging
-# romkatv/zsh-defer, which "defers execution of a zsh command until zsh has nothing else
-# to do and is waiting for user input". In general, you should not defer plugins unless
-# you know for sure they properly support deferred loading, and there are no adverse
-# side-effects (see: https://github.com/romkatv/zsh-defer#Caveats). However, for
-# certain plugins, this can greatly increase your zsh startup speed.
-#
-###
-# Syntax highlighting
-#zsh-users/zsh-syntax-highlighting kind:defer
 zdharma-continuum/fast-syntax-highlighting kind:defer
 
 
-### Plugins
-#
-# Plugins are the simplest kind of bundles. You can point to a full git URL, or if you
-# assume GitHub.com, then you can use the user/repo shorthand.
-#
-###
-# Popular plugins for Fish-like behavior:
-mattmc3/zfunctions
-zsh-users/zsh-autosuggestions
-Freed-Wu/fzf-tab-source
-amyreese/zsh-titles
-b0o/zfzf
-birdhackor/zsh-exa-ls-plugin
-changyuheng/zsh-interactive-cd
-chitoku-k/fzf-zsh-completions
-IngoMeyer441/zsh-easy-motion
-greymd/tmux-xpanes
-hlissner/zsh-autopair
-# jeffreytse/zsh-vi-mode
-joshskidmore/zsh-fzf-history-search
-unixorn/fzf-zsh-plugin
-zsh-vi-more/evil-registers
-conda-incubator/conda-zsh-completion
-kalsowerus/zsh-bitwarden
-wfxr/forgit
-smeagol74/zsh-fzf-pass
-redxtech/zsh-fzf-utils
-mattmc3/zman
-randomphrase/vterm-zsh-plugin
-ChrisPenner/session-sauce
-z-shell/zsh-fancy-completions
-sinetoami/antibody-completion
-clarketm/zsh-completions
-zchee/zsh-completions
-# z-shell/F-Sy-H
-z-shell/zzcomplete
+zsh-users/zsh-autosuggestions kind:defer
+
