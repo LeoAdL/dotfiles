@@ -100,3 +100,55 @@ done
 : 1679155503:0;forgit 
 : 1679155538:0;lazygit
 : 1679155570:0;forgit::add
+: 1679155604:0;forgit::checkout::commit
+: 1679155649:0;lazygit
+: 1679155659:0;forgit::checkout::commit
+: 1679155673:0;gc
+: 1679155678:0;alias
+: 1679155695:0;gsp
+: 1679159337:0;git commit
+: 1679159366:0;forgit::stash::push
+: 1679159376:0;git push
+: 1679159388:0;lazygit
+: 1679159407:0;git pull
+: 1679159507:0;topgrade
+: 1679160014:0;git push\
+kkkkkkkkkkkkkkkkkkq
+: 1679170636:0;topgrade
+: 1679170817:0;lsd
+: 1679170821:0;brew install lsd
+: 1679170863:0;lsd
+: 1679170865:0;exa
+: 1679170872:0;exa --icons
+: 1679170886:0;brew uninstall exa
+: 1679170896:0;antidote purge birdhackor/zsh-exa-ls-plugin
+: 1679170909:0;nvim .zshrc
+: 1679170937:0;lsd
+: 1679170939:0;ls
+: 1679170941:0;nvim .zshrc
+: 1679170968:0;lsd
+: 1679171115:0;nvim .dotfiles/.config/papis/config 
+: 1679171146:0;papis open government
+: 1679171172:0;nvim .dotfiles/.config/papis/config 
+: 1679171202:0;papis open government
+: 1679171215:0;nvim .dotfiles/.config/papis/config 
+: 1679171226:0;papis open government
+: 1679171246:0;nvim .dotfiles/.config/papis/config 
+: 1679171271:0;papis open government
+: 1679171277:0;nvim .dotfiles/.config/papis/config 
+: 1679171304:0;papis open government
+: 1679171313:0;nvim .dotfiles/.config/papis/config 
+: 1679171332:0;topgrade
+: 1679171582:0;iina "https://www.youtube.com/watch?time_continue=5&v=FdX6FFGVVFQ"
+: 1679174068:0;nvim
+: 1679178215:0;papis open government
+: 1679178235:0;papis open government
+: 1679178239:0;nvim
+: 1679178257:0;papis open government
+: 1679178269:0;papis open gov
+: 1679178273:0;papis open tomas
+: 1679179498:0;nvim
+: 1679179517:0;cd .dotfiles
+: 1679179519:0;ga
+: 1679179524:0;gi
+: 1679179532:0;ga
