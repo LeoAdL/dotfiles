@@ -152,3 +152,82 @@ kkkkkkkkkkkkkkkkkkq
 : 1679179519:0;ga
 : 1679179524:0;gi
 : 1679179532:0;ga
+: 1679179573:0;git commit "Clean Telescope/Papis"
+: 1679179582:0;git commit
+: 1679179605:0;git push
+: 1679179628:0;gitignore add
+: 1679179642:0;gi
+: 1679179672:0;lf
+: 1679179719:0;nvim
+: 1679179728:0;lf
+: 1679179876:0;iina "https://www.youtube.com/watch?v=4Q3LDx1sR-w"
+: 1679184073:0;cd
+: 1679184098:0;papis add -f Library/CloudStorage/GoogleDrive-leoaparisi@gmail.com/Shared\ drives/pres2017/Macronleaks/downloaded/langannerch/2016/Home\ sweet\ home\ -\ Vestiaire\ Collective\ \(communication@nl.vestiairecollective.com\)\ -\ 2016-12-21\ 2315.eml  
+: 1679184131:0;papis add Wang
+: 1679184145:0;papis add Downloads/SW_live.pdf wang
+: 1679184155:0;papis addto Downloads/SW_live.pdf wang
+: 1679184164:0;papis addto wang -f Downloads/SW_live.pdf 
+: 1679184172:0;papis open wang
+: 1679184390:0;papis browse supera
+: 1679184410:0;papis zotero serve
+: 1679184457:0;papis browse supera
+: 1679184462:0;papis zotero serve
+: 1679184515:0;papis browse supera
+: 1679184524:0;papis browse falling
+: 1679184574:0;papis addto supera -f Downloads/Supera_JMP_Wharton.pdf 
+: 1679184595:0;papis add Downloads/Supera_JMP_Wharton.pdf 
+: 1679184615:0;papis zotero serve
+: 1679184644:0;papis browse falling
+: 1679184651:0;papis remove
+: 1679184658:0;papis -h
+: 1679184663:0;papis rm
+: 1679184666:0;papis rm falling
+: 1679184679:0;papis browse falling
+: 1679184693:0;papis addto falling -f Downloads/Supera_JMP_Wharton.pdf 
+: 1679184699:0;papis open falling
+: 1679184832:0;sioyek Downloads/Supera_JMP_Wharton.pdf 
+: 1679184845:0;sioyek Downloads/Supera_JMP_Whartonbbbu.pdf 
+: 1679184852:0;zathura Downloads/Supera_JMP_Whartonbbbu.pdf 
+: 1679184875:0;zathura Downloads/Supera_JMP_Wharton.pdf 
+: 1679184982:0;cd .dotfiles
+: 1679185016:0;cd
+: 1679185034:0;exa .dotfiles
+: 1679185043:0;z .dotfiles
+: 1679185052:0;lf
+: 1679185240:0;mkdir -p Library/Application Support/sioyek/
+: 1679185242:0;lf
+: 1679185263:0;cd .dotfiles
+: 1679185265:0;stow .
+: 1679185274:0;lf
+: 1679185341:0;stow .
+: 1679185343:0;lf
+: 1679185407:0;stow .
+: 1679185409:0;lf
+: 1679185419:0;cd
+: 1679185421:0;cd .dotfiles
+: 1679185426:0;ga
+: 1679185440:0;git commit
+: 1679185451:0;git push
+: 1679185469:0;lf
+: 1679185600:0;nvim prefs_user.config
+: 1679185751:0;cd
+: 1679185753:0;cd .dotfiles
+: 1679185754:0;nvim
+: 1679186027:0;fzf
+: 1679186057:0;grep
+: 1679186062:0;grep catpuccin
+: 1679186066:0;rg
+: 1679186068:0;rga
+: 1679186074:0;rga catpuccin
+: 1679186078:0;rga catppuccin
+: 1679186081:0;rg catppuccin
+: 1679186083:0;fzf
+: 1679186093:0;source .zshrc
+: 1679186097:0;fzf
+: 1679186104:0;nvim
+: 1679186123:0;cd .dotfiles
+: 1679186126:0;nvim
+: 1679186198:0;lf
+: 1679186221:0;nvim
+: 1679186454:0;cd .dotfiles
+: 1679186457:0;lazygit
