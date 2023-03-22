@@ -509,3 +509,29 @@ kkkkkkkkkkkkkkkkkkq
 : 1679498962:0;nvim
 : 1679498980:0;brew uninstall latexindent
 : 1679498994:0;brew install ltex-ls
+: 1679501122:0;antidote update
+: 1679501140:0;zellij
+: 1679501243:0;nvim .dotfiles/.config/zellij/config.kdl
+: 1679501268:0;zellij
+: 1679501284:0;tmux a
+: 1679521313:0;nvim .dotfiles/.zshrc
+: 1679521331:0;nvim .zsh_plugins.zsh
+: 1679521344:0;nvim .zsh_plugins.txt
+: 1679521680:0;zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+: 1679521693:0;zstyle ':fzf-tab:*' fzf-command fzf
+: 1679521694:0;zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+: 1679521704:0;zstyle ':fzf-tab:*' fzf-command fzf
+: 1679521708:0;nvim .zshrc
+: 1679521981:0;brew install exa
+: 1679522005:0;cd org/portfolio_het_agents
+: 1679522163:0;nvim .zshrc
+: 1679522280:0;source .zshrc
+: 1679522294:0;cd Pictures
+: 1679522329:0;cd Screenshots
+: 1679522332:0;chafa watch\?v=LXb3EKWsInQ-0001.png watch\?v=LXb3EKWsInQ-0001.png
+: 1679522340:0;tmux a
+: 1679522365:0;nvim .zsh_plugins.txt
+: 1679522377:0;antidote purge Freed-Wu/fzf-tab-source
+: 1679522395:0;nvim .zsh_plugins.txt
+: 1679522607:0;cd .dotfiles
+: 1679522617:0;ga
