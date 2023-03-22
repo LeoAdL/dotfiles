@@ -1,8 +1,6 @@
 # initialize plugins statically with ${ZDOTDIR:-~}/.zsh_plugins.txt
-bindkey -v
 source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
 antidote load
-
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
 
