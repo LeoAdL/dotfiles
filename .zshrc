@@ -1,6 +1,30 @@
 # initialize plugins statically with ${ZDOTDIR:-~}/.zsh_plugins.txt
 source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
 antidote load
+# fzf Config
+export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
+export FZF_DEFAULT_OPTS="--layout=reverse --height 70% --info=inline --border --margin=1 --padding=1 \
+--color fg:#D8DEE9,bg:#2E3440,hl:#A3BE8C,fg+:#D8DEE9,bg+:#434C5E,hl+:#A3BE8C \
+--color pointer:#BF616A,info:#4C566A,spinner:#4C566A,header:#4C566A,prompt:#81A1C1,marker:#EBCB8B"
+export FZF_PREVIEW_ADVANCED=true
+# Preview file content using bat (https://github.com/sharkdp/bat)
+
+# fzf shortcuts
+export FZF_CTRL_T_COMMAND="fd --type f --strip-cwd-prefix --hidden --follow --exclude .git"
+export FZF_CTRL_T_OPTS="
+--preview 'bat --color=always --style=numbers {}'
+--bind 'ctrl-/:change-preview-window(down|hidden|)'"
+export FZF_CTRL_R_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_R_OPTS="
+--preview 'echo {}' --preview-window up:3:hidden:wrap
+--bind 'ctrl-/:toggle-preview'
+--bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+--color header:italic
+--header 'Press CTRL-Y to copy command into clipboard'"
+export FZF_ALT_C_COMMAND="$FZF_CTRL_T_COMMAND"
+export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
+
+# ZSH fzf-tab
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
 
@@ -34,14 +58,6 @@ zstyle ':fzf-tab:complete:brew-(install|uninstall|search|info):*-argument-rest' 
 zstyle ':fzf-tab:complete:tldr:argument-1' fzf-preview 'tldr --color always $word'
 zstyle ':fzf-tab:complete:-command-:*' fzf-preview \
     ¦ '(out=$(tldr --color always "$word") 2>/dev/null && echo $out) || (out=$(MANWIDTH=$FZF_PREVIEW_COLUMNS man "$word") 2>/dev/null && echo $out) || (out=$(which "$word") && echo $out) || echo "${(P)word}"'
-export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_DEFAULT_OPTS="--layout=reverse --height 70% --info=inline --border --margin=1 --padding=1 \
---color=fg:#e5e9f0,bg:#3b4252,hl:#81a1c1 \
---color=fg+:#e5e9f0,bg+:#3b4252,hl+:#81a1c1 \
---color=info:#eacb8a,prompt:#bf6069,pointer:#b48dac \
---color=marker:#a3be8b,spinner:#b48dac,header:#a3be8b"
-export FZF_PREVIEW_ADVANCED=true
 alias imgcat="wezterm imgcat"
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -107,15 +123,15 @@ fb() {
 rga-fzf() {
     RG_PREFIX="rga --files-with-matches"
     local file
-    file="$(
-        FZF_DEFAULT_COMMAND="$RG_PREFIX '$1'" \
-            fzf --sort --preview="[[ ! -z {} ]] && rga --pretty --context 5 {q} {}" \
-            --phony -q "$1" \
-            --bind "change:reload:$RG_PREFIX {q}" \
-            --preview-window="70%:wrap"
-    )" &&
-    echo "opening $file" &&
-    xdg-open "$file"
+file="$(
+    FZF_DEFAULT_COMMAND="$RG_PREFIX '$1'" \
+        fzf --sort --preview="[[ ! -z {} ]] && rga --pretty --context 5 {q} {}" \
+        --phony -q "$1" \
+        --bind "change:reload:$RG_PREFIX {q}" \
+        --preview-window="70%:wrap"
+)" &&
+echo "opening $file" &&
+xdg-open "$file"
 }
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval "$(zoxide init zsh)"
