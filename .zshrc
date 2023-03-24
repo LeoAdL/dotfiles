@@ -10,7 +10,7 @@ export FZF_PREVIEW_ADVANCED=true
 # Preview file content using bat (https://github.com/sharkdp/bat)
 
 # fzf shortcuts
-export FZF_CTRL_T_COMMAND="fd --type f --strip-cwd-prefix --hidden --follow --exclude .git"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="
 --preview 'bat --color=always --style=numbers {}'
 --bind 'ctrl-/:change-preview-window(down|hidden|)'"
@@ -21,7 +21,7 @@ export FZF_CTRL_R_OPTS="
 --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
 --color header:italic
 --header 'Press CTRL-Y to copy command into clipboard'"
-export FZF_ALT_C_COMMAND="$FZF_CTRL_T_COMMAND"
+export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
 
 # ZSH fzf-tab
