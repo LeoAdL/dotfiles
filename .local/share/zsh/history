@@ -495,3 +495,20 @@ kkkkkkkkkkkkkkkkkkq
 : 1679609499:0;neomutt
 : 1679625992:0;topgrade
 : 1679625998:0;tmux a
+: 1679626546:0;antidote install
+: 1679626553:0;antidote update
+: 1679626581:0;sudo tlmgr update --all
+: 1679626907:0;nvim
+: 1679626917:0;cd
+: 1679626951:0;tmux a
+: 1679626974:0;nvim .zshrc
+: 1679628800:0;fzf
+: 1679629535:0;brew install rg
+: 1679629648:0;lf Library/papers/5bf2918e0266f45239841a7b9d98e429/a-perturbational-approach-for-approximating-heterogeneous-agent-models.pdf
+: 1679629658:0;cd
+: 1679629699:0;builtin cd -- .davmail.properties
+: 1679629702:0;builtin cd -- .zshrc
+: 1679629709:0;builtin cd -- bin/activate
+: 1679629719:0;.bashrc 
+: 1679629762:0;builtin cd -- .dotfiles/
+: 1679629766:0;lazygit
