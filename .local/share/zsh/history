@@ -61,10 +61,8 @@ done
 : 1679099608:0;fb
 : 1679107651:0;for i in $(seq 1 10); do /usr/bin/time $SHELL -i -c exit; done
 : 1679107739:0;antidote upg
-: 1679107754:0;brew update
 : 1679111403:0;nvim .fzf/BUILD.md 
 : 1679111581:0;brew install pandoc
-: 1679111598:0;tmux 
 : 1679155260:0;nvim 
 : 1679155309:0;nvim .dotfiles/.config/topgrade.toml 
 : 1679155443:0;git add
@@ -123,7 +121,6 @@ kkkkkkkkkkkkkkkkkkq
 : 1679186078:0;rga catppuccin
 : 1679186081:0;rg catppuccin
 : 1679186097:0;fzf
-: 1679186454:0;cd .dotfiles
 : 1679186629:0;nvim Library/Application\ Support/sioyek/prefs_user.config 
 : 1679186913:0;nvim .config/newsboat/dark 
 : 1679187203:0;nvim .config/mutt/muttrc 
@@ -137,8 +134,6 @@ kkkkkkkkkkkkkkkkkkq
 : 1679187511:0;notmuch help
 : 1679187515:0;notmuch setup
 : 1679187552:0;notmuch new
-: 1679187568:0;mbsync -a
-: 1679189768:0;zellij
 : 1679190057:0;nvim .dotfiles/.config/alacritty/alacritty.yml 
 : 1679190084:0;neomutt 
 : 1679268514:0;mamba update --all
@@ -156,7 +151,6 @@ kkkkkkkkkkkkkkkkkkq
 : 1679269207:0;antidote install srijanshetty/zsh-pandoc-completion
 : 1679269229:0;antidote list
 : 1679269406:0;antidote install jeffreytse/zsh-vi-mode
-: 1679269428:0;nvim .zshrc
 : 1679269496:0;papis open Pflueger
 : 1679270035:0;papis open inflation stock
 : 1679270037:0;papis open inflation 
@@ -205,7 +199,6 @@ kkkkkkkkkkkkkkkkkkq
 : 1679271309:0;pip3 install papis
 : 1679271345:0;pip3 install --upgrade papis
 : 1679271363:0;papis uninstall papis-zotero papis
-: 1679271370:0;pip uninstall papis-zotero papis
 : 1679271390:0;papis open kaul
 : 1679271400:0;papis browse inflation
 : 1679271515:0;antidote purge belak/zsh-utils
@@ -223,17 +216,14 @@ kkkkkkkkkkkkkkkkkkq
 : 1679287773:0;papis --h
 : 1679287779:0;papis --help
 : 1679287805:0;gencomp ggrep
-: 1679287806:0;source .zshrc
 : 1679287827:0;ggrep Applications Desktop Documents Downloads Dropbox Library Movies Music OneDrive Pictures Sites Support Zotero bin hererocks.manifest indent.log laparisidelannoy@uchicago.edu\ -\ Google\ Drive leoaparisi@gmail.com\ -\ Google\ Drive org website  
 : 1679287926:0;pip install shtab
 : 1679287946:0;shtab papis
 : 1679287985:0;pip uninstall shtab
 : 1679288077:0;antidote purge zsh-users/zsh-completions
-: 1679288081:0;nvim .zsh_plugins.txt
 : 1679288113:0;antidote purge RobSis/zsh-completion-generator
 : 1679288125:0;antidote purge 
 : 1679329677:0;jj
-: 1679330157:0;antidote update
 : 1679330271:0;brew install diff-so-fancy
 : 1679330428:0;fast-theme -l
 : 1679330452:0;fast-theme 
@@ -288,8 +278,6 @@ kkkkkkkkkkkkkkkkkkq
 : 1679333367:0;papis open Pertubational
 : 1679333396:0;papis open bhandari
 : 1679333448:0;papis rm heterogeneous
-: 1679334097:0;ga
-: 1679334103:0;git commit
 : 1679334113:0;git push
 : 1679334134:0;gi
 : 1679334151:0;git-ignore
@@ -302,7 +290,6 @@ kkkkkkkkkkkkkkkkkkq
 : 1679335911:0;papis update heterogeneous
 : 1679335926:0;papis update bhandari
 : 1679335980:0;papis update duffie
-: 1679338454:0;topgrade
 : 1679338945:0;papis export --all --format bibtex -o biblio.bib
 : 1679338957:0;papis export --all --format bibtex -out biblio.bib
 : 1679338966:0;papis export --all --format bibtex
@@ -338,7 +325,6 @@ kkkkkkkkkkkkkkkkkkq
 : 1679340386:0;nvim .dotfiles/.config/nvim/lua/plugins/vimtex.lua 
 : 1679341892:0;TugceNotes.lyx 
 : 1679342256:0;cd 
-: 1679342262:0;neomutt
 : 1679342771:0;nvim .dotfiles/Library/Application\ Support/sioyek/prefs_user.config 
 : 1679343397:0;papis open Borovicka
 : 1679343407:0;papis open '*\
@@ -360,10 +346,8 @@ kkkkkkkkkkkkkkkkkkq
 : 1679344235:0;papis bibtex mylib.bib doctor 
 : 1679344241:0;papis bibtex doctor
 : 1679345948:0;papis bibtex read mylib.bib doctor
-: 1679346064:0;cd org/portfolio_het_agents
 : 1679346070:0;papis
 : 1679346132:0;papis export --all --format bibtex --out lib.bib '*'
-: 1679346159:0;nvim
 : 1679346630:0;papis update '*' --all -s date '' 
 : 1679346921:0;papis bibtex -h
 : 1679346947:0;papis bibtex import Downloads/My\ Library.bib
@@ -386,19 +370,15 @@ kkkkkkkkkkkkkkkkkkq
 : 1679347331:0;papis bibtex update MyLibrary.bib
 : 1679347338:0;papis bibtex update --from MyLibrary.bib
 : 1679347390:0;papis update --all --from bibtex MyLibrary.bib
-: 1679347467:0;tmux a
 : 1679347625:0;papis bibtex update --from bibtex MyLibrary.bib
 : 1679347629:0;papis bibtex update --from bibtex MyLibrary.bib '*'
 : 1679347671:0;cd Library/papers
-: 1679347694:0;git pull
-: 1679347699:0;lazygit
 : 1679347783:0;papis update --from bibtex MyLibrary.bib '*'
 : 1679347858:0;papis bibtex read MyLibrary.bib update -f
 : 1679347863:0;papis open '*'
 : 1679347872:0;papis update '*'
 : 1679347912:0;papis update --from bibtex -h
 : 1679347916:0;papis update --from bibtex 
-: 1679347925:0;lf
 : 1679347946:0;papis import -h
 : 1679347967:0;papis import -f MyLibrary.bib
 : 1679347972:0;papis import MyLibrary.bib
@@ -430,7 +410,6 @@ kkkkkkkkkkkkkkkkkkq
 : 1679348373:0;papis update -h
 : 1679348382:0;papis update --auto --from
 : 1679348386:0;papis update --auto --from b
-: 1679348387:0;cd
 : 1679348389:0;cd Downloads
 : 1679348394:0;papis update --auto --from bibtex MyLibrary.bib
 : 1679348403:0;papis update --auto Bilal
@@ -451,77 +430,44 @@ kkkkkkkkkkkkkkkkkkq
 : 1679348567:0;papis update --auto 
 : 1679348571:0;papis update --auto bhandari
 : 1679348576:0;papis update --auto -a bhandari
-: 1679348665:0;papis export --all --format bibtex --out mylib.bib '*'
 : 1679348946:0;tmxu a
-: 1679348948:0;tmux a
 : 1679349090:0;papis zotero import --from-bibtex mylib.bib
 : 1679349102:0;papis zotero import mylib.bib
 : 1679349106:0;papis zotero import -h
 : 1679349131:0;papis zotero import --from-bibtex mylib.bib -o test
 : 1679349137:0;papis zotero import --from-bibtex mylib.bib -o ~/test
 : 1679349145:0;papis zotero import --from-bibtex mylib.bib -o ~/zttt
-: 1679349156:0;lf
 : 1679349176:0;papis zotero import --from-bibtex mylib.bib -o ~/
 : 1679349207:0;papis zotero import --from-bibtex ~/org/portfolio_het_agents/mylib.bib -o papis_exp
-: 1679349218:0;lf
 : 1679349375:0;papis export --all --format bibtex --out mylib.bib '*'
 : 1679349940:0;pip uninstall papis-zotero papis
 : 1679349949:0;pip clean
-: 1679350060:0;nvim
 : 1679365698:0;cd
 : 1679365703:0;cd org
-: 1679365704:0;lazygit
-: 1679370585:0;topgrade
-: 1679370698:0;nvim
 : 1679371407:0;brew unlink gdu
-: 1679371409:0;topgrade
-: 1679371540:0;nvim
-: 1679373079:0;gdu
 : 1679373081:0;du
-: 1679373085:0;gdu
 : 1679373098:0;dast
 : 1679373101:0;dust
 : 1679373117:0;brew install gdu
 : 1679373165:0;gdu
-: 1679421828:0;topgrade
 : 1679452263:0;lazygit
-: 1679458281:0;nvim
 : 1679458298:0;brew uninstall language-tool
 : 1679458303:0;brew uninstall languagetool
 : 1679458310:0;brew uninstall --cask languagetool
-: 1679458317:0;nvim
-: 1679459110:0;tmux 
-: 1679459114:0;nvim
 : 1679459231:0;brew uninstall ltex
-: 1679459235:0;brew uninstall ltex-ls
-: 1679459254:0;nvim
 : 1679459296:0;brew uninstall ltex-ls
-: 1679459300:0;nvim
 : 1679459381:0;lf
-: 1679459398:0;nvim
-: 1679459513:0;nvim
-: 1679459556:0;tmux kill-server
-: 1679459566:0;nvim
 : 1679498837:0;tmux kill-server
 : 1679498839:0;tmux 
-: 1679498844:0;topgrade
-: 1679498847:0;neomutt
-: 1679498962:0;nvim
 : 1679498980:0;brew uninstall latexindent
 : 1679498994:0;brew install ltex-ls
 : 1679501122:0;antidote update
-: 1679501140:0;zellij
 : 1679501243:0;nvim .dotfiles/.config/zellij/config.kdl
 : 1679501268:0;zellij
-: 1679501284:0;tmux a
 : 1679521313:0;nvim .dotfiles/.zshrc
 : 1679521331:0;nvim .zsh_plugins.zsh
-: 1679521344:0;nvim .zsh_plugins.txt
-: 1679521680:0;zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
-: 1679521693:0;zstyle ':fzf-tab:*' fzf-command fzf
 : 1679521694:0;zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 : 1679521704:0;zstyle ':fzf-tab:*' fzf-command fzf
-: 1679521708:0;nvim .zshrc
 : 1679521981:0;brew install exa
 : 1679522005:0;cd org/portfolio_het_agents
 : 1679522163:0;nvim .zshrc
@@ -529,9 +475,23 @@ kkkkkkkkkkkkkkkkkkq
 : 1679522294:0;cd Pictures
 : 1679522329:0;cd Screenshots
 : 1679522332:0;chafa watch\?v=LXb3EKWsInQ-0001.png watch\?v=LXb3EKWsInQ-0001.png
-: 1679522340:0;tmux a
-: 1679522365:0;nvim .zsh_plugins.txt
 : 1679522377:0;antidote purge Freed-Wu/fzf-tab-source
 : 1679522395:0;nvim .zsh_plugins.txt
 : 1679522607:0;cd .dotfiles
 : 1679522617:0;ga
+: 1679522683:0;git commit
+: 1679522700:0;git push 
+: 1679522706:0;git pull
+: 1679524311:0;tmux a
+: 1679524321:0;nvim
+: 1679540443:0;brew install chalk
+: 1679541007:0;iina "https://www.hulu.com/watch/8d6e3f38-fd7e-4112-96f0-5abd87b87ec3"
+: 1679589428:0;brew autoremove
+: 1679604698:0;topgrade
+: 1679604891:0;brew update
+: 1679604915:0;brew ugrade
+: 1679604920:0;brew upgrade
+: 1679605233:0;mbsync -a
+: 1679609499:0;neomutt
+: 1679625992:0;topgrade
+: 1679625998:0;tmux a
