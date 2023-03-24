@@ -512,3 +512,12 @@ kkkkkkkkkkkkkkkkkkq
 : 1679629719:0;.bashrc 
 : 1679629762:0;builtin cd -- .dotfiles/
 : 1679629766:0;lazygit
+: 1679629792:0;rg
+: 1679629794:0;rg catppuccin
+: 1679629804:0;rg leo
+: 1679629889:0;nvim
+: 1679630153:0;fzfrg
+: 1679630157:0;fzf_rg
+: 1679630168:0;cd
+: 1679630170:0;fzf_rg
+: 1679630216:0;nvim
