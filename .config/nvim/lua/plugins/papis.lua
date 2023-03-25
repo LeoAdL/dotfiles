@@ -1,6 +1,7 @@
 return {
   {
     "jghauser/papis.nvim",
+    enabled = false,
     requires = {
       "kkharji/sqlite.lua",
       "nvim-lua/plenary.nvim",

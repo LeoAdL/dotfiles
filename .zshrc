@@ -120,7 +120,7 @@ fb() {
         buku -o "$index"
     done
 }
-fzf_rg() {
+rg-fzf() {
     rm -f /tmp/rg-fzf-{r,f}
     RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
     INITIAL_QUERY="${*:-}"
