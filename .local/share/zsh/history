@@ -1,0 +1,618 @@
+: 1668574558:0;brew install exa\
+
+: 1670902791:0;antibody update
+: 1670903196:0;brew uninstall antibody
+: 1670903222:0;dd
+: 1670903241:0;antidote purge romkatv/powerlevel10k
+: 1670903275:0;p10k configure
+: 1670903517:0;enable-fzf-tab
+: 1670903817:0;promptinit\
+prompt pure\
+\
+compinit\
+
+: 1670903844:0;autoload -U compinit promptinit\
+
+: 1670904110:0;antidote load
+: 1676097364:0;kp spotify
+: 1676097369:0;fd
+: 1676097374:0;fd spotify
+: 1676097387:0;kp
+: 1676097392:0;kp Spotify
+: 1676097531:0;antidote purge belak/zsh-utils path:editor\
+belak/zsh-utils path:history\
+belak/zsh-utils path:utility\
+belak/zsh-utils path:completion\
+
+: 1679097481:0;antidote purge greymd/tmux-xpanes
+: 1679097602:0;antidote purge ChrisPenner/session-sauce
+: 1679097633:0;antidote purge kalsowerus/zsh-bitwarden
+: 1679097788:0;env STARSHIP_LOG=trace starship module rust
+: 1679097800:0;env STARSHIP_LOG=trace starship timings
+: 1679097851:0;for plugin ($plugins); do\
+  timer=$(($(gdate +%s%N)/1000000))\
+  if [ -f $ZSH_CUSTOM/plugins/$plugin/$plugin.plugin.zsh ]; then\
+    source $ZSH_CUSTOM/plugins/$plugin/$plugin.plugin.zsh\
+  elif [ -f $ZSH/plugins/$plugin/$plugin.plugin.zsh ]; then\
+    source $ZSH/plugins/$plugin/$plugin.plugin.zsh\
+  fi\
+  now=$(($(gdate +%s%N)/1000000))\
+  elapsed=$(($now-$timer))\
+  echo $elapsed":" $plugin\
+done
+: 1679097987:0;antidote purge zdharma-continuum/fast-syntax-highlighting
+: 1679098197:0;antidote purge z-shell/F-Sy-H
+: 1679098491:0;unset PARAMETER
+: 1679098493:0;unset *
+: 1679098707:0;unset --a
+: 1679098731:0;zmodload zsh/zprof
+: 1679098732:0;zprof
+: 1679099024:0;antidote home
+: 1679099111:0;antidote install *
+: 1679099117:0;antidote bundle
+: 1679099120:0;antidote bundle 
+: 1679099533:0;exec zsh
+: 1679099536:0;time exec zsh
+: 1679099539:0;time exec zsh =l
+: 1679099541:0;time exec zsh -l
+: 1679099605:0;fb-rga
+: 1679099607:0;bf
+: 1679099608:0;fb
+: 1679107651:0;for i in $(seq 1 10); do /usr/bin/time $SHELL -i -c exit; done
+: 1679107739:0;antidote upg
+: 1679111403:0;nvim .fzf/BUILD.md 
+: 1679111581:0;brew install pandoc
+: 1679155260:0;nvim 
+: 1679155309:0;nvim .dotfiles/.config/topgrade.toml 
+: 1679155443:0;git add
+: 1679155503:0;forgit 
+: 1679155570:0;forgit::add
+: 1679155659:0;forgit::checkout::commit
+: 1679155673:0;gc
+: 1679155678:0;alias
+: 1679155695:0;gsp
+: 1679159366:0;forgit::stash::push
+: 1679160014:0;git push\
+kkkkkkkkkkkkkkkkkkq
+: 1679170821:0;brew install lsd
+: 1679170865:0;exa
+: 1679170872:0;exa --icons
+: 1679170886:0;brew uninstall exa
+: 1679170896:0;antidote purge birdhackor/zsh-exa-ls-plugin
+: 1679170939:0;ls
+: 1679170968:0;lsd
+: 1679171582:0;iina "https://www.youtube.com/watch?time_continue=5&v=FdX6FFGVVFQ"
+: 1679178257:0;papis open government
+: 1679178269:0;papis open gov
+: 1679178273:0;papis open tomas
+: 1679179573:0;git commit "Clean Telescope/Papis"
+: 1679179628:0;gitignore add
+: 1679179876:0;iina "https://www.youtube.com/watch?v=4Q3LDx1sR-w"
+: 1679184098:0;papis add -f Library/CloudStorage/GoogleDrive-leoaparisi@gmail.com/Shared\ drives/pres2017/Macronleaks/downloaded/langannerch/2016/Home\ sweet\ home\ -\ Vestiaire\ Collective\ \(communication@nl.vestiairecollective.com\)\ -\ 2016-12-21\ 2315.eml  
+: 1679184131:0;papis add Wang
+: 1679184145:0;papis add Downloads/SW_live.pdf wang
+: 1679184155:0;papis addto Downloads/SW_live.pdf wang
+: 1679184164:0;papis addto wang -f Downloads/SW_live.pdf 
+: 1679184172:0;papis open wang
+: 1679184515:0;papis browse supera
+: 1679184574:0;papis addto supera -f Downloads/Supera_JMP_Wharton.pdf 
+: 1679184595:0;papis add Downloads/Supera_JMP_Wharton.pdf 
+: 1679184651:0;papis remove
+: 1679184663:0;papis rm
+: 1679184666:0;papis rm falling
+: 1679184679:0;papis browse falling
+: 1679184693:0;papis addto falling -f Downloads/Supera_JMP_Wharton.pdf 
+: 1679184699:0;papis open falling
+: 1679184832:0;sioyek Downloads/Supera_JMP_Wharton.pdf 
+: 1679184845:0;sioyek Downloads/Supera_JMP_Whartonbbbu.pdf 
+: 1679184852:0;zathura Downloads/Supera_JMP_Whartonbbbu.pdf 
+: 1679184875:0;zathura Downloads/Supera_JMP_Wharton.pdf 
+: 1679185034:0;exa .dotfiles
+: 1679185043:0;z .dotfiles
+: 1679185240:0;mkdir -p Library/Application Support/sioyek/
+: 1679185407:0;stow .
+: 1679185600:0;nvim prefs_user.config
+: 1679186057:0;grep
+: 1679186062:0;grep catpuccin
+: 1679186068:0;rga
+: 1679186074:0;rga catpuccin
+: 1679186078:0;rga catppuccin
+: 1679186629:0;nvim Library/Application\ Support/sioyek/prefs_user.config 
+: 1679186913:0;nvim .config/newsboat/dark 
+: 1679187203:0;nvim .config/mutt/muttrc 
+: 1679187315:0;mbsync laparisidelannoy@uchicago.edu
+: 1679187387:0;notmuch
+: 1679187390:0;notmuch -h
+: 1679187401:0;notmuch reindex
+: 1679187403:0;notmuch reindex Chase
+: 1679187482:0;neomutt -h
+: 1679187505:0;notmuch laparisidelannoy@uchicago.edu
+: 1679187511:0;notmuch help
+: 1679187515:0;notmuch setup
+: 1679190057:0;nvim .dotfiles/.config/alacritty/alacritty.yml 
+: 1679190084:0;neomutt 
+: 1679268514:0;mamba update --all
+: 1679268542:0;antidote ls
+: 1679268689:0;antidote install laggardkernel/git-ignore
+: 1679268809:0;antidote install clarketm/zsh-completions
+: 1679268850:0;conda indent.log dd
+: 1679268856:0;antidote install conda-incubator/conda-zsh-completion
+: 1679268897:0;antidote install vasyharan/zsh-brew-services
+: 1679268910:0;brew services list
+: 1679268954:0;antidote install sinetoami/antibody-completion
+: 1679268961:0;antidote purge vasyharan/zsh-brew-services
+: 1679269131:0;antidote install wintermi/zsh-brew
+: 1679269157:0;conda update --all
+: 1679269207:0;antidote install srijanshetty/zsh-pandoc-completion
+: 1679269229:0;antidote list
+: 1679269406:0;antidote install jeffreytse/zsh-vi-mode
+: 1679269496:0;papis open Pflueger
+: 1679270035:0;papis open inflation stock
+: 1679270037:0;papis open inflation 
+: 1679270060:0;papis rm inflation
+: 1679270163:0;papis open gaul
+: 1679270178:0;papis rm Kaul
+: 1679270250:0;papis scihub -h
+: 1679270263:0;papis https://doi.org/10.1016/0304-405X(87)90041-9
+: 1679270266:0;https://doi.org/10.1016/0304-405X(87)90041-9pis
+: 1679270278:0;papis scihub 10.1016/0304-405X(87)90041-9
+: 1679270287:0;pip install papis-scihub
+: 1679270340:0;papis sichub  10.1016/0304-405x(87)90041-9 add
+: 1679270360:0;papis add  10.1016/0304-405x(87)90041-9 
+: 1679270380:0;papis sichub https://sci-hub.ru/https://doi.org/10.1016/0304-405X(87)90041-9
+: 1679270403:0;papis scihub https://doi.org/10.1016/0304-405X(87)90041-9
+: 1679270408:0;papis scihub https://doi.org/10.1016/0304-405X(87)90041-9 add
+: 1679270418:0;papis scihub https://sci-hub.ru/https://doi.org/10.1016/0304-405X(87)90041-9
+: 1679270511:0;pip3 uninstall papis-scihub
+: 1679270514:0;pip3 install papis-scihub
+: 1679270517:0;papis scihub https://doi.org/10.1016/j.physrep.2016.12.002
+: 1679270529:0;papis doi https://doi.org/10.1016/0304-405X(87)90041-9
+: 1679270536:0;papis doi "https://doi.org/10.1016/0304-405X(87)90041-9"
+: 1679270549:0;papis scihub "https://doi.org/10.1016/0304-405X(87)90041-9"
+: 1679270552:0;papis scihub "https://doi.org/10.1016/0304-405X(87)90041-9" add
+: 1679270640:0;papis scihub "https://sci-hub.ru/https://doi.org/10.1016/0304-405X(87)90041-9" add
+: 1679270650:0;papis add ?https://sci-hub.ru/https://doi.org/10.1016/0304-405X(87)90041-9
+: 1679270655:0;papis add "https://sci-hub.ru/https://doi.org/10.1016/0304-405X(87)90041-9"
+: 1679270697:0;papis open Kaul
+: 1679270704:0;papis open inflation
+: 1679270865:0;papis addto kaul -f "Downloads/1-s2.0-0304405X87900419-main.pdf"
+: 1679270872:0;papis git pull
+: 1679270891:0;papis git -h
+: 1679270910:0;papis git add -a
+: 1679270924:0;papis git add .
+: 1679270929:0;papis git commit
+: 1679270938:0;papis git push
+: 1679271109:0;brew install zsh-completions
+: 1679271117:0;brew reinstall zsh-completions
+: 1679271175:0;brew reinstall zsh-completios
+: 1679271241:0;brew reinstall papis
+: 1679271278:0;_PAPIS_COMPLETE=source_zsh papis\\
+
+: 1679271283:0;_PAPIS_COMPLETE=source_zsh papis
+: 1679271293:0;pip3 reinstall papis
+: 1679271303:0;pip3 uninstall papis
+: 1679271309:0;pip3 install papis
+: 1679271345:0;pip3 install --upgrade papis
+: 1679271363:0;papis uninstall papis-zotero papis
+: 1679271390:0;papis open kaul
+: 1679271400:0;papis browse inflation
+: 1679271515:0;antidote purge belak/zsh-utils
+: 1679272139:0;papis Documents
+: 1679273104:0;conda -h
+: 1679273114:0;antidote purge conda-incubator/conda-zsh-completion
+: 1679273127:0;brew indent.log
+: 1679287576:0;antidote install RobSis/zsh-completion-generator
+: 1679287682:0;gencomp -h
+: 1679287686:0;man papis
+: 1679287747:0;gencomp notmuch
+: 1679287753:0;gencomp notmuch help
+: 1679287759:0;gencomp papis
+: 1679287773:0;papis --h
+: 1679287779:0;papis --help
+: 1679287805:0;gencomp ggrep
+: 1679287827:0;ggrep Applications Desktop Documents Downloads Dropbox Library Movies Music OneDrive Pictures Sites Support Zotero bin hererocks.manifest indent.log laparisidelannoy@uchicago.edu\ -\ Google\ Drive leoaparisi@gmail.com\ -\ Google\ Drive org website  
+: 1679287926:0;pip install shtab
+: 1679287946:0;shtab papis
+: 1679287985:0;pip uninstall shtab
+: 1679288077:0;antidote purge zsh-users/zsh-completions
+: 1679288113:0;antidote purge RobSis/zsh-completion-generator
+: 1679288125:0;antidote purge 
+: 1679329677:0;jj
+: 1679330271:0;brew install diff-so-fancy
+: 1679330428:0;fast-theme -l
+: 1679330452:0;fast-theme 
+: 1679330455:0;fast-theme -h
+: 1679330466:0;fast-theme -r
+: 1679330471:0;fast-theme -s
+: 1679331382:0;pip uninstall papis
+: 1679331388:0;pip install papis-zotero
+: 1679331402:0;papis zotero 
+: 1679331492:0;tmupapis -l mylib zotero servex
+: 1679331493:0;papis -l mylib zotero serve
+: 1679331500:0;papis -l papers zotero serve
+: 1679331506:0;pip uninstall papis-zotero
+: 1679331514:0;pip install papis
+: 1679331569:0;git clone https://github.com/papis/papis-zotero
+: 1679331572:0;cd papis-zotero
+: 1679331577:0;python setup.py
+: 1679331600:0;python setup.py install
+: 1679331664:0;papis addto bhandari
+: 1679331804:0;papis update
+: 1679331814:0;papis update bourany
+: 1679331860:0;papis papers zotero serve
+: 1679331865:0;papis zotero serve
+: 1679331901:0;papis update Bhandari
+: 1679331906:0;papis zotero serve -h
+: 1679332181:0;papis list sargent
+: 1679332187:0;papis list bhandari
+: 1679332198:0;papis serve
+: 1679332502:0;papis open Bhandari
+: 1679332513:0;papis open -h
+: 1679332525:0;papis open --tool
+: 1679332532:0;papis open -d 
+: 1679332536:0;papis open -d bhandari
+: 1679332541:0;papis open -d papers
+: 1679332560:0;papis open pertuba
+: 1679332562:0;papis open pertubation
+: 1679332566:0;papis open golosov
+: 1679332586:0;papis 
+: 1679332592:0;papis open p
+: 1679332594:0;papis open pertub
+: 1679332597:0;papis open bourany
+: 1679332721:0;papis --c
+: 1679332727:0;papis open Thomas
+: 1679332771:0;papis open A pertubational
+: 1679332862:0;papis open Bourany
+: 1679332894:0;lf Library/papers/5bf2918e0266f45239841a7b9d98e429/a-perturbational-approach-for-approximating-heterogeneous-agent-models.pdf 
+: 1679332965:0;papis open "pertubational"
+: 1679332970:0;papis open pertubational
+: 1679332975:0;papis open "A pertubational"
+: 1679332980:0;papis open inequality
+: 1679333316:0;papis open heterogeneous
+: 1679333367:0;papis open Pertubational
+: 1679333396:0;papis open bhandari
+: 1679333448:0;papis rm heterogeneous
+: 1679334113:0;git push
+: 1679334134:0;gi
+: 1679334151:0;git-ignore
+: 1679334168:0;git-ignore latex
+: 1679334987:0;tmux
+: 1679335849:0;papis open "Perturbational"
+: 1679335871:0;papis browse george
+: 1679335879:0;papis browse constantinides
+: 1679335888:0;papis open constantinides
+: 1679335911:0;papis update heterogeneous
+: 1679335926:0;papis update bhandari
+: 1679335980:0;papis update duffie
+: 1679338945:0;papis export --all --format bibtex -o biblio.bib
+: 1679338957:0;papis export --all --format bibtex -out biblio.bib
+: 1679338966:0;papis export --all --format bibtex
+: 1679338974:0;papis export papers --all --format bibtex -out biblio.bib
+: 1679338979:0;papis export papers  --format bibtex -out biblio.bib
+: 1679338995:0;papis export --format bibtex
+: 1679339001:0;papis export --format bibtex papers
+: 1679339008:0;papis papers export --format bibtex
+: 1679339027:0;papis export --format bibtex --all
+: 1679339099:0;papis bibtex save
+: 1679339138:0;papis open
+: 1679339142:0;papis open papers
+: 1679339202:0;papis export papers -o bibtex
+: 1679339223:0;papis export --all --format bibtex 
+: 1679339251:0;papis export --all --format bibtex mylib.bib
+: 1679339253:0;WARNING:cli:run:No documents retrieved\
+
+: 1679339264:0;mylib.bidiWbpi
+: 1679339301:0;rm mylib.bib
+: 1679339334:0;papis export --all --format bibtex > mylib.bib
+: 1679339444:0;papis export --all --format bibtex * > mylib.bib
+: 1679339448:0;papis export --all --format bibtex papers > mylib.bib
+: 1679339469:0;papis export -a --bibtex -o mylib.bib
+: 1679339480:0;papis export -h
+: 1679339494:0;papis export -f bibtex -o mylib.bib
+: 1679339499:0;papis export papers -f bibtex -o mylib.bib
+: 1679339505:0;papis export auclert
+: 1679339532:0;papis export -a
+: 1679339566:0;papis export -a -f bibtex -o mylib.bib
+: 1679339592:0;papis doctore
+: 1679339593:0;papis doctor
+: 1679339673:0;papis export -a -f bibtex -o mylib.bib '*'
+: 1679340386:0;nvim .dotfiles/.config/nvim/lua/plugins/vimtex.lua 
+: 1679341892:0;TugceNotes.lyx 
+: 1679342256:0;cd 
+: 1679342771:0;nvim .dotfiles/Library/Application\ Support/sioyek/prefs_user.config 
+: 1679343397:0;papis open Borovicka
+: 1679343407:0;papis open '*\
+'
+: 1679343432:0;papis zotero serve 
+: 1679343525:0;papis open chapter
+: 1679343546:0;papis add doi https://doi.org/10.1111/jofi.12404
+: 1679343598:0;papis add doi .06.005
+: 1679343607:0;papis add doi  doi: 10.1016/bs.hesmac.2016.06.005
+: 1679343650:0;papis addto Hansen -h
+: 1679343654:0;papis addto Hansen -f https://www.borovicka.org/files/research/term_structure_of_uncertainty.pdf
+: 1679343659:0;papis addto Hansen https://www.borovicka.org/files/research/term_structure_of_uncertainty.pdf
+: 1679343678:0;papis addto Hansen -f Downloads/term_structure_of_uncertainty.pdf
+: 1679343707:0;papis addto Hansen -f Downloads/misspecified_recovery.pdf 
+: 1679343712:0;papis open Hansen
+: 1679344190:0;papis zotero -h
+: 1679344221:0;papis bibtex doctor mylib.bib
+: 1679344226:0;papis bibtex doctor 
+: 1679344235:0;papis bibtex mylib.bib doctor 
+: 1679344241:0;papis bibtex doctor
+: 1679345948:0;papis bibtex read mylib.bib doctor
+: 1679346070:0;papis
+: 1679346132:0;papis export --all --format bibtex --out lib.bib '*'
+: 1679346630:0;papis update '*' --all -s date '' 
+: 1679346921:0;papis bibtex -h
+: 1679346947:0;papis bibtex import Downloads/My\ Library.bib
+: 1679346955:0;papis bibtex import "Downloads/My\ Library.bib"
+: 1679346963:0;papis bibtex import "My\ Library.bib"
+: 1679346968:0;papis bibtex import My Library.bib
+: 1679347022:0;papis bibtex read MyLibrary.bib import '*'
+: 1679347096:0;papis update --from bibtex MyLibrary.bib -i
+: 1679347104:0;papis update --from MyLibrary.bib -i
+: 1679347112:0;papis update --from MyLibrary.bib
+: 1679347168:0;papis bivtex -h
+: 1679347244:0;papis update --from bibtexp
+: 1679347260:0;papis update Reversal
+: 1679347278:0;papis read MyLibrary.bib
+: 1679347285:0;papis bibtex read MyLibrary.bib
+: 1679347294:0;papis bibtex read MyLibrary.bib '*'
+: 1679347297:0;papis bibtex read MyLibrary.bib 
+: 1679347302:0;papis bibtex read MyLibrary.bib reversal
+: 1679347307:0;papis bibtex read MyLibrary.bib browse
+: 1679347331:0;papis bibtex update MyLibrary.bib
+: 1679347338:0;papis bibtex update --from MyLibrary.bib
+: 1679347390:0;papis update --all --from bibtex MyLibrary.bib
+: 1679347625:0;papis bibtex update --from bibtex MyLibrary.bib
+: 1679347629:0;papis bibtex update --from bibtex MyLibrary.bib '*'
+: 1679347671:0;cd Library/papers
+: 1679347783:0;papis update --from bibtex MyLibrary.bib '*'
+: 1679347858:0;papis bibtex read MyLibrary.bib update -f
+: 1679347863:0;papis open '*'
+: 1679347872:0;papis update '*'
+: 1679347912:0;papis update --from bibtex -h
+: 1679347916:0;papis update --from bibtex 
+: 1679347946:0;papis import -h
+: 1679347967:0;papis import -f MyLibrary.bib
+: 1679347972:0;papis import MyLibrary.bib
+: 1679347977:0;papis import -f -bibtex MyLibrary.bib
+: 1679347996:0;papis bibtex import MyLibrary.bib
+: 1679348006:0;papis bibtex read MyLibrary.bib import
+: 1679348036:0;papis --cc
+: 1679348038:0;nvim .dotfiles/.config/papis/config 
+: 1679348053:0;papis bibtex read MyLibrary.bib update
+: 1679348070:0;papis explore Reversal
+: 1679348084:0;papis list Reversal
+: 1679348098:0;papis config -h
+: 1679348101:0;papis config
+: 1679348103:0;papis config 
+: 1679348105:0;papis config -a
+: 1679348118:0;papis edit Reversal
+: 1679348144:0;papis import -f bibtex MyLibrary.bib
+: 1679348150:0;papis update --from bibtex MyLibrary.bib
+: 1679348194:0;papis update --set ref '{doc[year]}' query\
+
+: 1679348271:0;papis --delete
+: 1679348274:0;papis -h
+: 1679348314:0;papis update --auto -i "papis update --auto -i Reversal\
+
+: 1679348317:0;papis update --auto -i "
+: 1679348320:0;papis update --auto -i Reversal
+: 1679348324:0;papis update --auto Reversal
+: 1679348344:0;papis update --auto '*'
+: 1679348373:0;papis update -h
+: 1679348382:0;papis update --auto --from
+: 1679348386:0;papis update --auto --from b
+: 1679348389:0;cd Downloads
+: 1679348394:0;papis update --auto --from bibtex MyLibrary.bib
+: 1679348403:0;papis update --auto Bilal
+: 1679348424:0;papis update --auto Bhandari
+: 1679348461:0;papis update --auto Bhandari --no-confirm
+: 1679348465:0;papis update --auto Bhandari -h
+: 1679348488:0;papis update --auto --no-confirm Bhandari
+: 1679348504:0;papis update --auto -s year Bhandari
+: 1679348509:0;papis update --auto -s year
+: 1679348513:0;papis update --auto -s year bhandari
+: 1679348517:0;papis update --auto -s year bilal
+: 1679348528:0;papis update --auto -s "year" "bilal"
+: 1679348530:0;papis update --auto -s "year" "*"
+: 1679348535:0;papis update -s "year" "*"
+: 1679348542:0;papis update --auto --s "year" "*"
+: 1679348546:0;papis update --auto --set "year" "*"
+: 1679348564:0;papis update --auto -a
+: 1679348567:0;papis update --auto 
+: 1679348571:0;papis update --auto bhandari
+: 1679348576:0;papis update --auto -a bhandari
+: 1679348946:0;tmxu a
+: 1679349090:0;papis zotero import --from-bibtex mylib.bib
+: 1679349102:0;papis zotero import mylib.bib
+: 1679349106:0;papis zotero import -h
+: 1679349131:0;papis zotero import --from-bibtex mylib.bib -o test
+: 1679349137:0;papis zotero import --from-bibtex mylib.bib -o ~/test
+: 1679349145:0;papis zotero import --from-bibtex mylib.bib -o ~/zttt
+: 1679349176:0;papis zotero import --from-bibtex mylib.bib -o ~/
+: 1679349207:0;papis zotero import --from-bibtex ~/org/portfolio_het_agents/mylib.bib -o papis_exp
+: 1679349375:0;papis export --all --format bibtex --out mylib.bib '*'
+: 1679349940:0;pip uninstall papis-zotero papis
+: 1679349949:0;pip clean
+: 1679365703:0;cd org
+: 1679371407:0;brew unlink gdu
+: 1679373081:0;du
+: 1679373098:0;dast
+: 1679373101:0;dust
+: 1679373117:0;brew install gdu
+: 1679373165:0;gdu
+: 1679458298:0;brew uninstall language-tool
+: 1679458303:0;brew uninstall languagetool
+: 1679458310:0;brew uninstall --cask languagetool
+: 1679459231:0;brew uninstall ltex
+: 1679459296:0;brew uninstall ltex-ls
+: 1679459381:0;lf
+: 1679498837:0;tmux kill-server
+: 1679498839:0;tmux 
+: 1679498980:0;brew uninstall latexindent
+: 1679498994:0;brew install ltex-ls
+: 1679501243:0;nvim .dotfiles/.config/zellij/config.kdl
+: 1679501268:0;zellij
+: 1679521313:0;nvim .dotfiles/.zshrc
+: 1679521331:0;nvim .zsh_plugins.zsh
+: 1679521694:0;zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+: 1679521704:0;zstyle ':fzf-tab:*' fzf-command fzf
+: 1679521981:0;brew install exa
+: 1679522005:0;cd org/portfolio_het_agents
+: 1679522280:0;source .zshrc
+: 1679522294:0;cd Pictures
+: 1679522329:0;cd Screenshots
+: 1679522332:0;chafa watch\?v=LXb3EKWsInQ-0001.png watch\?v=LXb3EKWsInQ-0001.png
+: 1679522377:0;antidote purge Freed-Wu/fzf-tab-source
+: 1679522395:0;nvim .zsh_plugins.txt
+: 1679522607:0;cd .dotfiles
+: 1679522617:0;ga
+: 1679522683:0;git commit
+: 1679522700:0;git push 
+: 1679522706:0;git pull
+: 1679540443:0;brew install chalk
+: 1679541007:0;iina "https://www.hulu.com/watch/8d6e3f38-fd7e-4112-96f0-5abd87b87ec3"
+: 1679589428:0;brew autoremove
+: 1679604891:0;brew update
+: 1679604915:0;brew ugrade
+: 1679604920:0;brew upgrade
+: 1679605233:0;mbsync -a
+: 1679625992:0;topgrade
+: 1679626546:0;antidote install
+: 1679626553:0;antidote update
+: 1679626581:0;sudo tlmgr update --all
+: 1679626951:0;tmux a
+: 1679626974:0;nvim .zshrc
+: 1679628800:0;fzf
+: 1679629535:0;brew install rg
+: 1679629648:0;lf Library/papers/5bf2918e0266f45239841a7b9d98e429/a-perturbational-approach-for-approximating-heterogeneous-agent-models.pdf
+: 1679629699:0;builtin cd -- .davmail.properties
+: 1679629702:0;builtin cd -- .zshrc
+: 1679629709:0;builtin cd -- bin/activate
+: 1679629719:0;.bashrc 
+: 1679629762:0;builtin cd -- .dotfiles/
+: 1679629792:0;rg
+: 1679629794:0;rg catppuccin
+: 1679629804:0;rg leo
+: 1679630153:0;fzfrg
+: 1679630168:0;cd
+: 1679630170:0;fzf_rg
+: 1679630346:0;cd .dotfiles/.
+: 1679630349:0;lazygit
+: 1679630421:0;notmuch compact
+: 1679630430:0;notmuch new
+: 1679630435:0;neomutt
+: 1679630578:0;nvim
+: 1679676293:0;tmux a
+: 1679676298:0;tmux
+: 1679676301:0;topgrade
+: 1679676334:0;nvim
+: 1679676378:0;brew uninstall prettier
+: 1679676688:0;brew install mosh
+: 1679676800:0;brew install difftastic
+: 1679676880:0;brew install thefuck
+: 1679676910:0;brew install pdfgrep
+: 1679676995:0;rga-fzf
+: 1679677085:0;nvim .dotfiles/.zshrc
+: 1679677109:0;rg-fzf
+: 1679677113:0;source .zshrc
+: 1679677115:0;rg-fzf
+: 1679677125:0;rg-fzf()\
+ds
+: 1679677127:0;nvim .dotfiles/.zshrc
+: 1679677134:0;source .zshrc
+: 1679677137:0;rg-fzf
+: 1679677140:0;rg-fzf b
+: 1679677146:0;nvim .dotfiles/.zshrc
+: 1679677158:0;fzf_rg
+: 1679677203:0;nvim .dotfiles/.zshrc
+: 1679677221:0;rg-fzf 
+: 1679677224:0;rga-fzf 
+: 1679677232:0;nvim .dotfiles/.zshrc
+: 1679677269:0;source .zshrc
+: 1679677272:0;rg-fzf
+: 1679677665:0;brew install tig
+: 1679677678:0;tig
+: 1679677681:0;cd .dotfiles/.
+: 1679677683:0;tig
+: 1679677979:0;ga
+: 1679677984:0;git add
+: 1679677994:0;git status
+: 1679678003:0;ga
+: 1679678012:0;gc
+: 1679678065:0;nvim .zshrc
+: 1679678106:0;pass
+: 1679678110:0;pass fzf
+: 1679678112:0;fzf pass
+: 1679678115:0;fzfpass
+: 1679678133:0;pass-fzf
+: 1679678146:0;pass fzf
+: 1679678148:0;nvim
+: 1679678175:0;pass u
+: 1679678177:0;pass la
+: 1679678194:0;fuzzy-pass
+: 1679678211:0;brew install clipcopy
+: 1679678278:0;nvim
+: 1679678291:0;fuzzy-pass
+: 1679678307:0;nvim
+: 1679678320:0;antidote purge zpm-zsh/clipboard
+: 1679678345:0;clipcopy
+: 1679678347:0;pbcopy
+: 1679678350:0;nvim
+: 1679678372:0;source .zshrc
+: 1679678376:0;clipcopy
+: 1679678381:0;source .zshrc
+: 1679678384:0;nvim .zshrc
+: 1679678392:0;source .zshrc
+: 1679678394:0;clipcopy
+: 1679678397:0;fuzzy-pass
+: 1679678409:0;clipcopy
+: 1679678412:0;nvim .zshrc
+: 1679678446:0;antidote purge smeagol74/zsh-fzf-pass
+: 1679678450:0;antidote install ficoos/pass-fzf
+: 1679678458:0;pass fzf
+: 1679678469:0;antidote purge ficoos/pass-fzf
+: 1679682580:0;neomutt
+: 1679683251:0;tmux a
+: 1679683253:0;tmux 
+: 1679683319:0;nvim .tmux.conf
+: 1679683385:0;tmux kill-server
+: 1679683386:0;tmux
+: 1679683485:0;neomutt
+: 1679683490:0;nvim
+: 1679719696:0;topgrade
+: 1679719780:0;which alacritty
+: 1679719803:0;alacritty --version
+: 1679719828:0;tmux a
+: 0:1679719836;
+: 0:1679719836;
+: 1679719878:0;brew upgrade alacritty
+: 1679719891:0;antidote init
+: 1679719898:0;antidote update
+: 1679719939:0;alacritty --version
+: 1679720015:0;nvim
+: 1679721288:0;sudo tlmgr update --all
+: 1679723036:0;topgrade
+: 1679723143:0;nvim
+: 1679750962:0;topgrade
+: 1679751176:0;brew install kitty
+: 1679751184:0;kitty
+: 1679751205:0;lf
+: 1679751228:0;gc
+: 1679751233:0;gcr
+: 1679751242:0;gcf
+: 1679751280:0;grc
+: 1679751303:0;lazygit
+: 1679753953:0;git merge master fix
+: 1679753958:0;lazygit
+: 1679754145:0;git merge master fix
+: 1679754151:0;lf
+: 1679754203:0;ga
+: 1679754590:0;lf
+: 1679754619:0;git merge -i master fix
+: 1679754654:0;git log --merge
+: 1679754676:0;lazygit
+: 1679754698:0;git checkout fix
+: 1679754707:0;lazygit
