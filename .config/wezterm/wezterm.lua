@@ -5,10 +5,11 @@ return {
 		family = "Iosevka Nerd Font",
 	}),
 	font_size = 16.0,
-	color_scheme = "Catppuccin Frappe",
+	color_scheme = "nord",
 	tab_bar_at_bottom = true,
 	hide_tab_bar_if_only_one_tab = true,
-	window_background_opacity = 0.97,
+	window_background_opacity = 0.90,
+	macos_window_background_blur = 20,
 	window_decorations = "RESIZE",
 	inactive_pane_hsb = {
 		-- NOTE: these values are multipliers, applied on normal pane values
@@ -16,4 +17,5 @@ return {
 		brightness = 0.6,
 	},
 	scrollback_lines = 5000,
+	front_end = "WebGpu",
 }
