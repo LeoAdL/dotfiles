@@ -64,11 +64,9 @@ done
 : 1679111581:0;brew install pandoc
 : 1679155260:0;nvim 
 : 1679155309:0;nvim .dotfiles/.config/topgrade.toml 
-: 1679155443:0;git add
 : 1679155503:0;forgit 
 : 1679155570:0;forgit::add
 : 1679155659:0;forgit::checkout::commit
-: 1679155673:0;gc
 : 1679155678:0;alias
 : 1679155695:0;gsp
 : 1679159366:0;forgit::stash::push
@@ -272,11 +270,9 @@ kkkkkkkkkkkkkkkkkkq
 : 1679333367:0;papis open Pertubational
 : 1679333396:0;papis open bhandari
 : 1679333448:0;papis rm heterogeneous
-: 1679334113:0;git push
 : 1679334134:0;gi
 : 1679334151:0;git-ignore
 : 1679334168:0;git-ignore latex
-: 1679334987:0;tmux
 : 1679335849:0;papis open "Perturbational"
 : 1679335871:0;papis browse george
 : 1679335879:0;papis browse constantinides
@@ -448,30 +444,23 @@ kkkkkkkkkkkkkkkkkkq
 : 1679458310:0;brew uninstall --cask languagetool
 : 1679459231:0;brew uninstall ltex
 : 1679459296:0;brew uninstall ltex-ls
-: 1679459381:0;lf
-: 1679498837:0;tmux kill-server
-: 1679498839:0;tmux 
 : 1679498980:0;brew uninstall latexindent
 : 1679498994:0;brew install ltex-ls
 : 1679501243:0;nvim .dotfiles/.config/zellij/config.kdl
 : 1679501268:0;zellij
-: 1679521313:0;nvim .dotfiles/.zshrc
 : 1679521331:0;nvim .zsh_plugins.zsh
 : 1679521694:0;zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 : 1679521704:0;zstyle ':fzf-tab:*' fzf-command fzf
 : 1679521981:0;brew install exa
 : 1679522005:0;cd org/portfolio_het_agents
-: 1679522280:0;source .zshrc
 : 1679522294:0;cd Pictures
 : 1679522329:0;cd Screenshots
 : 1679522332:0;chafa watch\?v=LXb3EKWsInQ-0001.png watch\?v=LXb3EKWsInQ-0001.png
 : 1679522377:0;antidote purge Freed-Wu/fzf-tab-source
 : 1679522395:0;nvim .zsh_plugins.txt
 : 1679522607:0;cd .dotfiles
-: 1679522617:0;ga
 : 1679522683:0;git commit
 : 1679522700:0;git push 
-: 1679522706:0;git pull
 : 1679540443:0;brew install chalk
 : 1679541007:0;iina "https://www.hulu.com/watch/8d6e3f38-fd7e-4112-96f0-5abd87b87ec3"
 : 1679589428:0;brew autoremove
@@ -479,12 +468,7 @@ kkkkkkkkkkkkkkkkkkq
 : 1679604915:0;brew ugrade
 : 1679604920:0;brew upgrade
 : 1679605233:0;mbsync -a
-: 1679625992:0;topgrade
 : 1679626546:0;antidote install
-: 1679626553:0;antidote update
-: 1679626581:0;sudo tlmgr update --all
-: 1679626951:0;tmux a
-: 1679626974:0;nvim .zshrc
 : 1679628800:0;fzf
 : 1679629535:0;brew install rg
 : 1679629648:0;lf Library/papers/5bf2918e0266f45239841a7b9d98e429/a-perturbational-approach-for-approximating-heterogeneous-agent-models.pdf
@@ -498,75 +482,37 @@ kkkkkkkkkkkkkkkkkkq
 : 1679629804:0;rg leo
 : 1679630153:0;fzfrg
 : 1679630168:0;cd
-: 1679630170:0;fzf_rg
-: 1679630346:0;cd .dotfiles/.
-: 1679630349:0;lazygit
 : 1679630421:0;notmuch compact
 : 1679630430:0;notmuch new
-: 1679630435:0;neomutt
-: 1679630578:0;nvim
-: 1679676293:0;tmux a
-: 1679676298:0;tmux
-: 1679676301:0;topgrade
-: 1679676334:0;nvim
 : 1679676378:0;brew uninstall prettier
 : 1679676688:0;brew install mosh
 : 1679676800:0;brew install difftastic
 : 1679676880:0;brew install thefuck
 : 1679676910:0;brew install pdfgrep
 : 1679676995:0;rga-fzf
-: 1679677085:0;nvim .dotfiles/.zshrc
-: 1679677109:0;rg-fzf
-: 1679677113:0;source .zshrc
-: 1679677115:0;rg-fzf
 : 1679677125:0;rg-fzf()\
 ds
-: 1679677127:0;nvim .dotfiles/.zshrc
-: 1679677134:0;source .zshrc
-: 1679677137:0;rg-fzf
 : 1679677140:0;rg-fzf b
-: 1679677146:0;nvim .dotfiles/.zshrc
 : 1679677158:0;fzf_rg
-: 1679677203:0;nvim .dotfiles/.zshrc
 : 1679677221:0;rg-fzf 
 : 1679677224:0;rga-fzf 
 : 1679677232:0;nvim .dotfiles/.zshrc
-: 1679677269:0;source .zshrc
 : 1679677272:0;rg-fzf
 : 1679677665:0;brew install tig
-: 1679677678:0;tig
 : 1679677681:0;cd .dotfiles/.
 : 1679677683:0;tig
-: 1679677979:0;ga
 : 1679677984:0;git add
 : 1679677994:0;git status
-: 1679678003:0;ga
-: 1679678012:0;gc
-: 1679678065:0;nvim .zshrc
 : 1679678106:0;pass
-: 1679678110:0;pass fzf
 : 1679678112:0;fzf pass
 : 1679678115:0;fzfpass
 : 1679678133:0;pass-fzf
-: 1679678146:0;pass fzf
-: 1679678148:0;nvim
 : 1679678175:0;pass u
 : 1679678177:0;pass la
-: 1679678194:0;fuzzy-pass
 : 1679678211:0;brew install clipcopy
-: 1679678278:0;nvim
-: 1679678291:0;fuzzy-pass
-: 1679678307:0;nvim
 : 1679678320:0;antidote purge zpm-zsh/clipboard
-: 1679678345:0;clipcopy
 : 1679678347:0;pbcopy
-: 1679678350:0;nvim
-: 1679678372:0;source .zshrc
-: 1679678376:0;clipcopy
-: 1679678381:0;source .zshrc
-: 1679678384:0;nvim .zshrc
 : 1679678392:0;source .zshrc
-: 1679678394:0;clipcopy
 : 1679678397:0;fuzzy-pass
 : 1679678409:0;clipcopy
 : 1679678412:0;nvim .zshrc
@@ -574,54 +520,52 @@ ds
 : 1679678450:0;antidote install ficoos/pass-fzf
 : 1679678458:0;pass fzf
 : 1679678469:0;antidote purge ficoos/pass-fzf
-: 1679682580:0;neomutt
-: 1679683251:0;tmux a
 : 1679683253:0;tmux 
 : 1679683319:0;nvim .tmux.conf
 : 1679683385:0;tmux kill-server
 : 1679683386:0;tmux
 : 1679683485:0;neomutt
-: 1679683490:0;nvim
-: 1679719696:0;topgrade
 : 1679719780:0;which alacritty
-: 1679719803:0;alacritty --version
 : 1679719828:0;tmux a
-: 0:1679719836;
-: 0:1679719836;
+: 1679756035:0;
 : 1679719878:0;brew upgrade alacritty
 : 1679719891:0;antidote init
 : 1679719898:0;antidote update
 : 1679719939:0;alacritty --version
-: 1679720015:0;nvim
 : 1679721288:0;sudo tlmgr update --all
-: 1679723036:0;topgrade
 : 1679723143:0;nvim
 : 1679750962:0;topgrade
 : 1679751176:0;brew install kitty
 : 1679751184:0;kitty
-: 1679751205:0;lf
 : 1679751228:0;gc
 : 1679751233:0;gcr
 : 1679751242:0;gcf
 : 1679751280:0;grc
-: 1679751303:0;lazygit
-: 1679753953:0;git merge master fix
-: 1679753958:0;lazygit
 : 1679754145:0;git merge master fix
-: 1679754151:0;lf
-: 1679754203:0;ga
-: 1679754590:0;lf
 : 1679754619:0;git merge -i master fix
 : 1679754654:0;git log --merge
-: 1679754676:0;lazygit
 : 1679754698:0;git checkout fix
-: 1679754707:0;lazygit
 : 1679755029:0;git pull
 : 1679755034:0;git commit 
-: 1679755036:0;ga
-: 1679755066:0;lf
 : 1679755112:0;ga
-: 1679755306:0;lf
-: 1679755315:0;lazygit
 : 1679755436:0;lazygit
 : 1679755472:0;git add .
+: 1679756014:0;git revert 7c0464e7e6bb5b860592788933591fe76f773744
+: 1679756022:0;git push
+: 1679756026:0;lf
+: 1679756044:0;cd .dotfiles/
+: 1679756046:0;stow .
+: 1679756088:0;kitty +kitten themes
+: 1679756103:0;lf
+: 1679756180:0;nvim
+: 1679756184:0;lf
+: 1679756246:0;cd
+: 1679756247:0;cd .dotfiles/
+: 1679756248:0;stow .
+: 1679756263:0;nvim
+: 1679756800:0;tmux
+: 1679756804:0;tmux a
+: 1679756813:0;tmux
+: 1679756818:0;neomutt
+: 1679756859:0;topgrade
+: 1679756875:0;nvim
