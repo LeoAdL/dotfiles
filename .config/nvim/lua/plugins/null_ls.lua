@@ -6,7 +6,6 @@ return {
       return {
         sources = {
           null_ls.builtins.formatting.black,
-          null_ls.builtins.formatting.latexindent,
           null_ls.builtins.formatting.isort,
           null_ls.builtins.code_actions.proselint,
           null_ls.builtins.formatting.ruff,

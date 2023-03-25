@@ -47,6 +47,7 @@ return {
   },
   {
     "joaomsa/telescope-orgmode.nvim",
+    enabled = false,
     dependencies = {
       { "nvim-telescope/telescope.nvim" },
     },

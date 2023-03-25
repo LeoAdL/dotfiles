@@ -14,38 +14,28 @@ notes-name = notes_{doc[title]:.15}.tex
 #
 # Use ranger as a file browser, a nice python program
 file-browser = lf
-# Ask for confirmation when doing papis add
-add-confirm = False
-# Edit the info.yaml file before adding a doc into the library
-# papis add --edit
-add-edit = False
-# Open the files before adding a document into the library
-# papis add --open
-add-open = False
 
-default-library = papers
 picktool = fzf
 fzf-extra-flags = ["--ansi", "--multi", "-i",
                    "--preview", "echo {} | sed -r 's/~~/\\n/g; /^ *$/d' ",
-                   "--preview-window", "bottom:wrap:20%%",
-                   "--color", "preview-fg:#F6E6E4,preview-bg:#5B6D5B"]
-
+                   "--preview-window", "bottom:wrap:20%%"]
 fzf-extra-bindings = ["ctrl-s:jump",
                       "ctrl-t:toggle-preview"]
 
-fzf-header-format = {c.Fore.MAGENTA}{doc[title]}{c.Style.RESET_ALL}~~ {c.Fore.CYAN}{doc[author]}{c.Style.RESET_ALL}~~ {c.Fore.YELLOW}«{doc[date]}»{c.Style.RESET_ALL}~~ {c.Fore.YELLOW}{doc[abstractNote]}{c.Style.RESET_ALL}~~ :{doc[tags]}
+fzf-header-format = {c.Fore.MAGENTA}{doc[title]}{c.Style.RESET_ALL}~~ {c.Fore.CYAN}{doc[author]}{c.Style.RESET_ALL}~~ {c.Fore.YELLOW}«{doc[year]}»{c.Style.RESET_ALL}~~ {c.Fore.YELLOW}{doc[abstractNote]}{c.Style.RESET_ALL}~~ :{doc[tags]}
 
 #
 # Define custom default match and header formats
 #
-match-format = {doc[tags]}{doc.subfolder}{doc[title]}{doc[author]}{doc[date]}
+match-format = {doc[tags]}{doc.subfolder}{doc[title]}{doc[author]}{doc[year]}
 #
 # Define header format with colors and multiline support
 #
 header-format = <red>{doc.html_escape[title]}</red>
   <span color='#ff00ff'>  {doc.html_escape[author]}</span>
-  <yellow>   ({doc.html_escape[date]})</yellow>
+  <yellow>   ({doc.html_escape[year]})</yellow>
 
+default-library =papers
 [tui]
 editmode = vi
 options_list.selected_margin_style = bg:ansigreen fg:ansired
@@ -56,6 +46,6 @@ options_list.unselected_margin_style =
 dir = ~/Library/papers
 # use whoosh as a database for papers
 database-backend = whoosh
-whoosh-schema-fields = ['doi', 'ref','author','date','tags','title','abstractNote']
+whoosh-schema-fields = ['doi', 'ref','author','year','tags','title','abstractNote']
 # rename files added by author and title
 add-file-name = {doc[author]}{doc[title]}

@@ -18,3 +18,9 @@ theme:
     - "#8caaee" # Blue
   unstagedChangesColor:
     - red # Red
+  border: rounded
+  showIcons: true
+git:
+  paging:
+    colorArg: always
+    useConfig: true

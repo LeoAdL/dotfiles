@@ -1,6 +1,7 @@
 return {
   {
     "jghauser/papis.nvim",
+    enabled = false,
     requires = {
       "kkharji/sqlite.lua",
       "nvim-lua/plenary.nvim",
@@ -11,7 +12,7 @@ return {
       vim.opt.rtp:append(plugin.dir .. "/opt/homebrew/Cellar/libyaml")
       require("papis").setup({
         papis_python = {
-          dir = "~/Documents/papers/",
+          dir = "~/Library/papers/",
           info_name = "info.yaml", -- (when setting papis options `-` is replaced with `_`
           -- in the keys names)
           notes_name = [[notes.norg]],
