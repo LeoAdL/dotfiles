@@ -569,3 +569,24 @@ ds
 : 1679756818:0;neomutt
 : 1679756859:0;topgrade
 : 1679756875:0;nvim
+: 1679757052:0;tmux a
+: 1679757069:0;kf
+: 1679758784:0;brew install wezterm
+: 1679758812:0;wezterm
+: 1679758830:0;tmux a
+: 1679758832:0;nvim
+: 1679758852:0;cd .dotfiles/
+: 1679758854:0;lazygit
+: 1679758884:0;nvim
+: 1679758891:0;lf
+: 1679758926:0;tmux a
+: 1679758948:0;nvim
+: 1679758971:0;brew uninstall kitty
+: 1679758979:0;brew uninstall alacritty
+: 1679758984:0;nvim
+: 1679759055:0;brew install --cask wezterm-nightly\
+
+: 1679759068:0;brew uninstall wezterm
+: 1679759072:0;brew install --cask wezterm-nightly\
+
+: 1679759090:0;nvim
