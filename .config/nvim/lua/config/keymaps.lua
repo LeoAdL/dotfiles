@@ -28,6 +28,9 @@ vim.api.nvim_set_keymap("n", "<leader>tt", [[<Cmd>lua require"fzf-lua".builtin()
 vim.api.nvim_set_keymap("n", "<leader>ff", [[<Cmd>lua require"fzf-lua".files()<CR>]], {})
 vim.api.nvim_set_keymap("n", "<leader>fr", [[<Cmd>lua require"fzf-lua".oldfiles()<CR>]], {})
 vim.api.nvim_set_keymap("n", "<leader>/", [[<Cmd>lua require"fzf-lua".live_grep_glob()<CR>]], {})
+vim.api.nvim_set_keymap("n", "<leader>gc", [[<Cmd>lua require"fzf-lua".git_commits()<CR>]], {})
+vim.api.nvim_set_keymap("n", "<leader>gs", [[<Cmd>lua require"fzf-lua".git_status()<CR>]], {})
+vim.api.nvim_set_keymap("n", "<leader>sk", [[<Cmd>lua require"fzf-lua".keymaps()<CR>]], {})
 
 -- lazy
 --
