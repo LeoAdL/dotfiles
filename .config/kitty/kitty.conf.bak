@@ -6,7 +6,7 @@
 #: individual font faces and even specify special fonts for particular
 #: characters.
 
- font_family      Iosevka
+ font_family      Iosevka Nerd Fonts
  bold_font        auto
  italic_font      auto
  bold_italic_font auto
@@ -24,7 +24,7 @@
 #:     italic_font      Operator Mono Book Italic
 #:     bold_italic_font Operator Mono Medium Italic
 
- font_size 15.0
+ font_size 16.0
 
 #: Font size (in pts)
 
@@ -1077,7 +1077,7 @@ tab_title_template          {title}{' :{}:'.format(num_windows) if num_windows >
 
 #: The foreground and background colors.
 
- background_opacity .94
+ background_opacity 1.00
 
 #: The opacity of the background. A number between zero and one, where
 #: one is opaque and zero is fully transparent. This will only work if
@@ -2338,7 +2338,7 @@ map cmd+9 goto_tab 9
 
 
 # BEGIN_KITTY_THEME
-# Nord
+# Catppuccin-Frappe
 include current-theme.conf
 # END_KITTY_THEME
 #
