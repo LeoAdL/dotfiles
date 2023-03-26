@@ -108,7 +108,6 @@ kkkkkkkkkkkkkkkkkkq
 : 1679185034:0;exa .dotfiles
 : 1679185043:0;z .dotfiles
 : 1679185240:0;mkdir -p Library/Application Support/sioyek/
-: 1679185407:0;stow .
 : 1679185600:0;nvim prefs_user.config
 : 1679186057:0;grep
 : 1679186062:0;grep catpuccin
@@ -431,14 +430,10 @@ kkkkkkkkkkkkkkkkkkq
 : 1679349207:0;papis zotero import --from-bibtex ~/org/portfolio_het_agents/mylib.bib -o papis_exp
 : 1679349375:0;papis export --all --format bibtex --out mylib.bib '*'
 : 1679349940:0;pip uninstall papis-zotero papis
-: 1679349949:0;pip clean
 : 1679365703:0;cd org
 : 1679371407:0;brew unlink gdu
-: 1679373081:0;du
 : 1679373098:0;dast
-: 1679373101:0;dust
 : 1679373117:0;brew install gdu
-: 1679373165:0;gdu
 : 1679458298:0;brew uninstall language-tool
 : 1679458303:0;brew uninstall languagetool
 : 1679458310:0;brew uninstall --cask languagetool
@@ -469,7 +464,6 @@ kkkkkkkkkkkkkkkkkkq
 : 1679604920:0;brew upgrade
 : 1679605233:0;mbsync -a
 : 1679626546:0;antidote install
-: 1679628800:0;fzf
 : 1679629535:0;brew install rg
 : 1679629648:0;lf Library/papers/5bf2918e0266f45239841a7b9d98e429/a-perturbational-approach-for-approximating-heterogeneous-agent-models.pdf
 : 1679629699:0;builtin cd -- .davmail.properties
@@ -481,7 +475,6 @@ kkkkkkkkkkkkkkkkkkq
 : 1679629794:0;rg catppuccin
 : 1679629804:0;rg leo
 : 1679630153:0;fzfrg
-: 1679630168:0;cd
 : 1679630421:0;notmuch compact
 : 1679630430:0;notmuch new
 : 1679676378:0;brew uninstall prettier
@@ -512,10 +505,8 @@ ds
 : 1679678211:0;brew install clipcopy
 : 1679678320:0;antidote purge zpm-zsh/clipboard
 : 1679678347:0;pbcopy
-: 1679678392:0;source .zshrc
 : 1679678397:0;fuzzy-pass
 : 1679678409:0;clipcopy
-: 1679678412:0;nvim .zshrc
 : 1679678446:0;antidote purge smeagol74/zsh-fzf-pass
 : 1679678450:0;antidote install ficoos/pass-fzf
 : 1679678458:0;pass fzf
@@ -523,18 +514,10 @@ ds
 : 1679683253:0;tmux 
 : 1679683319:0;nvim .tmux.conf
 : 1679683385:0;tmux kill-server
-: 1679683386:0;tmux
-: 1679683485:0;neomutt
 : 1679719780:0;which alacritty
-: 1679719828:0;tmux a
-: 1679756035:0;
 : 1679719878:0;brew upgrade alacritty
 : 1679719891:0;antidote init
-: 1679719898:0;antidote update
 : 1679719939:0;alacritty --version
-: 1679721288:0;sudo tlmgr update --all
-: 1679723143:0;nvim
-: 1679750962:0;topgrade
 : 1679751176:0;brew install kitty
 : 1679751184:0;kitty
 : 1679751228:0;gc
@@ -547,46 +530,145 @@ ds
 : 1679754698:0;git checkout fix
 : 1679755029:0;git pull
 : 1679755034:0;git commit 
-: 1679755112:0;ga
-: 1679755436:0;lazygit
 : 1679755472:0;git add .
 : 1679756014:0;git revert 7c0464e7e6bb5b860592788933591fe76f773744
 : 1679756022:0;git push
-: 1679756026:0;lf
-: 1679756044:0;cd .dotfiles/
-: 1679756046:0;stow .
 : 1679756088:0;kitty +kitten themes
-: 1679756103:0;lf
-: 1679756180:0;nvim
-: 1679756184:0;lf
-: 1679756246:0;cd
-: 1679756247:0;cd .dotfiles/
-: 1679756248:0;stow .
-: 1679756263:0;nvim
-: 1679756800:0;tmux
-: 1679756804:0;tmux a
 : 1679756813:0;tmux
 : 1679756818:0;neomutt
-: 1679756859:0;topgrade
-: 1679756875:0;nvim
-: 1679757052:0;tmux a
 : 1679757069:0;kf
 : 1679758784:0;brew install wezterm
 : 1679758812:0;wezterm
-: 1679758830:0;tmux a
-: 1679758832:0;nvim
-: 1679758852:0;cd .dotfiles/
 : 1679758854:0;lazygit
-: 1679758884:0;nvim
-: 1679758891:0;lf
-: 1679758926:0;tmux a
-: 1679758948:0;nvim
 : 1679758971:0;brew uninstall kitty
 : 1679758979:0;brew uninstall alacritty
-: 1679758984:0;nvim
-: 1679759055:0;brew install --cask wezterm-nightly\
-
 : 1679759068:0;brew uninstall wezterm
 : 1679759072:0;brew install --cask wezterm-nightly\
 
-: 1679759090:0;nvim
+: 1679759464:0;antidote update
+: 1679769425:0;antidote purge wfxr/forgit
+: 1679769482:0;fshow_preview
+: 1679769502:0;# gh-watch -- watch the current actions\
+gh-watch() {\
+    gh run list \\
+      --branch $(git rev-parse --abbrev-ref HEAD) \\
+      --json status,name,databaseId |\
+      jq -r '.[] | select(.status != "completed") | (.databaseId | tostring) + "\t" + (.name)' |\
+      fzf -1 -0 | awk '{print $1}' | xargs gh run watch\
+}
+: 1679769622:0;nvim .zshrc
+: 1679769646:0;fshow
+: 1679769659:0;fcoc_preview
+: 1679769685:0;git add | fzf
+: 1679769730:0;antidote install wfxr/forgit
+: 1679769740:0;gs
+: 1679769742:0;ga
+: 1679778411:0;nvim
+: 1679778615:0;brew cleanup
+: 1679867712:0;
+: 1679779547:0;cd Library/
+: 1679779646:0;du
+: 1679779694:0;sudo durst
+: 1679779714:0;sudo gdu\
+: 1679779715:0;sudo gdu
+: 1679779996:0;sudo dust
+: 1679780182:0;brew uninstall iterm2
+: 1679780208:0;brew cleanup --prune
+: 1679780214:0;brew cleanup --prune 1
+: 1679780363:0;brew uninstall rust
+: 1679780458:0;gdu
+: 1679780561:0;brew uninstall thunderbird
+: 1679780572:0;pip clean
+: 1679780578:0;pip cleanup
+: 1679780583:0;mamba clean --all
+: 1679780603:0;brew uninstall emacs
+: 1679780691:0;brew reinstall fzf
+: 1679780732:0;brew uninstall cargo
+: 1679780756:0;brew uninstall docker
+: 1679780845:0;brew uninstall rustup
+: 1679780868:0;dust
+: 1679781029:0;tmux a
+: 1679852292:0;topgrade
+: 1679852422:0;antidote update 
+: 1679852428:0;sudo tlmgr update --all
+: 1679866035:0;brew install xcode
+: 1679866047:0;brew install Xcode
+: 1679866134:0;brew install qt5
+: 1679866240:0;brew reinstall qt@5
+: 1679866325:0;brew uninstall qt@5
+: 1679866466:0;brew uninstall qt5
+: 1679866471:0;brew cleanup --prune=0
+: 1679866517:0;brew install qt@5
+: 1679866718:0;where 'qt@5'
+: 1679866755:0;source .zshrc
+: 1679866771:0;fzf a
+: 1679866773:0;fzf aaa
+: 1679866782:0;fzf
+: 1679866888:0;brew uninstall sioyek
+: 1679867014:0;brew install qt@5 freeglut mesa harfbuzzbrew install qt@5 freeglut mesa harfbuzz
+: 1679867018:0;brew install qt@5 freeglut mesa harfbuzz
+: 1679867080:0;git clone --recursive https://github.com/ahrm/sioyek\
+cd sioyek\
+chmod +x build_mac.sh\
+./build_mac.sh
+: 1679867630:0;sioyek/scripts/sioyek.py 
+: 1679867927:0;brew install --cask zioyek
+: 1679867933:0;brew install --cask sioyek
+: 1679867945:0;sioyek
+: 1679867970:0;lf
+: 1679867979:0;cd .dotfiles/
+: 1679867981:0;stow .
+: 1679868004:0;cd
+: 1679868080:0;python -m pip install sioyek
+: 1679868267:0;python3 -m pip install sioyek
+: 1679868303:0;pip install sioyek
+: 1679868498:0;Library/Containers/com.apple.ScreenTimeWidgetApplication.ScreenTimeWidgetIntentsExtension/Data/Downloads/build/sioyek.dmg 
+: 1679868580:0;%{sioyek_path}
+: 1679868592:0;_dual_panelify python -m sioyek.dual_panelify "/Applications/sioyek.app/Contents/MacOS/sioyek" "%{file_path}" "%{command_text}"\
+
+: 1679868634:0;python -m sioyek.embed_annotations "/Applications/sioyek.app/Contents/MacOS/sioyek" "/Users/<user>/Library/Application Support/sioyek/local.db" "/Users/<user>/Library/Application Support/sioyek/shared.db" "/Users/<user>/Library/CloudStorage/sample.pdf"\
+
+: 1679868643:0;mamba install sioyek
+: 1679868676:0;pip install sioyek
+: 1679869031:0;pip install PyQt5
+: 1679869098:0;lf
+: 1679869119:0;cd PyQt5_sip-12.11.1-cp311-cp311-macosx_10_9_universal2.whl 
+: 1679869133:0;lf
+: 1679869145:0;cd PyQt5_sip-12.11.1
+: 1679869146:0;lf
+: 1679869165:0;sip-install
+: 1679869179:0;python sip-install
+: 1679869189:0;pip install sip
+: 1679869193:0;sip-install
+: 1679869211:0;lf
+: 1679869217:0;sip-install
+: 1679869218:0;lf
+: 1679869222:0;sip-install
+: 1679869224:0;lf
+: 1679869255:0;where python
+: 1679869260:0;lf
+: 1679869265:0;cd /opt/homebrew/Caskroom/miniforge/base/bin/python
+: 1679869266:0;lf /opt/homebrew/Caskroom/miniforge/base/bin/python
+: 1679869287:0;base/lib/python3.10
+: 1679869303:0;/opt/homebrew/Caskroom/miniforge/base/
+: 1679869306:0;cd /opt/homebrew/Caskroom/miniforge/base/
+: 1679869307:0;cd
+: 1679869311:0;cd base/lib/python3.10
+: 1679869320:0;lf v14.0.0-clang via ðƒ¿ƒ°ƒ­ v3.10.10\
+âƒ½¯ cd
+: 1679869325:0;lf /opt/homebrew/Caskroom/miniforge/base/bin/
+: 1679869343:0;pwd
+: 1679869361:0;python -m sioyek.embed_annotations "/Applications/sioyek.app/Contents/MacOS/sioyek" "/Users/<user>/Library/Application Support/sioyek/local.db" "/Users/<user>/Library/Application Support/sioyek/shared.db" "/Users/<user>/Library/CloudStorage/sample.pdf"\
+
+: 1679869463:0;brew install qt5
+: 1679869467:0;cd
+: 1679869475:0;nvim .zshrc
+: 1679869492:0;pip install sioyek
+: 1679869557:0;pip install pyqt5 --config-settings --confirm-license= --verbose
+: 1679869631:0;python -m pip install --upgrade pip
+: 1679869688:0;tmux a
+: 1679869742:0;cd
+: 1679869785:0;cd .dotfiles/
+: 1679869789:0;nvim Library/Application\ Support/sioyek/prefs_user.config 
+: 1679869799:0;nvim Library/Application\ Support/sioyek/keys_user.config
+: 1679869959:0;pip install sioyek --verbose
