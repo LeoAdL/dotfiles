@@ -672,3 +672,140 @@ chmod +x build_mac.sh\
 : 1679869789:0;nvim Library/Application\ Support/sioyek/prefs_user.config 
 : 1679869799:0;nvim Library/Application\ Support/sioyek/keys_user.config
 : 1679869959:0;pip install sioyek --verbose
+: 1679870431:0;nvim 
+: 1679870573:0;nvim
+: 1679871430:0;pip install sioyek --verbose
+: 1679871508:0;nvim 
+: 1679871536:0;nvim
+: 1679871647:0;python -m pip install sioyek
+: 1679871687:0;open /Applications/sioyek.app
+: 1679886640:0;topgrade
+: 1679886664:0;pinentry
+: 1679886677:0;mbsync -a
+: 1679886691:0;pass laparisidelannoy@uchicago.edu
+: 1679886703:0;nvim .zshrc
+: 1679886720:0;pass laparisidelannoy@uchicago.edu
+: 1679886733:0;pkill gpg-agent\
+gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
+: 1679886735:0;pass laparisidelannoy@uchicago.edu
+: 1679886742:0;pkill gpg-agent
+: 1679886747:0;gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
+: 1679886754:0;pass laparisidelannoy@uchicago.edu
+: 1679886763:0;pkill gpg-agent
+: 1679886773:0;pass laparisidelannoy@uchicago.edu
+: 1679886780:0;mbsync -a
+: 1679886848:0;mbsync laparisidelannoy@uchicago.edu
+: 1679886886:0;tmux a
+: 1679886890:0;neomutt
+: 1679886973:0;brew uninstall mpv
+: 1679886979:0;brew uninstall --cask mpv
+: 1679886989:0;rm -rf   /opt/homebrew/etc/mpv\
+
+: 1679887002:0;\
+  /opt/homebrew/etc/mpv
+: 1679887046:0;cd
+: 1679887047:0;nvim
+: 1679887096:0;brew install reattach-to-user-namespace
+: 1679887299:0;antidote purge jeffreytse/zsh-vi-mode
+: 1679887403:0;nvim 
+: 1679887502:0;nvim -- org/portfolio_het_agents on î‚ƒ€ master [
+: 1679887542:0;nvim 
+: 1679887726:0;nvim -- org/portfolio_het_agents
+: 1679887921:0;nvim 
+: 1679888045:0;brew install rust
+: 1679888234:0;set -g @thumbs-key F
+: 1679888236:0;nvim
+: 1679888280:0;worg/portfolio_het_agents
+: 1679888313:0;nvim
+: 1679888595:0;source .tmux.con
+: 1679888598:0;cd
+: 1679888603:0;cd .tmux.conf 
+: 1679888608:0;source .tmux.conf 
+: 1679888614:0;nvim
+: 1679888631:0;source .tmux.conf 
+: 1679888640:0;nvim
+: 1679888655:0;source .tmux.conf 
+: 1679888657:0;nvim
+: 1679888665:0;source .tmux.conf 
+: 1679888670:0;nvim
+: 1679888682:0;source .tmux.conf 
+: 1679888688:0;nvim
+: 1679888779:0;source .tmux.conf 
+: 1679888785:0;nvim
+: 1679888817:0;source .tmux.conf 
+: 1679888821:0;nvim
+: 1679888839:0;source .tmux.conf 
+: 1679888841:0;nvim
+: 1679888853:0;source .tmux.conf 
+: 1679888859:0;nvim 
+: 1679888885:0;source .tmux.conf 
+: 1679888889:0;nvim 
+: 1679888902:0;source .tmux.conf 
+: 1679888905:0;nvim 
+: 1679888929:0;source .tmux.conf 
+: 1679888931:0;nvim 
+: 1679888951:0;source .tmux.conf 
+: 1679888955:0;nvim
+: 1679888965:0;run '~/.tmux/plugins/tpm/tpm'\
+
+: 1679888967:0;run '~/.tmux/plugins/tpm/tpm'
+: 1679889019:0;source .zshrc
+: 1679889022:0;run '~/.tmux/plugins/tpm/tpm'
+: 1679889039:0;antidote update 
+: 1679889048:0;run '~/.tmux/plugins/tpm/tpm'
+: 1679889049:0;cd
+: 1679889099:0;nvim 
+: 1679889213:0;nvim
+: 1679889259:0;source .tmux.conf
+: 1679889324:0;touch .zprofile
+: 1679889330:0;source .tmux.conf
+: 1679889349:0;tmux a
+: 1679889362:0;tmux kill-server
+: 1679889365:0;antidote update 
+: 1679889390:0;source .tmux.conf
+: 1679889393:0;nvim
+: 1679889422:0;tmux source ~/.tmux.conf
+: 1679889425:0;tmux 
+: 1679889429:0;tmux source ~/.tmux.conf
+: 1679889431:0;nvim
+: 1679889472:0;tmux kill-server
+: 0:1679889476;
+: 1679889479:0;tmux source ~/.tmux.conf
+: 1679889498:0;nvim
+: 1679889509:0;tmux source ~/.tmux.conf
+: 1679889514:0;nvim
+: 1679889523:0;tmux kill-server
+: 1679889527:0;tmux source ~/.tmux.conf
+: 1679889529:0;tmux
+: 1679889540:0;nvim
+: 1679889552:0;tmux source ~/.tmux.conf
+: 1679889556:0;nvim
+: 1679889563:0;tmux source ~/.tmux.conf
+: 1679889571:0;tmux kill-server
+: 1679889582:0;nvim
+: 1679889732:0;tmux source ~/.tmux.conf
+: 1679889738:0;nvim
+: 1679889754:0;tmux kill-server
+: 1679889772:0;nvim
+: 1679889778:0;tmux
+: 1679889788:0;nvim
+: 1679889796:0;tmux
+: 1679889806:0;nvim
+: 1679889815:0;tmux
+: 1679889830:0;nvim
+: 1679889843:0;tmux
+: 1679889855:0;nvim
+: 1679889863:0;tmux
+: 1679889948:0;nvim
+: 1679890040:0;neomutt
+: 1679890166:0;tmux ls
+: 1679890168:0;tmux a
+: 1679890947:0;topgrade
+: 1679891145:0;nvim
+: 1679891257:0;tmux
+: 1679891263:0;neomutt
+: 1679891314:0;nvim
+: 1679891461:0;topgrade
+: 1679891473:0;cd
+: 1679891476:0;cd .dotfiles/
+: 1679891478:0;ga
