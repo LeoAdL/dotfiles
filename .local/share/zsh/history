@@ -809,3 +809,39 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1679891473:0;cd
 : 1679891476:0;cd .dotfiles/
 : 1679891478:0;ga
+: 1679891485:0;git commit
+: 1679891515:0;git push
+: 1679891532:0;cd
+: 1679891533:0;topgrade
+: 1679891582:0;nvim
+: 1679891711:0;tmux source 
+: 1679891717:0;cd 
+: 1679891736:0;tmux source .tmux.cong
+: 1679891738:0;tmux source .tmux.conf
+: 1679891775:0;nvim
+: 1679891785:0;cd
+: 1679891787:0;tmux source .tmux.conf
+: 1679891809:0;nvim
+: 1679891939:0;tmux a
+: 1679891942:0;tmux
+: 1679891952:0;nvim
+: 1679892200:0;neomutt
+: 1679892472:0;mbsync
+: 1679892475:0;mbsync -a
+: 1679892502:0;mbsync -h
+: 1679892510:0;mbsync -X
+: 1679892517:0;notmuch -h
+: 1679892520:0;notmuch -help
+: 1679892522:0;notmuch help
+: 1679892527:0;notmuch compact
+: 1679892919:0;brew uninstall gitgit-credential-manager
+: 1679892922:0;git-credential-manager
+: 1679892929:0;git-credential-manager get
+: 1679892939:0;cd
+: 1679892941:0;cd .dotfiles/
+: 1679892944:0;git-credential-manager get
+: 1679892956:0;git-credential-manager unconfigure
+: 1679892962:0;brew uninstall git-credential-manager
+: 1679892982:0;git pull
+: 1679892988:0;git add
+: 1679892990:0;ga

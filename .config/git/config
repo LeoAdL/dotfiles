@@ -8,11 +8,6 @@
 	name = Leo Aparisi de Lannoy
 [diff "org"]
   xfuncname = "^(\\*+ +.*)$"
-[credential]
-	helper = 
-	helper = /usr/local/share/gcm-core/git-credential-manager
-[credential "https://dev.azure.com"]
-	useHttpPath = true
 [core]
 	pager = delta --line-numbers --dark --diff-so-fancy
 [delta]
