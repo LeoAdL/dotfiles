@@ -62,7 +62,6 @@ done
 : 1679107739:0;antidote upg
 : 1679111403:0;nvim .fzf/BUILD.md 
 : 1679111581:0;brew install pandoc
-: 1679155260:0;nvim 
 : 1679155309:0;nvim .dotfiles/.config/topgrade.toml 
 : 1679155503:0;forgit 
 : 1679155570:0;forgit::add
@@ -114,20 +113,14 @@ kkkkkkkkkkkkkkkkkkq
 : 1679186068:0;rga
 : 1679186074:0;rga catpuccin
 : 1679186078:0;rga catppuccin
-: 1679186629:0;nvim Library/Application\ Support/sioyek/prefs_user.config 
 : 1679186913:0;nvim .config/newsboat/dark 
 : 1679187203:0;nvim .config/mutt/muttrc 
-: 1679187315:0;mbsync laparisidelannoy@uchicago.edu
 : 1679187387:0;notmuch
-: 1679187390:0;notmuch -h
 : 1679187401:0;notmuch reindex
 : 1679187403:0;notmuch reindex Chase
-: 1679187482:0;neomutt -h
 : 1679187505:0;notmuch laparisidelannoy@uchicago.edu
-: 1679187511:0;notmuch help
 : 1679187515:0;notmuch setup
 : 1679190057:0;nvim .dotfiles/.config/alacritty/alacritty.yml 
-: 1679190084:0;neomutt 
 : 1679268514:0;mamba update --all
 : 1679268542:0;antidote ls
 : 1679268689:0;antidote install laggardkernel/git-ignore
@@ -313,7 +306,6 @@ kkkkkkkkkkkkkkkkkkq
 : 1679339673:0;papis export -a -f bibtex -o mylib.bib '*'
 : 1679340386:0;nvim .dotfiles/.config/nvim/lua/plugins/vimtex.lua 
 : 1679341892:0;TugceNotes.lyx 
-: 1679342256:0;cd 
 : 1679342771:0;nvim .dotfiles/Library/Application\ Support/sioyek/prefs_user.config 
 : 1679343397:0;papis open Borovicka
 : 1679343407:0;papis open '*\
@@ -438,8 +430,6 @@ kkkkkkkkkkkkkkkkkkq
 : 1679458303:0;brew uninstall languagetool
 : 1679458310:0;brew uninstall --cask languagetool
 : 1679459231:0;brew uninstall ltex
-: 1679459296:0;brew uninstall ltex-ls
-: 1679498980:0;brew uninstall latexindent
 : 1679498994:0;brew install ltex-ls
 : 1679501243:0;nvim .dotfiles/.config/zellij/config.kdl
 : 1679501268:0;zellij
@@ -454,15 +444,11 @@ kkkkkkkkkkkkkkkkkkq
 : 1679522377:0;antidote purge Freed-Wu/fzf-tab-source
 : 1679522395:0;nvim .zsh_plugins.txt
 : 1679522607:0;cd .dotfiles
-: 1679522683:0;git commit
 : 1679522700:0;git push 
 : 1679540443:0;brew install chalk
 : 1679541007:0;iina "https://www.hulu.com/watch/8d6e3f38-fd7e-4112-96f0-5abd87b87ec3"
-: 1679589428:0;brew autoremove
-: 1679604891:0;brew update
 : 1679604915:0;brew ugrade
 : 1679604920:0;brew upgrade
-: 1679605233:0;mbsync -a
 : 1679626546:0;antidote install
 : 1679629535:0;brew install rg
 : 1679629648:0;lf Library/papers/5bf2918e0266f45239841a7b9d98e429/a-perturbational-approach-for-approximating-heterogeneous-agent-models.pdf
@@ -475,7 +461,6 @@ kkkkkkkkkkkkkkkkkkq
 : 1679629794:0;rg catppuccin
 : 1679629804:0;rg leo
 : 1679630153:0;fzfrg
-: 1679630421:0;notmuch compact
 : 1679630430:0;notmuch new
 : 1679676378:0;brew uninstall prettier
 : 1679676688:0;brew install mosh
@@ -494,7 +479,6 @@ ds
 : 1679677665:0;brew install tig
 : 1679677681:0;cd .dotfiles/.
 : 1679677683:0;tig
-: 1679677984:0;git add
 : 1679677994:0;git status
 : 1679678106:0;pass
 : 1679678112:0;fzf pass
@@ -511,9 +495,7 @@ ds
 : 1679678450:0;antidote install ficoos/pass-fzf
 : 1679678458:0;pass fzf
 : 1679678469:0;antidote purge ficoos/pass-fzf
-: 1679683253:0;tmux 
 : 1679683319:0;nvim .tmux.conf
-: 1679683385:0;tmux kill-server
 : 1679719780:0;which alacritty
 : 1679719878:0;brew upgrade alacritty
 : 1679719891:0;antidote init
@@ -528,21 +510,15 @@ ds
 : 1679754619:0;git merge -i master fix
 : 1679754654:0;git log --merge
 : 1679754698:0;git checkout fix
-: 1679755029:0;git pull
 : 1679755034:0;git commit 
 : 1679755472:0;git add .
 : 1679756014:0;git revert 7c0464e7e6bb5b860592788933591fe76f773744
-: 1679756022:0;git push
 : 1679756088:0;kitty +kitten themes
-: 1679756813:0;tmux
-: 1679756818:0;neomutt
 : 1679757069:0;kf
 : 1679758784:0;brew install wezterm
 : 1679758812:0;wezterm
-: 1679758854:0;lazygit
 : 1679758971:0;brew uninstall kitty
 : 1679758979:0;brew uninstall alacritty
-: 1679759068:0;brew uninstall wezterm
 : 1679759072:0;brew install --cask wezterm-nightly\
 
 : 1679759464:0;antidote update
@@ -556,16 +532,12 @@ gh-watch() {\
       jq -r '.[] | select(.status != "completed") | (.databaseId | tostring) + "\t" + (.name)' |\
       fzf -1 -0 | awk '{print $1}' | xargs gh run watch\
 }
-: 1679769622:0;nvim .zshrc
 : 1679769646:0;fshow
 : 1679769659:0;fcoc_preview
 : 1679769685:0;git add | fzf
 : 1679769730:0;antidote install wfxr/forgit
 : 1679769740:0;gs
-: 1679769742:0;ga
-: 1679778411:0;nvim
 : 1679778615:0;brew cleanup
-: 1679867712:0;
 : 1679779547:0;cd Library/
 : 1679779646:0;du
 : 1679779694:0;sudo durst
@@ -576,7 +548,6 @@ gh-watch() {\
 : 1679780208:0;brew cleanup --prune
 : 1679780214:0;brew cleanup --prune 1
 : 1679780363:0;brew uninstall rust
-: 1679780458:0;gdu
 : 1679780561:0;brew uninstall thunderbird
 : 1679780572:0;pip clean
 : 1679780578:0;pip cleanup
@@ -586,21 +557,13 @@ gh-watch() {\
 : 1679780732:0;brew uninstall cargo
 : 1679780756:0;brew uninstall docker
 : 1679780845:0;brew uninstall rustup
-: 1679780868:0;dust
-: 1679781029:0;tmux a
-: 1679852292:0;topgrade
-: 1679852422:0;antidote update 
-: 1679852428:0;sudo tlmgr update --all
 : 1679866035:0;brew install xcode
 : 1679866047:0;brew install Xcode
-: 1679866134:0;brew install qt5
 : 1679866240:0;brew reinstall qt@5
 : 1679866325:0;brew uninstall qt@5
 : 1679866466:0;brew uninstall qt5
-: 1679866471:0;brew cleanup --prune=0
 : 1679866517:0;brew install qt@5
 : 1679866718:0;where 'qt@5'
-: 1679866755:0;source .zshrc
 : 1679866771:0;fzf a
 : 1679866773:0;fzf aaa
 : 1679866782:0;fzf
@@ -615,44 +578,25 @@ chmod +x build_mac.sh\
 : 1679867927:0;brew install --cask zioyek
 : 1679867933:0;brew install --cask sioyek
 : 1679867945:0;sioyek
-: 1679867970:0;lf
-: 1679867979:0;cd .dotfiles/
 : 1679867981:0;stow .
-: 1679868004:0;cd
-: 1679868080:0;python -m pip install sioyek
 : 1679868267:0;python3 -m pip install sioyek
-: 1679868303:0;pip install sioyek
 : 1679868498:0;Library/Containers/com.apple.ScreenTimeWidgetApplication.ScreenTimeWidgetIntentsExtension/Data/Downloads/build/sioyek.dmg 
 : 1679868580:0;%{sioyek_path}
 : 1679868592:0;_dual_panelify python -m sioyek.dual_panelify "/Applications/sioyek.app/Contents/MacOS/sioyek" "%{file_path}" "%{command_text}"\
 
-: 1679868634:0;python -m sioyek.embed_annotations "/Applications/sioyek.app/Contents/MacOS/sioyek" "/Users/<user>/Library/Application Support/sioyek/local.db" "/Users/<user>/Library/Application Support/sioyek/shared.db" "/Users/<user>/Library/CloudStorage/sample.pdf"\
-
 : 1679868643:0;mamba install sioyek
-: 1679868676:0;pip install sioyek
 : 1679869031:0;pip install PyQt5
-: 1679869098:0;lf
 : 1679869119:0;cd PyQt5_sip-12.11.1-cp311-cp311-macosx_10_9_universal2.whl 
-: 1679869133:0;lf
 : 1679869145:0;cd PyQt5_sip-12.11.1
-: 1679869146:0;lf
-: 1679869165:0;sip-install
 : 1679869179:0;python sip-install
 : 1679869189:0;pip install sip
-: 1679869193:0;sip-install
-: 1679869211:0;lf
-: 1679869217:0;sip-install
-: 1679869218:0;lf
 : 1679869222:0;sip-install
-: 1679869224:0;lf
 : 1679869255:0;where python
-: 1679869260:0;lf
 : 1679869265:0;cd /opt/homebrew/Caskroom/miniforge/base/bin/python
 : 1679869266:0;lf /opt/homebrew/Caskroom/miniforge/base/bin/python
 : 1679869287:0;base/lib/python3.10
 : 1679869303:0;/opt/homebrew/Caskroom/miniforge/base/
 : 1679869306:0;cd /opt/homebrew/Caskroom/miniforge/base/
-: 1679869307:0;cd
 : 1679869311:0;cd base/lib/python3.10
 : 1679869320:0;lf v14.0.0-clang via ðƒ¿ƒ°ƒ­ v3.10.10\
 âƒ½¯ cd
@@ -661,173 +605,53 @@ chmod +x build_mac.sh\
 : 1679869361:0;python -m sioyek.embed_annotations "/Applications/sioyek.app/Contents/MacOS/sioyek" "/Users/<user>/Library/Application Support/sioyek/local.db" "/Users/<user>/Library/Application Support/sioyek/shared.db" "/Users/<user>/Library/CloudStorage/sample.pdf"\
 
 : 1679869463:0;brew install qt5
-: 1679869467:0;cd
-: 1679869475:0;nvim .zshrc
 : 1679869492:0;pip install sioyek
 : 1679869557:0;pip install pyqt5 --config-settings --confirm-license= --verbose
 : 1679869631:0;python -m pip install --upgrade pip
-: 1679869688:0;tmux a
-: 1679869742:0;cd
-: 1679869785:0;cd .dotfiles/
 : 1679869789:0;nvim Library/Application\ Support/sioyek/prefs_user.config 
 : 1679869799:0;nvim Library/Application\ Support/sioyek/keys_user.config
-: 1679869959:0;pip install sioyek --verbose
-: 1679870431:0;nvim 
-: 1679870573:0;nvim
 : 1679871430:0;pip install sioyek --verbose
-: 1679871508:0;nvim 
-: 1679871536:0;nvim
 : 1679871647:0;python -m pip install sioyek
 : 1679871687:0;open /Applications/sioyek.app
-: 1679886640:0;topgrade
 : 1679886664:0;pinentry
-: 1679886677:0;mbsync -a
-: 1679886691:0;pass laparisidelannoy@uchicago.edu
 : 1679886703:0;nvim .zshrc
-: 1679886720:0;pass laparisidelannoy@uchicago.edu
 : 1679886733:0;pkill gpg-agent\
 gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
-: 1679886735:0;pass laparisidelannoy@uchicago.edu
-: 1679886742:0;pkill gpg-agent
 : 1679886747:0;gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
-: 1679886754:0;pass laparisidelannoy@uchicago.edu
 : 1679886763:0;pkill gpg-agent
 : 1679886773:0;pass laparisidelannoy@uchicago.edu
-: 1679886780:0;mbsync -a
 : 1679886848:0;mbsync laparisidelannoy@uchicago.edu
-: 1679886886:0;tmux a
-: 1679886890:0;neomutt
 : 1679886973:0;brew uninstall mpv
 : 1679886979:0;brew uninstall --cask mpv
 : 1679886989:0;rm -rf   /opt/homebrew/etc/mpv\
 
 : 1679887002:0;\
   /opt/homebrew/etc/mpv
-: 1679887046:0;cd
-: 1679887047:0;nvim
 : 1679887096:0;brew install reattach-to-user-namespace
 : 1679887299:0;antidote purge jeffreytse/zsh-vi-mode
-: 1679887403:0;nvim 
 : 1679887502:0;nvim -- org/portfolio_het_agents on î‚ƒ€ master [
-: 1679887542:0;nvim 
 : 1679887726:0;nvim -- org/portfolio_het_agents
-: 1679887921:0;nvim 
 : 1679888045:0;brew install rust
 : 1679888234:0;set -g @thumbs-key F
-: 1679888236:0;nvim
 : 1679888280:0;worg/portfolio_het_agents
-: 1679888313:0;nvim
 : 1679888595:0;source .tmux.con
-: 1679888598:0;cd
 : 1679888603:0;cd .tmux.conf 
-: 1679888608:0;source .tmux.conf 
-: 1679888614:0;nvim
-: 1679888631:0;source .tmux.conf 
-: 1679888640:0;nvim
-: 1679888655:0;source .tmux.conf 
-: 1679888657:0;nvim
-: 1679888665:0;source .tmux.conf 
-: 1679888670:0;nvim
-: 1679888682:0;source .tmux.conf 
-: 1679888688:0;nvim
-: 1679888779:0;source .tmux.conf 
-: 1679888785:0;nvim
-: 1679888817:0;source .tmux.conf 
-: 1679888821:0;nvim
-: 1679888839:0;source .tmux.conf 
-: 1679888841:0;nvim
-: 1679888853:0;source .tmux.conf 
-: 1679888859:0;nvim 
-: 1679888885:0;source .tmux.conf 
-: 1679888889:0;nvim 
-: 1679888902:0;source .tmux.conf 
-: 1679888905:0;nvim 
-: 1679888929:0;source .tmux.conf 
-: 1679888931:0;nvim 
 : 1679888951:0;source .tmux.conf 
-: 1679888955:0;nvim
 : 1679888965:0;run '~/.tmux/plugins/tpm/tpm'\
 
-: 1679888967:0;run '~/.tmux/plugins/tpm/tpm'
 : 1679889019:0;source .zshrc
-: 1679889022:0;run '~/.tmux/plugins/tpm/tpm'
-: 1679889039:0;antidote update 
 : 1679889048:0;run '~/.tmux/plugins/tpm/tpm'
-: 1679889049:0;cd
-: 1679889099:0;nvim 
-: 1679889213:0;nvim
-: 1679889259:0;source .tmux.conf
 : 1679889324:0;touch .zprofile
-: 1679889330:0;source .tmux.conf
-: 1679889349:0;tmux a
-: 1679889362:0;tmux kill-server
-: 1679889365:0;antidote update 
 : 1679889390:0;source .tmux.conf
-: 1679889393:0;nvim
-: 1679889422:0;tmux source ~/.tmux.conf
 : 1679889425:0;tmux 
-: 1679889429:0;tmux source ~/.tmux.conf
-: 1679889431:0;nvim
-: 1679889472:0;tmux kill-server
-: 0:1679889476;
-: 1679889479:0;tmux source ~/.tmux.conf
-: 1679889498:0;nvim
-: 1679889509:0;tmux source ~/.tmux.conf
-: 1679889514:0;nvim
-: 1679889523:0;tmux kill-server
-: 1679889527:0;tmux source ~/.tmux.conf
-: 1679889529:0;tmux
-: 1679889540:0;nvim
-: 1679889552:0;tmux source ~/.tmux.conf
-: 1679889556:0;nvim
-: 1679889563:0;tmux source ~/.tmux.conf
-: 1679889571:0;tmux kill-server
-: 1679889582:0;nvim
+: 1679974625:0;
 : 1679889732:0;tmux source ~/.tmux.conf
-: 1679889738:0;nvim
 : 1679889754:0;tmux kill-server
-: 1679889772:0;nvim
-: 1679889778:0;tmux
-: 1679889788:0;nvim
-: 1679889796:0;tmux
-: 1679889806:0;nvim
-: 1679889815:0;tmux
-: 1679889830:0;nvim
-: 1679889843:0;tmux
-: 1679889855:0;nvim
-: 1679889863:0;tmux
-: 1679889948:0;nvim
-: 1679890040:0;neomutt
 : 1679890166:0;tmux ls
-: 1679890168:0;tmux a
-: 1679890947:0;topgrade
-: 1679891145:0;nvim
-: 1679891257:0;tmux
-: 1679891263:0;neomutt
-: 1679891314:0;nvim
-: 1679891461:0;topgrade
-: 1679891473:0;cd
-: 1679891476:0;cd .dotfiles/
-: 1679891478:0;ga
-: 1679891485:0;git commit
-: 1679891515:0;git push
-: 1679891532:0;cd
-: 1679891533:0;topgrade
-: 1679891582:0;nvim
 : 1679891711:0;tmux source 
 : 1679891717:0;cd 
 : 1679891736:0;tmux source .tmux.cong
-: 1679891738:0;tmux source .tmux.conf
-: 1679891775:0;nvim
-: 1679891785:0;cd
-: 1679891787:0;tmux source .tmux.conf
-: 1679891809:0;nvim
-: 1679891939:0;tmux a
-: 1679891942:0;tmux
-: 1679891952:0;nvim
-: 1679892200:0;neomutt
 : 1679892472:0;mbsync
-: 1679892475:0;mbsync -a
 : 1679892502:0;mbsync -h
 : 1679892510:0;mbsync -X
 : 1679892517:0;notmuch -h
@@ -836,60 +660,36 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1679892527:0;notmuch compact
 : 1679892919:0;brew uninstall gitgit-credential-manager
 : 1679892922:0;git-credential-manager
-: 1679892929:0;git-credential-manager get
-: 1679892939:0;cd
 : 1679892941:0;cd .dotfiles/
 : 1679892944:0;git-credential-manager get
 : 1679892956:0;git-credential-manager unconfigure
 : 1679892962:0;brew uninstall git-credential-manager
 : 1679892982:0;git pull
 : 1679892988:0;git add
-: 1679892990:0;ga
 : 1679893000:0;git commit
-: 1679893012:0;git push
-: 1679931146:0;topgrade
-: 1679931151:0;antidote update 
 : 1679931495:0;julia
 : 1679931755:0;antidote update 
-: 1679931758:0;nvim
 : 1679932879:0;brew uninstall wezterm
 : 1679932887:0;brew uninstall wezterm-nightly
 : 1679932895:0;brew install --cask wezterm
-: 1679933024:0;tmux a
 : 1679933248:0;brew update
 : 1679933257:0;brew cleanup --prune=0
-: 1679934879:0;nvim
-: 1679936294:0;neomutt
 : 1679942108:0;tmux
-: 1679942115:0;nvim
-: 1679942118:0;neomutt
-: 1679942144:0;tmux source .tmux.conf
-: 1679942146:0;cd
 : 1679942147:0;tmux source .tmux.conf
-: 1679942153:0;nvim
 : 1679950676:0;brew uninstall chktex
 : 1679950683:0;brew install chktex
 : 1679950698:0;where 'chktex\
 '
 : 1679950701:0;where 'chktex'
-: 1679950703:0;lf
 : 1679950713:0;sudo tlmgr update --all
-: 1679950720:0;nvim
 : 1679952385:0;brew uninstall vale
 : 1679952391:0;where 'vale'
 : 1679952397:0;brew uninstall proselint
-: 1679952403:0;nvim
-: 1679952581:0;tmux a
 : 1679952828:0;where 'ltex'
-: 1679952830:0;where 'ltex-ls'
 : 1679952836:0;brew uninstall ltex-ls
 : 1679952842:0;where 'ltex-ls'
-: 1679952844:0;nvim
-: 1679952898:0;neomutt
 : 1679953061:0;brew uninstall latexindent
-: 1679953065:0;nvim
 : 1679953294:0;brew autoremove
-: 1679953299:0;brew ls
 : 1679953309:0;brew uninstall aom
 : 1679953318:0;brew uninstall amethyst
 : 1679953325:0;brew uninstall chalk
@@ -897,108 +697,89 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1679953361:0;brew reinstall ipe
 : 1679953674:0;ga
 : 1679953681:0;git push
-: 1679957529:0;neomutt
 : 1679963032:0;topgrade
-: 1679965595:0;mbsync -a
-: 1679965667:0;neomutt
 : 1679967888:0;mbsync -a
-: 1679968017:0;nvim .dotfiles/.config/mutt/muttrc 
-: 1679968040:0;nvim /usr/local/share/mutt-wizard/mutt-wizard.muttrc
-: 1679968222:0;neomutt
-: 1679968269:0;neomutt
-: 1679968272:0;nvim .dotfiles/.config/mutt/muttrc 
-: 1679968704:0;lf
 : 1679968722:0;mkdir mutt
-: 1679968723:0;lf
-: 1679968730:0;neomutt
-: 1679968733:0;lf
-: 1679968740:0;nvim .dotfiles/.config/mutt/muttrc 
 : 1679968902:0;brew install lmdb
-: 1679969029:0;lf
-: 1679969044:0;neomutt
 : 1679969536:0;brew ls
 : 1679969616:0;brew install lz4
-: 1679969622:0;neomutt
 : 1679970059:0;brew install w3m
 : 1679970096:0;w3m
-: 1679970111:0;neomutt
-: 1679970195:0;lf
-: 1679970398:0;touch mailcap
-: 1679970402:0;nvim mailcap
-: 1679970427:0;neomutt
-: 1679970452:0;nvim mailcap
-: 1679970491:0;neomutt
-: 1679970523:0;nvim mailcap
-: 1679970546:0;lf
-: 1679970555:0;neomutt
-: 1679970810:0;lazygit
-: 1679970887:0;lf
-: 1679970911:0;newsboat
-: 1679971049:0;neomutt
-: 1679971121:0;nvim 
 : 1679971131:0;newsboat
-: 1679971289:0;neomutt
-: 1679971483:0;tmux a
-: 1679971796:0;nvim mailcap
-: 1679971811:0;neomutt
-: 1679971842:0;nvim mailcap
 : 1679971858:0;w3m -h
 : 1679971952:0;neomutt -v 
-: 1679972044:0;nvim mailcap
-: 1679972097:0;neomutt 
-: 1679972110:0;nvim mailcap
-: 1679972192:0;neomutt 
-: 1679972205:0;nvim mailcap
-: 1679972281:0;neomutt 
-: 1679972290:0;neomutt
-: 1679972297:0;nvim 
-: 1679972311:0;neomutt
-: 1679972322:0;nvim 
-: 1679972345:0;neomutt
 : 1679972352:0;nvim 
-: 1679972372:0;neomutt
 : 1679972463:0;tmux a
-: 1679972470:0;nvim
-: 1679972485:0;neomutt 
-: 1679972518:0;nvim mailcap
-: 1679972548:0;neomutt 
-: 1679972556:0;nvim mailcap
-: 1679972564:0;neomutt 
-: 1679972582:0;nvim mailcap
-: 1679972586:0;neomutt 
-: 1679972595:0;lf
 : 1679972600:0;neomutt 
 : 1679972694:0;neomutt -h
 : 1679972941:0;brew install urlview
-: 1679972986:0;lf
 : 1679973029:0;mw -h
 : 1679973057:0;nvim /usr/local/share/mutt-wizard/mutt-wizard.muttrc
-: 1679973061:0;cd
 : 1679973071:0;cd /usr/local/share
 : 1679973074:0;cd mutt-wizard
-: 1679973075:0;lf
-: 1679973121:0;cd
-: 1679973122:0;nvim
 : 1679973133:0;cd .config/mutt
-: 1679973136:0;lf
 : 1679973141:0;touch mailcap
-: 1679973143:0;nvim mailcap
 : 1679973154:0;nvim
-: 1679973181:0;neomutt
-: 1679973212:0;nvim mailcap
-: 1679973262:0;neomutt
-: 1679973275:0;nvim mailcap
-: 1679973324:0;neomutt
-: 1679973400:0;nvim mailcap
-: 1679973404:0;neomutt
-: 1679973421:0;nvim mailcap
-: 1679973436:0;neomutt
-: 1679973452:0;nvim mailcap
-: 1679973488:0;neomutt
-: 1679973563:0;nvim mailcap
-: 1679973666:0;neomutt
 : 1679973711:0;cd
 : 1679973713:0;nvim .dotfiles/.config/mutt/muttrc 
-: 1679973900:0;nvim mailcap
-: 1679973954:0;neomutt
 : 1679973991:0;lazygit
+: 1679974103:0;brew install elinks
+: 1679974114:0;brew uninstall elinks
+: 1679974119:0;brew uninstall felinks
+: 1679974125:0;brew install felinks
+: 1679974183:0;nvim mailcap
+: 1679974266:0;brew uninstall mu
+: 1679974335:0;dust
+: 1679974338:0;gdu
+: 1679974345:0;lf
+: 1679974363:0;neomutt
+: 1679974628:0;lf
+: 1679974639:0;neomutt
+: 1679974776:0;dust
+: 1679974778:0;lf
+: 1679974809:0;nvim
+: 1679974895:0;lf
+: 1679974911:0;neomutt
+: 1679974950:0;lf
+: 1679974960:0;nvim
+: 1679974993:0;neomutt
+: 1679975010:0;lf
+: 1679975029:0;nvim
+: 1679975047:0;lf
+: 1679975058:0;nvim
+: 1679975083:0;tmux 
+: 1679975089:0;neomutt
+: 1679975093:0;nvim
+: 1679975101:0;neomutt
+: 1679975114:0;lf
+: 1679975117:0;cd
+: 1679975127:0;cd .cache/mutt-wizard/leoaparisi_gmail.com/bodies
+: 1679975128:0;lf
+: 1679975148:0;nvim
+: 1679975304:0;fzf federal
+: 1679975306:0;fzf
+: 1679975308:0;cd
+: 1679975311:0;cd Downloads
+: 1679975313:0;fzf
+: 1679975409:0;lf
+: 1679975413:0;cd
+: 1679975418:0;cd .cache/mutt-wizard/leoaparisi_gmail.com/bodies
+: 1679975419:0;lf
+: 1680020823:0;tmux a
+: 1680020827:0;tmux
+: 1680020832:0;cd
+: 1680020836:0;cd
+: 1680020842:0;neomutt
+: 1680020847:0;nvim
+: 1680021519:0;lf
+: 1680021567:0;nvi
+: 1680021570:0;nvim
+: 1680021586:0;neomutt
+: 1680021601:0;kf
+: 1680021602:0;lf
+: 1680021611:0;neomutt
+: 1680021935:0;nvim
+: 1680021998:0;lf
+: 1680022743:0;nvim
+: 1680023426:0;topgrade
+: 1680023504:0;nvim

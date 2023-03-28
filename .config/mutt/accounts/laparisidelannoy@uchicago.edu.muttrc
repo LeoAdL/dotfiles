@@ -1,19 +1,20 @@
 # vim: filetype=neomuttrc
 # muttrc file for account laparisidelannoy@uchicago.edu
-set realname = "laparisidelannoy"
+set real_name = "Leo Aparisi de Lannoy"
 set from = "laparisidelannoy@uchicago.edu"
 set sendmail = "msmtp -a laparisidelannoy@uchicago.edu"
 alias me laparisidelannoy <laparisidelannoy@uchicago.edu>
 set folder = "/Users/leoap/.local/share/mail/laparisidelannoy@uchicago.edu"
 set header_cache = "/Users/leoap/.cache/mutt-wizard/laparisidelannoy_uchicago.edu/headers"
-set message_cachedir = "/Users/leoap/.cache/mutt-wizard/laparisidelannoy_uchicago.edu/bodies"
+set message_cache_dir = "/Users/leoap/.cache/mutt-wizard/laparisidelannoy_uchicago.edu/bodies"
 set mbox_type = Maildir
 set hostname = "uchicago.edu"
 source /usr/local/share/mutt-wizard/switch.muttrc
-set spoolfile = "+INBOX"
+set spool_file = "+INBOX"
 set postponed = "+Drafts"
 set trash = "+Trash"
 set record = "+Sent"
 
+set imap_idle = yes
 macro index o "<shell-escape>mailsync laparisidelannoy@uchicago.edu<enter>" "sync laparisidelannoy@uchicago.edu"
 mailboxes "=INBOX" "=Drafts" "=Junk" "=Trash" "=Sent" "=Archive"
