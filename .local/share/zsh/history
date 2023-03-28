@@ -783,3 +783,5 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1680022743:0;nvim
 : 1680023426:0;topgrade
 : 1680023504:0;nvim
+: 1680023604:0;nvim
+: 1680023620:0;neomutt

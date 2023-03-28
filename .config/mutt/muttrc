@@ -5,6 +5,8 @@ macro index,pager i2 '<sync-mailbox><enter-command>source /Users/leoap/.config/m
 macro index,pager i1 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/laparisidelannoy@uchicago.edu.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to laparisidelannoy@uchicago.edu"
 
 
+set index_format="%2C %Z %?X?A& ? %D %-15.15F %s"
+
 set abort_noattach = ask-yes
 # Search for the following regular expression in the body of the email
 # English: attach, attached, attachment, attachments
@@ -20,8 +22,8 @@ set implicit_auto_view = yes
 bind index,pager,browser \Cd half-down
 bind index,pager,browser \Cu half-up
 
-folder-hook . 'set read_inc=1000'
-folder-hook . 'set write_inc=1000'
+folder-hook . 'set read_inc=100000'
+folder-hook . 'set write_inc=100000'
 bind index,pager O sidebar-open
 bind index,pager K sidebar-prev
 bind index,pager J sidebar-next
