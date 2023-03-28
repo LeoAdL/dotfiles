@@ -10,14 +10,12 @@ set abort_noattach = ask-yes
 # English: attach, attached, attachment, attachments
 
 set mailcap_path=~/.config/mutt/mailcap
-set header_cache=~/.cache/mutt
 set header_cache_backend = lmdb
 set help = no
 set timeout = 0
 set imap_idle = yes
 set text_flowed = yes
 set implicit_auto_view = yes
-set message_cache_dir=~/.cache/mutt
 
 bind index,pager,browser \Cd half-down
 bind index,pager,browser \Cu half-up
@@ -34,12 +32,12 @@ set abort_key = "<Esc>"
 set nm_default_url="notmuch:///Users/leoap/.local/share/mail/" # path to the maildir
 virtual-mailboxes "Unified Inbox" "notmuch://?query=tag:inbox&limit=1000"
 color normal		default default             # default colours
-color index		brightblue default ~N       # new messages
-color index		red default ~F              # flagged messages
-color index		blue default ~T             # tagged messages
-color index		brightred default ~D        # deleted messages
-color body		brightgreen default         (https?|ftp)://[\-\.+,/%~_:?&=\#a-zA-Z0-9]+  # links
-color body		brightgreen default         [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+          # email-addresses
+color index		brightblue default "~N"       # new messages
+color index		red default "~F"              # flagged messages
+color index		blue default "~T"             # tagged messages
+color index		brightred default "~D"        # deleted messages
+color body		brightgreen default         "(https?|ftp)://[\-\.+,/%~_:?&=\#a-zA-Z0-9]+" # links
+color body		brightgreen default         "[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+"          # email-addresses
 color attachment	magenta default             # attachments
 color signature		brightwhite default         # sigs
 color search		brightred black             # highlight results
