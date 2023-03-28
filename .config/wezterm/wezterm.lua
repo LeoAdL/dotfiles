@@ -8,8 +8,7 @@ return {
 	color_scheme = "nord",
 	tab_bar_at_bottom = true,
 	hide_tab_bar_if_only_one_tab = true,
-	window_background_opacity = 0.90,
-	macos_window_background_blur = 20,
+	window_background_opacity = 1,
 	window_decorations = "RESIZE",
 	inactive_pane_hsb = {
 		-- NOTE: these values are multipliers, applied on normal pane values

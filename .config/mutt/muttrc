@@ -3,13 +3,15 @@ source /usr/local/share/mutt-wizard/mutt-wizard.muttrc
 source /Users/leoap/.config/mutt/accounts/laparisidelannoy@uchicago.edu.muttrc
 macro index,pager i2 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/leoaparisi@gmail.com.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to leoaparisi@gmail.com"
 macro index,pager i1 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/laparisidelannoy@uchicago.edu.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to laparisidelannoy@uchicago.edu"
-
-set header_cache=~/.cache/hcache
+set mailcap_path   = ~/.config/mutt/mailcap
+set header_cache=~/.cache/mutt
+set header_cache_backend = lmdb
 set help = no
+set timeout = 0
 set imap_idle = yes
 set text_flowed = yes
-set implicit_autoview = yes
-set message_cachedir=~/.cache/bcache
+set implicit_auto_view = yes
+set message_cache_dir=~/.cache/mutt
 
 bind index,pager,browser \Cd half-down
 bind index,pager,browser \Cu half-up

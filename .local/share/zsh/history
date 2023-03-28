@@ -845,3 +845,90 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1679892982:0;git pull
 : 1679892988:0;git add
 : 1679892990:0;ga
+: 1679893000:0;git commit
+: 1679893012:0;git push
+: 1679931146:0;topgrade
+: 1679931151:0;antidote update 
+: 1679931495:0;julia
+: 1679931755:0;antidote update 
+: 1679931758:0;nvim
+: 1679932879:0;brew uninstall wezterm
+: 1679932887:0;brew uninstall wezterm-nightly
+: 1679932895:0;brew install --cask wezterm
+: 1679933024:0;tmux a
+: 1679933248:0;brew update
+: 1679933257:0;brew cleanup --prune=0
+: 1679934879:0;nvim
+: 1679936294:0;neomutt
+: 1679942108:0;tmux
+: 1679942115:0;nvim
+: 1679942118:0;neomutt
+: 1679942144:0;tmux source .tmux.conf
+: 1679942146:0;cd
+: 1679942147:0;tmux source .tmux.conf
+: 1679942153:0;nvim
+: 1679950676:0;brew uninstall chktex
+: 1679950683:0;brew install chktex
+: 1679950698:0;where 'chktex\
+'
+: 1679950701:0;where 'chktex'
+: 1679950703:0;lf
+: 1679950713:0;sudo tlmgr update --all
+: 1679950720:0;nvim
+: 1679952385:0;brew uninstall vale
+: 1679952391:0;where 'vale'
+: 1679952397:0;brew uninstall proselint
+: 1679952403:0;nvim
+: 1679952581:0;tmux a
+: 1679952828:0;where 'ltex'
+: 1679952830:0;where 'ltex-ls'
+: 1679952836:0;brew uninstall ltex-ls
+: 1679952842:0;where 'ltex-ls'
+: 1679952844:0;nvim
+: 1679952898:0;neomutt
+: 1679953061:0;brew uninstall latexindent
+: 1679953065:0;nvim
+: 1679953294:0;brew autoremove
+: 1679953299:0;brew ls
+: 1679953309:0;brew uninstall aom
+: 1679953318:0;brew uninstall amethyst
+: 1679953325:0;brew uninstall chalk
+: 1679953341:0;brew uninstall git-credential-manager-core
+: 1679953361:0;brew reinstall ipe
+: 1679953674:0;ga
+: 1679953681:0;git push
+: 1679957529:0;neomutt
+: 1679963032:0;topgrade
+: 1679965595:0;mbsync -a
+: 1679965667:0;neomutt
+: 1679967888:0;mbsync -a
+: 1679968017:0;nvim .dotfiles/.config/mutt/muttrc 
+: 1679968040:0;nvim /usr/local/share/mutt-wizard/mutt-wizard.muttrc
+: 1679968222:0;neomutt
+: 1679968269:0;neomutt
+: 1679968272:0;nvim .dotfiles/.config/mutt/muttrc 
+: 1679968704:0;lf
+: 1679968722:0;mkdir mutt
+: 1679968723:0;lf
+: 1679968730:0;neomutt
+: 1679968733:0;lf
+: 1679968740:0;nvim .dotfiles/.config/mutt/muttrc 
+: 1679968902:0;brew install lmdb
+: 1679969029:0;lf
+: 1679969044:0;neomutt
+: 1679969536:0;brew ls
+: 1679969616:0;brew install lz4
+: 1679969622:0;neomutt
+: 1679970059:0;brew install w3m
+: 1679970096:0;w3m
+: 1679970111:0;neomutt
+: 1679970195:0;lf
+: 1679970398:0;touch mailcap
+: 1679970402:0;nvim mailcap
+: 1679970427:0;neomutt
+: 1679970452:0;nvim mailcap
+: 1679970491:0;neomutt
+: 1679970523:0;nvim mailcap
+: 1679970546:0;lf
+: 1679970555:0;neomutt
+: 1679970810:0;lazygit
