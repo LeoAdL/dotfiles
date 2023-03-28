@@ -932,3 +932,73 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1679970546:0;lf
 : 1679970555:0;neomutt
 : 1679970810:0;lazygit
+: 1679970887:0;lf
+: 1679970911:0;newsboat
+: 1679971049:0;neomutt
+: 1679971121:0;nvim 
+: 1679971131:0;newsboat
+: 1679971289:0;neomutt
+: 1679971483:0;tmux a
+: 1679971796:0;nvim mailcap
+: 1679971811:0;neomutt
+: 1679971842:0;nvim mailcap
+: 1679971858:0;w3m -h
+: 1679971952:0;neomutt -v 
+: 1679972044:0;nvim mailcap
+: 1679972097:0;neomutt 
+: 1679972110:0;nvim mailcap
+: 1679972192:0;neomutt 
+: 1679972205:0;nvim mailcap
+: 1679972281:0;neomutt 
+: 1679972290:0;neomutt
+: 1679972297:0;nvim 
+: 1679972311:0;neomutt
+: 1679972322:0;nvim 
+: 1679972345:0;neomutt
+: 1679972352:0;nvim 
+: 1679972372:0;neomutt
+: 1679972463:0;tmux a
+: 1679972470:0;nvim
+: 1679972485:0;neomutt 
+: 1679972518:0;nvim mailcap
+: 1679972548:0;neomutt 
+: 1679972556:0;nvim mailcap
+: 1679972564:0;neomutt 
+: 1679972582:0;nvim mailcap
+: 1679972586:0;neomutt 
+: 1679972595:0;lf
+: 1679972600:0;neomutt 
+: 1679972694:0;neomutt -h
+: 1679972941:0;brew install urlview
+: 1679972986:0;lf
+: 1679973029:0;mw -h
+: 1679973057:0;nvim /usr/local/share/mutt-wizard/mutt-wizard.muttrc
+: 1679973061:0;cd
+: 1679973071:0;cd /usr/local/share
+: 1679973074:0;cd mutt-wizard
+: 1679973075:0;lf
+: 1679973121:0;cd
+: 1679973122:0;nvim
+: 1679973133:0;cd .config/mutt
+: 1679973136:0;lf
+: 1679973141:0;touch mailcap
+: 1679973143:0;nvim mailcap
+: 1679973154:0;nvim
+: 1679973181:0;neomutt
+: 1679973212:0;nvim mailcap
+: 1679973262:0;neomutt
+: 1679973275:0;nvim mailcap
+: 1679973324:0;neomutt
+: 1679973400:0;nvim mailcap
+: 1679973404:0;neomutt
+: 1679973421:0;nvim mailcap
+: 1679973436:0;neomutt
+: 1679973452:0;nvim mailcap
+: 1679973488:0;neomutt
+: 1679973563:0;nvim mailcap
+: 1679973666:0;neomutt
+: 1679973711:0;cd
+: 1679973713:0;nvim .dotfiles/.config/mutt/muttrc 
+: 1679973900:0;nvim mailcap
+: 1679973954:0;neomutt
+: 1679973991:0;lazygit
