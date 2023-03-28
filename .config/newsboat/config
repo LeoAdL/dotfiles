@@ -2,11 +2,11 @@ auto-reload yes
 
 reload-time 100
 
-reload-threads 10
+reload-threads 100
 
 download-path "~/Downloads/%h/%n"
 
-html-renderer internal
+html-renderer "w3m -dump -T text/html"
 
 bind-key j down
 bind-key k up

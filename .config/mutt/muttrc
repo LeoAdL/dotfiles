@@ -3,7 +3,13 @@ source /usr/local/share/mutt-wizard/mutt-wizard.muttrc
 source /Users/leoap/.config/mutt/accounts/laparisidelannoy@uchicago.edu.muttrc
 macro index,pager i2 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/leoaparisi@gmail.com.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to leoaparisi@gmail.com"
 macro index,pager i1 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/laparisidelannoy@uchicago.edu.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to laparisidelannoy@uchicago.edu"
-set mailcap_path   = ~/.config/mutt/mailcap
+
+
+set abort_noattach = ask-yes
+# Search for the following regular expression in the body of the email
+# English: attach, attached, attachment, attachments
+
+set mailcap_path=~/.config/mutt/mailcap
 set header_cache=~/.cache/mutt
 set header_cache_backend = lmdb
 set help = no
