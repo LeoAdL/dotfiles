@@ -808,3 +808,10 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1680115262:0;nvim
 : 1680115863:0;antidote update 
 : 1680115867:0;topgrade
+: 1680116858:0;s
+: 1680116861:0;source .zshrc
+: 1680116864:0;neomutt
+: 1680116875:0;source .zshrc
+: 1680116880:0;neomutt
+: 1680130628:0;brew install ltrs
+: 1680130634:0;nvim
