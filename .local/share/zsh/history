@@ -24,9 +24,6 @@ belak/zsh-utils path:history\
 belak/zsh-utils path:utility\
 belak/zsh-utils path:completion\
 
-: 1679097481:0;antidote purge greymd/tmux-xpanes
-: 1679097602:0;antidote purge ChrisPenner/session-sauce
-: 1679097633:0;antidote purge kalsowerus/zsh-bitwarden
 : 1679097788:0;env STARSHIP_LOG=trace starship module rust
 : 1679097800:0;env STARSHIP_LOG=trace starship timings
 : 1679097851:0;for plugin ($plugins); do\
@@ -76,7 +73,6 @@ kkkkkkkkkkkkkkkkkkq
 : 1679170872:0;exa --icons
 : 1679170886:0;brew uninstall exa
 : 1679170896:0;antidote purge birdhackor/zsh-exa-ls-plugin
-: 1679170939:0;ls
 : 1679170968:0;lsd
 : 1679171582:0;iina "https://www.youtube.com/watch?time_continue=5&v=FdX6FFGVVFQ"
 : 1679178257:0;papis open government
@@ -131,7 +127,6 @@ kkkkkkkkkkkkkkkkkkq
 : 1679268910:0;brew services list
 : 1679268954:0;antidote install sinetoami/antibody-completion
 : 1679268961:0;antidote purge vasyharan/zsh-brew-services
-: 1679269131:0;antidote install wintermi/zsh-brew
 : 1679269157:0;conda update --all
 : 1679269207:0;antidote install srijanshetty/zsh-pandoc-completion
 : 1679269229:0;antidote list
@@ -391,7 +386,6 @@ kkkkkkkkkkkkkkkkkkq
 : 1679348373:0;papis update -h
 : 1679348382:0;papis update --auto --from
 : 1679348386:0;papis update --auto --from b
-: 1679348389:0;cd Downloads
 : 1679348394:0;papis update --auto --from bibtex MyLibrary.bib
 : 1679348403:0;papis update --auto Bilal
 : 1679348424:0;papis update --auto Bhandari
@@ -443,7 +437,6 @@ kkkkkkkkkkkkkkkkkkq
 : 1679522332:0;chafa watch\?v=LXb3EKWsInQ-0001.png watch\?v=LXb3EKWsInQ-0001.png
 : 1679522377:0;antidote purge Freed-Wu/fzf-tab-source
 : 1679522395:0;nvim .zsh_plugins.txt
-: 1679522607:0;cd .dotfiles
 : 1679522700:0;git push 
 : 1679540443:0;brew install chalk
 : 1679541007:0;iina "https://www.hulu.com/watch/8d6e3f38-fd7e-4112-96f0-5abd87b87ec3"
@@ -491,7 +484,6 @@ ds
 : 1679678347:0;pbcopy
 : 1679678397:0;fuzzy-pass
 : 1679678409:0;clipcopy
-: 1679678446:0;antidote purge smeagol74/zsh-fzf-pass
 : 1679678450:0;antidote install ficoos/pass-fzf
 : 1679678458:0;pass fzf
 : 1679678469:0;antidote purge ficoos/pass-fzf
@@ -514,7 +506,6 @@ ds
 : 1679755472:0;git add .
 : 1679756014:0;git revert 7c0464e7e6bb5b860592788933591fe76f773744
 : 1679756088:0;kitty +kitten themes
-: 1679757069:0;kf
 : 1679758784:0;brew install wezterm
 : 1679758812:0;wezterm
 : 1679758971:0;brew uninstall kitty
@@ -566,7 +557,6 @@ gh-watch() {\
 : 1679866718:0;where 'qt@5'
 : 1679866771:0;fzf a
 : 1679866773:0;fzf aaa
-: 1679866782:0;fzf
 : 1679866888:0;brew uninstall sioyek
 : 1679867014:0;brew install qt@5 freeglut mesa harfbuzzbrew install qt@5 freeglut mesa harfbuzz
 : 1679867018:0;brew install qt@5 freeglut mesa harfbuzz
@@ -578,7 +568,6 @@ chmod +x build_mac.sh\
 : 1679867927:0;brew install --cask zioyek
 : 1679867933:0;brew install --cask sioyek
 : 1679867945:0;sioyek
-: 1679867981:0;stow .
 : 1679868267:0;python3 -m pip install sioyek
 : 1679868498:0;Library/Containers/com.apple.ScreenTimeWidgetApplication.ScreenTimeWidgetIntentsExtension/Data/Downloads/build/sioyek.dmg 
 : 1679868580:0;%{sioyek_path}
@@ -598,8 +587,6 @@ chmod +x build_mac.sh\
 : 1679869303:0;/opt/homebrew/Caskroom/miniforge/base/
 : 1679869306:0;cd /opt/homebrew/Caskroom/miniforge/base/
 : 1679869311:0;cd base/lib/python3.10
-: 1679869320:0;lf v14.0.0-clang via ðƒ¿ƒ°ƒ­ v3.10.10\
-âƒ½¯ cd
 : 1679869325:0;lf /opt/homebrew/Caskroom/miniforge/base/bin/
 : 1679869343:0;pwd
 : 1679869361:0;python -m sioyek.embed_annotations "/Applications/sioyek.app/Contents/MacOS/sioyek" "/Users/<user>/Library/Application Support/sioyek/local.db" "/Users/<user>/Library/Application Support/sioyek/shared.db" "/Users/<user>/Library/CloudStorage/sample.pdf"\
@@ -643,11 +630,9 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1679889048:0;run '~/.tmux/plugins/tpm/tpm'
 : 1679889324:0;touch .zprofile
 : 1679889390:0;source .tmux.conf
-: 1679889425:0;tmux 
 : 1679974625:0;
 : 1679889732:0;tmux source ~/.tmux.conf
 : 1679889754:0;tmux kill-server
-: 1679890166:0;tmux ls
 : 1679891711:0;tmux source 
 : 1679891717:0;cd 
 : 1679891736:0;tmux source .tmux.cong
@@ -660,7 +645,6 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1679892527:0;notmuch compact
 : 1679892919:0;brew uninstall gitgit-credential-manager
 : 1679892922:0;git-credential-manager
-: 1679892941:0;cd .dotfiles/
 : 1679892944:0;git-credential-manager get
 : 1679892956:0;git-credential-manager unconfigure
 : 1679892962:0;brew uninstall git-credential-manager
@@ -668,20 +652,15 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1679892988:0;git add
 : 1679893000:0;git commit
 : 1679931495:0;julia
-: 1679931755:0;antidote update 
 : 1679932879:0;brew uninstall wezterm
 : 1679932887:0;brew uninstall wezterm-nightly
 : 1679932895:0;brew install --cask wezterm
-: 1679933248:0;brew update
 : 1679933257:0;brew cleanup --prune=0
-: 1679942108:0;tmux
-: 1679942147:0;tmux source .tmux.conf
 : 1679950676:0;brew uninstall chktex
 : 1679950683:0;brew install chktex
 : 1679950698:0;where 'chktex\
 '
 : 1679950701:0;where 'chktex'
-: 1679950713:0;sudo tlmgr update --all
 : 1679952385:0;brew uninstall vale
 : 1679952391:0;where 'vale'
 : 1679952397:0;brew uninstall proselint
@@ -697,19 +676,15 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1679953361:0;brew reinstall ipe
 : 1679953674:0;ga
 : 1679953681:0;git push
-: 1679963032:0;topgrade
-: 1679967888:0;mbsync -a
 : 1679968722:0;mkdir mutt
 : 1679968902:0;brew install lmdb
 : 1679969536:0;brew ls
 : 1679969616:0;brew install lz4
 : 1679970059:0;brew install w3m
 : 1679970096:0;w3m
-: 1679971131:0;newsboat
 : 1679971858:0;w3m -h
 : 1679971952:0;neomutt -v 
 : 1679972352:0;nvim 
-: 1679972463:0;tmux a
 : 1679972600:0;neomutt 
 : 1679972694:0;neomutt -h
 : 1679972941:0;brew install urlview
@@ -719,315 +694,88 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1679973074:0;cd mutt-wizard
 : 1679973133:0;cd .config/mutt
 : 1679973141:0;touch mailcap
-: 1679973154:0;nvim
-: 1679973711:0;cd
 : 1679973713:0;nvim .dotfiles/.config/mutt/muttrc 
-: 1679973991:0;lazygit
 : 1679974103:0;brew install elinks
 : 1679974114:0;brew uninstall elinks
 : 1679974119:0;brew uninstall felinks
 : 1679974125:0;brew install felinks
 : 1679974183:0;nvim mailcap
 : 1679974266:0;brew uninstall mu
-: 1679974335:0;dust
 : 1679974338:0;gdu
-: 1679974345:0;lf
-: 1679974363:0;neomutt
-: 1679974628:0;lf
-: 1679974639:0;neomutt
 : 1679974776:0;dust
-: 1679974778:0;lf
-: 1679974809:0;nvim
-: 1679974895:0;lf
-: 1679974911:0;neomutt
-: 1679974950:0;lf
-: 1679974960:0;nvim
-: 1679974993:0;neomutt
-: 1679975010:0;lf
-: 1679975029:0;nvim
-: 1679975047:0;lf
-: 1679975058:0;nvim
-: 1679975083:0;tmux 
-: 1679975089:0;neomutt
-: 1679975093:0;nvim
-: 1679975101:0;neomutt
-: 1679975114:0;lf
-: 1679975117:0;cd
-: 1679975127:0;cd .cache/mutt-wizard/leoaparisi_gmail.com/bodies
-: 1679975128:0;lf
-: 1679975148:0;nvim
 : 1679975304:0;fzf federal
-: 1679975306:0;fzf
-: 1679975308:0;cd
 : 1679975311:0;cd Downloads
-: 1679975313:0;fzf
-: 1679975409:0;lf
-: 1679975413:0;cd
 : 1679975418:0;cd .cache/mutt-wizard/leoaparisi_gmail.com/bodies
-: 1679975419:0;lf
-: 1680020823:0;tmux a
-: 1680020827:0;tmux
-: 1680020832:0;cd
-: 1680020836:0;cd
-: 1680020842:0;neomutt
-: 1680020847:0;nvim
-: 1680021519:0;lf
 : 1680021567:0;nvi
-: 1680021570:0;nvim
-: 1680021586:0;neomutt
 : 1680021601:0;kf
-: 1680021602:0;lf
-: 1680021611:0;neomutt
-: 1680021935:0;nvim
-: 1680021998:0;lf
-: 1680022743:0;nvim
-: 1680023426:0;topgrade
-: 1680023504:0;nvim
-: 1680023604:0;nvim
-: 1680023620:0;neomutt
-: 1680024277:0;nvim
-: 1680024300:0;neomutt
-: 1680024328:0;lf
-: 1680024331:0;abook
-: 1680024351:0;neomutt
-: 1680024398:0;abook
-: 1680029585:0;neomutt
-: 1680029649:0;abook
-: 1680029693:0;man abook
-: 1680029767:0;abook
-: 1680029865:0;neomutt
-: 1680029893:0;abook
-: 1680029917:0;neomutt
-: 1680030018:0;abook
-: 1680030036:0;neomutt
-: 1680030052:0;abook
 : 1680030301:0;brew install nmzmail
-: 1680030447:0;neomutt
-: 1680030499:0;abook
 : 1680030709:0;brew install khard
-: 1680030743:0;khard
 : 1680030758:0;mkdir -p ~/.config/khard/
 : 1680030761:0;touch ~/.config/khard/khard.conf
 : 1680030790:0;nvim /.config/khard/khard.conf
-: 1680030799:0;lf
-: 1680030811:0;nvim khard.conf
-: 1680030818:0;khard
-: 1680030820:0;lf
-: 1680030838:0;khard
-: 1680030869:0;nvim khard.conf
 : 1680030879:0;mkdir -p ~/.contact/
-: 1680030880:0;lf
 : 1680030931:0;abook -h
 : 1680030940:0;man abook
-: 1680030946:0;abook
-: 1680030969:0;lf
-: 1680030978:0;khard
-: 1680030980:0;lf
-: 1680030985:0;nvim khard.conf
-: 1680030998:0;khard
-: 1680031004:0;nvim khard.conf
-: 1680031015:0;khard
-: 1680031019:0;lf
-: 1680031023:0;khard
 : 1680031024:0;nvim khard.conf
-: 1680031037:0;khard
-: 1680031040:0;cd
-: 1680031041:0;khard
-: 1680031046:0;nvim
-: 1680031054:0;khard
-: 1680031088:0;lf
-: 1680031095:0;khard
-: 1680031099:0;nvim
-: 1680031112:0;khard
-: 1680031151:0;lf
-: 1680031153:0;khard
-: 1680031199:0;nvim
-: 1680031207:0;khard
-: 1680031209:0;nvim
-: 1680031215:0;khard
-: 1680031219:0;nvim
-: 1680031239:0;khard
-: 1680031248:0;nvim
-: 1680031270:0;khard
 : 1680031293:0;khard -h
 : 1680031303:0;khard -c
-: 1680031308:0;cd
 : 1680031317:0;khard -c .config/khard/khard.conf
 : 1680031329:0;khard add
-: 1680031394:0;abook
 : 1680031415:0;khard
-: 1680031438:0;abook
-: 1680031446:0;lf
 : 1680031466:0;cd .dotfiles/
-: 1680031467:0;cd
-: 1680031471:0;lf
-: 1680031623:0;cd
 : 1680031627:0;cd .contact
 : 1680031640:0;brew install vcardtool
 : 1680032983:0;brew uninstall khard
-: 1680032986:0;lf
-: 1680033009:0;abook
-: 1680033121:0;cd
-: 1680033122:0;lf
 : 1680033138:0;mkdir -p abook
-: 1680033139:0;lf
 : 1680033181:0;touch abookrc
-: 1680033182:0;lf
-: 1680033191:0;nvim abookrc
-: 1680033339:0;abook
-: 1680033346:0;nvim abookrc
-: 1680033430:0;abook
-: 1680033496:0;nvim abookrc
 : 1680033510:0;abook
 : 1680033518:0;nvim abookrc
-: 1680033547:0;neomutt
-: 1680033558:0;cd
-: 1680033563:0;neomutt
-: 1680033569:0;nvim
-: 1680033586:0;neomutt
-: 1680034679:0;tmux a
-: 1680034689:0;tmux
 : 1680034702:0;tmux lks
 : 1680034704:0;tmux ls
-: 1680034706:0;tmux a
-: 1680034709:0;cd
-: 1680034714:0;nvim
 : 1680034731:0;brew update
-: 1680034739:0;topgrade
-: 1680043976:0;nvim
-: 1680043985:0;tmux a
-: 1680043994:0;tmux 
-: 1680044003:0;nvim
-: 1680044181:0;tmux source .tmux.conf
-: 1680044182:0;cd
-: 1680044183:0;tmux source .tmux.conf
-: 1680044188:0;nvim
-: 1680044290:0;tmux
-: 1680044297:0;tmux source .tmux.conf
-: 1680044299:0;cd
-: 1680044300:0;tmux source .tmux.conf
-: 1680044308:0;nvim
-: 1680044324:0;tmux source .tmux.conf
-: 1680044329:0;nvim
-: 1680044376:0;tmux source .tmux.conf
-: 1680044380:0;nvim
 : 1680044421:0;tmux source .tmux.conf
-: 1680044423:0;nvim
-: 1680044479:0;tmux source-file ~/.tmux.conf
-: 1680044481:0;nvim
-: 1680044516:0;tmux source-file ~/.tmux.conf
-: 1680044519:0;nvim
-: 1680044543:0;tmux source-file ~/.tmux.conf
-: 1680044546:0;nvim
-: 1680044558:0;tmux source-file ~/.tmux.conf
-: 1680044563:0;nvim
-: 1680044570:0;tmux source-file ~/.tmux.conf
-: 1680044573:0;nvim
-: 1680044589:0;tmux source-file ~/.tmux.conf
-: 1680044625:0;nvim
-: 1680044661:0;tmux source-file ~/.tmux.conf
-: 1680044663:0;nvim
-: 1680044727:0;cd
-: 1680044728:0;tmux source-file ~/.tmux.conf
-: 1680044745:0;nvim
-: 1680045145:0;cd
-: 1680045167:0;neomutt
-: 1680045222:0;nvim
-: 1680045255:0;tmux source-file ~/.tmux.conf
-: 1680045258:0;nvim
-: 1680045280:0;neomutt
-: 1680045298:0;topgrade
-: 1680045316:0;nvim
-: 1680045455:0;tmux a
-: 1680045533:0;tmux 
-: 1680045543:0;nvim
 : 1680045571:0;fzf
-: 1680045576:0;nvim
-: 1680045636:0;tmux set -gu default-command
-: 1680045643:0;tmux
 : 1680045670:0;tmux set -gu default-command
-: 1680045704:0;tmux kill-server\
-
-: 1680045705:0;tmux
-: 1680045722:0;nvim
 : 1680045736:0;tmux kill-server\
 
 : 1680045737:0;tmux
-: 1680045747:0;nvim
-: 1680045941:0;tmux a
-: 1680045999:0;tmux 
-: 1680046010:0;nvim
-: 1680046535:0;topgrade
-: 1680046699:0;neomutt
-: 1680046710:0;nvim
-: 1680046753:0;tmux a
 : 1680047013:0;tmux source-file ~/.tmux.conf
-: 1680047020:0;nvim
-: 1680051412:0;tmux source -v ~/.tmux.conf\
-
 : 1680052007:0;tmux 
-: 1680052009:0;nvim
-: 1680052285:0;cd .dotfiles
-: 1680052288:0;nvim
 : 1680052309:0;d
-: 1680052313:0;cd .dotfiles
-: 1680052315:0;lazygit
-: 1680052357:0;nvim
-: 1680052394:0;topgrade
 : 1680052440:0;sudo tlmgr update --all
-: 1680052478:0;neomutt
 : 1680052540:0;newsboat
-: 1680052621:0;nvim
 : 1680052735:0;where brave
 : 1680052738:0;where Brave
 : 1680052741:0;where Brave-browser
 : 1680052745:0;which brave
 : 1680052748:0;which Brave
 : 1680052751:0;which GraphicsMagick++-config
-: 1680052782:0;nvim
-: 1680058313:0;neomutt
 : 1680058330:0;mbsync -a
-: 1680058483:0;lf
 : 1680059442:0;cd
-: 1680059443:0;antidote update 
 : 1680065048:0;antidote purge ChrisPenner/session-sauce
 : 1680065088:0;antidote purge greymd/tmux-xpanes
 : 1680065148:0;antidote purge laggardkernel/git-ignore
 : 1680065167:0;antidote purge sorin-ionescu/prezto
-: 1680065194:0;nvim
-: 1680065283:0;antidote update 
-: 1680065326:0;nvim
-: 1680065332:0;antidote purge
 : 1680065337:0;antidote purge smeagol74/zsh-fzf-pass
-: 1680065353:0;nvim
 : 1680065532:0;antidote purge clarketm/zsh-completions
-: 1680065537:0;nvim
 : 1680065566:0;antidote purge srijanshetty/zsh-pandoc-completion
 : 1680065575:0;antidote purge b0o/zfzf
 : 1680065577:0;z
 : 1680065615:0;lsd Documents
 : 1680065645:0;antidote purge kalsowerus/zsh-bitwarden
-: 1680065664:0;antidote purge wintermi/zsh-brew
-: 1680065674:0;nvim
 : 1680065702:0;antidote install wintermi/zsh-brew
-: 1680065705:0;nvim
-: 1680065847:0;lf
 : 1680065876:0;stow .
 : 1680065884:0;antidote update 
-: 1680065907:0;nvim
 : 1680066036:0;antidote purge
 : 1680066056:0;antidote purge joshskidmore/zsh-fzf-history-search
-: 1680066058:0;nvim
 : 1680066081:0;antidote purge redxtech/zsh-fzf-utils
 : 1680066100:0;lfpapis addto falling -f Downloads/Supera_JMP_Wharton.pdf 
 : 1680066105:0;lf 
 : 1680066108:0;lf v14.0.0-clang via ðƒ¿ƒ°ƒ­ v3.10.10\
 âƒ½¯ cd
 : 1680066155:0;antidote purge wintermi/zsh-brew
-: 1680066160:0;lf
 : 1680066214:0;brew install lesspipe
 : 1680066242:0;brew install exiftool
-: 1680066251:0;nvim
 : 1680066290:0;fzf-brew-install rg
 : 1680066294:0;fzf-brew-install r
 : 1680066300:0;fzf-brew-install 
@@ -1035,11 +783,23 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1680066327:0;brew search r
 : 1680066339:0;fzf-brew-install "r"
 : 1680066347:0;fzf-brew-install iosevka
-: 1680066389:0;nvim
-: 1680066512:0;ls
-: 1680066533:0;lf
-: 1680066542:0;ls
 : 1680066623:0;lf
 : 1680066805:0;ls
-: 1680066836:0;cd .dotfiles
-: 1680066838:0;lazygit
+: 1680103688:0;cd .dotfiles
+: 1680103704:0;lazygit
+: 1680103953:0;neomutt
+: 1680104009:0;tmux a
+: 1680104080:0;tmux source -v ~/.tmux.conf\
+
+: 1680104117:0;topgrade
+: 1680104357:0;nvim
+: 1680104531:0;t
+: 1680104869:0;nvim .zshrc
+: 1680104877:0;t
+: 1680104892:0;nvim
+: 1680104916:0;tmux source -v ~/.tmux.conf\
+
+: 1680104926:0;t
+: 1680104964:0;iina "https://www.youtube.com/watch?v=l_TTxc0AcCw"
+: 1680104987:0;cd .dotfiles
+: 1680104988:0;lazygit
