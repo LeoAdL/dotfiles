@@ -37,7 +37,10 @@ return {
         julials = {},
         pyright = {},
         jsonls = {},
-        ltex = {},
+        ltex = {
+          language = "en-US",
+          filetypes = { "bib", "gitcommit", "markdown", "org", "plaintex", "rst", "rnoweb", "tex", "pandoc", "mail" },
+        },
         lua_ls = {
           -- mason = false, -- set to false if you don't want this server to be installed with mason
           settings = {
