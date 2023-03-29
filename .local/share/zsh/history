@@ -803,3 +803,13 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1680104964:0;iina "https://www.youtube.com/watch?v=l_TTxc0AcCw"
 : 1680104987:0;cd .dotfiles
 : 1680104988:0;lazygit
+: 1680105038:0;nvim
+: 1680105241:0;sudo tlmgr update --all
+: 1680105353:0;zellij
+: 1680105569:0;zellij kill
+: 1680105572:0;zellij -h
+: 1680105574:0;zellij ls
+: 1680105577:0;tmux a
+: 1680105730:0;tmux source -v ~/.tmux.conf\
+
+: 1680105755:0;lazygit
