@@ -806,3 +806,5 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1680115016:0;nvim
 : 1680115060:0;brew uninstall starship
 : 1680115262:0;nvim
+: 1680115863:0;antidote update 
+: 1680115867:0;topgrade
