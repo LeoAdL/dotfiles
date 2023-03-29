@@ -813,3 +813,4 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1680105730:0;tmux source -v ~/.tmux.conf\
 
 : 1680105755:0;lazygit
+: 1680105998:0;nvim
