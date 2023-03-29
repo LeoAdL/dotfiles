@@ -785,3 +785,190 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1680023504:0;nvim
 : 1680023604:0;nvim
 : 1680023620:0;neomutt
+: 1680024277:0;nvim
+: 1680024300:0;neomutt
+: 1680024328:0;lf
+: 1680024331:0;abook
+: 1680024351:0;neomutt
+: 1680024398:0;abook
+: 1680029585:0;neomutt
+: 1680029649:0;abook
+: 1680029693:0;man abook
+: 1680029767:0;abook
+: 1680029865:0;neomutt
+: 1680029893:0;abook
+: 1680029917:0;neomutt
+: 1680030018:0;abook
+: 1680030036:0;neomutt
+: 1680030052:0;abook
+: 1680030301:0;brew install nmzmail
+: 1680030447:0;neomutt
+: 1680030499:0;abook
+: 1680030709:0;brew install khard
+: 1680030743:0;khard
+: 1680030758:0;mkdir -p ~/.config/khard/
+: 1680030761:0;touch ~/.config/khard/khard.conf
+: 1680030790:0;nvim /.config/khard/khard.conf
+: 1680030799:0;lf
+: 1680030811:0;nvim khard.conf
+: 1680030818:0;khard
+: 1680030820:0;lf
+: 1680030838:0;khard
+: 1680030869:0;nvim khard.conf
+: 1680030879:0;mkdir -p ~/.contact/
+: 1680030880:0;lf
+: 1680030931:0;abook -h
+: 1680030940:0;man abook
+: 1680030946:0;abook
+: 1680030969:0;lf
+: 1680030978:0;khard
+: 1680030980:0;lf
+: 1680030985:0;nvim khard.conf
+: 1680030998:0;khard
+: 1680031004:0;nvim khard.conf
+: 1680031015:0;khard
+: 1680031019:0;lf
+: 1680031023:0;khard
+: 1680031024:0;nvim khard.conf
+: 1680031037:0;khard
+: 1680031040:0;cd
+: 1680031041:0;khard
+: 1680031046:0;nvim
+: 1680031054:0;khard
+: 1680031088:0;lf
+: 1680031095:0;khard
+: 1680031099:0;nvim
+: 1680031112:0;khard
+: 1680031151:0;lf
+: 1680031153:0;khard
+: 1680031199:0;nvim
+: 1680031207:0;khard
+: 1680031209:0;nvim
+: 1680031215:0;khard
+: 1680031219:0;nvim
+: 1680031239:0;khard
+: 1680031248:0;nvim
+: 1680031270:0;khard
+: 1680031293:0;khard -h
+: 1680031303:0;khard -c
+: 1680031308:0;cd
+: 1680031317:0;khard -c .config/khard/khard.conf
+: 1680031329:0;khard add
+: 1680031394:0;abook
+: 1680031415:0;khard
+: 1680031438:0;abook
+: 1680031446:0;lf
+: 1680031466:0;cd .dotfiles/
+: 1680031467:0;cd
+: 1680031471:0;lf
+: 1680031623:0;cd
+: 1680031627:0;cd .contact
+: 1680031640:0;brew install vcardtool
+: 1680032983:0;brew uninstall khard
+: 1680032986:0;lf
+: 1680033009:0;abook
+: 1680033121:0;cd
+: 1680033122:0;lf
+: 1680033138:0;mkdir -p abook
+: 1680033139:0;lf
+: 1680033181:0;touch abookrc
+: 1680033182:0;lf
+: 1680033191:0;nvim abookrc
+: 1680033339:0;abook
+: 1680033346:0;nvim abookrc
+: 1680033430:0;abook
+: 1680033496:0;nvim abookrc
+: 1680033510:0;abook
+: 1680033518:0;nvim abookrc
+: 1680033547:0;neomutt
+: 1680033558:0;cd
+: 1680033563:0;neomutt
+: 1680033569:0;nvim
+: 1680033586:0;neomutt
+: 1680034679:0;tmux a
+: 1680034689:0;tmux
+: 1680034702:0;tmux lks
+: 1680034704:0;tmux ls
+: 1680034706:0;tmux a
+: 1680034709:0;cd
+: 1680034714:0;nvim
+: 1680034731:0;brew update
+: 1680034739:0;topgrade
+: 1680043976:0;nvim
+: 1680043985:0;tmux a
+: 1680043994:0;tmux 
+: 1680044003:0;nvim
+: 1680044181:0;tmux source .tmux.conf
+: 1680044182:0;cd
+: 1680044183:0;tmux source .tmux.conf
+: 1680044188:0;nvim
+: 1680044290:0;tmux
+: 1680044297:0;tmux source .tmux.conf
+: 1680044299:0;cd
+: 1680044300:0;tmux source .tmux.conf
+: 1680044308:0;nvim
+: 1680044324:0;tmux source .tmux.conf
+: 1680044329:0;nvim
+: 1680044376:0;tmux source .tmux.conf
+: 1680044380:0;nvim
+: 1680044421:0;tmux source .tmux.conf
+: 1680044423:0;nvim
+: 1680044479:0;tmux source-file ~/.tmux.conf
+: 1680044481:0;nvim
+: 1680044516:0;tmux source-file ~/.tmux.conf
+: 1680044519:0;nvim
+: 1680044543:0;tmux source-file ~/.tmux.conf
+: 1680044546:0;nvim
+: 1680044558:0;tmux source-file ~/.tmux.conf
+: 1680044563:0;nvim
+: 1680044570:0;tmux source-file ~/.tmux.conf
+: 1680044573:0;nvim
+: 1680044589:0;tmux source-file ~/.tmux.conf
+: 1680044625:0;nvim
+: 1680044661:0;tmux source-file ~/.tmux.conf
+: 1680044663:0;nvim
+: 1680044727:0;cd
+: 1680044728:0;tmux source-file ~/.tmux.conf
+: 1680044745:0;nvim
+: 1680045145:0;cd
+: 1680045167:0;neomutt
+: 1680045222:0;nvim
+: 1680045255:0;tmux source-file ~/.tmux.conf
+: 1680045258:0;nvim
+: 1680045280:0;neomutt
+: 1680045298:0;topgrade
+: 1680045316:0;nvim
+: 1680045455:0;tmux a
+: 1680045533:0;tmux 
+: 1680045543:0;nvim
+: 1680045571:0;fzf
+: 1680045576:0;nvim
+: 1680045636:0;tmux set -gu default-command
+: 1680045643:0;tmux
+: 1680045670:0;tmux set -gu default-command
+: 1680045704:0;tmux kill-server\
+
+: 1680045705:0;tmux
+: 1680045722:0;nvim
+: 1680045736:0;tmux kill-server\
+
+: 1680045737:0;tmux
+: 1680045747:0;nvim
+: 1680045941:0;tmux a
+: 1680045999:0;tmux 
+: 1680046010:0;nvim
+: 1680046535:0;topgrade
+: 1680046699:0;neomutt
+: 1680046710:0;nvim
+: 1680046753:0;tmux a
+: 1680047013:0;tmux source-file ~/.tmux.conf
+: 1680047020:0;nvim
+: 1680051412:0;tmux source -v ~/.tmux.conf\
+
+: 1680052007:0;tmux 
+: 1680052009:0;nvim
+: 1680052285:0;cd .dotfiles
+: 1680052288:0;nvim
+: 1680052309:0;d
+: 1680052313:0;cd .dotfiles
+: 1680052315:0;lazygit

@@ -3,6 +3,9 @@ source /usr/local/share/mutt-wizard/mutt-wizard.muttrc
 source /Users/leoap/.config/mutt/accounts/laparisidelannoy@uchicago.edu.muttrc
 macro index,pager i2 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/leoaparisi@gmail.com.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to leoaparisi@gmail.com"
 macro index,pager i1 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/laparisidelannoy@uchicago.edu.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to laparisidelannoy@uchicago.edu"
+macro index,pager,attach a  "<pipe-message>sed -e /^From/d -e s/To:/From:/ | abook --add-email-quiet<return>" 
+
+
 
 
 set index_format="%2C %Z %?X?A& ? %D %-15.15F %s"
