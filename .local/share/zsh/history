@@ -972,3 +972,74 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1680052309:0;d
 : 1680052313:0;cd .dotfiles
 : 1680052315:0;lazygit
+: 1680052357:0;nvim
+: 1680052394:0;topgrade
+: 1680052440:0;sudo tlmgr update --all
+: 1680052478:0;neomutt
+: 1680052540:0;newsboat
+: 1680052621:0;nvim
+: 1680052735:0;where brave
+: 1680052738:0;where Brave
+: 1680052741:0;where Brave-browser
+: 1680052745:0;which brave
+: 1680052748:0;which Brave
+: 1680052751:0;which GraphicsMagick++-config
+: 1680052782:0;nvim
+: 1680058313:0;neomutt
+: 1680058330:0;mbsync -a
+: 1680058483:0;lf
+: 1680059442:0;cd
+: 1680059443:0;antidote update 
+: 1680065048:0;antidote purge ChrisPenner/session-sauce
+: 1680065088:0;antidote purge greymd/tmux-xpanes
+: 1680065148:0;antidote purge laggardkernel/git-ignore
+: 1680065167:0;antidote purge sorin-ionescu/prezto
+: 1680065194:0;nvim
+: 1680065283:0;antidote update 
+: 1680065326:0;nvim
+: 1680065332:0;antidote purge
+: 1680065337:0;antidote purge smeagol74/zsh-fzf-pass
+: 1680065353:0;nvim
+: 1680065532:0;antidote purge clarketm/zsh-completions
+: 1680065537:0;nvim
+: 1680065566:0;antidote purge srijanshetty/zsh-pandoc-completion
+: 1680065575:0;antidote purge b0o/zfzf
+: 1680065577:0;z
+: 1680065615:0;lsd Documents
+: 1680065645:0;antidote purge kalsowerus/zsh-bitwarden
+: 1680065664:0;antidote purge wintermi/zsh-brew
+: 1680065674:0;nvim
+: 1680065702:0;antidote install wintermi/zsh-brew
+: 1680065705:0;nvim
+: 1680065847:0;lf
+: 1680065876:0;stow .
+: 1680065884:0;antidote update 
+: 1680065907:0;nvim
+: 1680066036:0;antidote purge
+: 1680066056:0;antidote purge joshskidmore/zsh-fzf-history-search
+: 1680066058:0;nvim
+: 1680066081:0;antidote purge redxtech/zsh-fzf-utils
+: 1680066100:0;lfpapis addto falling -f Downloads/Supera_JMP_Wharton.pdf 
+: 1680066105:0;lf 
+: 1680066108:0;lf v14.0.0-clang via ðƒ¿ƒ°ƒ­ v3.10.10\
+âƒ½¯ cd
+: 1680066155:0;antidote purge wintermi/zsh-brew
+: 1680066160:0;lf
+: 1680066214:0;brew install lesspipe
+: 1680066242:0;brew install exiftool
+: 1680066251:0;nvim
+: 1680066290:0;fzf-brew-install rg
+: 1680066294:0;fzf-brew-install r
+: 1680066300:0;fzf-brew-install 
+: 1680066324:0;brew search
+: 1680066327:0;brew search r
+: 1680066339:0;fzf-brew-install "r"
+: 1680066347:0;fzf-brew-install iosevka
+: 1680066389:0;nvim
+: 1680066512:0;ls
+: 1680066533:0;lf
+: 1680066542:0;ls
+: 1680066623:0;lf
+: 1680066805:0;ls
+: 1680066836:0;cd .dotfiles
+: 1680066838:0;lazygit

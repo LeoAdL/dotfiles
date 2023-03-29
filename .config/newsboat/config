@@ -27,6 +27,6 @@ bind-key D pb-download
 bind-key U show-urls
 bind-key x pb-delete
 
-browser "open -a Firefox"
-macro v set browser "mpv" ; open-in-browser ; set browser linkhandler
+browser "open"
+macro v set browser "iina" ; open-in-browser ; set browser linkhandler
 include ~/.config/newsboat/dark
