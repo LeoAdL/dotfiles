@@ -426,7 +426,6 @@ kkkkkkkkkkkkkkkkkkq
 : 1679459231:0;brew uninstall ltex
 : 1679498994:0;brew install ltex-ls
 : 1679501243:0;nvim .dotfiles/.config/zellij/config.kdl
-: 1679501268:0;zellij
 : 1679521331:0;nvim .zsh_plugins.zsh
 : 1679521694:0;zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 : 1679521704:0;zstyle ':fzf-tab:*' fzf-command fzf
@@ -601,7 +600,6 @@ chmod +x build_mac.sh\
 : 1679871647:0;python -m pip install sioyek
 : 1679871687:0;open /Applications/sioyek.app
 : 1679886664:0;pinentry
-: 1679886703:0;nvim .zshrc
 : 1679886733:0;pkill gpg-agent\
 gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1679886747:0;gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
@@ -630,7 +628,6 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1679889048:0;run '~/.tmux/plugins/tpm/tpm'
 : 1679889324:0;touch .zprofile
 : 1679889390:0;source .tmux.conf
-: 1679974625:0;
 : 1679889732:0;tmux source ~/.tmux.conf
 : 1679889754:0;tmux kill-server
 : 1679891711:0;tmux source 
@@ -742,7 +739,6 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1680047013:0;tmux source-file ~/.tmux.conf
 : 1680052007:0;tmux 
 : 1680052309:0;d
-: 1680052440:0;sudo tlmgr update --all
 : 1680052540:0;newsboat
 : 1680052735:0;where brave
 : 1680052738:0;where Brave
@@ -751,7 +747,6 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1680052748:0;which Brave
 : 1680052751:0;which GraphicsMagick++-config
 : 1680058330:0;mbsync -a
-: 1680059442:0;cd
 : 1680065048:0;antidote purge ChrisPenner/session-sauce
 : 1680065088:0;antidote purge greymd/tmux-xpanes
 : 1680065148:0;antidote purge laggardkernel/git-ignore
@@ -785,25 +780,12 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1680066347:0;fzf-brew-install iosevka
 : 1680066623:0;lf
 : 1680066805:0;ls
-: 1680103688:0;cd .dotfiles
-: 1680103704:0;lazygit
 : 1680103953:0;neomutt
-: 1680104009:0;tmux a
-: 1680104080:0;tmux source -v ~/.tmux.conf\
-
 : 1680104117:0;topgrade
-: 1680104357:0;nvim
-: 1680104531:0;t
 : 1680104869:0;nvim .zshrc
-: 1680104877:0;t
-: 1680104892:0;nvim
-: 1680104916:0;tmux source -v ~/.tmux.conf\
-
 : 1680104926:0;t
 : 1680104964:0;iina "https://www.youtube.com/watch?v=l_TTxc0AcCw"
 : 1680104987:0;cd .dotfiles
-: 1680104988:0;lazygit
-: 1680105038:0;nvim
 : 1680105241:0;sudo tlmgr update --all
 : 1680105353:0;zellij
 : 1680105569:0;zellij kill
@@ -814,3 +796,13 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 
 : 1680105755:0;lazygit
 : 1680105998:0;nvim
+: 1680114830:0;cd
+: 1680114845:0;nvim .zsh_plugins.txt 
+: 1680114876:0;
+: 1680114880:0;p10k configure
+: 1680114978:0;nvim .zshrc
+: 1680114980:0;cd
+: 1680114982:0;nvim .zshrc
+: 1680115016:0;nvim
+: 1680115060:0;brew uninstall starship
+: 1680115262:0;nvim
