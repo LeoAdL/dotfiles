@@ -8,9 +8,10 @@ return {
           filetypes = { "markdown", "tex", "mail" },
         },
         sources = {
+          null_ls.builtins.diagnostics.cspell,
+          null_ls.builtins.code_actions.cspell,
           null_ls.builtins.diagnostics.ltrs,
           null_ls.builtins.code_actions.ltrs,
-          null_ls.builtins.diagnostics.textlint,
           null_ls.builtins.diagnostics.gitlint,
           null_ls.builtins.formatting.black,
           null_ls.builtins.formatting.isort,
