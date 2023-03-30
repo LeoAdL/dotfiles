@@ -4,7 +4,6 @@
 : 1670903196:0;brew uninstall antibody
 : 1670903222:0;dd
 : 1670903241:0;antidote purge romkatv/powerlevel10k
-: 1670903275:0;p10k configure
 : 1670903517:0;enable-fzf-tab
 : 1670903817:0;promptinit\
 prompt pure\
@@ -624,7 +623,6 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1679888951:0;source .tmux.conf 
 : 1679888965:0;run '~/.tmux/plugins/tpm/tpm'\
 
-: 1679889019:0;source .zshrc
 : 1679889048:0;run '~/.tmux/plugins/tpm/tpm'
 : 1679889324:0;touch .zprofile
 : 1679889390:0;source .tmux.conf
@@ -760,7 +758,6 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1680065645:0;antidote purge kalsowerus/zsh-bitwarden
 : 1680065702:0;antidote install wintermi/zsh-brew
 : 1680065876:0;stow .
-: 1680065884:0;antidote update 
 : 1680066036:0;antidote purge
 : 1680066056:0;antidote purge joshskidmore/zsh-fzf-history-search
 : 1680066081:0;antidote purge redxtech/zsh-fzf-utils
@@ -778,11 +775,7 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1680066327:0;brew search r
 : 1680066339:0;fzf-brew-install "r"
 : 1680066347:0;fzf-brew-install iosevka
-: 1680066623:0;lf
 : 1680066805:0;ls
-: 1680103953:0;neomutt
-: 1680104117:0;topgrade
-: 1680104869:0;nvim .zshrc
 : 1680104926:0;t
 : 1680104964:0;iina "https://www.youtube.com/watch?v=l_TTxc0AcCw"
 : 1680104987:0;cd .dotfiles
@@ -795,23 +788,61 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1680105730:0;tmux source -v ~/.tmux.conf\
 
 : 1680105755:0;lazygit
-: 1680105998:0;nvim
-: 1680114830:0;cd
 : 1680114845:0;nvim .zsh_plugins.txt 
 : 1680114876:0;
 : 1680114880:0;p10k configure
-: 1680114978:0;nvim .zshrc
-: 1680114980:0;cd
 : 1680114982:0;nvim .zshrc
-: 1680115016:0;nvim
 : 1680115060:0;brew uninstall starship
-: 1680115262:0;nvim
 : 1680115863:0;antidote update 
 : 1680115867:0;topgrade
 : 1680116858:0;s
-: 1680116861:0;source .zshrc
-: 1680116864:0;neomutt
 : 1680116875:0;source .zshrc
 : 1680116880:0;neomutt
 : 1680130628:0;brew install ltrs
 : 1680130634:0;nvim
+: 1680130707:0;cargo install languagetool-rust --features full\
+
+: 1680130778:0;ltrs
+: 1680130784:0;cd
+: 1680130785:0;lf
+: 1680130793:0;/Users/leoap/.cargo/bin/ltrs ; exit;
+: 1680130809:0;nvim
+: 1680130878:0;nvim u.txt
+: 1680130919:0;whereis cargo
+: 1680130924:0;which cargo
+: 1680130932:0;whereis ltrs
+: 1680130935:0;ltrs
+: 1680130941:0;cargo install languagetool-rust --features full\
+
+: 1680130952:0;nvim .zshrc
+: 1680130982:0;source .zshrc
+: 1680130985:0;ltrs
+: 1680130988:0;cargo install languagetool-rust --features full\
+
+: 1680130995:0;nvim .zshrc
+: 1680131017:0;cargo uninstall languagetool-rust
+: 1680131019:0;cargo install languagetool-rust --features full\
+
+: 1680131056:0;nvim .fzf/doc/fzf.txt 
+: 1680131117:0;nvim u.txt
+: 1680131129:0;nvim .zshrc
+: 1680131169:0;source .zshrc
+: 1680131172:0;ltrs
+: 1680131176:0;nvim u.txt
+: 1680131180:0;nvim
+: 1680131226:0;source .zshrc
+: 1680131230:0;neomutt
+: 1680131322:0;nvim
+: 1680131367:0;neomutt
+: 1680131463:0;nvim
+: 1680131479:0;neomutt
+: 1680131514:0;nvim fdkjdjkf.txt
+: 1680131594:0;nvim
+: 1680131826:0;cd org
+: 1680131828:0;lazygit
+: 1680146316:0;nvim
+: 1680146603:0;source .zshrc
+: 1680146606:0;ltrs
+: 1680146608:0;source .zshrc
+: 1680146611:0;neomutt
+: 1680146816:0;nvim
