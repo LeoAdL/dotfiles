@@ -4,12 +4,9 @@ return {
     opts = function()
       local null_ls = require("null-ls")
       return {
-        proselint = {
-          filetypes = { "markdown", "tex", "mail" },
-        },
         sources = {
-          null_ls.builtins.diagnostics.cspell,
-          null_ls.builtins.code_actions.cspell,
+          null_ls.builtins.code_actions.proselint.with({ filetypes = { "markdown", "tex", "mail" } }),
+          null_ls.builtins.diagnostics.proselint.with({ filetypes = { "markdown", "tex", "mail" } }),
           null_ls.builtins.diagnostics.ltrs,
           null_ls.builtins.code_actions.ltrs,
           null_ls.builtins.diagnostics.gitlint,
