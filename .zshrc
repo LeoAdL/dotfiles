@@ -106,6 +106,8 @@ export PATH="/opt/homebrew/opt/qt@5/bin:$PATH"
 export PATH="$PATH:/Users/Admin/Qt5.14.2/5.14.2/clang_64/bin"
 export PATH=$HOME/.tmux/plugins/t-smart-tmux-session-manager/bin:$PATH
 export PATH="$PATH:/Users/leoap/.cargo/bin"
+export DBUS_SESSION_BUS_ADDRESS="unix:path=$DBUS_LAUNCHD_SESSION_BUS_SOCKET"
+
 
 lfcd () {
     tmp="$(mktemp)"

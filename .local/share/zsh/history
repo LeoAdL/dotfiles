@@ -415,7 +415,6 @@ kkkkkkkkkkkkkkkkkkq
 : 1679349207:0;papis zotero import --from-bibtex ~/org/portfolio_het_agents/mylib.bib -o papis_exp
 : 1679349375:0;papis export --all --format bibtex --out mylib.bib '*'
 : 1679349940:0;pip uninstall papis-zotero papis
-: 1679365703:0;cd org
 : 1679371407:0;brew unlink gdu
 : 1679373098:0;dast
 : 1679373117:0;brew install gdu
@@ -784,65 +783,133 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1680105569:0;zellij kill
 : 1680105572:0;zellij -h
 : 1680105574:0;zellij ls
-: 1680105577:0;tmux a
 : 1680105730:0;tmux source -v ~/.tmux.conf\
 
-: 1680105755:0;lazygit
 : 1680114845:0;nvim .zsh_plugins.txt 
 : 1680114876:0;
 : 1680114880:0;p10k configure
-: 1680114982:0;nvim .zshrc
 : 1680115060:0;brew uninstall starship
 : 1680115863:0;antidote update 
-: 1680115867:0;topgrade
 : 1680116858:0;s
-: 1680116875:0;source .zshrc
-: 1680116880:0;neomutt
 : 1680130628:0;brew install ltrs
-: 1680130634:0;nvim
-: 1680130707:0;cargo install languagetool-rust --features full\
-
-: 1680130778:0;ltrs
-: 1680130784:0;cd
-: 1680130785:0;lf
 : 1680130793:0;/Users/leoap/.cargo/bin/ltrs ; exit;
-: 1680130809:0;nvim
-: 1680130878:0;nvim u.txt
 : 1680130919:0;whereis cargo
 : 1680130924:0;which cargo
 : 1680130932:0;whereis ltrs
-: 1680130935:0;ltrs
-: 1680130941:0;cargo install languagetool-rust --features full\
-
-: 1680130952:0;nvim .zshrc
-: 1680130982:0;source .zshrc
-: 1680130985:0;ltrs
-: 1680130988:0;cargo install languagetool-rust --features full\
-
-: 1680130995:0;nvim .zshrc
 : 1680131017:0;cargo uninstall languagetool-rust
 : 1680131019:0;cargo install languagetool-rust --features full\
 
 : 1680131056:0;nvim .fzf/doc/fzf.txt 
-: 1680131117:0;nvim u.txt
 : 1680131129:0;nvim .zshrc
-: 1680131169:0;source .zshrc
-: 1680131172:0;ltrs
 : 1680131176:0;nvim u.txt
-: 1680131180:0;nvim
-: 1680131226:0;source .zshrc
-: 1680131230:0;neomutt
-: 1680131322:0;nvim
-: 1680131367:0;neomutt
-: 1680131463:0;nvim
-: 1680131479:0;neomutt
 : 1680131514:0;nvim fdkjdjkf.txt
-: 1680131594:0;nvim
 : 1680131826:0;cd org
 : 1680131828:0;lazygit
-: 1680146316:0;nvim
-: 1680146603:0;source .zshrc
 : 1680146606:0;ltrs
 : 1680146608:0;source .zshrc
 : 1680146611:0;neomutt
 : 1680146816:0;nvim
+: 1680148707:0;cd
+: 1680149237:0;tmux a
+: 1680197415:0;brew uninstall logseq
+: 1680197419:0;topgrade
+: 1680197466:0;cargo install cargo-update
+: 1680197511:0;cargo-update
+: 1680197514:0;cargo update
+: 1680197519:0;cargo
+: 1680197540:0;cargo init
+: 1680197545:0;cargo check
+: 1680197551:0;cargo update 
+: 1680197554:0;lf
+: 1680197583:0;/Users/leoap/.cargo/bin/cargo-install-update ; exit;
+: 1680197595:0;cargo-update
+: 1680197599:0;./cargo-install-update-config
+: 1680197602:0;./cargo-install-update
+: 1680197607:0;./ cargo-install-update
+: 1680197612:0;.cargo-install-update
+: 1680197620:0;cargo-install-update
+: 1680197625:0;cargo-install-update -h
+: 1680197633:0;cargo-install-update install-update
+: 1680197638:0;cargo-install-update install-update -all
+: 1680197643:0;cargo-install-update install-update --all
+: 1680197660:0;pip-review
+: 1680197883:0;brew cleanup --prune=0
+: 1680198132:0;cargo install cargo-cache
+: 1680198188:0;topgrade
+: 1680198196:0;topgrade -h
+: 1680198204:0;topgrade -t
+: 1680198206:0;topgrade -c
+: 1680208412:0;nvim
+: 1680208426:0;neomutt
+: 1680208863:0;topgrade
+: 1680208958:0;julia
+: 1680213973:0;topgrade
+: 1680279055:0;cupsctl WebInterface=yes
+: 1680279527:0;nvim
+: 1680280174:0;topgrade
+: 1680280193:0;newsboat
+: 1680288361:0;iina "https://www.youtube.com/watch?v=FrMRyXtiJkc"
+: 1680288505:0;nvim
+: 1680288559:0;nvim .config/mpv/mpv.conf 
+: 1680288620:0;iina "https://www.youtube.com/watch?v=FrMRyXtiJkc"
+: 1680288642:0;nvim .config/mpv/mpv.conf 
+: 1680289437:0;iina "https://www.youtube.com/watch?v=czGk-tR31AE"
+: 1680296034:0;topgrade
+: 1680296682:0;brew tap zegervdv/zathura\
+
+: 1680296688:0;brew install zathura
+: 1680296700:0;brew install zathura-pdf-poppler
+: 1680296714:0;ln  -s $(brew --prefix zathura-pdf-poppler)/libpdf-poppler.dylib $(brew --prefix zathura)/lib/zathura/libpdf-poppler.dylib\
+
+: 1680296720:0;brew unlink girara\
+brew unlink zathura\
+
+: 1680296728:0;brew install girara --HEAD\
+brew install zathura --HEAD\
+
+: 1680296744:0;brew doctor
+: 1680296823:0;brew install dbus
+: 1680296835:0;brew link davmail
+: 1680296840:0;brew doctor
+: 1680296858:0;nvim .zshrc
+: 1680296875:0;source .zshrc
+: 1680296877:0;cd
+: 1680296878:0;source .zshrc
+: 1680296900:0;cd /usr/local/opt/dbus/share/dbus-1/
+: 1680296913:0;lf
+: 1680296930:0;cd
+: 1680296933:0;fzf dbus-1
+: 1680296970:0;where homebrew
+: 1680296973:0;lf
+: 1680297019:0;cd
+: 1680297027:0;brew services start dbus
+: 1680297058:0;dbus
+: 1680297062:0;brew install dbus
+: 1680297069:0;brew services start dbus
+: 1680297121:0;brew services\
+
+: 1680297145:0;brew services start d-bus
+: 1680297150:0;brew services start d-buS
+: 1680297154:0;brew services start d-bus
+: 1680297157:0;brew services start dbus
+: 1680297167:0;cd
+: 1680297168:0;brew services start dbus
+: 1680297416:0;brew uninstall zathura sioyek
+: 1680297422:0;brew uninstall zathura dbus
+: 1680297434:0;brew uninstall zathura zathura-poppler
+: 1680297440:0;brew uninstall zathura zathura-pdf-poppler
+: 1680297448:0;brew uninstall dbus
+: 1680297456:0;brew reinstall sioyek
+: 1680297474:0;rm   /opt/homebrew/etc/dbus-1\
+
+: 1680297478:0;rm -rf   /opt/homebrew/etc/dbus-1\
+
+: 1680297485:0;brew autoremove
+: 1680297496:0;brew cleanup --prune=0
+: 1680300682:0;antidote update 
+: 1680300935:0;topgrade
+: 1680316378:0;notmuch new
+: 1680316391:0;notmuch compact
+: 1680316400:0;neomutt
+: 1680316412:0;notmuch new
+: 1680316414:0;neomutt
