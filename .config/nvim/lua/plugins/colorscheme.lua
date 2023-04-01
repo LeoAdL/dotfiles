@@ -75,8 +75,7 @@ return {
     end,
   },
   {
-    "gbprod/nord.nvim",
-    opts = { transparent = false },
+    "shaunsingh/nord.nvim",
   },
   { "nvim-lualine/lualine.nvim", opts = { theme = "nord" } },
   -- Configure LazyVim to load gruvbox
