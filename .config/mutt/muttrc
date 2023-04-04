@@ -19,8 +19,10 @@ set header_cache_backend = lmdb
 set help = no
 set timeout = 0
 set imap_idle = yes
-set text_flowed = no
 set implicit_auto_view = yes
+set imap_keepalive = 900             # 15 minutes
+set pager_stop                       # stop at end of message
+set text_flowed=yes                  # correct indentation for plain text
 
 bind index,pager,browser \Cd half-down
 bind index,pager,browser \Cu half-up
