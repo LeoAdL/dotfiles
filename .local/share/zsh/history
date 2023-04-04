@@ -58,7 +58,6 @@ done
 : 1679107739:0;antidote upg
 : 1679111403:0;nvim .fzf/BUILD.md 
 : 1679111581:0;brew install pandoc
-: 1679155309:0;nvim .dotfiles/.config/topgrade.toml 
 : 1679155503:0;forgit 
 : 1679155570:0;forgit::add
 : 1679155659:0;forgit::checkout::commit
@@ -103,7 +102,6 @@ kkkkkkkkkkkkkkkkkkq
 : 1679185043:0;z .dotfiles
 : 1679185240:0;mkdir -p Library/Application Support/sioyek/
 : 1679185600:0;nvim prefs_user.config
-: 1679186057:0;grep
 : 1679186062:0;grep catpuccin
 : 1679186068:0;rga
 : 1679186074:0;rga catpuccin
@@ -451,9 +449,7 @@ kkkkkkkkkkkkkkkkkkq
 : 1679629794:0;rg catppuccin
 : 1679629804:0;rg leo
 : 1679630153:0;fzfrg
-: 1679630430:0;notmuch new
 : 1679676378:0;brew uninstall prettier
-: 1679676688:0;brew install mosh
 : 1679676800:0;brew install difftastic
 : 1679676880:0;brew install thefuck
 : 1679676910:0;brew install pdfgrep
@@ -636,7 +632,6 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1679892517:0;notmuch -h
 : 1679892520:0;notmuch -help
 : 1679892522:0;notmuch help
-: 1679892527:0;notmuch compact
 : 1679892919:0;brew uninstall gitgit-credential-manager
 : 1679892922:0;git-credential-manager
 : 1679892944:0;git-credential-manager get
@@ -645,11 +640,9 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1679892982:0;git pull
 : 1679892988:0;git add
 : 1679893000:0;git commit
-: 1679931495:0;julia
 : 1679932879:0;brew uninstall wezterm
 : 1679932887:0;brew uninstall wezterm-nightly
 : 1679932895:0;brew install --cask wezterm
-: 1679933257:0;brew cleanup --prune=0
 : 1679950676:0;brew uninstall chktex
 : 1679950683:0;brew install chktex
 : 1679950698:0;where 'chktex\
@@ -662,8 +655,6 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1679952836:0;brew uninstall ltex-ls
 : 1679952842:0;where 'ltex-ls'
 : 1679953061:0;brew uninstall latexindent
-: 1679953294:0;brew autoremove
-: 1679953309:0;brew uninstall aom
 : 1679953318:0;brew uninstall amethyst
 : 1679953325:0;brew uninstall chalk
 : 1679953341:0;brew uninstall git-credential-manager-core
@@ -672,7 +663,6 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1679953681:0;git push
 : 1679968722:0;mkdir mutt
 : 1679968902:0;brew install lmdb
-: 1679969536:0;brew ls
 : 1679969616:0;brew install lz4
 : 1679970059:0;brew install w3m
 : 1679970096:0;w3m
@@ -736,14 +726,12 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1680047013:0;tmux source-file ~/.tmux.conf
 : 1680052007:0;tmux 
 : 1680052309:0;d
-: 1680052540:0;newsboat
 : 1680052735:0;where brave
 : 1680052738:0;where Brave
 : 1680052741:0;where Brave-browser
 : 1680052745:0;which brave
 : 1680052748:0;which Brave
 : 1680052751:0;which GraphicsMagick++-config
-: 1680058330:0;mbsync -a
 : 1680065048:0;antidote purge ChrisPenner/session-sauce
 : 1680065088:0;antidote purge greymd/tmux-xpanes
 : 1680065148:0;antidote purge laggardkernel/git-ignore
@@ -778,7 +766,6 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1680104926:0;t
 : 1680104964:0;iina "https://www.youtube.com/watch?v=l_TTxc0AcCw"
 : 1680104987:0;cd .dotfiles
-: 1680105241:0;sudo tlmgr update --all
 : 1680105353:0;zellij
 : 1680105569:0;zellij kill
 : 1680105572:0;zellij -h
@@ -789,7 +776,6 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1680114876:0;
 : 1680114880:0;p10k configure
 : 1680115060:0;brew uninstall starship
-: 1680115863:0;antidote update 
 : 1680116858:0;s
 : 1680130628:0;brew install ltrs
 : 1680130793:0;/Users/leoap/.cargo/bin/ltrs ; exit;
@@ -800,27 +786,19 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1680131019:0;cargo install languagetool-rust --features full\
 
 : 1680131056:0;nvim .fzf/doc/fzf.txt 
-: 1680131129:0;nvim .zshrc
 : 1680131176:0;nvim u.txt
 : 1680131514:0;nvim fdkjdjkf.txt
 : 1680131826:0;cd org
 : 1680131828:0;lazygit
 : 1680146606:0;ltrs
-: 1680146608:0;source .zshrc
-: 1680146611:0;neomutt
-: 1680146816:0;nvim
-: 1680148707:0;cd
 : 1680149237:0;tmux a
 : 1680197415:0;brew uninstall logseq
-: 1680197419:0;topgrade
 : 1680197466:0;cargo install cargo-update
-: 1680197511:0;cargo-update
 : 1680197514:0;cargo update
 : 1680197519:0;cargo
 : 1680197540:0;cargo init
 : 1680197545:0;cargo check
 : 1680197551:0;cargo update 
-: 1680197554:0;lf
 : 1680197583:0;/Users/leoap/.cargo/bin/cargo-install-update ; exit;
 : 1680197595:0;cargo-update
 : 1680197599:0;./cargo-install-update-config
@@ -833,28 +811,16 @@ gpg-agent --pinentry-program=/usr/bin/pinentry-gtk-2 --daemon
 : 1680197638:0;cargo-install-update install-update -all
 : 1680197643:0;cargo-install-update install-update --all
 : 1680197660:0;pip-review
-: 1680197883:0;brew cleanup --prune=0
 : 1680198132:0;cargo install cargo-cache
-: 1680198188:0;topgrade
 : 1680198196:0;topgrade -h
 : 1680198204:0;topgrade -t
 : 1680198206:0;topgrade -c
-: 1680208412:0;nvim
-: 1680208426:0;neomutt
-: 1680208863:0;topgrade
 : 1680208958:0;julia
-: 1680213973:0;topgrade
 : 1680279055:0;cupsctl WebInterface=yes
-: 1680279527:0;nvim
-: 1680280174:0;topgrade
 : 1680280193:0;newsboat
-: 1680288361:0;iina "https://www.youtube.com/watch?v=FrMRyXtiJkc"
-: 1680288505:0;nvim
-: 1680288559:0;nvim .config/mpv/mpv.conf 
 : 1680288620:0;iina "https://www.youtube.com/watch?v=FrMRyXtiJkc"
 : 1680288642:0;nvim .config/mpv/mpv.conf 
 : 1680289437:0;iina "https://www.youtube.com/watch?v=czGk-tR31AE"
-: 1680296034:0;topgrade
 : 1680296682:0;brew tap zegervdv/zathura\
 
 : 1680296688:0;brew install zathura
@@ -867,31 +833,19 @@ brew unlink zathura\
 : 1680296728:0;brew install girara --HEAD\
 brew install zathura --HEAD\
 
-: 1680296744:0;brew doctor
-: 1680296823:0;brew install dbus
 : 1680296835:0;brew link davmail
 : 1680296840:0;brew doctor
 : 1680296858:0;nvim .zshrc
-: 1680296875:0;source .zshrc
-: 1680296877:0;cd
 : 1680296878:0;source .zshrc
 : 1680296900:0;cd /usr/local/opt/dbus/share/dbus-1/
-: 1680296913:0;lf
-: 1680296930:0;cd
 : 1680296933:0;fzf dbus-1
 : 1680296970:0;where homebrew
-: 1680296973:0;lf
-: 1680297019:0;cd
-: 1680297027:0;brew services start dbus
 : 1680297058:0;dbus
 : 1680297062:0;brew install dbus
-: 1680297069:0;brew services start dbus
 : 1680297121:0;brew services\
 
-: 1680297145:0;brew services start d-bus
 : 1680297150:0;brew services start d-buS
 : 1680297154:0;brew services start d-bus
-: 1680297157:0;brew services start dbus
 : 1680297167:0;cd
 : 1680297168:0;brew services start dbus
 : 1680297416:0;brew uninstall zathura sioyek
@@ -904,13 +858,232 @@ brew install zathura --HEAD\
 
 : 1680297478:0;rm -rf   /opt/homebrew/etc/dbus-1\
 
-: 1680297485:0;brew autoremove
-: 1680297496:0;brew cleanup --prune=0
-: 1680300682:0;antidote update 
-: 1680300935:0;topgrade
-: 1680316378:0;notmuch new
 : 1680316391:0;notmuch compact
-: 1680316400:0;neomutt
 : 1680316412:0;notmuch new
-: 1680316414:0;neomutt
-: 1680317194:0;antidote update 
+: 1680378101:0;mbsync -a
+: 1680378131:0;neomutt
+: 1680446887:0;brew uninstall font-fira-code font-fira-sans font-hasklig
+: 1680446916:0;brew uninstall font-lexend font-mulish font-overpass
+: 1680446954:0;brew uninstall temurin
+: 1680447244:0;brew uninstall gawk
+: 1680447251:0;brew install gawk
+: 1680447261:0;brew uninstall girara
+: 1680447279:0;brew uninstall berkeley-db@5
+: 1680447293:0;brew uninstall perl
+: 1680447297:0;brew uninstall berkeley-db
+: 1680447330:0;brew uninstall gtk+3
+: 1680447334:0;brew uninstall atk
+: 1680447346:0;brew uninstall bfg
+: 1680447358:0;brew uninstall bison
+: 1680460054:0;brew uninstall aribb24
+: 1680460060:0;brew uninstall aspell
+: 1680460068:0;brew uninstall bdw-gc
+: 1680460081:0;brew uninstall brotli
+: 1680460096:0;brew uninstall cairo
+: 1680460111:0;brew uninstall chruby
+: 1680460123:0;brew uninstall cmocka
+: 1680460140:0;docbook-xsl
+: 1680460143:0;brew uninstall docbook-xsl
+: 1680460152:0;brew uninstall xmlto
+: 1680460160:0;brew uninstall share-mime-info
+: 1680460177:0;brew uninstall duf
+: 1680460184:0;brew uninstall exiftool
+: 1680460189:0;brew uninstall expat
+: 1680460194:0;brew uninstall mesa
+: 1680460201:0;brew uninstall freeglut
+: 1680460242:0;brew uninstall fpmegthumbnailer
+: 1680460251:0;brew uninstall ffmpegthumbnailer
+: 1680460295:0;brew uninstall c-ares
+: 1680460303:0;brew uninstall cpanimus
+: 1680460309:0;brew uninstall cpanmimus
+: 1680460317:0;brew uninstall cpanminus
+: 1680460335:0;brew uninstall cyrus-sasl
+: 1680460341:0;brew uninstall dav1d
+: 1680460350:0;brew uninstall ffpmeg
+: 1680460363:0;brew uninstall timg
+: 1680460366:0;brew uninstall ffmpeg
+: 1680460386:0;brew uninstall aom
+: 1680460399:0;brew uninstall cjson
+: 1680460405:0;brew uninstall cffi
+: 1680460413:0;brew uninstall docbook
+: 1680460422:0;brew uninstall shared-mime-info
+: 1680460442:0;brew uninstall lsix
+: 1680460448:0;brew uninstall imagemagick
+: 1680460467:0;brew uninstall fontconfig
+: 1680460473:0;brew uninstall freetype
+: 1680460478:0;fribidi
+: 1680460484:0;brew uninstall fribidi
+: 1680460495:0;brew uninstall gdbm
+: 1680460503:0;brew uninstall gettext
+: 1680460510:0;brew uninstall ghostscript
+: 1680460516:0;brew uninstall giflib
+: 1680460526:0;brew uninstall glib
+: 1680460533:0;brew uninstall gmime
+: 1680460538:0;brew uninstall gmp
+: 1680460545:0;brew uninstall gnu-sed
+: 1680460551:0;brew uninstall nnn
+: 1680460569:0;brew uninstall gnu-getopt
+: 1680460576:0;brew uninstall go
+: 1680460590:0;brew graphite2
+: 1680460597:0;brew uninstall graphite2
+: 1680460605:0;brew uninstall grep
+: 1680460613:0;grep
+: 1680460618:0;brew uninstall gts
+: 1680460626:0;brew uninstall gumbo-parser
+: 1680460641:0;brew uninstall pymupdf
+: 1680460645:0;brew uninstall mupdf
+: 1680460667:0;brew uninstall highway
+: 1680460674:0;brew uninstall hunspell
+: 1680460680:0;brew uninstall icu4c
+: 1680460690:0;brew uninstall imath
+: 1680460695:0;brew uninstall isl
+: 1680460698:0;brew uninstall ispell
+: 1680460706:0;brew uninstall jansson
+: 1680460713:0;brew uninstall universal-ctags
+: 1680460726:0;brew uninstall jasper
+: 1680460736:0;brew uninstall jbig2dec
+: 1680460742:0;brew uninstall jpeg
+: 1680460748:0;brew uninstall openjpeg
+: 1680460756:0;brew uninstall json-c
+: 1680460783:0;brew uninstall krb5
+: 1680460792:0;brew uninstall leptonica
+: 1680460800:0;brew uninstall libarchive
+: 1680460810:0;brew uninstall luv
+: 1680460817:0;brew uninstall lzo
+: 1680460823:0;brew uninstall m4
+: 1680460829:0;brew uninstall media-info
+: 1680460834:0;brew uninstall mosh
+: 1680460839:0;brew install mosh
+: 1680460854:0;brew install mpdecimal
+: 1680460859:0;brew uninstall mpdecimal
+: 1680460866:0;brew uninstall mpfr
+: 1680460873:0;brew uninstall navi
+: 1680460887:0;brew install navi
+: 1680460902:0;brew uninstall ncurses
+: 1680460908:0;brew uninstall neofetch
+: 1680460937:0;brew uninstall netpbm
+: 1680460946:0;brew uninstall node
+: 1680460951:0;brew uninstall npth
+: 1680460955:0;brew uninstall nspr
+: 1680460959:0;brew uninstall nss
+: 1680460964:0;brew uninstall poppler
+: 1680460974:0;brew uninstall nvm
+: 1680460992:0;brew uninstall oniguruma
+: 1680460999:0;brew uninstall jq
+: 1680461012:0;brew uninstall openexr
+: 1680461020:0;brew uninstall p11-kit
+: 1680461025:0;brew uninstall pango
+: 1680461031:0;brew uninstall pcre
+: 1680461036:0;brew uninstall pixman
+: 1680462195:0;brew uninstall pkg-config
+: 1680462211:0;brew uninstall pngpaste
+: 1680462275:0;brew install pnpm
+: 1680462301:0;brew install node
+: 1680462310:0;brew reinstall node
+: 1680462331:0;brew uninstall pycodestyle
+: 1680462342:0;brew uninstall pycparser
+: 1680462352:0;brew uninstall qrencode
+: 1680462361:0;brew uninstall  readline
+: 1680462380:0;brew uninstall rmtpdump
+: 1680462393:0;brew uninstall rtmpdump
+: 1680462400:0;brew uninstall ruby
+: 1680462408:0;brew uninstall ruby-install
+: 1680462416:0;brew uninstall screenresolution
+: 1680462421:0;brew uninstall six
+: 1680462431:0;brew uninstall talloc
+: 1680462443:0;brew uninstall tokyo-cabinet
+: 1680462458:0;brew uninstall tre
+: 1680462466:0;brew uninstall tre felinks
+: 1680462477:0;brew uninstall unbound
+: 1680462483:0;brew uninstall unbilium
+: 1680462489:0;brew uninstall unibilium
+: 1680462978:0;brew uninstall webp
+: 1680462985:0;brew uninstall xapian
+: 1680462994:0;brew uninstall xorgproto
+: 1680462998:0;brew uninstall xz
+: 1680463015:0;brew uninstall zsh-vi-mode
+: 1680463023:0;brew uninstall zstd
+: 1680463046:0;brew install fzf
+: 1680471473:0;nvim
+: 1680471509:0;nvim .dotfiles/.config/topgrade.toml 
+: 1680471530:0;topgrade
+: 1680471829:0;`npm fund`
+: 1680471834:0;npm fund
+: 1680471843:0;pnpm
+: 1680471850:0;pnpm audit
+: 1680471854:0;pnpm run
+: 1680471863:0;pnpm import
+: 1680471871:0;pnpm link
+: 1680471877:0;pnpm add
+: 1680471885:0;pnpm ls
+: 1680471891:0;brew uninstall pnpm
+: 1680471897:0;sudo tlmgr update --all
+: 1680472031:0;brew uninstall npm
+: 1680480563:0;brew uninstall zsh-autosuggestions
+: 1680480567:0;antidote update 
+: 1680480583:0;brew uninstall  zsh-history-substring-search\
+
+: 1680480592:0;brew uninstall  coteditor
+: 1680480598:0;brew uninstall  cron
+: 1680480606:0;brew uninstall cyberduck
+: 1680480627:0;brew reinstall fig
+: 1680480645:0;brew uninstall fig
+: 1680480685:0;brew uninstall  font-dm-sans   font-iosevka   
+: 1680480707:0;brew uninstall font-ibm-plex   font-ibm-plex-mono    font-ibm-plex-sans
+: 1680480744:0;brew uninstall  font-josefin-sans       font-josefin-slab     font-libre-franklin      font-metropolis                         font-roboto     font-monoid                             font-victor-mono       
+: 1680480757:0;brew install font-roboto
+: 1680480768:0;brew uninstall font-roboto
+: 1680480773:0;brew ls
+: 1680480812:0;brew uninstall font-monoid                             font-victor-mono   font-montserrat     font-poppins    font-raleway   font-playfair-display  stremio
+: 1680480821:0;brew autoremove
+: 1680480825:0;brew cleanup --prune=0
+: 1680480974:0;kondo -h
+: 1680480975:0;kondo 
+: 1680481150:0;kondo
+: 1680481166:0;kondo -a
+: 1680481169:0;lf
+: 1680481179:0;/bin/ps ; exit;
+: 1680481196:0;kondo -a
+: 1680481198:0;lf
+: 1680481203:0;kondo 
+: 1680481204:0;lf
+: 1680481211:0;kondo 
+: 1680481212:0;lf
+: 1680481216:0;kondo 
+: 1680481217:0;lf
+: 1680481223:0;kondo 
+: 1680481224:0;lf
+: 1680481229:0;kondo 
+: 1680481233:0;lf
+: 1680481236:0;kondo 
+: 1680481238:0;lf
+: 1680481241:0;cd
+: 1680481242:0;lf
+: 1680481250:0;kondo
+: 1680481272:0;Dropbox/begs4_shared/.DS_Store 
+: 1680481308:0;mamba update --all
+: 1680481326:0;lf
+: 1680481335:0;topgrade
+: 1680481761:0;brew uninstall node
+: 1680481783:0;brew install npm
+: 1680481794:0;nvim
+: 1680489539:0;tmux a
+: 1680489544:0;topgrade
+: 1680489572:0;mbsync -a
+: 1680489749:0;nvim
+: 1680490192:0;neomutt
+: 1680536123:0;topgrade
+: 1680537127:0;a
+: 1680537129:0;antidote update 
+: 1680542968:0;mbsync -a
+: 1680542986:0;neomutt
+: 1680544232:0;killall Dock
+: 1680548436:0;topgrade
+: 1680570873:0;brew install font-iosevka-nerd-fonts
+: 1680582706:0;brew cleanup --prune=0
+: 1680582719:0;antidote update 
+: 1680582895:0;brew install --cask font-sf-mono-nerd-font
+: 1680582999:0;brew tap shaunsingh/SFMono-Nerd-Font-Ligaturized\
+brew install --cask font-sf-mono-nerd-font-ligaturized\
+
+: 1680583051:0;nvim
