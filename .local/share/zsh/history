@@ -1087,3 +1087,55 @@ brew install zathura --HEAD\
 brew install --cask font-sf-mono-nerd-font-ligaturized\
 
 : 1680583051:0;nvim
+: 1680583219:0;brew install --cask font-fira-code-nerd-fony
+: 1680583271:0;nvim
+: 1680583294:0;tmux a
+: 1680583354:0;nvim
+: 1680583360:0;tmux a
+: 1680583502:0;nvim
+: 1680583506:0;tmux a
+: 1680583585:0;nvim
+: 1680583637:0;tmux a
+: 1680583676:0;brew install --cask font-fira-code-nerd-font
+: 1680583702:0;nvim
+: 1680583728:0;brew install --cask font-fira-mono-nerd-font
+: 1680583750:0;tmux a
+: 1680583757:0;nvim
+: 1680583781:0;tmux a
+: 1680583913:0;brew install --cask font-jet-brains-mono
+: 1680584006:0;brew install --cask font-jet-brains-mono-nerd-font
+: 1680584029:0;brew uninstall --cask font-jet-brains-mono
+: 1680584039:0;brew uninstall --cask font-jetbrains-mono
+: 1680584048:0;brew install --cask  font-jetbrains-mono-nerd-font\
+
+: 1680584093:0;tmux a
+: 1680584231:0;nvim
+: 1680584344:0;nvim <=
+: 1680584350:0;nvim
+: 1680584703:0;brew install --cask  font-fira-code
+: 1680584713:0;brew install --cask  font-fira-code-nerd-font
+: 1680584728:0;brew uninstall --cask  font-fira-code
+: 1680584739:0;nvim
+: 1680584966:0;brew uninstall --cask  font-monoid-nerd-font
+: 1680584980:0;brew install --cask  font-monoid-nerd-font
+: 1680585064:0;tmux a
+: 1680585110:0;brew install --cask  font-jetbrains-mono-nerd-font\
+
+: 1680585121:0;brew uninstall --cask  font-jetbrains-mono
+: 1680585140:0;nvim
+: 1680585147:0;tmux a
+: 1680585154:0;nvim
+: 1680585170:0;tmux a
+: 1680585523:0;brew install --cask  font-noto-sans-mono-nerd-font\
+
+: 1680585540:0;brew install --cask  font-noto-mono-nerd-font
+: 1680585552:0;brew install --cask  font-noto-nerd-font  
+: 1680585641:0;tmux a
+: 1680585763:0;brew uninstall --cask  font-noto-mono-nerd-font
+: 1680585772:0;brew uninstall --cask  font-noto-nerd-font
+: 1680585778:0;brew cleanup --prune=0
+: 1680585800:0;tmux a
+: 1680585847:0;nvim
+: 1680585850:0;tmux a
+: 1680586007:0;brew install --cask  font-iosevka
+: 1680586059:0;brew cleanup --prune=0
