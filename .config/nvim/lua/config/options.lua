@@ -5,7 +5,7 @@
 vim.opt.conceallevel = 2 -- hide * markup for bold and italic
 vim.opt.conceallevel = 2 -- hide * markup for bold and italic
 vim.opt.autochdir = true
-
+vim.opt.wrap = true
 local home = os.getenv("HOME")
 
 if home == nil then
