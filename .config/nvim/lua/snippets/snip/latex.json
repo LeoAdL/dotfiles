@@ -196,7 +196,6 @@
       "",
       "\\usecolortheme{rose}",
       "\\usepackage{hyperref}",
-      "\\usepackage[]{cleveref}",
       "\\usepackage{minted}",
       "",
       "\\usemintedstyle{nord}",

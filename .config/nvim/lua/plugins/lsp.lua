@@ -38,7 +38,6 @@ return {
         pyright = {},
         jsonls = {},
         ltex = {
-          language = "en-US",
           filetypes = { "bib", "gitcommit", "markdown", "org", "plaintex", "rst", "rnoweb", "tex", "pandoc", "mail" },
         },
         lua_ls = {

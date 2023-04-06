@@ -1139,3 +1139,37 @@ brew install --cask font-sf-mono-nerd-font-ligaturized\
 : 1680585850:0;tmux a
 : 1680586007:0;brew install --cask  font-iosevka
 : 1680586059:0;brew cleanup --prune=0
+: 1680586095:0;tmux a
+: 1680586143:0;cd
+: 1680586145:0;cd .dotfiles
+: 1680586150:0;ga
+: 1680586155:0;git commit
+: 1680586168:0;git push
+: 1680618609:0;tmux a
+: 1680618615:0;topgrade
+: 1680619028:0;nvim
+: 1680619367:0;antidote install chrissicool/zsh-256color
+: 1680619582:0;t
+: 1680622280:0;lf
+: 1680622304:0;mkdir -p econ_dynamics
+: 1680622306:0;cd econ_dynamics
+: 1680622317:0;touch econ_dynamics_slides.tex
+: 1680622320:0;nvim econ_dynamics_slides.tex
+: 1680623229:0;cd
+: 1680623262:0;cd .dotfiles/Library/Application\ Support/sioyek
+: 1680623263:0;cd
+: 1680623267:0;cd .dotfiles
+: 1680623268:0;ls
+: 1680623275:0;cd .config
+: 1680623282:0;cd nvim/lua/snippets
+: 1680623288:0;nvim
+: 1680656425:0;mbsync -a
+: 1680656428:0;neomutt
+: 1680656574:0;brew reinstall skim
+: 1680668654:0;mbsync -a
+: 1680668952:0;neomutt
+: 1680668958:0;mbsync -a
+: 1680708400:0;nvim
+: 1680708593:0;neomutt
+: 1680744578:0;topgrade
+: 1680744688:0;nvim
