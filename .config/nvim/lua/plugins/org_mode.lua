@@ -42,12 +42,12 @@ return {
   },
   {
     "lukas-reineke/headlines.nvim",
+    enabled = false,
     dependencies = { "nvim-treesitter" },
     config = true,
   },
   {
     "joaomsa/telescope-orgmode.nvim",
-    enabled = false,
     dependencies = {
       { "nvim-telescope/telescope.nvim" },
     },

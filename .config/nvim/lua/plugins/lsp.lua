@@ -36,7 +36,6 @@ return {
         texlab = {},
         julials = {},
         pyright = {},
-        jsonls = {},
         ltex = {
           filetypes = { "bib", "gitcommit", "markdown", "org", "plaintex", "rst", "rnoweb", "tex", "pandoc", "mail" },
         },
