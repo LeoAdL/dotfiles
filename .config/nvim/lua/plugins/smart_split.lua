@@ -1,9 +1,8 @@
 return {
-  {
-    "mrjones2014/smart-splits.nvim",
-    opts = {
-      ignored_filetypes = { "nofile", "quickfix", "qf", "prompt" },
-      ignored_buftypes = { "nofile" },
+    {
+        "mrjones2014/smart-splits.nvim",
+        config = function()
+            require("smart-splits").setup({ multiplexer_integration = "tmux" })
+        end,
     },
-  },
 }
