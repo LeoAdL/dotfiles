@@ -8,3 +8,4 @@
 /.local/share/zsh/history
 .config/nvim/lazy-lock.json
 .local/share/zsh/history
+.davmail.properties
