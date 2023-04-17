@@ -9,3 +9,19 @@
 :help
 :open FNCE9370 - Topics in Macro Finance
 :fit
+:?
+/sum
+:presentation
+?presentation
+? toggle
+/new
+:version
+:open /Users/leoap/Downloads/Supera_JMP_Wharton.pdf
+:recolor
+:set recolor
+/farhi
+/plannin
+/plan
+/dumas
+/panageas
+:open /Users/leoap/Zotero/better-bibtex
