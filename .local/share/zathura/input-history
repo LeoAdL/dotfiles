@@ -25,3 +25,14 @@
 /dumas
 /panageas
 :open /Users/leoap/Zotero/better-bibtex
+/application
+:open /Users/leoap/Zotero/storage/2CZZZRTN/ahnert_et_al_2022_the_digital_economy,_privacy,_and_cbdc.pdf
+:toggle_fu
+:toggle_fullscreen
+:toggle_inputbar
+:exec 
+:unmap F5
+:exec "toggle_presentation"
+:"toggle_presentation"
+:sc_toggle_presentation
+:toggle_presentation
