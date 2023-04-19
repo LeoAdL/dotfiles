@@ -19,7 +19,6 @@ map("n", "<C-j>", "<cmd>SmartCursorMoveDown<cr>", { desc = "Go to lower window" 
 map("n", "<C-k>", "<cmd>SmartCursorMoveUp<cr>", { desc = "Go to upper window" })
 map("n", "<C-l>", "<cmd>SmartCursorMoveRight<cr>", { desc = "Go to right window" })
 map("n", "<leader>e", "<cmd>Telescope file_browser<cr>", { desc = "file_browser" })
-map("n", "<leader>fr", "<cmd>Telescope frecency<cr>", { desc = "file_browser" })
 
 -- open file_browser with the path of the current buffer
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
