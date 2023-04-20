@@ -2,7 +2,7 @@ return {
     {
         "lervag/vimtex",
         config = function()
-            vim.g.vimtex_view_method = "skim"
+            vim.g.vimtex_view_method = "sioyek"
             vim.g.maplocalleader = " "
             vim.g.vimtex_quickfix_open_on_warning = 0
             vim.g.vimtex_view_skim_sync = 1
