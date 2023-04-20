@@ -11,18 +11,23 @@ set guioptions none
 set window-height 3000
 set window-width 3000
 
-
 set selection-clipboard clipboard
 
 
 #stop at page boundries
 set scroll-page-aware "true"
+set scroll-full-overlap 0.01
+set scroll-step 50
 
 #zoom settings
 set font "iosevka 15"
 
 set recolor true
-set recolor-keephue true
+set recolor-reverse-video "true"
+set recolor-keephue "true"
+
+
+set render-loading "false"
 
 # Base16 Nord
 # Author: arcticicestudio
