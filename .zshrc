@@ -259,7 +259,7 @@ fb() {
 }
 rg-fzf() {
     rm -f /tmp/rg-fzf-{r,f}
-    RG_PREFIX="rg --hidden --column --line-number --no-heading --color=always --smart-case "
+    RG_PREFIX="rg --hidden --column --line-number --no-heading --color=always --smart-case -L"
     INITIAL_QUERY="${*:-}"
     FZF_DEFAULT_COMMAND="$RG_PREFIX $(printf %q "$INITIAL_QUERY")" \
       fzf --ansi \
@@ -277,7 +277,7 @@ rg-fzf() {
       --bind 'enter:become(nvim {1} +{2})'
 }
 rga-fzf() {
-    RG_PREFIX="rga --hidden --files-with-matches"
+    RG_PREFIX="rga --hidden --files-with-matches --smart-case -L"
     local file
 file="$(
     FZF_DEFAULT_COMMAND="$RG_PREFIX '$1'" \
