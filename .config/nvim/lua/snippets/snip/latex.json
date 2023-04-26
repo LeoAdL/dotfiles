@@ -113,7 +113,7 @@
       "% !TEX program = xelatex",
       "\\documentclass[12pt,aspectratio=169]{beamer}",
       "\\usepackage[american]{babel}",
-      "\\usetheme[titleformat=smallcaps, numbering=fraction]{metropolis}",
+      "\\usetheme[progressbar=none,titleformat=smallcaps, numbering=fraction]{metropolis}",
       "\\usepackage{booktabs}",
       "\\usepackage{float}",
       "\\usepackage{mathtools}",

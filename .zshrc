@@ -191,6 +191,7 @@ source $ZSH/oh-my-zsh.sh
 alias imgcat="wezterm imgcat"
 alias ssh="wezterm ssh"
 alias ranger='source ranger ranger'
+alias python3=python
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/opt/homebrew/Caskroom/miniforge/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -438,3 +439,20 @@ eval "$(zoxide init zsh)"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# >>> mamba initialize >>>
+# !! Contents within this block are managed by 'mamba init' !!
+export MAMBA_EXE="/opt/homebrew/opt/micromamba/bin/micromamba";
+export MAMBA_ROOT_PREFIX="/Users/leoap/micromamba";
+__mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__mamba_setup"
+else
+    if [ -f "/Users/leoap/micromamba/etc/profile.d/micromamba.sh" ]; then
+        . "/Users/leoap/micromamba/etc/profile.d/micromamba.sh"
+    else
+        export  PATH="/Users/leoap/micromamba/bin:$PATH"  # extra space after export prevents interference from conda init
+    fi
+fi
+unset __mamba_setup
+# <<< mamba initialize <<<
