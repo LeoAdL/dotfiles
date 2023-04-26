@@ -188,8 +188,6 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias imgcat="wezterm imgcat"
-alias ssh="wezterm ssh"
 alias ranger='source ranger ranger'
 alias python3=python
 # >>> conda initialize >>>
@@ -261,7 +259,7 @@ fb() {
 }
 rg-fzf() {
     rm -f /tmp/rg-fzf-{r,f}
-    RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+    RG_PREFIX="rg --hidden --column --line-number --no-heading --color=always --smart-case "
     INITIAL_QUERY="${*:-}"
     FZF_DEFAULT_COMMAND="$RG_PREFIX $(printf %q "$INITIAL_QUERY")" \
       fzf --ansi \
@@ -279,7 +277,7 @@ rg-fzf() {
       --bind 'enter:become(nvim {1} +{2})'
 }
 rga-fzf() {
-    RG_PREFIX="rga --files-with-matches"
+    RG_PREFIX="rga --hidden --files-with-matches"
     local file
 file="$(
     FZF_DEFAULT_COMMAND="$RG_PREFIX '$1'" \
@@ -289,7 +287,7 @@ file="$(
         --preview-window="70%:wrap"
 )" &&
 echo "opening $file" &&
-xdg-open "$file"
+open "$file"
 }
 # fbr - checkout git branch (including remote branches), sorted by most recent commit, limit 30 last branches
 fbr() {
