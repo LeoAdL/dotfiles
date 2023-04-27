@@ -49,6 +49,8 @@ return {
                     null_ls.builtins.diagnostics.shellcheck,
                     null_ls.builtins.diagnostics.yamllint,
                     null_ls.builtins.formatting.yamlfmt,
+                    null_ls.builtins.formatting.cbfmt,
+                    null_ls.builtins.formatting.markdown_toc,
                 },
             }
         end,
