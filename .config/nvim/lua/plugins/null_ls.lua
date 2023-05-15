@@ -31,8 +31,6 @@ return {
             local null_ls = require("null-ls")
             return {
                 sources = {
-                    null_ls.builtins.diagnostics.ltrs,
-                    null_ls.builtins.code_actions.ltrs,
                     null_ls.builtins.diagnostics.gitlint,
                     null_ls.builtins.formatting.black,
                     null_ls.builtins.diagnostics.ruff,
