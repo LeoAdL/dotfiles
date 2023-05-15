@@ -189,6 +189,8 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias ranger='source ranger ranger'
+alias ssh= "wezterm ssh"
+alias imgcat= "wezterm imgcat"
 alias python3=python
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -210,6 +212,7 @@ export EDITOR="nvim"
 export LANG="en_US.UTF-8"
 export BAT_THEME="Nord"
 alias pinentry='pinentry-mac'
+alias gcc="/opt/homebrew/bin/gcc-12"
 if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
     export PATH=/opt/homebrew/opt/ruby/bin:$PATH
     export PATH=`gem environment gemdir`/bin:$PATH
@@ -435,6 +438,7 @@ gh-watch() {
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval "$(zoxide init zsh)"
 
+source /opt/homebrew/opt/chruby/share/chruby/auto.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 

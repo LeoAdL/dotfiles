@@ -275,9 +275,8 @@ class fzf_rga_documents_search(Command):
             self.fm.notify("Usage: fzf_rga_search_documents <search string>", bad=True)
             return
 
-        import os.path
         import subprocess
-
+        import os.path
         from ranger.container.file import File
 
         command = (
