@@ -24,4 +24,5 @@
   xfuncname = "^(\\*+ +.*)$"
 [core]
 	pager = delta --line-numbers --dark --diff-so-fancy --side-by-side
+	excludesfile = /Users/leoap/.gitignore_global
 [delta]

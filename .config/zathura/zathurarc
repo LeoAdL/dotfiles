@@ -22,7 +22,7 @@ set scroll-step 50
 #zoom settings
 set font "iosevka 15"
 
-set recolor true
+set recolor false
 set recolor-reverse-video "true"
 set recolor-keephue "true"
 

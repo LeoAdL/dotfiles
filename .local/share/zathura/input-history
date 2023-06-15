@@ -6,10 +6,8 @@
 :open zathura Downloads/CMPS.pdf
 :open Downloads/CMPS.pdf
 :q
-:help
 :open FNCE9370 - Topics in Macro Finance
 :fit
-:?
 /sum
 :presentation
 ?presentation
@@ -18,7 +16,6 @@
 :version
 :open /Users/leoap/Downloads/Supera_JMP_Wharton.pdf
 :recolor
-:set recolor
 /farhi
 /plannin
 /plan
@@ -30,10 +27,19 @@
 :toggle_fu
 :toggle_fullscreen
 :toggle_inputbar
-:exec 
 :unmap F5
 :exec "toggle_presentation"
 :"toggle_presentation"
 :sc_toggle_presentation
 :toggle_presentation
 /dd
+:map
+:exec
+:exec 
+:! 
+:help 
+:?
+:help
+:source
+:set recolor
+:2
