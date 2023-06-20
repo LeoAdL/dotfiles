@@ -10,6 +10,6 @@ return {
                 },
             })
         end,
-        enabled = false,
+        tag = "legacy",
     },
 }
