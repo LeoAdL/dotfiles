@@ -22,7 +22,7 @@ fzf-extra-flags = ["--ansi", "--multi", "-i",
 fzf-extra-bindings = ["ctrl-s:jump",
                       "ctrl-t:toggle-preview"]
 
-fzf-header-format = {c.Fore.MAGENTA}{doc[title]}{c.Style.RESET_ALL}~~ {c.Fore.CYAN}{doc[author]}{c.Style.RESET_ALL}~~ {c.Fore.YELLOW}«{doc[year]}»{c.Style.RESET_ALL}~~ {c.Fore.YELLOW}{doc[abstract]}{c.Style.RESET_ALL}~~ :{doc[tags]}{c.Style.RESET_ALL}~~ {doc[journal]}
+fzf-header-format = {c.Fore.MAGENTA}{doc[title]}{c.Style.RESET_ALL}~~ {c.Fore.CYAN}{doc[author]}{c.Style.RESET_ALL}~~ {c.Fore.YELLOW}«{doc[year]}»{c.Style.RESET_ALL}~~ {doc[journal]}{c.Style.RESET_ALL}
 
 #
 # Define custom default match and header formats
@@ -45,7 +45,6 @@ options_list.selected_margin_style = bg:ansigreen fg:ansired
 dir = ~/Library/CloudStorage/GoogleDrive-laparisidelannoy@uchicago.edu/My Drive/PhD/Papis
 
 
-downloader-proxy = 'https://login.proxy.uchicago.edu/'
 # use whoosh as a database for papers
 database-backend = whoosh
 whoosh-schema-fields = ['papis_id','doi', 'ref','author','year','tags','title']

@@ -1,3 +1,0 @@
-return {
-  { "neomutt/neomutt.vim" },
-}
