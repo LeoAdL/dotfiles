@@ -35,8 +35,27 @@ return {
                 marksman = {},
                 texlab = {},
                 julials = {},
-                pyright = {},
+                pylsp = {
+                    settings = {
+                        pylsp = {
+                            plugins = {
+                                black = { enabled = true },
+                                ruff = {
+                                    enabled = true,
+                                },
+                            },
+                        },
+                    },
+                },
                 ltex = {
+                    settings = {
+                        ltex = {
+                            additionalRules = {
+                                enablePickyRules = true,
+                                motherTongue = "fr",
+                            },
+                        },
+                    },
                     filetypes = {
                         "bib",
                         "gitcommit",
