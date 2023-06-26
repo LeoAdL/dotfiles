@@ -62,8 +62,6 @@ return {
                         "markdown",
                         "org",
                         "plaintex",
-                        "rst",
-                        "rnoweb",
                         "tex",
                         "pandoc",
                         "mail",
