@@ -48,6 +48,7 @@ dir = ~/Library/CloudStorage/GoogleDrive-laparisidelannoy@uchicago.edu/My Drive/
 # use whoosh as a database for papers
 database-backend = whoosh
 whoosh-schema-fields = ['papis_id','doi', 'ref','author','year','tags','title']
-default-query-string= '*'
+default-query-string= *
 # rename files added by author and title
-add-file-name = {doc[author]}{doc[title]}
+add-folder-name = {doc[author]}{doc[title]}{doc[year]}{doc[papis_id]}
+add-file-name = {doc[author]}{doc[title]}{doc[year]}{doc[papis_id]}
