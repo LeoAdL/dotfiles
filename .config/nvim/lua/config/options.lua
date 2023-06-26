@@ -3,9 +3,12 @@
 -- Add any additional options here
 
 vim.opt.conceallevel = 2 -- hide * markup for bold and italic
-vim.opt.conceallevel = 2 -- hide * markup for bold and italic
 vim.opt.autochdir = true
 vim.opt.wrap = true
+vim.o.foldcolumn = "1" -- '0' is not bad
+vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
 local home = os.getenv("HOME")
 
 if home == nil then
@@ -32,16 +35,3 @@ local cpath = table.concat({
 
 package.path = path:gsub("~", home)
 package.cpath = cpath:gsub("~", home)
-
-if vim.g.neovide then
-    vim.o.guifont = "Iosevka:h16"
-    -- Helper function for transparency formatting
-    local alpha = function()
-        return string.format("%x", math.floor(255 * vim.g.transparency or 0.8))
-    end
-    -- g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
-    vim.g.neovide_refresh_rate = 60
-    vim.g.neovide_remember_window_size = true
-    vim.g.neovide_input_macos_alt_is_meta = true
-    vim.g.neovide_cursor_antialiasing = true
-end
