@@ -1,6 +1,6 @@
+[misc]
 # Don't ask for confirmations
 assume_yes = true
-display_preamble = false
 # Disable specific steps - same options as the command line flag
 #disable = ["system", "emacs"]
 disable = ["git_repos","pnpm","conda","node"]
@@ -33,7 +33,7 @@ disable = ["git_repos","pnpm","conda","node"]
 #tmux_arguments = "-S /var/tmux.sock"
 
 # Do not set the terminal title
-#set_title = false
+set_title = true
 
 # Display the time in step titles
 # display_time = true
@@ -84,7 +84,7 @@ autoremove = true
 #trizen_arguments = "--devel"
 #pikaur_arguments = ""
 #pamac_arguments = "--no-devel"
-#enable_tlmgr = true
+enable_tlmgr = true
 #emerge_sync_flags = "-q"
 #emerge_update_flags = "-uDNa --with-bdeps=y world"
 #redhat_distro_sync = false

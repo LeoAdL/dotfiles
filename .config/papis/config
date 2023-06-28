@@ -42,6 +42,9 @@ options_list.selected_margin_style = bg:ansigreen fg:ansired
 
 # Define a lib
 [papers]
+# rename files added by author and title
+add-folder-name = {doc[author]}_{doc[title]}_{doc[year]}_{doc[papis_id]}
+add-file-name = {doc[author]}_{doc[title]}_{doc[year]}_{doc[papis_id]}
 dir = ~/Library/CloudStorage/GoogleDrive-laparisidelannoy@uchicago.edu/My Drive/PhD/Papis
 
 
@@ -49,6 +52,3 @@ dir = ~/Library/CloudStorage/GoogleDrive-laparisidelannoy@uchicago.edu/My Drive/
 database-backend = whoosh
 whoosh-schema-fields = ['papis_id','doi', 'ref','author','year','tags','title']
 default-query-string= *
-# rename files added by author and title
-add-folder-name = {doc[author]}{doc[title]}{doc[year]}{doc[papis_id]}
-add-file-name = {doc[author]}{doc[title]}{doc[year]}{doc[papis_id]}
