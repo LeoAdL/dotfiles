@@ -35,18 +35,8 @@ return {
                 marksman = {},
                 texlab = {},
                 julials = {},
-                pylsp = {
-                    settings = {
-                        pylsp = {
-                            plugins = {
-                                black = { enabled = true },
-                                ruff = {
-                                    enabled = true,
-                                },
-                            },
-                        },
-                    },
-                },
+                pyright = {},
+                ruff_lsp = {},
                 ltex = {
                     settings = {
                         ltex = {
