@@ -17,12 +17,24 @@ return {
             { "aaronhallaert/advanced-git-search.nvim" },
         },
         config = function()
-            require("telescope").load_extension("file_browser")
-            require("telescope").load_extension("undo")
-            require("telescope").load_extension("git_diffs")
-            require("telescope").load_extension("advanced_git_search")
-            require("telescope").setup({
+            local ts = require("telescope")
+            local tsu = require("telescope-undo.actions")
+            ts.setup({
                 extensions = {
+                    undo = {
+                        use_delta = false,
+                        side_by_side = false,
+                        layout_config = {
+                            preview_height = 0.8,
+                        },
+                        mappings = {
+                            i = {
+                                ["<cr>"] = tsu.yank_additions,
+                                ["<C-d>"] = tsu.yank_deletions,
+                                ["<C-a>"] = tsu.restore,
+                            },
+                        },
+                    },
                     file_browser = {
                         -- path
                         -- cwd
@@ -50,6 +62,10 @@ return {
                     show_builtin_git_pickers = false,
                 },
             })
+            require("telescope").load_extension("file_browser")
+            require("telescope").load_extension("undo")
+            require("telescope").load_extension("git_diffs")
+            require("telescope").load_extension("advanced_git_search")
         end,
         mappings = {
             i = {
@@ -62,6 +78,11 @@ return {
         },
         keys = {
             { "<leader>tt", "<cmd>Telescope<cr>", desc = "Open Telescope" },
+            {
+                "<leader>su",
+                ":Telescope undo<cr>",
+                desc = "Undo history",
+            },
         },
     },
     {
