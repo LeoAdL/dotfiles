@@ -10,23 +10,19 @@ return {
                     require("telescope").load_extension("fzf")
                 end,
             },
+            { "nvim-lua/plenary.nvim" },
             { "nvim-telescope/telescope-file-browser.nvim" },
             { "debugloop/telescope-undo.nvim" },
             { "paopaol/telescope-git-diffs.nvim" },
+            { "aaronhallaert/advanced-git-search.nvim" },
         },
         config = function()
-            require("telescope").load_extension("undo")
             require("telescope").load_extension("file_browser")
+            require("telescope").load_extension("undo")
             require("telescope").load_extension("git_diffs")
+            require("telescope").load_extension("advanced_git_search")
             require("telescope").setup({
                 extensions = {
-                    undo = {
-                        side_by_side = true,
-                        layout_strategy = "vertical",
-                        layout_config = {
-                            preview_height = 0.8,
-                        },
-                    },
                     file_browser = {
                         -- path
                         -- cwd
@@ -41,6 +37,18 @@ return {
                         hijack_netrw = true,
                     },
                 },
+                advanced_git_search = {
+                    -- fugitive or diffview
+                    diff_plugin = "fugitive",
+                    -- customize git in previewer
+                    -- e.g. flags such as { "--no-pager" }, or { "-c", "delta.side-by-side=false" }
+                    git_flags = {},
+                    -- customize git diff in previewer
+                    -- e.g. flags such as { "--raw" }
+                    git_diff_flags = {},
+                    -- Show builtin git pickers when executing "show_custom_functions" or :AdvancedGitSearch
+                    show_builtin_git_pickers = false,
+                },
             })
         end,
         mappings = {
@@ -54,39 +62,6 @@ return {
         },
         keys = {
             { "<leader>tt", "<cmd>Telescope<cr>", desc = "Open Telescope" },
-        },
-    },
-    {
-        "aaronhallaert/advanced-git-search.nvim",
-        config = function()
-            -- optional: setup telescope before loading the extension
-            require("telescope").setup({
-                -- move this to the place where you call the telescope setup function
-                extensions = {
-                    advanced_git_search = {
-                        -- fugitive or diffview
-                        diff_plugin = "fugitive",
-                        -- customize git in previewer
-                        -- e.g. flags such as { "--no-pager" }, or { "-c", "delta.side-by-side=false" }
-                        git_flags = {},
-                        -- customize git diff in previewer
-                        -- e.g. flags such as { "--raw" }
-                        git_diff_flags = {},
-                        -- Show builtin git pickers when executing "show_custom_functions" or :AdvancedGitSearch
-                        show_builtin_git_pickers = false,
-                    },
-                },
-            })
-
-            require("telescope").load_extension("advanced_git_search")
-        end,
-        dependencies = {
-            "nvim-telescope/telescope.nvim",
-            -- to show diff splits and open commits in browser
-            "tpope/vim-rhubarb",
-            -- OPTIONAL: to replace the diff from fugitive with diffview.nvim
-            -- (fugitive is still needed to open in browser)
-            -- "sindrets/diffview.nvim",
         },
     },
     {
