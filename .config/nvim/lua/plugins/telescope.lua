@@ -33,6 +33,11 @@ return {
                                 ["<C-d>"] = tsu.yank_deletions,
                                 ["<C-a>"] = tsu.restore,
                             },
+                            n = {
+                                ["<cr>"] = tsu.yank_additions,
+                                ["<C-d>"] = tsu.yank_deletions,
+                                ["<C-a>"] = tsu.restore,
+                            },
                         },
                     },
                     file_browser = {
