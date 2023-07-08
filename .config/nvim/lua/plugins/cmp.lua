@@ -1,4 +1,5 @@
 return {
+    { "hrsh7th/cmp-path", enabled = false },
     {
         "hrsh7th/nvim-cmp",
         version = false, -- last release is way too old
@@ -8,8 +9,11 @@ return {
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
             "saadparwaiz1/cmp_luasnip",
+            "kdheepak/cmp-latex-symbols",
             "hrsh7th/cmp-omni",
             "jc-doyle/cmp-pandoc-references",
+            "hrsh7th/cmp-nvim-lsp-signature-help",
+            "FelipeLema/cmp-async-path",
         },
         opts = function()
             vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
@@ -39,10 +43,17 @@ return {
                 }),
                 sources = cmp.config.sources({
                     { name = "nvim_lsp" },
+                    { name = "nvim_lsp_signature_help" },
                     { name = "luasnip", option = { show_autosnippets = true } },
                     { name = "buffer" },
-                    { name = "path" },
+                    { name = "async_path" },
                     { name = "pandoc_references" },
+                    {
+                        name = "latex_symbols",
+                        option = {
+                            strategy = 2, -- mixed
+                        },
+                    },
                     {
                         name = "omni",
                         option = {},
