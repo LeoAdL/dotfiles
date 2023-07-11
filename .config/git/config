@@ -22,6 +22,7 @@
     cmd = "nvim -d \"$LOCAL\" \"$REMOTE\" \"$MERGED\" -c 'wincmd w' -c 'wincmd J'"
 [diff "org"]
   xfuncname = "^(\\*+ +.*)$"
+[delta]
 [core]
-	pager = delta --line-numbers --dark --diff-so-fancy --side-by-side
+	pager = delta --dark --line-numbers  --diff-so-fancy --side-by-side --syntax-theme Nord
 	excludesfile = /Users/leoap/.gitignore_global
