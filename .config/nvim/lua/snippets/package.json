@@ -8,10 +8,15 @@
       {
         "language": [
           "plaintex",
-          "tex",
           "latex"
         ],
         "path": "./snip/latex.json"
+      },
+      {
+        "language": [
+          "markdown"
+        ],
+        "path": "./snip/md.json"
       }
     ]
   }
