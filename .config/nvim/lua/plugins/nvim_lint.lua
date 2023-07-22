@@ -6,7 +6,8 @@ return {
         lua = { "selene" },
         luau = { "selene" },
         yaml = { "yamllint" },
-        tex = { "chktex" }
+        tex = { "chktex", "vale" },
+        markdown = { "vale" }
       }
       vim.api.nvim_create_autocmd({ "BufRead" }, {
         callback = function()

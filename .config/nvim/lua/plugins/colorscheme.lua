@@ -1,19 +1,39 @@
 return {
-    -- add gruvbox
-    {
-        "shaunsingh/nord.nvim",
-        config = function()
-            vim.g.nord_contrast = true
-            vim.g.nord_uniform_diff_background = true
-            require("nord").set()
-        end,
-    },
-    { "nvim-lualine/lualine.nvim", opts = { theme = "nord" } },
-    -- Configure LazyVim to load gruvbox
-    {
-        "LazyVim/LazyVim",
-        opts = {
-            colorscheme = "nord",
+  -- add gruvbox
+  -- Configure LazyVim to load gruvbox
+  {
+    "catppuccin/nvim",
+    enabled = true,
+    name = "catppuccin",
+    priority = 1000,
+    opts = {
+      integrations = {
+        cmp = true,
+        gitsigns = true,
+        nvimtree = true,
+        treesitter = true,
+        notify = true,
+        mini = true,
+        beacon = true,
+        fidget = true,
+        mason = true,
+        neogit = true,
+        navic = {
+          enabled = true,
+          custom_bg = "NONE", -- "lualine" will set background to mantle
         },
+        treesitter_context = true,
+        symbols_outline = true,
+        which_key = true,
+      },
+    }
+  },
+  { "nvim-lualine/lualine.nvim", opts = { theme = "catppuccin" } },
+  { 'rose-pine/neovim',          name = 'rose-pine' },
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "catppuccin",
     },
+  },
 }

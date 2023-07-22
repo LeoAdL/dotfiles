@@ -63,26 +63,6 @@ return {
         julials = {},
         pyright = {},
         ruff_lsp = {},
-        ltex = {
-          settings = {
-            ltex = {
-              additionalRules = {
-                enablePickyRules = true,
-                motherTongue = "fr",
-              },
-            },
-          },
-          filetypes = {
-            "bib",
-            "gitcommit",
-            "markdown",
-            "org",
-            "plaintex",
-            "tex",
-            "pandoc",
-            "mail",
-          },
-        },
         lua_ls = {
           -- mason = false, -- set to false if you don't want this server to be installed with mason
           settings = {
@@ -110,16 +90,5 @@ return {
         -- ["*"] = function(server, opts) end,
       },
     },
-  },
-  {
-    "barreiroleo/ltex_extra.nvim",
-    ft = { "markdown", "tex" },
-    dependencies = { "neovim/nvim-lspconfig" },
-    -- yes, you can use the opts field, just I'm showing the setup explicitly
-    config = function()
-      require("ltex_extra").setup({
-        server_opts = {},
-      })
-    end,
   },
 }
