@@ -288,9 +288,6 @@ $-- User font settings (must come after default font and Beamer theme)
   \floatplacement{figure}{$if(float-placement-figure)$$float-placement-figure$$else$H$endif$}
   \makeatother
   $endif$
-  $if(svg)$
-  \usepackage{svg}
-  $endif$
   $if(strikeout)$
   $-- also used for underline
     \ifLuaTeX

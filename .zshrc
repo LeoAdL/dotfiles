@@ -210,7 +210,7 @@ unset __conda_setup
 export VISUAL="nvim"
 export EDITOR="nvim"
 export LANG="en_US.UTF-8"
-export BAT_THEME="Nord"
+export BAT_THEME="Catppuccin-mocha"
 alias pinentry='pinentry-mac'
 alias gcc="/opt/homebrew/bin/gcc-12"
 if [ -d "/opt/homebrew/opt/ruby/bin" ]; then

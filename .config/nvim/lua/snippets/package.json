@@ -8,7 +8,8 @@
       {
         "language": [
           "plaintex",
-          "latex"
+          "latex",
+          "tex"
         ],
         "path": "./snip/latex.json"
       },

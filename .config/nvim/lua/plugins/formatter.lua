@@ -15,7 +15,6 @@ return {
         python = {
           require("formatter.filetypes.python").black,
         },
-        markdown = { require("formatter.filetypes.markdown").prettierd },
         yaml = { require("formatter.filetypes.yaml").yamlfmt },
       }
     }
