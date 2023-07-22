@@ -6,15 +6,9 @@ return {
         lua = { "selene" },
         luau = { "selene" },
         yaml = { "yamllint" },
-        tex = { "chktex", "vale" },
-        markdown = { "vale" }
+        tex = { "chktex" },
       }
-      vim.api.nvim_create_autocmd({ "BufRead" }, {
-        callback = function()
-          require("lint").try_lint()
-        end,
-      })
-      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+      vim.api.nvim_create_autocmd({ "BufRead", "BufWritePost" }, {
         callback = function()
           require("lint").try_lint()
         end,
