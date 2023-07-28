@@ -39,10 +39,14 @@ return {
               auxDirectory = ".",
               bibtexFormatter = "texlab",
               build = {
-                args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
                 executable = "latexmk",
+                args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
                 forwardSearchAfter = false,
-                onSave = false,
+                onSave = true,
+              },
+              forwardSearch = {
+                executable = "/Applications/Skim.app/Contents/SharedSupport/displayline",
+                args = { "%l", "%p", "%f" },
               },
               chktex = {
                 onEdit = false,
@@ -50,9 +54,6 @@ return {
               },
               diagnosticsDelay = 300,
               formatterLineLength = 80,
-              forwardSearch = {
-                args = {},
-              },
               latexFormatter = "latexindent",
               latexindent = {
                 modifyLineBreaks = false,

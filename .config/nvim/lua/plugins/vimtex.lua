@@ -1,6 +1,7 @@
 return {
   {
     "lervag/vimtex",
+    enabled = false,
     config = function()
       vim.g.vimtex_view_method = "skim"
       vim.g.vimtex_view_skim_sync = 1
