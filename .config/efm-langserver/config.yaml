@@ -15,11 +15,13 @@ tools:
   yaml-yamllint: &yaml-yamllint
     lint-command: 'yamllint -f parsable -'
     lint-stdin: true
+    lint-ignore-exit-code: true
     lint-formats:
       - '%f:%l:%c:%m'
   chktex: &chktex
-    lint-command: 'chktex -v2 -I0 -s : -f %l%b%c%b%d%b%k%b%n%b%m%b%b%b'
+    lint-command: 'chktex -v0 -wall -q'
     lint-stdin: true
+    lint-ignore-exit-code: false
     lint-formats:
       - '%f:%l:%c:%m'
   python-black: &python-black
