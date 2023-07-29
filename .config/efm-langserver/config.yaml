@@ -1,0 +1,47 @@
+version: 2
+root-markers:
+  - .git/
+# command define
+tools:
+  gitcommit-gitlint: &gitcommit-gitlint
+    lint-command: 'gitlint'
+    lint-stdin: true
+    lint-formats:
+      - '%l: %m: "%r"'
+      - '%l: %m'
+  selene: &selene
+    lint-command: 'selene --display-style json'
+    lint-stdin: false
+  yaml-yamllint: &yaml-yamllint
+    lint-command: 'yamllint -f parsable -'
+    lint-stdin: true
+    lint-formats:
+      - '%f:%l:%c:%m'
+  chktex: &chktex
+    lint-command: 'chktex -v2 -I0 -s : -f %l%b%c%b%d%b%k%b%n%b%m%b%b%b'
+    lint-stdin: true
+    lint-formats:
+      - '%f:%l:%c:%m'
+  python-black: &python-black
+    format-command: 'black --quiet -'
+    format-stdin: true
+  yaml-fmt: &yaml-fmt
+    format-command: 'yamlfmt -in'
+    format-stdin: true
+  beautysh: &beautysh
+    format-command: 'beautysh -'
+    format-stdin: true
+languages:
+  python:
+    - !!merge <<: *python-black
+  lua:
+    - !!merge <<: *selene
+  tex:
+    - !!merge <<: *chktex
+  gitcommit:
+    - !!merge <<: *gitcommit-gitlint
+  yaml:
+    - !!merge <<: *yaml-yamllint
+    - !!merge <<: *yaml-fmt
+  zsh:
+    - !!merge <<: *beautysh
