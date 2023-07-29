@@ -41,7 +41,7 @@ return {
               build = {
                 executable = "latexmk",
                 args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
-                forwardSearchAfter = false,
+                forwardSearchAfter = true,
                 onSave = true,
               },
               forwardSearch = {
@@ -84,6 +84,7 @@ return {
             "mail",
           },
         },
+        efm = { init_options = { documentFormatting = true } },
         lua_ls = {
           -- mason = false, -- set to false if you don't want this server to be installed with mason
           settings = {

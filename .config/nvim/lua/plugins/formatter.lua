@@ -1,5 +1,6 @@
 return {
   "mhartington/formatter.nvim",
+  enabled = false,
   config = function()
     -- Utilities for creating configurations
     local util = require "formatter.util"
