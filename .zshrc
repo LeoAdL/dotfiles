@@ -36,7 +36,7 @@ zstyle ':omz:update' mode auto      # update automatically without asking
 # zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
-zstyle ':omz:update' frequency 1
+zstyle ':omz:update' frequency 7
 
 ZSH_CUSTOM_AUTOUPDATE_QUIET=true
 # Uncomment the following line if pasting URLs and other text is messed up.
@@ -220,6 +220,7 @@ fi
 export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
 export LESSOPEN="|$(brew --prefix)/bin/lesspipe.sh %s"
 export PATH="/Users/leoap/.local/bin:$PATH"
+export PATH="$HOME/.local/share/nvim/lazy/nvim-texlabconfig:$PATH"
 export PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
 export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
 export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib"
@@ -442,19 +443,22 @@ source /opt/homebrew/opt/chruby/share/chruby/auto.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# >>> mamba initialize >>>
-# !! Contents within this block are managed by 'mamba init' !!
-export MAMBA_EXE="/opt/homebrew/opt/micromamba/bin/micromamba";
-export MAMBA_ROOT_PREFIX="/Users/leoap/micromamba";
-__mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/homebrew/Caskroom/miniforge/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
-    eval "$__mamba_setup"
+    eval "$__conda_setup"
 else
-    if [ -f "/Users/leoap/micromamba/etc/profile.d/micromamba.sh" ]; then
-        . "/Users/leoap/micromamba/etc/profile.d/micromamba.sh"
+    if [ -f "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh"
     else
-        export  PATH="/Users/leoap/micromamba/bin:$PATH"  # extra space after export prevents interference from conda init
+        export PATH="/opt/homebrew/Caskroom/miniforge/base/bin:$PATH"
     fi
 fi
-unset __mamba_setup
-# <<< mamba initialize <<<
+unset __conda_setup
+
+if [ -f "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/mamba.sh" ]; then
+    . "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/mamba.sh"
+fi
+# <<< conda initialize <<<
