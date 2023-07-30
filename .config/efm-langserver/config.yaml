@@ -19,7 +19,7 @@ tools:
     lint-formats:
       - '%f:%l:%c:%m'
   chktex: &chktex
-    lint-command: 'chktex -v0 -wall -q'
+    lint-command: 'chktex -v2 -q'
     lint-stdin: true
     lint-ignore-exit-code: false
     lint-formats:

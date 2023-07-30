@@ -97,7 +97,7 @@
   "beamer": {
     "prefix": "beamer-slides",
     "body": [
-      "% !TEX program = xelatex",
+      "%! TEX program = xelatex",
       "\\documentclass[12pt,aspectratio=169]{beamer}",
       "\\usepackage[american]{babel}",
       "\\usetheme[progressbar=none,titleformat=smallcaps, numbering=fraction]{metropolis}",

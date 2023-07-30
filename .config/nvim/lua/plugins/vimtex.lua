@@ -24,4 +24,5 @@ return {
       }
     end,
   },
+  { "jakewvincent/texmagic.nvim" },
 }
