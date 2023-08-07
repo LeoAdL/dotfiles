@@ -1,3 +1,6 @@
 return {
-  { "danilamihailov/beacon.nvim" },
+  {
+    "danilamihailov/beacon.nvim",
+    enabled = false
+  },
 }

@@ -41,7 +41,7 @@ return {
               build = {
                 executable = "latexmk",
                 args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
-                forwardSearchAfter = true,
+                forwardSearchAfter = false,
                 onSave = true,
               },
               forwardSearch = {
