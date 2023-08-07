@@ -1,3 +1,3 @@
 return {
-    { "nikvdp/neomux" },
+  { "nikvdp/neomux", enabled = false },
 }

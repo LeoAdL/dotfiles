@@ -1,17 +1,18 @@
 return {
-    {
-        "stevearc/oil.nvim",
-        config = function()
-            vim.g.loaded_netrw = 1
-            vim.g.loaded_netrwPlugin = 1
+  {
+    "stevearc/oil.nvim",
+    enabled = false,
+    config = function()
+      vim.g.loaded_netrw = 1
+      vim.g.loaded_netrwPlugin = 1
 
-            require("oil").setup({
-                columns = {
-                    "icon",
-                    "size",
-                    "mtime",
-                },
-            })
-        end,
-    },
+      require("oil").setup({
+        columns = {
+          "icon",
+          "size",
+          "mtime",
+        },
+      })
+    end,
+  },
 }
