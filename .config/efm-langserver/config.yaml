@@ -25,7 +25,7 @@ tools:
     lint-formats:
       - '%f:%l:%c:%m'
   python-black: &python-black
-    format-command: 'black --quiet -'
+    format-command: 'black --no-color --quiet -'
     format-stdin: true
   yaml-fmt: &yaml-fmt
     format-command: 'yamlfmt -in'

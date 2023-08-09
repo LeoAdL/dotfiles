@@ -11,7 +11,7 @@ return {
         end,
       },
       { "nvim-lua/plenary.nvim" },
-      { "nvim-telescope/telescope-file-browser.nvim", enabled = false },
+      { "nvim-telescope/telescope-file-browser.nvim" },
       { "debugloop/telescope-undo.nvim" },
       { "paopaol/telescope-git-diffs.nvim" },
       { "aaronhallaert/advanced-git-search.nvim" },
@@ -48,7 +48,7 @@ return {
             files = true,
             add_dirs = true,
             depth = 1,
-            auto_depth = true,
+            auto_depth = false,
             select_buffer = true,
             hidden = true,
             hijack_netrw = true,
@@ -67,6 +67,7 @@ return {
           show_builtin_git_pickers = false,
         },
       })
+      require("telescope").load_extension("file_browser")
       require("telescope").load_extension("undo")
       require("telescope").load_extension("git_diffs")
       require("telescope").load_extension("advanced_git_search")
