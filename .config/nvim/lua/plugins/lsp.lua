@@ -40,7 +40,7 @@ return {
               bibtexFormatter = "texlab",
               build = {
                 executable = "latexmk",
-                args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
+                args = { "-xelatex", "-synctex=1" },
                 forwardSearchAfter = false,
                 onSave = true,
               },
