@@ -24,5 +24,5 @@ return {
       }
     end,
   },
-  { "jakewvincent/texmagic.nvim" },
+  { "jakewvincent/texmagic.nvim", enabled = false },
 }
