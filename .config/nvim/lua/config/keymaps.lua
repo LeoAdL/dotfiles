@@ -24,7 +24,6 @@ map("n", "<leader>lC", "<cmd>silent ! latexmk -c <cr>", { desc = "Clean Files" }
 map("n", "<leader>ll", "<cmd>Lazy<cr>", { desc = "Lazy" })
 map("n", "<leader>xx", "<cmd>lua vim.diagnostic.setqflist()<cr>", { desc = "QuickFix" })
 map("n", "<leader>xg", "<cmd>Gitsigns setqflist<cr>", { desc = "Git QuickFix" })
-map("n", "<leader>ts", "<cmd>Telescope lsp_document_symbols<cr>", { desc = "lsp_document_symbols" })
 
 -- open file_browser with the path of the current buffer
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
