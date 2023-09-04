@@ -29,9 +29,9 @@ return {
             },
             mappings = {
               i = {
-                ["<cr>"] = tsu.yank_additions,
+                ["<cr>"] = tsu.restore,
                 ["<C-d>"] = tsu.yank_deletions,
-                ["<C-a>"] = tsu.restore,
+                ["<C-a>"] = tsu.yank_additions,
               },
               n = {
                 ["<cr>"] = tsu.yank_additions,
