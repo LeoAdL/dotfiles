@@ -29,7 +29,7 @@ return {
     }
   },
   { "nvim-lualine/lualine.nvim", opts = { theme = "catppuccin" } },
-  { 'rose-pine/neovim',          name = 'rose-pine' },
+  { 'rose-pine/neovim',          name = 'rose-pine',             enabled = false },
   {
     "LazyVim/LazyVim",
     opts = {
