@@ -10,7 +10,7 @@ return {
     "AckslD/nvim-FeMaco.lua",
     config = 'require("femaco").setup()',
   },
-  { "ellisonleao/glow.nvim", config = true, cmd = "Glow" },
+  { "ellisonleao/glow.nvim", config = true, cmd = "Glow", enabled = false },
   {
     "jghauser/follow-md-links.nvim",
   },
