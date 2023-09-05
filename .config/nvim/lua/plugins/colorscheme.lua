@@ -14,16 +14,10 @@ return {
         treesitter = true,
         notify = true,
         mini = true,
-        beacon = true,
         fidget = true,
         mason = true,
         neogit = true,
-        navic = {
-          enabled = true,
-          custom_bg = "NONE", -- "lualine" will set background to mantle
-        },
         treesitter_context = true,
-        symbols_outline = true,
         which_key = true,
       },
     }

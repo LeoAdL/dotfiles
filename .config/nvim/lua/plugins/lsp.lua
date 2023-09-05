@@ -47,7 +47,7 @@ return {
               },
               forwardSearch = {
                 executable = "/Applications/Skim.app/Contents/SharedSupport/displayline",
-                args = { "-g", "%l", "%p", "%f" },
+                args = { "%l", "%p", "%f" },
               },
               chktex = {
                 onEdit = false,
