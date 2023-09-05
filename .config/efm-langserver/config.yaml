@@ -32,6 +32,15 @@ tools:
     format-stdin: true
   beautysh: &beautysh
     format-command: 'beautysh -'
+  markdown-markdownlint: &markdown-markdownlint
+    lint-command: 'markdownlint -s -c ~/.config/.markdownlint.yaml'
+    lint-stdin: true
+    lint-formats:
+      - '%f:%l %m'
+      - '%f:%l:%c %m'
+      - '%f: %l: %m'
+  markdown-pandoc: &markdown-pandoc
+    format-command: 'pandoc -f markdown -t gfm -sp --tab-stop=2'
     format-stdin: true
 languages:
   python:
@@ -47,3 +56,6 @@ languages:
     - !!merge <<: *yaml-fmt
   zsh:
     - !!merge <<: *beautysh
+  markdown:
+    - !!merge <<: *markdown-markdownlint
+    - !!merge <<: *markdown-pandoc
