@@ -11,6 +11,8 @@ return {
       vim.g.vimtex_syntax_enabled = 0
       vim.g.vimtex_syntax_conceal_disable = 1
       vim.g.conceallevel = 2
+      vim.g.vimtex_mappings_disable = { ["n"] = { "K" } } -- disable `K` as it conflicts with LSP hover
+      vim.g.vimtex_quickfix_method = vim.fn.executable("pplatex") == 1 and "pplatex" or "latexlog"
       vim.g.vimtex_quickfix_enabled = 1
       vim.g.vimtex_compiler_latexmk = {
         options = {
