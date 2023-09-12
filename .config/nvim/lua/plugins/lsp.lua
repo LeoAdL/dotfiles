@@ -35,6 +35,9 @@ return {
       servers = {
         marksman = {},
         texlab = {
+          keys = {
+            { "<Leader>K", "<plug>(vimtex-doc-package)", desc = "Vimtex Docs", silent = true },
+          },
           settings = {
             texlab = {
               auxDirectory = ".",

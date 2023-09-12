@@ -8,5 +8,6 @@ return {
   { "nvim-neo-tree/neo-tree.nvim",         enabled = false },
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
   { "jose-elias-alvarez/null-ls.nvim",     enabled = false },
-  { "SmiteshP/nvim-navic",                 enabled = false }
+  { "SmiteshP/nvim-navic",                 enabled = false },
+  { "williamboman/mason.nvim",             enabled = false },
 }
