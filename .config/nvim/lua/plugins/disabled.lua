@@ -10,4 +10,5 @@ return {
   { "jose-elias-alvarez/null-ls.nvim",     enabled = false },
   { "SmiteshP/nvim-navic",                 enabled = false },
   { "williamboman/mason.nvim",             enabled = false },
+  { "williamboman/mason-lspconfig.nvim",   enabled = false },
 }

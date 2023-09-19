@@ -10,8 +10,12 @@ tools:
       - '%l: %m: "%r"'
       - '%l: %m'
   selene: &selene
-    lint-command: 'selene --display-style json'
+    lint-command: 'selene --quiet --display-style json'
     lint-stdin: false
+    lintFormats:
+      - '%f:%l:%c: %trror%m'
+      - '%f:%l:%c: %tarning%m'
+      - '%f:%l:%c: %tote%m'
   yaml-yamllint: &yaml-yamllint
     lint-command: 'yamllint -f parsable -'
     lint-stdin: true
@@ -19,13 +23,14 @@ tools:
     lint-formats:
       - '%f:%l:%c:%m'
   chktex: &chktex
-    lint-command: 'chktex -v2 -q'
+    lint-command: 'chktex -v0 -q'
     lint-stdin: true
     lint-ignore-exit-code: false
+    lint-severity: 2
     lint-formats:
-      - '%f:%l:%c:%m'
+      - '%f:%l:%c:%n:%m'
   python-black: &python-black
-    format-command: 'black --quiet -'
+    format-command: 'black --no-color --quiet -'
     format-stdin: true
   blackd: &blackd
     format-command: 'blackd-client'
