@@ -39,7 +39,8 @@ tools:
     format-command: 'yamlfmt -in'
     format-stdin: true
   beautysh: &beautysh
-    format-command: 'beautysh -'
+    format-command: 'beautysh %s -'
+    format-stdin: true
   markdown-markdownlint: &markdown-markdownlint
     lint-command: 'markdownlint -s -c ~/.config/.markdownlint.yaml'
     lint-stdin: true
