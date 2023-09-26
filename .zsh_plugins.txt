@@ -1,0 +1,32 @@
+# .zsh_plugins.txt
+
+# comments are supported like this
+rupa/z
+zsh-users/zsh-completions
+
+# or lighter-weight ones like zsh-utils
+mattmc3/zephyr path:plugins/clipboard
+mattmc3/zephyr path:plugins/completion
+mattmc3/zephyr path:plugins/environment
+mattmc3/zephyr path:plugins/history
+mattmc3/zephyr path:plugins/homebrew
+mattmc3/zephyr path:plugins/macos
+mattmc3/zephyr path:plugins/prompt
+mattmc3/zephyr path:plugins/terminal
+mattmc3/zephyr path:plugins/utility
+mattmc3/zephyr path:plugins/zfunctions
+
+# prompts:
+#   with prompt plugins, remember to add this to your .zshrc:
+#   `autoload -Uz promptinit && promptinit && prompt pure`
+romkatv/powerlevel10k 
+
+# popular fish-like plugins
+jeffreytse/zsh-vi-mode
+mattmc3/zman
+unixorn/fzf-zsh-plugin
+wfxr/forgit
+Aloxaf/fzf-tab
+zsh-users/zsh-autosuggestions
+zdharma-continuum/fast-syntax-highlighting kind:defer
+
