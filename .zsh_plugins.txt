@@ -28,6 +28,7 @@ jeffreytse/zsh-vi-mode
 mattmc3/zman
 unixorn/fzf-zsh-plugin
 wfxr/forgit
+bigH/git-fuzzy path:bin kind:path
 Aloxaf/fzf-tab
 zsh-users/zsh-autosuggestions 
 zdharma-continuum/fast-syntax-highlighting

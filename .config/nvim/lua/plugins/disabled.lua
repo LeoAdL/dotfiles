@@ -7,7 +7,7 @@ return {
   { "folke/tokyonight.nvim",               enabled = false },
   { "nvim-neo-tree/neo-tree.nvim",         enabled = false },
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
-  { "jose-elias-alvarez/null-ls.nvim",     enabled = false },
+  { "nvimtools/none-ls.nvim",              enabled = false },
   { "SmiteshP/nvim-navic",                 enabled = false },
   { "williamboman/mason.nvim",             enabled = false },
   { "williamboman/mason-lspconfig.nvim",   enabled = false },
