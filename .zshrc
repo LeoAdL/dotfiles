@@ -116,7 +116,7 @@ n ()
 
     # The command builtin allows one to alias nnn to n, if desired, without
     # making an infinitely recursive alias
-    command nnn -d "$@"
+    command nnn -d -a -P p "$@"
 
     [ ! -f "$NNN_TMPFILE" ] || {
         . "$NNN_TMPFILE"
@@ -132,7 +132,7 @@ nnn_cd()
 
 trap nnn_cd EXIT
 
-export NNN_PLUG='d:diffs;f:fzcd;u:getplugs'
+export NNN_PLUG='d:diffs;f:fzcd;u:getplugs;p:preview-tui'
 export NNN_TRASH=1
 # This second option relies on you're terminal using the catppuccin theme and well use true catppuccin colors:
 BLK="03" CHR="03" DIR="04" EXE="02" REG="07" HARDLINK="05" SYMLINK="05" MISSING="08" ORPHAN="01" FIFO="06" SOCK="03" UNKNOWN="01"
@@ -248,3 +248,4 @@ if [ -f "/opt/homebrew/Caskroom/mambaforge/base/etc/profile.d/mamba.sh" ]; then
 fi
 # <<< conda initialize <<<
 mamba activate default
+export PATH="/opt/homebrew/opt/qt@5/bin:$PATH"
