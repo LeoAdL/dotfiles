@@ -8,7 +8,9 @@ return {
   { "nvim-neo-tree/neo-tree.nvim",         enabled = false },
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
   { "nvimtools/none-ls.nvim",              enabled = false },
-  { "SmiteshP/nvim-navic",                 enabled = false },
   { "williamboman/mason.nvim",             enabled = false },
   { "williamboman/mason-lspconfig.nvim",   enabled = false },
+  { "stevearc/conform.nvim",               enabled = false },
+  { "mfussenegger/nvim-lint",              enabled = false },
+  { "glepnir/dashboard-nvim",              enabled = false }
 }

@@ -10,6 +10,7 @@ vim.o.foldlevel = 999  -- Using ufo provider need a large value, feel free to de
 vim.o.foldlevelstart = 999
 vim.o.foldenable = true
 vim.o.foldcolumn = '0'
+vim.g.autoformat = true
 local home = os.getenv("HOME")
 
 if home == nil then
