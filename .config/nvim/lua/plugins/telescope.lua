@@ -14,7 +14,6 @@ return {
       { "nvim-telescope/telescope-file-browser.nvim" },
       { "debugloop/telescope-undo.nvim" },
       { "paopaol/telescope-git-diffs.nvim" },
-      { "aaronhallaert/advanced-git-search.nvim" },
     },
     config = function()
       local ts = require("telescope")
@@ -54,23 +53,10 @@ return {
             hijack_netrw = true,
           },
         },
-        advanced_git_search = {
-          -- fugitive or diffview
-          diff_plugin = "fugitive",
-          -- customize git in previewer
-          -- e.g. flags such as { "--no-pager" }, or { "-c", "delta.side-by-side=false" }
-          git_flags = {},
-          -- customize git diff in previewer
-          -- e.g. flags such as { "--raw" }
-          git_diff_flags = {},
-          -- Show builtin git pickers when executing "show_custom_functions" or :AdvancedGitSearch
-          show_builtin_git_pickers = false,
-        },
       })
       require("telescope").load_extension("file_browser")
       require("telescope").load_extension("undo")
       require("telescope").load_extension("git_diffs")
-      require("telescope").load_extension("advanced_git_search")
     end,
     mappings = {
       i = {
