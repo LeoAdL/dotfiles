@@ -12,5 +12,5 @@ return {
   { "williamboman/mason-lspconfig.nvim",   enabled = false },
   { "stevearc/conform.nvim",               enabled = false },
   { "mfussenegger/nvim-lint",              enabled = false },
-  { "glepnir/dashboard-nvim",              enabled = false }
+  { "nvimdev/dashboard-nvim",              enabled = false }
 }

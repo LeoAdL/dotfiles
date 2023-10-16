@@ -22,8 +22,21 @@ return {
       },
     }
   },
-  { "nvim-lualine/lualine.nvim", opts = { theme = "catppuccin" } },
-  { 'rose-pine/neovim',          name = 'rose-pine',             enabled = false },
+  {
+    "nvim-lualine/lualine.nvim",
+    opts = {
+      theme = "catppuccin",
+      sections = {
+        lualine_y = {
+          "location"
+        },
+        lualine_z = {
+          "progress"
+        },
+      }
+    }
+  },
+  { 'rose-pine/neovim', name = 'rose-pine', enabled = false },
   {
     "LazyVim/LazyVim",
     opts = {
