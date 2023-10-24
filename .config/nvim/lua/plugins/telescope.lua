@@ -13,7 +13,6 @@ return {
       { "nvim-lua/plenary.nvim" },
       { "nvim-telescope/telescope-file-browser.nvim" },
       { "debugloop/telescope-undo.nvim" },
-      { "paopaol/telescope-git-diffs.nvim" },
     },
     config = function()
       local ts = require("telescope")
@@ -56,7 +55,6 @@ return {
       })
       require("telescope").load_extension("file_browser")
       require("telescope").load_extension("undo")
-      require("telescope").load_extension("git_diffs")
     end,
     mappings = {
       i = {
