@@ -10,12 +10,10 @@ return {
       integrations = {
         cmp = true,
         gitsigns = true,
-        nvimtree = true,
         treesitter = true,
         notify = true,
         mini = true,
         fidget = true,
-        mason = true,
         neogit = true,
         treesitter_context = true,
         which_key = true,

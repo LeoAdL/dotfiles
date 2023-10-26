@@ -61,8 +61,6 @@ tools:
     lint-formats:
       - '%f:%l:%c:%*[^:]:%m'
 languages:
-  python:
-    - !!merge <<: *python-black
   lua:
     - !!merge <<: *selene
   tex:

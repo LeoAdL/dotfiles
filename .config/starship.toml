@@ -1,11 +1,56 @@
 # Get editor completions based on the config schema
 
+format = """
+$username\
+$hostname\
+$localip\
+$shlvl\
+$singularity\
+$kubernetes\
+$directory\
+$vcsh\
+$fossil_branch\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$hg_branch\
+$pijul_channel\
+$docker_context\
+$conda\
+$meson\
+$spack\
+$memory_usage\
+$aws\
+$gcloud\
+$openstack\
+$azure\
+$env_var\
+$custom\
+$sudo\
+$cmd_duration\
+$line_break\
+$jobs\
+$battery\
+$time\
+$status\
+$os\
+$container\
+$shell\
+$character"""
 palette = "catppuccin_mocha"
 
 ["time"]
 disabled = false
 format = '[$time]($style) '
 
+
+[nodejs]
+disabled = true
+
+[python]
+disabled = true 
 
 [palettes.catppuccin_mocha]
 rosewater = "#f5e0dc"
