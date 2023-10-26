@@ -110,7 +110,7 @@ n ()
 
     # The command builtin allows one to alias nnn to n, if desired, without
     # making an infinitely recursive alias
-    command nnn -d -a -P p "$@"
+    command nnn -e -d -a -P p "$@"
 
     [ ! -f "$NNN_TMPFILE" ] || {
         . "$NNN_TMPFILE"
@@ -138,6 +138,7 @@ export NNN_COLORS="#04020301;4231"
 export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$UNKNOWN"
 
 alias lf="lfcd"
+alias ls='eza --group-directories-first --icons --color-scale'
 alias ranger='source ranger ranger'
 alias ssh= "wezterm ssh"
 alias imgcat= "wezterm imgcat"

@@ -131,9 +131,7 @@ class fzf_mark(Command):
         env["FZF_DEFAULT_COMMAND"] = fzf_default_command
 
         # you can remap and config your fzf (and your can still use ctrl+n / ctrl+p ...) + preview
-        env[
-            "FZF_DEFAULT_OPTS"
-        ] = '\
+        env["FZF_DEFAULT_OPTS"] = '\
         --multi \
         --reverse \
         --bind ctrl-a:select-all,ctrl-e:deselect-all,alt-n:down,alt-p:up,alt-o:backward-delete-char,alt-h:beginning-of-line,alt-l:end-of-line,alt-j:backward-char,alt-k:forward-char,alt-b:backward-word,alt-f:forward-word \
