@@ -48,8 +48,15 @@ return {
                 onSave = true,
               },
               forwardSearch = {
-                executable = "/Applications/Skim.app/Contents/SharedSupport/displayline",
-                args = { "%l", "%p", "%f" },
+                executable = "sioyek",
+                args = {
+                  '--reuse-window',
+                  '--execute-command', 'toggle_synctex', -- Open Sioyek in synctex mode.
+                  '--inverse-search',
+                  'nvim --headless -c "VimtexInverseSearch %%2 %%1"',
+                  '--forward-search-file', '%f',
+                  '--forward-search-line', '%l', '%p'
+                },
               },
               chktex = {
                 onEdit = false,
@@ -104,7 +111,7 @@ return {
       },
       setup = {
         ruff_lsp = function()
-        require("lazyvim.util").lsp.on_attach(function(client, _)
+          require("lazyvim.util").lsp.on_attach(function(client, _)
             if client.name == "ruff_lsp" then
               -- Disable hover in favor of Pyright
               client.server_capabilities.hoverProvider = false

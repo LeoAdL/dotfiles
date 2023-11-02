@@ -6,8 +6,7 @@ return {
       vim.g.vimtex_compiler_enabled = 0
       vim.g.maplocalleader = " "
       vim.g.vimtex_quickfix_open_on_warning = 0
-      vim.g.vimtex_view_skim_sync = 1
-      vim.g.vimtex_view_skim_reading_bar = 1
+      vim.g.vimtex_view_method = 'sioyek'
       vim.g.vimtex_syntax_enabled = 0
       vim.g.vimtex_syntax_conceal_disable = 1
       vim.g.conceallevel = 2
