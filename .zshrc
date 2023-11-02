@@ -160,6 +160,7 @@ if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
     export PATH=/opt/homebrew/opt/ruby/bin:$PATH
     export PATH=`gem environment gemdir`/bin:$PATH
 fi
+export XDG_CONFIG_HOME="$HOME/.config"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
 export LESSOPEN="|$(brew --prefix)/bin/lesspipe.sh %s"
 export PATH="/Users/leoap/.local/bin:$PATH"
