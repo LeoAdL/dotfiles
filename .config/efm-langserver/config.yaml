@@ -30,6 +30,9 @@ tools:
     lint-severity: 2
     lint-formats:
       - '%f:%l:%c:%n:%m'
+  latexindent: &latexindent
+    format-command: 'latexindent -'
+    format-stdin: true
   python-black: &python-black
     format-command: 'black --no-color --quiet -'
     format-stdin: true
@@ -65,6 +68,7 @@ languages:
     - !!merge <<: *selene
   tex:
     - !!merge <<: *chktex
+    - !!merge <<: *latexindent
   gitcommit:
     - !!merge <<: *gitcommit-gitlint
     - !!merge <<: *vale-lint

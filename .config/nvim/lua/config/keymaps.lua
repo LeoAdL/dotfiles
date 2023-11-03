@@ -22,7 +22,7 @@ map("n", "<leader>e", "<cmd>Telescope file_browser<cr>", { desc = "file_browser"
 map("n", "<leader>lv", "<cmd>TexlabForward<cr>", { desc = "forward search" })
 map("n", "<leader>lC", "<cmd>silent ! latexmk -c <cr>", { desc = "Clean Files" })
 map("n", "<leader>ll", "<cmd>Lazy<cr>", { desc = "Lazy" })
-map("n", "<leader>xx", "<cmd>lua vim.diagnostic.setqflist()<cr>", { desc = "QuickFix" })
+map("n", "<leader>xx", "<cmd>Telescope diagnostics<cr>", { desc = "Diagnostics" })
 map("n", "<leader>xg", "<cmd>Gitsigns setqflist<cr>", { desc = "Git QuickFix" })
 
 -- open file_browser with the path of the current buffer

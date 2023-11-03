@@ -45,10 +45,6 @@ return {
           { name = "buffer",                  priority = 200 },
           { name = "async_path",              priority = 200 },
           { name = "pandoc_references",       priority = 800 },
-          {
-            name = "omni",
-            option = {},
-          },
         }),
         formatting = {
           format = function(_, item)
