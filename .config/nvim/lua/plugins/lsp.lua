@@ -64,10 +64,7 @@ return {
               },
               diagnosticsDelay = 300,
               formatterLineLength = 80,
-              latexFormatter = "latexindent",
-              latexindent = {
-                modifyLineBreaks = false,
-              },
+              latexFormatter = "none",
             },
           },
         },
