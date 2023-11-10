@@ -8,6 +8,7 @@ return {
             -- add your options that should be passed to the setup() function here
             position = "right",
         },
+        { "barreiroleo/ltex_extra.nvim" },
     },
 
     {
@@ -72,14 +73,30 @@ return {
                 pyright = {},
                 ruff_lsp = {},
                 ltex = {
+                    on_attach = function(client, bufnr)
+                        -- rest of your on_attach process.
+                        require("ltex_extra").setup {
+                            -- table <string> : languages for witch dictionaries will be loaded, e.g. { "es-AR", "en-US" }
+                            -- https://valentjn.github.io/ltex/supported-languages.html#natural-languages
+                            load_langs = { "en-US" }, -- en-US as default
+                            -- boolean : whether to load dictionaries on startup
+                            init_check = true,
+                            -- string : relative or absolute path to store dictionaries
+                            -- e.g. subfolder in the project root or the current working directory: ".ltex"
+                            -- e.g. shared files for all projects:  vim.fn.expand("~") .. "/.local/share/ltex"
+                            path = "", -- project root or current working directory
+                            -- string : "none", "trace", "debug", "info", "warn", "error", "fatal"
+                            log_level = "none",
+                            -- table : configurations of the ltex language server.
+                            -- Only if you are calling the server from ltex_extra
+                            server_opts = nil
+                        }
+                    end,
                     settings = {
                         ltex = {
                             additionalRules = {
                                 enablePickyRules = true,
                                 motherTongue = "fr",
-                                dictionary = {
-                                    ['en-US'] = words,
-                                },
                             },
                         },
                     },
@@ -100,30 +117,13 @@ return {
             },
         },
         config = function(_, opts)
-            local path = vim.fn.stdpath 'config' .. '/spell/en.utf-8.add'
-            local words = {}
-
-            for word in io.open(path, 'r'):lines() do
-                table.insert(words, word)
-            end
             local servers = opts.servers
             local capabilities = require('cmp_nvim_lsp').default_capabilities()
             local lspconfig = require('lspconfig')
             for server, server_opts in pairs(servers) do
-                lspconfig[server].setup { server_opts, capabilities = capabilities }
+                lspconfig[server].setup { capabilities = capabilities, server_opts }
             end
         end
     }
     ,
-    {
-        "barreiroleo/ltex_extra.nvim",
-        ft = { "markdown", "tex" },
-        dependencies = { "neovim/nvim-lspconfig" },
-        -- yes, you can use the opts field, just I'm showing the setup explicitly
-        config = function()
-            require("ltex_extra").setup({
-                server_opts = {},
-            })
-        end,
-    },
 }
