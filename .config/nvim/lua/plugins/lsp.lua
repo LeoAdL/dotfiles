@@ -21,14 +21,6 @@ return {
                 virtual_text = { spacing = 4, prefix = "●" },
                 severity_sort = true,
             },
-            -- Automatically format on save
-            -- options for vim.lsp.buf.format
-            -- `bufnr` and `filter` is handled by the LazyVim formatter,
-            -- but can be also overridden when specified
-            format = {
-                formatting_options = nil,
-                timeout_ms = nil,
-            },
             -- LSP Server Settings
             ---@type lspconfig.options
             servers = {
@@ -121,9 +113,11 @@ return {
             local capabilities = require('cmp_nvim_lsp').default_capabilities()
             local lspconfig = require('lspconfig')
             for server, server_opts in pairs(servers) do
-                local opts_lsp = { capabilities = capabilities }
-                lspconfig[server].setup { vim.tbl_deep_extend('force', opts_lsp, server_opts) }
+                local opts_lsp = { on_attach = on_attach, capabilities = capabilities }
+                opts_lsp = vim.tbl_deep_extend('keep', opts_lsp, server_opts)
+                lspconfig[server].setup { opts_lsp }
             end
+            vim.diagnostic.config(opts.diagnostics)
         end
     }
     ,
