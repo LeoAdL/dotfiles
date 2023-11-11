@@ -8,9 +8,8 @@ return {
             -- add your options that should be passed to the setup() function here
             position = "right",
         },
-        { "barreiroleo/ltex_extra.nvim" },
     },
-
+    { "barreiroleo/ltex_extra.nvim" },
     {
         "neovim/nvim-lspconfig",
         opts = {
@@ -110,12 +109,12 @@ return {
         },
         config = function(_, opts)
             local servers = opts.servers
-            local capabilities = require('cmp_nvim_lsp').default_capabilities()
-            local lspconfig = require('lspconfig')
-            for server, server_opts in pairs(servers) do
-                local opts_lsp = { on_attach = on_attach, capabilities = capabilities }
-                opts_lsp = vim.tbl_deep_extend('keep', opts_lsp, server_opts)
-                lspconfig[server].setup { opts_lsp }
+            local capabilities = { require('cmp_nvim_lsp').default_capabilities() }
+            for server in pairs(servers) do
+                local server_opts = vim.tbl_deep_extend("force", {
+                    capabilities = capabilities,
+                }, servers[server])
+                require("lspconfig")[server].setup(server_opts)
             end
             vim.diagnostic.config(opts.diagnostics)
         end
