@@ -46,7 +46,7 @@ return {
                                 executable = "latexmk",
                                 args = { "-xelatex", "-synctex=1" },
                                 forwardSearchAfter = false,
-                                onSave = true,
+                                onSave = false,
                             },
                             forwardSearch = {
                                 executable = "sioyek",
@@ -121,7 +121,8 @@ return {
             local capabilities = require('cmp_nvim_lsp').default_capabilities()
             local lspconfig = require('lspconfig')
             for server, server_opts in pairs(servers) do
-                lspconfig[server].setup { capabilities = capabilities, server_opts }
+                local opts_lsp = { capabilities = capabilities }
+                lspconfig[server].setup { vim.tbl_deep_extend('force', opts_lsp, server_opts) }
             end
         end
     }
