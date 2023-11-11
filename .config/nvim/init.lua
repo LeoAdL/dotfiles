@@ -60,8 +60,9 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("plugins")
 require("config/autocmds")
 require("config/keymaps")
 require("config/options")
+require("lazy").setup("plugins")
 vim.cmd.colorscheme "catppuccin"
+vim.cmd.set "shortmess=I"
