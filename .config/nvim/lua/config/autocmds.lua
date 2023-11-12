@@ -4,7 +4,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     buffer = bufnr,
     group = 'LspFormatting',
     callback = function()
-        vim.lsp.buf.format()
+        vim.lsp.buf.format({ async = false })
     end,
 })
 -- Global mappings.

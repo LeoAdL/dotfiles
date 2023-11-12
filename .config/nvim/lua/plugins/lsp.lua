@@ -24,7 +24,6 @@ return {
             ---@type lspconfig.options
             servers = {
                 efm = { init_options = { documentFormatting = true } },
-                marksman = {},
                 texlab = {
                     settings = {
                         texlab = {
@@ -59,7 +58,12 @@ return {
                 },
                 julials = {},
                 pyright = {},
-                ruff_lsp = {},
+                ruff_lsp = {
+                    on_attach = function(client, bufnr)
+                        -- Disable hover in favor of Pyright
+                        client.server_capabilities.hoverProvider = false
+                    end
+                },
                 ltex = {
                     on_attach = function(client, bufnr)
                         -- rest of your on_attach process.
