@@ -26,9 +26,6 @@ return {
                 efm = { init_options = { documentFormatting = true } },
                 marksman = {},
                 texlab = {
-                    keys = {
-                        { "<Leader>K", "<plug>(vimtex-doc-package)", desc = "Vimtex Docs", silent = true },
-                    },
                     settings = {
                         texlab = {
                             auxDirectory = ".",
@@ -37,7 +34,7 @@ return {
                                 executable = "latexmk",
                                 args = { "-xelatex", "-synctex=1" },
                                 forwardSearchAfter = false,
-                                onSave = false,
+                                onSave = true,
                             },
                             forwardSearch = {
                                 executable = "sioyek",
@@ -117,6 +114,10 @@ return {
                 require("lspconfig")[server].setup(server_opts)
             end
             vim.diagnostic.config(opts.diagnostics)
+            vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })
+            vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSignWarn' })
+            vim.fn.sign_define('DiagnosticSignInfo', { text = '', texthl = 'DiagnosticSignInfo' })
+            vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint' })
         end
     }
     ,
