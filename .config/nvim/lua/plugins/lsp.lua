@@ -23,7 +23,6 @@ return {
             -- LSP Server Settings
             ---@type lspconfig.options
             servers = {
-                efm = { init_options = { documentFormatting = true } },
                 texlab = {
                     settings = {
                         texlab = {
@@ -33,7 +32,7 @@ return {
                                 executable = "latexmk",
                                 args = { "-xelatex", "-synctex=1" },
                                 forwardSearchAfter = false,
-                                onSave = true,
+                                onSave = false,
                             },
                             forwardSearch = {
                                 executable = "sioyek",
@@ -106,6 +105,7 @@ return {
                         },
                     },
                 },
+                efm = { init_options = { documentFormatting = true }, settings = { rootMarkers = { ".git/", "." } } },
             },
         },
         config = function(_, opts)
@@ -124,5 +124,4 @@ return {
             vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint' })
         end
     }
-    ,
 }
