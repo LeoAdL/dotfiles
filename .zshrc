@@ -90,10 +90,6 @@ zstyle ':fzf-tab:complete:-command-:*' fzf-preview \
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-lfcd () {
-    # `command` is needed in case `lfcd` is aliased to `lf`
-    cd "$(command lf -print-last-dir "$@")"
-}
 n ()
 {
     # Block nesting of nnn in subshells
@@ -117,22 +113,14 @@ n ()
 
     # The command builtin allows one to alias nnn to n, if desired, without
     # making an infinitely recursive alias
-    command nnn -e -d -a -P p "$@"
+    command nnn -a -e -d -P p "$@"
 
     [ ! -f "$NNN_TMPFILE" ] || {
         . "$NNN_TMPFILE"
         rm -f "$NNN_TMPFILE" > /dev/null
     }
 }
-nnn_cd()                                                                                                   
-{
-    if ! [ -z "$NNN_PIPE" ]; then
-        printf "%s\0" "0c${PWD}" > "${NNN_PIPE}" !&
-    fi  
-}
-
-trap nnn_cd EXIT
-
+export NNN_TERMINAL=tmux
 export NNN_PLUG='d:diffs;f:fzcd;u:getplugs;p:preview-tui'
 export NNN_TRASH=1
 # This second option relies on you're terminal using the catppuccin theme and well use true catppuccin colors:
@@ -144,11 +132,7 @@ export NNN_COLORS="#04020301;4231"
 # Finally Export the set file colors ( Both options require this)
 export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$UNKNOWN"
 
-alias lf="lfcd"
-alias ls='eza --group-directories-first --icons --color-scale'
 alias ranger='source ranger ranger'
-alias ssh= "wezterm ssh"
-alias imgcat= "wezterm imgcat"
 alias python3=python
 export VISUAL="nvim"
 export EDITOR="nvim"
@@ -164,16 +148,13 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
 export LESSOPEN="|$(brew --prefix)/bin/lesspipe.sh %s"
 export PATH="/Users/leoap/.local/bin:$PATH"
-export PATH="$HOME/.local/share/nvim/lazy/nvim-texlabconfig:$PATH"
 export PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
 export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
 export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@3/lib/pkgconfig"
-export PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH"
 export MPV_HOME="/Users/leoap/.config/mpv"
 export PATH="/opt/homebrew/opt/qt@5/bin:$PATH"
-export PATH="$PATH:/Users/Admin/Qt5.14.2/5.14.2/clang_64/bin"
 export PATH=$HOME/.tmux/plugins/t-smart-tmux-session-manager/bin:$PATH
 export PATH="$PATH:/Users/leoap/.cargo/bin"
 

@@ -1,6 +1,4 @@
 return {
-    -- add gruvbox
-    -- Configure LazyVim to load gruvbox
     {
         "catppuccin/nvim",
         enabled = true,
@@ -34,5 +32,4 @@ return {
             }
         }
     },
-    { 'rose-pine/neovim', name = 'rose-pine', enabled = false },
 }
