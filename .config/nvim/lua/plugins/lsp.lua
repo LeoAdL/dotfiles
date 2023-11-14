@@ -1,5 +1,4 @@
 return {
-    -- add symbols-outline
     {
         "simrat39/symbols-outline.nvim",
         cmd = "SymbolsOutline",
@@ -71,8 +70,7 @@ return {
                             -- https://valentjn.github.io/ltex/supported-languages.html#natural-languages
                             load_langs = { "en-US" }, -- en-US as default
                             -- boolean : whether to load dictionaries on startup
-                            init_check = true,
-                            -- string : relative or absolute path to store dictionaries
+                            init_check = true,        -- string : relative or absolute path to store dictionaries
                             -- e.g. subfolder in the project root or the current working directory: ".ltex"
                             -- e.g. shared files for all projects:  vim.fn.expand("~") .. "/.local/share/ltex"
                             path = "", -- project root or current working directory
@@ -110,7 +108,8 @@ return {
         },
         config = function(_, opts)
             local servers = opts.servers
-            local capabilities = { require('cmp_nvim_lsp').default_capabilities() }
+            local capabilities = { require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol
+                .make_client_capabilities()) }
             for server in pairs(servers) do
                 local server_opts = vim.tbl_deep_extend("force", {
                     capabilities = capabilities,
