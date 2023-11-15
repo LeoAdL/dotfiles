@@ -11,7 +11,6 @@ return {
             },
             { "nvim-lua/plenary.nvim" },
             { "nvim-telescope/telescope-ui-select.nvim" },
-            { "nvim-telescope/telescope-file-browser.nvim" },
             { "debugloop/telescope-undo.nvim" },
         },
         config = function()
@@ -53,7 +52,6 @@ return {
                     },
                 },
             })
-            require("telescope").load_extension("file_browser")
             require("telescope").load_extension("undo")
             require("telescope").load_extension("ui-select")
         end,
