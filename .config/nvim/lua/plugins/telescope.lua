@@ -10,7 +10,6 @@ return {
                 end,
             },
             { "nvim-lua/plenary.nvim" },
-            { "nvim-telescope/telescope-ui-select.nvim" },
             { "debugloop/telescope-undo.nvim" },
         },
         config = function()
@@ -53,7 +52,6 @@ return {
                 },
             })
             require("telescope").load_extension("undo")
-            require("telescope").load_extension("ui-select")
         end,
         mappings = {
             i = {
@@ -65,40 +63,11 @@ return {
             n = { ["q"] = require("telescope.actions").close },
         },
         keys = {
-            { "<leader>tt", "<cmd>Telescope<cr>",                                          desc = "Open Telescope" },
             {
                 "<leader>su",
                 ":Telescope undo<cr>",
                 desc = "Undo history",
             },
-            {
-                "<leader>,",
-                "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>",
-                desc = "Switch Buffer",
-            },
-            { "<leader>:",  "<cmd>Telescope command_history<cr>",                          desc = "Command History" },
-            { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
-            { "<leader>ff", "<cmd>Telescope find_files<cr>",                               desc = "Find Files (root dir)" },
-            { "<leader>fr", "<cmd>Telescope oldfiles<cr>",                                 desc = "Recent" },
-            -- git
-            { "<leader>gc", "<cmd>Telescope git_commits<CR>",                              desc = "commits" },
-            { "<leader>/",  "<cmd>Telescope live_grep<CR>",                                desc = "live grep" },
-            { "<leader>gs", "<cmd>Telescope git_status<CR>",                               desc = "status" },
-            -- search
-            { '<leader>s"', "<cmd>Telescope registers<cr>",                                desc = "Registers" },
-            { "<leader>sa", "<cmd>Telescope autocommands<cr>",                             desc = "Auto Commands" },
-            { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>",                desc = "Buffer" },
-            { "<leader>sc", "<cmd>Telescope command_history<cr>",                          desc = "Command History" },
-            { "<leader>sC", "<cmd>Telescope commands<cr>",                                 desc = "Commands" },
-            { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>",                      desc = "Document diagnostics" },
-            { "<leader>sD", "<cmd>Telescope diagnostics<cr>",                              desc = "Workspace diagnostics" },
-            { "<leader>sh", "<cmd>Telescope help_tags<cr>",                                desc = "Help Pages" },
-            { "<leader>sH", "<cmd>Telescope highlights<cr>",                               desc = "Search Highlight Groups" },
-            { "<leader>sk", "<cmd>Telescope keymaps<cr>",                                  desc = "Key Maps" },
-            { "<leader>sM", "<cmd>Telescope man_pages<cr>",                                desc = "Man Pages" },
-            { "<leader>sm", "<cmd>Telescope marks<cr>",                                    desc = "Jump to Mark" },
-            { "<leader>so", "<cmd>Telescope vim_options<cr>",                              desc = "Options" },
-            { "<leader>sR", "<cmd>Telescope resume<cr>",                                   desc = "Resume" },
         },
     },
     {
@@ -106,5 +75,45 @@ return {
         config = function()
             require("lsp-toggle").setup()
         end,
+    },
+    {
+        "ibhagwan/fzf-lua",
+        -- optional for icon support
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        config = function()
+            -- calling `setup` is optional for customization
+            require("fzf-lua").setup({ "fzf-native" })
+            require("fzf-lua").register_ui_select()
+        end,
+        keys = { { "<leader>tt", "<cmd>FzfLua<cr>",              desc = "Open FzfLua" },
+            {
+                "<leader>,",
+                "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>",
+                desc = "Switch Buffer",
+            },
+            { "<leader>:",  "<cmd>FzfLua command_history<cr>",       desc = "Command History" },
+            { "<leader>fb", "<cmd>FzfLua buffers<cr>",               desc = "Buffers" },
+            { "<leader>ff", "<cmd>FzfLua files<cr>",                 desc = "Find Files (root dir)" },
+            { "<leader>fr", "<cmd>FzfLua oldfiles<cr>",              desc = "Recent" },
+            -- git
+            { "<leader>gc", "<cmd>FzfLua git_commits<CR>",           desc = "commits" },
+            { "<leader>/",  "<cmd>FzfLua live_grep_native<CR>",      desc = "live grep" },
+            { "<leader>gs", "<cmd>FzfLua git_status<CR>",            desc = "status" },
+            -- search
+            { '<leader>s"', "<cmd>FzfLua registers<cr>",             desc = "Registers" },
+            { "<leader>sa", "<cmd>FzfLua autocommands<cr>",          desc = "Auto Commands" },
+            { "<leader>sb", "<cmd>FzfLua lgrep_curbuf<cr>",          desc = "Buffer" },
+            { "<leader>sc", "<cmd>FzfLua command_history<cr>",       desc = "Command History" },
+            { "<leader>sC", "<cmd>FzfLua commands<cr>",              desc = "Commands" },
+            { "<leader>sd", "<cmd>FzfLua diagnostics_document<cr>",  desc = "Document diagnostics" },
+            { "<leader>sD", "<cmd>FzfLua diagnostics_workspace<cr>", desc = "Workspace diagnostics" },
+            { "<leader>sh", "<cmd>FzfLua help_tags<cr>",             desc = "Help Pages" },
+            { "<leader>sH", "<cmd>FzfLua highlights<cr>",            desc = "Search Highlight Groups" },
+            { "<leader>sk", "<cmd>FzfLua keymaps<cr>",               desc = "Key Maps" },
+            { "<leader>sM", "<cmd>FzfLua man_pages<cr>",             desc = "Man Pages" },
+            { "<leader>sm", "<cmd>FzfLua marks<cr>",                 desc = "Jump to Mark" },
+            { "<leader>so", "<cmd>FzfLua vim_options<cr>",           desc = "Options" },
+            { "<leader>sR", "<cmd>FzfLua resume<cr>",                desc = "Resume" },
+        },
     },
 }
