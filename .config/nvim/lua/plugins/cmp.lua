@@ -1,6 +1,7 @@
 return {
     {
         "hrsh7th/nvim-cmp",
+        version = false, -- last release is way too old
         event = "InsertEnter",
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
@@ -12,12 +13,11 @@ return {
             "jc-doyle/cmp-pandoc-references",
             "hrsh7th/cmp-nvim-lsp-signature-help",
             "FelipeLema/cmp-async-path",
+            "micangl/cmp-vimtex"
         },
-        opts = function()
-            vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
+        config = function()
             local cmp = require("cmp")
-            local defaults = require("cmp.config.default")()
-            return {
+            require 'cmp'.setup {
                 completion = {
                     completeopt = "menu,menuone,noinsert",
                 },
@@ -54,7 +54,6 @@ return {
                         ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
                     })
                 },
-                sorting = defaults.sorting,
             }
         end,
     },

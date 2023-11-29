@@ -3,11 +3,12 @@ vim.keymap.set("n", "<C-j>", "<cmd>SmartCursorMoveDown<cr>", { desc = "Go to low
 vim.keymap.set("n", "<C-k>", "<cmd>SmartCursorMoveUp<cr>", { desc = "Go to upper window" })
 vim.keymap.set("n", "<C-l>", "<cmd>SmartCursorMoveRight<cr>", { desc = "Go to right window" })
 vim.keymap.set("n", "<leader>e", "<cmd>NnnPicker<cr>", { desc = "file_browser" })
-vim.keymap.set("n", "<leader>lL", "<cmd>Lazy<cr>", { desc = "Lazy" })
-vim.keymap.set("n", "<leader>xx", "<cmd>Telescope diagnostics<cr>", { desc = "Diagnostics" })
+vim.keymap.set("n", "<leader>lC", "<cmd>silent ! latexmk -c <cr>", { desc = "Clean Files" })
+vim.keymap.set("n", "<leader>ll", "<cmd>Lazy<cr>", { desc = "Lazy" })
+vim.keymap.set("n", "<leader>xx", "<cmd>FzfLua lsp_document_diagnostics<cr>", { desc = "Diagnostics" })
 vim.keymap.set("n", "<leader>xg", "<cmd>Gitsigns setqflist<cr>", { desc = "Git QuickFix" })
 vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "NeoGit" })
-vim.keymap.set("n", "<leader>ss", "<cmd>SymbolsOutline<cr>", { desc = "SymbolsOutline" })
+vim.keymap.set("n", "<leader>ss", "<cmd>FzfLua lsp_document_symbols<cr>", { desc = "SymbolsOutline" })
 
 -- open file_browser with the path of the current buffer
 vim.keymap.set("n", "<C-d>", "<C-d>zz")

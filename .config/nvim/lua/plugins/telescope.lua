@@ -78,6 +78,7 @@ return {
     },
     {
         "ibhagwan/fzf-lua",
+        lazy = false,
         -- optional for icon support
         dependencies = { "nvim-tree/nvim-web-devicons" },
         config = function()
@@ -89,7 +90,7 @@ return {
             {
                 "<leader>,",
                 "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>",
-                desc = "Switch Buffer",
+                desc = "Switch BSffer",
             },
             { "<leader>:",  "<cmd>FzfLua command_history<cr>",       desc = "Command History" },
             { "<leader>fb", "<cmd>FzfLua buffers<cr>",               desc = "Buffers" },
@@ -107,6 +108,7 @@ return {
             { "<leader>sC", "<cmd>FzfLua commands<cr>",              desc = "Commands" },
             { "<leader>sd", "<cmd>FzfLua diagnostics_document<cr>",  desc = "Document diagnostics" },
             { "<leader>sD", "<cmd>FzfLua diagnostics_workspace<cr>", desc = "Workspace diagnostics" },
+            { "<leader>sS", "<cmd>FzfLua lsp_document_symbols<cr>",  desc = "Workspace diagnostics" },
             { "<leader>sh", "<cmd>FzfLua help_tags<cr>",             desc = "Help Pages" },
             { "<leader>sH", "<cmd>FzfLua highlights<cr>",            desc = "Search Highlight Groups" },
             { "<leader>sk", "<cmd>FzfLua keymaps<cr>",               desc = "Key Maps" },
