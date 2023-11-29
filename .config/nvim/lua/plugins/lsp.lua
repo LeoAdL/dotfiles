@@ -1,13 +1,4 @@
 return {
-    {
-        "simrat39/symbols-outline.nvim",
-        cmd = "SymbolsOutline",
-        keys = { { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
-        opts = {
-            -- add your options that should be passed to the setup() function here
-            position = "right",
-        },
-    },
     { "barreiroleo/ltex_extra.nvim" },
     {
         "neovim/nvim-lspconfig",
@@ -31,7 +22,7 @@ return {
                                 executable = "latexmk",
                                 args = { "-xelatex", "-synctex=1" },
                                 forwardSearchAfter = false,
-                                onSave = false,
+                                onSave = true,
                             },
                             forwardSearch = {
                                 executable = "sioyek",
@@ -55,7 +46,11 @@ return {
                     },
                 },
                 julials = {},
-                pyright = {},
+                pyright = {
+                    root_dir = function()
+                        return vim.fn.getcwd()
+                    end
+                },
                 ruff_lsp = {
                     on_attach = function(client, bufnr)
                         -- Disable hover in favor of Pyright
@@ -85,7 +80,6 @@ return {
                         ltex = {
                             additionalRules = {
                                 enablePickyRules = true,
-                                motherTongue = "fr",
                             },
                         },
                     },
