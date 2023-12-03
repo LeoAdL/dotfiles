@@ -19,8 +19,14 @@ return {
                             auxDirectory = ".",
                             bibtexFormatter = "texlab",
                             build = {
-                                executable = "latexmk",
-                                args = { "-xelatex", "-synctex=1" },
+                                executable = "tectonic",
+                                args = { "-X",
+                                    "compile",
+                                    "%f",
+                                    "--synctex",
+                                    "--keep-logs",
+                                    "--keep-intermediates"
+                                },
                                 forwardSearchAfter = false,
                                 onSave = true,
                             },
@@ -30,7 +36,7 @@ return {
                                     '--reuse-window',
                                     '--execute-command', 'toggle_synctex', -- Open Sioyek in synctex mode.
                                     '--inverse-search',
-                                    'nvim --headless -c "VimtexInverseSearch %%2 %%1"',
+                                    'nvr --remote-silent -r -g "%%2 %%1"',
                                     '--forward-search-file', '%f',
                                     '--forward-search-line', '%l', '%p'
                                 },
