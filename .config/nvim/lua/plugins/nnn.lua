@@ -1,4 +1,5 @@
 return { {
+    enabled = false,
     "luukvbaal/nnn.nvim",
     config = function()
         require("nnn").setup({

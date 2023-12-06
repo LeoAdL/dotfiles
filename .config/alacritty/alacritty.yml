@@ -8,6 +8,7 @@ window:
 font:
   normal:
     family: Iosevka Nerd Font
+    style: Medium
   size: 16.0
   builtin_box_drawing: true
   draw_bold_text_with_bright_colors: true
@@ -16,7 +17,6 @@ selection:
   save_to_clipboard: true
 cursor:
   vi_mode_style: Beam
-live_config_reload: true
 # Copyright (c) 2016-present Sven Greb <development@svengreb.de>
 # This source code is licensed under the MIT license found in the license file.
 
