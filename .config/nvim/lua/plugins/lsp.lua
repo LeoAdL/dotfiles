@@ -52,6 +52,7 @@ return {
                     },
                 },
                 julials = {},
+                marksman = {},
                 pyright = {
                     root_dir = function()
                         return vim.fn.getcwd()

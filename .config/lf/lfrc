@@ -4,7 +4,6 @@ set shell zsh
 set icons true
 set info size
 set dircounts
-set hidden
 set number
 set relativenumber
 set preview
@@ -57,12 +56,6 @@ cmd open &{{
 # cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
 # map r push :rename<space>
 
-# make sure trash folder exists
-# %mkdir -p ~/.trash
-
-# move current file or selected files to trash folder
-# (also see 'man mv' for backup/overwrite options)
-cmd trash %set -f; mv $fx ~/.trash
 
 # define a custom 'delete' command
 # cmd delete ${{
@@ -145,8 +138,6 @@ cmd zi ${{
 }}
 
 map <c-s> :fzf_search
-cmd trash %trash-put $fx
-map D trash
 
 
 cmd git_branch ${{
@@ -170,3 +161,7 @@ cmd paste &{{
     rm ~/.local/share/lf/files
     lf -remote "send clear"
 }}
+cmd trash %trash-put $fx
+map x trash 
+map . set hidden
+map . set hidden!
