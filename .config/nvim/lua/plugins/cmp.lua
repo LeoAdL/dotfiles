@@ -13,7 +13,6 @@ return {
             "jc-doyle/cmp-pandoc-references",
             "hrsh7th/cmp-nvim-lsp-signature-help",
             "FelipeLema/cmp-async-path",
-            "micangl/cmp-vimtex"
         },
         config = function()
             local cmp = require("cmp")

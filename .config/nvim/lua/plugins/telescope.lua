@@ -1,5 +1,9 @@
 return {
     {
+        "nvim-telescope/telescope-file-browser.nvim",
+        dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+    },
+    {
         "telescope.nvim",
         dependencies = {
             {
@@ -44,14 +48,15 @@ return {
                         files = true,
                         add_dirs = true,
                         depth = 1,
-                        auto_depth = false,
+                        auto_depth = true,
                         select_buffer = true,
-                        hidden = true,
+                        hidden = false,
                         hijack_netrw = true,
                     },
                 },
             })
             require("telescope").load_extension("undo")
+            require("telescope").load_extension("file_browser")
         end,
         mappings = {
             i = {
