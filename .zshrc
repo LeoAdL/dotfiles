@@ -118,7 +118,7 @@ n ()
     [ ! -f "$NNN_TMPFILE" ] || {
         . "$NNN_TMPFILE"
         rm -f "$NNN_TMPFILE" > /dev/null
-    }
+    }}
 lfcd () {
     # `command` is needed in case `lfcd` is aliased to `lf`
     cd "$(command lf -print-last-dir "$@")"
@@ -135,8 +135,7 @@ export NNN_COLORS="#04020301;4231"
 # Finally Export the set file colors ( Both options require this)
 export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$UNKNOWN"
 
-alias ssh="wezterm ssh"
-alias imgcat="wezterm imgcat"
+alias ls="eza --icons"
 alias lf="lfcd"
 export VISUAL="nvim"
 export EDITOR="nvim"
