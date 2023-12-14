@@ -135,8 +135,10 @@ export NNN_COLORS="#04020301;4231"
 # Finally Export the set file colors ( Both options require this)
 export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$UNKNOWN"
 
+alias python3=python
 alias ls="eza --icons"
 alias lf="lfcd"
+alias transmission-remote="transmission-remote --authenv"
 export VISUAL="nvim"
 export EDITOR="nvim"
 export LANG="en_US.UTF-8"
@@ -160,6 +162,7 @@ export MPV_HOME="/Users/leoap/.config/mpv"
 export PATH="/opt/homebrew/opt/qt@5/bin:$PATH"
 export PATH=$HOME/.tmux/plugins/t-smart-tmux-session-manager/bin:$PATH
 export PATH="$PATH:/Users/leoap/.cargo/bin"
+export TR_AUTH="$(pass trans)"
 
 fb() {
     # save newline separated string into an array

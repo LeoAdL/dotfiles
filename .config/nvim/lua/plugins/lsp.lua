@@ -34,9 +34,10 @@ return {
                                 executable = "sioyek",
                                 args = {
                                     '--reuse-window',
-                                    '--execute-command', 'toggle_synctex', -- Open Sioyek in synctex mode.
+                                    '--execute-command',
+                                    'toggle_synctex', -- Open Sioyek in synctex mode.
                                     '--inverse-search',
-                                    'nvr --remote-silent -r -g "%%2 %%1"',
+                                    'nvr --remote-silent %%1 -c %%2',
                                     '--forward-search-file', '%f',
                                     '--forward-search-line', '%l', '%p'
                                 },
