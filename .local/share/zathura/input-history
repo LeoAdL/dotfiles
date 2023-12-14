@@ -39,7 +39,13 @@
 :! 
 :help 
 :?
-:help
 :source
 :set recolor
 :2
+:open /Users/leoap/Downloads/SED2023-498.pdf
+:open /Users/leoap/Downloads/SED2023-1096.pdf
+/ds
+? dark
+:help
+:open /Users/leoap/Downloads/(Springer\ Series\ in\ Synergetics)\ Crispin\ Gardiner\ -\ Stochastic\ Methods_\ A\ Handbook\ for\ the\ Natural\ and\ Social\ Sciences\ (Springer\ Series\ in\ Synergetics)\ \ -Springer\ (2010).pdf
+/ergodic
