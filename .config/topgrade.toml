@@ -3,7 +3,7 @@
 assume_yes = true
 # Disable specific steps - same options as the command line flag
 #disable = ["system", "emacs"]
-disable = ["git_repos","pnpm","mamba","node"]
+disable = ["git_repos","pnpm","node"]
 # Ignore failures for these steps
 #ignore_failures = ["powershell"]
 
@@ -36,7 +36,7 @@ disable = ["git_repos","pnpm","mamba","node"]
 set_title = true
 
 # Display the time in step titles
-# display_time = true
+display_time = true
 
 # Cleanup temporary or old files
 cleanup = true
