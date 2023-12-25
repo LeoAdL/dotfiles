@@ -1,4 +1,20 @@
 return {
+    {
+        "williamboman/mason.nvim",
+        config = true,
+    },
+    {
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
+        opts = { ensure_installed = { "latexindent", "yamlfmt", "markdownlint", "markdownlint-cli2", "selene" } },
+    },
+    {
+        "williamboman/mason-lspconfig.nvim",
+        config = function()
+            require("mason-lspconfig").setup {
+                ensure_installed = { "texlab", "pyright", "ruff_lsp", "marksman", "lua_ls", "ltex" },
+            }
+        end
+    },
     { "barreiroleo/ltex_extra.nvim" },
     {
         "neovim/nvim-lspconfig",
@@ -105,7 +121,6 @@ return {
                         },
                     },
                 },
-                efm = { init_options = { documentFormatting = true }, settings = { rootMarkers = { ".git/", "." } } },
             },
         },
         config = function(_, opts)
