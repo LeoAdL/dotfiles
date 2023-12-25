@@ -5,13 +5,12 @@ return {
     },
     {
         "WhoIsSethDaniel/mason-tool-installer.nvim",
-        opts = { ensure_installed = { "latexindent", "yamlfmt", "markdownlint", "markdownlint-cli2", "selene" } },
+        opts = { ensure_installed = { "beautysh", "latexindent", "yamlfmt", "markdownlint", "markdownlint-cli2", "selene" } },
     },
     {
         "williamboman/mason-lspconfig.nvim",
         config = function()
             require("mason-lspconfig").setup {
-                ensure_installed = { "texlab", "pyright", "ruff_lsp", "marksman", "lua_ls", "ltex" },
             }
         end
     },
@@ -68,7 +67,6 @@ return {
                         },
                     },
                 },
-                julials = {},
                 marksman = {},
                 pyright = {
                     root_dir = function()
@@ -124,15 +122,23 @@ return {
             },
         },
         config = function(_, opts)
+            local mason_lspconfig = require 'mason-lspconfig'
             local servers = opts.servers
-            local capabilities = { require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol
-                .make_client_capabilities()) }
-            for server in pairs(servers) do
-                local server_opts = vim.tbl_deep_extend("force", {
-                    capabilities = capabilities,
-                }, servers[server])
-                require("lspconfig")[server].setup(server_opts)
-            end
+            mason_lspconfig.setup {
+                ensure_installed = vim.tbl_keys(servers),
+            }
+            local capabilities = vim.lsp.protocol.make_client_capabilities()
+            capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+            mason_lspconfig.setup_handlers {
+                function(server_name)
+                    require('lspconfig')[server_name].setup {
+                        capabilities = capabilities,
+                        on_attach = on_attach,
+                        settings = servers[server_name],
+                        filetypes = (servers[server_name] or {}).filetypes,
+                    }
+                end,
+            }
             vim.diagnostic.config(opts.diagnostics)
             vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })
             vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSignWarn' })
