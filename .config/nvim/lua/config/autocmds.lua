@@ -1,12 +1,3 @@
-local augroup = vim.api.nvim_create_augroup("LspFormatting", { clear = false })
-vim.api.nvim_create_autocmd('BufWritePre', {
-    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr }),
-    buffer = bufnr,
-    group = 'LspFormatting',
-    callback = function()
-        vim.lsp.buf.format({ async = false })
-    end,
-})
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
     callback = function()
         require("lint").try_lint()
