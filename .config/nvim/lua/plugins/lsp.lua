@@ -134,7 +134,7 @@ return {
                     require('lspconfig')[server_name].setup {
                         capabilities = capabilities,
                         on_attach = on_attach,
-                        settings = servers[server_name],
+                        settings = servers[server_name].settings,
                         filetypes = (servers[server_name] or {}).filetypes,
                     }
                 end,
