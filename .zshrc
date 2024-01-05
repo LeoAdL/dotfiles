@@ -164,6 +164,7 @@ export PATH=$HOME/.tmux/plugins/t-smart-tmux-session-manager/bin:$PATH
 export PATH="$PATH:/Users/leoap/.cargo/bin"
 export TR_AUTH="$(pass trans)"
 export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
+export RCLONE_PASSWORD_COMMAND="pass rclone"
 
 fb() {
     # save newline separated string into an array
