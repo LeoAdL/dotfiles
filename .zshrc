@@ -165,6 +165,10 @@ export PATH="$PATH:/Users/leoap/.cargo/bin"
 export TR_AUTH="$(pass trans)"
 export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
 export RCLONE_PASSWORD_COMMAND="pass rclone"
+export RCLONE_FAST_LIST=1
+export RCLONE_TRANSFERS=16
+export RCLONE_ORDER_BY="size,mixed,75"
+
 
 fb() {
     # save newline separated string into an array
