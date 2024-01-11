@@ -65,78 +65,12 @@ zstyle ':fzf-tab:complete:tldr:argument-1' fzf-preview 'tldr --color always $wor
 zstyle ':fzf-tab:complete:-command-:*' fzf-preview \
     ¦ '(out=$(tldr --color always "$word") 2>/dev/null && echo $out) || (out=$(MANWIDTH=$FZF_PREVIEW_COLUMNS man "$word") 2>/dev/null && echo $out) || (out=$(which "$word") && echo $out) || echo "${(P)word}"'
 
-# User configuration
 
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LdpANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-n ()
-{
-    # Block nesting of nnn in subshells
-    [ "${NNNLVL:-0}" -eq 0 ] || {
-        echo "nnn is already running"
-        return
-    }
-
-    # The behaviour is set to cd on quit (nnn checks if NNN_TMPFILE is set)
-    # If NNN_TMPFILE is set to a custom path, it must be exported for nnn to
-    # see. To cd on quit only on ^G, remove the "export" and make sure not to
-    # use a custom path, i.e. set NNN_TMPFILE *exactly* as follows:
-    #      NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
-    export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
-
-    # Unmask ^Q (, ^V etc.) (if required, see `stty -a`) to Quit nnn
-    # stty start undef
-    # stty stop undef
-    # stty lwrap undef
-    # stty lnext undef
-
-    # The command builtin allows one to alias nnn to n, if desired, without
-    # making an infinitely recursive alias
-    command nnn -a -e -d -P p "$@"
-
-    [ ! -f "$NNN_TMPFILE" ] || {
-        . "$NNN_TMPFILE"
-        rm -f "$NNN_TMPFILE" > /dev/null
-    }}
 lfcd () {
     # `command` is needed in case `lfcd` is aliased to `lf`
     cd "$(command lf -print-last-dir "$@")"
 }
-export NNN_TERMINAL=tmux
-export NNN_PLUG='d:diffs;f:fzcd;u:getplugs;p:preview-tui'
-export NNN_TRASH=1
-# This second option relies on you're terminal using the catppuccin theme and well use true catppuccin colors:
-BLK="03" CHR="03" DIR="04" EXE="02" REG="07" HARDLINK="05" SYMLINK="05" MISSING="08" ORPHAN="01" FIFO="06" SOCK="03" UNKNOWN="01"
-
-# Export Context Colors
-export NNN_COLORS="#04020301;4231"
-
-# Finally Export the set file colors ( Both options require this)
-export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$UNKNOWN"
-
 alias python3=python
-alias ls="eza --icons"
 alias lf="lfcd"
 alias transmission-remote="transmission-remote --authenv"
 export VISUAL="nvim"
@@ -151,7 +85,6 @@ if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
 fi
 export XDG_CONFIG_HOME="$HOME/.config"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
-export LESSOPEN="|$(brew --prefix)/bin/lesspipe.sh %s"
 export PATH="/Users/leoap/.local/bin:$PATH"
 export PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
 export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
@@ -164,10 +97,6 @@ export PATH=$HOME/.tmux/plugins/t-smart-tmux-session-manager/bin:$PATH
 export PATH="$PATH:/Users/leoap/.cargo/bin"
 export TR_AUTH="$(pass trans)"
 export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
-export RCLONE_PASSWORD_COMMAND="pass rclone"
-export RCLONE_FAST_LIST=1
-export RCLONE_TRANSFERS=16
-export RCLONE_ORDER_BY="size,mixed,75"
 
 
 fb() {
