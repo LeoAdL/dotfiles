@@ -80,6 +80,8 @@ return {
                     end
                 },
                 ltex = {
+                    filetypes = { 'bib', 'gitcommit', 'markdown', 'org', 'plaintex', 'rst', 'rnoweb', 'tex', 'pandoc', 'quarto', 'rmd', 'mail' },
+
                     on_attach = function(client, bufnr)
                         -- rest of your on_attach process.
                         require("ltex_extra").setup {
