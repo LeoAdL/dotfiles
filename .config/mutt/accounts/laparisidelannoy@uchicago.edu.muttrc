@@ -18,3 +18,11 @@ set record = "+Sent"
 set imap_idle = yes
 macro index o "<shell-escape>mailsync laparisidelannoy@uchicago.edu<enter>" "sync laparisidelannoy@uchicago.edu"
 mailboxes "=INBOX" "=Drafts" "=Junk" "=Trash" "=Sent" "=Archive"
+virtual-mailboxes \
+    "Unified inbox"     "notmuch://?query=tag:inbox and date:1M.."\
+    "Unread"    "notmuch://?query=tag:unread"\
+    "Starred"   "notmuch://?query=tag:*"\
+    "Sent"      "notmuch://?query=tag:sent"        # sets up queries for virtual folders
+
+set spool_file="Unified inbox"                          # enable virtual folders
+

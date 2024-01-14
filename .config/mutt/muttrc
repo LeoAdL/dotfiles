@@ -7,13 +7,6 @@ macro index,pager,attach a  "<pipe-message>sed -e /^From/d -e s/To:/From:/ | abo
 
 
 set nm_default_url="notmuch:///Users/leoap/.local/share/mail/" # path to the maildir
-set virtual_spool_file=yes                          # enable virtual folders
-virtual-mailboxes \
-    "INBOX"     "notmuch://?query=tag:inbox and date:1M.."\
-    "Unread"    "notmuch://?query=tag:unread"\
-    "Starred"   "notmuch://?query=tag:*"\
-    "Sent"      "notmuch://?query=tag:sent"        # sets up queries for virtual folders
-
 
 set index_format="%2C %Z %?X?A& ? %D %-15.15F %s"
 
@@ -46,6 +39,18 @@ macro index A "<modify-labels>+archive -unread -inbox<enter>"        # tag as Ar
 macro index S "<modify-labels-then-hide>-inbox -unread +junk<enter>" # tag as Junk mail
 macro index + "<modify-labels>+*<enter><sync-mailbox>"               # tag as starred
 macro index - "<modify-labels>-*<enter><sync-mailbox>"               # tag as unstarred
+macro index,pager \cb "<pipe-message> urlscan<Enter>" "call urlscan to extract URLs out of a message"
+macro attach,compose \cb "<pipe-entry> urlscan<Enter>" "call urlscan to extract URLs out of a message"
+
+bind index,pager X change-vfolder
+
+set query_command = "echo %s | xargs khard email --parsable --"
+bind editor <Tab> complete-query
+bind editor ^T    complete
+
+macro index,pager A \
+  "<pipe-message>khard add-email --headers=from,cc --skip-already-added<return>" \
+  "add the sender and cc email addresses to khard"
 set use_threads=threads sort=reverse-last-date sort_aux=reverse-last-date
 set abort_key = "<Esc>"
 # vim: filetype=muttrc
@@ -107,3 +112,37 @@ color body		color4 default		(^|[[:space:]])/[^[:space:]]+/([[:space:]]|$)     # 
 
 color sidebar_flagged   color1 default    # Mailboxes with flagged mails are Red
 color sidebar_new       color10 default   # Mailboxes with new mail are Green
+
+# Use GPGME
+# Use my key for signing and encrypting
+set pgp_default_key = DF956AF112B99E910A60862DADD0CA028A07C8BE
+
+
+
+# Use GPGME
+set crypt_use_gpgme = yes
+
+# Automatically sign all out-going email
+set crypt_autosign = yes
+
+# Sign replies to signed emails
+set crypt_replysign = yes
+
+# Encrypt replies to encrypted emails
+set crypt_replyencrypt = yes
+
+# Encrypt and sign replies to encrypted and signed email
+set crypt_replysignencrypted = yes
+
+# Attempt to verify signatures automatically
+set crypt_verify_sig = yes
+
+# Attempt to encrypt automatically, if possible
+# I would recommend setting this to no as university often have spam filters
+# And this will cause your emails to be marked as spam
+# as they can't decrypt your emails LMAO
+set crypt_opportunistic_encrypt = no
+
+# So you can view encrypted emails automatically
+auto_view application/pgp-encrypted
+
