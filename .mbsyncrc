@@ -41,7 +41,7 @@ Channel laparisidelannoy@uchicago.edu
 Expunge Both
 Far :laparisidelannoy@uchicago.edu-remote:
 Near :laparisidelannoy@uchicago.edu-local:
-Patterns *
+Patterns * 
 Create Both
 SyncState *
 MaxMessages 0
