@@ -11,10 +11,10 @@ set mbox_type = Maildir
 set hostname = "gmail.com"
 source /usr/local/share/mutt-wizard/switch.muttrc
 set spool_file = "+INBOX"
-set postponed = "+Drafts"
-set trash = "+Trash"
-set record = "+Sent"
+set postponed = "[Gmail]/Drafts"
+set trash = "[Gmail]/Trash"
+set record = "[GMAIL]/Sent Mail"
 
 set imap_idle = yes
 macro index o "<shell-escape>mailsync leoaparisi@gmail.com<enter>" "sync leoaparisi@gmail.com"
-mailboxes "=Drafts" "=INBOX" "=Sent Mail" "=Trash" "=[Gmail]/All Mail/U Chicago" "=[Gmail]/Drafts" "=[Gmail]/Important" "=[Gmail]/Sent Mail" "=[Gmail]/Spam" "=[Gmail]/Starred" "=[Gmail]/Trash"
+mailboxes "=Drafts" "=INBOX" "=[Gmail]/Sent Mail" "=[Gmail]/Trash" "=[Gmail]/Junk"

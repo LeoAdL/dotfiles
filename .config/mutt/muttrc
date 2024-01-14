@@ -1,11 +1,18 @@
 # vim: filetype=neomuttrc
 source /usr/local/share/mutt-wizard/mutt-wizard.muttrc
-source /Users/leoap/.config/mutt/accounts/laparisidelannoy@uchicago.edu.muttrc
+source /Users/leoap/.config/mutt/accounts/leoaparisi@gmail.com.muttrc
 macro index,pager i2 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/leoaparisi@gmail.com.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to leoaparisi@gmail.com"
 macro index,pager i1 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/laparisidelannoy@uchicago.edu.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to laparisidelannoy@uchicago.edu"
 macro index,pager,attach a  "<pipe-message>sed -e /^From/d -e s/To:/From:/ | abook --add-email-quiet<return>" 
 
 
+set nm_default_url="notmuch:///Users/leoap/.local/share/mail/" # path to the maildir
+set virtual_spool_file=yes                          # enable virtual folders
+virtual-mailboxes \
+    "INBOX"     "notmuch://?query=tag:inbox and date:1M.."\
+    "Unread"    "notmuch://?query=tag:unread"\
+    "Starred"   "notmuch://?query=tag:*"\
+    "Sent"      "notmuch://?query=tag:sent"        # sets up queries for virtual folders
 
 
 set index_format="%2C %Z %?X?A& ? %D %-15.15F %s"
@@ -34,10 +41,13 @@ bind index,pager K sidebar-prev
 bind index,pager J sidebar-next
 bind index,pager N search-opposite
 
+macro index u "<modify-labels>+unread +inbox<enter>"        # tag as unread
+macro index A "<modify-labels>+archive -unread -inbox<enter>"        # tag as Archived
+macro index S "<modify-labels-then-hide>-inbox -unread +junk<enter>" # tag as Junk mail
+macro index + "<modify-labels>+*<enter><sync-mailbox>"               # tag as starred
+macro index - "<modify-labels>-*<enter><sync-mailbox>"               # tag as unstarred
 set use_threads=threads sort=reverse-last-date sort_aux=reverse-last-date
 set abort_key = "<Esc>"
-set nm_default_url="notmuch:///Users/leoap/.local/share/mail/" # path to the maildir
-virtual-mailboxes "Unified Inbox" "notmuch://?query=tag:inbox&limit=1000"
 # vim: filetype=muttrc
 
 #
@@ -63,30 +73,37 @@ virtual-mailboxes "Unified Inbox" "notmuch://?query=tag:inbox&limit=1000"
 # for background in 16 color terminal, valid background colors include:
 # base03, bg, black, any of the non brights
 
-color normal		default default             # default colours
-color index		brightblue default "~N"       # new messages
-color index		red default "~F"              # flagged messages
-color index		blue default "~T"             # tagged messages
-color index		brightred default "~D"        # deleted messages
-color body		brightgreen default         "(https?|ftp)://[\-\.+,/%~_:?&=\#a-zA-Z0-9]+"  # links
-color body		brightgreen default         "[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+"          # email-addresses
-color attachment	magenta default             # attachments
-color signature		brightwhite default         # sigs
-color search		brightred black             # highlight results
+color normal		  default default         # Text is "Text"
+color index		    color2 default ~N       # New Messages are Green
+color index		    color1 default ~F       # Flagged messages are Red
+color index		    color13 default ~T      # Tagged Messages are Red
+color index		    color1 default ~D       # Messages to delete are Red
+color attachment	color5 default          # Attachments are Pink
+color signature	  color8 default          # Signatures are Surface 2
+color search		  color4 default          # Highlighted results are Blue
 
-color indicator		black cyan                  # currently highlighted message
-color error		red default                 # error messages
-color status		white brightblack           # status line
-color tree		white default               # thread tree arrows
-color tilde		cyan default                # blank line padding
+color indicator		default color8          # currently highlighted message Surface 2=Background Text=Foreground
+color error		    color1 default          # error messages are Red
+color status		  color15 default         # status line "Subtext 0"
+color tree        color15 default         # thread tree arrows Subtext 0
+color tilde       color15 default         # blank line padding Subtext 0
 
-color hdrdefault	brightblue default          # default headers
-color header		cyan default "^From:"
-color header	 	cyan default "^Subject:"
+color hdrdefault  color13 default         # default headers Pink
+color header		  color13 default "^From:"
+color header	 	  color13 default "^Subject:"
 
-color quoted		cyan default                # quote colours
-color quoted1		brightcyan default
-color quoted2		blue default
-color quoted3		green default
-color quoted4		yellow default
-color quoted5		red default
+color quoted		  color15 default         # Subtext 0
+color quoted1		  color7 default          # Subtext 1
+color quoted2		  color8 default          # Surface 2
+color quoted3		  color0 default          # Surface 1
+color quoted4		  color0 default
+color quoted5		  color0 default
+
+color body		color2 default		[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+               # email addresses Green
+color body	  color2 default		(https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+        # URLs Green
+color body		color4 default		(^|[[:space:]])\\*[^[:space:]]+\\*([[:space:]]|$) # *bold* text Blue
+color body		color4 default		(^|[[:space:]])_[^[:space:]]+_([[:space:]]|$)     # _underlined_ text Blue
+color body		color4 default		(^|[[:space:]])/[^[:space:]]+/([[:space:]]|$)     # /italic/ text Blue
+
+color sidebar_flagged   color1 default    # Mailboxes with flagged mails are Red
+color sidebar_new       color10 default   # Mailboxes with new mail are Green
