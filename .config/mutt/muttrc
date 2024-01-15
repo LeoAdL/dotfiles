@@ -1,15 +1,13 @@
 # vim: filetype=neomuttrc
 source /usr/local/share/mutt-wizard/mutt-wizard.muttrc
-source /Users/leoap/.config/mutt/accounts/leoaparisi@gmail.com.muttrc
 macro index,pager i2 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/leoaparisi@gmail.com.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to leoaparisi@gmail.com"
 macro index,pager i1 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/laparisidelannoy@uchicago.edu.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to laparisidelannoy@uchicago.edu"
-macro index,pager,attach a  "<pipe-message>sed -e /^From/d -e s/To:/From:/ | abook --add-email-quiet<return>" 
-
-
 set nm_default_url="notmuch:///Users/leoap/.local/share/mail/" # path to the maildir
 
 set index_format="%2C %Z %?X?A& ? %D %-15.15F %s"
 
+set new_mail_command="terminal-notifier -title '%v' -subtitle 'New Mail' \
+-message '%n new messages, %u unread.' -activate 'alacritty'"
 set abort_noattach = ask-yes
 # Search for the following regular expression in the body of the email
 # English: attach, attached, attachment, attachments
@@ -29,9 +27,6 @@ bind index,pager,browser \Cu half-up
 
 folder-hook . 'set read_inc=100000'
 folder-hook . 'set write_inc=100000'
-bind index,pager O sidebar-open
-bind index,pager K sidebar-prev
-bind index,pager J sidebar-next
 bind index,pager N search-opposite
 
 macro index u "<modify-labels>+unread +inbox<enter>"        # tag as unread
@@ -39,20 +34,20 @@ macro index A "<modify-labels>+archive -unread -inbox<enter>"        # tag as Ar
 macro index S "<modify-labels-then-hide>-inbox -unread +junk<enter>" # tag as Junk mail
 macro index + "<modify-labels>+*<enter><sync-mailbox>"               # tag as starred
 macro index - "<modify-labels>-*<enter><sync-mailbox>"               # tag as unstarred
-macro index,pager \cb "<pipe-message> urlscan<Enter>" "call urlscan to extract URLs out of a message"
-macro attach,compose \cb "<pipe-entry> urlscan<Enter>" "call urlscan to extract URLs out of a message"
 
 bind index,pager X change-vfolder
+bind index,pager O sidebar-open
 
 set query_command = "echo %s | xargs khard email --parsable --"
 bind editor <Tab> complete-query
 bind editor ^T    complete
 
-macro index,pager A \
+macro index,pager a \
   "<pipe-message>khard add-email --headers=from,cc --skip-already-added<return>" \
   "add the sender and cc email addresses to khard"
 set use_threads=threads sort=reverse-last-date sort_aux=reverse-last-date
 set abort_key = "<Esc>"
+source /Users/leoap/.config/mutt/accounts/leoaparisi@gmail.com.muttrc
 # vim: filetype=muttrc
 
 #
@@ -112,37 +107,3 @@ color body		color4 default		(^|[[:space:]])/[^[:space:]]+/([[:space:]]|$)     # 
 
 color sidebar_flagged   color1 default    # Mailboxes with flagged mails are Red
 color sidebar_new       color10 default   # Mailboxes with new mail are Green
-
-# Use GPGME
-# Use my key for signing and encrypting
-set pgp_default_key = DF956AF112B99E910A60862DADD0CA028A07C8BE
-
-
-
-# Use GPGME
-set crypt_use_gpgme = yes
-
-# Automatically sign all out-going email
-set crypt_autosign = yes
-
-# Sign replies to signed emails
-set crypt_replysign = yes
-
-# Encrypt replies to encrypted emails
-set crypt_replyencrypt = yes
-
-# Encrypt and sign replies to encrypted and signed email
-set crypt_replysignencrypted = yes
-
-# Attempt to verify signatures automatically
-set crypt_verify_sig = yes
-
-# Attempt to encrypt automatically, if possible
-# I would recommend setting this to no as university often have spam filters
-# And this will cause your emails to be marked as spam
-# as they can't decrypt your emails LMAO
-set crypt_opportunistic_encrypt = no
-
-# So you can view encrypted emails automatically
-auto_view application/pgp-encrypted
-
