@@ -4,10 +4,8 @@ macro index,pager i2 '<sync-mailbox><enter-command>source /Users/leoap/.config/m
 macro index,pager i1 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/laparisidelannoy@uchicago.edu.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to laparisidelannoy@uchicago.edu"
 set nm_default_url="notmuch:///Users/leoap/.local/share/mail/" # path to the maildir
 
-set index_format="%2C %Z %?X?A& ? %D %-15.15F %s"
+set index_format="%2C %Z  %g %D %-15.15F %s"
 
-set new_mail_command="terminal-notifier -title '%v' -subtitle 'New Mail' \
--message '%n new messages, %u unread.' -activate 'alacritty'"
 set abort_noattach = ask-yes
 # Search for the following regular expression in the body of the email
 # English: attach, attached, attachment, attachments
@@ -30,11 +28,15 @@ folder-hook . 'set write_inc=100000'
 bind index,pager N search-opposite
 
 macro index u "<modify-labels>+unread +inbox<enter>"        # tag as unread
+macro index U "<modify-labels>-unread <enter>"        # tag as unread
 macro index A "<modify-labels>+archive -unread -inbox<enter>"        # tag as Archived
 macro index S "<modify-labels-then-hide>-inbox -unread +junk<enter>" # tag as Junk mail
 macro index + "<modify-labels>+*<enter><sync-mailbox>"               # tag as starred
 macro index - "<modify-labels>-*<enter><sync-mailbox>"               # tag as unstarred
 
+bind index,pager t modify-labels
+
+bind index,pager \/ vfolder-from-query
 bind index,pager X change-vfolder
 bind index,pager O sidebar-open
 
