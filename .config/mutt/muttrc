@@ -44,6 +44,8 @@ set query_command = "echo %s | xargs khard email --parsable --"
 bind editor <Tab> complete-query
 bind editor ^T    complete
 
+macro index,pager \cb "<pipe-message> urlscan<Enter>" "call urlscan to extract URLs out of a message"
+macro attach,compose \cb "<pipe-entry> urlscan<Enter>" "call urlscan to extract URLs out of a message"
 macro index,pager a \
   "<pipe-message>khard add-email --headers=from,cc --skip-already-added<return>" \
   "add the sender and cc email addresses to khard"
