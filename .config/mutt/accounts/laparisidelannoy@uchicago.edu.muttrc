@@ -10,10 +10,9 @@ set message_cache_dir = "/Users/leoap/.cache/mutt-wizard/laparisidelannoy_uchica
 set mbox_type = Maildir
 set hostname = "uchicago.edu"
 source /usr/local/share/mutt-wizard/switch.muttrc
-set spool_file = "+INBOX"
-set postponed = "+Drafts"
-set trash = "+Trash"
-set record = "+Sent Mail"
+set postponed = "+Drafts/"
+set trash = "+Trash/"
+set record = "+Sent Mail/"
 
 set imap_idle = yes
 macro index o "<shell-escape>mailsync laparisidelannoy@uchicago.edu<enter>" "sync laparisidelannoy@uchicago.edu"

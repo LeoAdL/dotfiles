@@ -3,14 +3,17 @@
 [[leoaparisi@gmail.com]]
 path = /Users/leoap/.calendar/google/leoaparisi@gmail.com/
 type = calendar
+color = dark green
 
 [[uchicago]]
 path = ~/.calendar/uchicago/laparisidelannoy@uchicago.edu/
 type = calendar
+color = dark magenta
 
 [[holidays]]
 path = ~/.calendar/google/cln2stbjc4hmgrrcd5i62ua0ctp6utbg5pr2sor1dhimsp31e8n6errfctm6abj3dtmg@virtual/
 type = calendar
+color = dark blue
 
 [locale]
 timeformat = %H:%M
@@ -21,6 +24,3 @@ longdatetimeformat = %m/%d/%Y %H:%M
 
 [default]
 default_calendar = leoaparisi@gmail.com
-
-[view]
-theme = dark

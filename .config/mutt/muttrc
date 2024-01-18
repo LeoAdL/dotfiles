@@ -36,7 +36,7 @@ macro index - "<modify-labels>-*<enter><sync-mailbox>"               # tag as un
 
 bind index,pager t modify-labels
 
-bind index,pager \/ vfolder-from-query
+bind index,pager \Cf vfolder-from-query
 bind index,pager X change-vfolder
 bind index,pager O sidebar-open
 
