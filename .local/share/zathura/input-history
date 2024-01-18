@@ -12,8 +12,6 @@
 :presentation
 ?presentation
 ? toggle
-/new
-:version
 :open /Users/leoap/Downloads/Supera_JMP_Wharton.pdf
 :recolor
 /farhi
@@ -33,11 +31,9 @@
 :sc_toggle_presentation
 :toggle_presentation
 /dd
-:map
 :exec
 :exec 
 :! 
-:help 
 :?
 :source
 :set recolor
@@ -46,8 +42,16 @@
 :open /Users/leoap/Downloads/SED2023-1096.pdf
 /ds
 ? dark
-:help
 :open /Users/leoap/Downloads/(Springer\ Series\ in\ Synergetics)\ Crispin\ Gardiner\ -\ Stochastic\ Methods_\ A\ Handbook\ for\ the\ Natural\ and\ Social\ Sciences\ (Springer\ Series\ in\ Synergetics)\ \ -Springer\ (2010).pdf
 /ergodic
-:open /Users/leoap/Downloads/(Texts\ in\ Applied\ Mathematics\ 31)\ Pierre\ Brémaud\ -\ Markov\ Chains\ -\ Gibbs\ Fields,\ Monte\ Carlo\ Simulation\ and\ Queues-Springer\ (2020).pdf
 :open /Users/leoap/Zotero/storage/K7YVXTL5/kurlat_wang_sebastian_di_tella_benjamin_hebert.pdf
+:open /Users/leoap/Downloads/(Texts\ in\ Applied\ Mathematics\ 31)\ Pierre\ Brémaud\ -\ Markov\ Chains\ -\ Gibbs\ Fields,\ Monte\ Carlo\ Simulation\ and\ Queues-Springer\ (2020).pdf
+:set
+:version
+:help 
+:map
+:map 
+:help
+:toggle pre
+/new
+/weak

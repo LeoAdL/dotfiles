@@ -148,7 +148,6 @@ open "$file"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 
-
 source ${HOMEBREW_PREFIX:=/opt/homebrew}/opt/antidote/share/antidote/antidote.zsh
 antidote load
 
