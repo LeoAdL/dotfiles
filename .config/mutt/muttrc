@@ -3,9 +3,9 @@ source /usr/local/share/mutt-wizard/mutt-wizard.muttrc
 macro index,pager i2 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/leoaparisi@gmail.com.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to leoaparisi@gmail.com"
 macro index,pager i1 '<sync-mailbox><enter-command>source /Users/leoap/.config/mutt/accounts/laparisidelannoy@uchicago.edu.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to laparisidelannoy@uchicago.edu"
 set nm_default_url="notmuch:///Users/leoap/.local/share/mail/" # path to the maildir
-
+set date_format="%d %b %y %R"
 set index_format="%2C %Z  %g %D %-15.15F %s"
-
+set beep=no
 set abort_noattach = ask-yes
 # Search for the following regular expression in the body of the email
 # English: attach, attached, attachment, attachments
@@ -39,6 +39,8 @@ bind index,pager t modify-labels
 bind index,pager \Cf vfolder-from-query
 bind index,pager X change-vfolder
 bind index,pager O sidebar-open
+
+bind index,pager x entire-thread
 
 set query_command = "echo %s | xargs khard email --parsable --"
 bind editor <Tab> complete-query

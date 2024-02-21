@@ -1,0 +1,12 @@
+pane	2	1	1	:*	1	Leos-Air.cable.rcn.com	:/Users/leoap	1	zsh	:
+pane	2	1	1	:*	2	Leos-Air.cable.rcn.com	:/Users/leoap/.dotfiles/.config/lf	0	zsh	:
+pane	4	1	1	:##*	1	Leos-Air.cable.rcn.com	:/Users/leoap	0	zsh	:
+pane	4	1	1	:##*	2	Leos-MacBook-Air.local	:/Users/leoap	1	zsh	:
+pane	5	1	1	:*	1	Leos-MacBook-Air.local	:/Users/leoap	1	zsh	:
+pane	6	1	1	:*	1	Leos-Air.cable.rcn.com	:/Users/leoap	0	restic	:restic backup /Users/leoap/ --exclude=/Users/leoap/Library/** --exclude=/Users/leoap/Downloads/** --exclude=/Users/leoap/Movies/movie/** --exclude=/Users/leoap/Movies/series/** --exclude=/Users/leoap/OneDrive/** --exclude=/Users/leoap/Music/**
+pane	6	1	1	:*	2	Leos-Air.cable.rcn.com	:/Users/leoap	1	zsh	:
+window	2	1	:zsh	1	:*	143c,430x69,0,0{215x69,0,0,20,214x69,216,0,21}	:
+window	4	1	:zsh	1	:##*	1440,430x69,0,0{215x69,0,0,24,214x69,216,0,25}	:
+window	5	1	:zsh	1	:*	da05,430x42,0,0,26	:
+window	6	1	:zsh	1	:*	1441,430x69,0,0{215x69,0,0,29,214x69,216,0,41}	:
+state	6	

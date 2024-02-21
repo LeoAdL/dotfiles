@@ -1,0 +1,5 @@
+pane	2	1	0	:##-	1	Leos-MacBook-Air.local	:/Users/leoap/sync/core	1	neomutt	:neomutt
+pane	2	2	1	:*	1	Leos-MacBook-Air.local	:/Users/leoap	1	zsh	:
+window	2	1	:neomutt	0	:##-	d3a5,430x69,0,0,8	:
+window	2	2	:zsh	1	:*	6a01,430x69,0,0,12	:
+state	2	

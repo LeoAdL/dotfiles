@@ -1,0 +1,5 @@
+pane	2	1	1	:*	1	Leos-MacBook-Air.local	:/Users/leoap/sync/core	1	nvim	:nvim
+pane	2	2	0	:-	1	Topgrade - Summary	:/Users/leoap	1	zsh	:
+window	2	1	:nvim	1	:*	b485,180x42,0,0,8	:
+window	2	2	:zsh	0	:-	5a71,180x42,0,0,12	:
+state	2	

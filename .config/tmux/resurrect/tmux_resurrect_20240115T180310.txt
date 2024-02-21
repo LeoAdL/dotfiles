@@ -1,0 +1,5 @@
+pane	5	1	1	:*	1	Topgrade - Summary	:	1	crontab	:crontab -e
+pane	5	2	0	:##-	1	Leos-Air.cable.rcn.com	:/Users/leoap	1	neomutt	:neomutt
+window	5	1	:crontab	1	:*	d39e,430x69,0,0,1	:
+window	5	2	:neomutt	0	:##-	d3a6,430x69,0,0,9	:
+state	5	

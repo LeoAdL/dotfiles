@@ -1,0 +1,4 @@
+pane	5	1	1	:*	1	Leos-Air.cable.rcn.com	:/Users/leoap	1	bash	:/bin/bash /opt/homebrew/Library/Homebrew/brew.sh install getopt
+pane	5	1	1	:*	2	Leos-Air.cable.rcn.com	:/Users/leoap	0	neomutt	:neomutt
+window	5	1	:bash	1	:*	943d,430x69,0,0{215x69,0,0,32,214x69,216,0,31}	:
+state	5	

@@ -1,0 +1,3 @@
+pane	5	1	1	:*	1	Leos-Air.cable.rcn.com	:/Users/leoap	1	zsh	:
+window	5	1	:zsh	1	:*	6a00,430x69,0,0,30	:
+state	5	

@@ -1,0 +1,7 @@
+pane	2	1	0	:##	1	Leos-MacBook-Air.local	:/Users/leoap/.dotfiles	1	zsh	:
+pane	2	2	0	:-	1	Leos-MacBook-Air.local	:/Users/leoap/phd_notes/Zotero_PDF	1	zsh	:
+pane	2	3	1	:*	1	Leos-MacBook-Air.local	:/Users/leoap/Library/CloudStorage/Dropbox/manuscript/begs4/code/RamseyCode/Code_Leo	1	nvim	:nvim Main.jl
+window	2	1	:zsh	0	:##	ae5e,80x23,0,0,1	:
+window	2	2	:zsh	0	:-	c75f,428x65,0,0,2	:
+window	2	3	:nvim	1	:*	c763,428x65,0,0,6	:
+state	2	

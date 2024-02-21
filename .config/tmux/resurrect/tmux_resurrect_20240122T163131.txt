@@ -1,0 +1,5 @@
+pane	5	1	1	:*	1	Leos-MacBook-Air.local	:/Users/leoap	1	neomutt	:lf -print-last-dir
+pane	5	2	0	:-	1	Leos-MacBook-Air.local	:/Users/leoap	1	nvim	:nvim
+window	5	1	:neomutt	1	:*	6a04,430x69,0,0,15	:
+window	5	2	:nvim	0	:-	6a02,430x69,0,0,70	:
+state	5	

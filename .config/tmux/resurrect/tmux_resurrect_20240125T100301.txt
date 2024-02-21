@@ -1,0 +1,5 @@
+pane	2	1	0	:##-	1	Leos-MacBook-Air.local	:/Users/leoap/sync/core	1	neomutt	:neomutt
+pane	2	2	1	:*	1	Topgrade - Summary	:/Users/leoap/phd_notes/Zotero_PDF	1	zathura	:zathura raschka_et_al_2022_machine_learning_with_pytorch_and_scikit-learn.pdf
+window	2	1	:neomutt	0	:##-	b485,180x42,0,0,8	:
+window	2	2	:zathura	1	:*	5a6f,180x42,0,0,10	:
+state	2	

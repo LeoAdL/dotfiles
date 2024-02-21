@@ -1,0 +1,6 @@
+pane	2	1	1	:*	1	Leos-MacBook-Air.local	:/Users/leoap	0	neomutt	:neomutt
+pane	2	1	1	:*	2	Leos-MacBook-Air.local	:/Users/leoap/.local/share/mail/leoaparisi@gmail.com/[Gmail]/Sent\ Mail	1	zsh	:lf -print-last-dir
+pane	2	2	0	:-	1	Topgrade - Summary	:/Users/leoap	1	zsh	:
+window	2	1	:zsh	1	:*	d594,180x42,0,0{90x42,0,0,8,89x42,91,0,15}	:
+window	2	2	:zsh	0	:-	5a71,180x42,0,0,12	:
+state	2	

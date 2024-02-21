@@ -1,0 +1,8 @@
+pane	2	1	0	:##	1	Leos-MacBook-Air.local	:/Users/leoap/.dotfiles	1	neomutt	:neomutt
+pane	2	2	1	:*	1	Topgrade - Summary	:/Users/leoap/phd_notes/Zotero_PDF	1	python3.10	:/opt/homebrew/Caskroom/miniforge/base/bin/python /opt/homebrew/Caskroom/miniforge/base/bin/conda update --all
+pane	2	2	1	:*	2	Leos-MacBook-Air.local	:/Users/leoap/phd_notes/Zotero_PDF	0	zathura	:zathura raschka_et_al_2022_machine_learning_with_pytorch_and_scikit-learn.pdf
+pane	2	3	0	:-	1	Leos-MacBook-Air.local	:/Users/leoap/phd_notes/Zotero_PDF	1	nvim	:nvim
+window	2	1	:neomutt	0	:##	c765,428x65,0,0,8	:
+window	2	2	:python3.10	1	:*	e915,428x65,0,0{214x65,0,0,16,213x65,215,0,20}	:
+window	2	3	:nvim	0	:-	e3e0,428x65,0,0,21	:
+state	2	

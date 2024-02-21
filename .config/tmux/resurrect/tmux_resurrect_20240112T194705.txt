@@ -1,0 +1,3 @@
+pane	5	1	1	:*	1	Topgrade - Summary	:/Users/leoap/Downloads	1	python3.10	:/opt/homebrew/Caskroom/miniforge/base/bin/python /opt/homebrew/Caskroom/miniforge/base/bin/conda update --all
+window	5	1	:python3.10	1	:*	da08,430x42,0,0,48	:
+state	5	

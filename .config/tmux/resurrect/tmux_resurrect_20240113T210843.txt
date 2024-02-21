@@ -1,0 +1,4 @@
+pane	5	1	1	:*	1	Leos-Air.cable.rcn.com	:/Users/leoap/.dotfiles/.config/mutt/accounts	0	zsh	:
+pane	5	1	1	:*	2	Leos-Air.cable.rcn.com	:/Users/leoap/.local/share/mail/leoaparisi@gmail.com/[Gmail]	1	zsh	:lf -print-last-dir
+window	5	1	:zsh	1	:*	5440,430x69,0,0{215x69,0,0,18,214x69,216,0,22}	:
+state	5	

@@ -1,0 +1,4 @@
+pane	5	1	1	:*	1	Leos-MacBook-Air.local	:/Applications/bazarr	1	Python	:/opt/homebrew/Cellar/python@3.8/3.8.18_1/Frameworks/Python.framework/Versions/3.8/Resources/Python.app/Contents/MacOS/Python bazarr.py
+pane	5	1	1	:*	2	Leos-Air.cable.rcn.com	:/Users/leoap/Downloads	0	zsh	:
+window	5	1	:Python	1	:*	1442,430x69,0,0{215x69,0,0,26,214x69,216,0,46}	:
+state	5	

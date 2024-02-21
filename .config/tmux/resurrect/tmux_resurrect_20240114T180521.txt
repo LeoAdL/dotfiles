@@ -1,0 +1,4 @@
+pane	5	1	1	:*	1	Leos-Air.cable.rcn.com	:/Users/leoap/.dotfiles	1	zsh	:lf -print-last-dir
+pane	5	1	1	:*	2	Leos-Air.cable.rcn.com	:/Users/leoap/.dotfiles	0	neomutt	:neomutt
+window	5	1	:zsh	1	:*	943d,430x69,0,0{215x69,0,0,32,214x69,216,0,31}	:
+state	5	

@@ -1,0 +1,4 @@
+pane	5	1	1	:*	1	Leos-Air.cable.rcn.com	:/Users/leoap/.local/share/mail	1	neomutt	:neomutt
+pane	5	1	1	:*	2	Leos-Air.cable.rcn.com	:/Users/leoap	0	zsh	:
+window	5	1	:neomutt	1	:*	543f,430x69,0,0{215x69,0,0,18,214x69,216,0,20}	:
+state	5	

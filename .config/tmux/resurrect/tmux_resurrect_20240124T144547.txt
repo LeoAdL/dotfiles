@@ -1,0 +1,5 @@
+pane	2	1	0	:##-	1	Leos-MacBook-Air.local	:/Users/leoap	1	restic	:restic backup /Users/leoap/ --exclude=/Users/leoap/Library/** --exclude=/Users/leoap/Downloads/** --exclude=/Users/leoap/Movies/movie/** --exclude=/Users/leoap/Movies/series/** --exclude=/Users/leoap/OneDrive/** --exclude=/Users/leoap/Music/** --exclude=/Users/leoap/.Trash/**
+pane	2	2	1	:*	1	Leos-MacBook-Air.local	:/Users/leoap/sync/core	1	neomutt	:neomutt
+window	2	1	:restic	0	:##-	d3a1,430x69,0,0,4	:
+window	2	2	:neomutt	1	:*	d3a5,430x69,0,0,8	:
+state	2	

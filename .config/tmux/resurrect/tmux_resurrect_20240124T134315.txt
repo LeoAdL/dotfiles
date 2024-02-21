@@ -1,0 +1,3 @@
+pane	2	1	1	:*	1	Leos-MacBook-Air.local	:/Users/leoap/.gnupg	1	neomutt	:neomutt
+window	2	1	:neomutt	1	:*	b480,180x42,0,0,3	:
+state	2	

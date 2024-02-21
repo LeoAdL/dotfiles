@@ -1,0 +1,4 @@
+pane	5	1	1	:*	1	Leos-Air.cable.rcn.com	:/Users/leoap/.local/share/mail	1	zsh	:
+pane	5	1	1	:*	2	Leos-Air.cable.rcn.com	:/usr/local/share/mutt-wizard	0	zsh	:lf -print-last-dir
+window	5	1	:zsh	1	:*	8f25,430x69,0,0{323x69,0,0,18,106x69,324,0,19}	:
+state	5	

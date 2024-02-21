@@ -1,0 +1,4 @@
+pane	5	1	1	:*	1	Leos-Air.cable.rcn.com	:/Users/leoap/.dotfiles	0	neomutt	:neomutt
+pane	5	1	1	:*	2	Leos-Air.cable.rcn.com	:/Users/leoap	1	dua	:dua i
+window	5	1	:dua	1	:*	943f,430x69,0,0{215x69,0,0,31,214x69,216,0,36}	:
+state	5	

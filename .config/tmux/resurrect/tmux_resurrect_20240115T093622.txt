@@ -1,0 +1,5 @@
+pane	5	1	1	:*	1	Leos-Air.cable.rcn.com	:/Users/leoap/.local/share/mail/laparisidelannoy@uchicago.edu	1	nvim	:nvim /usr/local/bin/mailsync
+pane	5	2	0	:-	1	Leos-Air.cable.rcn.com	:/Users/leoap	1	zsh	:
+window	5	1	:nvim	1	:*	d3a5,430x69,0,0,8	:
+window	5	2	:zsh	0	:-	d3a3,430x69,0,0,6	:
+state	5	

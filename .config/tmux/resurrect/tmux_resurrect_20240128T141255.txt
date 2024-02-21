@@ -1,0 +1,7 @@
+pane	2	1	0	:##	1	Leos-MacBook-Air.local	:/Users/leoap/.dotfiles	1	neomutt	:neomutt
+pane	2	2	0	:-	1	Leos-MacBook-Air.local	:/Users/leoap/phd_notes/Zotero_PDF	1	zathura	:zathura raschka_et_al_2022_machine_learning_with_pytorch_and_scikit-learn.pdf
+pane	2	3	1	:*	1	Leos-MacBook-Air.local	:/Users/leoap/phd_notes/Zotero_PDF	1	zsh	:
+window	2	1	:neomutt	0	:##	c765,428x65,0,0,8	:
+window	2	2	:zathura	0	:-	e3df,428x65,0,0,20	:
+window	2	3	:zsh	1	:*	e3e0,428x65,0,0,21	:
+state	2	

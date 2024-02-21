@@ -1,0 +1,4 @@
+pane	5	1	1	:*	1	Topgrade - Summary	:/Users/leoap	0	zsh	:
+pane	5	1	1	:*	2	Leos-Air.cable.rcn.com	:/Users/leoap/.config/vdirsyncer	1	nvim	:nvim config
+window	5	1	:nvim	1	:*	cb9f,430x69,0,0{215x69,0,0,1,214x69,216,0,5}	:
+state	5	

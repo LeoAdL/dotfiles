@@ -23,7 +23,6 @@
 /application
 :open /Users/leoap/Zotero/storage/2CZZZRTN/ahnert_et_al_2022_the_digital_economy,_privacy,_and_cbdc.pdf
 :toggle_fu
-:toggle_fullscreen
 :toggle_inputbar
 :unmap F5
 :exec "toggle_presentation"
@@ -47,11 +46,52 @@
 :open /Users/leoap/Zotero/storage/K7YVXTL5/kurlat_wang_sebastian_di_tella_benjamin_hebert.pdf
 :open /Users/leoap/Downloads/(Texts\ in\ Applied\ Mathematics\ 31)\ Pierre\ Brémaud\ -\ Markov\ Chains\ -\ Gibbs\ Fields,\ Monte\ Carlo\ Simulation\ and\ Queues-Springer\ (2020).pdf
 :set
-:version
-:help 
-:map
 :map 
 :help
 :toggle pre
 /new
 /weak
+:45
+:60
+:map
+:help 
+:help key
+:version
+:dump
+:source 
+:toggle_fullscreen
+:exec toggle_fullscreen
+:map F6 toggle_fullscreen
+/ovr
+:1140
+:140
+:160
+:80
+/boosting
+/score
+/f1
+/randomizedG
+/Randomized
+/gradient boos
+/learning
+/learning rate
+/support ve
+/kernel
+/Randomizeds
+/makepi
+/make_pi
+/missing
+/imputer
+/fillna
+/split_t
+/split_
+/_test
+/pipeline
+/cross_val
+:334
+:open /Users/leoap/Downloads/Polars_cheat_sheet.pdf
+:open /Users/leoap/Downloads/Leo_Aparisi_de_Lannoy_resume.pdf
+:open /Users/leoap/phd_notes/Zotero_PDF/raschka_et_al_2022_machine_learning_with_pytorch_and_scikit-learn.pdf
+:440
+:400
+:370

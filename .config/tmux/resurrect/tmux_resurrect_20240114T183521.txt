@@ -1,0 +1,4 @@
+pane	5	1	1	:*	1	Leos-Air.cable.rcn.com	:/Users/leoap/.dotfiles	0	bash	:/bin/sh /usr/local/bin/mailsync
+pane	5	1	1	:*	2	Leos-Air.cable.rcn.com	:/	1	zsh	:
+window	5	1	:zsh	1	:*	943f,430x69,0,0{215x69,0,0,31,214x69,216,0,36}	:
+state	5	

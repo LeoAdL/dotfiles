@@ -1,0 +1,3 @@
+pane	5	1	1	:*	1	Topgrade - Summary	:/Users/leoap/.local/share/mail/leoaparisi@gmail.com	1	mbsync	:mbsync leoaparisi@gmail.com
+window	5	1	:mbsync	1	:*	d39e,430x69,0,0,1	:
+state	5	

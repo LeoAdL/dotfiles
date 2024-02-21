@@ -1,0 +1,3 @@
+pane	2	1	1	:*	1	Leos-MacBook-Air.local	:/Users/leoap	1	rclone	:rclone sync -P --create-empty-src-dirs --fast-list -vv --transfers=4 //Users/leoap/sync/pictures remote:pictures-leoadl
+window	2	1	:rclone	1	:*	5a72,180x42,0,0,13	:
+state	2	

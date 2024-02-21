@@ -1,0 +1,3 @@
+/Volumes/GoogleDrive-116513175183059327434/My Drive	40
+/Users/leoap/.config/nvim/lua/custom	40
+/Users/leoap	40

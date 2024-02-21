@@ -1,0 +1,6 @@
+pane	5	1	0	:##!-	1	Leos-MacBook-Air.local	:/Users/leoap	1	neomutt	:lf -print-last-dir
+pane	5	2	1	:*	1	Topgrade - Summary	:/usr/local/share/bazarr	1	Python	:/opt/homebrew/Cellar/python@3.8/3.8.18_2/Frameworks/Python.framework/Versions/3.8/Resources/Python.app/Contents/MacOS/Python bazarr.py
+pane	5	2	1	:*	2	Leos-MacBook-Air.local	:/Users/leoap	0	zsh	:
+window	5	1	:neomutt	0	:##!-	5a74,180x42,0,0,15	:
+window	5	2	:Python	1	:*	8a0e,180x42,0,0{90x42,0,0,49,89x42,91,0,50}	:
+state	5	

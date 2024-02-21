@@ -1,6 +1,9 @@
 map p toggle_presentation 
 map [presentation] p toggle_presentation 
 
+map M toggle_fullscreen	 
+map [fullscreen] M toggle_fullscreen	 
+
 set window-title-basename true
 # set statusbar-home-tilde  true
 set window-title-page true 
@@ -20,7 +23,7 @@ set scroll-full-overlap 0.01
 set scroll-step 50
 
 #zoom settings
-set font "iosevka 15"
+set font "lato 15"
 
 set recolor false
 set recolor-reverse-video "true"
@@ -63,6 +66,6 @@ set index-active-bg		        "#313244"
 set render-loading-bg		      "#1E1E2E"
 set render-loading-fg		      "#CDD6F4"
 
-set highlight-color		        "#575268"
-set highlight-fg              "#F5C2E7"
+set highlight-color		        "#F5C2E7"
+set highlight-fg              "#111111"
 set highlight-active-color	  "#F5C2E7"

@@ -1,0 +1,5 @@
+pane	2	1	0	:##-	1	Leos-MacBook-Air.local	:/Users/leoap	1	neomutt	:neomutt
+pane	2	2	1	:*	1	Leos-MacBook-Air.local	:/usr/local/share/bazarr	1	Python	:/opt/homebrew/Cellar/python@3.8/3.8.18_2/Frameworks/Python.framework/Versions/3.8/Resources/Python.app/Contents/MacOS/Python bazarr.py
+window	2	1	:neomutt	0	:##-	b480,180x42,0,0,3	:
+window	2	2	:Python	1	:*	b486,180x42,0,0,9	:
+state	2	

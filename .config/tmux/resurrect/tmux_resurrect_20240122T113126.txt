@@ -1,0 +1,5 @@
+pane	5	1	0	:##-	1	Leos-MacBook-Air.local	:/Users/leoap	1	neomutt	:lf -print-last-dir
+pane	5	2	1	:*	1	Topgrade - Summary	:/	1	zsh	:
+window	5	1	:neomutt	0	:##-	6a04,430x69,0,0,15	:
+window	5	2	:zsh	1	:*	ea09,430x69,0,0,68	:
+state	5	

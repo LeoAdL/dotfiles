@@ -1,0 +1,3 @@
+pane	3	1	1	:*	1	Topgrade - Brew	:/Users/leoap/Library/CloudStorage/GoogleDrive-leoaparisi@gmail.com	1	topgrade	:topgrade
+window	3	1	:topgrade	1	:*	b39e,430x42,0,0,1	:
+state	3	

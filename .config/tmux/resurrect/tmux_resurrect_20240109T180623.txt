@@ -1,0 +1,3 @@
+pane	2	1	1	:*	1	Leos-MacBook-Air.local	:/Users/leoap	1	rclone	:rclone sync sync/pictures remote:pictures-leoadl -P
+window	2	1	:rclone	1	:*	5a76,180x42,0,0,17	:
+state	2	

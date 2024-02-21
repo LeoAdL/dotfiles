@@ -68,10 +68,8 @@ return {
                     },
                 },
                 marksman = {},
+                julials = {},
                 pyright = {
-                    root_dir = function()
-                        return vim.fn.getcwd()
-                    end
                 },
                 ruff_lsp = {
                     on_attach = function(client, bufnr)

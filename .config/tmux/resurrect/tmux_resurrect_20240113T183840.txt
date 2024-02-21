@@ -1,0 +1,4 @@
+pane	5	1	1	:*	1	Leos-Air.cable.rcn.com	:/Users/leoap	0	bash	:/bin/sh /usr/local/bin/mailsync
+pane	5	1	1	:*	2	Leos-Air.cable.rcn.com	:/Users/leoap	1	nvim	:nvim
+window	5	1	:nvim	1	:*	1442,430x69,0,0{215x69,0,0,16,214x69,216,0,18}	:
+state	5	

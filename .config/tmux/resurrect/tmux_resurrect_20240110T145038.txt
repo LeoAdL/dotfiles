@@ -1,0 +1,6 @@
+pane	2	1	1	:*	1	Leos-Air.cable.rcn.com	:/Users/leoap	1	zsh	:
+pane	2	1	1	:*	2	Leos-Air.cable.rcn.com	:/Users/leoap/.dotfiles/.config/lf	0	zsh	:
+pane	4	1	1	:*	1	Leos-Air.cable.rcn.com	:/Users/leoap	1	zsh	:
+window	2	1	:zsh	1	:*	143c,430x69,0,0{215x69,0,0,20,214x69,216,0,21}	:
+window	4	1	:zsh	1	:*	ea03,430x69,0,0,24	:
+state	4	

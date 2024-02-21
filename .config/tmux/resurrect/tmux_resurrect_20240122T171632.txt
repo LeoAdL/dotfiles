@@ -1,0 +1,5 @@
+pane	5	1	0	:##-	1	Leos-MacBook-Air.local	:/Users/leoap	1	neomutt	:lf -print-last-dir
+pane	5	2	1	:*	1	Leos-MacBook-Air.local	:/Users/leoap/.dotfiles/.config/vdirsyncer	1	Python	:/opt/homebrew/Cellar/python@3.12/3.12.1_1/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python /opt/homebrew/bin/vdirsyncer discover
+window	5	1	:neomutt	0	:##-	6a04,430x69,0,0,15	:
+window	5	2	:Python	1	:*	6a02,430x69,0,0,70	:
+state	5	

@@ -1,0 +1,5 @@
+pane	2	1	1	:*	1	Leos-MacBook-Air.local	:/Users/leoap/.dotfiles	1	neomutt	:neomutt
+pane	2	2	0	:-	1	Topgrade - Summary	:/Users/leoap	1	zsh	:
+window	2	1	:neomutt	1	:*	b485,180x42,0,0,8	:
+window	2	2	:zsh	0	:-	5a75,180x42,0,0,16	:
+state	2	

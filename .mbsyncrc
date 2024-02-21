@@ -17,7 +17,7 @@ Channel leoaparisi@gmail.com
 Expunge Both
 Far :leoaparisi@gmail.com-remote:
 Near :leoaparisi@gmail.com-local:
-Patterns * 
+Patterns * !"[Gmail]/All Mail"
 Create Both
 SyncState *
 MaxMessages 0

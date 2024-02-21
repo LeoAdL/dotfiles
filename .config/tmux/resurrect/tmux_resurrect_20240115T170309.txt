@@ -1,0 +1,6 @@
+pane	5	1	0	:-	1	Leos-Air.cable.rcn.com	:/Users/leoap	1	zsh	:
+pane	5	2	1	:*	1	Leos-Air.cable.rcn.com	:/Users/leoap	1	nvim	:nvim scripts/mailsync
+pane	5	2	1	:*	2	Leos-Air.cable.rcn.com	:/Users/leoap	0	nvim	:nvim .zshrc
+window	5	1	:zsh	0	:-	d39e,430x69,0,0,1	:
+window	5	2	:nvim	1	:*	cba2,430x69,0,0{215x69,0,0,4,214x69,216,0,5}	:
+state	5	

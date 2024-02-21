@@ -1,0 +1,4 @@
+pane	2	1	1	:*	1	Leos-MacBook-Air.local	:/Users/leoap	1	zsh	:
+pane	2	1	1	:*	2	Leos-MacBook-Air.local	:/Users/leoap/.dotfiles/.config/lf	0	zsh	:
+window	2	1	:zsh	1	:*	0a0d,180x42,0,0{90x42,0,0,18,89x42,91,0,19}	:
+state	2	

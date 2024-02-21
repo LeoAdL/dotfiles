@@ -1,0 +1,5 @@
+pane	2	1	0	:##-	1	Leos-MacBook-Air.local	:/Users/leoap	1	neomutt	:neomutt
+pane	2	2	1	:*	1	Leos-MacBook-Air.local	:/Users/leoap/.gnupg	1	zsh	:-zsh
+window	2	1	:neomutt	0	:##-	b480,180x42,0,0,3	:
+window	2	2	:zsh	1	:*	5a70,180x42,0,0,11	:
+state	2	

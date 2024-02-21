@@ -1,0 +1,8 @@
+pane	2	1	1	:*	1	Leos-MacBook-Air.local	:/Users/leoap	1	zsh	:bash /opt/homebrew/bin/pass trans
+pane	5	1	1	:##*	1	Leos-MacBook-Air.local	:/Users/leoap	0	neomutt	:lf -print-last-dir
+pane	5	1	1	:##*	2	Leos-Air.cable.rcn.com	:/Users/leoap	1	zsh	:
+pane	5	2	0	:-	1	Topgrade - Awaiting user	:/Users/leoap	1	zsh	:
+window	2	1	:zsh	1	:*	5a76,180x42,0,0,74	:
+window	5	1	:zsh	1	:##*	a77a,215x69,0,0{107x69,0,0,15,107x69,108,0,73}	:
+window	5	2	:zsh	0	:-	5a74,180x42,0,0,72	:
+state	2	

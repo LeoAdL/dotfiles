@@ -1,0 +1,5 @@
+pane	2	1	1	:*	1	Topgrade - Brew	:/Users/leoap	1	topgrade	:topgrade
+pane	5	1	1	:##*	1	Leos-MacBook-Air.local	:/Users/leoap	1	zsh	:
+window	2	1	:topgrade	1	:*	b47e,180x42,0,0,1	:
+window	5	1	:zsh	1	:##*	b47f,180x42,0,0,2	:
+state	2	5

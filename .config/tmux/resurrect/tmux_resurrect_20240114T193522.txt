@@ -1,0 +1,7 @@
+pane	5	1	0	:##	1	Leos-Air.cable.rcn.com	:/Users/leoap/.dotfiles	1	zsh	:
+pane	5	2	1	:*	1	Leos-Air.cable.rcn.com	:/Users/leoap/.dotfiles	1	zsh	:
+pane	5	3	0	:-	1	Leos-Air.cable.rcn.com	:/Users/leoap	1	zsh	:
+window	5	1	:zsh	0	:##	6a01,430x69,0,0,31	:
+window	5	2	:zsh	1	:*	6a07,430x69,0,0,37	:
+window	5	3	:zsh	0	:-	6a09,430x69,0,0,39	:
+state	5	

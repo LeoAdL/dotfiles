@@ -1,0 +1,3 @@
+pane	5	1	1	:*	1	Leos-MacBook-Air.local	:/Users/leoap/.dotfiles	1	zsh	:
+window	5	1	:pmset	1	:*	ea05,430x69,0,0,26	:
+state	5	

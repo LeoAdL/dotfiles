@@ -1,0 +1,5 @@
+pane	2	1	1	:*	1	Leos-MacBook-Air.local	:/Users/leoap	1	zsh	:
+pane	2	2	0	:-	1	Topgrade - Summary	:/Users/leoap	1	zsh	:
+window	2	1	:zsh	1	:*	b480,180x42,0,0,3	:
+window	2	2	:zsh	0	:-	5a6f,180x42,0,0,10	:
+state	2	

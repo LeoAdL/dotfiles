@@ -1,0 +1,4 @@
+pane	5	1	1	:*	1	Topgrade - Summary	:/Users/leoap/.local/share/mail/laparisidelannoy@uchicago.edu	0	zsh	:lf -print-last-dir
+pane	5	1	1	:*	2	Leos-Air.cable.rcn.com	:/Users/leoap/.local/share/mail	1	zsh	:lf -print-last-dir
+window	5	1	:zsh	1	:*	e625,430x69,0,0{215x69,0,0,1,214x69,216,0,11}	:
+state	5	

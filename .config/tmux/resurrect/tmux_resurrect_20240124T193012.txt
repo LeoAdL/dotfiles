@@ -1,0 +1,5 @@
+pane	2	1	0	:##-	1	Leos-MacBook-Air.local	:/Users/leoap/sync/core	1	neomutt	:neomutt
+pane	2	2	1	:*	1	Leos-Air.cable.rcn.com	:/Users/leoap/.gnupg/openpgp-revocs.d	1	zsh	:-zsh
+window	2	1	:neomutt	0	:##-	d3a5,430x69,0,0,8	:
+window	2	2	:zsh	1	:*	69ff,430x69,0,0,10	:
+state	2	

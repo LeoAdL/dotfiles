@@ -1,0 +1,5 @@
+pane	5	1	1	:*	1	Leos-MacBook-Air.local	:/Users/leoap	1	neomutt	:lf -print-last-dir
+pane	5	2	0	:-	1	Leos-MacBook-Air.local	:/Users/leoap	1	zsh	:
+window	5	1	:neomutt	1	:*	6a04,430x69,0,0,15	:
+window	5	2	:zsh	0	:-	6a04,430x69,0,0,72	:
+state	5	

@@ -1,0 +1,3 @@
+pane	3	1	1	:*	1	Leos-MacBook-Air.local	:/Users/leoap/org/deep_learning	1	nvim	:nvim deep_learning_model.tex
+window	3	1	:nvim	1	:*	d39f,430x69,0,0,2	:
+state	3	
