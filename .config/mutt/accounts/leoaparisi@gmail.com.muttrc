@@ -12,7 +12,6 @@ set hostname = "gmail.com"
 source /usr/local/share/mutt-wizard/switch.muttrc
 set postponed = "+[Gmail]/Drafts/"
 set trash = "+[Gmail]/Trash/"
-set record = "+[GMAIL]/Sent Mail/"
 
 set imap_idle = yes
 macro index o "<shell-escape>mailsync leoaparisi@gmail.com<enter>" "sync leoaparisi@gmail.com"
@@ -22,7 +21,7 @@ virtual-mailboxes \
     "Unified inbox"     "notmuch://?query=(tag:inbox or tag:new) and date:1M.."\
     "Unread"    "notmuch://?query=tag:unread"\
     "Starred"   "notmuch://?query=tag:*"\
-    "Sent"      "notmuch://?query=tag:sent"        # sets up queries for virtual folders
+    "Unified inbox (all)"     "notmuch://?query=(tag:inbox or tag:new)"\
 
 set spool_file="Unified inbox"                          # enable virtual folders
 set pgp_default_key = 6A5C039B63B86AC6C5109955B57BA04FBD759C7F

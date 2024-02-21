@@ -21,6 +21,7 @@ virtual-mailboxes \
     "Unified inbox"     "notmuch://?query=(tag:inbox or tag:new) and date:1M.."\
     "Unread"    "notmuch://?query=tag:unread"\
     "Starred"   "notmuch://?query=tag:*"\
+    "Unified inbox (all)"     "notmuch://?query=(tag:inbox or tag:new)"\
     "Sent"      "notmuch://?query=tag:sent"        # sets up queries for virtual folders
 
 set spool_file="Unified inbox"                          # enable virtual folders

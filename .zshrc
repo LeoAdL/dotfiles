@@ -73,6 +73,7 @@ lfcd () {
 alias python3=python
 alias lf="lfcd"
 alias transmission-remote="transmission-remote --authenv"
+alias vimdiff="nvim -d"
 export VISUAL="nvim"
 export EDITOR="nvim"
 export LANG="en_US.UTF-8"
@@ -97,6 +98,10 @@ export PATH=$HOME/.tmux/plugins/t-smart-tmux-session-manager/bin:$PATH
 export PATH="$PATH:/Users/leoap/.cargo/bin"
 export TR_AUTH="$(pass trans)"
 export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
+export RCLONE_PASSWORD_COMMAND="pass rclone"
+export RCLONE_FAST_LIST=1
+export RCLONE_TRANSFERS=16
+export RCLONE_ORDER_BY="size,mixed,75"
 
 
 fb() {
@@ -154,6 +159,7 @@ antidote load
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
