@@ -15,20 +15,6 @@ b = "my_contacts_remote_uchicago"
 collections = ["from a", "from b"]
 conflict_resolution =["command", "vimdiff"]
 
-[pair my_cal]
-a = "google_calendar"
-b = "cal_local"
-collections = ["leoaparisi@gmail.com"]
-conflict_resolution =["command", "vimdiff"]
-metadata = ["color"]
-
-[pair my_cal_uchicago]
-a = "google_calendar_uchicago"
-b = "cal_local_uchicago"
-collections = ["laparisidelannoy@uchicago.edu"]
-conflict_resolution =["command", "vimdiff"]
-metadata = ["color"]
-
 [storage my_contacts_local]
 type = "filesystem"
 path = "~/.contacts/google/"
@@ -39,17 +25,6 @@ type = "filesystem"
 path = "~/.contacts/uchicago/"
 fileext = ".vcf"
 
-[storage cal_local]
-type = "filesystem"
-path = "~/.calendar/google"
-fileext = ".ics"
-
-
-[storage cal_local_uchicago]
-type = "filesystem"
-path = "~/.calendar/uchicago"
-fileext = ".ics"
-
 [storage my_contacts_remote]
 type = "google_contacts"
 token_file = "~/.config/vdirsyncer/google"
@@ -59,17 +34,5 @@ client_secret.fetch =["command", "pass", "leoaparisi@gmail.com/client/client_sec
 [storage my_contacts_remote_uchicago]
 type = "google_contacts"
 token_file = "~/.config/vdirsyncer/uchicago"
-client_id.fetch = ["command", "pass", "laparisidelannoy@uchicago.edu/client/client_id"]
-client_secret.fetch = ["command", "pass", "laparisidelannoy@uchicago.edu/client/client_secret"]
-
-[storage google_calendar]
-type = "google_calendar"
-token_file = "~/.config/vdirsyncer/google_cal"
-client_id.fetch = ["command", "pass", "leoaparisi@gmail.com/client/client_id"]
-client_secret.fetch =["command", "pass", "leoaparisi@gmail.com/client/client_secret"]
-
-[storage google_calendar_uchicago]
-type = "google_calendar"
-token_file = "~/.config/vdirsyncer/google_cal_uchicago"
 client_id.fetch = ["command", "pass", "laparisidelannoy@uchicago.edu/client/client_id"]
 client_secret.fetch = ["command", "pass", "laparisidelannoy@uchicago.edu/client/client_secret"]

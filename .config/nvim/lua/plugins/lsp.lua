@@ -14,7 +14,19 @@ return {
             }
         end
     },
-    { "barreiroleo/ltex_extra.nvim" },
+    {
+        "jhofscheier/ltex-utils.nvim",
+        dependencies = {
+            "neovim/nvim-lspconfig",
+            "nvim-telescope/telescope.nvim",
+            -- "nvim-telescope/telescope-fzf-native.nvim", -- optional
+        },
+        opts = {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+        },
+    },
     {
         "neovim/nvim-lspconfig",
         opts = {
@@ -82,21 +94,7 @@ return {
 
                     on_attach = function(client, bufnr)
                         -- rest of your on_attach process.
-                        require("ltex_extra").setup {
-                            -- table <string> : languages for witch dictionaries will be loaded, e.g. { "es-AR", "en-US" }
-                            -- https://valentjn.github.io/ltex/supported-languages.html#natural-languages
-                            load_langs = { "en-US" }, -- en-US as default
-                            -- boolean : whether to load dictionaries on startup
-                            init_check = true,        -- string : relative or absolute path to store dictionaries
-                            -- e.g. subfolder in the project root or the current working directory: ".ltex"
-                            -- e.g. shared files for all projects:  vim.fn.expand("~") .. "/.local/share/ltex"
-                            path = "", -- project root or current working directory
-                            -- string : "none", "trace", "debug", "info", "warn", "error", "fatal"
-                            log_level = "none",
-                            -- table : configurations of the ltex language server.
-                            -- Only if you are calling the server from ltex_extra
-                            server_opts = nil
-                        }
+                        require("ltex-utils").on_attach(bufnr)
                     end,
                     settings = {
                         ltex = {
@@ -133,7 +131,7 @@ return {
                 function(server_name)
                     require('lspconfig')[server_name].setup {
                         capabilities = capabilities,
-                        on_attach = on_attach,
+                        on_attach = servers[server_name].on_attach,
                         settings = servers[server_name].settings,
                         filetypes = (servers[server_name] or {}).filetypes,
                     }
