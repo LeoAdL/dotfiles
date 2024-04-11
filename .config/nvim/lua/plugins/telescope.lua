@@ -82,7 +82,7 @@ return {
         end,
     },
     {
-        "ibhagwan/fzf-lua",
+        "https://gitlab.com/ibhagwan/fzf-lua",
         lazy = false,
         -- optional for icon support
         dependencies = { "nvim-tree/nvim-web-devicons" },

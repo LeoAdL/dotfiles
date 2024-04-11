@@ -33,7 +33,6 @@
 :exec
 :exec 
 :! 
-:?
 :source
 :set recolor
 :2
@@ -47,14 +46,12 @@
 :open /Users/leoap/Downloads/(Texts\ in\ Applied\ Mathematics\ 31)\ Pierre\ Brémaud\ -\ Markov\ Chains\ -\ Gibbs\ Fields,\ Monte\ Carlo\ Simulation\ and\ Queues-Springer\ (2020).pdf
 :set
 :map 
-:help
 :toggle pre
 /new
 /weak
 :45
 :60
 :map
-:help 
 :help key
 :version
 :dump
@@ -91,7 +88,24 @@
 :334
 :open /Users/leoap/Downloads/Polars_cheat_sheet.pdf
 :open /Users/leoap/Downloads/Leo_Aparisi_de_Lannoy_resume.pdf
-:open /Users/leoap/phd_notes/Zotero_PDF/raschka_et_al_2022_machine_learning_with_pytorch_and_scikit-learn.pdf
 :440
-:400
 :370
+:400
+/MLP
+/super().__init__()
+/mini-bat
+:540
+:520
+:?
+:help 
+:blist
+:help
+:550
+:open /Users/leoap/phd_notes/Zotero_PDF/raschka_et_al_2022_machine_learning_with_pytorch_and_scikit-learn.pdf
+/LSTM
+/RNN
+/RECURRENT
+/79
+:open /Users/leoap/phd_notes/Zotero_PDF/tanyu_et_al_2023_deep_learning_methods_for_partial_differential_equations_and_related_parameter.pdf
+/.step
+/.backward
