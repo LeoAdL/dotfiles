@@ -34,7 +34,7 @@ return {
                             auxDirectory = ".",
                             bibtexFormatter = "texlab",
                             build = {
-                                executable = "tectonic",
+                                executable = "",
                                 args = { "-X",
                                     "compile",
                                     "%f",
@@ -43,7 +43,7 @@ return {
                                     "--keep-intermediates"
                                 },
                                 forwardSearchAfter = false,
-                                onSave = true,
+                                onSave = false,
                             },
                             forwardSearch = {
                                 executable = "sioyek",
@@ -52,7 +52,7 @@ return {
                                     '--execute-command',
                                     'toggle_synctex', -- Open Sioyek in synctex mode.
                                     '--inverse-search',
-                                    'nvr --remote-silent %%1 -c %%2',
+                                    'nvr --remote %%1 -c %%2',
                                     '--forward-search-file', '%f',
                                     '--forward-search-line', '%l', '%p'
                                 },
@@ -113,6 +113,7 @@ return {
                             workspace = {
                                 checkThirdParty = false,
                             },
+                            diagnostics = { globals = { 'vim' } },
                             completion = {
                                 callSnippet = "Replace",
                             },
@@ -135,7 +136,7 @@ return {
                         capabilities = capabilities,
                         on_attach = servers[server_name].on_attach,
                         settings = servers[server_name].settings,
-                        filetypes = (servers[server_name] or {}).filetypes,
+                        filetypes = (servers[server_name]).filetypes,
                     }
                 end,
             }

@@ -47,7 +47,6 @@
 :set
 :map 
 :toggle pre
-/new
 /weak
 :45
 :60
@@ -109,3 +108,13 @@
 :open /Users/leoap/phd_notes/Zotero_PDF/tanyu_et_al_2023_deep_learning_methods_for_partial_differential_equations_and_related_parameter.pdf
 /.step
 /.backward
+:open /Users/leoap/phd/ap_op_policy/model.pdf
+:print 
+/new
+/july
+:open /Users/leoap/Downloads/cours-gd.pdf
+:open /Users/leoap/Downloads/chafai-lehec-m2-lsie-lecture-notes.pdf
+/theorem 1
+/lucas
+/wage
+/bonus

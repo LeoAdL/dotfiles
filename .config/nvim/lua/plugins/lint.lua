@@ -3,7 +3,7 @@ return { {
     config = function()
         require('lint').linters_by_ft = {
             lua = { 'selene', },
-            tex = { 'chktex' },
+            -- tex = { 'chktex' },
             git = { 'gitlint' },
             yaml = { 'yamllint' },
             markdown = { 'markdownlint' },
