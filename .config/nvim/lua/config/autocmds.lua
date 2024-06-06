@@ -3,12 +3,6 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
         require("lint").try_lint()
     end,
 })
-vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = "*",
-    callback = function(args)
-        require("conform").format({ bufnr = args.buf })
-    end,
-})
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)

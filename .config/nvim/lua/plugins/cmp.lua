@@ -18,7 +18,7 @@ return {
             local cmp = require("cmp")
             require 'cmp'.setup {
                 completion = {
-                    completeopt = "menu,menuone,noinsert",
+                    completeopt = "menu,menuone,preview",
                 },
                 snippet = {
                     expand = function(args)
