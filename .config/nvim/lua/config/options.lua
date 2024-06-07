@@ -55,30 +55,30 @@ vim.o.shiftwidth = 4   -- Number of spaces inserted when indenting
 local home = os.getenv("HOME")
 
 local path = table.concat({
-	"/usr/share/lua/5.1/?.lua",
-	"/usr/share/lua/5.1/?/init.lua",
-	"/usr/lib/lua/5.1/?.lua",
-	"/usr/lib/lua/5.1/?/init.lua",
-	"./?.lua",
-	"./?/init.lua",
-	"~/.luarocks/share/lua/5.1/?.lua",
-	"~/.luarocks/share/lua/5.1/?/init.lua",
+    "/usr/share/lua/5.1/?.lua",
+    "/usr/share/lua/5.1/?/init.lua",
+    "/usr/lib/lua/5.1/?.lua",
+    "/usr/lib/lua/5.1/?/init.lua",
+    "./?.lua",
+    "./?/init.lua",
+    "~/.luarocks/share/lua/5.1/?.lua",
+    "~/.luarocks/share/lua/5.1/?/init.lua",
 }, ";")
 
 local cpath = table.concat({
-	"/usr/lib/lua/5.1/?.so",
-	"/usr/lib/lua/5.1/loadall.so",
-	"./?.so",
-	"~/.luarocks/lib/lua/5.1/?.so",
+    "/usr/lib/lua/5.1/?.so",
+    "/usr/lib/lua/5.1/loadall.so",
+    "./?.so",
+    "~/.luarocks/lib/lua/5.1/?.so",
 }, ";")
 
 package.path = path:gsub("~", home)
 package.cpath = cpath:gsub("~", home)
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
-	callback = function()
-		vim.highlight.on_yank()
-	end,
-	group = highlight_group,
-	pattern = '*',
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+    group = highlight_group,
+    pattern = '*',
 })
