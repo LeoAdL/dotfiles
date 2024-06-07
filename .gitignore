@@ -9,3 +9,9 @@
 .config/nvim/lazy-lock.json
 .local/share/zsh/history
 .davmail.properties
+.config/vdirsyncer/uchicago
+.config/vdirsyncer/google
+.config/tmux/plugins/extrakto
+.config/tmux/plugins/tpm
+.config/tmux/plugins/tmux-fingers
+.config/tmux/plugins/tmux
