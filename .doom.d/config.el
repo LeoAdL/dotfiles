@@ -13,10 +13,7 @@
       evil-want-fine-undo t                       ; By default while in insert all changes are one big blob. Be more granular
       auto-save-default t                         ; Nobody likes to loose work, I certainly don't
       truncate-string-ellipsis "…"
-      scroll-margin 2)                            ; It's nice to maintain a little margin
-
-(display-time-mode 1)                             ; Enable time in the mode-line
-
+      scroll-margin 1)                            ; It's nice to maintain a little margin
 
 (global-subword-mode 1)                           ; Iterate through CamelCase words
 
@@ -39,8 +36,7 @@
 
 (load-theme 'catppuccin t t)
 (setq doom-theme 'catppuccin)
- (setq catppuccin-flavor 'frappe) ;; or 'latte, 'macchiato, or 'mocha
- (catppuccin-reload)
+ (setq catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'mocha
 
 (setq fancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
 
@@ -76,7 +72,6 @@
 
 (setq display-line-numbers-type `relative)
 (setq-default tab-width 4)
-(setq byte-compile-warnings '(cl-functions))
 
 (setq org-directory "~/org/"
       org-agenda-files (list org-directory)                  ; Seems like the obvious place.
@@ -175,8 +170,6 @@
 (after! spell-fu
   (cl-pushnew 'org-modern-tag (alist-get 'org-mode +spell-excluded-faces-alist)))
 
-(add-hook 'org-mode-hook #'+org-pretty-mode)
-
 (setq org-src-fontify-natively t
       org-fontify-whole-heading-line t
       org-fontify-done-headline t
@@ -199,11 +192,6 @@
         (?D . 'nerd-icons-green)
         (?E . 'nerd-icons-blue)))
 
-
-(setq org-inline-src-prettify-results '("⟨" . "⟩"))
-
-(setq doom-themes-org-fontify-special-tags nil)
-
 (custom-set-faces!
   '(outline-1 :weight extra-bold :height 1.25)
   '(outline-2 :weight bold :height 1.15)
@@ -221,7 +209,8 @@
 (require 'org-src)
 (add-to-list 'org-src-block-faces '("latex" (:inherit default :extend t)))
 
-(add-hook 'org-mode-hook #'org-latex-preview-auto-mode)
+;; (add-hook 'org-mode-hook #'org-latex-preview-auto-mode)
+(add-hook 'org-mode-hook 'org-fragtog-mode)
 
 (setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a.")))
 
@@ -278,37 +267,37 @@
 (use-package! org-pandoc-import
   :after org)
 
-(map! :map org-mode-map
+;; (map! :map org-mode-map
 
-      :localleader
-      :desc "View exported file" "v" #'org-view-output-file)
+;;       :localleader
+;;       :desc "View exported file" "v" #'org-view-output-file)
 
-(defun org-view-output-file (&optional org-file-path)
-  "Visit buffer open on the first output file (if any) found, using `org-view-output-file-extensions'"
-  (interactive)
-  (let* ((org-file-path (or org-file-path (buffer-file-name) ""))
-         (dir (file-name-directory org-file-path))
-         (basename (file-name-base org-file-path))
-         (output-file nil))
-    (dolist (ext org-view-output-file-extensions)
-      (unless output-file
-        (when (file-exists-p
-               (concat dir basename "." ext))
-          (setq output-file (concat dir basename "." ext)))))
-    (if output-file
-        (if (member (file-name-extension output-file) org-view-external-file-extensions)
-            (browse-url-xdg-open output-file)
-          (pop-to-buffer (or (find-buffer-visiting output-file)
-                             (find-file-noselect output-file))))
-      (message "No exported file found"))))
+;; (defun org-view-output-file (&optional org-file-path)
+;;   "Visit buffer open on the first output file (if any) found, using `org-view-output-file-extensions'"
+;;   (interactive)
+;;   (let* ((org-file-path (or org-file-path (buffer-file-name) ""))
+;;          (dir (file-name-directory org-file-path))
+;;          (basename (file-name-base org-file-path))
+;;          (output-file nil))
+;;     (dolist (ext org-view-output-file-extensions)
+;;       (unless output-file
+;;         (when (file-exists-p
+;;                (concat dir basename "." ext))
+;;           (setq output-file (concat dir basename "." ext)))))
+;;     (if output-file
+;;         (if (member (file-name-extension output-file) org-view-external-file-extensions)
+;;             (browse-url-xdg-open output-file)
+;;           (pop-to-buffer (or (find-buffer-visiting output-file)
+;;                              (find-file-noselect output-file))))
+;;       (message "No exported file found"))))
 
-(defvar org-view-output-file-extensions '("pdf" "md" "rst" "txt" "tex" "html")
-  "Search for output files with these extensions, in order, viewing the first that matches")
-(defvar org-view-external-file-extensions '("html")
-  "File formats that should be opened externally.")
+;; (defvar org-view-output-file-extensions '("pdf" "md" "rst" "txt" "tex" "html")
+;;   "Search for output files with these extensions, in order, viewing the first that matches")
+;; (defvar org-view-external-file-extensions '("html")
+;;   "File formats that should be opened externally.")
 
-(use-package! zotxt
-  :after org)
+;; (use-package! zotxt
+;;   :after org)
 
 (use-package! org-chef
   :commands (org-chef-insert-recipe org-chef-get-recipe-from-url))
@@ -335,10 +324,9 @@
   (setq org-cite-activate-processor 'csl-activate)
   (setq org-cite-csl-activate-use-document-style t)
   (setq org-cite-csl-activate-use-document-locale t)
-  (add-hook 'org-mode-hook
-            (lambda ()
+  (add-hook! 'org-mode-hook
               (cursor-sensor-mode 1)
-              (org-cite-csl-activate-render-all))))
+              (org-cite-csl-activate-render-all)))
 
 ;; (use-package! citar-org-roam
 ;;   :after citar org-roam
@@ -394,23 +382,6 @@
 \\usepackage{diffcoeff}
 \\usepackage{nicematrix}
 \\usepackage[varbb]{newpxmath}
-\\DeclareMathOperator{\\Var}{Var}
-\\DeclareMathOperator{\\cov}{Cov}
-\\DeclareMathOperator{\\E}{\\mathbb{E}}
-\\DeclareMathOperator*{\\argmax}{arg\\,max}
-\\DeclareMathOperator*{\\argmin}{arg\\,min}
-")
-
-(with-eval-after-load 'ox-latex
-(add-to-list 'org-latex-classes
-             '("article"
-               "\\documentclass[c]{article}
-\\usepackage[american]{babel}
-\\usepackage[margin=1.25in]{geometry}
-\\usepackage{parskip}
-\\usepackage{booktabs}
-\\usepackage{float}
-\\usepackage{microtype}
 \\usepackage{graphicx}
 \\usepackage{mathtools}
 \\usepackage{wrapfig}
@@ -605,7 +576,6 @@ urlcolor=url,
 citecolor=cite
 }
 "
-
       org-latex-reference-command "\\cref{%s}")
 
 
@@ -628,19 +598,13 @@ citecolor=cite
   :bind (("M-$" . jinx-correct)
          ("C-M-$" . jinx-languages)))
 
+;; (use-package! lsp-bridge
+;;   :config
+;;   (setq lsp-bridge-enable-log nil)
+;;   (global-lsp-bridge-mode))
+
 ;; (after! lsp-mode
 ;;   (setq lsp-tex-server 'digestif))
-
-;; (use-package! lsp-ltex
-;;   :hook (text-mode . (lambda ()
-;;                        (require 'lsp-ltex)
-;;                        (lsp)))  ; or lsp-deferred
-;;   :init
-;;   (setq lsp-ltex-version "15.2.0"))  ; make sure you have set this, see below
-(use-package! eglot-ltex
-  :after org
-  :init
-  (setq eglot-languagetool-server-path "/opt/homebrew/Cellar/ltex-ls/15.2.0"))
 
 (use-package! vlf-setup
   :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
