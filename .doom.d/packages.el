@@ -4,6 +4,8 @@
 
 (package! org-modern)
 
+(package! org-fragtog)
+
 ;; (package! org-roam-ui)
 ;; (package! websocket)
 
@@ -12,7 +14,7 @@
            :repo "tecosaur/org-pandoc-import"
            :files ("*.el" "filters" "preprocessors")))
 
-(package! zotxt)
+;; (package! zotxt)
 
 (package! org-chef)
 
@@ -24,7 +26,14 @@
 
 (package! jinx)
 
-;; (package! lsp-ltex)
-(package! eglot-ltex :recipe (:host github :repo "emacs-languagetool/eglot-ltex"))
+;; (when (package! lsp-bridge
+;;         :recipe (:host github
+;;                  :repo "manateelazycat/lsp-bridge"
+;;                  :branch "master"
+;;                  :files ("*.el" "*.py" "acm" "core" "langserver" "multiserver" "resources")
+;;                  ;; do not perform byte compilation or native compilation for lsp-bridge
+;;                  :build (:not compile)))
+;;   (package! markdown-mode)
+;;   (package! yasnippet))
 
 (package! vlfi)
