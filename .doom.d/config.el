@@ -37,31 +37,9 @@
 (load-theme 'catppuccin t t)
 (setq doom-theme 'catppuccin)
  (setq catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'mocha
+(catppuccin-reload)
 
 (setq fancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
-
-(use-package! theme-magic
-  :commands theme-magic-from-emacs
-  :config
-  (defadvice! theme-magic--auto-extract-16-doom-colors ()
-    :override #'theme-magic--auto-extract-16-colors
-    (list
-     (face-attribute 'default :background)
-     (doom-color 'error)
-     (doom-color 'success)
-     (doom-color 'type)
-     (doom-color 'keywords)
-     (doom-color 'constants)
-     (doom-color 'functions)
-     (face-attribute 'default :foreground)
-     (face-attribute 'shadow :foreground)
-     (doom-blend 'base8 'error 0.1)
-     (doom-blend 'base8 'success 0.1)
-     (doom-blend 'base8 'type 0.1)
-     (doom-blend 'base8 'keywords 0.1)
-     (doom-blend 'base8 'constants 0.1)
-     (doom-blend 'base8 'functions 0.1)
-     (face-attribute 'default :foreground))))
 
 (after! info-colors
   :commands (info-colors-fontify-node))
@@ -94,7 +72,6 @@
         (:comments . "link")))
 
 (use-package! org-modern
-  :after org
   :hook (org-mode . org-modern-mode)
   :config
   (setq org-modern-star '("◉" "○" "✸" "✿" "✤" "✜" "◆" "▶")
@@ -165,10 +142,8 @@
           ("caption" . "☰")
           ("results" . "🠶")))
   (custom-set-faces! '(org-modern-statistics :inherit org-checkbox-statistics-todo)))
-(global-org-modern-mode)
 
-(after! spell-fu
-  (cl-pushnew 'org-modern-tag (alist-get 'org-mode +spell-excluded-faces-alist)))
+(add-hook! 'org-mode-hook 'org-appear-mode)
 
 (setq org-src-fontify-natively t
       org-fontify-whole-heading-line t
@@ -210,7 +185,7 @@
 (add-to-list 'org-src-block-faces '("latex" (:inherit default :extend t)))
 
 ;; (add-hook 'org-mode-hook #'org-latex-preview-auto-mode)
-(add-hook 'org-mode-hook 'org-fragtog-mode)
+(add-hook! 'org-mode-hook 'org-fragtog-mode)
 
 (setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a.")))
 
@@ -382,12 +357,29 @@
 \\usepackage{diffcoeff}
 \\usepackage{nicematrix}
 \\usepackage[varbb]{newpxmath}
+\\DeclareMathOperator{\\Var}{Var}
+\\DeclareMathOperator{\\cov}{Cov}
+\\DeclareMathOperator{\\E}{\\mathbb{E}}
+\\DeclareMathOperator*{\\argmax}{arg\\,max}
+\\DeclareMathOperator*{\\argmin}{arg\\,min}
+")
+
+(with-eval-after-load 'ox-latex
+(add-to-list 'org-latex-classes
+             '("article"
+               "\\documentclass[12pt]{article}
+\\usepackage[american]{babel}
+\\usepackage[margin=1.25in]{geometry}
+\\usepackage{parskip}
+\\usepackage{booktabs}
+\\usepackage{float}
+\\usepackage{microtype}
 \\usepackage{graphicx}
 \\usepackage{mathtools}
-\\usepackage{wrapfig}
 \\usepackage{amsthm}
 \\usepackage{amssymb}
-\\usepackage{newpxtext}
+\\usepackage{bm}
+\\usepackage[no-math]{newpxtext}
 \\usepackage[varbb]{newpxmath}
 \\usepackage{xfrac}
 \\usepackage{siunitx}
@@ -399,12 +391,16 @@
 \\usepackage{xcolor}
 \\usepackage{diffcoeff}
 \\usepackage{nicematrix}
+\\usepackage{braket}
 \\usepackage{enumitem}
 \\usepackage{acronym}
+\\usepackage{footmisc}
+\\usepackage[authoryear,longnamesfirst]{natbib}
 \\usepackage{xurl}
 \\onehalfspacing{}
+\\bibliographystyle{ecta}
 \\DeclareMathOperator{\\Var}{Var}
-\\DeclareMathOperator{\\cov}{Cov}
+\\DeclareMathOperator{\\Cov}{Cov}
 \\DeclareMathOperator{\\E}{\\mathbb{E}}
 \\DeclareMathOperator*{\\argmax}{arg\\,max}
 \\DeclareMathOperator*{\\argmin}{arg\\,min}
@@ -414,21 +410,6 @@
 \\DeclarePairedDelimiter\\abs{\\lvert}{\\rvert}
 \\DeclarePairedDelimiter\\norm{\\lVert}{\\rVert}
 \\DeclarePairedDelimiterX\\innerp[2]{\\langle}{\\rangle}{#1,#2}
-\\DeclarePairedDelimiterX\\braket[3]{\\langle}{\\rangle}%
-{#1\\,\\delimsize\\vert\\,\\mathopen{}#2\\,\\delimsize\\vert\\,\\mathopen{}#3}
-\\providecommand\\given{}
-\\DeclarePairedDelimiterXPP\\Prob[1]{\\mathbb{P}} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1}
-\\DeclarePairedDelimiterXPP\\condE[1]{\\E} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1}
-\\DeclarePairedDelimiterXPP\\condVar[2]{\\Var} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1,#2}
-\\DeclarePairedDelimiterXPP\\condCov[2]{\\cov} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1,#2}
 \\theoremstyle{plain}% default
 \\newtheorem{thm}{Theorem}
 \\newtheorem{lem}[thm]{Lemma}
@@ -442,16 +423,13 @@
 \\newtheorem*{rem}{Remark}
 \\newtheorem*{note}{Note}
 \\newtheorem{case}{Case}
-
 \\renewcommand{\\leq}{\\leqslant}
 \\renewcommand{\\geq}{\\geqslant}
-\\definecolor{bgcolorminted}{HTML}{2e3440}
 \\usepackage{hyperref}
 \\usepackage[]{cleveref}
 [NO-DEFAULT-PACKAGES]
 [PACKAGES]
-[EXTRA]
-\\usemintedstyle{nord}"
+[EXTRA]"
                ("\\section{%s}" . "\\section*{%s}")
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -467,29 +445,37 @@
                "\\documentclass[c]{beamer}
 \\usepackage[american]{babel}
 \\usetheme[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]{metropolis}
+\\usepackage{parskip}
 \\usepackage{booktabs}
 \\usepackage{float}
+\\usepackage{microtype}
+\\usepackage{graphicx}
 \\usepackage{mathtools}
 \\usepackage{amsthm}
 \\usepackage{amssymb}
+\\usepackage{bm}
+\\usepackage[no-math]{newpxtext}
 \\usepackage[varbb]{newpxmath}
-\\usepackage[]{xfrac}
+\\usepackage{xfrac}
 \\usepackage{siunitx}
-\\usepackage{graphicx}
 \\usepackage{caption}
 \\captionsetup{labelfont=bf,font={small,singlespacing}}
 \\usepackage{subcaption}
 \\usepackage{cancel}
 \\usepackage{setspace}
 \\usepackage{xcolor}
-\\usepackage{diffcoeff}
+\\usepackage[ISO]{diffcoeff}
 \\usepackage{nicematrix}
+\\usepackage{braket}
+\\usepackage{enumitem}
 \\usepackage{acronym}
+\\usepackage{footmisc}
+\\usepackage[authoryear,longnamesfirst]{natbib}
+\\usepackage{xurl}
 \\usepackage{appendixnumberbeamer}
 \\usepackage{dirtytalk}
-\\usepackage{xurl}
 \\DeclareMathOperator{\\Var}{Var}
-\\DeclareMathOperator{\\cov}{Cov}
+\\DeclareMathOperator{\\Cov}{Cov}
 \\DeclareMathOperator{\\E}{\\mathbb{E}}
 \\DeclareMathOperator*{\\argmax}{arg\\,max}
 \\DeclareMathOperator*{\\argmin}{arg\\,min}
@@ -499,21 +485,6 @@
 \\DeclarePairedDelimiter\\abs{\\lvert}{\\rvert}
 \\DeclarePairedDelimiter\\norm{\\lVert}{\\rVert}
 \\DeclarePairedDelimiterX\\innerp[2]{\\langle}{\\rangle}{#1,#2}
-\\DeclarePairedDelimiterX\\braket[3]{\\langle}{\\rangle}%
-{#1\\,\\delimsize\\vert\\,\\mathopen{}#2\\,\\delimsize\\vert\\,\\mathopen{}#3}
-\\providecommand\\given{}
-\\DeclarePairedDelimiterXPP\\Prob[1]{\\mathbb{P}} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1}
-\\DeclarePairedDelimiterXPP\\condE[1]{\\E} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1}
-\\DeclarePairedDelimiterXPP\\condVar[2]{\\Var} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1,#2}
-\\DeclarePairedDelimiterXPP\\condCov[2]{\\cov} (){}{
-\\renewcommand\\given{\\nonscript\\:\\delimsize\\vert\\nonscript\\:\\mathopen{}}
-#1,#2}
 \\theoremstyle{plain}% default
 \\newtheorem{thm}{Theorem}
 \\newtheorem{lem}[thm]{Lemma}
@@ -525,18 +496,16 @@
 \\providecommand*{\\defnautorefname}{Definition}
 \\theoremstyle{remark}
 \\newtheorem*{rem}{Remark}
+\\newtheorem*{note}{Note}
 \\newtheorem{case}{Case}
-
-
+\\renewcommand{\\leq}{\\leqslant}
+\\renewcommand{\\geq}{\\geqslant}
 \\definecolor{textcolor}{HTML}{2E3440}
 \\definecolor{titlecolor}{HTML}{a3be8c}
 \\definecolor{alertcolor}{HTML}{BF616A}
-\\definecolor{examplecolor}{HTML}{EBCB8B}
-
 \\definecolor{bgcolor}{HTML}{ECEFF4}
 \\definecolor{barcolor}{HTML}{88C0D0}
 \\definecolor{bgbarcolor}{HTML}{D8DEE9}
-\\definecolor{bgcolorminted}{HTML}{2e3440}
 \\setbeamercolor{progress bar}{fg=barcolor,bg=bgbarcolor}
 \\setbeamercolor{frametitle}{fg=titlecolor,bg=bgcolor}
 \\setbeamercolor{normal text}{fg=textcolor,bg=bgcolor}
@@ -544,12 +513,9 @@
 \\setbeamercolor{example text}{fg=examplecolor}
 \\setbeamercovered{dynamic}
 \\usecolortheme{rose}
-\\usepackage{hyperref}
-\\usepackage[]{cleveref}
 [NO-DEFAULT-PACKAGES]
 [PACKAGES]
-[EXTRA]
-\\usemintedstyle{nord}"
+[EXTRA]"
                ("\\section{%s}" . "\\section*{%s}")
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -590,13 +556,26 @@ citecolor=cite
 
 (use-package! engrave-faces-latex
   :after ox-latex)
-(setq org-latex-src-block-backend 'engraved)
-(setq org-latex-engraved-theme 'doom-nord-light)
+(setq org-latex-listings 'engraved)
+(setq org-latex-engraved-theme 'doom-nord)
 
-(use-package jinx
-  :hook (emacs-startup . global-jinx-mode)
-  :bind (("M-$" . jinx-correct)
-         ("C-M-$" . jinx-languages)))
+(setq corfu-popupinfo-delay 0)
+
+(use-package! jinx
+  :defer t
+  :init
+  (add-hook! 'doom-init-ui-hook #'global-jinx-mode)
+  :config
+  ;; Extra face(s) to ignore
+  (push 'org-inline-src-block
+        (alist-get 'org-mode jinx-exclude-faces))
+  ;; Take over the relevant bindings.
+  (after! ispell
+    (keymap-global-unset "z =")
+    (keymap-global-set "z =" #'jinx-correct))
+  (after! evil-commands
+    (global-set-key [remap evil-next-flyspell-error] #'jinx-next)
+    (global-set-key [remap evil-prev-flyspell-error] #'jinx-previous)))
 
 ;; (use-package! lsp-bridge
 ;;   :config
@@ -605,6 +584,17 @@ citecolor=cite
 
 ;; (after! lsp-mode
 ;;   (setq lsp-tex-server 'digestif))
+
+;; (use-package! lsp-ltex
+;;   :hook (text-mode . (lambda ()
+;;                        (require 'lsp-ltex)
+;;                        (lsp)))  ; or lsp-deferred
+;;   :init
+;;   (setq lsp-ltex-version "15.2.0"))  ; make sure you have set this, see below
+;; (use-package! eglot-ltex
+;;   :after org
+;;   :init
+;;   (setq eglot-languagetool-server-path "/opt/homebrew/Cellar/ltex-ls/15.2.0"))
 
 (use-package! vlf-setup
   :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
@@ -784,8 +774,10 @@ citecolor=cite
   (add-to-list
    'mu4e-bookmarks
    '(:name "Unified inbox" :query "maildir:/.*inbox/" :key ?i) t)
-(add-hook 'mu4e-compose-mode-hook 'company-mode)
   )
 
 ;;(mu4e-alert-set-default-style 'notifier)
 ;;(add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
+
+(setq +latex-viewers '(skim))
+(setq TeX-view-program-selection '((output-pdf "Skim")))
