@@ -30,7 +30,7 @@
 
 (setq doom-font (font-spec :family "Iosevka" :size 14)
       doom-variable-pitch-font (font-spec :family "Lato")
-      doom-unicode-font (font-spec :family "JuliaMono")
+      doom-unicode-font (font-spec :family "Iosevka")
       doom-big-font (font-spec :family "Iosevka" :size 24)
       doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light))
 
@@ -70,6 +70,9 @@
         (:hlines . "no")
         (:tangle . "no")
         (:comments . "link")))
+
+(use-package! org-block-capf
+  :hook (org-mode . org-block-capf-add-to-completion-at-point-functions))
 
 (use-package! org-modern
   :hook (org-mode . org-modern-mode)
@@ -236,8 +239,6 @@
 ;;     (interactive)
 ;;     (unless org-roam-ui-mode (org-roam-ui-mode 1))
 ;;     (browse-url--browser (format "http://localhost:%d" org-roam-ui-port))))
-
-(setq ob-async-no-async-languages-alist '("jupyter-python" "jupyter-julia"))
 
 (use-package! org-pandoc-import
   :after org)
@@ -570,9 +571,8 @@ citecolor=cite
   (push 'org-inline-src-block
         (alist-get 'org-mode jinx-exclude-faces))
   ;; Take over the relevant bindings.
-  (after! ispell
-    (keymap-global-unset "z =")
-    (keymap-global-set "z =" #'jinx-correct))
+  (after! evil-commands
+    (global-set-key [remap ispell-word] #'jinx-correct))
   (after! evil-commands
     (global-set-key [remap evil-next-flyspell-error] #'jinx-next)
     (global-set-key [remap evil-prev-flyspell-error] #'jinx-previous)))
@@ -585,16 +585,16 @@ citecolor=cite
 ;; (after! lsp-mode
 ;;   (setq lsp-tex-server 'digestif))
 
-;; (use-package! lsp-ltex
-;;   :hook (text-mode . (lambda ()
-;;                        (require 'lsp-ltex)
-;;                        (lsp)))  ; or lsp-deferred
-;;   :init
-;;   (setq lsp-ltex-version "15.2.0"))  ; make sure you have set this, see below
-;; (use-package! eglot-ltex
-;;   :after org
-;;   :init
-;;   (setq eglot-languagetool-server-path "/opt/homebrew/Cellar/ltex-ls/15.2.0"))
+(use-package! eglot-ltex
+  :init
+  (setq eglot-ltex-server-path "/opt/homebrew/"
+        eglot-ltex-communication-channel 'tcp))         ; 'stdio or 'tcp
+
+(after! eglot
+  (add-to-list 'eglot-server-programs
+              `((latex-mode :language-id "latex")
+                . ,(eglot-alternatives '(("texlab")
+                                         ("ltex-ls" "--server-type" "TcpSocket" "--port" :autoport))))))
 
 (use-package! vlf-setup
   :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
@@ -779,5 +779,26 @@ citecolor=cite
 ;;(mu4e-alert-set-default-style 'notifier)
 ;;(add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
 
-(setq +latex-viewers '(skim))
-(setq TeX-view-program-selection '((output-pdf "Skim")))
+(setq +latex-viewers '(pdf-tools))
+(defun compile-save()
+  "Test of save hook"
+  (when (eq major-mode 'latex-mode)
+    (+latex/compile)))
+(add-hook 'after-save-hook 'compile-save)
+(setq TeX-save-query nil
+      TeX-show-compilation nil
+      TeX-command-extra-options "-shell-escape")
+(after! latex
+  (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t)))
+
+(setq flycheck-eglot-exclusive nil)
+(map! :map evil-normal-state-map
+      "SPC c b" #'consult-flycheck)
+
+(after! tramp
+  (setenv "SHELL" "/bin/bash")
+  (setq tramp-shell-prompt-pattern "\\(?:^\\|\n\\|\x0d\\)[^]#$%>\n]*#?[]#$%>] *\\(\e\\[[0-9;]*[a-zA-Z] *\\)*")) ;; default + 
+(setq vc-ignore-dir-regexp
+                (format "\\(%s\\)\\|\\(%s\\)"
+                        vc-ignore-dir-regexp
+                        tramp-file-name-regexp))

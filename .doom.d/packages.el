@@ -1,8 +1,10 @@
-(package! theme-magic)
-
 (package! info-colors)
 
+(package! org-block-capf :recipe (:host github :repo "xenodium/org-block-capf"))
+
 (package! org-modern)
+
+(package! org-appear :recipe (:host github :repo "awth13/org-appear"))
 
 (package! org-fragtog)
 
@@ -35,5 +37,7 @@
 ;;                  :build (:not compile)))
 ;;   (package! markdown-mode)
 ;;   (package! yasnippet))
+
+(package! eglot-ltex :recipe (:host github :repo "emacs-languagetool/eglot-ltex"))
 
 (package! vlfi)
