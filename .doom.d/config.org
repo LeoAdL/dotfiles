@@ -13,12 +13,18 @@
 (setq user-full-name "Leo Aparisi de Lannoy"
       user-mail-address "leoaparisi@gmail.com")
 #+end_src
+** Async
+#+begin_src emacs-lisp :lexical no
+(dired-async-mode 1)
+#+end_src
 ** Good defaults
 #+begin_src emacs-lisp
 (setq-default
  delete-by-moving-to-trash t                      ; Delete files to trash
  window-combination-resize t                      ; take new window space from all other windows (not just current)
  x-stretch-cursor t)                              ; Stretch cursor to the glyph width
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
 
 (setq undo-limit 80000000                         ; Raise undo-limit to 80Mb
       evil-want-fine-undo t                       ; By default while in insert all changes are one big blob. Be more granular
@@ -31,17 +37,6 @@
 *** Browser
 #+begin_src emacs-lisp
 (setq browse-url-chrome-program "brave")
-#+end_src
-*** Which-key
-#+begin_src emacs-lisp
-(setq which-key-idle-delay 0.5 ;; Default is 1.0
-      which-key-idle-secondary-delay 0.05) ;; Default is nil
-(setq which-key-allow-multiple-replacements t)
-
-(after! which-key
-  (pushnew! which-key-replacement-alist
-            '((""       . "\\`+?evil[-:]?\\(?:a-\\)?\\(.*\\)") . (nil . "🅔·\\1"))
-            '(("\\`g s" . "\\`evilem--?motion-\\(.*\\)")       . (nil . "Ⓔ·\\1"))))
 #+end_src
 ** Visual
 *** Font
@@ -767,20 +762,20 @@ citecolor=cite
 #+end_src
 ** LTex
 #+begin_src emacs-lisp :tangle packages.el
-(package! eglot-ltex :recipe (:host github :repo "emacs-languagetool/eglot-ltex"))
+(package! lsp-ltex)
 #+end_src
 #+begin_src emacs-lisp
-(use-package! eglot-ltex
-  :init
-  (setq eglot-ltex-server-path "/opt/homebrew/"
-        eglot-ltex-communication-channel 'tcp))         ; 'stdio or 'tcp
+;; (use-package! eglot-ltex                ;
+;;   :init
+;;   (setq eglot-ltex-server-path "/opt/homebrew/"
+;;         eglot-ltex-communication-channel 'tcp))         ; 'stdio or 'tcp
 #+end_src
 #+begin_src emacs-lisp :lexical no
- (after! eglot
-   (add-to-list 'eglot-server-programs
-               `((latex-mode :language-id "latex")
-                 . ,(eglot-alternatives '(("texlab")
-                                          ("ltex-ls" "--server-type" "TcpSocket" "--port" :autoport))))))
+ ;; (after! eglot
+ ;;   (add-to-list 'eglot-server-programs
+ ;;               `((latex-mode :language-id "latex")
+ ;;                 . ,(eglot-alternatives '(("texlab")
+ ;;                                          ("ltex-ls" "--server-type" "TcpSocket" "--port" :autoport)))))) ;
 #+end_src
 * VLFI
 #+begin_src emacs-lisp :tangle packages.el
@@ -1006,7 +1001,7 @@ citecolor=cite
 #+end_src
 * Flycheck
 #+begin_src emacs-lisp
-(setq flycheck-eglot-exclusive nil)
+;; (setq flycheck-eglot-exclusive nil)
 (map! :map evil-normal-state-map
       "SPC c b" #'consult-flycheck)
 #+end_src
