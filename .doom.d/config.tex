@@ -1,4 +1,4 @@
-% Created 2024-06-10 Mon 14:24
+% Created 2024-06-16 Sun 22:34
 % Intended LaTeX compiler: xelatex
 \documentclass[12pt]{article}
 \usepackage[american]{babel}
@@ -282,7 +282,7 @@ citecolor=cite
 \tableofcontents
 
 \section{Compilation}
-\label{sec:orgc8d9781}
+\label{sec:org1126170}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{brew tap railwaycat/emacsmacport}
@@ -290,23 +290,32 @@ citecolor=cite
 \end{Verbatim}
 \end{Code}
 \section{Basic}
-\label{sec:org23109f6}
+\label{sec:orgede7604}
 \subsection{ID}
-\label{sec:orgf50500b}
+\label{sec:orgdadafa4}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{user-full-name} \EFs{"Leo Aparisi de Lannoy"}
       \EFv{user-mail-address} \EFs{"leoaparisi@gmail.com"}\EFrda{)}
 \end{Verbatim}
 \end{Code}
+\subsection{Async}
+\label{sec:org7fd86d6}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{setq} \EFv{dired-async-mode} \EFhn{1}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsection{Good defaults}
-\label{sec:org2e5475a}
+\label{sec:org35a7dbd}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq-default}
  \EFv{delete-by-moving-to-trash} t                      \EFcd{;} \EFc{Delete files to trash}
  \EFv{window-combination-resize} t                      \EFcd{;} \EFc{take new window space from all other windows (not just current)}
  \EFv{x-stretch-cursor} t\EFrda{)}                              \EFcd{;} \EFc{Stretch cursor to the glyph width}
+\EFrda{(}\EFo{add-to-list} \EFhq{'}\EFv{default-frame-alist} \EFhq{'}\EFrdb{(}fullscreen . maximized\EFrdb{)}\EFrda{)}
+
 
 \EFrda{(}\EFk{setq} \EFv{undo-limit} \EFhn{80000000}                         \EFcd{;} \EFc{Raise undo-limit to 80Mb}
       \EFv{evil-want-fine-undo} t                       \EFcd{;} \EFc{By default while in insert all changes are one big blob. Be more granular}
@@ -314,68 +323,54 @@ citecolor=cite
       \EFv{truncate-string-ellipsis} \EFs{"…"}
       \EFv{scroll-margin} \EFhn{1}\EFrda{)}                            \EFcd{;} \EFc{It's nice to maintain a little margin}
 
-\EFrda{(}\EFv{global-subword-mode} \EFhn{1}\EFrda{)}                           \EFcd{;} \EFc{Iterate through CamelCase words}
+\EFrda{(}\EFk{setq} \EFv{global-subword-mode} \EFhn{1}\EFrda{)}                           \EFcd{;} \EFc{Iterate through CamelCase words}
 \end{Verbatim}
 \end{Code}
 \subsubsection{Browser}
-\label{sec:org0564f2a}
+\label{sec:orgcc8ab18}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{browse-url-chrome-program} \EFs{"brave"}\EFrda{)}
 \end{Verbatim}
 \end{Code}
-\subsubsection{Which-key}
-\label{sec:org854bc79}
-\begin{Code}
-\begin{Verbatim}
-\color{EFD}\EFrda{(}\EFk{setq} \EFv{which-key-idle-delay} \EFhn{0.5} \EFcd{;;} \EFc{Default is 1.0}
-      \EFv{which-key-idle-secondary-delay} \EFhn{0.05}\EFrda{)} \EFcd{;;} \EFc{Default is nil}
-\EFrda{(}\EFk{setq} \EFv{which-key-allow-multiple-replacements} t\EFrda{)}
-
-\EFrda{(}\EFk{after!} which-key
-  \EFrdb{(}\EFk{pushnew!} \EFv{which-key-replacement-alist}
-            \EFhq{'}\EFrdc{(}\EFrdd{(}\EFs{""}       . \EFs{"\char92{}\char92{}`+?evil[-:]?}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{(?:}}\EFs{a-}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{)}}\EFs{?}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{(}}\EFs{.*}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{)}}\EFs{"}\EFrdd{)} . \EFrdd{(}nil . \EFs{"🅔·\char92{}\char92{}1"}\EFrdd{)}\EFrdc{)}
-            \EFhq{'}\EFrdc{(}\EFrdd{(}\EFs{"\char92{}\char92{}`g s"} . \EFs{"\char92{}\char92{}`evilem--?motion-}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{(}}\EFs{.*}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{)}}\EFs{"}\EFrdd{)}       . \EFrdd{(}nil . \EFs{"Ⓔ·\char92{}\char92{}1"}\EFrdd{)}\EFrdc{)}\EFrdb{)}\EFrda{)}
-\end{Verbatim}
-\end{Code}
 \subsection{Visual}
-\label{sec:orgabaa753}
+\label{sec:org515e5a9}
 \subsubsection{Font}
-\label{sec:orgcb2285b}
+\label{sec:orgc6fa1ac}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{doom-font} \EFrdb{(}\EFo{font-spec} \EFb{:family} \EFs{"Iosevka"} \EFb{:size} \EFhn{14}\EFrdb{)}
       \EFv{doom-variable-pitch-font} \EFrdb{(}\EFo{font-spec} \EFb{:family} \EFs{"Lato"}\EFrdb{)}
-      \EFv{doom-unicode-font} \EFrdb{(}\EFo{font-spec} \EFb{:family} \EFs{"JuliaMono"}\EFrdb{)}
+      \EFv{doom-unicode-font} \EFrdb{(}\EFo{font-spec} \EFb{:family} \EFs{"Iosevka"}\EFrdb{)}
       \EFv{doom-big-font} \EFrdb{(}\EFo{font-spec} \EFb{:family} \EFs{"Iosevka"} \EFb{:size} \EFhn{24}\EFrdb{)}
       \EFv{doom-serif-font} \EFrdb{(}\EFo{font-spec} \EFb{:family} \EFs{"Iosevka Aile"} \EFb{:weight} \EFhq{'}\EFhs{light}\EFrdb{)}\EFrda{)}
 \end{Verbatim}
 \end{Code}
 \subsubsection{Theme}
-\label{sec:orgc5e72ff}
+\label{sec:org398df39}
 \begin{enumerate}
 \item Default theme
-\label{sec:org26a18e1}
+\label{sec:org907089b}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFo{load-theme} \EFhq{'}\EFhs{catppuccin} t t\EFrda{)}
 \EFrda{(}\EFk{setq} \EFv{doom-theme} \EFhq{'}\EFhs{catppuccin}\EFrda{)}
- \EFrda{(}\EFk{setq} \EFv{catppuccin-flavor} \EFhq{'}\EFhs{mocha}\EFrda{)} \EFcd{;;} \EFc{or 'latte, 'macchiato, or 'mocha}
+\EFrda{(}\EFk{setq} \EFv{catppuccin-flavor} \EFhq{'}\EFhs{mocha}\EFrda{)} \EFcd{;;} \EFc{or 'latte, 'macchiato, or 'mocha}
 \EFrda{(}\EFf{catppuccin-reload}\EFrda{)}
 \end{Verbatim}
 \end{Code}
 \end{enumerate}
 \subsubsection{Default visual}
-\label{sec:org70e5f39}
+\label{sec:orgeb2fe83}
 \subsubsection{Starting image}
-\label{sec:orgfe53d13}
+\label{sec:org16fb904}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{fancy-splash-image} \EFrdb{(}\EFo{expand-file-name} \EFs{"themes/doom-emacs-bw-light.svg"} \EFv{doom-user-dir}\EFrdb{)}\EFrda{)}
 \end{Verbatim}
 \end{Code}
 \subsection{Marginalia}
-\label{sec:orgcf96a63}
+\label{sec:org1b9e1ff}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} info-colors\EFrda{)}
@@ -384,12 +379,12 @@ citecolor=cite
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{after!} info-colors
-  \EFb{:commands} \EFrdb{(}\EFo{info-colors-fontify-node}\EFrdb{)}\EFrda{)}
-\EFrda{(}\EFk{add-hook!} \EFhq{'}\EFv{Info-selection-hook} \EFhq{'}\EFhs{info-colors-fontify-node}\EFrda{)}
+  \EFb{:commands} \EFrdb{(}\EFf{info-colors-fontify-node}\EFrdb{)}\EFrda{)}
+\EFrda{(}\EFo{add-hook} \EFhq{'}\EFv{Info-selection-hook} \EFhq{\#'}\EFhs{info-colors-fontify-node}\EFrda{)}
 \end{Verbatim}
 \end{Code}
 \subsection{File Templates}
-\label{sec:org25a9eb6}
+\label{sec:org4b0ce8f}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFf{set-file-template!} \EFs{"\char92{}\char92{}.tex\$"} \EFb{:trigger} \EFs{"\_\_"} \EFb{:mode} \EFhq{'}\EFhs{latex-mode}\EFrda{)}
@@ -397,7 +392,7 @@ citecolor=cite
 \end{Verbatim}
 \end{Code}
 \subsection{Editor config}
-\label{sec:org28f8c56}
+\label{sec:orgcffeb99}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{display-line-numbers-type} \EFhq{`}\EFhs{relative}\EFrda{)}
@@ -405,9 +400,9 @@ citecolor=cite
 \end{Verbatim}
 \end{Code}
 \section{Org-Mode}
-\label{sec:org230c2af}
+\label{sec:org31d32f9}
 \subsection{Defaults}
-\label{sec:orgfb44568}
+\label{sec:org52e4f8e}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{org-directory} \EFs{"\char126{}/org/"}
@@ -422,7 +417,7 @@ citecolor=cite
 \end{Verbatim}
 \end{Code}
 \subsection{Babel}
-\label{sec:orgfa630e0}
+\label{sec:org59c80c8}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{org-babel-default-header-args}
@@ -436,10 +431,24 @@ citecolor=cite
         \EFrdc{(}\EFb{:comments} . \EFs{"link"}\EFrdc{)}\EFrdb{)}\EFrda{)}
 \end{Verbatim}
 \end{Code}
+\subsubsection{Completion}
+\label{sec:org37584e7}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{package!} org-block-capf \EFb{:recipe} \EFrdb{(}\EFb{:host} github \EFb{:repo} \EFs{"xenodium/org-block-capf"}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{use-package!} org-block-capf
+  \EFb{:after} org
+  \EFb{:hook} \EFrdb{(}\EFf{org-mode} . org-block-capf-add-to-completion-at-point-functions\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
 \subsection{Visuals}
-\label{sec:orgf1fd1b9}
+\label{sec:orgb5733e2}
 \subsubsection{Org-modern}
-\label{sec:org8b981fc}
+\label{sec:org10ac9e4}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} org-modern\EFrda{)}
@@ -448,6 +457,7 @@ citecolor=cite
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{use-package!} org-modern
+  \EFb{:after} org
   \EFb{:hook} \EFrdb{(}\EFf{org-mode} . \EFv{org-modern-mode}\EFrdb{)}
   \EFb{:config}
   \EFrdb{(}\EFk{setq} \EFv{org-modern-star} \EFhq{'}\EFrdc{(}\EFs{"◉"} \EFs{"○"} \EFs{"✸"} \EFs{"✿"} \EFs{"✤"} \EFs{"✜"} \EFs{"◆"} \EFs{"▶"}\EFrdc{)}
@@ -521,7 +531,7 @@ citecolor=cite
 \end{Verbatim}
 \end{Code}
 \subsubsection{Org-Appear}
-\label{sec:org4cdfcc6}
+\label{sec:orgc4eacfe}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} org-appear \EFb{:recipe} \EFrdb{(}\EFb{:host} github \EFb{:repo} \EFs{"awth13/org-appear"}\EFrdb{)}\EFrda{)}
@@ -529,11 +539,11 @@ citecolor=cite
 \end{Code}
 \begin{Code}
 \begin{Verbatim}
-\color{EFD}\EFrda{(}\EFk{add-hook!} \EFhq{'}\EFv{org-mode-hook} \EFhq{'}\EFv{org-appear-mode}\EFrda{)}
+\color{EFD}\EFrda{(}\EFo{add-hook} \EFhq{'}\EFv{org-mode-hook} \EFhq{\#'}\EFv{org-appear-mode}\EFrda{)}
 \end{Verbatim}
 \end{Code}
 \subsubsection{General}
-\label{sec:org95d43c6}
+\label{sec:org3b8abb6}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{org-src-fontify-natively} t
@@ -577,9 +587,9 @@ citecolor=cite
 \end{Code}
 
 \subsubsection{Ligatures}
-\label{sec:org8af051d}
+\label{sec:orgb021125}
 \subsubsection{Latex improvement}
-\label{sec:orgad33dc1}
+\label{sec:org958c5ba}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{org-highlight-latex-and-related} \EFhq{'}\EFrdb{(}native script entities\EFrdb{)}\EFrda{)}
@@ -599,20 +609,20 @@ citecolor=cite
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{(add-hook 'org-mode-hook \#'org-latex-preview-auto-mode)}
-\EFrda{(}\EFk{add-hook!} \EFhq{'}\EFv{org-mode-hook} \EFhq{'}\EFv{org-fragtog-mode}\EFrda{)}
+\EFrda{(}\EFo{add-hook} \EFhq{'}\EFv{org-mode-hook} \EFhq{\#'}\EFv{org-fragtog-mode}\EFrda{)}
 \end{Verbatim}
 \end{Code}
 \subsection{Bullets}
-\label{sec:org86c63c8}
+\label{sec:org339a196}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{org-list-demote-modify-bullet} \EFhq{'}\EFrdb{(}\EFrdc{(}\EFs{"+"} . \EFs{"-"}\EFrdc{)} \EFrdc{(}\EFs{"-"} . \EFs{"+"}\EFrdc{)} \EFrdc{(}\EFs{"*"} . \EFs{"+"}\EFrdc{)} \EFrdc{(}\EFs{"1."} . \EFs{"a."}\EFrdc{)}\EFrdb{)}\EFrda{)}
 \end{Verbatim}
 \end{Code}
 \subsection{Agenda}
-\label{sec:orgfdedffd}
+\label{sec:org07f790e}
 \subsubsection{Visual}
-\label{sec:orga6506c1}
+\label{sec:org72928ea}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{after!} org-agenda
@@ -624,9 +634,9 @@ citecolor=cite
 \end{Verbatim}
 \end{Code}
 \subsection{Roam}
-\label{sec:orge62e81c}
+\label{sec:org5075752}
 \subsubsection{Defaults}
-\label{sec:orgac2f7bf}
+\label{sec:org6ca0b9c}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}
@@ -640,7 +650,7 @@ citecolor=cite
 \end{Verbatim}
 \end{Code}
 \subsubsection{Daily}
-\label{sec:org9b1fc5f}
+\label{sec:orgccadb0a}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}
@@ -654,10 +664,10 @@ citecolor=cite
 \end{Verbatim}
 \end{Code}
 \subsubsection{Visuals}
-\label{sec:orgf366fb2}
+\label{sec:org7a872b9}
 \begin{enumerate}
 \item UI and visualization
-\label{sec:org582b64a}
+\label{sec:org2220280}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{(package! org-roam-ui)}
@@ -696,18 +706,9 @@ citecolor=cite
 \end{Code}
 \end{enumerate}
 \subsection{Ob-async}
-\label{sec:org7287e26}
-\subsubsection{Julia support}
-\label{sec:orgfd8e4f8}
-\subsubsection{Jupyter Integration}
-\label{sec:org7c40346}
-\begin{Code}
-\begin{Verbatim}
-\color{EFD}\EFrda{(}\EFk{setq} ob-async-no-async-languages-alist \EFhq{'}\EFrdb{(}\EFs{"jupyter-python"} \EFs{"jupyter-julia"}\EFrdb{)}\EFrda{)}
-\end{Verbatim}
-\end{Code}
+\label{sec:org9754079}
 \subsection{Pandoc import}
-\label{sec:orgb9e6823}
+\label{sec:org1600e8d}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} org-pandoc-import
@@ -718,15 +719,14 @@ citecolor=cite
 \end{Code}
 \begin{Code}
 \begin{Verbatim}
-\color{EFD}
-\EFrda{(}\EFk{use-package!} org-pandoc-import
+\color{EFD}\EFrda{(}\EFk{use-package!} org-pandoc-import
   \EFb{:after} org\EFrda{)}
 \end{Verbatim}
 \end{Code}
 \subsection{Export}
-\label{sec:org64d515a}
+\label{sec:org17b71c8}
 \subsubsection{Preview}
-\label{sec:org0683f8b}
+\label{sec:org20c3626}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{(map! :map org-mode-map}
@@ -760,7 +760,7 @@ citecolor=cite
 \end{Verbatim}
 \end{Code}
 \subsection{Zotero Integration}
-\label{sec:org525a4c8}
+\label{sec:orgd241359}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{(package! zotxt)}
@@ -774,7 +774,7 @@ citecolor=cite
 \end{Verbatim}
 \end{Code}
 \subsection{Org-Chef}
-\label{sec:org3e225ab}
+\label{sec:org2460ff4}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} org-chef\EFrda{)}
@@ -783,14 +783,15 @@ citecolor=cite
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{use-package!} org-chef
+  \EFb{:after} org
   \EFb{:commands} \EFrdb{(}\EFf{org-chef-insert-recipe} org-chef-get-recipe-from-url\EFrdb{)}\EFrda{)}
 \end{Verbatim}
 \end{Code}
 
 \subsection{Bibtex-Integration}
-\label{sec:org681bfe8}
+\label{sec:org7a5e74b}
 \subsubsection{Citar}
-\label{sec:org9f57749}
+\label{sec:org099b745}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} org-cite-csl-activate \EFb{:recipe} \EFrdb{(}\EFb{:host} github \EFb{:repo} \EFs{"andras-simonyi/org-cite-csl-activate"}\EFrdb{)}\EFrda{)}
@@ -799,14 +800,24 @@ citecolor=cite
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{use-package!} citar
+  \EFb{:defer} t
   \EFb{:no-require}
   \EFb{:custom}
   \EFrdb{(}\EFv{org-cite-global-bibliography} \EFhq{'}\EFrdc{(}\EFs{"\char126{}/org/Lecture\_Notes/MyLibrary.bib"}\EFrdc{)}\EFrdb{)}
   \EFrdb{(}\EFv{citar-bibliography} \EFv{org-cite-global-bibliography}\EFrdb{)}
   \EFrdb{(}\EFv{citar-symbols}
-      \EFhq{`}\EFrdc{(}note ,\EFrdd{(}\EFo{nerd-icons-octicon} \EFs{"nf-oct-note"} \EFb{:face} \EFhq{'}\EFhs{nerd-icons-blue} \EFb{:v-adjust} \EFhn{-0.3}\EFrdd{)} . \EFs{" "}\EFrdc{)}
-      \EFrdc{(}link ,\EFrdd{(}\EFo{nerd-icons-octicon} \EFs{"nf-oct-link"} \EFb{:face} \EFhq{'}\EFhs{nerd-icons-orange} \EFb{:v-adjust} \EFhn{0.01}\EFrdd{)} . \EFs{" "}\EFrdc{)}\EFrdb{)}\EFrda{)}
-
+      \EFhq{'}\EFrdc{(}note ,\EFrdd{(}\EFo{nerd-icons-octicon} \EFs{"nf-oct-note"} \EFb{:face} \EFhq{'}\EFhs{nerd-icons-blue} \EFb{:v-adjust} \EFhn{-0.3}\EFrdd{)} . \EFs{" "}\EFrdc{)}
+      \EFhq{'}\EFrdc{(}link ,\EFrdd{(}\EFo{nerd-icons-octicon} \EFs{"nf-oct-link"} \EFb{:face} \EFhq{'}\EFhs{nerd-icons-orange} \EFb{:v-adjust} \EFhn{0.01}\EFrdd{)} . \EFs{" "}\EFrdc{)}\EFrdb{)}
+  \EFb{:hook}
+  \EFrdb{(}\EFf{org-mode} . citar-capf-setup\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFrda{(}\EFk{use-package!} citar-embark
+  \EFb{:after} citar embark
+  \EFb{:no-require}
+  \EFb{:config} \EFrdb{(}\EFv{citar-embark-mode}\EFrdb{)}\EFrda{)}
 \end{Verbatim}
 \end{Code}
 \begin{Code}
@@ -835,7 +846,7 @@ citecolor=cite
 \end{Verbatim}
 \end{Code}
 \subsubsection{Org-Roam integration}
-\label{sec:org620e2ff}
+\label{sec:org69e9684}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{(use-package! citar-org-roam}
@@ -860,12 +871,12 @@ citecolor=cite
 \end{Verbatim}
 \end{Code}
 \subsection{Latex templates}
-\label{sec:orgf8bf929}
+\label{sec:org5beda48}
 \subsubsection{Preview}
-\label{sec:orga77c3d5}
+\label{sec:orgd60868b}
 \begin{enumerate}
 \item PNG
-\label{sec:org812c8f6}
+\label{sec:org1249f61}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{after!} org
@@ -880,7 +891,7 @@ citecolor=cite
 \end{Verbatim}
 \end{Code}
 \item Header
-\label{sec:orga7eefa3}
+\label{sec:orgc8a579b}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{org-format-latex-header} \EFs{"\char92{}\char92{}documentclass[12pt]}
@@ -917,7 +928,7 @@ citecolor=cite
 \end{Code}
 \end{enumerate}
 \subsubsection{Article}
-\label{sec:orga5fa0ae}
+\label{sec:org2c180af}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{with-eval-after-load} \EFhq{'}\EFhs{ox-latex}
@@ -993,7 +1004,7 @@ citecolor=cite
 \end{Verbatim}
 \end{Code}
 \subsubsection{Beamer}
-\label{sec:orgb0cf630}
+\label{sec:orgec5d4e7}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{org-beamer-frame-level} \EFhn{2}\EFrda{)}
@@ -1093,7 +1104,7 @@ Define Beamer class:
 \end{Verbatim}
 \end{Code}
 \subsubsection{Export}
-\label{sec:orgceeb5a5}
+\label{sec:orgffc6ad2}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{org-latex-pdf-process} \EFhq{'}\EFrdb{(}\EFs{"LC\_ALL=en\_US.UTF-8 latexmk -f -pdf -\%latex -shell-escape -interaction=nonstopmode -output-directory=\%o \%f"}\EFrdb{)}\EFrda{)}
@@ -1124,7 +1135,7 @@ Define Beamer class:
 \end{Code}
 \begin{enumerate}
 \item Preview
-\label{sec:orga806a09}
+\label{sec:orgda4093c}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{Use pdf-tools to open PDF files}
@@ -1135,12 +1146,11 @@ Define Beamer class:
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{Update PDF buffers after successful LaTeX runs}
-\EFrda{(}\EFk{add-hook!} \EFhq{'}\EFv{TeX-after-compilation-finished-functions}
-          \EFhq{\#'}\EFhs{TeX-revert-document-buffer}\EFrda{)}
+\EFrda{(}\EFo{add-hook} \EFhq{'}\EFv{TeX-after-compilation-finished-functions} \EFhq{\#'}\EFhs{TeX-revert-document-buffer}\EFrda{)}
 \end{Verbatim}
 \end{Code}
 \item Code blocks
-\label{sec:org340b8df}
+\label{sec:orgd4e754d}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}
@@ -1157,23 +1167,23 @@ Define Beamer class:
 \end{Code}
 \end{enumerate}
 \subsection{Capture}
-\label{sec:org9b5fcce}
+\label{sec:org608d4bf}
 \subsubsection{Doct}
-\label{sec:org797b7cb}
+\label{sec:orgd1ea177}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} doct\EFrda{)}
 \end{Verbatim}
 \end{Code}
 \section{Corfu}
-\label{sec:orgf19746f}
+\label{sec:orgc0302cd}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{setq} \EFv{corfu-popupinfo-delay} \EFhn{0}\EFrda{)}
 \end{Verbatim}
 \end{Code}
 \section{Jinx}
-\label{sec:orgb88d3d2}
+\label{sec:org95af151}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} jinx\EFrda{)}
@@ -1184,24 +1194,32 @@ Define Beamer class:
 \color{EFD}\EFrda{(}\EFk{use-package!} jinx
   \EFb{:defer} t
   \EFb{:init}
-  \EFrdb{(}\EFk{add-hook!} \EFhq{'}\EFv{doom-init-ui-hook} \EFhq{\#'}\EFv{global-jinx-mode}\EFrdb{)}
+  \EFrdb{(}\EFo{add-hook} \EFhq{'}\EFv{doom-init-ui-hook} \EFhq{\#'}\EFv{global-jinx-mode}\EFrdb{)}
   \EFb{:config}
   \EFcd{;;} \EFc{Extra face(s) to ignore}
   \EFrdb{(}\EFk{push} \EFhq{'}\EFhs{org-inline-src-block}
         \EFrdc{(}\EFo{alist-get} \EFhq{'}\EFhs{org-mode} \EFv{jinx-exclude-faces}\EFrdc{)}\EFrdb{)}
   \EFcd{;;} \EFc{Take over the relevant bindings.}
-  \EFrdb{(}\EFk{after!} ispell
-    \EFrdc{(}\EFo{keymap-global-unset} \EFs{"z ="}\EFrdc{)}
-    \EFrdc{(}\EFo{keymap-global-set} \EFs{"z ="} \EFhq{\#'}\EFhs{jinx-correct}\EFrdc{)}\EFrdb{)}
+  \EFrdb{(}\EFk{after!} evil-commands
+    \EFrdc{(}\EFo{global-set-key} \EFrdd{[}remap ispell-word\EFrdd{]} \EFhq{\#'}\EFhs{jinx-correct}\EFrdc{)}\EFrdb{)}
   \EFrdb{(}\EFk{after!} evil-commands
     \EFrdc{(}\EFo{global-set-key} \EFrdd{[}remap evil-next-flyspell-error\EFrdd{]} \EFhq{\#'}\EFhs{jinx-next}\EFrdc{)}
     \EFrdc{(}\EFo{global-set-key} \EFrdd{[}remap evil-prev-flyspell-error\EFrdd{]} \EFhq{\#'}\EFhs{jinx-previous}\EFrdc{)}\EFrdb{)}\EFrda{)}
 \end{Verbatim}
 \end{Code}
 \section{LSP}
-\label{sec:orge878071}
+\label{sec:orge53cb79}
+\subsection{Keybindings}
+\label{sec:org3457b0e}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD} \EFcd{;;} \EFc{(map! :after lsp-mode}
+ \EFcd{;;}        \EFc{:map evil-normal-state-map}
+ \EFcd{;;}        \EFc{"K" \#'lsp-ui-doc-show)}
+\end{Verbatim}
+\end{Code}
 \subsection{LSP-Bridge}
-\label{sec:org6316a4b}
+\label{sec:org52c4a1c}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{(when (package! lsp-bridge}
@@ -1224,7 +1242,7 @@ Define Beamer class:
 \end{Verbatim}
 \end{Code}
 \subsection{Digestif}
-\label{sec:org6bb1051}
+\label{sec:org8f705c2}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{(after! lsp-mode}
@@ -1232,29 +1250,37 @@ Define Beamer class:
 \end{Verbatim}
 \end{Code}
 \subsection{LTex}
-\label{sec:org3bec144}
+\label{sec:orgfc98cc6}
 \begin{Code}
 \begin{Verbatim}
-\color{EFD}\EFcd{;;} \EFc{(package! lsp-ltex)}
-\EFcd{;;} \EFc{(package! eglot-ltex :recipe (:host github :repo "emacs-languagetool/eglot-ltex"))}
+\color{EFD}\EFrda{(}\EFk{package!} lsp-ltex\EFrda{)}
 \end{Verbatim}
 \end{Code}
 \begin{Code}
 \begin{Verbatim}
-\color{EFD}\EFcd{;;} \EFc{(use-package! lsp-ltex}
-\EFcd{;;}   \EFc{:hook (text-mode . (lambda ()}
-\EFcd{;;}                        \EFc{(require 'lsp-ltex)}
-\EFcd{;;}                        \EFc{(lsp)))  ; or lsp-deferred}
+\color{EFD}\EFrda{(}\EFk{use-package!} lsp-ltex
+  \EFb{:ensure} t
+  \EFb{:defer} t
+  \EFb{:init}
+  \EFrdb{(}\EFk{setq} \EFv{lsp-ltex-version} \EFs{"16.0.0"}\EFrdb{)}\EFrda{)}  \EFcd{;} \EFc{make sure you have set this, see below}
+
+\EFcd{;;} \EFc{(use-package! eglot-ltex                ;}
 \EFcd{;;}   \EFc{:init}
-\EFcd{;;}   \EFc{(setq lsp-ltex-version "15.2.0"))  ; make sure you have set this, see below}
-\EFcd{;;} \EFc{(use-package! eglot-ltex}
-\EFcd{;;}   \EFc{:after org}
-\EFcd{;;}   \EFc{:init}
-\EFcd{;;}   \EFc{(setq eglot-languagetool-server-path "/opt/homebrew/Cellar/ltex-ls/15.2.0"))}
+\EFcd{;;}   \EFc{(setq eglot-ltex-server-path "/opt/homebrew/"}
+\EFcd{;;}         \EFc{eglot-ltex-communication-channel 'tcp))         ; 'stdio or 'tcp}
+\end{Verbatim}
+\end{Code}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD} \EFcd{;;} \EFc{(after! eglot}
+ \EFcd{;;}   \EFc{(add-to-list 'eglot-server-programs}
+ \EFcd{;;}               \EFc{`((latex-mode :language-id "latex")}
+ \EFcd{;;}                 \EFc{. ,(eglot-alternatives '(("texlab")}
+ \EFcd{;;}                                          \EFc{("ltex-ls" "--server-type" "TcpSocket" "--port" :autoport)))))) ;}
 \end{Verbatim}
 \end{Code}
 \section{VLFI}
-\label{sec:org4284ac6}
+\label{sec:orgcfcf0d6}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{package!} vlfi\EFrda{)}
@@ -1268,16 +1294,16 @@ Define Beamer class:
 \end{Code}
 
 \section{PDF-Tools}
-\label{sec:orgb585181}
+\label{sec:orgceec5a6}
 \subsection{Dark mode}
-\label{sec:org0a8efa8}
+\label{sec:orgb7ebb98}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD} \EFcd{;;} \EFc{(add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode)}
 \end{Verbatim}
 \end{Code}
 \section{Option key Fix}
-\label{sec:org4cdf2fb}
+\label{sec:org2c4ba50}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFrda{(}\EFk{defun} \EFf{switch-left-and-right-option-keys} \EFrdb{(}\EFrdb{)}
@@ -1293,7 +1319,7 @@ Define Beamer class:
 \end{Code}
 
 \section{Centaur}
-\label{sec:org6be85c2}
+\label{sec:orgbb1fe6e}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{(after! centaur-tabs}
@@ -1310,7 +1336,7 @@ Define Beamer class:
 \end{Code}
 
 \section{RSS}
-\label{sec:orgdd88f83}
+\label{sec:org8e15943}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{(add-hook! 'elfeed-search-mode-hook \#'elfeed-update) ;}
@@ -1320,7 +1346,7 @@ Define Beamer class:
 \end{Verbatim}
 \end{Code}
 \subsection{Visual}
-\label{sec:org7f83397}
+\label{sec:org3809811}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{(after! elfeed}
@@ -1435,9 +1461,9 @@ Define Beamer class:
 \end{Code}
 
 \section{Email}
-\label{sec:org0538b33}
+\label{sec:org7cd70c2}
 \subsection{mu4e}
-\label{sec:org9668ab3}
+\label{sec:org47de6a9}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;} \EFc{add to \$DOOMDIR/config.el}
@@ -1482,7 +1508,7 @@ Define Beamer class:
 \end{Verbatim}
 \end{Code}
 \subsection{Notification}
-\label{sec:org5b85dd4}
+\label{sec:org967bb8a}
 \begin{Code}
 \begin{Verbatim}
 \color{EFD}\EFcd{;;}\EFc{(mu4e-alert-set-default-style 'notifier)}
@@ -1490,11 +1516,42 @@ Define Beamer class:
 \end{Verbatim}
 \end{Code}
 \subsection{Latex}
-\label{sec:org7cf2c92}
+\label{sec:orgd3bf335}
 \begin{Code}
 \begin{Verbatim}
-\color{EFD}\EFrda{(}\EFk{setq} \EFv{+latex-viewers} \EFhq{'}\EFrdb{(}skim\EFrdb{)}\EFrda{)}
-\EFrda{(}\EFk{setq} \EFv{TeX-view-program-selection} \EFhq{'}\EFrdb{(}\EFrdc{(}output-pdf \EFs{"Skim"}\EFrdc{)}\EFrdb{)}\EFrda{)}
+\color{EFD}\EFrda{(}\EFk{setq} \EFv{+latex-viewers} \EFhq{'}\EFrdb{(}pdf-tools\EFrdb{)}\EFrda{)}
+\EFrda{(}\EFk{defun} \EFf{compile-save}\EFrdb{(}\EFrdb{)}
+  \EFd{"Test of save hook"}
+  \EFrdb{(}\EFk{when} \EFrdc{(}\EFo{eq} \EFv{major-mode} \EFhq{'}\EFhs{latex-mode}\EFrdc{)}
+    \EFrdc{(}\EFf{+latex/compile}\EFrdc{)}\EFrdb{)}\EFrda{)}
+\EFrda{(}\EFo{add-hook} \EFhq{'}\EFv{after-save-hook} \EFhq{\#'}\EFhs{compile-save}\EFrda{)}
+\EFrda{(}\EFk{setq} \EFv{TeX-save-query} nil
+      \EFv{TeX-show-compilation} nil
+      \EFv{TeX-command-extra-options} \EFs{"-shell-escape"}\EFrda{)}
+\EFrda{(}\EFk{after!} latex
+  \EFrdb{(}\EFo{add-to-list} \EFhq{'}\EFv{TeX-command-list} \EFhq{'}\EFrdc{(}\EFs{"XeLaTeX"} \EFs{"\%`xelatex\%(mode)\%' \%t"} TeX-run-TeX nil t\EFrdc{)}\EFrdb{)}\EFrda{)}
+\end{Verbatim}
+\end{Code}
+\section{Flycheck}
+\label{sec:orgc15b0be}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFcd{;;} \EFc{(setq flycheck-eglot-exclusive nil)}
+\EFrda{(}\EFk{map!} \EFb{:map} \EFv{evil-normal-state-map}
+      \EFs{"SPC c b"} \EFhq{\#'}\EFhs{consult-flycheck}\EFrda{)}
+\end{Verbatim}
+\end{Code}
+\section{TRAMP}
+\label{sec:org381aacd}
+\begin{Code}
+\begin{Verbatim}
+\color{EFD} \EFrda{(}\EFk{after!} tramp
+  \EFrdb{(}\EFo{setenv} \EFs{"SHELL"} \EFs{"/bin/bash"}\EFrdb{)}
+  \EFrdb{(}\EFk{setq} \EFv{tramp-shell-prompt-pattern} \EFs{"}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{(?:}}\EFs{\char94{}}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{|}}\EFs{\char92{}n}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{|}}\EFs{\char92{}x0d}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{)}}\EFs{[}\textcolor[HTML]{8b2252}{\char94{}}\EFs{]\#\$\%>\char92{}n]*\#?[]\#\$\%>] *}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{(}}\EFs{\char92{}e\char92{}\char92{}[[0-9;]*[a-zA-Z] *}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{)}}\EFs{*"}\EFrdb{)}\EFrda{)} \EFcd{;;} \EFc{default + }
+  \EFrda{(}\EFk{setq} \EFv{vc-ignore-dir-regexp}
+                \EFrdb{(}\EFo{format} \EFs{"}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{(}}\EFs{\%s}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{)}}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{|}}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{(}}\EFs{\%s}\textcolor[HTML]{8b2252}{\textbf{\char92{}\char92{}}}\textcolor[HTML]{8b2252}{\textbf{)}}\EFs{"}
+                        \EFv{vc-ignore-dir-regexp}
+                        \EFv{tramp-file-name-regexp}\EFrdb{)}\EFrda{)}
 \end{Verbatim}
 \end{Code}
 \end{document}

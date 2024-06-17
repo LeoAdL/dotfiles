@@ -4,10 +4,14 @@
 (setq user-full-name "Leo Aparisi de Lannoy"
       user-mail-address "leoaparisi@gmail.com")
 
+(setq dired-async-mode 1)
+
 (setq-default
  delete-by-moving-to-trash t                      ; Delete files to trash
  window-combination-resize t                      ; take new window space from all other windows (not just current)
  x-stretch-cursor t)                              ; Stretch cursor to the glyph width
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
 
 (setq undo-limit 80000000                         ; Raise undo-limit to 80Mb
       evil-want-fine-undo t                       ; By default while in insert all changes are one big blob. Be more granular
@@ -15,18 +19,9 @@
       truncate-string-ellipsis "…"
       scroll-margin 1)                            ; It's nice to maintain a little margin
 
-(global-subword-mode 1)                           ; Iterate through CamelCase words
+(setq global-subword-mode 1)                           ; Iterate through CamelCase words
 
 (setq browse-url-chrome-program "brave")
-
-(setq which-key-idle-delay 0.5 ;; Default is 1.0
-      which-key-idle-secondary-delay 0.05) ;; Default is nil
-(setq which-key-allow-multiple-replacements t)
-
-(after! which-key
-  (pushnew! which-key-replacement-alist
-            '((""       . "\\`+?evil[-:]?\\(?:a-\\)?\\(.*\\)") . (nil . "🅔·\\1"))
-            '(("\\`g s" . "\\`evilem--?motion-\\(.*\\)")       . (nil . "Ⓔ·\\1"))))
 
 (setq doom-font (font-spec :family "Iosevka" :size 14)
       doom-variable-pitch-font (font-spec :family "Lato")
@@ -36,14 +31,14 @@
 
 (load-theme 'catppuccin t t)
 (setq doom-theme 'catppuccin)
- (setq catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'mocha
+(setq catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'mocha
 (catppuccin-reload)
 
 (setq fancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
 
 (after! info-colors
   :commands (info-colors-fontify-node))
-(add-hook! 'Info-selection-hook 'info-colors-fontify-node)
+(add-hook 'Info-selection-hook #'info-colors-fontify-node)
 
 (set-file-template! "\\.tex$" :trigger "__" :mode 'latex-mode)
 (set-file-template! "\\.org$" :trigger "__" :mode 'org-mode)
@@ -72,9 +67,11 @@
         (:comments . "link")))
 
 (use-package! org-block-capf
+  :after org
   :hook (org-mode . org-block-capf-add-to-completion-at-point-functions))
 
 (use-package! org-modern
+  :after org
   :hook (org-mode . org-modern-mode)
   :config
   (setq org-modern-star '("◉" "○" "✸" "✿" "✤" "✜" "◆" "▶")
@@ -146,7 +143,7 @@
           ("results" . "🠶")))
   (custom-set-faces! '(org-modern-statistics :inherit org-checkbox-statistics-todo)))
 
-(add-hook! 'org-mode-hook 'org-appear-mode)
+(add-hook 'org-mode-hook #'org-appear-mode)
 
 (setq org-src-fontify-natively t
       org-fontify-whole-heading-line t
@@ -188,7 +185,7 @@
 (add-to-list 'org-src-block-faces '("latex" (:inherit default :extend t)))
 
 ;; (add-hook 'org-mode-hook #'org-latex-preview-auto-mode)
-(add-hook! 'org-mode-hook 'org-fragtog-mode)
+(add-hook 'org-mode-hook #'org-fragtog-mode)
 
 (setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a.")))
 
@@ -276,16 +273,25 @@
 ;;   :after org)
 
 (use-package! org-chef
+  :after org
   :commands (org-chef-insert-recipe org-chef-get-recipe-from-url))
 
 (use-package! citar
+  :defer t
   :no-require
   :custom
   (org-cite-global-bibliography '("~/org/Lecture_Notes/MyLibrary.bib"))
   (citar-bibliography org-cite-global-bibliography)
   (citar-symbols
-      `(note ,(nerd-icons-octicon "nf-oct-note" :face 'nerd-icons-blue :v-adjust -0.3) . " ")
-      (link ,(nerd-icons-octicon "nf-oct-link" :face 'nerd-icons-orange :v-adjust 0.01) . " ")))
+      '(note ,(nerd-icons-octicon "nf-oct-note" :face 'nerd-icons-blue :v-adjust -0.3) . " ")
+      '(link ,(nerd-icons-octicon "nf-oct-link" :face 'nerd-icons-orange :v-adjust 0.01) . " "))
+  :hook
+  (org-mode . citar-capf-setup))
+
+(use-package! citar-embark
+  :after citar embark
+  :no-require
+  :config (citar-embark-mode))
 
 (use-package! oc-csl
   :after oc
@@ -552,8 +558,7 @@ citecolor=cite
       TeX-source-correlate-start-server t)
 
 ;; Update PDF buffers after successful LaTeX runs
-(add-hook! 'TeX-after-compilation-finished-functions
-          #'TeX-revert-document-buffer)
+(add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
 
 (use-package! engrave-faces-latex
   :after ox-latex)
@@ -565,7 +570,7 @@ citecolor=cite
 (use-package! jinx
   :defer t
   :init
-  (add-hook! 'doom-init-ui-hook #'global-jinx-mode)
+  (add-hook 'doom-init-ui-hook #'global-jinx-mode)
   :config
   ;; Extra face(s) to ignore
   (push 'org-inline-src-block
@@ -577,6 +582,10 @@ citecolor=cite
     (global-set-key [remap evil-next-flyspell-error] #'jinx-next)
     (global-set-key [remap evil-prev-flyspell-error] #'jinx-previous)))
 
+;; (map! :after lsp-mode
+;;        :map evil-normal-state-map
+;;        "K" #'lsp-ui-doc-show)
+
 ;; (use-package! lsp-bridge
 ;;   :config
 ;;   (setq lsp-bridge-enable-log nil)
@@ -585,16 +594,22 @@ citecolor=cite
 ;; (after! lsp-mode
 ;;   (setq lsp-tex-server 'digestif))
 
-(use-package! eglot-ltex
+(use-package! lsp-ltex
+  :ensure t
+  :defer t
   :init
-  (setq eglot-ltex-server-path "/opt/homebrew/"
-        eglot-ltex-communication-channel 'tcp))         ; 'stdio or 'tcp
+  (setq lsp-ltex-version "16.0.0"))  ; make sure you have set this, see below
 
-(after! eglot
-  (add-to-list 'eglot-server-programs
-              `((latex-mode :language-id "latex")
-                . ,(eglot-alternatives '(("texlab")
-                                         ("ltex-ls" "--server-type" "TcpSocket" "--port" :autoport))))))
+;; (use-package! eglot-ltex                ;
+;;   :init
+;;   (setq eglot-ltex-server-path "/opt/homebrew/"
+;;         eglot-ltex-communication-channel 'tcp))         ; 'stdio or 'tcp
+
+;; (after! eglot
+;;   (add-to-list 'eglot-server-programs
+;;               `((latex-mode :language-id "latex")
+;;                 . ,(eglot-alternatives '(("texlab")
+;;                                          ("ltex-ls" "--server-type" "TcpSocket" "--port" :autoport)))))) ;
 
 (use-package! vlf-setup
   :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
@@ -784,21 +799,21 @@ citecolor=cite
   "Test of save hook"
   (when (eq major-mode 'latex-mode)
     (+latex/compile)))
-(add-hook 'after-save-hook 'compile-save)
+(add-hook 'after-save-hook #'compile-save)
 (setq TeX-save-query nil
       TeX-show-compilation nil
       TeX-command-extra-options "-shell-escape")
 (after! latex
   (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t)))
 
-(setq flycheck-eglot-exclusive nil)
+;; (setq flycheck-eglot-exclusive nil)
 (map! :map evil-normal-state-map
       "SPC c b" #'consult-flycheck)
 
 (after! tramp
-  (setenv "SHELL" "/bin/bash")
-  (setq tramp-shell-prompt-pattern "\\(?:^\\|\n\\|\x0d\\)[^]#$%>\n]*#?[]#$%>] *\\(\e\\[[0-9;]*[a-zA-Z] *\\)*")) ;; default + 
-(setq vc-ignore-dir-regexp
-                (format "\\(%s\\)\\|\\(%s\\)"
-                        vc-ignore-dir-regexp
-                        tramp-file-name-regexp))
+ (setenv "SHELL" "/bin/bash")
+ (setq tramp-shell-prompt-pattern "\\(?:^\\|\n\\|\x0d\\)[^]#$%>\n]*#?[]#$%>] *\\(\e\\[[0-9;]*[a-zA-Z] *\\)*")) ;; default + 
+ (setq vc-ignore-dir-regexp
+               (format "\\(%s\\)\\|\\(%s\\)"
+                       vc-ignore-dir-regexp
+                       tramp-file-name-regexp))
