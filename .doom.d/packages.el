@@ -38,6 +38,6 @@
 ;;   (package! markdown-mode)
 ;;   (package! yasnippet))
 
-(package! eglot-ltex :recipe (:host github :repo "emacs-languagetool/eglot-ltex"))
+(package! lsp-ltex)
 
 (package! vlfi)
