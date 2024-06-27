@@ -7,6 +7,7 @@ PassCmd "pass leoaparisi@gmail.com"
 AuthMechs LOGIN
 SSLType IMAPS
 CertificateFile /etc/ssl/cert.pem
+Timeout 15
 
 MaildirStore leoaparisi@gmail.com-local
 Subfolders Verbatim
@@ -21,6 +22,7 @@ Patterns * !"[Gmail]/All Mail"
 Create Both
 SyncState *
 MaxMessages 0
+CopyArrivalDate yes
 ExpireUnread no
 # End profile
 
@@ -31,6 +33,7 @@ User laparisidelannoy@uchicago.edu
 PassCmd "pass laparisidelannoy@uchicago.edu"
 SSLType NONE
 AuthMechs LOGIN
+Timeout 15
 
 MaildirStore laparisidelannoy@uchicago.edu-local
 Subfolders Verbatim
@@ -46,4 +49,5 @@ Create Both
 SyncState *
 MaxMessages 0
 ExpireUnread no
+CopyArrivalDate yes
 # End profile

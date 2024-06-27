@@ -8,18 +8,10 @@
 
 (setq-default
  delete-by-moving-to-trash t                      ; Delete files to trash
- window-combination-resize t                      ; take new window space from all other windows (not just current)
- x-stretch-cursor t)                              ; Stretch cursor to the glyph width
+ window-combination-resize t)                      ; take new window space from all other windows (not just current)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-
-
-(setq undo-limit 80000000                         ; Raise undo-limit to 80Mb
-      evil-want-fine-undo t                       ; By default while in insert all changes are one big blob. Be more granular
-      auto-save-default t                         ; Nobody likes to loose work, I certainly don't
-      truncate-string-ellipsis "…"
-      scroll-margin 1)                            ; It's nice to maintain a little margin
-
-(setq global-subword-mode 1)                           ; Iterate through CamelCase words
+(setq evil-want-fine-undo t                       ; By default while in insert all changes are one big blob. Be more granular
+      auto-save-default t)                         ; Nobody likes to loose work, I certainly don't
 
 (setq browse-url-chrome-program "brave")
 
@@ -29,16 +21,11 @@
       doom-big-font (font-spec :family "Iosevka" :size 24)
       doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light))
 
-(load-theme 'catppuccin t t)
 (setq doom-theme 'catppuccin)
+(load-theme 'catppuccin t t)
 (setq catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'mocha
-(catppuccin-reload)
 
-(setq fancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
-
-(after! info-colors
-  :commands (info-colors-fontify-node))
-(add-hook 'Info-selection-hook #'info-colors-fontify-node)
+;; (setq rancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
 
 (set-file-template! "\\.tex$" :trigger "__" :mode 'latex-mode)
 (set-file-template! "\\.org$" :trigger "__" :mode 'org-mode)
@@ -69,6 +56,17 @@
 (use-package! org-block-capf
   :after org
   :hook (org-mode . org-block-capf-add-to-completion-at-point-functions))
+
+(setq org-agenda-skip-scheduled-if-done nil
+      org-agenda-skip-deadline-if-done nil
+        org-agenda-tags-column 0
+        org-agenda-block-separator ?─
+        org-agenda-time-grid
+        '((daily today require-timed)
+        (800 1000 1200 1400 1600 1800 2000)
+        " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+        org-agenda-current-time-string
+        "◀── now ─────────────────────────────────────────────────")
 
 (use-package! org-modern
   :after org
@@ -151,7 +149,6 @@
       org-fontify-quote-and-verse-blocks t
       org-startup-with-inline-images t
       org-startup-indented t
-
       ;; Org styling, hide markup etc.
       org-pretty-entities t
       )
@@ -180,9 +177,6 @@
   '(org-document-title :height 1.2))
 
 (setq org-highlight-latex-and-related '(native script entities))
-
-(require 'org-src)
-(add-to-list 'org-src-block-faces '("latex" (:inherit default :extend t)))
 
 ;; (add-hook 'org-mode-hook #'org-latex-preview-auto-mode)
 (add-hook 'org-mode-hook #'org-fragtog-mode)
@@ -278,7 +272,6 @@
 
 (use-package! citar
   :defer t
-  :no-require
   :custom
   (org-cite-global-bibliography '("~/org/Lecture_Notes/MyLibrary.bib"))
   (citar-bibliography org-cite-global-bibliography)
@@ -565,7 +558,7 @@ citecolor=cite
 (setq org-latex-listings 'engraved)
 (setq org-latex-engraved-theme 'doom-nord)
 
-(setq corfu-popupinfo-delay 0)
+;; (setq corfu-popupinfo-delay 0)
 
 (use-package! jinx
   :defer t
@@ -594,12 +587,23 @@ citecolor=cite
 ;; (after! lsp-mode
 ;;   (setq lsp-tex-server 'digestif))
 
+(defcustom lsp-ltex-active-modes
+  '(text-mode
+    bibtex-mode context-mode
+    latex-mode LaTeX-mode ;; AUCTeX 14+ has renamed latex-mode to LaTeX-mode
+    markdown-mode org-mode
+    rst-mode
+    mu4e-compose-mode)
+  "List of major mode that work with LTEX Language Server."
+  :type 'list
+  :group 'lsp-ltex)
 (use-package! lsp-ltex
-  :ensure t
   :defer t
   :init
   (setq lsp-ltex-version "16.0.0"))  ; make sure you have set this, see below
-
+(after! lsp-ltex
+  (appendq! lsp-language-id-configuration
+            '((mu4e-compose-mode . "plaintext"))))
 ;; (use-package! eglot-ltex                ;
 ;;   :init
 ;;   (setq eglot-ltex-server-path "/opt/homebrew/"
@@ -611,8 +615,8 @@ citecolor=cite
 ;;                 . ,(eglot-alternatives '(("texlab")
 ;;                                          ("ltex-ls" "--server-type" "TcpSocket" "--port" :autoport)))))) ;
 
-(use-package! vlf-setup
-  :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
+;; (use-package! vlf-setup
+;;   :defer-incrementally t)
 
 ;; (add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode)
 
@@ -761,38 +765,42 @@ citecolor=cite
   ;; how often to call it in seconds:
   (setq   mu4e-sent-messages-behavior 'sent ;; Save sent messages
           mu4e-headers-auto-update t                ; avoid to type `g' to update
-          mu4e-compose-signature-auto-include nil   ; I don't want a message signature
+          mml-secure-openpgp-signers '("6A5C039B63B86AC6C5109955B57BA04FBD759C7F" "D1D9947126EE64AC7ED3950196F352393B5B3C2E")
+          mml-secure-openpgp-sign-with-sender t
           mu4e-use-fancy-chars t                   ; allow fancy icons for mail threads
+          mu4e-change-filenames-when-moving nil
+          mu4e-index-lazy-check nil
           mu4e-context-policy 'pick-first   ;; Start with the first context
           mu4e-compose-context-policy 'ask) ;; Always ask which context to use when composing a new mail
-  (setq mu4e-update-interval (* 1 60))
+  (setq mu4e-update-interval 90)
   (setq mu4e-attachment-dir "~/Downloads")
   (set-email-account! "gmail"
                       '((mu4e-sent-folder       . "/gmail/[Gmail]/Sent Mail")
                         (mu4e-drafts-folder     . "/gmail/[Gmail]/Drafts")
                         (mu4e-trash-folder      . "/gmail/[Gmail]/Trash")
-                        (mu4e-refile-folder     . "/gmail/[Gmail]/All Mail")
+                        (mu4e-refile-folder     . "/gmail/Archives")
+                        (user-mail-address . "leoaparisi@gmail.com")
                         (smtpmail-smtp-user     . "leoaparisi@gmail.com")
                         (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
                       t)
   (set-email-account! "U Chicago"
-                      '((mu4e-sent-folder       . "/UChicago/Sent Mail")
-                        (mu4e-drafts-folder     . "/UChicago/Drafts")
-                        (mu4e-trash-folder      . "/UChicago/Trash")
-                        (mu4e-refile-folder     . "/UChicago/All Mail")
+                      '((mu4e-sent-folder       . "/laparisidelannoy@uchicago.edu/Sent")
+                        (mu4e-drafts-folder     . "/laparisidelannoy@uchicago.edu/Drafts")
+                        (user-mail-address . "laparisidelannoy@uchicago.edu")
+                        (mu4e-trash-folder      . "/laparisidelannoy@uchicago.edu/Trash")
+                        (mu4e-refile-folder     . "/laparisidelannoy@uchicago.edu/Archive")
                         (smtpmail-smtp-user     . "laparisidelannoy@uchicago.edu")
                         (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
                       t)
   (setq +mu4e-gmail-accounts '(("leoaparisi@gmail.com" . "/gmail/[Gmail]")))
-  (setq mu4e-compose-dont-reply-to-self t)
   ;; Add a unified inbox shortcut
   (add-to-list
    'mu4e-bookmarks
    '(:name "Unified inbox" :query "maildir:/.*inbox/" :key ?i) t)
   )
 
-;;(mu4e-alert-set-default-style 'notifier)
-;;(add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
+;; (mu4e-alert-set-default-style 'notifier)
+;; (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
 
 (setq +latex-viewers '(pdf-tools))
 (defun compile-save()
