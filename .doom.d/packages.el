@@ -1,8 +1,8 @@
-(package! info-colors)
-
 (package! org-block-capf :recipe (:host github :repo "xenodium/org-block-capf"))
 
 (package! org-modern)
+(package! org-superstar :disable t)
+(package! org-bullets :disable t)
 
 (package! org-appear :recipe (:host github :repo "awth13/org-appear"))
 
@@ -40,4 +40,4 @@
 
 (package! lsp-ltex)
 
-(package! vlfi)
+;; (package! vlfi)
