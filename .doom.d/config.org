@@ -780,12 +780,23 @@ citecolor=cite
 (package! lsp-ltex)
 #+end_src
 #+begin_src emacs-lisp
+(defcustom lsp-ltex-active-modes
+  '(text-mode
+    bibtex-mode context-mode
+    latex-mode LaTeX-mode ;; AUCTeX 14+ has renamed latex-mode to LaTeX-mode
+    markdown-mode org-mode
+    rst-mode
+    mu4e-compose-mode)
+  "List of major mode that work with LTEX Language Server."
+  :type 'list
+  :group 'lsp-ltex)
 (use-package! lsp-ltex
-  :ensure t
   :defer t
   :init
   (setq lsp-ltex-version "16.0.0"))  ; make sure you have set this, see below
-
+(after! lsp-ltex
+  (appendq! lsp-language-id-configuration
+            '((mu4e-compose-mode . "plaintext"))))
 ;; (use-package! eglot-ltex                ;
 ;;   :init
 ;;   (setq eglot-ltex-server-path "/opt/homebrew/"
@@ -971,30 +982,34 @@ citecolor=cite
   ;; how often to call it in seconds:
   (setq   mu4e-sent-messages-behavior 'sent ;; Save sent messages
           mu4e-headers-auto-update t                ; avoid to type `g' to update
-          mu4e-compose-signature-auto-include nil   ; I don't want a message signature
+          mml-secure-openpgp-signers '("6A5C039B63B86AC6C5109955B57BA04FBD759C7F" "D1D9947126EE64AC7ED3950196F352393B5B3C2E")
+          mml-secure-openpgp-sign-with-sender t
           mu4e-use-fancy-chars t                   ; allow fancy icons for mail threads
+          mu4e-change-filenames-when-moving nil
+          mu4e-index-lazy-check nil
           mu4e-context-policy 'pick-first   ;; Start with the first context
           mu4e-compose-context-policy 'ask) ;; Always ask which context to use when composing a new mail
-  (setq mu4e-update-interval (* 1 60))
+  (setq mu4e-update-interval 60)
   (setq mu4e-attachment-dir "~/Downloads")
   (set-email-account! "gmail"
                       '((mu4e-sent-folder       . "/gmail/[Gmail]/Sent Mail")
                         (mu4e-drafts-folder     . "/gmail/[Gmail]/Drafts")
                         (mu4e-trash-folder      . "/gmail/[Gmail]/Trash")
-                        (mu4e-refile-folder     . "/gmail/[Gmail]/All Mail")
+                        (mu4e-refile-folder     . "/gmail/Archives")
+                        (user-mail-address . "leoaparisi@gmail.com")
                         (smtpmail-smtp-user     . "leoaparisi@gmail.com")
                         (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
                       t)
   (set-email-account! "U Chicago"
-                      '((mu4e-sent-folder       . "/UChicago/Sent Mail")
-                        (mu4e-drafts-folder     . "/UChicago/Drafts")
-                        (mu4e-trash-folder      . "/UChicago/Trash")
-                        (mu4e-refile-folder     . "/UChicago/All Mail")
+                      '((mu4e-sent-folder       . "/laparisidelannoy@uchicago.edu/Sent")
+                        (mu4e-drafts-folder     . "/laparisidelannoy@uchicago.edu/Drafts")
+                        (user-mail-address . "laparisidelannoy@uchicago.edu")
+                        (mu4e-trash-folder      . "/laparisidelannoy@uchicago.edu/Trash")
+                        (mu4e-refile-folder     . "/laparisidelannoy@uchicago.edu/Archive")
                         (smtpmail-smtp-user     . "laparisidelannoy@uchicago.edu")
                         (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
                       t)
   (setq +mu4e-gmail-accounts '(("leoaparisi@gmail.com" . "/gmail/[Gmail]")))
-  (setq mu4e-compose-dont-reply-to-self t)
   ;; Add a unified inbox shortcut
   (add-to-list
    'mu4e-bookmarks
@@ -1003,10 +1018,10 @@ citecolor=cite
 #+end_src
 ** Notification
 #+begin_src emacs-lisp
-;;(mu4e-alert-set-default-style 'notifier)
-;;(add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
+;; (mu4e-alert-set-default-style 'notifier)
+;; (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
 #+end_src
-** Latex
+* Latex
 #+begin_src  emacs-lisp
 (setq +latex-viewers '(pdf-tools))
 (defun compile-save()
