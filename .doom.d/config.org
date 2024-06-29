@@ -42,14 +42,14 @@
 *** Theme
 **** Default theme
 #+begin_src emacs-lisp
-(setq doom-theme 'catppuccin)
-(load-theme 'catppuccin t t)
-(setq catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'mocha
+(setq doom-theme 'doom-nord)
+;; (load-theme 'catppuccin t t)
+;; (setq catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'mocha
 #+end_src
 *** Default visual
 *** Starting image
 #+begin_src emacs-lisp
-;; (setq rancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
+;; (setq fancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
 #+end_src
 ** File Templates
 #+begin_src emacs-lisp
@@ -188,6 +188,7 @@
           ("caption" . "☰")
           ("results" . "🠶")))
   (custom-set-faces! '(org-modern-statistics :inherit org-checkbox-statistics-todo)))
+
 #+end_src
 *** Org-Appear
 #+begin_src emacs-lisp :tangle packages.el
@@ -737,6 +738,9 @@ citecolor=cite
     (global-set-key [remap evil-prev-flyspell-error] #'jinx-previous)))
 #+end_src
 * LSP
+** Booster
+#+begin_src emacs-lisp :lexical no
+#+end_src
 ** Keybindings
 #+begin_src emacs-lisp :lexical no
  ;; (map! :after lsp-mode
@@ -754,8 +758,13 @@ citecolor=cite
 ;;                  :build (:not compile)))
 ;;   (package! markdown-mode)
 ;;   (package! yasnippet))
+;;   (package! lsp-mode :disable t)
+;;   (package! company :disable t)
+;;   (package! corfu :disable t)
+  (package! eglot :disable t)
 #+end_src
 #+begin_src emacs-lisp
+;; (setq native-comp-deferred-compilation-deny-list '("lsp-bridge"))
 ;; (use-package! lsp-bridge
 ;;   :config
 ;;   (setq lsp-bridge-enable-log nil)
@@ -771,23 +780,9 @@ citecolor=cite
 (package! lsp-ltex)
 #+end_src
 #+begin_src emacs-lisp
-(defcustom lsp-ltex-active-modes
-  '(text-mode
-    bibtex-mode context-mode
-    latex-mode LaTeX-mode ;; AUCTeX 14+ has renamed latex-mode to LaTeX-mode
-    markdown-mode org-mode
-    rst-mode
-    mu4e-compose-mode)
-  "List of major mode that work with LTEX Language Server."
-  :type 'list
-  :group 'lsp-ltex)
 (use-package! lsp-ltex
   :defer t
-  :init
-  (setq lsp-ltex-version "16.0.0"))  ; make sure you have set this, see below
-(after! lsp-ltex
-  (appendq! lsp-language-id-configuration
-            '((mu4e-compose-mode . "plaintext"))))
+  :init)
 ;; (use-package! eglot-ltex                ;
 ;;   :init
 ;;   (setq eglot-ltex-server-path "/opt/homebrew/"
@@ -979,9 +974,9 @@ citecolor=cite
           mu4e-change-filenames-when-moving nil
           mu4e-index-lazy-check nil
           mu4e-context-policy 'pick-first   ;; Start with the first context
-          mu4e-compose-context-policy 'ask) ;; Always ask which context to use when composing a new mail
-  (setq mu4e-update-interval 90)
-  (setq mu4e-attachment-dir "~/Downloads")
+          mu4e-compose-context-policy 'ask ;; Always ask which context to use when composing a new mail
+          mu4e-update-interval 60
+          mu4e-attachment-dir "~/Downloads")
   (set-email-account! "gmail"
                       '((mu4e-sent-folder       . "/gmail/[Gmail]/Sent Mail")
                         (mu4e-drafts-folder     . "/gmail/[Gmail]/Drafts")
@@ -1007,6 +1002,9 @@ citecolor=cite
    '(:name "Unified inbox" :query "maildir:/.*inbox/" :key ?i) t)
   )
 #+end_src
+
+#+RESULTS:
+
 ** Notification
 #+begin_src emacs-lisp
 ;; (mu4e-alert-set-default-style 'notifier)
@@ -1017,7 +1015,7 @@ citecolor=cite
 (setq +latex-viewers '(pdf-tools))
 (defun compile-save()
   "Test of save hook"
-  (when (eq major-mode 'latex-mode)
+  (when (eq major-mode 'LaTeX-mode)
     (+latex/compile)))
 (add-hook 'after-save-hook #'compile-save)
 (setq TeX-save-query nil
