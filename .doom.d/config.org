@@ -725,7 +725,7 @@ citecolor=cite
 (use-package! jinx
   :defer t
   :init
-  (add-hook 'doom-init-ui-hook #'global-jinx-mode)
+  (global-jinx-mode)
   :config
   ;; Extra face(s) to ignore
   (push 'org-inline-src-block
@@ -738,14 +738,16 @@ citecolor=cite
     (global-set-key [remap evil-prev-flyspell-error] #'jinx-previous)))
 #+end_src
 * LSP
-** Booster
+** Start with buffer
 #+begin_src emacs-lisp :lexical no
+(add-hook 'LaTeX-mode-hook #'lsp-deferred)
 #+end_src
 ** Keybindings
 #+begin_src emacs-lisp :lexical no
  ;; (map! :after lsp-mode
  ;;        :map evil-normal-state-map
  ;;        "K" #'lsp-ui-doc-show)
+
 #+end_src
 ** LSP-Bridge
 #+begin_src emacs-lisp :tangle packages.el
@@ -975,7 +977,7 @@ citecolor=cite
           mu4e-index-lazy-check nil
           mu4e-context-policy 'pick-first   ;; Start with the first context
           mu4e-compose-context-policy 'ask ;; Always ask which context to use when composing a new mail
-          mu4e-update-interval 60
+          mu4e-update-interval 100
           mu4e-attachment-dir "~/Downloads")
   (set-email-account! "gmail"
                       '((mu4e-sent-folder       . "/gmail/[Gmail]/Sent Mail")

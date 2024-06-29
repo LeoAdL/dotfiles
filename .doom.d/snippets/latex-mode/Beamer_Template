@@ -1,16 +1,16 @@
 # -*- mode: snippet -*-
 # name: Beamer template
 # --
-
-% !TEX program = xelatex
+%! TEX program = xelatex
 \documentclass[12pt,aspectratio=169]{beamer}
 \usepackage[american]{babel}
-\usetheme[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]{metropolis}
+\usetheme[progressbar=none,titleformat=smallcaps, numbering=fraction]{metropolis}
 \usepackage{booktabs}
 \usepackage{float}
 \usepackage{mathtools}
 \usepackage{amsthm}
 \usepackage{amssymb}
+\usepackage{bm}
 \usepackage[varbb]{newpxmath}
 \usepackage[]{xfrac}
 \usepackage{siunitx}
@@ -21,40 +21,24 @@
 \usepackage{cancel}
 \usepackage{setspace}
 \usepackage{xcolor}
-\usepackage{diffcoeff}
+\usepackage[ISO]{diffcoeff}
+\usepackage{braket}
 \usepackage{nicematrix}
 \usepackage{acronym}
 \usepackage{appendixnumberbeamer}
 \usepackage{dirtytalk}
+\usepackage{footmisc}
 \usepackage[authoryear]{natbib}
 \usepackage{xurl}
 \bibliographystyle{ecta}
 \DeclareMathOperator{\Var}{Var}
-\DeclareMathOperator{\cov}{Cov}
+\DeclareMathOperator{\Cov}{Cov}
 \DeclareMathOperator{\E}{\mathbb{E}}
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
-\newcommand{\Et}[2]{\E_{#2} \left[#1\right]}
-\newcommand{\Covt}[3]{\cov_{#3}\left(#1, #2\right)}
-\newcommand{\Vart}[2]{\Var_{#2} \left[#1\right]}
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}
 \DeclarePairedDelimiterX\innerp[2]{\langle}{\rangle}{#1,#2}
-\DeclarePairedDelimiterX\braket[3]{\langle}{\rangle}%
-{#1\,\delimsize\vert\,\mathopen{}#2\,\delimsize\vert\,\mathopen{}#3}
-\providecommand\given{}
-\DeclarePairedDelimiterXPP\Prob[1]{\mathbb{P}} (){}{
-\renewcommand\given{\nonscript\:\delimsize\vert\nonscript\:\mathopen{}}
-#1}
-\DeclarePairedDelimiterXPP\condE[1]{\E} (){}{
-\renewcommand\given{\nonscript\:\delimsize\vert\nonscript\:\mathopen{}}
-#1}
-\DeclarePairedDelimiterXPP\condVar[2]{\Var} (){}{
-\renewcommand\given{\nonscript\:\delimsize\vert\nonscript\:\mathopen{}}
-#1,#2}
-\DeclarePairedDelimiterXPP\condCov[2]{\cov} (){}{
-\renewcommand\given{\nonscript\:\delimsize\vert\nonscript\:\mathopen{}}
-#1,#2}
 \theoremstyle{plain}% default
 \newtheorem{thm}{Theorem}
 \newtheorem{lem}[thm]{Lemma}
@@ -70,24 +54,44 @@
 \makeatletter
 
 
-\definecolor{dblue}{HTML}{2E3440}
-\definecolor{umber}{HTML}{8FBCBB}
-\definecolor{alertcolor}{HTML}{88C0D0}
-\definecolor{examplecolor}{HTML}{BF616A}
+\definecolor{textcolor}{HTML}{4c4f69}
+\definecolor{titlecolor}{HTML}{209fb5}
+\definecolor{alertcolor}{HTML}{dd7878}
+\definecolor{examplecolor}{HTML}{fe640b}
 
-\definecolor{pale}{HTML}{ECEFF4}
-\definecolor{bluish}{HTML}{88C0D0}
-\definecolor{cream}{HTML}{E5E9F0}
-\setbeamercolor{progress bar}{fg=bluish,bg=cream}
-\setbeamercolor{frametitle}{fg=umber,bg=pale}
-\setbeamercolor{normal text}{fg=dblue,bg=pale}
-\setbeamercolor{alerted text}{fg=alertcolor,bg=pale}
+\definecolor{bgcolor}{HTML}{eff1f5}
+\definecolor{barcolor}{HTML}{dc8a78}
+\definecolor{bgbarcolor}{HTML}{9ca0b0}
+\definecolor{bgcolorminted}{HTML}{2e3440}
+\setbeamercolor{progress bar}{fg=barcolor,bg=bgbarcolor}
+\setbeamercolor{frametitle}{fg=titlecolor,bg=bgcolor}
+\setbeamercolor{normal text}{fg=textcolor,bg=bgcolor}
+\setbeamercolor{alerted text}{fg=alertcolor,bg=bgcolor}
 \setbeamercolor{example text}{fg=examplecolor}
 \setbeamercovered{dynamic}
 
 \usecolortheme{rose}
+\usepackage{hyperref}
+
 \title{}
-\author{}
+\author{Leo Aparisi de Lannoy}
+\date{\today}
+\providecolor{url}{HTML}{e4a5e5}
+\providecolor{link}{HTML}{179299}
+\providecolor{cite}{HTML}{179299}
+\hypersetup{
+pdfauthor={Leo Aparisi de Lannoy},
+pdftitle={},
+pdfkeywords={},
+pdfsubject={},
+pdfcreator={},
+pdflang={English},
+breaklinks=true,
+colorlinks=true,
+linkcolor=link,
+urlcolor=url,
+citecolor=cite
+}
 \begin{document}
 \maketitle
 
