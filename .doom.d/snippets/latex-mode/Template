@@ -1,7 +1,6 @@
 # -*- mode: snippet -*-
-# name: LaTeX template
+# name: LaTeX template                
 # --
-% !TEX program = xelatex
 \documentclass[12pt]{article}
 \usepackage[american]{babel}
 \usepackage[margin=1.25in]{geometry}
@@ -11,10 +10,10 @@
 \usepackage{microtype}
 \usepackage{graphicx}
 \usepackage{mathtools}
-\usepackage{wrapfig}
 \usepackage{amsthm}
 \usepackage{amssymb}
-\usepackage{newpxtext}
+\usepackage{bm}
+\usepackage[no-math]{newpxtext}
 \usepackage[varbb]{newpxmath}
 \usepackage{xfrac}
 \usepackage{siunitx}
@@ -24,18 +23,19 @@
 \usepackage{cancel}
 \usepackage{setspace}
 \usepackage{xcolor}
-\usepackage{diffcoeff}
+\usepackage[ISO]{diffcoeff}
 \usepackage{nicematrix}
+\usepackage{braket}
 \usepackage{enumitem}
 \usepackage{acronym}
+\usepackage{footmisc}
 \usepackage[authoryear,longnamesfirst]{natbib}
 \usepackage{xurl}
 \definecolor{mint}{HTML}{d73a49}
-\usepackage[colorlinks=true, allcolors= mint]{hyperref}
 \onehalfspacing{}
 \bibliographystyle{ecta}
 \DeclareMathOperator{\Var}{Var}
-\DeclareMathOperator{\cov}{Cov}
+\DeclareMathOperator{\Cov}{Cov}
 \DeclareMathOperator{\E}{\mathbb{E}}
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
@@ -45,21 +45,6 @@
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}
 \DeclarePairedDelimiterX\innerp[2]{\langle}{\rangle}{#1,#2}
-\DeclarePairedDelimiterX\braket[3]{\langle}{\rangle}%
-{#1\,\delimsize\vert\,\mathopen{}#2\,\delimsize\vert\,\mathopen{}#3}
-\providecommand\given{}
-\DeclarePairedDelimiterXPP\Prob[1]{\mathbb{P}} (){}{
-\renewcommand\given{\nonscript\:\delimsize\vert\nonscript\:\mathopen{}}
-#1}
-\DeclarePairedDelimiterXPP\condE[1]{\E} (){}{
-\renewcommand\given{\nonscript\:\delimsize\vert\nonscript\:\mathopen{}}
-#1}
-\DeclarePairedDelimiterXPP\condVar[2]{\Var} (){}{
-\renewcommand\given{\nonscript\:\delimsize\vert\nonscript\:\mathopen{}}
-#1,#2}
-\DeclarePairedDelimiterXPP\condCov[2]{\cov} (){}{
-\renewcommand\given{\nonscript\:\delimsize\vert\nonscript\:\mathopen{}}
-#1,#2}
 \theoremstyle{plain}% default
 \newtheorem{thm}{Theorem}
 \newtheorem{lem}[thm]{Lemma}
@@ -76,16 +61,32 @@
 
 \renewcommand{\leq}{\leqslant}
 \renewcommand{\geq}{\geqslant}
-\AtBeginDocument{
-  \def\labelitemi{\(\circ\)}
-  \def\labelitemii{\(\diamond\)}
+\definecolor{bgcolorminted}{HTML}{2e3440}
+\usepackage{hyperref}
+\usepackage[]{cleveref}
+\providecolor{url}{HTML}{e4a5e5}
+\providecolor{link}{HTML}{179299}
+\providecolor{cite}{HTML}{179299}
+\hypersetup{pdfauthor={Leo Aparisi de Lannoy}
+pdftitle={},
+pdfkeywords={},
+pdfsubject={},
+pdfcreator={Leo Aparisi de Lannoy},
+pdflang={English},
+breaklinks=true,
+colorlinks=true,
+linkcolor=link,
+urlcolor=url,
+citecolor=cite
 }
 \makeatother
 \begin{document}
-\author{${4:`(user-full-name)`}}
+\author{Leo Aparisi de Lannoy}
+\date{\today}
 \title{}
 \maketitle
 
 $0
 
+\bibliography{}
 \end{document}

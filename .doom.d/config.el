@@ -21,11 +21,11 @@
       doom-big-font (font-spec :family "Iosevka" :size 24)
       doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light))
 
-(setq doom-theme 'catppuccin)
-(load-theme 'catppuccin t t)
-(setq catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'mocha
+(setq doom-theme 'doom-nord)
+;; (load-theme 'catppuccin t t)
+;; (setq catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'mocha
 
-;; (setq rancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
+;; (setq fancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
 
 (set-file-template! "\\.tex$" :trigger "__" :mode 'latex-mode)
 (set-file-template! "\\.org$" :trigger "__" :mode 'org-mode)
@@ -563,7 +563,7 @@ citecolor=cite
 (use-package! jinx
   :defer t
   :init
-  (add-hook 'doom-init-ui-hook #'global-jinx-mode)
+  (global-jinx-mode)
   :config
   ;; Extra face(s) to ignore
   (push 'org-inline-src-block
@@ -575,10 +575,13 @@ citecolor=cite
     (global-set-key [remap evil-next-flyspell-error] #'jinx-next)
     (global-set-key [remap evil-prev-flyspell-error] #'jinx-previous)))
 
+(add-hook 'LaTeX-mode-hook #'lsp-deferred)
+
 ;; (map! :after lsp-mode
 ;;        :map evil-normal-state-map
 ;;        "K" #'lsp-ui-doc-show)
 
+;; (setq native-comp-deferred-compilation-deny-list '("lsp-bridge"))
 ;; (use-package! lsp-bridge
 ;;   :config
 ;;   (setq lsp-bridge-enable-log nil)
@@ -587,23 +590,9 @@ citecolor=cite
 ;; (after! lsp-mode
 ;;   (setq lsp-tex-server 'digestif))
 
-(defcustom lsp-ltex-active-modes
-  '(text-mode
-    bibtex-mode context-mode
-    latex-mode LaTeX-mode ;; AUCTeX 14+ has renamed latex-mode to LaTeX-mode
-    markdown-mode org-mode
-    rst-mode
-    mu4e-compose-mode)
-  "List of major mode that work with LTEX Language Server."
-  :type 'list
-  :group 'lsp-ltex)
 (use-package! lsp-ltex
   :defer t
-  :init
-  (setq lsp-ltex-version "16.0.0"))  ; make sure you have set this, see below
-(after! lsp-ltex
-  (appendq! lsp-language-id-configuration
-            '((mu4e-compose-mode . "plaintext"))))
+  :init)
 ;; (use-package! eglot-ltex                ;
 ;;   :init
 ;;   (setq eglot-ltex-server-path "/opt/homebrew/"
@@ -771,9 +760,9 @@ citecolor=cite
           mu4e-change-filenames-when-moving nil
           mu4e-index-lazy-check nil
           mu4e-context-policy 'pick-first   ;; Start with the first context
-          mu4e-compose-context-policy 'ask) ;; Always ask which context to use when composing a new mail
-  (setq mu4e-update-interval 90)
-  (setq mu4e-attachment-dir "~/Downloads")
+          mu4e-compose-context-policy 'ask ;; Always ask which context to use when composing a new mail
+          mu4e-update-interval 100
+          mu4e-attachment-dir "~/Downloads")
   (set-email-account! "gmail"
                       '((mu4e-sent-folder       . "/gmail/[Gmail]/Sent Mail")
                         (mu4e-drafts-folder     . "/gmail/[Gmail]/Drafts")
@@ -805,7 +794,7 @@ citecolor=cite
 (setq +latex-viewers '(pdf-tools))
 (defun compile-save()
   "Test of save hook"
-  (when (eq major-mode 'latex-mode)
+  (when (eq major-mode 'LaTeX-mode)
     (+latex/compile)))
 (add-hook 'after-save-hook #'compile-save)
 (setq TeX-save-query nil
