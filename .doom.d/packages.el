@@ -40,7 +40,6 @@
 ;;   (package! lsp-mode :disable t)
 ;;   (package! company :disable t)
 ;;   (package! corfu :disable t)
-  (package! eglot :disable t)
 
 (package! lsp-ltex)
 

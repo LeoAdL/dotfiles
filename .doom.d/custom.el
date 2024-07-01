@@ -12,7 +12,8 @@
      (CMS
       (sign)
       (encrypt))))
- '(user-mail-address "leoaparisi@gmail.com"))
+ '(smtpmail-smtp-server "")
+ '(smtpmail-smtp-service 25))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -27,4 +28,5 @@
  '(outline-5 ((t (:weight semi-bold :height 1.06))))
  '(outline-6 ((t (:weight semi-bold :height 1.03))))
  '(outline-8 ((t (:weight semi-bold))))
- '(outline-9 ((t (:weight semi-bold)))))
+ '(outline-9 ((t (:weight semi-bold))))
+ '(ts-fold-replacement-face ((t (:foreground unspecified :box nil :inherit font-lock-comment-face :weight light)))))
