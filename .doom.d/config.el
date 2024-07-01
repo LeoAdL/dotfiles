@@ -141,7 +141,9 @@
           ("results" . "🠶")))
   (custom-set-faces! '(org-modern-statistics :inherit org-checkbox-statistics-todo)))
 
-(add-hook 'org-mode-hook #'org-appear-mode)
+(use-package! org-appear
+  :after org
+  :hook (org-mode . org-appear-mode))
 
 (setq org-src-fontify-natively t
       org-fontify-whole-heading-line t
@@ -178,8 +180,9 @@
 
 (setq org-highlight-latex-and-related '(native script entities))
 
-;; (add-hook 'org-mode-hook #'org-latex-preview-auto-mode)
-(add-hook 'org-mode-hook #'org-fragtog-mode)
+(use-package! org-fragtog
+  :after org
+  :hook (org-mode . org-fragtog-mode))
 
 (setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a.")))
 
@@ -379,8 +382,8 @@
 \\usepackage{amsthm}
 \\usepackage{amssymb}
 \\usepackage{bm}
-\\usepackage[no-math]{newpxtext}
-\\usepackage[varbb]{newpxmath}
+\\usepackage[]{newpxtext}
+\\usepackage[]{newpxmath}
 \\usepackage{xfrac}
 \\usepackage{siunitx}
 \\usepackage{caption}
@@ -435,7 +438,8 @@
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                ("\\paragraph{%s}" . "\\paragraph*{%s}"))))
 
-(setq org-beamer-frame-level 2)
+(after! org
+  (setq org-beamer-frame-level 2))
 
 (setq org-beamer-theme "[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]metropolis")
 
@@ -454,8 +458,8 @@
 \\usepackage{amsthm}
 \\usepackage{amssymb}
 \\usepackage{bm}
-\\usepackage[no-math]{newpxtext}
-\\usepackage[varbb]{newpxmath}
+\\usepackage[]{newpxtext}
+\\usepackage{newpxmath}
 \\usepackage{xfrac}
 \\usepackage{siunitx}
 \\usepackage{caption}
@@ -557,6 +561,9 @@ citecolor=cite
   :after ox-latex)
 (setq org-latex-listings 'engraved)
 (setq org-latex-engraved-theme 'doom-nord)
+
+(use-package! doct
+  :after org)
 
 ;; (setq corfu-popupinfo-delay 0)
 
@@ -757,17 +764,18 @@ citecolor=cite
           mml-secure-openpgp-signers '("6A5C039B63B86AC6C5109955B57BA04FBD759C7F" "D1D9947126EE64AC7ED3950196F352393B5B3C2E")
           mml-secure-openpgp-sign-with-sender t
           mu4e-use-fancy-chars t                   ; allow fancy icons for mail threads
-          mu4e-change-filenames-when-moving nil
+          mu4e-change-filenames-when-moving t
           mu4e-index-lazy-check nil
-          mu4e-context-policy 'pick-first   ;; Start with the first context
+          mu4e-context-policy 'pick-first ;; Always ask which context to use when composing a new mail
           mu4e-compose-context-policy 'ask ;; Always ask which context to use when composing a new mail
-          mu4e-update-interval 100
+          mu4e-update-interval 60
+          mu4e-mu-allow-temp-file t
           mu4e-attachment-dir "~/Downloads")
   (set-email-account! "gmail"
-                      '((mu4e-sent-folder       . "/gmail/[Gmail]/Sent Mail")
-                        (mu4e-drafts-folder     . "/gmail/[Gmail]/Drafts")
-                        (mu4e-trash-folder      . "/gmail/[Gmail]/Trash")
-                        (mu4e-refile-folder     . "/gmail/Archives")
+                      '((mu4e-sent-folder       . "/leoaparisi@gmail.com/[Gmail]/Sent Mail")
+                        (mu4e-drafts-folder     . "/leoaparisi@gmail.com/[Gmail]/Drafts")
+                        (mu4e-trash-folder      . "/leoaparisi@gmail.com/[Gmail]/Trash")
+                        (mu4e-refile-folder     . "/leoaparisi@gmail.com/Archives")
                         (user-mail-address . "leoaparisi@gmail.com")
                         (smtpmail-smtp-user     . "leoaparisi@gmail.com")
                         (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
@@ -781,16 +789,32 @@ citecolor=cite
                         (smtpmail-smtp-user     . "laparisidelannoy@uchicago.edu")
                         (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
                       t)
-  (setq +mu4e-gmail-accounts '(("leoaparisi@gmail.com" . "/gmail/[Gmail]")))
   ;; Add a unified inbox shortcut
   (add-to-list
    'mu4e-bookmarks
    '(:name "Unified inbox" :query "maildir:/.*inbox/" :key ?i) t)
+  (add-to-list
+   'mu4e-bookmarks
+   '(:name "Sent" :query "maildir:/.*Sent/" :key ?s) t)
+  (add-to-list
+   'mu4e-bookmarks
+   '(:name "Drafts" :query "maildir:/.*Drafts/" :key ?d) t)
+  (add-to-list
+   'mu4e-bookmarks
+   '(:name "Spam" :query "maildir:/.*Spam/ or maildir:/.*Junk/" :key ?S) t)
+  (add-to-list
+   'mu4e-bookmarks
+   '(:name "Trash" :query "maildir:/.*Trash/" :key ?T) t)
   )
 
-;; (mu4e-alert-set-default-style 'notifier)
-;; (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
+(after! org-msg
+   (setq	org-msg-convert-citation t
+            org-msg-signature "
+#+begin_signature
+Leo Aparisi de Lannoy
+#+end_signature"))
 
+(after! latex
 (setq +latex-viewers '(pdf-tools))
 (defun compile-save()
   "Test of save hook"
@@ -800,7 +824,6 @@ citecolor=cite
 (setq TeX-save-query nil
       TeX-show-compilation nil
       TeX-command-extra-options "-shell-escape")
-(after! latex
   (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t)))
 
 ;; (setq flycheck-eglot-exclusive nil)
