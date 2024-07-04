@@ -770,6 +770,17 @@ citecolor=cite
           mu4e-compose-context-policy 'ask ;; Always ask which context to use when composing a new mail
           mu4e-update-interval 60
           mu4e-mu-allow-temp-file t
+          message-dont-reply-to-names #'mu4e-personal-or-alternative-address-p
+          mu4e-bookmarks '((:name "Unread messages" :query "flag:unread AND maildir:/.*inbox/" :key 117)
+                                (:name "Today's messages" :query "date:today..now AND maildir:/.*inbox/" :key 116)
+                                (:name "Last 7 days" :query "date:7d..now AND maildir:/.*inbox/" :hide-unread t :key 119)
+                                (:name "Messages with images" :query "mime:image/* AND maildir:/.*inbox/" :key 112)
+                                ("flag:flagged" "Flagged messages" 102)
+                                (:name "Unified inbox" :query "maildir:/.*inbox/" :key 105)
+                                (:name "Sent" :query "maildir:/.*Sent/" :key 115)
+                                (:name "Drafts" :query "maildir:/.*Drafts/" :key 100)
+                                (:name "Spam" :query "maildir:/.*Spam/ or maildir:/.*Junk/" :key 83)
+                                (:name "Trash" :query "maildir:/.*Trash/" :key 84)))
           mu4e-attachment-dir "~/Downloads")
   (set-email-account! "gmail"
                       '((mu4e-sent-folder       . "/leoaparisi@gmail.com/[Gmail]/Sent Mail")
@@ -789,23 +800,10 @@ citecolor=cite
                         (smtpmail-smtp-user     . "laparisidelannoy@uchicago.edu")
                         (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
                       t)
-  ;; Add a unified inbox shortcut
-  (add-to-list
-   'mu4e-bookmarks
-   '(:name "Unified inbox" :query "maildir:/.*inbox/" :key ?i) t)
-  (add-to-list
-   'mu4e-bookmarks
-   '(:name "Sent" :query "maildir:/.*Sent/" :key ?s) t)
-  (add-to-list
-   'mu4e-bookmarks
-   '(:name "Drafts" :query "maildir:/.*Drafts/" :key ?d) t)
-  (add-to-list
-   'mu4e-bookmarks
-   '(:name "Spam" :query "maildir:/.*Spam/ or maildir:/.*Junk/" :key ?S) t)
-  (add-to-list
-   'mu4e-bookmarks
-   '(:name "Trash" :query "maildir:/.*Trash/" :key ?T) t)
-  )
+
+(use-package consult-mu
+        :after (mu4e consult)
+)
 
 (after! org-msg
    (setq	org-msg-convert-citation t

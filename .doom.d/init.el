@@ -217,7 +217,7 @@
 
        :email
        (mu4e  +gmail +org)
-       ;;notmuch
+       ;; (notmuch +org)
        ;;(wanderlust +gmail)
 
        :app
