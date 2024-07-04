@@ -44,3 +44,5 @@
 (package! lsp-ltex)
 
 ;; (package! vlfi)
+
+(package! consult-mu :recipe (:host github :repo "armindarvish/consult-mu"))
