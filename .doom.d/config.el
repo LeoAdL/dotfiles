@@ -597,9 +597,24 @@ citecolor=cite
 ;; (after! lsp-mode
 ;;   (setq lsp-tex-server 'digestif))
 
+(defcustom lsp-ltex-active-modes
+  '(text-mode
+    bibtex-mode context-mode
+    latex-mode LaTeX-mode ;; AUCTeX 14+ has renamed latex-mode to LaTeX-mode
+    markdown-mode org-mode
+    rst-mode
+    org-msg-edit-mode
+    mu4e-compose-mode)
+  "List of major mode that work with LTEX Language Server."
+  :type 'list
+  :group 'lsp-ltex)
+
 (use-package! lsp-ltex
   :defer t
   :init)
+(after! lsp-ltex
+  (appendq! lsp-language-id-configuration
+            '((mu4e-compose-mode . "plaintext"))))
 ;; (use-package! eglot-ltex                ;
 ;;   :init
 ;;   (setq eglot-ltex-server-path "/opt/homebrew/"
@@ -766,6 +781,7 @@ citecolor=cite
           mu4e-use-fancy-chars t                   ; allow fancy icons for mail threads
           mu4e-change-filenames-when-moving t
           mu4e-index-lazy-check nil
+          mu4e-search-results-limit 200
           mu4e-context-policy 'pick-first ;; Always ask which context to use when composing a new mail
           mu4e-compose-context-policy 'ask ;; Always ask which context to use when composing a new mail
           mu4e-update-interval 60
@@ -788,8 +804,7 @@ citecolor=cite
                         (mu4e-trash-folder      . "/leoaparisi@gmail.com/[Gmail]/Trash")
                         (mu4e-refile-folder     . "/leoaparisi@gmail.com/Archives")
                         (user-mail-address . "leoaparisi@gmail.com")
-                        (smtpmail-smtp-user     . "leoaparisi@gmail.com")
-                        (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
+                        (smtpmail-smtp-user     . "leoaparisi@gmail.com"))
                       t)
   (set-email-account! "U Chicago"
                       '((mu4e-sent-folder       . "/laparisidelannoy@uchicago.edu/Sent")
@@ -797,22 +812,39 @@ citecolor=cite
                         (user-mail-address . "laparisidelannoy@uchicago.edu")
                         (mu4e-trash-folder      . "/laparisidelannoy@uchicago.edu/Trash")
                         (mu4e-refile-folder     . "/laparisidelannoy@uchicago.edu/Archive")
-                        (smtpmail-smtp-user     . "laparisidelannoy@uchicago.edu")
-                        (mu4e-compose-signature . "---\nLeo Aparisi de Lannoy"))
+                        (smtpmail-smtp-user     . "laparisidelannoy@uchicago.edu"))
                       t)
 
 (use-package consult-mu
         :after (mu4e consult)
 )
 
-(after! org-msg
-   (setq	org-msg-convert-citation t
-            org-msg-signature "
+;;  (setq mail-user-agent 'notmuch-user-agent)
+;; (after! notmuch
+;;   (setq sendmail-program (executable-find "msmtp")
+;;         send-mail-function #'smtpmail-send-it
+;;         message-sendmail-f-is-evil t
+;;         message-sendmail-extra-arguments '("--read-envelope-from")
+;;         message-send-mail-function #'message-send-mail-with-sendmail
+;;         mail-specify-envelope-from t
+;;         message-sendmail-envelope-from 'header
+;;         mail-envelope-from 'header
+;;         +notmuch-sync-backend 'mbsync
+;;    ))
+ (after! org-msg
+   ;; :hook (notmuch-hello-mode . org-msg-mode)
+   ;; :config
+  (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil tex:dvipng"
+        org-msg-startup "hidestars indent inlineimages"
+        org-msg-greeting-name-limit 3
+        org-msg-default-alternatives '((new . (html))
+					  (reply-to-html . (html)))
+        org-msg-convert-citation t
+        org-msg-signature "
 #+begin_signature
 Leo Aparisi de Lannoy
 #+end_signature"))
 
-(after! latex
 (setq +latex-viewers '(pdf-tools))
 (defun compile-save()
   "Test of save hook"
@@ -821,8 +853,8 @@ Leo Aparisi de Lannoy
 (add-hook 'after-save-hook #'compile-save)
 (setq TeX-save-query nil
       TeX-show-compilation nil
-      TeX-command-extra-options "-shell-escape")
-  (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t)))
+      TeX-engine "luatex"
+      TeX-command-extra-options "-lualatex -shell-escape")
 
 ;; (setq flycheck-eglot-exclusive nil)
 (map! :map evil-normal-state-map
