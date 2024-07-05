@@ -46,3 +46,5 @@
 ;; (package! vlfi)
 
 (package! consult-mu :recipe (:host github :repo "armindarvish/consult-mu"))
+
+(package! org-msg :recipe (:host github :repo "jeremy-compostella/org-msg" :branch "jcompost/mu-1.12-support-with-backward-compatibility") :pin "cc25647a43bf8f632b3a4cc8e85dc334a032e524")
