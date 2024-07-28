@@ -4,9 +4,9 @@
 (package! org-superstar :disable t)
 (package! org-bullets :disable t)
 
-(package! org-appear :recipe (:host github :repo "awth13/org-appear"))
-
 (package! org-fragtog)
+
+(package! org-vcard)
 
 ;; (package! org-roam-ui)
 ;; (package! websocket)
@@ -24,7 +24,8 @@
 
 (package! engrave-faces)
 
-(package! doct)
+(package! doct
+  :recipe (:host github :repo "progfolio/doct"))
 
 (package! jinx)
 
@@ -47,4 +48,8 @@
 
 (package! consult-mu :recipe (:host github :repo "armindarvish/consult-mu"))
 
-(package! org-msg :recipe (:host github :repo "jeremy-compostella/org-msg" :branch "jcompost/mu-1.12-support-with-backward-compatibility") :pin "cc25647a43bf8f632b3a4cc8e85dc334a032e524")
+(package! org-msg :recipe (:host github :repo "danielfleischer/org-msg") :pin "19b7af2f31f030f8de3fa5be0634cdccb0335d96")
+
+(package! browser-hist)
+
+(package! youtube-sub-extractor)
