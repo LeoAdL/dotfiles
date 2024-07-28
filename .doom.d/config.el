@@ -141,10 +141,6 @@
           ("results" . "🠶")))
   (custom-set-faces! '(org-modern-statistics :inherit org-checkbox-statistics-todo)))
 
-(use-package! org-appear
-  :after org
-  :hook (org-mode . org-appear-mode))
-
 (setq org-src-fontify-natively t
       org-fontify-whole-heading-line t
       org-fontify-done-headline t
@@ -192,6 +188,13 @@
         (1.0 . org-warning)
         (0.5 . org-upcoming-deadline)
         (0.0 . org-upcoming-distant-deadline))))
+
+(after! mu4e
+    (setq mu4e-org-contacts-file  "~/org/contacts.org")
+  (add-to-list 'mu4e-headers-actions
+    '("org-contact-add" . mu4e-action-add-org-contact) t)
+  (add-to-list 'mu4e-view-actions
+    '("org-contact-add" . mu4e-action-add-org-contact) t))
 
 ;; (use-package! org-roam
 ;;   :after org
@@ -565,6 +568,34 @@ citecolor=cite
 (use-package! doct
   :after org)
 
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
+         "* TODO [#B] %?\n:Created: %T\n")
+        ("j" "Journal" entry (file+datetree "~/org/journal.org")
+         "* %?\nEntered on %U\n  %i\n  %a")
+        ("P" "process-soon" entry (file+headline "todo.org" "Todo")
+  "* TODO %:fromname: %a %?\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))")
+("c" "Contact" entry (file "~/org/contacts.org")
+"* %?
+:PROPERTIES:
+:ADDRESS:
+:BIRTHDAY:
+:EMAIL:
+:NOTE:
+:END:"
+      :empty-lines 1)
+("w" "Work")
+ ("wp" "Phone Call" entry (file+datetree "~/org/work.org") "* Phone call about %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i" :clock-in t)
+ ("wm" "Meeting"    entry (file+datetree "~/org/work.org") "* Meeting about %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i"    :clock-in t)
+ ("m" "Email Workflow")
+    ("mw" "Write" entry (file+olp "~/org/mail.org" "New")
+          "* TODO Email %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i" :immediate-finish t)
+    ("mf" "Follow Up" entry (file+olp "~/org/mail.org" "Follow Up")
+          "* TODO Follow up with %:fromname on %a\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%i" :immediate-finish t)
+    ("mr" "Read Later" entry (file+olp "~/org/mail.org" "Read Later")
+          "* TODO Read %:subject\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%a\n\n%i" :immediate-finish t)
+        ))
+
 ;; (setq corfu-popupinfo-delay 0)
 
 (use-package! jinx
@@ -781,7 +812,7 @@ citecolor=cite
           mu4e-use-fancy-chars t                   ; allow fancy icons for mail threads
           mu4e-change-filenames-when-moving t
           mu4e-index-lazy-check nil
-          mu4e-search-results-limit 200
+          mu4e-search-results-limit 300
           mu4e-context-policy 'pick-first ;; Always ask which context to use when composing a new mail
           mu4e-compose-context-policy 'ask ;; Always ask which context to use when composing a new mail
           mu4e-update-interval 60
@@ -789,15 +820,16 @@ citecolor=cite
           message-dont-reply-to-names #'mu4e-personal-or-alternative-address-p
           mu4e-bookmarks '((:name "Unread messages" :query "flag:unread AND maildir:/.*inbox/" :key 117)
                                 (:name "Today's messages" :query "date:today..now AND maildir:/.*inbox/" :key 116)
-                                (:name "Last 7 days" :query "date:7d..now AND maildir:/.*inbox/" :hide-unread t :key 119)
-                                (:name "Messages with images" :query "mime:image/* AND maildir:/.*inbox/" :key 112)
                                 ("flag:flagged" "Flagged messages" 102)
                                 (:name "Unified inbox" :query "maildir:/.*inbox/" :key 105)
                                 (:name "Sent" :query "maildir:/.*Sent/" :key 115)
                                 (:name "Drafts" :query "maildir:/.*Drafts/" :key 100)
                                 (:name "Spam" :query "maildir:/.*Spam/ or maildir:/.*Junk/" :key 83)
-                                (:name "Trash" :query "maildir:/.*Trash/" :key 84)))
-          mu4e-attachment-dir "~/Downloads")
+                                (:name "Trash" :query "maildir:/.*Trash/" :key 84))
+          mu4e-attachment-dir "~/Downloads"
+          mu4e-contexts '()
+          )
+)
   (set-email-account! "gmail"
                       '((mu4e-sent-folder       . "/leoaparisi@gmail.com/[Gmail]/Sent Mail")
                         (mu4e-drafts-folder     . "/leoaparisi@gmail.com/[Gmail]/Drafts")
@@ -806,7 +838,7 @@ citecolor=cite
                         (user-mail-address . "leoaparisi@gmail.com")
                         (smtpmail-smtp-user     . "leoaparisi@gmail.com"))
                       t)
-  (set-email-account! "U Chicago"
+  (set-email-account! "university"
                       '((mu4e-sent-folder       . "/laparisidelannoy@uchicago.edu/Sent")
                         (mu4e-drafts-folder     . "/laparisidelannoy@uchicago.edu/Drafts")
                         (user-mail-address . "laparisidelannoy@uchicago.edu")
@@ -814,6 +846,7 @@ citecolor=cite
                         (mu4e-refile-folder     . "/laparisidelannoy@uchicago.edu/Archive")
                         (smtpmail-smtp-user     . "laparisidelannoy@uchicago.edu"))
                       t)
+(add-hook! 'mu4e-compose-mode-hook#'org-msg-edit-mode)
 
 (use-package consult-mu
         :after (mu4e consult)
@@ -831,7 +864,9 @@ citecolor=cite
 ;;         mail-envelope-from 'header
 ;;         +notmuch-sync-backend 'mbsync
 ;;    ))
- (after! org-msg
+(use-package! org-msg
+  :after org
+  :config
    ;; :hook (notmuch-hello-mode . org-msg-mode)
    ;; :config
   (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil tex:dvipng"
@@ -846,6 +881,7 @@ Leo Aparisi de Lannoy
 #+end_signature"))
 
 (setq +latex-viewers '(pdf-tools))
+(setq TeX-command-default "laTeXMk")
 (defun compile-save()
   "Test of save hook"
   (when (eq major-mode 'LaTeX-mode)
@@ -859,6 +895,7 @@ Leo Aparisi de Lannoy
 ;; (setq flycheck-eglot-exclusive nil)
 (map! :map evil-normal-state-map
       "SPC c b" #'consult-flycheck)
+(setq flycheck-checker-error-threshold 5000)
 
 (after! tramp
  (setenv "SHELL" "/bin/bash")
@@ -867,3 +904,17 @@ Leo Aparisi de Lannoy
                (format "\\(%s\\)\\|\\(%s\\)"
                        vc-ignore-dir-regexp
                        tramp-file-name-regexp))
+
+(use-package! browser-hist
+ :config
+ (setq browser-hist-default-browser 'brave)
+ :commands (browser-hist-search))
+
+(use-package! youtube-sub-extractor
+:commands (youtube-sub-extractor-extract-subs)
+:config
+(map! :map youtube-sub-extractor-subtitles-mode-map
+  :desc "copy timestamp URL" :n "RET" #'youtube-sub-extractor-copy-ts-link
+  :desc "browse at timestamp" :n "C-c C-o" #'youtube-sub-extractor-browse-ts-link))
+
+(setq youtube-sub-extractor-timestamps 'left-margin)
