@@ -109,7 +109,6 @@
 /.step
 /.backward
 :open /Users/leoap/phd/ap_op_policy/model.pdf
-:print 
 /new
 /july
 :open /Users/leoap/Downloads/cours-gd.pdf
@@ -120,3 +119,5 @@
 /bonus
 /lump
 /firm
+/leo
+:print 
