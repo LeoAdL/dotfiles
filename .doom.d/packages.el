@@ -48,7 +48,9 @@
 
 (package! consult-mu :recipe (:host github :repo "armindarvish/consult-mu"))
 
-(package! org-msg :recipe (:host github :repo "danielfleischer/org-msg") :pin "19b7af2f31f030f8de3fa5be0634cdccb0335d96")
+(package! org-msg
+  :recipe (:host github :repo "danielfleischer/org-msg" :branch "1.12")
+  :pin "4dcd70f")
 
 (package! browser-hist)
 
