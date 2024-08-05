@@ -5,7 +5,7 @@ Port 993
 User leoaparisi@gmail.com
 PassCmd "pass leoaparisi@gmail.com"
 AuthMechs LOGIN
-SSLType IMAPS
+TLSType IMAPS
 CertificateFile /etc/ssl/cert.pem
 Timeout 15
 
@@ -31,7 +31,7 @@ Host localhost
 Port 1143
 User laparisidelannoy@uchicago.edu
 PassCmd "pass laparisidelannoy@uchicago.edu"
-SSLType NONE
+TLSType NONE
 AuthMechs LOGIN
 Timeout 15
 
