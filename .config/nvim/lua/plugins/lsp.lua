@@ -130,16 +130,16 @@ return {
             }
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-            mason_lspconfig.setup_handlers {
-                function(server_name)
-                    require('lspconfig')[server_name].setup {
-                        capabilities = capabilities,
-                        on_attach = servers[server_name].on_attach,
-                        settings = servers[server_name].settings,
-                        filetypes = (servers[server_name]).filetypes,
-                    }
-                end,
+            local handlers = { function(server_name)
+                require('lspconfig')[server_name].setup {
+                    capabilities = capabilities,
+                    on_attach = servers[server_name].on_attach,
+                    settings = servers[server_name].settings,
+                    filetypes = (servers[server_name]).filetypes,
+                }
+            end,
             }
+            mason_lspconfig.setup_handlers(handlers) 
             vim.diagnostic.config(opts.diagnostics)
             vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })
             vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSignWarn' })
