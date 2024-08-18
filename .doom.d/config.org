@@ -42,9 +42,9 @@
 *** Theme
 **** Default theme
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-nord)
-;; (load-theme 'catppuccin t t)
-;; (setq catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'mocha
+;; (setq doom-theme 'doom-nord)
+(load-theme 'catppuccin t t)
+(setq catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'mocha
 #+end_src
 *** Default visual
 *** Starting image
@@ -64,7 +64,9 @@
 * Org-Mode
 ** Defaults
 #+begin_src emacs-lisp
-(setq org-directory "~/org/"
+(use-package! org-mode
+  :defer t
+  :config (setq org-directory "~/org/"
       org-agenda-files (list org-directory)                  ; Seems like the obvious place.
       org-use-property-inheritance t                         ; It's convenient to have properties inherited.
       org-log-done 'time                                     ; Having the time a item is done sounds convenient.
@@ -72,7 +74,8 @@
       org-catch-invisible-edits 'smart                       ; Try not to accidently do weird stuff in invisible regions.
       org-export-with-sub-superscripts '{}                   ; Don't treat lone _ / ^ as sub/superscripts, require _{} / ^{}.
       org-export-allow-bind-keywords t                       ; Bind keywords can be handy
-      org-image-actual-width '(0.9))                         ; Make the in-buffer display closer to the exported result..#+end_src
+      org-image-actual-width '(0.9))                         ; Make the in-buffer display closer to the exported result..
+  :hook (org-mode . orge-pretty-mode))
 #+end_src
 ** Babel
 #+begin_src emacs-lisp
@@ -112,8 +115,6 @@
 *** Org-modern
 #+begin_src emacs-lisp :tangle packages.el
 (package! org-modern)
-(package! org-superstar :disable t)
-(package! org-bullets :disable t)
 #+end_src
 #+begin_src emacs-lisp
 (use-package! org-modern
@@ -138,57 +139,29 @@
           ("NO"   :inverse-video t :inherit +org-todo-cancel))
         org-modern-footnote
         (cons nil (cadr org-script-display))
-        org-modern-block-fringe nil
-        org-modern-block-name
-        '((t . t)
-          ("src" "»" "«")
-          ("example" "»–" "–«")
-          ("quote" "❝" "❞")
-          ("export" "⏩" "⏪"))
-        org-modern-progress nil
-        org-modern-priority nil
-        org-modern-horizontal-rule (make-string 36 ?─)
-        org-modern-keyword
-        '((t . t)
-          ("title" . "𝙏")
-          ("subtitle" . "𝙩")
-          ("author" . "𝘼")
-          ("email" . #("" 0 1 (display (raise -0.14))))
-          ("date" . "𝘿")
-          ("property" . "☸")
-          ("options" . "⌥")
-          ("startup" . "⏻")
-          ("macro" . "𝓜")
-          ("bind" . #("" 0 1 (display (raise -0.1))))
-          ("bibliography" . "")
-          ("print_bibliography" . #("" 0 1 (display (raise -0.1))))
-          ("cite_export" . "⮭")
-          ("print_glossary" . #("ᴬᶻ" 0 1 (display (raise -0.1))))
-          ("glossary_sources" . #("" 0 1 (display (raise -0.14))))
-          ("include" . "⇤")
-          ("setupfile" . "⇚")
-          ("html_head" . "🅷")
-          ("html" . "🅗")
-          ("latex_class" . "🄻")
-          ("latex_class_options" . #("🄻" 1 2 (display (raise -0.14))))
-          ("latex_header" . "🅻")
-          ("latex_header_extra" . "🅻⁺")
-          ("latex" . "🅛")
-          ("beamer_theme" . "🄱")
-          ("beamer_color_theme" . #("🄱" 1 2 (display (raise -0.12))))
-          ("beamer_font_theme" . "🄱𝐀")
-          ("beamer_header" . "🅱")
-          ("beamer" . "🅑")
-          ("attr_latex" . "🄛")
-          ("attr_html" . "🄗")
-          ("attr_org" . "⒪")
-          ("call" . #("" 0 1 (display (raise -0.15))))
-          ("name" . "⁍")
-          ("header" . "›")
-          ("caption" . "☰")
-          ("results" . "🠶")))
+        org-modern-block-fringe t
+        org-modern-block-name t
+        org-modern-progress t
+        org-modern-priority t
+        org-modern-horizontal-rule t
+        org-modern-keyword t)
   (custom-set-faces! '(org-modern-statistics :inherit org-checkbox-statistics-todo)))
-
+#+end_src
+**** Org-appear
+#+begin_src emacs-lisp :lexical no :tangle packages.el
+(package! org-appear :recipe (:host github :repo "awth13/org-appear"))
+#+end_src
+#+begin_src emacs-lisp :lexical no
+ (use-package! org-appear
+        :after org
+        :hook (org-mode . org-appear-mode)
+        :config
+        (setq org-appear-autoemphasis t
+                org-appear-autosubmarkers t
+                org-appear-autolinks t
+                org-appear-autokeywords t
+                org-appear-autoentities t
+                org-appear-autosubmarkers t))
 #+end_src
 *** General
 #+begin_src emacs-lisp
@@ -707,7 +680,6 @@ citecolor=cite
 #+end_src
 **** Code blocks
 #+begin_src emacs-lisp :tangle packages.el
-
 (package! engrave-faces)
 #+end_src
 #+begin_src emacs-lisp
@@ -856,13 +828,27 @@ citecolor=cite
 #+end_src
 * VLFI
 #+begin_src emacs-lisp :tangle packages.el
-;; (package! vlfi)
+(package! vlfi)
 #+end_src
 #+begin_src emacs-lisp
-;; (use-package! vlf-setup
-;;   :defer-incrementally t)
+(use-package! vlf-setup
+  :defer t)
 #+end_src
 
+#+RESULTS:
+
+* CSV-Mode
+#+begin_src emacs-lisp :tangle packages.el
+(package! csv-mode)
+#+end_src
+#+begin_src emacs-lisp
+(use-package! csv-mode
+  :defer t
+  :hook ((csv-mode . csv-align-mode)
+         (csv-mode . csv-header-line)
+         )
+  )
+#+end_src
 * PDF-Tools
 ** Dark mode
 #+begin_src emacs-lisp
