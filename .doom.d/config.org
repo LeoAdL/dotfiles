@@ -64,9 +64,7 @@
 * Org-Mode
 ** Defaults
 #+begin_src emacs-lisp
-(use-package! org-mode
-  :defer t
-  :config (setq org-directory "~/org/"
+(setq org-directory "~/org/"
       org-agenda-files (list org-directory)                  ; Seems like the obvious place.
       org-use-property-inheritance t                         ; It's convenient to have properties inherited.
       org-log-done 'time                                     ; Having the time a item is done sounds convenient.
@@ -75,7 +73,6 @@
       org-export-with-sub-superscripts '{}                   ; Don't treat lone _ / ^ as sub/superscripts, require _{} / ^{}.
       org-export-allow-bind-keywords t                       ; Bind keywords can be handy
       org-image-actual-width '(0.9))                         ; Make the in-buffer display closer to the exported result..
-  :hook (org-mode . orge-pretty-mode))
 #+end_src
 ** Babel
 #+begin_src emacs-lisp
@@ -152,8 +149,7 @@
 (package! org-appear :recipe (:host github :repo "awth13/org-appear"))
 #+end_src
 #+begin_src emacs-lisp :lexical no
- (use-package! org-appear
-        :after org
+(use-package! org-appear
         :hook (org-mode . org-appear-mode)
         :config
         (setq org-appear-autoemphasis t
@@ -867,6 +863,23 @@ citecolor=cite
           mac-right-option-modifier current-left)))
 #+end_src
 
+#+begin_src emacs-lisp :lexical no
+ ;; mac switch meta key
+(defun mac-switch-meta nil
+  "switch meta between Option and Command"
+  (interactive)
+  (if (eq mac-option-modifier nil)
+      (progn
+	(setq mac-option-modifier 'meta)
+	(setq mac-command-modifier 'hyper)
+	)
+    (progn
+      (setq mac-option-modifier nil)
+      (setq mac-command-modifier 'meta)
+      )
+    )
+  )
+#+end_src
 * Centaur
 #+begin_src emacs-lisp
 ;; (after! centaur-tabs
@@ -1001,6 +1014,9 @@ citecolor=cite
     #+end_src
 
 * Email
+#+begin_src emacs-lisp :lexical no :tangle packages.el
+;; (package! mu4e :recipe (:host github :repo "emacsmirror/mu4e"))
+#+end_src
 ** mu4e
 #+begin_src emacs-lisp
 ;; add to $DOOMDIR/config.el
@@ -1065,9 +1081,9 @@ citecolor=cite
 #+end_src
 ** Org-Msg
 #+begin_src emacs-lisp :lexical no :tangle packages.el
-(package! org-msg
-  :recipe (:host github :repo "danielfleischer/org-msg" :branch "1.12")
-  :pin "4dcd70f")
+;; (package! org-msg
+;;   :recipe (:host github :repo "danielfleischer/org-msg" :branch "1.12")
+;;   :pin "4dcd70f")
 
 #+end_src
 

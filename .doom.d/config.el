@@ -21,9 +21,9 @@
       doom-big-font (font-spec :family "Iosevka" :size 24)
       doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light))
 
-(setq doom-theme 'doom-nord)
-;; (load-theme 'catppuccin t t)
-;; (setq catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'mocha
+;; (setq doom-theme 'doom-nord)
+(load-theme 'catppuccin t t)
+(setq catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'mocha
 
 ;; (setq fancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
 
@@ -41,7 +41,7 @@
       org-catch-invisible-edits 'smart                       ; Try not to accidently do weird stuff in invisible regions.
       org-export-with-sub-superscripts '{}                   ; Don't treat lone _ / ^ as sub/superscripts, require _{} / ^{}.
       org-export-allow-bind-keywords t                       ; Bind keywords can be handy
-      org-image-actual-width '(0.9))                         ; Make the in-buffer display closer to the exported result..#+end_src
+      org-image-actual-width '(0.9))                         ; Make the in-buffer display closer to the exported result..
 
 (setq org-babel-default-header-args
       '((:session . "none")
@@ -90,56 +90,23 @@
           ("NO"   :inverse-video t :inherit +org-todo-cancel))
         org-modern-footnote
         (cons nil (cadr org-script-display))
-        org-modern-block-fringe nil
-        org-modern-block-name
-        '((t . t)
-          ("src" "»" "«")
-          ("example" "»–" "–«")
-          ("quote" "❝" "❞")
-          ("export" "⏩" "⏪"))
-        org-modern-progress nil
-        org-modern-priority nil
-        org-modern-horizontal-rule (make-string 36 ?─)
-        org-modern-keyword
-        '((t . t)
-          ("title" . "𝙏")
-          ("subtitle" . "𝙩")
-          ("author" . "𝘼")
-          ("email" . #("" 0 1 (display (raise -0.14))))
-          ("date" . "𝘿")
-          ("property" . "☸")
-          ("options" . "⌥")
-          ("startup" . "⏻")
-          ("macro" . "𝓜")
-          ("bind" . #("" 0 1 (display (raise -0.1))))
-          ("bibliography" . "")
-          ("print_bibliography" . #("" 0 1 (display (raise -0.1))))
-          ("cite_export" . "⮭")
-          ("print_glossary" . #("ᴬᶻ" 0 1 (display (raise -0.1))))
-          ("glossary_sources" . #("" 0 1 (display (raise -0.14))))
-          ("include" . "⇤")
-          ("setupfile" . "⇚")
-          ("html_head" . "🅷")
-          ("html" . "🅗")
-          ("latex_class" . "🄻")
-          ("latex_class_options" . #("🄻" 1 2 (display (raise -0.14))))
-          ("latex_header" . "🅻")
-          ("latex_header_extra" . "🅻⁺")
-          ("latex" . "🅛")
-          ("beamer_theme" . "🄱")
-          ("beamer_color_theme" . #("🄱" 1 2 (display (raise -0.12))))
-          ("beamer_font_theme" . "🄱𝐀")
-          ("beamer_header" . "🅱")
-          ("beamer" . "🅑")
-          ("attr_latex" . "🄛")
-          ("attr_html" . "🄗")
-          ("attr_org" . "⒪")
-          ("call" . #("" 0 1 (display (raise -0.15))))
-          ("name" . "⁍")
-          ("header" . "›")
-          ("caption" . "☰")
-          ("results" . "🠶")))
+        org-modern-block-fringe t
+        org-modern-block-name t
+        org-modern-progress t
+        org-modern-priority t
+        org-modern-horizontal-rule t
+        org-modern-keyword t)
   (custom-set-faces! '(org-modern-statistics :inherit org-checkbox-statistics-todo)))
+
+(use-package! org-appear
+        :hook (org-mode . org-appear-mode)
+        :config
+        (setq org-appear-autoemphasis t
+                org-appear-autosubmarkers t
+                org-appear-autolinks t
+                org-appear-autokeywords t
+                org-appear-autoentities t
+                org-appear-autosubmarkers t))
 
 (setq org-src-fontify-natively t
       org-fontify-whole-heading-line t
@@ -657,8 +624,15 @@ citecolor=cite
 ;;                 . ,(eglot-alternatives '(("texlab")
 ;;                                          ("ltex-ls" "--server-type" "TcpSocket" "--port" :autoport)))))) ;
 
-;; (use-package! vlf-setup
-;;   :defer-incrementally t)
+(use-package! vlf-setup
+  :defer t)
+
+(use-package! csv-mode
+  :defer t
+  :hook ((csv-mode . csv-align-mode)
+         (csv-mode . csv-header-line)
+         )
+  )
 
 ;; (add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode)
 
@@ -671,6 +645,22 @@ citecolor=cite
         (current-right mac-right-option-modifier))
     (setq mac-option-modifier       current-right
           mac-right-option-modifier current-left)))
+
+;; mac switch meta key
+(defun mac-switch-meta nil
+  "switch meta between Option and Command"
+  (interactive)
+  (if (eq mac-option-modifier nil)
+      (progn
+	(setq mac-option-modifier 'meta)
+	(setq mac-command-modifier 'hyper)
+	)
+    (progn
+      (setq mac-option-modifier nil)
+      (setq mac-command-modifier 'meta)
+      )
+    )
+  )
 
 ;; (after! centaur-tabs
 ;;   (centaur-tabs-mode -1)
