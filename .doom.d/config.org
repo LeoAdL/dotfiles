@@ -43,8 +43,8 @@
 **** Default theme
 #+begin_src emacs-lisp
 ;; (setq doom-theme 'doom-nord)
-(load-theme 'catppuccin t t)
 (setq catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'mocha
+(load-theme 'catppuccin)
 #+end_src
 *** Default visual
 *** Starting image

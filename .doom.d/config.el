@@ -22,8 +22,8 @@
       doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light))
 
 ;; (setq doom-theme 'doom-nord)
-(load-theme 'catppuccin t t)
 (setq catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'mocha
+(load-theme 'catppuccin)
 
 ;; (setq fancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
 
