@@ -4,8 +4,6 @@
 (setq user-full-name "Leo Aparisi de Lannoy"
       user-mail-address "leoaparisi@gmail.com")
 
-(setq dired-async-mode 1)
-
 (setq-default
  delete-by-moving-to-trash t                      ; Delete files to trash
  window-combination-resize t)                      ; take new window space from all other windows (not just current)
@@ -23,7 +21,7 @@
 
 ;; (setq doom-theme 'doom-nord)
 (setq catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'mocha
-(load-theme 'catppuccin)
+(setq doom-theme 'catppuccin)
 
 ;; (setq fancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
 
@@ -163,78 +161,8 @@
   (add-to-list 'mu4e-view-actions
     '("org-contact-add" . mu4e-action-add-org-contact) t))
 
-;; (use-package! org-roam
-;;   :after org
-;;   :config
-;;   (setq                   org-enable-roam-support t
-;;                           org-roam-directory (concat org-directory "/Roam")
-;;                           org-roam-v2-ack t))
-
-;; (setq org-roam-dailies-directory "daily/")
-
-;; (setq org-roam-dailies-capture-templates
-;;       '(("d" "default" entry
-;;          "* %?"
-;;          :target (file+head "%<%Y-%m-%d>.org"
-;;                             "#+title: %<%Y-%m-%d>\n"))))
-
-;; (defadvice! doom-modeline--buffer-file-name-roam-aware-a (orig-fun)
-;;   :around #'doom-modeline-buffer-file-name ; takes no args
-;;   (if (s-contains-p org-roam-directory (or buffer-file-name ""))
-;;       (replace-regexp-in-string
-;;        "\\(?:^\\|.*/\\)\\([0-9]\\{4\\}\\)\\([0-9]\\{2\\}\\)\\([0-9]\\{2\\}\\)[0-9]*-"
-;;        "🢔(\\1-\\2-\\3) "
-;;        (subst-char-in-string ?_ ?  buffer-file-name))
-;;     (funcall orig-fun)))
-;; (use-package! websocket
-;;   :after org-roam)
-;; (use-package! org-roam-ui
-;;   :after org-roam
-;;   :commands org-roam-ui-open
-;;   :hook (org-roam . org-roam-ui-mode)
-;;   :config
-;;   (setq org-roam-ui-sync-theme t
-;;         org-roam-ui-follow t
-;;         org-roam-ui-update-on-save t
-;;         org-roam-ui-open-on-start t)
-;;   (require 'org-roam) ; in case autoloaded
-;;   (defun org-roam-ui-open ()
-;;     "Ensure the server is active, then open the roam graph."
-;;     (interactive)
-;;     (unless org-roam-ui-mode (org-roam-ui-mode 1))
-;;     (browse-url--browser (format "http://localhost:%d" org-roam-ui-port))))
-
 (use-package! org-pandoc-import
   :after org)
-
-;; (map! :map org-mode-map
-
-;;       :localleader
-;;       :desc "View exported file" "v" #'org-view-output-file)
-
-;; (defun org-view-output-file (&optional org-file-path)
-;;   "Visit buffer open on the first output file (if any) found, using `org-view-output-file-extensions'"
-;;   (interactive)
-;;   (let* ((org-file-path (or org-file-path (buffer-file-name) ""))
-;;          (dir (file-name-directory org-file-path))
-;;          (basename (file-name-base org-file-path))
-;;          (output-file nil))
-;;     (dolist (ext org-view-output-file-extensions)
-;;       (unless output-file
-;;         (when (file-exists-p
-;;                (concat dir basename "." ext))
-;;           (setq output-file (concat dir basename "." ext)))))
-;;     (if output-file
-;;         (if (member (file-name-extension output-file) org-view-external-file-extensions)
-;;             (browse-url-xdg-open output-file)
-;;           (pop-to-buffer (or (find-buffer-visiting output-file)
-;;                              (find-file-noselect output-file))))
-;;       (message "No exported file found"))))
-
-;; (defvar org-view-output-file-extensions '("pdf" "md" "rst" "txt" "tex" "html")
-;;   "Search for output files with these extensions, in order, viewing the first that matches")
-;; (defvar org-view-external-file-extensions '("html")
-;;   "File formats that should be opened externally.")
 
 ;; (use-package! zotxt
 ;;   :after org)
@@ -275,26 +203,6 @@
   (add-hook! 'org-mode-hook
               (cursor-sensor-mode 1)
               (org-cite-csl-activate-render-all)))
-
-;; (use-package! citar-org-roam
-;;   :after citar org-roam
-;;   :config (citar-org-roam-mode))
-;; (setq org-roam-capture-templates
-;;       '(("d" "default" plain
-;;          "%?"
-;;          :target
-;;          (file+head
-;;           "%<%Y%m%d%H%M%S>-${slug}.org"
-;;           "#+title: ${title}\n")
-;;          :unnarrowed t)
-;;         ("n" "literature note" plain
-;;          "%?"
-;;          :target
-;;          (file+head
-;;           "%(expand-file-name \"literature\" org-roam-directory)/${citekey}.org"
-;;           "#+title: ${citekey}. ${title}.\n#+created: %U\n#+last_modified: %U\n\n")
-;;          :unnarrowed t)))
-;; (setq citar-org-roam-capture-template-key "n")
 
 (after! org
   ;; ORG LATEX PREVIEW
@@ -518,8 +426,6 @@ citecolor=cite
 "
       org-latex-reference-command "\\cref{%s}")
 
-
-
 ;; Use pdf-tools to open PDF files
 (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
       TeX-source-correlate-start-server t)
@@ -563,8 +469,6 @@ citecolor=cite
           "* TODO Read %:subject\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%a\n\n%i" :immediate-finish t)
         ))
 
-;; (setq corfu-popupinfo-delay 0)
-
 (use-package! jinx
   :defer t
   :init
@@ -585,15 +489,6 @@ citecolor=cite
 ;; (map! :after lsp-mode
 ;;        :map evil-normal-state-map
 ;;        "K" #'lsp-ui-doc-show)
-
-;; (setq native-comp-deferred-compilation-deny-list '("lsp-bridge"))
-;; (use-package! lsp-bridge
-;;   :config
-;;   (setq lsp-bridge-enable-log nil)
-;;   (global-lsp-bridge-mode))
-
-;; (after! lsp-mode
-;;   (setq lsp-tex-server 'digestif))
 
 (defcustom lsp-ltex-active-modes
   '(text-mode
@@ -661,17 +556,6 @@ citecolor=cite
       )
     )
   )
-
-;; (after! centaur-tabs
-;;   (centaur-tabs-mode -1)
-;;   (setq centaur-tabs-height 36
-;;         centaur-tabs-set-icons t
-;;         centaur-tabs-modified-marker "o"
-;;         centaur-tabs-close-button "×"
-;;         centaur-tabs-set-bar 'above
-;;         centaur-tabs-gray-out-icons 'buffer)
-;;   (centaur-tabs-change-fonts "P22 Underground Book" 160))
-;; (setq x-underline-at-descent-line t)
 
 ;; (add-hook! 'elfeed-search-mode-hook #'elfeed-update) ;
 ;; (after! elfeed
@@ -908,3 +792,31 @@ Leo Aparisi de Lannoy
   :desc "browse at timestamp" :n "C-c C-o" #'youtube-sub-extractor-browse-ts-link))
 
 (setq youtube-sub-extractor-timestamps 'left-margin)
+
+(use-package! ultra-scroll-mac
+ :if (eq window-system 'mac)
+ ;:load-path "~/code/emacs/ultra-scroll-mac" ; if you git clone'd instead of package-vc-install
+ :init
+ (setq scroll-conservatively 101 ; important!
+       scroll-margin 0)
+ :config
+ (ultra-scroll-mac-mode 1))
+
+(use-package indent-bars
+ :load-path "~/code/emacs/indent-bars"
+ :hook
+ (doom-ui-init . indent-bars-mode)
+ :config
+ (require 'indent-bars-ts) 		; not needed with straight
+ :custom
+ (indent-bars-treesit-support t)
+ (indent-bars-treesit-ignore-blank-lines-types '("module"))
+ ;; Add other languages as needed
+ (indent-bars-treesit-scope '((python function_definition class_definition for_statement
+	  if_statement with_statement while_statement)))
+ ;; wrap may not be needed if no-descend-list is enough
+ ;;(indent-bars-treesit-wrap '((python argument_list parameters ; for python, as an example
+ ;;				      list list_comprehension
+ ;;				      dictionary dictionary_comprehension
+ ;;				      parenthesized_expression subscript)))
+ :hook ((python-base-mode yaml-mode) . indent-bars-mode))
