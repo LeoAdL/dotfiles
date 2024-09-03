@@ -1061,12 +1061,7 @@ Leo Aparisi de Lannoy
  (setq +tree-sitter-hl-enabled-modes t)
 #+end_src
 * Tree-sitter
-#+begin_src emacs-lisp :lexical no :tangle packages.el
- (package! treesit-auto :recipe (:host github :repo "renzmann/treesit-auto"))
-#+end_src
 #+begin_src emacs-lisp :lexical no
- (use-package treesit-auto
-  :demand t
-  :config
-  (global-treesit-auto-mode))
+ (add-to-list 'major-mode-remap-alist '(python-mode . python-ts-mode))
+ (add-to-list 'major-mode-remap-alist '(sh-mode . bash-ts-mode))
 #+end_src
