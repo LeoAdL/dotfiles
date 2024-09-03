@@ -21,7 +21,7 @@
 
 ;; (setq doom-theme 'doom-nord)
 (setq catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'mocha
-(setq doom-theme 'catppuccin)
+(setq doom-theme `doom-nord)
 
 ;; (setq fancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
 
@@ -803,9 +803,8 @@ Leo Aparisi de Lannoy
  (ultra-scroll-mac-mode 1))
 
 (use-package indent-bars
- :load-path "~/code/emacs/indent-bars"
  :hook
- (doom-ui-init . indent-bars-mode)
+ ((prog-mode text-mode conf-mode) . indent-bars-mode)
  :config
  (require 'indent-bars-ts) 		; not needed with straight
  :custom
@@ -819,4 +818,20 @@ Leo Aparisi de Lannoy
  ;;				      list list_comprehension
  ;;				      dictionary dictionary_comprehension
  ;;				      parenthesized_expression subscript)))
- :hook ((python-base-mode yaml-mode) . indent-bars-mode))
+ :config
+ (setq
+   indent-bars-color '(highlight :face-bg t :blend 0.15)
+   indent-bars-pattern "."
+   indent-bars-width-frac 0.3
+   indent-bars-pad-frac 0.1
+   indent-bars-zigzag nil
+   indent-bars-color-by-depth '(:regexp "outline-\\([0-9]+\\)" :blend 1) ; blend=1: blend with BG only
+   indent-bars-highlight-current-depth '(:blend 0.5) ; pump up the BG blend on current
+   indent-bars-display-on-blank-lines t))
+
+(setq +tree-sitter-hl-enabled-modes t)
+
+(use-package treesit-auto
+ :demand t
+ :config
+ (global-treesit-auto-mode))
