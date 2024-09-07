@@ -974,6 +974,17 @@ Leo Aparisi de Lannoy
 (map! :map evil-normal-state-map
       "SPC c b" #'consult-flycheck)
 (setq flycheck-checker-error-threshold 5000)
+;; (flycheck-define-checker vale
+;;   "A checker for prose"
+;;   :command ("vale" "--output" "line"
+;;             source)
+;;   :standard-input nil
+;;   :error-patterns
+;;   ((error line-start (file-name) ":" line ":" column ":" (id (one-or-more (not (any ":")))) ":" (message) line-end))
+;;   :modes (markdown-mode org-mode text-mode)
+;;   )
+;; (add-to-list 'flycheck-checkers 'vale 'append)
+
 #+end_src
 * TRAMP
 #+begin_src emacs-lisp :lexical no
