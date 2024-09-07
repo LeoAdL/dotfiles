@@ -29,11 +29,12 @@
 ** Visual
 *** Font
 #+begin_src emacs-lisp
+(after! doom-ui
 (setq doom-font (font-spec :family "Iosevka" :size 14)
       doom-variable-pitch-font (font-spec :family "Lato")
       doom-unicode-font (font-spec :family "Iosevka")
       doom-big-font (font-spec :family "Iosevka" :size 24)
-      doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light))
+      doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light)))
 #+end_src
 *** Theme
 **** Default theme
@@ -60,6 +61,7 @@
 * Org-Mode
 ** Defaults
 #+begin_src emacs-lisp
+(after! org
 (setq org-directory "~/org/"
       org-agenda-files (list org-directory)                  ; Seems like the obvious place.
       org-use-property-inheritance t                         ; It's convenient to have properties inherited.
@@ -68,10 +70,11 @@
       org-catch-invisible-edits 'smart                       ; Try not to accidently do weird stuff in invisible regions.
       org-export-with-sub-superscripts '{}                   ; Don't treat lone _ / ^ as sub/superscripts, require _{} / ^{}.
       org-export-allow-bind-keywords t                       ; Bind keywords can be handy
-      org-image-actual-width '(0.9))                         ; Make the in-buffer display closer to the exported result..
+      org-image-actual-width '(0.9)))                         ; Make the in-buffer display closer to the exported result..
 #+end_src
 ** Babel
 #+begin_src emacs-lisp
+(after! org-babel
 (setq org-babel-default-header-args
       '((:session . "none")
         (:results . "replace")
@@ -80,7 +83,7 @@
         (:noweb . "no")
         (:hlines . "no")
         (:tangle . "no")
-        (:comments . "link")))
+        (:comments . "link"))))
 #+end_src
 *** Completion
 #+begin_src emacs-lisp :tangle packages.el
@@ -91,8 +94,14 @@
   :after org
   :hook (org-mode . org-block-capf-add-to-completion-at-point-functions))
 #+end_src
+* Cape
+#+begin_src emacs-lisp :lexical no
+ (after! cape
+   (setq cape-dabbrev-min-length 2))
+#+end_src
 ** Agenda
 #+begin_src emacs-lisp :lexical no
+(after! org
 (setq org-agenda-skip-scheduled-if-done nil
       org-agenda-skip-deadline-if-done nil
         org-agenda-tags-column 0
@@ -102,7 +111,7 @@
         (800 1000 1200 1400 1600 1800 2000)
         " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
         org-agenda-current-time-string
-        "◀── now ─────────────────────────────────────────────────")
+        "◀── now ─────────────────────────────────────────────────"))
 #+end_src
 ** Visuals
 *** Org-modern
@@ -157,6 +166,7 @@
 #+end_src
 *** General
 #+begin_src emacs-lisp
+(after! org
 (setq org-src-fontify-natively t
       org-fontify-whole-heading-line t
       org-fontify-done-headline t
@@ -177,9 +187,6 @@
         (?C . 'nerd-icons-yellow)
         (?D . 'nerd-icons-green)
         (?E . 'nerd-icons-blue)))
-#+end_src
-
-#+begin_src emacs-lisp
 (custom-set-faces!
   '(outline-1 :weight extra-bold :height 1.25)
   '(outline-2 :weight bold :height 1.15)
@@ -190,7 +197,7 @@
   '(outline-8 :weight semi-bold)
   '(outline-9 :weight semi-bold))
 (custom-set-faces!
-  '(org-document-title :height 1.2))
+  '(org-document-title :height 1.2)))
 #+end_src
 
 *** Ligatures
@@ -208,7 +215,8 @@
 #+end_src
 ** Bullets
 #+begin_src emacs-lisp
-(setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a.")))
+(after! org
+(setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a."))))
 #+end_src
 ** Agenda
 *** Visual
@@ -323,6 +331,7 @@
 #+end_src
 **** Header
 #+begin_src emacs-lisp
+(after! org
 (setq org-format-latex-header "\\documentclass[12pt]
 {article}
 \\usepackage[usenames]{xcolor}
@@ -352,7 +361,7 @@
 \\DeclareMathOperator{\\E}{\\mathbb{E}}
 \\DeclareMathOperator*{\\argmax}{arg\\,max}
 \\DeclareMathOperator*{\\argmin}{arg\\,min}
-")
+"))
 #+end_src
 *** Article
 #+begin_src emacs-lisp
@@ -433,7 +442,8 @@
   (setq org-beamer-frame-level 2))
 #+end_src
 #+begin_src emacs-lisp
-(setq org-beamer-theme "[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]metropolis")
+(after! org
+  (setq org-beamer-theme "[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]metropolis"))
 #+end_src
 Define Beamer class:
 #+begin_src emacs-lisp
@@ -526,6 +536,7 @@ Define Beamer class:
 (setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
 #+end_src
 #+begin_src emacs-lisp
+(after! org
 (setq org-latex-tables-booktabs t
       org-latex-hyperref-template "\\providecolor{url}{HTML}{81a1c1}
 \\providecolor{link}{HTML}{d08770}
@@ -544,17 +555,16 @@ urlcolor=url,
 citecolor=cite
 }
 "
-      org-latex-reference-command "\\cref{%s}")
+      org-latex-reference-command "\\cref{%s}"))
 #+end_src
 **** Preview
 #+begin_src emacs-lisp
 ;; Use pdf-tools to open PDF files
+(after! auctex
 (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
       TeX-source-correlate-start-server t)
-#+end_src
-#+begin_src emacs-lisp
 ;; Update PDF buffers after successful LaTeX runs
-(add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+(add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer))
 #+end_src
 **** Code blocks
 #+begin_src emacs-lisp :tangle packages.el
@@ -627,17 +637,6 @@ citecolor=cite
     (global-set-key [remap evil-prev-flyspell-error] #'jinx-previous)))
 #+end_src
 * LSP
-** Start with buffer
-#+begin_src emacs-lisp :lexical no
-(add-hook 'LaTeX-mode-hook #'lsp-deferred)
-#+end_src
-** Keybindings
-#+begin_src emacs-lisp :lexical no
- ;; (map! :after lsp-mode
- ;;        :map evil-normal-state-map
- ;;        "K" #'lsp-ui-doc-show)
-
-#+end_src
 ** LTex
 #+begin_src emacs-lisp :tangle packages.el
 (package! lsp-ltex)
@@ -661,6 +660,8 @@ citecolor=cite
 (after! lsp-ltex
   (appendq! lsp-language-id-configuration
             '((mu4e-compose-mode . "plaintext"))))
+(after! lsp-mode
+  (setq lsp-warn-no-matched-clients 'nil))
 ;; (use-package! eglot-ltex                ;
 ;;   :init
 ;;   (setq eglot-ltex-server-path "/opt/homebrew/"
@@ -681,8 +682,6 @@ citecolor=cite
 (use-package! vlf-setup
   :defer t)
 #+end_src
-
-#+RESULTS:
 
 * CSV-Mode
 #+begin_src emacs-lisp :tangle packages.el
@@ -955,6 +954,7 @@ Leo Aparisi de Lannoy
 #+end_src
 * Latex
 #+begin_src  emacs-lisp
+(after! auctex
 (setq +latex-viewers '(pdf-tools))
 (setq TeX-command-default "laTeXMk")
 (defun compile-save()
@@ -965,7 +965,7 @@ Leo Aparisi de Lannoy
 (setq TeX-save-query nil
       TeX-show-compilation nil
       TeX-engine "luatex"
-      TeX-command-extra-options "-lualatex -shell-escape")
+      TeX-command-extra-options "-lualatex -shell-escape"))
 #+end_src
 * Flycheck
 #+begin_src emacs-lisp
@@ -1047,7 +1047,7 @@ Leo Aparisi de Lannoy
   ;;				      dictionary dictionary_comprehension
   ;;				      parenthesized_expression subscript)))
   :config
-  (setq
+(setq
     indent-bars-color '(highlight :face-bg t :blend 0.15)
     indent-bars-pattern "."
     indent-bars-width-frac 0.3
