@@ -1082,3 +1082,12 @@ Leo Aparisi de Lannoy
  (after! projectile
    (setq projectile-indexing-method 'alien))
 #+end_src
+* Jupyter
+#+begin_src emacs-lisp :lexical no :tangle packages.el
+ (package! emacs-jupyter :recipe (:host github :repo "emacs-jupyter/jupyter"))
+#+end_src
+
+#+begin_src emacs-lisp :lexical no
+ (use-package! emacs-jupyter
+   :defer t)
+#+end_src
