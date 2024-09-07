@@ -162,6 +162,7 @@
                 org-appear-autolinks t
                 org-appear-autokeywords t
                 org-appear-autoentities t
+                org-appear-inside-latex t
                 org-appear-autosubmarkers t))
 #+end_src
 *** General
