@@ -1077,3 +1077,8 @@ Leo Aparisi de Lannoy
  (add-to-list 'major-mode-remap-alist '(python-mode . python-ts-mode))
  (add-to-list 'major-mode-remap-alist '(sh-mode . bash-ts-mode))
 #+end_src
+* Projectile
+#+begin_src emacs-lisp :lexical no
+ (after! projectile
+   (setq projectile-indexing-method 'alien))
+#+end_src
