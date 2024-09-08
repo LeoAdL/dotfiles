@@ -9,12 +9,16 @@ return {
     },
     {
         "williamboman/mason-lspconfig.nvim",
-        config = function()
-            require("mason-lspconfig").setup {
-            }
-        end
+        config = true,
     },
-    { "barreiroleo/ltex_extra.nvim" },
+    {
+        "barreiroleo/ltex_extra.nvim",
+        config = true
+    },
+    {
+        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+        config = true
+    },
     {
         "neovim/nvim-lspconfig",
         opts = {
@@ -22,7 +26,7 @@ return {
             diagnostics = {
                 underline = true,
                 update_in_insert = false,
-                virtual_text = { spacing = 4, prefix = "" },
+                virtual_text = false,
                 severity_sort = true,
             },
             -- LSP Server Settings
@@ -133,13 +137,10 @@ return {
             local handlers = { function(server_name)
                 require('lspconfig')[server_name].setup {
                     capabilities = capabilities,
-                    on_attach = servers[server_name].on_attach,
-                    settings = servers[server_name].settings,
-                    filetypes = (servers[server_name]).filetypes,
                 }
             end,
             }
-            mason_lspconfig.setup_handlers(handlers) 
+            mason_lspconfig.setup_handlers(handlers)
             vim.diagnostic.config(opts.diagnostics)
             vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })
             vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSignWarn' })

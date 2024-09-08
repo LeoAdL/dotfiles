@@ -7,7 +7,7 @@ return {
 
             -- Only one of these is needed, not both.
             "nvim-telescope/telescope.nvim", -- optional
-            "ibhagwan/fzf-lua",              -- optional
+            -- "ibhagwan/fzf-lua",              -- optional
         },
         config = true,
         opt = {
@@ -24,7 +24,7 @@ return {
                 -- If enabled, uses fzf-lua for menu selection. If the telescope integration
                 -- is also selected then telescope is used instead
                 -- Requires you to have `ibhagwan/fzf-lua` installed.
-                fzf_lua = true,
+                telescope = true,
             },
         },
     },

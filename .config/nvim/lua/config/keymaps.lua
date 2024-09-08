@@ -2,12 +2,12 @@ vim.keymap.set("n", "<C-h>", "<cmd>SmartCursorMoveLeft<cr>", { desc = "Go to lef
 vim.keymap.set("n", "<C-j>", "<cmd>SmartCursorMoveDown<cr>", { desc = "Go to lower window" })
 vim.keymap.set("n", "<C-k>", "<cmd>SmartCursorMoveUp<cr>", { desc = "Go to upper window" })
 vim.keymap.set("n", "<C-l>", "<cmd>SmartCursorMoveRight<cr>", { desc = "Go to right window" })
-vim.keymap.set("n", "<leader>fd", "<cmd>Oil<cr>", { desc = "file_browser" })
+vim.keymap.set("n", "<leader>.", "<cmd>Oil<cr>", { desc = "file_browser" })
 vim.keymap.set("n", "<leader>lL", "<cmd>Lazy<cr>", { desc = "Lazy" })
-vim.keymap.set("n", "<leader>xx", "<cmd>FzfLua lsp_document_diagnostics<cr>", { desc = "Diagnostics" })
+vim.keymap.set("n", "<leader>xx", "<cmd>Telescope diagnostics<cr>", { desc = "Diagnostics" })
 vim.keymap.set("n", "<leader>xg", "<cmd>Gitsigns setqflist<cr>", { desc = "Git QuickFix" })
 vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "NeoGit" })
-vim.keymap.set("n", "<leader>ss", "<cmd>FzfLua lsp_document_symbols<cr>", { desc = "SymbolsOutline" })
+vim.keymap.set("n", "<leader>ss", "<cmd>Telescope lsp_document_symbols<cr>", { desc = "SymbolsOutline" })
 local bufopts = { noremap = true, silent = true, desc = "Expand LSP diagnostic" }
 
 vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, bufopts)
