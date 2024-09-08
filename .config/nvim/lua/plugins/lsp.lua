@@ -13,11 +13,6 @@ return {
     },
     {
         "barreiroleo/ltex_extra.nvim",
-        config = true
-    },
-    {
-        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-        config = true
     },
     {
         "neovim/nvim-lspconfig",
