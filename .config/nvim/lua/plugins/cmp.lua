@@ -5,6 +5,7 @@ return {
         event = "InsertEnter",
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
+            "ray-x/cmp-treesitter",
             "onsails/lspkind.nvim",
             "hrsh7th/cmp-buffer",
             "saadparwaiz1/cmp_luasnip",
@@ -42,6 +43,7 @@ return {
                     { name = "nvim_lsp",                priority = 10000 },
                     { name = "nvim_lsp_signature_help", priority = 5000 },
                     { name = "luasnip",                 option = { show_autosnippets = true }, priority = 3000 },
+                    { name = "treesitter",              option = { show_autosnippets = true }, priority = 1000 },
                     { name = "buffer",                  priority = 200 },
                     { name = "async_path",              priority = 200 },
                     { name = "pandoc_references",       priority = 800 },
