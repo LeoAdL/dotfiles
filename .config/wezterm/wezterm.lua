@@ -21,7 +21,7 @@ return {
         { key = "v", mods = "LEADER",       action = wezterm.action { SplitHorizontal = { domain = "CurrentPaneDomain" } } },
         { key = "z", mods = "LEADER",       action = "TogglePaneZoomState" },
         { key = "c", mods = "LEADER",       action = "ActivateCopyMode" },
-        { key = "f", mods = "LEADER",       action = "ShowTabNavigator" },
+        { key = "s", mods = "LEADER",       action = "ShowTabNavigator" },
         { key = "n", mods = "LEADER",       action = wezterm.action { SpawnTab = "CurrentPaneDomain" } },
         { key = "h", mods = "LEADER",       action = wezterm.action { ActivatePaneDirection = "Left" } },
         { key = "j", mods = "LEADER",       action = wezterm.action { ActivatePaneDirection = "Down" } },
