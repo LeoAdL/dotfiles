@@ -15,9 +15,6 @@
 #+end_src
 ** Good defaults
 #+begin_src emacs-lisp
-(setq-default
- delete-by-moving-to-trash t                      ; Delete files to trash
- window-combination-resize t)                      ; take new window space from all other windows (not just current)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (setq evil-want-fine-undo t                       ; By default while in insert all changes are one big blob. Be more granular
       auto-save-default t)                         ; Nobody likes to loose work, I certainly don't
@@ -26,12 +23,19 @@
 #+begin_src emacs-lisp
 (setq browse-url-chrome-program "brave")
 #+end_src
+** Dirvish
+#+begin_src emacs-lisp :lexical no
+ (after! dirvish
+   (setq dirvish-attributes'(vc-state subtree-state nerd-icons git-msg file-time file-size))
+      (setq dirvish-default-layout '(0 0.4 0.6))
+)
+#+end_src
 ** Visual
 *** Font
 #+begin_src emacs-lisp
 (after! doom-ui
 (setq doom-font (font-spec :family "Iosevka" :size 14)
-      doom-variable-pitch-font (font-spec :family "Lato")
+      doom-variable-pitch-font (font-spec :family "Iosevka Aile")
       doom-unicode-font (font-spec :family "Iosevka")
       doom-big-font (font-spec :family "Iosevka" :size 24)
       doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light)))
@@ -971,21 +975,71 @@ Leo Aparisi de Lannoy
 * Flycheck
 #+begin_src emacs-lisp
 ;; (setq flycheck-eglot-exclusive nil)
+(after! flycheck
 (map! :map evil-normal-state-map
       "SPC c b" #'consult-flycheck)
 (setq flycheck-checker-error-threshold 5000)
-;; (flycheck-define-checker vale
-;;   "A checker for prose"
-;;   :command ("vale" "--output" "line"
-;;             source)
-;;   :standard-input nil
-;;   :error-patterns
-;;   ((error line-start (file-name) ":" line ":" column ":" (id (one-or-more (not (any ":")))) ":" (message) line-end))
-;;   :modes (markdown-mode org-mode text-mode)
-;;   )
-;; (add-to-list 'flycheck-checkers 'vale 'append)
+(flycheck-define-checker vale
+  "A checker for prose"
+  :command ("vale" "--output" "line"
+            source)
+  :standard-input nil
+  :error-patterns
+  ((error line-start (file-name) ":" line ":" column ":" (id (one-or-more (not (any ":")))) ":" (message) line-end))
+  :modes (markdown-mode org-mode text-mode)
+  )
+(add-to-list 'flycheck-checkers 'vale 'append)
+(defconst flycheck-org-lint-form
+  (flycheck-prepare-emacs-lisp-form
+   (require 'org)
+   (require 'org-attach)
+   (let ((source (car command-line-args-left))
+   (process-default-directory default-directory))
+   (with-temp-buffer
+   (insert-file-contents source 'visit)
+   (setq buffer-file-name source)
+   (setq default-directory process-default-directory)
+   (delay-mode-hooks (org-mode))
+   (setq delayed-mode-hooks nil)
+   (dolist (err (org-lint))
+   (let ((inf (cl-second err)))
+   (princ (elt inf 0))
+   (princ ": ")
+   (princ (elt inf 2))
+   (terpri)))))))
 
+(defconst flycheck-org-lint-variables
+    '(org-directory
+      org-id-locations
+      org-id-locations-file
+      org-attach-id-dir
+      org-attach-use-inheritance
+      org-attach-id-to-path-function-list)
+    "Variables inherited by the org-lint subprocess.")
+
+(defun flycheck-org-lint-variables-form ()
+  "Make org-lint availables available."
+    (require 'org-attach)
+    `(progn
+       ,@(seq-map (lambda (opt) `(setq-default ,opt ',(symbol-value opt)))
+                  (seq-filter #'boundp flycheck-org-lint-variables))))
+
+(flycheck-define-checker org-lint
+  "Org buffer checker using `org-lint'.
+
+See URL `https://orgmode.org/'."
+  :command ("emacs" (eval flycheck-emacs-args)
+              "--eval" (eval flycheck-org-lint-form)
+              "--" source)
+  :error-patterns
+  ((error line-start line ": " (message) line-end))
+  :modes (org-mode)
+  :next-checkers (vale))
+
+(add-to-list 'flycheck-checkers 'org-lint))
+;;; flycheck-org-lint.el ends here
 #+end_src
+
 * TRAMP
 #+begin_src emacs-lisp :lexical no
  (after! tramp
@@ -1023,6 +1077,10 @@ Leo Aparisi de Lannoy
 
   (setq youtube-sub-extractor-timestamps 'left-margin)
 #+end_src
+
+#+RESULTS:
+: left-margin
+
 * Smooth Scrolling
 #+begin_src emacs-lisp :lexical no :tangle packages.el
 (package! ultra-scroll-mac :recipe (:host github :repo "jdtsmith/ultra-scroll-mac"))
@@ -1038,16 +1096,10 @@ Leo Aparisi de Lannoy
   (ultra-scroll-mac-mode 1))
 #+end_src
 * Indent Bar
-#+begin_src emacs-lisp :lexical no :tangle packages.el
-(package! indent-bar :recipe (:host github :repo "jdtsmith/indent-bars"))
-#+end_src
 #+begin_src emacs-lisp :lexical no
- (use-package indent-bars
-  :hook
-  ((prog-mode text-mode conf-mode) . indent-bars-mode)
-  :config
-  (require 'indent-bars-ts) 		; not needed with straight
-  :custom
+(use-package indent-bars
+:custom
+  (indent-bars-prefer-character nil)
   (indent-bars-treesit-support t)
   (indent-bars-treesit-ignore-blank-lines-types '("module"))
   ;; Add other languages as needed
@@ -1110,4 +1162,8 @@ Leo Aparisi de Lannoy
    (setq eat-very-visible-cursor-type '(t nil hollow)
          eat-enable-auto-line-mode t)
    )
+(after! evil-commands
+    (global-set-key [remap +vterm/toggle] #'eat-other-window)
+    (global-set-key [remap +vterm/here] #'eat)
+    )
 #+end_src
