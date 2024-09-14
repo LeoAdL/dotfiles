@@ -1,15 +1,12 @@
 (package! org-block-capf :recipe (:host github :repo "xenodium/org-block-capf"))
 
 (package! org-modern)
-(package! org-superstar :disable t)
-(package! org-bullets :disable t)
+
+(package! org-appear :recipe (:host github :repo "awth13/org-appear"))
 
 (package! org-fragtog)
 
 (package! org-vcard)
-
-;; (package! org-roam-ui)
-;; (package! websocket)
 
 (package! org-pandoc-import
   :recipe (:host github
@@ -29,29 +26,36 @@
 
 (package! jinx)
 
-;; (when (package! lsp-bridge
-;;         :recipe (:host github
-;;                  :repo "manateelazycat/lsp-bridge"
-;;                  :branch "master"
-;;                  :files ("*.el" "*.py" "acm" "core" "langserver" "multiserver" "resources")
-;;                  ;; do not perform byte compilation or native compilation for lsp-bridge
-;;                  :build (:not compile)))
-;;   (package! markdown-mode)
-;;   (package! yasnippet))
-;;   (package! lsp-mode :disable t)
-;;   (package! company :disable t)
-;;   (package! corfu :disable t)
-
 (package! lsp-ltex)
 
-;; (package! vlfi)
+(package! vlfi)
+
+(package! csv-mode)
+
+;; (package! mu4e :recipe (:host github :repo "emacsmirror/mu4e"))
 
 (package! consult-mu :recipe (:host github :repo "armindarvish/consult-mu"))
 
-(package! org-msg
-  :recipe (:host github :repo "danielfleischer/org-msg" :branch "1.12")
-  :pin "4dcd70f")
+;; (package! org-msg
+;;   :recipe (:host github :repo "danielfleischer/org-msg" :branch "1.12")
+;;   :pin "4dcd70f")
 
 (package! browser-hist)
 
 (package! youtube-sub-extractor)
+
+(package! ultra-scroll-mac :recipe (:host github :repo "jdtsmith/ultra-scroll-mac"))
+
+(package! evil-textobj-tree-sitter)
+(package! treesit-auto)
+
+(package! emacs-jupyter :recipe (:host github :repo "emacs-jupyter/jupyter"))
+
+(package! emacs-eat  :recipe (
+      :host codeberg
+      :repo "akib/emacs-eat"
+      :files ("*.el" ("term" "term/*.el") "*.texi"
+              "*.ti" ("terminfo/e" "terminfo/e/*")
+              ("terminfo/65" "terminfo/65/*")
+              ("integration" "integration/*")
+              (:exclude ".dir-locals.el" "*-tests.el"))))

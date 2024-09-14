@@ -44,7 +44,6 @@
 **** Default theme
 #+begin_src emacs-lisp
 ;; (setq doom-theme 'doom-nord)
-(setq catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'mocha
 (setq doom-theme `doom-nord)
 #+end_src
 *** Default visual
@@ -1121,20 +1120,71 @@ See URL `https://orgmode.org/'."
     indent-bars-highlight-current-depth '(:blend 0.5) ; pump up the BG blend on current
     indent-bars-display-on-blank-lines t))
 #+end_src
-#+begin_src emacs-lisp :lexical no
- (setq +tree-sitter-hl-enabled-modes t)
-#+end_src
 * Tree-sitter
+
+#+begin_src emacs-lisp :lexical no :tangle packages.el
+(package! evil-textobj-tree-sitter)
+(package! treesit-auto)
+#+end_src
+
 #+begin_src emacs-lisp :lexical no
- (add-to-list 'major-mode-remap-alist '(python-mode . python-ts-mode))
- (add-to-list 'major-mode-remap-alist '(sh-mode . bash-ts-mode))
+(use-package! treesit)
+(use-package! treesit-auto
+        :config
+        (setq treesit-auto-mode t))
+(use-package! evil-textobj-tree-sitter
+  :defer t
+  :init (after! treesit )
+  :config
+
+  (evil-define-key '(visual operator)
+    "i" evil-textobj-tree-sitter-inner-text-objects-map
+    "a" evil-textobj-tree-sitter-outer-text-objects-map)
+  (evil-define-key 'normal
+    "[g" evil-textobj-tree-sitter-goto-previous-map
+    "]g" evil-textobj-tree-sitter-goto-next-map)
+
+  (map! (:map evil-textobj-tree-sitter-inner-text-objects-map
+         "A" (evil-textobj-tree-sitter-get-textobj ("parameter.inner" "call.inner"))
+         "f" (evil-textobj-tree-sitter-get-textobj "function.inner")
+         "F" (evil-textobj-tree-sitter-get-textobj "call.inner")
+         "C" (evil-textobj-tree-sitter-get-textobj "class.inner")
+         "v" (evil-textobj-tree-sitter-get-textobj "conditional.inner")
+         "l" (evil-textobj-tree-sitter-get-textobj "loop.inner"))
+        (:map evil-textobj-tree-sitter-outer-text-objects-map
+         "A" (evil-textobj-tree-sitter-get-textobj ("parameter.outer" "call.outer"))
+         "f" (evil-textobj-tree-sitter-get-textobj "function.outer")
+         "F" (evil-textobj-tree-sitter-get-textobj "call.outer")
+         "C" (evil-textobj-tree-sitter-get-textobj "class.outer")
+         "c" (evil-textobj-tree-sitter-get-textobj "comment.outer")
+         "v" (evil-textobj-tree-sitter-get-textobj "conditional.outer")
+         "l" (evil-textobj-tree-sitter-get-textobj "loop.outer"))
+
+        (:map evil-textobj-tree-sitter-goto-previous-map
+         "a" (evil-textobj-tree-sitter-goto-textobj "parameter.outer" t)
+         "f" (evil-textobj-tree-sitter-goto-textobj "function.outer" t)
+         "F" (evil-textobj-tree-sitter-goto-textobj "call.outer" t)
+         "C" (evil-textobj-tree-sitter-goto-textobj "class.outer" t)
+         "c" (evil-textobj-tree-sitter-goto-textobj "comment.outer" t)
+         "v" (evil-textobj-tree-sitter-goto-textobj "conditional.outer" t)
+         "l" (evil-textobj-tree-sitter-goto-textobj "loop.outer" t))
+        (:map evil-textobj-tree-sitter-goto-next-map
+         "a" (evil-textobj-tree-sitter-goto-textobj "parameter.outer")
+         "f" (evil-textobj-tree-sitter-goto-textobj "function.outer")
+         "F" (evil-textobj-tree-sitter-goto-textobj "call.outer")
+         "C" (evil-textobj-tree-sitter-goto-textobj "class.outer")
+         "c" (evil-textobj-tree-sitter-goto-textobj "comment.outer")
+         "v" (evil-textobj-tree-sitter-goto-textobj "conditional.outer")
+         "l" (evil-textobj-tree-sitter-goto-textobj "loop.outer"))))
 #+end_src
 * Projectile
+
 #+begin_src emacs-lisp :lexical no
  (after! projectile
    (setq projectile-indexing-method 'alien))
 #+end_src
 * Jupyter
+
 #+begin_src emacs-lisp :lexical no :tangle packages.el
  (package! emacs-jupyter :recipe (:host github :repo "emacs-jupyter/jupyter"))
 #+end_src
@@ -1144,6 +1194,7 @@ See URL `https://orgmode.org/'."
    :defer t)
 #+end_src
 * Eat
+
 #+begin_src emacs-lisp :lexical no :tangle packages.el
  (package! emacs-eat  :recipe (
        :host codeberg
@@ -1154,7 +1205,6 @@ See URL `https://orgmode.org/'."
                ("integration" "integration/*")
                (:exclude ".dir-locals.el" "*-tests.el"))))
 #+end_src
-
 #+begin_src emacs-lisp :lexical no
  (use-package! eat
    :defer t

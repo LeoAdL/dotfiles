@@ -4,23 +4,25 @@
 (setq user-full-name "Leo Aparisi de Lannoy"
       user-mail-address "leoaparisi@gmail.com")
 
-(setq-default
- delete-by-moving-to-trash t                      ; Delete files to trash
- window-combination-resize t)                      ; take new window space from all other windows (not just current)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (setq evil-want-fine-undo t                       ; By default while in insert all changes are one big blob. Be more granular
       auto-save-default t)                         ; Nobody likes to loose work, I certainly don't
 
 (setq browse-url-chrome-program "brave")
 
+(after! dirvish
+   (setq dirvish-attributes'(vc-state subtree-state nerd-icons git-msg file-time file-size))
+      (setq dirvish-default-layout '(0 0.4 0.6))
+)
+
+(after! doom-ui
 (setq doom-font (font-spec :family "Iosevka" :size 14)
-      doom-variable-pitch-font (font-spec :family "Lato")
+      doom-variable-pitch-font (font-spec :family "Iosevka Aile")
       doom-unicode-font (font-spec :family "Iosevka")
       doom-big-font (font-spec :family "Iosevka" :size 24)
-      doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light))
+      doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light)))
 
 ;; (setq doom-theme 'doom-nord)
-(setq catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'mocha
 (setq doom-theme `doom-nord)
 
 ;; (setq fancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
@@ -31,6 +33,7 @@
 (setq display-line-numbers-type `relative)
 (setq-default tab-width 4)
 
+(after! org
 (setq org-directory "~/org/"
       org-agenda-files (list org-directory)                  ; Seems like the obvious place.
       org-use-property-inheritance t                         ; It's convenient to have properties inherited.
@@ -39,8 +42,9 @@
       org-catch-invisible-edits 'smart                       ; Try not to accidently do weird stuff in invisible regions.
       org-export-with-sub-superscripts '{}                   ; Don't treat lone _ / ^ as sub/superscripts, require _{} / ^{}.
       org-export-allow-bind-keywords t                       ; Bind keywords can be handy
-      org-image-actual-width '(0.9))                         ; Make the in-buffer display closer to the exported result..
+      org-image-actual-width '(0.9)))                         ; Make the in-buffer display closer to the exported result..
 
+(after! org-babel
 (setq org-babel-default-header-args
       '((:session . "none")
         (:results . "replace")
@@ -49,12 +53,16 @@
         (:noweb . "no")
         (:hlines . "no")
         (:tangle . "no")
-        (:comments . "link")))
+        (:comments . "link"))))
 
 (use-package! org-block-capf
   :after org
   :hook (org-mode . org-block-capf-add-to-completion-at-point-functions))
 
+(after! cape
+  (setq cape-dabbrev-min-length 2))
+
+(after! org
 (setq org-agenda-skip-scheduled-if-done nil
       org-agenda-skip-deadline-if-done nil
         org-agenda-tags-column 0
@@ -64,7 +72,7 @@
         (800 1000 1200 1400 1600 1800 2000)
         " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
         org-agenda-current-time-string
-        "◀── now ─────────────────────────────────────────────────")
+        "◀── now ─────────────────────────────────────────────────"))
 
 (use-package! org-modern
   :after org
@@ -104,8 +112,10 @@
                 org-appear-autolinks t
                 org-appear-autokeywords t
                 org-appear-autoentities t
+                org-appear-inside-latex t
                 org-appear-autosubmarkers t))
 
+(after! org
 (setq org-src-fontify-natively t
       org-fontify-whole-heading-line t
       org-fontify-done-headline t
@@ -126,7 +136,6 @@
         (?C . 'nerd-icons-yellow)
         (?D . 'nerd-icons-green)
         (?E . 'nerd-icons-blue)))
-
 (custom-set-faces!
   '(outline-1 :weight extra-bold :height 1.25)
   '(outline-2 :weight bold :height 1.15)
@@ -137,7 +146,7 @@
   '(outline-8 :weight semi-bold)
   '(outline-9 :weight semi-bold))
 (custom-set-faces!
-  '(org-document-title :height 1.2))
+  '(org-document-title :height 1.2)))
 
 (setq org-highlight-latex-and-related '(native script entities))
 
@@ -145,7 +154,8 @@
   :after org
   :hook (org-mode . org-fragtog-mode))
 
-(setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a.")))
+(after! org
+(setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a."))))
 
 (after! org-agenda
   (setq org-agenda-deadline-faces
@@ -214,6 +224,7 @@
   (setq org-preview-latex-image-directory "~/.cache/ltximg/")
   )
 
+(after! org
 (setq org-format-latex-header "\\documentclass[12pt]
 {article}
 \\usepackage[usenames]{xcolor}
@@ -243,7 +254,7 @@
 \\DeclareMathOperator{\\E}{\\mathbb{E}}
 \\DeclareMathOperator*{\\argmax}{arg\\,max}
 \\DeclareMathOperator*{\\argmin}{arg\\,min}
-")
+"))
 
 (with-eval-after-load 'ox-latex
 (add-to-list 'org-latex-classes
@@ -319,7 +330,8 @@
 (after! org
   (setq org-beamer-frame-level 2))
 
-(setq org-beamer-theme "[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]metropolis")
+(after! org
+  (setq org-beamer-theme "[progressbar=frametitle, titleformat=smallcaps, numbering=fraction]metropolis"))
 
 (with-eval-after-load 'ox-latex
 (add-to-list 'org-latex-classes
@@ -406,6 +418,7 @@
 
 (setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
 
+(after! org
 (setq org-latex-tables-booktabs t
       org-latex-hyperref-template "\\providecolor{url}{HTML}{81a1c1}
 \\providecolor{link}{HTML}{d08770}
@@ -424,14 +437,14 @@ urlcolor=url,
 citecolor=cite
 }
 "
-      org-latex-reference-command "\\cref{%s}")
+      org-latex-reference-command "\\cref{%s}"))
 
 ;; Use pdf-tools to open PDF files
+(after! auctex
 (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
       TeX-source-correlate-start-server t)
-
 ;; Update PDF buffers after successful LaTeX runs
-(add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+(add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer))
 
 (use-package! engrave-faces-latex
   :after ox-latex)
@@ -484,12 +497,6 @@ citecolor=cite
     (global-set-key [remap evil-next-flyspell-error] #'jinx-next)
     (global-set-key [remap evil-prev-flyspell-error] #'jinx-previous)))
 
-(add-hook 'LaTeX-mode-hook #'lsp-deferred)
-
-;; (map! :after lsp-mode
-;;        :map evil-normal-state-map
-;;        "K" #'lsp-ui-doc-show)
-
 (defcustom lsp-ltex-active-modes
   '(text-mode
     bibtex-mode context-mode
@@ -508,6 +515,8 @@ citecolor=cite
 (after! lsp-ltex
   (appendq! lsp-language-id-configuration
             '((mu4e-compose-mode . "plaintext"))))
+(after! lsp-mode
+  (setq lsp-warn-no-matched-clients 'nil))
 ;; (use-package! eglot-ltex                ;
 ;;   :init
 ;;   (setq eglot-ltex-server-path "/opt/homebrew/"
@@ -754,6 +763,7 @@ citecolor=cite
 Leo Aparisi de Lannoy
 #+end_signature"))
 
+(after! auctex
 (setq +latex-viewers '(pdf-tools))
 (setq TeX-command-default "laTeXMk")
 (defun compile-save()
@@ -764,12 +774,72 @@ Leo Aparisi de Lannoy
 (setq TeX-save-query nil
       TeX-show-compilation nil
       TeX-engine "luatex"
-      TeX-command-extra-options "-lualatex -shell-escape")
+      TeX-command-extra-options "-lualatex -shell-escape"))
 
 ;; (setq flycheck-eglot-exclusive nil)
+(after! flycheck
 (map! :map evil-normal-state-map
       "SPC c b" #'consult-flycheck)
 (setq flycheck-checker-error-threshold 5000)
+(flycheck-define-checker vale
+  "A checker for prose"
+  :command ("vale" "--output" "line"
+            source)
+  :standard-input nil
+  :error-patterns
+  ((error line-start (file-name) ":" line ":" column ":" (id (one-or-more (not (any ":")))) ":" (message) line-end))
+  :modes (markdown-mode org-mode text-mode)
+  )
+(add-to-list 'flycheck-checkers 'vale 'append)
+(defconst flycheck-org-lint-form
+  (flycheck-prepare-emacs-lisp-form
+   (require 'org)
+   (require 'org-attach)
+   (let ((source (car command-line-args-left))
+   (process-default-directory default-directory))
+   (with-temp-buffer
+   (insert-file-contents source 'visit)
+   (setq buffer-file-name source)
+   (setq default-directory process-default-directory)
+   (delay-mode-hooks (org-mode))
+   (setq delayed-mode-hooks nil)
+   (dolist (err (org-lint))
+   (let ((inf (cl-second err)))
+   (princ (elt inf 0))
+   (princ ": ")
+   (princ (elt inf 2))
+   (terpri)))))))
+
+(defconst flycheck-org-lint-variables
+    '(org-directory
+      org-id-locations
+      org-id-locations-file
+      org-attach-id-dir
+      org-attach-use-inheritance
+      org-attach-id-to-path-function-list)
+    "Variables inherited by the org-lint subprocess.")
+
+(defun flycheck-org-lint-variables-form ()
+  "Make org-lint availables available."
+    (require 'org-attach)
+    `(progn
+       ,@(seq-map (lambda (opt) `(setq-default ,opt ',(symbol-value opt)))
+                  (seq-filter #'boundp flycheck-org-lint-variables))))
+
+(flycheck-define-checker org-lint
+  "Org buffer checker using `org-lint'.
+
+See URL `https://orgmode.org/'."
+  :command ("emacs" (eval flycheck-emacs-args)
+              "--eval" (eval flycheck-org-lint-form)
+              "--" source)
+  :error-patterns
+  ((error line-start line ": " (message) line-end))
+  :modes (org-mode)
+  :next-checkers (vale))
+
+(add-to-list 'flycheck-checkers 'org-lint))
+;;; flycheck-org-lint.el ends here
 
 (after! tramp
  (setenv "SHELL" "/bin/bash")
@@ -803,35 +873,91 @@ Leo Aparisi de Lannoy
  (ultra-scroll-mac-mode 1))
 
 (use-package indent-bars
- :hook
- ((prog-mode text-mode conf-mode) . indent-bars-mode)
- :config
- (require 'indent-bars-ts) 		; not needed with straight
- :custom
- (indent-bars-treesit-support t)
- (indent-bars-treesit-ignore-blank-lines-types '("module"))
- ;; Add other languages as needed
- (indent-bars-treesit-scope '((python function_definition class_definition for_statement
+:custom
+  (indent-bars-prefer-character nil)
+  (indent-bars-treesit-support t)
+  (indent-bars-treesit-ignore-blank-lines-types '("module"))
+  ;; Add other languages as needed
+  (indent-bars-treesit-scope '((python function_definition class_definition for_statement
 	  if_statement with_statement while_statement)))
- ;; wrap may not be needed if no-descend-list is enough
- ;;(indent-bars-treesit-wrap '((python argument_list parameters ; for python, as an example
- ;;				      list list_comprehension
- ;;				      dictionary dictionary_comprehension
- ;;				      parenthesized_expression subscript)))
- :config
- (setq
-   indent-bars-color '(highlight :face-bg t :blend 0.15)
-   indent-bars-pattern "."
-   indent-bars-width-frac 0.3
-   indent-bars-pad-frac 0.1
-   indent-bars-zigzag nil
-   indent-bars-color-by-depth '(:regexp "outline-\\([0-9]+\\)" :blend 1) ; blend=1: blend with BG only
-   indent-bars-highlight-current-depth '(:blend 0.5) ; pump up the BG blend on current
-   indent-bars-display-on-blank-lines t))
+  ;; wrap may not be needed if no-descend-list is enough
+  ;;(indent-bars-treesit-wrap '((python argument_list parameters ; for python, as an example
+  ;;				      list list_comprehension
+  ;;				      dictionary dictionary_comprehension
+  ;;				      parenthesized_expression subscript)))
+  :config
+(setq
+    indent-bars-color '(highlight :face-bg t :blend 0.15)
+    indent-bars-pattern "."
+    indent-bars-width-frac 0.3
+    indent-bars-pad-frac 0.1
+    indent-bars-zigzag nil
+    indent-bars-color-by-depth '(:regexp "outline-\\([0-9]+\\)" :blend 1) ; blend=1: blend with BG only
+    indent-bars-highlight-current-depth '(:blend 0.5) ; pump up the BG blend on current
+    indent-bars-display-on-blank-lines t))
 
-(setq +tree-sitter-hl-enabled-modes t)
+(use-package! treesit)
+(use-package! treesit-auto
+        :config
+        (setq treesit-auto-mode t))
+(use-package! evil-textobj-tree-sitter
+  :defer t
+  :init (after! treesit )
+  :config
 
-(use-package treesit-auto
- :demand t
- :config
- (global-treesit-auto-mode))
+  (evil-define-key '(visual operator)
+    "i" evil-textobj-tree-sitter-inner-text-objects-map
+    "a" evil-textobj-tree-sitter-outer-text-objects-map)
+  (evil-define-key 'normal
+    "[g" evil-textobj-tree-sitter-goto-previous-map
+    "]g" evil-textobj-tree-sitter-goto-next-map)
+
+  (map! (:map evil-textobj-tree-sitter-inner-text-objects-map
+         "A" (evil-textobj-tree-sitter-get-textobj ("parameter.inner" "call.inner"))
+         "f" (evil-textobj-tree-sitter-get-textobj "function.inner")
+         "F" (evil-textobj-tree-sitter-get-textobj "call.inner")
+         "C" (evil-textobj-tree-sitter-get-textobj "class.inner")
+         "v" (evil-textobj-tree-sitter-get-textobj "conditional.inner")
+         "l" (evil-textobj-tree-sitter-get-textobj "loop.inner"))
+        (:map evil-textobj-tree-sitter-outer-text-objects-map
+         "A" (evil-textobj-tree-sitter-get-textobj ("parameter.outer" "call.outer"))
+         "f" (evil-textobj-tree-sitter-get-textobj "function.outer")
+         "F" (evil-textobj-tree-sitter-get-textobj "call.outer")
+         "C" (evil-textobj-tree-sitter-get-textobj "class.outer")
+         "c" (evil-textobj-tree-sitter-get-textobj "comment.outer")
+         "v" (evil-textobj-tree-sitter-get-textobj "conditional.outer")
+         "l" (evil-textobj-tree-sitter-get-textobj "loop.outer"))
+
+        (:map evil-textobj-tree-sitter-goto-previous-map
+         "a" (evil-textobj-tree-sitter-goto-textobj "parameter.outer" t)
+         "f" (evil-textobj-tree-sitter-goto-textobj "function.outer" t)
+         "F" (evil-textobj-tree-sitter-goto-textobj "call.outer" t)
+         "C" (evil-textobj-tree-sitter-goto-textobj "class.outer" t)
+         "c" (evil-textobj-tree-sitter-goto-textobj "comment.outer" t)
+         "v" (evil-textobj-tree-sitter-goto-textobj "conditional.outer" t)
+         "l" (evil-textobj-tree-sitter-goto-textobj "loop.outer" t))
+        (:map evil-textobj-tree-sitter-goto-next-map
+         "a" (evil-textobj-tree-sitter-goto-textobj "parameter.outer")
+         "f" (evil-textobj-tree-sitter-goto-textobj "function.outer")
+         "F" (evil-textobj-tree-sitter-goto-textobj "call.outer")
+         "C" (evil-textobj-tree-sitter-goto-textobj "class.outer")
+         "c" (evil-textobj-tree-sitter-goto-textobj "comment.outer")
+         "v" (evil-textobj-tree-sitter-goto-textobj "conditional.outer")
+         "l" (evil-textobj-tree-sitter-goto-textobj "loop.outer"))))
+
+(after! projectile
+  (setq projectile-indexing-method 'alien))
+
+(use-package! emacs-jupyter
+  :defer t)
+
+(use-package! eat
+   :defer t
+   :config
+   (setq eat-very-visible-cursor-type '(t nil hollow)
+         eat-enable-auto-line-mode t)
+   )
+(after! evil-commands
+    (global-set-key [remap +vterm/toggle] #'eat-other-window)
+    (global-set-key [remap +vterm/here] #'eat)
+    )
