@@ -34,8 +34,6 @@
 
 ;; (package! mu4e :recipe (:host github :repo "emacsmirror/mu4e"))
 
-(package! consult-mu :recipe (:host github :repo "armindarvish/consult-mu"))
-
 ;; (package! org-msg
 ;;   :recipe (:host github :repo "danielfleischer/org-msg" :branch "1.12")
 ;;   :pin "4dcd70f")

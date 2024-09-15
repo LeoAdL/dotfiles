@@ -23,7 +23,9 @@
       doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light)))
 
 ;; (setq doom-theme 'doom-nord)
+(after! doom-ui
 (setq doom-theme `doom-nord)
+)
 
 ;; (setq fancy-splash-image (expand-file-name "themes/doom-emacs-bw-light.svg" doom-user-dir))
 
@@ -515,8 +517,25 @@ citecolor=cite
 (after! lsp-ltex
   (appendq! lsp-language-id-configuration
             '((mu4e-compose-mode . "plaintext"))))
-(after! lsp-mode
-  (setq lsp-warn-no-matched-clients 'nil))
+(use-package orderless
+  :init
+  ;; Tune the global completion style settings to your liking!
+  ;; This affects the minibuffer and non-lsp completion at point.
+  (setq completion-styles '(orderless partial-completion basic)
+        completion-category-defaults nil
+        completion-category-overrides nil))
+
+(use-package lsp-mode
+  :custom
+  (lsp-completion-provider :none) ;; we use Corfu!
+  :config
+    (setq lsp-warn-no-matched-clients 'nil)
+  :init
+  (defun my/lsp-mode-setup-completion ()
+    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+          '(orderless))) ;; Configure orderless
+  :hook
+  (lsp-completion-mode . my/lsp-mode-setup-completion))
 ;; (use-package! eglot-ltex                ;
 ;;   :init
 ;;   (setq eglot-ltex-server-path "/opt/homebrew/"
@@ -731,10 +750,6 @@ citecolor=cite
                       t)
 (add-hook! 'mu4e-compose-mode-hook#'org-msg-edit-mode)
 
-(use-package consult-mu
-        :after (mu4e consult)
-)
-
 ;;  (setq mail-user-agent 'notmuch-user-agent)
 ;; (after! notmuch
 ;;   (setq sendmail-program (executable-find "msmtp")
@@ -899,7 +914,8 @@ See URL `https://orgmode.org/'."
 (use-package! treesit)
 (use-package! treesit-auto
         :config
-        (setq treesit-auto-mode t))
+        (setq treesit-auto-install 'prompt
+                treesit-auto-mode t))
 (use-package! evil-textobj-tree-sitter
   :defer t
   :init (after! treesit )
