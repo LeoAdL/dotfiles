@@ -102,7 +102,13 @@
 * Cape
 #+begin_src emacs-lisp :lexical no
  (after! cape
-   (setq cape-dabbrev-min-length 2))
+   (setq cape-dabbrev-min-length 2)
+  (add-hook 'completion-at-point-functions #'cape-dabbrev)
+  (add-hook 'completion-at-point-functions #'cape-file)
+  (add-hook 'completion-at-point-functions #'cape-keyword)
+  (add-hook 'completion-at-point-functions #'cape-line)
+  (add-hook 'completion-at-point-functions #'cape-history)
+  )
 #+end_src
 ** Agenda
 #+begin_src emacs-lisp :lexical no
@@ -937,7 +943,7 @@ citecolor=cite
 # (use-package consult-mu
 #         :after (mu4e consult)
 # )
-#+end_src
+# #+end_src
 ** Org-Msg
 #+begin_src emacs-lisp :lexical no :tangle packages.el
 ;; (package! org-msg
@@ -1216,24 +1222,24 @@ See URL `https://orgmode.org/'."
 * Eat
 
 #+begin_src emacs-lisp :lexical no :tangle packages.el
- (package! emacs-eat  :recipe (
-       :host codeberg
-       :repo "akib/emacs-eat"
-       :files ("*.el" ("term" "term/*.el") "*.texi"
-               "*.ti" ("terminfo/e" "terminfo/e/*")
-               ("terminfo/65" "terminfo/65/*")
-               ("integration" "integration/*")
-               (:exclude ".dir-locals.el" "*-tests.el"))))
+ ;; (package! emacs-eat  :recipe (
+ ;;       :host codeberg
+ ;;       :repo "akib/emacs-eat"
+ ;;       :files ("*.el" ("term" "term/*.el") "*.texi"
+ ;;               "*.ti" ("terminfo/e" "terminfo/e/*")
+ ;;               ("terminfo/65" "terminfo/65/*")
+ ;;               ("integration" "integration/*")
+ ;;               (:exclude ".dir-locals.el" "*-tests.el"))))
 #+end_src
 #+begin_src emacs-lisp :lexical no
- (use-package! eat
-   :defer t
-   :config
-   (setq eat-very-visible-cursor-type '(t nil hollow)
-         eat-enable-auto-line-mode t)
-   )
-(after! evil-commands
-    (global-set-key [remap +vterm/toggle] #'eat-other-window)
-    (global-set-key [remap +vterm/here] #'eat)
-    )
+;;  (use-package! eat
+;;    :defer t
+;;    :config
+;;    (setq eat-very-visible-cursor-type '(t nil hollow)
+;;          eat-enable-auto-line-mode t)
+;;    )
+;; (after! evil-commands
+;;     (global-set-key [remap +vterm/toggle] #'eat-other-window)
+;;     (global-set-key [remap +vterm/here] #'eat)
+;;     )
 #+end_src

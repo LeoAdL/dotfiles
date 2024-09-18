@@ -62,7 +62,13 @@
   :hook (org-mode . org-block-capf-add-to-completion-at-point-functions))
 
 (after! cape
-  (setq cape-dabbrev-min-length 2))
+  (setq cape-dabbrev-min-length 2)
+ (add-hook 'completion-at-point-functions #'cape-dabbrev)
+ (add-hook 'completion-at-point-functions #'cape-file)
+ (add-hook 'completion-at-point-functions #'cape-keyword)
+ (add-hook 'completion-at-point-functions #'cape-line)
+ (add-hook 'completion-at-point-functions #'cape-history)
+ )
 
 (after! org
 (setq org-agenda-skip-scheduled-if-done nil
@@ -967,13 +973,13 @@ See URL `https://orgmode.org/'."
 (use-package! emacs-jupyter
   :defer t)
 
-(use-package! eat
-   :defer t
-   :config
-   (setq eat-very-visible-cursor-type '(t nil hollow)
-         eat-enable-auto-line-mode t)
-   )
-(after! evil-commands
-    (global-set-key [remap +vterm/toggle] #'eat-other-window)
-    (global-set-key [remap +vterm/here] #'eat)
-    )
+;;  (use-package! eat
+;;    :defer t
+;;    :config
+;;    (setq eat-very-visible-cursor-type '(t nil hollow)
+;;          eat-enable-auto-line-mode t)
+;;    )
+;; (after! evil-commands
+;;     (global-set-key [remap +vterm/toggle] #'eat-other-window)
+;;     (global-set-key [remap +vterm/here] #'eat)
+;;     )
