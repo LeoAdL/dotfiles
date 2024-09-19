@@ -983,3 +983,20 @@ See URL `https://orgmode.org/'."
 ;;     (global-set-key [remap +vterm/toggle] #'eat-other-window)
 ;;     (global-set-key [remap +vterm/here] #'eat)
 ;;     )
+
+(use-package! easysession
+  :custom
+  (easysession-save-interval (* 10 60))
+  :init
+  (add-hook 'emacs-startup-hook #'easysession-load-including-geometry 98)
+  (add-hook 'emacs-startup-hook #'easysession-save-mode 99))
+
+(use-package! savehist
+  :hook
+  (after-init . savehist-mode)
+  :config
+  (add-to-list 'savehist-additional-variables 'kill-ring)
+  (add-to-list 'savehist-additional-variables 'mark-ring)
+  (add-to-list 'savehist-additional-variables 'search-ring)
+  (add-to-list 'savehist-additional-variables 'easysession--current-session-name)
+  (add-to-list 'savehist-additional-variables 'regexp-search-ring))
