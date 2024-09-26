@@ -1,3 +1,5 @@
+;;; config.el -*- lexical-binding: t; -*-
+
 ;; brew tap railwaycat/emacsmacport
 ;; brew install emacs-mac --with-mac-metal --with-natural-title-bar --with-native-compilation --with-xwidget
 
@@ -5,8 +7,8 @@
       user-mail-address "leoaparisi@gmail.com")
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-(setq evil-want-fine-undo t                       ; By default while in insert all changes are one big blob. Be more granular
-      auto-save-default t)                         ; Nobody likes to loose work, I certainly don't
+(after! evil
+(setq evil-want-fine-undo t))                       ; By default while in insert all changes are one big blob. Be more granular
 
 (setq browse-url-chrome-program "brave")
 
@@ -84,33 +86,19 @@
 
 (use-package! org-modern
   :after org
-  :hook (org-mode . org-modern-mode)
+  :hook ((org-mode . org-modern-mode) (org-agenda-finalize . org-modern-agenda))
   :config
   (setq org-modern-star '("◉" "○" "✸" "✿" "✤" "✜" "◆" "▶")
+        org-modern-hide-stars nil
         org-modern-table-vertical 1
         org-modern-table-horizontal 0.2
-        org-modern-list '((43 . "➤")
-                          (45 . "–")
-                          (42 . "•"))
-        org-modern-todo-faces
-        '(("TODO" :inverse-video t :inherit org-todo)
-          ("PROJ" :inverse-video t :inherit +org-todo-project)
-          ("STRT" :inverse-video t :inherit +org-todo-active)
-          ("[-]"  :inverse-video t :inherit +org-todo-active)
-          ("HOLD" :inverse-video t :inherit +org-todo-onhold)
-          ("WAIT" :inverse-video t :inherit +org-todo-onhold)
-          ("[?]"  :inverse-video t :inherit +org-todo-onhold)
-          ("KILL" :inverse-video t :inherit +org-todo-cancel)
-          ("NO"   :inverse-video t :inherit +org-todo-cancel))
-        org-modern-footnote
-        (cons nil (cadr org-script-display))
-        org-modern-block-fringe t
         org-modern-block-name t
         org-modern-progress t
-        org-modern-priority t
         org-modern-horizontal-rule t
-        org-modern-keyword t)
-  (custom-set-faces! '(org-modern-statistics :inherit org-checkbox-statistics-todo)))
+        org-modern-keyword t))
+
+(use-package! org-superstar
+  :hook (org-mode . (lambda () (org-superstar-mode 1))))
 
 (use-package! org-appear
         :hook (org-mode . org-appear-mode)
@@ -132,9 +120,6 @@
       org-startup-indented t
       ;; Org styling, hide markup etc.
       org-pretty-entities t
-      )
-
-(setq org-ellipsis " ▾ "
       org-hide-leading-stars t
       org-priority-highest ?A
       org-priority-lowest ?E
@@ -143,20 +128,11 @@
         (?B . 'nerd-icons-orange)
         (?C . 'nerd-icons-yellow)
         (?D . 'nerd-icons-green)
-        (?E . 'nerd-icons-blue)))
-(custom-set-faces!
-  '(outline-1 :weight extra-bold :height 1.25)
-  '(outline-2 :weight bold :height 1.15)
-  '(outline-3 :weight bold :height 1.12)
-  '(outline-4 :weight semi-bold :height 1.09)
-  '(outline-5 :weight semi-bold :height 1.06)
-  '(outline-6 :weight semi-bold :height 1.03)
-  '(outline-8 :weight semi-bold)
-  '(outline-9 :weight semi-bold))
-(custom-set-faces!
-  '(org-document-title :height 1.2)))
+        (?E . 'nerd-icons-blue))))
+(add-hook 'org-mode-hook #'+org-pretty-mode)
 
-(setq org-highlight-latex-and-related '(native script entities))
+(after! org
+  (setq org-highlight-latex-and-related '(native script entities)))
 
 (use-package! org-fragtog
   :after org
@@ -164,13 +140,6 @@
 
 (after! org
 (setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a."))))
-
-(after! org-agenda
-  (setq org-agenda-deadline-faces
-      '((1.001 . error)
-        (1.0 . org-warning)
-        (0.5 . org-upcoming-deadline)
-        (0.0 . org-upcoming-distant-deadline))))
 
 (after! mu4e
     (setq mu4e-org-contacts-file  "~/org/contacts.org")
@@ -909,6 +878,7 @@ See URL `https://orgmode.org/'."
   :config
 (setq
     indent-bars-color '(highlight :face-bg t :blend 0.15)
+    indent-bars-no-stipple nil
     indent-bars-pattern "."
     indent-bars-width-frac 0.3
     indent-bars-pad-frac 0.1
@@ -970,7 +940,7 @@ See URL `https://orgmode.org/'."
 (after! projectile
   (setq projectile-indexing-method 'alien))
 
-(use-package! emacs-jupyter
+(use-package! jupyter-client
   :defer t)
 
 ;;  (use-package! eat
@@ -983,20 +953,3 @@ See URL `https://orgmode.org/'."
 ;;     (global-set-key [remap +vterm/toggle] #'eat-other-window)
 ;;     (global-set-key [remap +vterm/here] #'eat)
 ;;     )
-
-(use-package! easysession
-  :custom
-  (easysession-save-interval (* 10 60))
-  :init
-  (add-hook 'emacs-startup-hook #'easysession-load-including-geometry 98)
-  (add-hook 'emacs-startup-hook #'easysession-save-mode 99))
-
-(use-package! savehist
-  :hook
-  (after-init . savehist-mode)
-  :config
-  (add-to-list 'savehist-additional-variables 'kill-ring)
-  (add-to-list 'savehist-additional-variables 'mark-ring)
-  (add-to-list 'savehist-additional-variables 'search-ring)
-  (add-to-list 'savehist-additional-variables 'easysession--current-session-name)
-  (add-to-list 'savehist-additional-variables 'regexp-search-ring))
