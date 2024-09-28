@@ -51,7 +51,7 @@
 
        :completion
        ;; (company +childframe)           ; the ultimate code completion backend
-       (corfu +orderless +icons +dabbrev)  ; complete with cap(f), cape and a flying feather!
+       (corfu +childframe +orderless +icons +dabbrev)  ; complete with cap(f), cape and a flying feather!
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        ;;ivy               ; a search engine for love and life
@@ -79,7 +79,7 @@
        (vc-gutter +pretty) ; vcs diff in the fringe
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        ;;window-select     ; visually switch windows
-       workspaces        ; tab emulation, persistence & separate workspaces
+       ;; workspaces        ; tab emulation, persistence & separate workspaces
        ;;zen               ; distraction-free coding or writing
 
        :editor
@@ -110,7 +110,7 @@
        vterm             ; the best terminal emulation in Emacs
 
        :checkers
-       (syntax +icons)              ; tasing you for every semicolon you forget
+       (syntax +childframe +icons)              ; tasing you for every semicolon you forget
        ;;(spell +flyspell) ; tasing you for misspelling mispelling
        ;; grammar           ; tasing grammar mistake every you make
 
