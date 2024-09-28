@@ -953,3 +953,25 @@ See URL `https://orgmode.org/'."
 ;;     (global-set-key [remap +vterm/toggle] #'eat-other-window)
 ;;     (global-set-key [remap +vterm/here] #'eat)
 ;;     )
+
+(use-package easysession
+  :custom
+  ;; Interval between automatic session saves
+  (easysession-save-interval (* 10 60))
+  ;; Make the current session name appear in the mode-line
+  (easysession-mode-line-misc-info t)
+  :init
+  (add-hook 'emacs-startup-hook #'easysession-save-mode 99))
+
+(map! :map evil-normal-state-map
+      "SPC l l" #'easysession-switch-to
+      "SPC l s" #'easysession-save-as)
+(use-package savehist
+  :hook
+  (after-init . savehist-mode)
+  :config
+  (add-to-list 'savehist-additional-variables 'kill-ring)
+  (add-to-list 'savehist-additional-variables 'mark-ring)
+  (add-to-list 'savehist-additional-variables 'search-ring)
+  (add-to-list 'savehist-additional-variables 'easysession--current-session-name)
+  (add-to-list 'savehist-additional-variables 'regexp-search-ring))
