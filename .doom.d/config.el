@@ -393,9 +393,10 @@
                ("\\paragraph{%s}" . "\\paragraph*{%s}")
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
-(setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
+(after! org-latex
+(setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f")))
 
-(after! org
+(after! org-latex
 (setq org-latex-tables-booktabs t
       org-latex-hyperref-template "\\providecolor{url}{HTML}{81a1c1}
 \\providecolor{link}{HTML}{d08770}
@@ -416,21 +417,16 @@ citecolor=cite
 "
       org-latex-reference-command "\\cref{%s}"))
 
-;; Use pdf-tools to open PDF files
-(after! auctex
-(setq TeX-view-program-selection '((output-pdf "PDF Tools"))
-      TeX-source-correlate-start-server t)
-;; Update PDF buffers after successful LaTeX runs
-(add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer))
-
 (use-package! engrave-faces-latex
-  :after ox-latex)
-(setq org-latex-listings 'engraved)
-(setq org-latex-engraved-theme 'doom-nord)
+  :after ox-latex
+  :config
+(setq org-latex-src-block-backend 'engraved)
+(setq org-latex-engraved-theme 'doom-nord))
 
 (use-package! doct
   :after org)
 
+(after! org
 (setq org-capture-templates
       '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
          "* TODO [#B] %?\n:Created: %T\n")
@@ -457,7 +453,7 @@ citecolor=cite
           "* TODO Follow up with %:fromname on %a\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%i" :immediate-finish t)
     ("mr" "Read Later" entry (file+olp "~/org/mail.org" "Read Later")
           "* TODO Read %:subject\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%a\n\n%i" :immediate-finish t)
-        ))
+        )))
 
 (use-package! jinx
   :defer t
@@ -694,6 +690,7 @@ citecolor=cite
           mu4e-compose-context-policy 'ask ;; Always ask which context to use when composing a new mail
           mu4e-update-interval 60
           mu4e-mu-allow-temp-file t
+          mu4e-headers-precise-alignment t
           message-dont-reply-to-names #'mu4e-personal-or-alternative-address-p
           mu4e-bookmarks '((:name "Unread messages" :query "flag:unread AND maildir:/.*inbox/" :key 117)
                                 (:name "Today's messages" :query "date:today..now AND maildir:/.*inbox/" :key 116)
@@ -756,6 +753,10 @@ Leo Aparisi de Lannoy
 (after! auctex
 (setq +latex-viewers '(pdf-tools))
 (setq TeX-command-default "laTeXMk")
+(setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+      TeX-source-correlate-start-server t)
+;; Update PDF buffers after successful LaTeX runs
+(add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
 (defun compile-save()
   "Test of save hook"
   (when (eq major-mode 'LaTeX-mode)
@@ -849,9 +850,9 @@ See URL `https://orgmode.org/'."
 :config
 (map! :map youtube-sub-extractor-subtitles-mode-map
   :desc "copy timestamp URL" :n "RET" #'youtube-sub-extractor-copy-ts-link
-  :desc "browse at timestamp" :n "C-c C-o" #'youtube-sub-extractor-browse-ts-link))
+  :desc "browse at timestamp" :n "C-c C-o" #'youtube-sub-extractor-browse-ts-link)
 
-(setq youtube-sub-extractor-timestamps 'left-margin)
+(setq youtube-sub-extractor-timestamps 'left-margin))
 
 (use-package! ultra-scroll-mac
  :if (eq window-system 'mac)
