@@ -21,10 +21,9 @@
 ** Good defaults
 #+begin_src emacs-lisp
 (after! evil
+(setq scroll-margin 10000000)
+(setq scroll-conservatively 101)
 (setq evil-want-fine-undo t)
-(setq scroll-margin 99999)
-(setq scroll-conservatively 0)
-(setq maximum-scroll-margin 0.5)
 (advice-add 'evil-scroll-up :after #'evil-scroll-line-to-center   )
 (advice-add 'evil-scroll-down :after #'evil-scroll-line-to-center   )
 )                       ; By default while in insert all changes are one big blob. Be more granular
@@ -1086,20 +1085,6 @@ See URL `https://orgmode.org/'."
 #+RESULTS:
 : left-margin
 
-* Smooth Scrolling
-#+begin_src emacs-lisp :lexical no :tangle packages.el
-(package! ultra-scroll-mac :recipe (:host github :repo "jdtsmith/ultra-scroll-mac"))
-#+end_src
-#+begin_src emacs-lisp :lexical no
- (use-package! ultra-scroll-mac
-  :if (eq window-system 'mac)
-  ;:load-path "~/code/emacs/ultra-scroll-mac" ; if you git clone'd instead of package-vc-install
-  :init
-  (setq scroll-conservatively 101 ; important!
-        scroll-margin 0)
-  :config
-  (ultra-scroll-mac-mode 1))
-#+end_src
 * Indent Bar
 #+begin_src emacs-lisp :lexical no
 (use-package indent-bars
