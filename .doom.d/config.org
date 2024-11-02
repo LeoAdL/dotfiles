@@ -21,17 +21,29 @@
 ** Good defaults
 #+begin_src emacs-lisp
 (after! evil
-(setq scroll-margin 10000000)
+(setq scroll-margin 0)
 (setq scroll-conservatively 101)
 (setq evil-want-fine-undo t)
-(advice-add 'evil-scroll-up :after #'evil-scroll-line-to-center   )
-(advice-add 'evil-scroll-down :after #'evil-scroll-line-to-center   )
 )                       ; By default while in insert all changes are one big blob. Be more granular
 
 #+end_src
 *** Browser
 #+begin_src emacs-lisp
 (setq browse-url-chrome-program "brave")
+#+end_src
+* Smooth Scrolling
+#+begin_src emacs-lisp :lexical no :tangle packages.el
+(package! ultra-scroll-mac :recipe (:host github :repo "jdtsmith/ultra-scroll-mac"))
+#+end_src
+#+begin_src emacs-lisp :lexical no
+ (use-package! ultra-scroll-mac
+  :if (eq window-system 'mac)
+  ;:load-path "~/code/emacs/ultra-scroll-mac" ; if you git clone'd instead of package-vc-install
+  :init
+  (setq scroll-conservatively 101 ; important!
+        scroll-margin 0)
+  :config
+  (ultra-scroll-mac-mode 1))
 #+end_src
 ** Dirvish
 #+begin_src emacs-lisp :lexical no
@@ -44,18 +56,18 @@
 *** Font
 #+begin_src emacs-lisp
 (after! doom-ui
-(setq doom-font (font-spec :family "Iosevka" :size 14)
-      doom-variable-pitch-font (font-spec :family "Iosevka Aile")
-      doom-unicode-font (font-spec :family "Iosevka")
-      doom-big-font (font-spec :family "Iosevka" :size 24)
-      doom-serif-font (font-spec :family "Iosevka Aile" :weight 'light)))
+(setq doom-font (font-spec :family "Iosevka" :size 14)))
 #+end_src
 *** Theme
 **** Default theme
+#+begin_src emacs-lisp :lexical no :tangle packages.el
+ (package! catppuccin-theme)
+#+end_src
 #+begin_src emacs-lisp
 ;; (setq doom-theme 'doom-nord)
 (after! doom-ui
-(setq doom-theme `doom-nord)
+(setq catppuccin-flavor 'mocha)
+(setq doom-theme 'catppuccin)
 )
 #+end_src
 *** Default visual
@@ -72,6 +84,7 @@
 #+begin_src emacs-lisp
 (setq display-line-numbers-type `relative)
 (setq-default tab-width 4)
+(+global-word-wrap-mode)
 #+end_src
 
 #+RESULTS:
@@ -80,8 +93,9 @@
 * Org-Mode
 ** Defaults
 #+begin_src emacs-lisp
+(setq org-directory "~/org/")
 (after! org
-(setq org-directory "~/org/"
+(setq
       org-agenda-files (list org-directory)                  ; Seems like the obvious place.
       org-use-property-inheritance t                         ; It's convenient to have properties inherited.
       org-log-done 'time                                     ; Having the time a item is done sounds convenient.
@@ -115,12 +129,15 @@
 #+end_src
 * Cape
 #+begin_src emacs-lisp :lexical no
+(use-package! corfu
+  :config
+  (setq corfu-quit-no-match t)
+  )
  (after! cape
    (setq cape-dabbrev-min-length 2)
   (add-hook 'completion-at-point-functions #'cape-dabbrev)
   (add-hook 'completion-at-point-functions #'cape-file)
   (add-hook 'completion-at-point-functions #'cape-keyword)
-  (add-hook 'completion-at-point-functions #'cape-line)
   (add-hook 'completion-at-point-functions #'cape-history)
   )
 #+end_src
@@ -581,7 +598,7 @@ citecolor=cite
 (setq org-capture-templates
       '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
          "* TODO [#B] %?\n:Created: %T\n")
-        ("j" "Journal" entry (file+datetree "~/org/journal.org")
+        ("j" "Journal" entry (file+headline+datetree "~/org/journal.org")
          "* %?\nEntered on %U\n  %i\n  %a")
         ("P" "process-soon" entry (file+headline "todo.org" "Todo")
   "* TODO %:fromname: %a %?\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))")
@@ -595,8 +612,8 @@ citecolor=cite
 :END:"
       :empty-lines 1)
 ("w" "Work")
- ("wp" "Phone Call" entry (file+datetree "~/org/work.org") "* Phone call about %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i" :clock-in t)
- ("wm" "Meeting"    entry (file+datetree "~/org/work.org") "* Meeting about %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i"    :clock-in t)
+ ("wp" "Phone Call" entry (file+headline+datetree "~/org/work.org") "* Phone call about %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i" :clock-in t)
+ ("wm" "Meeting"    entry (file+headline+datetree "~/org/work.org") "* Meeting about %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i"    :clock-in t)
  ("m" "Email Workflow")
     ("mw" "Write" entry (file+olp "~/org/mail.org" "New")
           "* TODO Email %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i" :immediate-finish t)
@@ -985,7 +1002,7 @@ Leo Aparisi de Lannoy
 (setq flycheck-checker-error-threshold 5000)
 (flycheck-define-checker vale
   "A checker for prose"
-  :command ("vale" "--output" "line"
+  :command ("vale" "--config" "/Users/leoap/.config/vale/.vale.ini" "--output" "line"
             source)
   :standard-input nil
   :error-patterns
