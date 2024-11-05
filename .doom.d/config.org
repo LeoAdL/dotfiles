@@ -918,14 +918,6 @@ citecolor=cite
                         (user-mail-address . "leoaparisi@gmail.com")
                         (smtpmail-smtp-user     . "leoaparisi@gmail.com"))
                       t)
-  (set-email-account! "university"
-                      '((mu4e-sent-folder       . "/laparisidelannoy@uchicago.edu/Sent")
-                        (mu4e-drafts-folder     . "/laparisidelannoy@uchicago.edu/Drafts")
-                        (user-mail-address . "laparisidelannoy@uchicago.edu")
-                        (mu4e-trash-folder      . "/laparisidelannoy@uchicago.edu/Trash")
-                        (mu4e-refile-folder     . "/laparisidelannoy@uchicago.edu/Archive")
-                        (smtpmail-smtp-user     . "laparisidelannoy@uchicago.edu"))
-                      t)
 (add-hook! 'mu4e-compose-mode-hook#'org-msg-edit-mode)
 #+end_src
 ** Consult
