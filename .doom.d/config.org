@@ -20,6 +20,7 @@
 #+end_src
 ** Good defaults
 #+begin_src emacs-lisp
+(setq treesit-font-lock-level 4)
 (after! evil
 (setq scroll-margin 0)
 (setq scroll-conservatively 101)
@@ -56,7 +57,7 @@
 *** Font
 #+begin_src emacs-lisp
 (after! doom-ui
-(setq doom-font (font-spec :family "Iosevka" :size 14)))
+(setq doom-font (font-spec :family "Iosevka Nerd Font" :size 14)))
 #+end_src
 *** Theme
 **** Default theme
@@ -710,12 +711,19 @@ citecolor=cite
 * CSV-Mode
 #+begin_src emacs-lisp :tangle packages.el
 (package! csv-mode)
+(package! rainbow-csv :recipe (:host github :repo "emacs-vs/rainbow-csv"))
 #+end_src
 #+begin_src emacs-lisp
 (use-package! csv-mode
   :defer t
   :hook ((csv-mode . csv-align-mode)
          (csv-mode . csv-header-line)
+         )
+  )
+(use-package! rainbow-csv
+  :defer t
+  :hook ((csv-mode . rainbow-csv-mode)
+         (tsv-mode . rainbow-csv-mode)
          )
   )
 #+end_src
