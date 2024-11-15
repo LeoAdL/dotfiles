@@ -4,7 +4,7 @@ return {
         "Iosevka Nerd Font",
     }),
     font_size = 16.0,
-    color_scheme = "nord",
+    color_scheme = "Catppuccin Mocha",
     tab_bar_at_bottom = true,
     hide_tab_bar_if_only_one_tab = true,
     window_background_opacity = 1,
@@ -14,7 +14,7 @@ return {
         saturation = 0.9,
         brightness = 0.6,
     },
-    leader = { key = "a", mods = "CTRL" },
+    leader = { key = "b", mods = "CTRL" },
     keys = {
         { key = "a", mods = "LEADER|CTRL",  action = wezterm.action { SendString = "\x01" } },
         { key = "s", mods = "LEADER",       action = wezterm.action { SplitVertical = { domain = "CurrentPaneDomain" } } },
@@ -43,6 +43,4 @@ return {
         { key = "&", mods = "LEADER|SHIFT", action = wezterm.action { CloseCurrentTab = { confirm = true } } },
         { key = "x", mods = "LEADER",       action = wezterm.action { CloseCurrentPane = { confirm = true } } },
     },
-    scrollback_lines = 5000,
-    front_end = "WebGpu",
 }
