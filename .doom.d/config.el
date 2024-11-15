@@ -6,9 +6,11 @@
 (setq user-full-name "Leo Aparisi de Lannoy"
       user-mail-address "leoaparisi@gmail.com")
 
-(after! evil
+(setq treesit-font-lock-level 4)
+(setq delete-by-moving-to-trash t)
 (setq scroll-margin 0)
 (setq scroll-conservatively 101)
+(after! evil
 (setq evil-want-fine-undo t)
 )                       ; By default while in insert all changes are one big blob. Be more granular
 
@@ -29,11 +31,12 @@
 )
 
 (after! doom-ui
-(setq doom-font (font-spec :family "Iosevka" :size 14)))
+(setq doom-font (font-spec :family "Iosevka Nerd Font" :size 14)))
 
 ;; (setq doom-theme 'doom-nord)
+(after! captppuccin-theme
+(setq catppuccin-flavor 'mocha))
 (after! doom-ui
-(setq catppuccin-flavor 'mocha)
 (setq doom-theme 'catppuccin)
 )
 
@@ -538,6 +541,12 @@ citecolor=cite
   :defer t
   :hook ((csv-mode . csv-align-mode)
          (csv-mode . csv-header-line)
+         )
+  )
+(use-package! rainbow-csv
+  :defer t
+  :hook ((csv-mode . rainbow-csv-mode)
+         (tsv-mode . rainbow-csv-mode)
          )
   )
 
