@@ -21,9 +21,10 @@
 ** Good defaults
 #+begin_src emacs-lisp
 (setq treesit-font-lock-level 4)
-(after! evil
+(setq delete-by-moving-to-trash t)
 (setq scroll-margin 0)
 (setq scroll-conservatively 101)
+(after! evil
 (setq evil-want-fine-undo t)
 )                       ; By default while in insert all changes are one big blob. Be more granular
 
@@ -66,8 +67,9 @@
 #+end_src
 #+begin_src emacs-lisp
 ;; (setq doom-theme 'doom-nord)
+(after! captppuccin-theme
+(setq catppuccin-flavor 'mocha))
 (after! doom-ui
-(setq catppuccin-flavor 'mocha)
 (setq doom-theme 'catppuccin)
 )
 #+end_src
