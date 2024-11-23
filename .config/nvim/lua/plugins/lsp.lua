@@ -68,13 +68,7 @@ return {
                 },
                 marksman = {},
                 julials = {},
-                pyright = {
-                },
-                ruff_lsp = {
-                    on_attach = function(client, bufnr)
-                        -- Disable hover in favor of Pyright
-                        client.server_capabilities.hoverProvider = false
-                    end
+                basedpyright = {
                 },
                 ltex = {
                     filetypes = { 'bib', 'gitcommit', 'markdown', 'org', 'plaintex', 'rst', 'rnoweb', 'tex', 'pandoc', 'quarto', 'rmd', 'mail' },

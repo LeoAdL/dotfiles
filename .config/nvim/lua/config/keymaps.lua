@@ -8,6 +8,8 @@ vim.keymap.set("n", "<leader>xx", "<cmd>Telescope diagnostics<cr>", { desc = "Di
 vim.keymap.set("n", "<leader>xg", "<cmd>Gitsigns setqflist<cr>", { desc = "Git QuickFix" })
 vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "NeoGit" })
 vim.keymap.set("n", "<leader>ss", "<cmd>Telescope lsp_document_symbols<cr>", { desc = "SymbolsOutline" })
+vim.keymap.set("n", "<leader>bb", "<cmd>Telescope buffers<cr>", { desc = "SymbolsOutline" })
+vim.keymap.set("n", "<leader>cb", "<cmd>Telescope diagnostics<cr>", { desc = "SymbolsOutline" })
 local bufopts = { noremap = true, silent = true, desc = "Expand LSP diagnostic" }
 
 vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, bufopts)
