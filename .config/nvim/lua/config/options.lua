@@ -2,14 +2,19 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
 vim.opt.conceallevel = 2       -- hide * markup for bold and italic
 vim.opt.autowrite = true
 vim.opt.confirm = true         -- Confirm to save changes before exiting modified buffer
 vim.opt.inccommand = "nosplit" -- preview incremental substitute
 vim.opt.autochdir = true
 vim.opt.wrap = true
-vim.o.foldcolumn = "1" -- '0' is not bad
-vim.o.foldlevel = 999  -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldcolumn = "1"                                      -- '0' is not bad
+
+vim.opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
+vim.o.foldlevel = 999                                       -- Using ufo provider need a large value, feel free to decrease the value
 vim.o.foldlevelstart = 999
 vim.o.foldenable = true
 vim.o.foldcolumn = '0'
@@ -51,34 +56,3 @@ vim.o.tabstop = 4      -- A TAB character looks like 4 spaces
 vim.o.expandtab = true -- Pressing the TAB key will insert spaces instead of a TAB character
 vim.o.softtabstop = 4  -- Number of spaces inserted instead of a TAB character
 vim.o.shiftwidth = 4   -- Number of spaces inserted when indenting
-
-local home = os.getenv("HOME")
-
-local path = table.concat({
-    "/usr/share/lua/5.1/?.lua",
-    "/usr/share/lua/5.1/?/init.lua",
-    "/usr/lib/lua/5.1/?.lua",
-    "/usr/lib/lua/5.1/?/init.lua",
-    "./?.lua",
-    "./?/init.lua",
-    "~/.luarocks/share/lua/5.1/?.lua",
-    "~/.luarocks/share/lua/5.1/?/init.lua",
-}, ";")
-
-local cpath = table.concat({
-    "/usr/lib/lua/5.1/?.so",
-    "/usr/lib/lua/5.1/loadall.so",
-    "./?.so",
-    "~/.luarocks/lib/lua/5.1/?.so",
-}, ";")
-
-package.path = path:gsub("~", home)
-package.cpath = cpath:gsub("~", home)
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
-    callback = function()
-        vim.highlight.on_yank()
-    end,
-    group = highlight_group,
-    pattern = '*',
-})
