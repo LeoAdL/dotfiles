@@ -48,5 +48,5 @@ return {
     native_macos_fullscreen_mode = true,
     front_end = "WebGpu",
     webgpu_power_preference = "HighPerformance",
-    max_fps = 240,
+    max_fps = 120,
 }
