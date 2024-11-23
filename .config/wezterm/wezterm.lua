@@ -1,4 +1,5 @@
 local wezterm = require("wezterm")
+local gpus = wezterm.gui.enumerate_gpus()
 return {
     font = wezterm.font_with_fallback({
         "Iosevka Nerd Font",
@@ -43,4 +44,9 @@ return {
         { key = "&", mods = "LEADER|SHIFT", action = wezterm.action { CloseCurrentTab = { confirm = true } } },
         { key = "x", mods = "LEADER",       action = wezterm.action { CloseCurrentPane = { confirm = true } } },
     },
+    webgpu_preferred_adapter = gpus[1],
+    native_macos_fullscreen_mode = true,
+    front_end = "WebGpu",
+    webgpu_power_preference = "HighPerformance",
+    max_fps = 240,
 }
