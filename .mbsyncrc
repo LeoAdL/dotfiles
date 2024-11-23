@@ -26,28 +26,28 @@ CopyArrivalDate yes
 ExpireUnread no
 # End profile
 
-IMAPStore laparisidelannoy@uchicago.edu-remote
-Host localhost
-Port 1143
-User laparisidelannoy@uchicago.edu
-PassCmd "pass laparisidelannoy@uchicago.edu"
-TLSType NONE
-AuthMechs LOGIN
-Timeout 15
+# IMAPStore laparisidelannoy@uchicago.edu-remote
+# Host localhost
+# Port 1143
+# User laparisidelannoy@uchicago.edu
+# PassCmd "pass laparisidelannoy@uchicago.edu"
+# TLSType NONE
+# AuthMechs LOGIN
+# Timeout 15
 
-MaildirStore laparisidelannoy@uchicago.edu-local
-Subfolders Verbatim
-Path /Users/leoap/.local/share/mail/laparisidelannoy@uchicago.edu/
-Inbox /Users/leoap/.local/share/mail/laparisidelannoy@uchicago.edu/INBOX
+# MaildirStore laparisidelannoy@uchicago.edu-local
+# Subfolders Verbatim
+# Path /Users/leoap/.local/share/mail/laparisidelannoy@uchicago.edu/
+# Inbox /Users/leoap/.local/share/mail/laparisidelannoy@uchicago.edu/INBOX
 
-Channel laparisidelannoy@uchicago.edu
-Expunge Both
-Far :laparisidelannoy@uchicago.edu-remote:
-Near :laparisidelannoy@uchicago.edu-local:
-Patterns * 
-Create Both
-SyncState *
-MaxMessages 0
-ExpireUnread no
-CopyArrivalDate yes
-# End profile
+# Channel laparisidelannoy@uchicago.edu
+# Expunge Both
+# Far :laparisidelannoy@uchicago.edu-remote:
+# Near :laparisidelannoy@uchicago.edu-local:
+# Patterns *
+# Create Both
+# SyncState *
+# MaxMessages 0
+# ExpireUnread no
+# CopyArrivalDate yes
+# # End profile
