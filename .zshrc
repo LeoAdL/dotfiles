@@ -1,10 +1,8 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
+export COLORTERM=truecolor
+export term=xterm-256color
 alias python3=python
 alias vimdiff="nvim -d"
 export VISUAL="nvim"
@@ -114,6 +112,10 @@ rga-fzf() {
         echo "opening $file" &&
         open "$file"
 }
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 #
