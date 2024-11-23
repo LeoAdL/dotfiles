@@ -9,14 +9,3 @@ tls on
 tls_trust_file	/etc/ssl/cert.pem
 logfile /Users/leoap/.cache/msmtp/msmtp.log
 tls_starttls off
-
-account laparisidelannoy@uchicago.edu
-auth plain
-host localhost
-port 1025
-protocol smtp
-from laparisidelannoy@uchicago.edu
-user laparisidelannoy@uchicago.edu
-passwordeval "pass laparisidelannoy@uchicago.edu"
-tls off
-tls_starttls off
