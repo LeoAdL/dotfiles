@@ -1,6 +1,7 @@
 return {
     "3rd/image.nvim",
     enabled = true,
+    lazy = true,
     rocks = { "magick" },
     opts = {
         backend = "kitty",
