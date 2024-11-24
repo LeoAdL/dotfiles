@@ -5,7 +5,7 @@ set from = "laparisidelannoy@uchicago.edu"
 set sendmail = "msmtp -a laparisidelannoy@uchicago.edu"
 alias me laparisidelannoy <laparisidelannoy@uchicago.edu>
 set folder = "/Users/leoap/.local/share/mail/laparisidelannoy@uchicago.edu"
-set header_cache = "/Users/leoap/.cache/mutt-wizard/laparisidelannoy_uchicago.edu/headers"
+set header_cache = "/Users/leoap/.cache/mutt-wizard/laparisidelannoy_uchicago.edu"
 set message_cache_dir = "/Users/leoap/.cache/mutt-wizard/laparisidelannoy_uchicago.edu/bodies"
 set mbox_type = Maildir
 set hostname = "uchicago.edu"

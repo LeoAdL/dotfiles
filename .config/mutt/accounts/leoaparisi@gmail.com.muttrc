@@ -5,17 +5,17 @@ set from = "leoaparisi@gmail.com"
 set sendmail = "msmtp -a leoaparisi@gmail.com"
 alias me leoaparisi <leoaparisi@gmail.com>
 set folder = "/Users/leoap/.local/share/mail/leoaparisi@gmail.com"
-set header_cache = "/Users/leoap/.cache/mutt-wizard/leoaparisi_gmail.com/headers"
+set header_cache = "/Users/leoap/.cache/mutt-wizard/leoaparisi_gmail.com"
 set message_cache_dir = "/Users/leoap/.cache/mutt-wizard/leoaparisi_gmail.com/bodies"
 set mbox_type = Maildir
 set hostname = "gmail.com"
 source /usr/local/share/mutt-wizard/switch.muttrc
-set postponed = "+[Gmail]/Drafts/"
+#set postponed = "+[Gmail]/Drafts/"
 set trash = "+[Gmail]/Trash/"
 
 set imap_idle = yes
 macro index o "<shell-escape>mailsync leoaparisi@gmail.com<enter>" "sync leoaparisi@gmail.com"
-mailboxes "=Drafts" "=INBOX" "=[Gmail]/Sent Mail" "=[Gmail]/Trash" "=[Gmail]/Junk"
+mailboxes "=INBOX" "=[Gmail]/Sent Mail" "=[Gmail]/Trash" "=[Gmail]/Junk"
 
 virtual-mailboxes \
     "Unified inbox"     "notmuch://?query=(tag:inbox or tag:new) and date:1M.."\
