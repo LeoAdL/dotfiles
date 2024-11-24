@@ -5,12 +5,16 @@ alt - h : yabai -m window --focus west
 alt - l : yabai -m window --focus east
 #
 #change focus between external displays (left and right)
-alt - u: yabai -m display --focus west
-alt - i: yabai -m display --focus east
+alt - s: yabai -m display --focus south
+alt - d: yabai -m display --focus north
+alt - a: yabai -m display --focus west
+alt - f: yabai -m display --focus east
 # move window to display left and right
-shift + alt - u : yabai -m window --display west; yabai -m display --focus west;
-shift + alt - i : yabai -m window --display east; yabai -m display --focus east;
-# rotate layout clockwise
+shift + alt - d : yabai -m window --display north; yabai -m display --focus north;
+shift + alt - s : yabai -m window --display south; yabai -m display --focus south;
+shift + alt - a : yabai -m window --display west; yabai -m display --focus west;
+shift + alt - f : yabai -m window --display east; yabai -m display --focus east;
+# rotate layouj clockwise
 shift + alt - r : yabai -m space --rotate 270
 
 # flip along y-axis
