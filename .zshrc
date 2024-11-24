@@ -170,18 +170,6 @@ if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
     PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
 fi
 
-#!/usr/bin/env zsh
-function antidote {
-  case "$1" in
-    bundle)
-      source <( antidote-main $@ ) || antidote-main $@
-      ;;
-    *)
-      antidote-main $@
-      ;;
-  esac
-}
-
 source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
 # ${ZDOTDIR:-~}/.zshrc
 
