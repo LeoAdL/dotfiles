@@ -15,7 +15,7 @@ set trash = "+[Gmail]/Trash/"
 
 set imap_idle = yes
 macro index o "<shell-escape>mailsync leoaparisi@gmail.com<enter>" "sync leoaparisi@gmail.com"
-mailboxes "=INBOX" "=[Gmail]/Sent Mail" "=[Gmail]/Trash" "=[Gmail]/Junk"
+mailboxes "=INBOX" "=[Gmail]/Sent Mail" "=[Gmail]/Trash" "=[Gmail]/Spam"
 
 virtual-mailboxes \
     "Unified inbox"     "notmuch://?query=(tag:inbox or tag:new) and date:1M.."\
