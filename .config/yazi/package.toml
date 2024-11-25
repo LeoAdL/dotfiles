@@ -1,5 +1,6 @@
 [plugin]
-deps = []
+deps = [{ use = "Reledia/miller", rev = "40e0265" }]
+
 
 [flavor]
 deps = [{ use = "yazi-rs/flavors:catppuccin-mocha", rev = "4a3082f" }]
