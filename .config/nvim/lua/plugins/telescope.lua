@@ -1,18 +1,20 @@
+local dependencies = { { "nvim-lua/plenary.nvim" }, { "debugloop/telescope-undo.nvim" } }
+if vim.loop.os_uname().sysname ~= 'Windows_NT'
+then
+    table.insert(dependencies,
+        {
+            "nvim-telescope/telescope-fzf-native.nvim",
+            build = "make",
+            config = function()
+                require("telescope").load_extension("fzf")
+            end,
+        })
+end
 return {
     { "stevearc/dressing.nvim" },
     {
         "telescope.nvim",
-        dependencies = {
-            {
-                "nvim-telescope/telescope-fzf-native.nvim",
-                build = "make",
-                config = function()
-                    require("telescope").load_extension("fzf")
-                end,
-            },
-            { "nvim-lua/plenary.nvim" },
-            { "debugloop/telescope-undo.nvim" },
-        },
+        dependencies = dependencies,
         config = function()
             local ts = require("telescope")
             local tsu = require("telescope-undo.actions")
