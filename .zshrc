@@ -99,6 +99,16 @@ rg-fzf() {
         --bind 'enter:become(nvim {1} +{2})'
 }
 
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
+
 rga-fzf() {
     RG_PREFIX="rga --hidden --files-with-matches --smart-case -L"
     local file
