@@ -1,7 +1,10 @@
 return { {
     'junegunn/fzf',
     build = function()
-        vim.fn['fzf#install']()
+        if vim.loop.os_uname().sysname ~= 'Windows_NT'
+        then
+            vim.fn['fzf#install']()
+        end
     end
 },
     {

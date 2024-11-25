@@ -1,6 +1,11 @@
+local trigger = false
+if vim.loop.os_uname().sysname == 'Darwin'
+then
+    trigger = true
+end
 return {
     "3rd/image.nvim",
-    enabled = true,
+    enabled = trigger,
     lazy = true,
     rocks = { "magick" },
     opts = {
