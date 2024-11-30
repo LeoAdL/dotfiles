@@ -11,13 +11,14 @@
   :ensure t
   :demand t
   :config
-      ;; Ensure that quitting only occurs once Emacs finishes native compiling,
-    ;; preventing incomplete or leftover compilation files in `/tmp`.
-    (setq native-comp-async-query-on-exit t)
-    (setq confirm-kill-processes t)
-    (setq package-native-compile t)
+  ;; Ensure that quitting only occurs once Emacs finishes native compiling,
+  ;; preventing incomplete or leftover compilation files in `/tmp`.
+  (setq native-comp-async-query-on-exit t)
+  (setq confirm-kill-processes t)
+  (setq package-native-compile t)
   (compile-angel-on-load-mode)
   (add-hook 'emacs-lisp-mode-hook #'compile-angel-on-save-local-mode))
+
 ;; Auto-revert in Emacs is a feature that automatically updates the
 ;; contents of a buffer to reflect changes made to the underlying file
 ;; on disk.
@@ -32,17 +33,18 @@
 ;; sessions. It saves the history of inputs in the minibuffer, such as commands,
 ;; search strings, and other prompts, to a file. This allows users to retain
 ;; their minibuffer history across Emacs restarts.
-(add-hook 'elpaca-after-init-hook #'savehist-mode)
 
 ;; save-place-mode enables Emacs to remember the last location within a file
 ;; upon reopening. This feature is particularly beneficial for resuming work at
 ;; the precise point where you previously left off.
 (add-hook 'elpaca-after-init-hook #'save-place-mode)
+
+
 (use-package general :ensure (:wait t) :demand t
- :config
- (general-auto-unbind-keys)
- (general-evil-setup)
- )
+  :config
+  (general-auto-unbind-keys)
+  (general-evil-setup)
+  )
 
 (use-package vterm
   :ensure t
@@ -50,8 +52,9 @@
   :hook (vterm-mode . hide-mode-line-mode) ; modeline serves no purpose in vterm
   :commands vterm
   :general (:prefix "SPC"
-            :states 'normal
-            "o t" #'vterm)
+                    :keymaps 'override
+                    :states 'motion
+                    "o t" #'vterm)
   :config
   ;; Speed up vterm
   (setq vterm-kill-buffer-on-exit t)
@@ -128,51 +131,52 @@
 (use-package consult
   :ensure t
   :general (
-    :prefix "SPC"
-     :states 'normal
-         "/" #'consult-ripgrep
-         "f f" #'consult-fd
-         "f x" #'consult-mode-command
-         "f h" #'consult-history
-         "f k" #'consult-kmacro
-         "f m" #'consult-man
-         "f i" #'consult-info
-         "f r" #'consult-recent-file
-         ;; C-x bindings in `ctl-x-map'
-         "f M-:" #'consult-complex-command
-         "f b" #'consult-buffer
-         "4 b" #'consult-buffer-other-window
-         "5 b" #'consult-buffer-other-frame
-         "t b" #'consult-buffer-other-tab
-         "r b" #'consult-bookmark
-         "p b" #'consult-project-buffer
-         ;; Custom M-# bindings for fast register access
-         "r r" #'consult-register
-         ;; Other custom bindings
-         "y" #'consult-yank-pop
-         ;; g bindings in `goto-map'
-         "G e" #'consult-compile-error
-         "G f" #'consult-flymake
-         "G g" #'consult-goto-line
-         "G o" #'consult-outline
-         "G m" #'consult-mark
-         "G k" #'consult-global-mark
-         "G i" #'consult-imenu
-         "G I" #'consult-imenu-multi
-         ;; M-s bindings in `search-map'
-         "s d" #'consult-find
-         "s c" #'consult-locate
-         "s g" #'consult-grep
-         "s G" #'consult-git-grep
-         "s l" #'consult-line
-         "s L" #'consult-line-multi
-         "s k" #'consult-keep-lines
-         "s u" #'consult-focus-lines
-         ;; Isearch integration
-         "s e" #'consult-isearch-history
-         ;; Minibuffer history
-         "s s" #'consult-history)
-         
+            :prefix "SPC"
+            :keymaps 'override
+            :states 'motion
+            "/" #'consult-ripgrep
+            "f f" #'consult-fd
+            "f x" #'consult-mode-command
+            "f h" #'consult-history
+            "f k" #'consult-kmacro
+            "f m" #'consult-man
+            "f i" #'consult-info
+            "f r" #'consult-recent-file
+            ;; C-x bindings in `ctl-x-map'
+            "f M-:" #'consult-complex-command
+            "f b" #'consult-buffer
+            "4 b" #'consult-buffer-other-window
+            "5 b" #'consult-buffer-other-frame
+            "t b" #'consult-buffer-other-tab
+            "r b" #'consult-bookmark
+            "p b" #'consult-project-buffer
+            ;; Custom M-# bindings for fast register access
+            "r r" #'consult-register
+            ;; Other custom bindings
+            "y" #'consult-yank-pop
+            ;; g bindings in `goto-map'
+            "G e" #'consult-compile-error
+            "c b" #'consult-flymake
+            "G g" #'consult-goto-line
+            "G o" #'consult-outline
+            "G m" #'consult-mark
+            "G k" #'consult-global-mark
+            "G i" #'consult-imenu
+            "G I" #'consult-imenu-multi
+            ;; M-s bindings in `search-map'
+            "s d" #'consult-find
+            "s c" #'consult-locate
+            "s g" #'consult-grep
+            "s G" #'consult-git-grep
+            "s l" #'consult-line
+            "s L" #'consult-line-multi
+            "s k" #'consult-keep-lines
+            "s u" #'consult-focus-lines
+            ;; Isearch integration
+            "s e" #'consult-isearch-history
+            ;; Minibuffer history
+            "s s" #'consult-history)
+
 
   ;; Enable automatic preview at point in the *Completions* buffer.
   :hook (completion-list-mode . consult-preview-at-point-mode)
@@ -203,11 +207,10 @@
 (use-package consult-dir
   :ensure t
   :general (:prefix "SPC"
-            :states 'normal
-            "f d" #'consult-dir)
+                    :keymaps 'override
+                    :states 'motion
+                    "f d" #'consult-dir)
   )
-
-(setq evil-want-keybinding nil)
 
 (use-package evil
   :ensure t
@@ -216,8 +219,8 @@
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
   :custom
-    ( evil-want-C-u-scroll t)
-    ( evil-want-fine-undo t)
+  ( evil-want-C-u-scroll t)
+  ( evil-want-fine-undo t)
   (evil-want-Y-yank-to-eol t)
   :config
   (evil-select-search-module 'evil-search-module 'evil-search)
@@ -229,8 +232,8 @@
   :config
   (evil-collection-init))
 (use-package evil-args
-:ensure t 
-:after evil)
+  :ensure t 
+  :after evil)
 
 (use-package evil-goggles
   :ensure t
@@ -243,73 +246,23 @@
   ;; other faces such as `diff-added` will be used for other actions
   (evil-goggles-use-diff-faces))
 
-(use-package evil-textobj-tree-sitter
- :ensure t
-  :defer t
-  :after treesit 
-  :config
-
-  (evil-define-key '(visual operator)
-    "i" evil-textobj-tree-sitter-inner-text-objects-map
-    "a" evil-textobj-tree-sitter-outer-text-objects-map)
-  (evil-define-key 'normal
-    "[g" evil-textobj-tree-sitter-goto-previous-map
-    "]g" evil-textobj-tree-sitter-goto-next-map)
-
-  (map! (:map evil-textobj-tree-sitter-inner-text-objects-map
-         "A" (evil-textobj-tree-sitter-get-textobj ("parameter.inner" "call.inner"))
-         "f" (evil-textobj-tree-sitter-get-textobj "function.inner")
-         "F" (evil-textobj-tree-sitter-get-textobj "call.inner")
-         "C" (evil-textobj-tree-sitter-get-textobj "class.inner")
-         "v" (evil-textobj-tree-sitter-get-textobj "conditional.inner")
-         "l" (evil-textobj-tree-sitter-get-textobj "loop.inner"))
-        (:map evil-textobj-tree-sitter-outer-text-objects-map
-         "A" (evil-textobj-tree-sitter-get-textobj ("parameter.outer" "call.outer"))
-         "f" (evil-textobj-tree-sitter-get-textobj "function.outer")
-         "F" (evil-textobj-tree-sitter-get-textobj "call.outer")
-         "C" (evil-textobj-tree-sitter-get-textobj "class.outer")
-         "c" (evil-textobj-tree-sitter-get-textobj "comment.outer")
-         "v" (evil-textobj-tree-sitter-get-textobj "conditional.outer")
-         "l" (evil-textobj-tree-sitter-get-textobj "loop.outer"))
-
-        (:map evil-textobj-tree-sitter-goto-previous-map
-         "a" (evil-textobj-tree-sitter-goto-textobj "parameter.outer" t)
-         "f" (evil-textobj-tree-sitter-goto-textobj "function.outer" t)
-         "F" (evil-textobj-tree-sitter-goto-textobj "call.outer" t)
-         "C" (evil-textobj-tree-sitter-goto-textobj "class.outer" t)
-         "c" (evil-textobj-tree-sitter-goto-textobj "comment.outer" t)
-         "v" (evil-textobj-tree-sitter-goto-textobj "conditional.outer" t)
-         "l" (evil-textobj-tree-sitter-goto-textobj "loop.outer" t))
-        (:map evil-textobj-tree-sitter-goto-next-map
-         "a" (evil-textobj-tree-sitter-goto-textobj "parameter.outer")
-         "f" (evil-textobj-tree-sitter-goto-textobj "function.outer")
-         "F" (evil-textobj-tree-sitter-goto-textobj "call.outer")
-         "C" (evil-textobj-tree-sitter-goto-textobj "class.outer")
-         "c" (evil-textobj-tree-sitter-goto-textobj "comment.outer")
-         "v" (evil-textobj-tree-sitter-goto-textobj "conditional.outer")
-         "l" (evil-textobj-tree-sitter-goto-textobj "loop.outer"))))
-
 (use-package vimish-fold
-:ensure t 
-:after evil )
+  :ensure t 
+  :after evil )
 
 (use-package evil-vimish-fold
   :ensure t
   :after vimish-fold
   :init
-    (global-evil-vimish-fold-mode 1)
+  (global-evil-vimish-fold-mode 1)
   )
 
-(use-package adaptive-wrap
-:ensure t)
-
-
 (use-package visual-fill-column
-:ensure t)
+  :ensure t)
 
 (use-package ibuffer-vc
-:ensure t
-             )
+  :ensure t
+  )
 (use-package undo-fu
   :ensure t
   :commands (undo-fu-only-undo
@@ -325,22 +278,23 @@
   :ensure t
   :config
   (undo-fu-session-global-mode)
- (setq undo-fu-session-compression 'zst)
+  (setq undo-fu-session-compression 'zst)
   )
 
 (use-package vundo
-:ensure t
-:general (
-:prefix "SPC"
- :states 'normal
- "s u" #'vundo)
-:config
+  :ensure t
+  :general (
+            :prefix "SPC"
+            :keymaps 'override
+            :states 'motion
+            "s u" #'vundo)
+  :config
   (setq vundo-glyph-alist vundo-unicode-symbols
         vundo-compact-display t)
-)
+  )
 
 (use-package ts-fold
-:ensure (ts-fold :type git :host github :repo "emacs-tree-sitter/ts-fold")
+  :ensure (ts-fold :type git :host github :repo "emacs-tree-sitter/ts-fold")
   :after tree-sitter
   :config
   (global-ts-fold-mode +1))
@@ -386,7 +340,7 @@
     "Toggle comment for the region between BEG and END."
     (interactive "<r>")
     (comment-or-uncomment-region beg end))
-  (evil-define-key 'normal 'global (kbd "gc") 'my-evil-comment-or-uncomment))
+  (evil-define-key 'motion 'global (kbd "gc") 'my-evil-comment-or-uncomment))
 (use-package evil-snipe
   :defer t
   :commands evil-snipe-mode
@@ -412,13 +366,20 @@
   :config
   (setq corfu-quit-no-match t)
   (setq corfu-auto t)
-  (global-corfu-mode))
+  (global-corfu-mode +1))
 
 (use-package org-block-capf
-:ensure (org-block-capf  :type git :host github :repo "xenodium/org-block-capf")
-:after org
-:hook (org-mode . org-block-capf-add-to-completion-at-point-functions))
+  :ensure (org-block-capf  :type git :host github :repo "xenodium/org-block-capf")
+  :after org
+  :hook (org-mode . org-block-capf-add-to-completion-at-point-functions))
 
+(use-package cape-keyword
+  :ensure (cape-keyword :type git :host github :repo "minad/cape")
+  :config
+  (add-to-list 'cape-keyword-list '(q-mode
+                                    "abs" "cor" "ej" "gtime" "like" "mins" "prev" "scov" "system" "wavg" "acos" "cos" "ema" "hclose" "lj" "ljf" "mmax" "prior" "sdev" "tables" "where" "aj" "aj0" "count" "enlist" "hcount" "load" "mmin" "rand" "select" "tan" "while" "ajf" "ajf0" "cov" "eval" "hdel" "log" "mmu" "rank" "set" "til" "within" "all" "cross" "except" "hopen" "lower" "mod" "ratios" "setenv" "trim" "wj" "wj1" "and" "csv" "exec" "hsym" "lsq" "msum" "raze" "show" "type" "wsum" "any" "cut" "exit" "iasc" "ltime" "neg" "read0" "signum" "uj" "ujf" "xasc" "asc" "delete" "exp" "idesc" "ltrim" "next" "read1" "sin" "ungroup" "xbar" "asin" "deltas" "fby" "if" "mavg" "not" "reciprocal" "sqrt" "union" "xcol" "asof" "desc" "fills" "ij" "ijf" "max" "null" "reval" "ss" "update" "xcols" "atan" "dev" "first" "in" "maxs" "or" "reverse" "ssr" "upper" "xdesc" "attr" "differ" "fkeys" "insert" "mcount" "over" "rload" "string" "upsert" "xexp" "avg" "distinct" "flip" "inter" "md5" "parse" "rotate" "sublist" "value" "xgroup" "avgs" "div" "floor" "inv" "mdev" "peach" "rsave" "sum" "var" "xkey" "bin" "binr" "do" "get" "key" "med" "pj" "rtrim" "sums" "view" "xlog" "ceiling" "dsave" "getenv" "keys" "meta" "prd" "save" "sv" "views" "xprev" "cols" "each" "group" "last" "min" "prds" "scan" "svar" "vs" "xrank" ".Q.ajf0" ".Q.sx" ".Q.k" ".Q.K" ".Q.host" ".Q.addr" ".Q.gc" ".Q.ts" ".Q.gz" ".Q.w" ".Q.res" ".Q.addmonths" ".Q.f" ".Q.fmt" ".Q.ff" ".Q.fl" ".Q.opt" ".Q.def" ".Q.ld" ".Q.qt" ".Q.v" ".Q.qp" ".Q.V" ".Q.ft" ".Q.ord" ".Q.nv" ".Q.tx" ".Q.tt" ".Q.fk" ".Q.t" ".Q.ty" ".Q.nct" ".Q.fu" ".Q.fc" ".Q.A" ".Q.a" ".Q.n" ".Q.nA" ".Q.an" ".Q.b6" ".Q.Aa" ".Q.unm" ".Q.id" ".Q.j10" ".Q.x10" ".Q.j12" ".Q.x12" ".Q.btoa" ".Q.sha1" ".Q.prf0" ".Q.objp" ".Q.lo" ".Q.l" ".Q.sw" ".Q.tab" ".Q.t0" ".Q.s1" ".Q.s2" ".Q.S" ".Q.s" ".Q.hap" ".Q.hmb" ".Q.hg" ".Q.hp" ".Q.a1" ".Q.a0" ".Q.IN" ".Q.qa" ".Q.qb" ".Q.vt" ".Q.bvfp" ".Q.bvi" ".Q.bv" ".Q.sp" ".Q.pm" ".Q.pt" ".Q.MAP" ".Q.dd" ".Q.d0" ".Q.p1" ".Q.p2" ".Q.p" ".Q.view" ".Q.jp" ".Q.rp" ".Q.fobj" ".Q.L1" ".Q.L" ".Q.li" ".Q.cn" ".Q.pcnt" ".Q.dt" ".Q.ind" ".Q.fp" ".Q.foo" ".Q.a2" ".Q.qd" ".Q.xy" ".Q.x1" ".Q.x0" ".Q.x2" ".Q.ua" ".Q.q0" ".Q.qe" ".Q.ps" ".Q.enxs" ".Q.enx" ".Q.en" ".Q.ens" ".Q.par" ".Q.dpts" ".Q.dpt" ".Q.dpfts" ".Q.dpft" ".Q.hdpf" ".Q.fsn" ".Q.fs" ".Q.fpn" ".Q.fps" ".Q.dsftg" ".Q.M" ".Q.chk" ".Q.Ll" ".Q.Lp" ".Q.Lx" ".Q.Lu" ".Q.Ls" ".Q.fqk" ".Q.fql" ".Q.btx" ".Q.bt" ".Q.sbt" ".Q.trp" ".Q.trpd" ".Q.dr" ".Q.dw" ".Q.pl0" ".Q.pl" ".Q.jl8" ".Q.srr" ".Q.prr" ".Q.lu" ".Q.DL" ".Q.dbg" ".Q.err" ".Q.BP" ".Q.bp" ".Q.bs" ".Q.bu" ".Q.bd" ".Q.bc" ".h.htc" ".h.hta" ".h.htac" ".h.ha" ".h.hb" ".h.pre" ".h.xmp" ".h.d" ".h.cd" ".h.td" ".h.hc" ".h.xs" ".h.xd" ".h.ex" ".h.iso8601" ".h.eb" ".h.es" ".h.ed" ".h.edsn" ".h.ec" ".h.tx" ".h.xt" ".h.ka" ".h.c0" ".h.c1" ".h.logo" ".h.sa" ".h.html" ".h.sb" ".h.fram" ".h.jx" ".h.uh" ".h.sc" ".h.hug" ".h.hu" ".h.ty" ".h.hnz" ".h.hn" ".h.HOME" ".h.hy" ".h.hp" ".h.he" ".h.val" ".h.br" ".h.hr" ".h.nbr" ".h.code" ".h.http" ".h.text" ".h.data" ".h.ht" ".j.e" ".j.q" ".j.s" ".j.es" ".j.J" ".j.k" ".j.jd" ".j.j"
+                                    ))
+  )
 (use-package cape
   :ensure t
   :defer t
@@ -427,7 +388,8 @@
   :init
   ;; Add to the global default value of `completion-at-point-functions' which is
   ;; used by `completion-at-point'.
-   (setq cape-dabbrev-min-length 2)
+  (setq cape-dabbrev-min-length 2)
+
   (add-hook 'completion-at-point-functions #'cape-dabbrev)
   (add-hook 'completion-at-point-functions #'cape-file)
   (add-hook 'completion-at-point-functions #'cape-keyword)
@@ -437,20 +399,20 @@
 (setq warning-minimum-level :error)
 
 (use-package nerd-icons-corfu
-:ensure t 
-:after corfu 
-:config 
-(add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
+  :ensure t 
+  :after corfu
+  :config
+  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
 (use-package corfu-history
- :ensure (corfu-history :type git :host github :repo "minad/corfu")
+  :ensure (corfu-history :type git :host github :repo "minad/corfu")
   :hook (corfu-mode . corfu-history-mode)
   :after savehist
   :init
   (add-to-list 'savehist-additional-variables 'corfu-history))
 
 (use-package corfu-popupinfo
- :ensure (corfu-popupinfo :type git :host github :repo "minad/corfu")
+  :ensure (corfu-popupinfo :type git :host github :repo "minad/corfu")
   :hook (corfu-mode . corfu-popupinfo-mode)
   :config
   (setq corfu-popupinfo-delay '(0.5 . 1.0)))
@@ -462,7 +424,7 @@
         (boolean :style "cod" :icon "symbol_boolean" :face font-lock-builtin-face)
         ;; ...
         (t :style "cod" :icon "code" :face font-lock-warning-face)))
-        ;; Remember to add an entry for `t', the library uses that as default.
+;; Remember to add an entry for `t', the library uses that as default.
 
 
 (use-package which-key
@@ -482,45 +444,39 @@
   (uniquify-ignore-buffers-re "^\\*"))
 
 
-(display-time-mode)
-(show-paren-mode +1)  ; Paren match highlighting
-(winner-mode 1)
-(pixel-scroll-precision-mode 1)
-
-(setq user-full-name "Leo Aparisi de Lannoy"
-      user-mail-address "leoaparisi@gmail.com")
-
 (use-package doom-modeline
   :ensure t
   :defer t
   :config
   (setq doom-modeline-hud t)
   (setq doom-modeline-unicode-fallback t)
-    :hook (elpaca-after-init . doom-modeline-mode))
+  :hook (elpaca-after-init . doom-modeline-mode))
 
 (use-package catppuccin-theme
- :ensure t
- :defer t
- :init
-(load-theme 'catppuccin :no-confirm)
- )
+  :ensure t
+  :defer t
+  :init
+  (load-theme 'catppuccin :no-confirm)
+  )
 
 (use-package dirvish
-:ensure t
-:defer t 
-:init 
-(dirvish-override-dired-mode)
-:general (
-:prefix "SPC"
- :states 'normal
- "." #'dirvish)
-:config
-(setq dirvish-attributes'(vc-state subtree-state nerd-icons git-msg file-time file-size))
+  :ensure t
+  :defer t
+  :init
+  (dirvish-override-dired-mode)
+  :general (
+            :prefix "SPC"
+            :keymaps 'override
+            :states 'motion
+            "." #'dired)
+  :config
+  (setq dirvish-attributes'(vc-state subtree-state nerd-icons git-msg file-time file-size))
   (setq dirvish-default-layout '(0 0.4 0.6))
-)
+  )
 
 (use-package hl-todo
   :ensure t
+  :defer t
   :hook (prog-mode . hl-todo-mode)
   :config
   (setq hl-todo-highlight-punctuation ":"
@@ -547,36 +503,37 @@
           ("XXX" font-lock-constant-face bold))))
 
 (use-package indent-bars
-:ensure t
-  :hook ((prog-mode . indent-bars-mode)
-         (shell-mode . indent-bars-mode)
-         (eshell-mode . indent-bars-mode))
-:custom
+  :ensure t
+  :defer t
+  :init
+  (indent-bars-mode +1)
+  :custom
   (indent-bars-prefer-character nil)
   (indent-bars-treesit-support t)
   (indent-bars-treesit-ignore-blank-lines-types '("module"))
   ;; Add other languages as needed
   (indent-bars-treesit-scope '((python function_definition class_definition for_statement
-	  if_statement with_statement while_statement)))
+	                                   if_statement with_statement while_statement)))
   ;; wrap may not be needed if no-descend-list is enough
   ;;(indent-bars-treesit-wrap '((python argument_list parameters ; for python, as an example
   ;;				      list list_comprehension
   ;;				      dictionary dictionary_comprehension
   ;;				      parenthesized_expression subscript)))
   :config
-(setq
-    indent-bars-color '(highlight :face-bg t :blend 0.15)
-    indent-bars-no-stipple nil
-    indent-bars-pattern "."
-    indent-bars-width-frac 0.3
-    indent-bars-pad-frac 0.1
-    indent-bars-zigzag nil
-    indent-bars-color-by-depth '(:regexp "outline-\\([0-9]+\\)" :blend 1) ; blend=1: blend with BG only
-    indent-bars-highlight-current-depth '(:blend 0.5) ; pump up the BG blend on current
-    indent-bars-display-on-blank-lines t))
+  (setq
+   indent-bars-color '(highlight :face-bg t :blend 0.05)
+   indent-bars-no-stipple nil
+   indent-bars-pattern "."
+   indent-bars-width-frac 0.3
+   indent-bars-pad-frac 0.1
+   indent-bars-zigzag nil
+   indent-bars-color-by-depth '(:regexp "outline-\\([0-9]+\\)" :blend 0.95) ; blend=1: blend with BG only
+   indent-bars-highlight-current-depth '(:blend 0.5) ; pump up the BG blend on current
+   indent-bars-display-on-blank-lines t))
 
 (use-package ligature
   :ensure t
+  :defer t
   :config
   ;; Enable all Iosevka ligatures in programming modes
   (ligature-set-ligatures 'prog-mode '("<---" "<--"  "<<-" "<-" "->" "-->" "--->" "<->" "<-->" "<--->" "<---->" "<!--"
@@ -585,82 +542,245 @@
                                        ":=" ":-" ":+" "<*" "<*>" "*>" "<|" "<|>" "|>" "+:" "-:" "=:" "<******>" "++" "+++"))
   ;; Enables ligature checks globally in all buffers. You can also do it
   ;; per mode with `ligature-mode'.
-  (global-ligature-mode t))
+  (global-ligature-mode +1))
 
 (use-package diff-hl
-:ensure t
-:config
-(global-diff-hl-mode))
+  :ensure t
+  :defer t
+  :config
+  (global-diff-hl-mode +1))
 
-(setq elpaca-ignored-dependencies
-      (append
-       ;; Downgrades-in-disguise
-       '(cl-lib cl-generic nadvice use-package bind-key)
-       ;; No repo, or repo is the GNU Emacs repo (250 MB download)
-       (cl-loop
-        for dep in elpaca-ignored-dependencies
-        when (let ((repo (plist-get (elpaca-recipe dep) :repo)))
-               (or (not repo)
-                   (equal repo "https://github.com/emacs-mirror/emacs")))
-        collect dep)))
+(use-package transient
+  :ensure t
+  :defer t)
+
 (use-package magit
-:ensure t
-:general (:prefix "SPC"
-            :states 'normal
-            "g g" #'magit)
-)
+  :ensure t
+  :after transient
+  :general (:prefix "SPC"
+                    :keymaps 'override
+                    :states 'motion
+                    "g g" #'magit)
+  :init
+  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+  )
+(use-package magit-todos
+  :ensure t
+  :after magit
+  :config (magit-todos-mode 1))
+
+(use-package git-timemachine
+  :defer t
+  :ensure (git-timemachine :type git :host codeberg :repo "pidu/git-timemachine"))
 
 (use-package flymake-popon
-:after flymake 
-:ensure t)
+  :after flymake 
+  :ensure t)
 
 (use-package lsp-mode
-:ensure t
-  :init
+  :ensure t
+  :general
+  (:states 'motion
+           :desc "Jump to definition"                    "g d"   #'lsp-find-definition
+           :desc "Jump to references"                    "g r"   #'lsp-find-references
+           :desc "Jump to references"                    "g i"   #'lsp-find-implementation
+           :desc "Jump to references"                    "g D"   #'lsp-find-declarations)
+  :defer t
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
          (lsp-mode . lsp-enable-which-key-integration))
-  :commands (lsp lsp-deferred))
+  :commands (lsp lsp-deferred)
+  :init
+  (defun my/lsp-mode-setup-completion ()
+    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+          '(flex))) ;; Configure flex
+  :hook
+  (lsp-completion-mode . my/lsp-mode-setup-completion)
+  :config
+  (setq lsp-completion-provider nil)
+  (setq lsp-warn-no-matched-clients nil))
 
 ;; optionally
-(use-package lsp-ui :ensure t :commands lsp-ui-mode)
+(use-package lsp-ui 
+  :after lsp
+  :ensure t
+  :commands lsp-ui-mode)
 
 (use-package org-contrib
-:after org 
-:ensure t)
+  :after org 
+  :ensure t)
 
 (use-package ox-clip
-:after org 
-:ensure t)
+  :after org 
+  :ensure t)
 
 (use-package org-cliplink
-:after org 
-:ensure t)
+  :after org 
+  :ensure t)
 
 (use-package toc-org
-:after org 
-:ensure t)
+  :after org 
+  :ensure t)
+
 
 (use-package evil-org
-:after (org evil)
-:ensure t)
+  :after (org)
+  :ensure (evil-org :type git :host github :repo "Somelauw/evil-org-mode")
+  :hook (org-mode . (lambda () evil-org-mode))
+  :config
+  (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys)
+  )
 
 (use-package orgit
-:after (org magit)
-:ensure t)
+  :after (org magit)
+  :ensure t)
 
 (use-package jupyter
-:defer t
-:ensure t)
+  :defer t
+  :ensure t
+  :config
+  (setq jupyter-use-zmq t
+        jupyter-eval-use-overlays nil
+        jupyter-eval-short-result-max-lines 0
+        jupyter-eval-overlay-keymap "<backtab>"
+        jupyter-default-notebook-port 8895)
+  :bind (("<backtab>" . jupyter-eval-toggle-overlay)))
+
+(use-package code-cells
+  :defer t
+  :ensure t)
+
+(use-package treesit-auto
+  :ensure t
+  :defer t
+  :after treesit
+  :config
+  (setq treesit-auto-install 'prompt
+        treesit-auto-mode t))
+
+(use-package evil-textobj-tree-sitter
+  :after (evil treesit)
+  :ensure t
+  :defer t)
+
+(use-package mu4e
+  :ensure nil
+  :load-path  "/opt/homebrew/share/emacs/site-lisp/mu/mu4e/"
+  :defer t
+  :init
+  (setq sendmail-program (executable-find "msmtp")
+        send-mail-function #'smtpmail-send-it
+        message-sendmail-f-is-evil t
+        message-sendmail-extra-arguments '("--read-envelope-from")
+        message-send-mail-function #'message-send-mail-with-sendmail)
+  ;; how often to call it in seconds:
+  (setq   mu4e-sent-messages-behavior 'sent ;; Save sent messages
+          mu4e-headers-auto-update t                ; avoid to type `g' to update
+          mml-secure-openpgp-signers '("6A5C039B63B86AC6C5109955B57BA04FBD759C7F" "D1D9947126EE64AC7ED3950196F352393B5B3C2E")
+          mml-secure-openpgp-sign-with-sender t
+          mu4e-use-fancy-chars t                   ; allow fancy icons for mail threads
+          mu4e-change-filenames-when-moving t
+          mu4e-index-lazy-check nil
+          mu4e-search-results-limit 300
+          mu4e-context-policy 'pick-first ;; Always ask which context to use when composing a new mail
+          mu4e-compose-context-policy 'ask ;; Always ask which context to use when composing a new mail
+          mu4e-update-interval 60
+          mu4e-mu-allow-temp-file t
+          mu4e-headers-precise-alignment t
+          message-dont-reply-to-names #'mu4e-personal-or-alternative-address-p
+          mu4e-bookmarks '((:name "Unread messages" :query "flag:unread AND maildir:/.*inbox/" :key 117)
+                           (:name "Today's messages" :query "date:today..now AND maildir:/.*inbox/" :key 116)
+                           ("flag:flagged" "Flagged messages" 102)
+                           (:name "Unified inbox" :query "maildir:/.*inbox/" :key 105)
+                           (:name "Sent" :query "maildir:/.*Sent/" :key 115)
+                           (:name "Drafts" :query "maildir:/.*Drafts/" :key 100)
+                           (:name "Spam" :query "maildir:/.*Spam/ or maildir:/.*Junk/" :key 83)
+                           (:name "Trash" :query "maildir:/.*Trash/" :key 84))
+          mu4e-attachment-dir "~/Downloads"
+          mu4e-contexts '()
+          )
+  (defun set-email-account! (label letvars &optional default-p)
+    "Registers an email address for mu4e. The LABEL is a string. LETVARS are a
+list of cons cells (VARIABLE . VALUE) -- you may want to modify:
+
+ + `user-full-name' (used to populate the FROM field when composing mail)
+ + `user-mail-address' (required in mu4e < 1.4)
+ + `smtpmail-smtp-user' (required for sending mail from Emacs)
+
+OPTIONAL:
+ + `mu4e-sent-folder'
+ + `mu4e-drafts-folder'
+ + `mu4e-trash-folder'
+ + `mu4e-refile-folder'
+ + `mu4e-compose-signature'
+ + `+mu4e-personal-addresses'
+
+DEFAULT-P is a boolean. If non-nil, it marks that email account as the
+default/fallback account."
+    (require 'mu4e)
+    (setq mu4e-contexts
+          (cl-loop for context in mu4e-contexts
+                   unless (string= (mu4e-context-name context) label)
+                   collect context))
+    (let ((context (make-mu4e-context
+                    :name label
+                    :enter-func
+                    (lambda () (mu4e-message "Switched to %s" label))
+                    :leave-func
+                    (lambda ()
+                      (setq +mu4e-personal-addresses nil)
+                      ;; REVIEW: `mu4e-clear-caches' was removed in 1.12.2, but
+                      ;;   may still be useful to users on older versions.
+                      (if (fboundp 'mu4e-clear-caches) (mu4e-clear-caches)))
+                    :match-func
+                    (lambda (msg)
+                      (when msg
+                        (string-prefix-p (format "/%s" label)
+                                         (mu4e-message-field msg :maildir) t)))
+                    :vars letvars)))
+      (add-to-list 'mu4e-contexts context (not default-p))
+      context))
+
+
+  (set-email-account! "gmail"
+                      '((mu4e-sent-folder       . "/leoaparisi@gmail.com/[Gmail]/Sent Mail")
+                        (mu4e-drafts-folder     . "/leoaparisi@gmail.com/[Gmail]/Drafts")
+                        (mu4e-trash-folder      . "/leoaparisi@gmail.com/[Gmail]/Trash")
+                        (mu4e-refile-folder     . "/leoaparisi@gmail.com/Archives")
+                        (user-mail-address . "leoaparisi@gmail.com")
+                        (smtpmail-smtp-user     . "leoaparisi@gmail.com"))
+                      t)
+  )
 
 (use-package mu4e-compat
-:after mu4e 
-:ensure (mu4e-compat :type git :host github :repo "tecosaur/mu4e-compat"))
+  :after mu4e
+  :ensure (mu4e-compat :type git :host github :repo "tecosaur/mu4e-compat"))
 
 (use-package org-msg
-:after (org mu4e)
-:ensure t)
+  :after (org mu4e)
+  :hook (mu4e-compose-mode . org-msg-edit-mode)
+  :ensure t
+  :config
+  (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil tex:dvipng"
+        org-msg-startup "hidestars indent inlineimages"
+        org-msg-greeting-name-limit 3
+        org-msg-default-alternatives '((new . (html))
+					                   (reply-to-html . (html)))
+        org-msg-convert-citation t
+        org-msg-signature "
+,#+begin_signature
+Leo Aparisi de Lannoy
+,#+end_signature"))
 
-(setq pixel-scroll-precision-mode t)
+(display-time-mode)
+(show-paren-mode +1)  ; Paren match highlighting
+(winner-mode 1)
+(pixel-scroll-precision-mode 1)
+
+(setq user-full-name "Leo Aparisi de Lannoy"
+      user-mail-address "leoaparisi@gmail.com")
 (setq treesit-font-lock-level 4)
 (setq auto-save-timeout 10)
 (setq delete-by-moving-to-trash t)
@@ -669,80 +789,193 @@
 (setq imagemagick-render-type 1)
 (setq browse-url-chrome-program "brave")
 (setq display-line-numbers-type 'relative)
+(setq global-visual-line-mode +1)
 (setq-default tab-width 4)
 
 (add-to-list 'default-frame-alist
-             '(font . "Iosevka:pixelsize=14"))
-(global-display-line-numbers-mode)
+             '(font . "Iosevka:pixelsize=20:foundry=UKWN:weight=medium:slant=normal:width=normal:spacing=90:scalable=true
+"))
+(global-display-line-numbers-mode +1)
 
-(add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
-(add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
 
 (general-define-key
  :keymaps '(normal insert emacs)
  "C-=" #'global-text-scale-adjust)
 
 (use-package org 
-:ensure t
-:config 
+  :defer t
+  :ensure t
+  :general (:prefix "SPC m"
+                    :states 'motion
+                    :keymaps 'override
+                    "A" #'org-archive-subtree-default
+                    "e" #'org-export-dispatch
+                    "f" #'org-footnote-action
+                    "h" #'org-toggle-heading
+                    "i" #'org-toggle-item
+                    "I" #'org-id-get-create
+                    "k" #'org-babel-remove-result
+                    "n" #'org-store-link
+                    "o" #'org-set-property
+                    "q" #'org-set-tags-command
+                    "t" #'org-todo
+                    "T" #'org-todo-list
+                    "x" #'org-toggle-checkbox
+                    "a a" #'org-attach
+                    "a d" #'org-attach-delete-one
+                    "a D" #'org-attach-delete-all
+                    "a n" #'org-attach-new
+                    "a o" #'org-attach-open
+                    "a O" #'org-attach-open-in-emacs
+                    "a r" #'org-attach-reveal
+                    "a R" #'org-attach-reveal-in-emacs
+                    "a u" #'org-attach-url
+                    "a s" #'org-attach-set-directory
+                    "a S" #'org-attach-sync
+                    "b -" #'org-table-insert-hline
+                    "b a" #'org-table-align
+                    "b b" #'org-table-blank-field
+                    "b c" #'org-table-create-or-convert-from-region
+                    "b e" #'org-table-edit-field
+                    "b f" #'org-table-edit-formulas
+                    "b h" #'org-table-field-info
+                    "b s" #'org-table-sort-lines
+                    "b r" #'org-table-recalculate
+                    "b R" #'org-table-recalculate-buffer-tables
+                    "b d c" #'org-table-delete-column
+                    "b d r" #'org-table-kill-row
+                    "b i c" #'org-table-insert-column
+                    "b i h" #'org-table-insert-hline
+                    "b i r" #'org-table-insert-row
+                    "b i H" #'org-table-hline-and-move
+                    "b t f" #'org-table-toggle-formula-debugger
+                    "b t o" #'org-table-toggle-coordinate-overlays
+                    "c c" #'org-clock-cancel
+                    "c d" #'org-clock-mark-default-task
+                    "c e" #'org-clock-modify-effort-estimate
+                    "c E" #'org-set-effort
+                    "c g" #'org-clock-goto
+                    "c i" #'org-clock-in
+                    "c I" #'org-clock-in-last
+                    "c o" #'org-clock-out
+                    "c r" #'org-resolve-clocks
+                    "c R" #'org-clock-report
+                    "c t" #'org-evaluate-time-range
+                    "c =" #'org-clock-timestamps-up
+                    "c -" #'org-clock-timestamps-down
+                    "d d" #'org-deadline
+                    "d s" #'org-schedule
+                    "d t" #'org-time-stamp
+                    "d T" #'org-time-stamp-inactive
+                                        ;"f o" #'consult-org-heading
+                                        ;"f a" #'consult-org-agenda
+                    "l c" #'org-cliplink
+                    "l i" #'org-id-store-link
+                    "l l" #'org-insert-link
+                    "l L" #'org-insert-all-links
+                    "l s" #'org-store-link
+                    "l S" #'org-insert-last-stored-link
+                    "l t" #'org-toggle-link-display
+                    "p d" #'org-priority-down
+                    "p p" #'org-priority
+                    "p u" #'org-priority-up
+                    )
+  :config
+  (setq org-directory "~/org/")
+  (setq org-hide-emphasis-markers t)
+  (setq org-preview-latex-image-directory "~/.cache/ltximg/")
+  ;; ORG LATEX PREVIEW
+  (setq org-startup-with-latex-preview t)
+  (setq org-format-latex-options
+        (plist-put org-format-latex-options :background "Transparent"))
+  (setq org-format-latex-options
+        (plist-put org-format-latex-options :scale 2))
+  (setq org-preview-latex-default-process 'dvipng)
+  (setq
+   org-agenda-files (list org-directory)                  ; Seems like the obvious place.
+   org-use-property-inheritance t                         ; It's convenient to have properties inherited.
+   org-log-done 'time                                     ; Having the time a item is done sounds convenient.
+   org-list-allow-alphabetical t                          ; Have a. A. a) A) list bullets.
+   org-catch-invisible-edits 'smart                       ; Try not to accidently do weird stuff in invisible regions.
+   org-export-with-sub-superscripts '{}                   ; Don't treat lone _ / ^ as sub/superscripts, require _{} / ^{}.
+   org-export-allow-bind-keywords t                       ; Bind keywords can be handy
+   org-image-actual-width '(0.9))
+  (setq org-babel-default-header-args
+        '((:session . "none")
+          (:results . "replace")
+          (:exports . "code")
+          (:cache . "no")
+          (:noweb . "no")
+          (:hlines . "no")
+          (:tangle . "no")
+          (:comments . "link")))
 
-(setq org-directory "~/org/")
-(setq
-      org-agenda-files (list org-directory)                  ; Seems like the obvious place.
-      org-use-property-inheritance t                         ; It's convenient to have properties inherited.
-      org-log-done 'time                                     ; Having the time a item is done sounds convenient.
-      org-list-allow-alphabetical t                          ; Have a. A. a) A) list bullets.
-      org-catch-invisible-edits 'smart                       ; Try not to accidently do weird stuff in invisible regions.
-      org-export-with-sub-superscripts '{}                   ; Don't treat lone _ / ^ as sub/superscripts, require _{} / ^{}.
-      org-export-allow-bind-keywords t                       ; Bind keywords can be handy
-      org-image-actual-width '(0.9))
-(setq org-babel-default-header-args
-      '((:session . "none")
-        (:results . "replace")
-        (:exports . "code")
-        (:cache . "no")
-        (:noweb . "no")
-        (:hlines . "no")
-        (:tangle . "no")
-        (:comments . "link")))
-
-(setq org-agenda-skip-scheduled-if-done nil
-      org-agenda-skip-deadline-if-done nil
+  (setq org-agenda-skip-scheduled-if-done nil
+        org-agenda-skip-deadline-if-done nil
         org-agenda-tags-column 0
         org-agenda-block-separator ?─
         org-agenda-time-grid
         '((daily today require-timed)
-        (800 1000 1200 1400 1600 1800 2000)
-        " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+          (800 1000 1200 1400 1600 1800 2000)
+          " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
         org-agenda-current-time-string
         "◀── now ─────────────────────────────────────────────────")
 
-(setq org-src-fontify-natively t
-      org-fontify-whole-heading-line t
-      org-fontify-done-headline t
-      org-fontify-quote-and-verse-blocks t
-      org-startup-with-inline-images t
-      org-startup-indented t
-      ;; Org styling, hide markup etc.
-      org-pretty-entities t
-      org-hide-leading-stars t
-      org-priority-highest ?A
-      org-priority-lowest ?E
-      org-priority-faces
-      '((?A . 'nerd-icons-red)
-        (?B . 'nerd-icons-orange)
-        (?C . 'nerd-icons-yellow)
-        (?D . 'nerd-icons-green)
-        (?E . 'nerd-icons-blue)))
-(setq org-highlight-latex-and-related '(native script entities))
-)
+  (setq org-src-fontify-natively t
+        org-fontify-whole-heading-line t
+        org-fontify-done-headline t
+        org-fontify-quote-and-verse-blocks t
+        org-startup-with-inline-images t
+        org-startup-indented t
+        ;; Org styling, hide markup etc.
+        org-pretty-entities t
+        org-hide-leading-stars t
+        org-priority-highest ?A
+        org-priority-lowest ?E
+        org-priority-faces
+        '((?A . 'nerd-icons-red)
+          (?B . 'nerd-icons-orange)
+          (?C . 'nerd-icons-yellow)
+          (?D . 'nerd-icons-green)
+          (?E . 'nerd-icons-blue)))
+  (setq org-highlight-latex-and-related '(native script entities))
+  (setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a.")))
+  (setq org-capture-templates
+        '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
+           "* TODO [#B] %?\n:Created: %T\n")
+          ("j" "Journal" entry (file+olp+datetree "~/org/journal.org")
+           "* %?\nEntered on %U\n  %i\n  %a")
+          ("P" "process-soon" entry (file+headline "todo.org" "Todo")
+           "* TODO %:fromname: %a %?\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))")
+          ("c" "Contact" entry (file "~/org/contacts.org")
+           "* %?
+:PROPERTIES:
+:ADDRESS:
+:BIRTHDAY:
+:EMAIL:
+:NOTE:
+:END:"
+           :empty-lines 1)
+          ("w" "Work")
+          ("wp" "Phone Call" entry (file+olp+datetree "~/org/work.org") "* Phone call about %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i" :clock-in t)
+          ("wm" "Meeting"    entry (file+olp+datetree "~/org/work.org") "* Meeting about %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i"    :clock-in t)
+          ("m" "Email Workflow")
+          ("mw" "Write" entry (file+olp "~/org/mail.org" "New")
+           "* TODO Email %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i" :immediate-finish t)
+          ("mf" "Follow Up" entry (file+olp "~/org/mail.org" "Follow Up")
+           "* TODO Follow up with %:fromname on %a\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%i" :immediate-finish t)
+          ("mr" "Read Later" entry (file+olp "~/org/mail.org" "Read Later")
+           "* TODO Read %:subject\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%a\n\n%i" :immediate-finish t)
+          ))
+  )
 
-
+(use-package ox-jira
+  :ensure t
+  :after org)
 
 (use-package org-modern
-:ensure t
+  :ensure t
   :after org
-  :hook ((org-mode . org-modern-mode) (org-agenda-finalize . org-modern-agenda))
   :config
   (setq org-modern-star '("◉" "○" "✸" "✿" "✤" "✜" "◆" "▶")
         org-modern-hide-stars nil
@@ -752,19 +985,254 @@
         org-modern-progress t
         org-modern-horizontal-rule t
         org-modern-keyword t))
+(add-hook 'org-mode-hook #'org-modern-mode)
+(add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
 
- (use-package org-superstar
-:ensure t
-   :hook (org-mode . (lambda () (org-superstar-mode 1))))
+(use-package org-superstar
+  :after org
+  :ensure t)
+(add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
 
 (use-package org-appear
-        :ensure t
-        :hook (org-mode . org-appear-mode)
-        :config
-        (setq org-appear-autoemphasis t
-                org-appear-autosubmarkers t
-                org-appear-autolinks t
-                org-appear-autokeywords t
-                org-appear-autoentities t
-                org-appear-inside-latex t
-                org-appear-autosubmarkers t))
+  :ensure t
+  :hook (org-mode . org-appear-mode)
+  :config
+  (setq org-appear-autoemphasis t
+        org-appear-autosubmarkers t
+        org-appear-autolinks t
+        org-appear-autokeywords t
+        org-appear-autoentities t
+        org-appear-inside-latex nil
+        org-appear-autosubmarkers t))
+
+(use-package org-fragtog
+  :ensure t
+  :after org
+  :hook (org-mode . org-fragtog-mode))
+
+(use-package org-pandoc-import
+  :ensure (org-pandoc-import :type git :host github
+                             :repo "tecosaur/org-pandoc-import"
+                             :files ("*.el" "filters" "preprocessors"))
+  :after org
+  :init
+  (org-pandoc-import-backend jira))
+
+(use-package q-mode
+  :defer t
+  :ensure t
+  :config (setq
+           q-program "q -s 7"))
+
+(use-package vlf
+  :ensure t
+  :defer t
+  )
+
+(use-package csv-mode
+  :defer t
+  :ensure (csv-mode :type git :host github :repo "emacsmirror/csv-mode":branch "master" )
+  :hook ((csv-mode . csv-align-mode)
+         (csv-mode . csv-header-line))
+  )
+(use-package rainbow-csv
+  :ensure (rainbow-csv :type git :host github
+                       :repo "emacs-vs/rainbow-csv")
+  :hook ((csv-mode . rainbow-csv-mode)
+         (tsv-mode . rainbow-csv-mode))
+  )
+
+(use-package lsp-ltex
+  :after lsp-mode
+  :ensure t
+  ;; :hook (text-mode . (lambda ()
+  ;;                   (require 'lsp-ltex)
+  ;;                   (lsp-deferred)))  ; or lsp-deferred
+  :init
+  (setq lsp-ltex-completion-enabled t)
+  (setq lsp-ltex-version "16.0.0"))
+
+(use-package jinx
+  :ensure t
+  :defer t
+  :config
+  ;; Extra face(s) to ignore
+  (push 'org-inline-src-block
+        (alist-get 'org-mode jinx-exclude-faces))
+  ;; Take over the relevant bindings.
+  :general (
+            [remap ispell-word] #'jinx-correct
+            [remap evil-next-flyspell-error] #'jinx-next
+            [remap evil-prev-flyspell-error] #'jinx-previous)
+  :hook
+  (text-mode . global-jinx-mode))
+
+(use-package outline-indent
+  :ensure t
+  :defer t
+  :config
+  (setq outline-indent-default-offset 4)
+  (setq outline-indent-shift-width 4)
+  )
+
+(use-package smartparens
+  :ensure t
+  :defer t
+  :config
+  (sp-pair "`" "`"
+           :actions '())
+  :init
+  (smartparens-global-mode +1)
+  )
+
+(use-package easysession
+  :ensure t
+  :defer t
+  :custom
+  ;; Interval between automatic session saves
+  (easysession-save-interval (* 10 60))
+  ;; Make the current session name appear in the mode-line
+  (easysession-mode-line-misc-info t)
+  :general (:prefix "SPC"
+                    :keymaps 'override
+                    :states 'motion
+                    "l l" #'easysession-switch-to
+                    "l s" #'easysession-save-as)
+  :init
+  (add-hook 'emacs-startup-hook #'easysession-save-mode 99))
+
+(use-package savehist
+  :ensure nil
+  :hook
+  (elpaca-after-init . savehist-mode)
+  :config
+  (add-to-list 'savehist-additional-variables 'kill-ring)
+  (add-to-list 'savehist-additional-variables 'mark-ring)
+  (add-to-list 'savehist-additional-variables 'search-ring)
+  (add-to-list 'savehist-additional-variables 'easysession--current-session-name)
+  (add-to-list 'savehist-additional-variables 'regexp-search-ring))
+
+(use-package ws-butler
+  :ensure t
+  :defer t
+  :hook (prog-mode . ws-butler-mode))
+
+;; Configure Tempel
+(use-package tempel
+  :ensure t
+  :defer t
+  ;; Require trigger prefix before template name when completing.
+  ;; :custom
+  ;; (tempel-trigger-prefix "<")
+
+  :bind (("M-+" . tempel-complete) ;; Alternative tempel-expand
+         ("M-*" . tempel-insert))
+
+  :init
+
+  ;; Setup completion at point
+  (defun tempel-setup-capf ()
+    ;; Add the Tempel Capf to `completion-at-point-functions'.
+    ;; `tempel-expand' only triggers on exact matches. Alternatively use
+    ;; `tempel-complete' if you want to see all matches, but then you
+    ;; should also configure `tempel-trigger-prefix', such that Tempel
+    ;; does not trigger too often when you don't expect it. NOTE: We add
+    ;; `tempel-expand' *before* the main programming mode Capf, such
+    ;; that it will be tried first.
+    (setq-local completion-at-point-functions
+                (cons #'tempel-expand
+                      completion-at-point-functions)))
+
+  (add-hook 'conf-mode-hook 'tempel-setup-capf)
+  (add-hook 'prog-mode-hook 'tempel-setup-capf)
+  (add-hook 'text-mode-hook 'tempel-setup-capf)
+
+  ;; Optionally make the Tempel templates available to Abbrev,
+  ;; either locally or globally. `expand-abbrev' is bound to C-x '.
+  ;; (add-hook 'prog-mode-hook #'tempel-abbrev-mode)
+  ;; (global-tempel-abbrev-mode)
+  )
+
+;; Optional: Add tempel-collection.
+;; The package is young and doesn't have comprehensive coverage.
+(use-package tempel-collection
+  :ensure t
+  :defer t)
+
+(use-package apheleia
+  :ensure t
+  :defer t
+  :init
+  (apheleia-global-mode +1))
+
+(use-package rainbow-delimiters
+  :ensure t
+  :defer t
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+(use-package project
+  :ensure nil
+  :defer t
+  :general (:prefix "SPC"
+                    :keymaps 'override
+                    :states 'motion
+                    "p p" #'project-switch-project
+                    )
+  )
+
+(use-package ox-pandoc
+  :after org
+  :ensure t)
+
+;; (use-package solaire-mode
+;;   :ensure t
+;;   :defer t
+;;   :init
+;;   (solaire-global-mode +1))
+
+(general-define-key
+ :prefix "SPC"
+ :states 'motion
+ :keymaps 'override
+ "x" #'scratch-buffer
+ "X" #'org-capture
+ "f F" #'switch-to-buffer-other-frame
+ "f W" #'switch-to-buffer-other-window
+ )
+
+(general-define-key
+ :prefix "SPC o"
+ :states 'motion
+ :keymaps 'override
+ :desc "Org agenda"       "A"  #'org-agenda
+ :desc "Agenda"         "a a"  #'org-agenda
+ :desc "Todo list"      "a t"  #'org-todo-list
+ :desc "Tags search"    "a m"  #'org-tags-view
+ :desc "View search"    "a v"  #'org-search-view
+ :desc "Default browser"    "b"  #'browse-url-of-file
+ :desc "Start debugger"     "d"  #'+debugger/start
+ :desc "New frame"          "f"  #'make-frame
+ :desc "Select frame"       "F"  #'select-frame-by-name
+ :desc "REPL"               "r"  #'+eval/open-repl-other-window
+ :desc "REPL (same window)" "R"  #'+eval/open-repl-same-window
+ :desc "Dired"              "-"  #'dired-jump
+ :desc "Open directory in dirvish"    "/" #'dirvish
+ :desc "Project sidebar"              "p" #'dirvish-side
+ )
+
+(general-define-key
+ :states 'motion
+ "K" #'lsp-ui-doc-glance
+ )
+
+(general-define-key
+ :prefix "SPC c"
+ :states 'motion
+ :keymaps 'override
+ :desc "LSP Execute code action"              "a"   #'lsp-execute-code-action
+ :desc "LSP Organize imports"                 "o"   #'lsp-organize-imports
+ :desc "LSP Rename"                           "r"   #'lsp-rename
+ :desc "Symbols"                              "S"   #'lsp-treemacs-symbols
+ :desc "Jump to symbol in current workspace" "j"   #'consult-lsp-symbols
+
+ )
