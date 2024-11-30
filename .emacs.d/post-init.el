@@ -846,95 +846,64 @@
   :ensure nil
   :after org
   :load-path  "/opt/homebrew/share/emacs/site-lisp/mu/mu4e/"
-  :defer t
-  :init
+  :config
   (setq sendmail-program (executable-find "msmtp")
         send-mail-function #'smtpmail-send-it
         message-sendmail-f-is-evil t
+        mu4e-compose-complete-addresses t
         message-sendmail-extra-arguments '("--read-envelope-from")
-        message-send-mail-function #'message-send-mail-with-sendmail)
-  ;; how often to call it in seconds:
-  (setq   mu4e-sent-messages-behavior 'sent ;; Save sent messages
-          mu4e-headers-auto-update t                ; avoid to type `g' to update
-          mml-secure-openpgp-signers '("6A5C039B63B86AC6C5109955B57BA04FBD759C7F" "D1D9947126EE64AC7ED3950196F352393B5B3C2E")
-          mml-secure-openpgp-sign-with-sender t
-          mu4e-use-fancy-chars t                   ; allow fancy icons for mail threads
-          mu4e-change-filenames-when-moving t
-          mu4e-index-lazy-check nil
-          mu4e-search-results-limit 300
-          mu4e-context-policy 'pick-first ;; Always ask which context to use when composing a new mail
-          mu4e-compose-context-policy 'ask ;; Always ask which context to use when composing a new mail
-          mu4e-update-interval 60
-          mu4e-mu-allow-temp-file t
-          mu4e-headers-precise-alignment t
-          message-dont-reply-to-names #'mu4e-personal-or-alternative-address-p
-          mu4e-bookmarks '((:name "Unread messages" :query "flag:unread AND maildir:/.*inbox/" :key 117)
-                           (:name "Today's messages" :query "date:today..now AND maildir:/.*inbox/" :key 116)
-                           ("flag:flagged" "Flagged messages" 102)
-                           (:name "Unified inbox" :query "maildir:/.*inbox/" :key 105)
-                           (:name "Sent" :query "maildir:/.*Sent/" :key 115)
-                           (:name "Drafts" :query "maildir:/.*Drafts/" :key 100)
-                           (:name "Spam" :query "maildir:/.*Spam/ or maildir:/.*Junk/" :key 83)
-                           (:name "Trash" :query "maildir:/.*Trash/" :key 84))
-          mu4e-attachment-dir "~/Downloads"
-          mu4e-contexts '()
-          )
-  (defun set-email-account! (label letvars &optional default-p)
-    "Registers an email address for mu4e. The LABEL is a string. LETVARS are a
-list of cons cells (VARIABLE . VALUE) -- you may want to modify:
-
- + `user-full-name' (used to populate the FROM field when composing mail)
- + `user-mail-address' (required in mu4e < 1.4)
- + `smtpmail-smtp-user' (required for sending mail from Emacs)
-
-OPTIONAL:
- + `mu4e-sent-folder'
- + `mu4e-drafts-folder'
- + `mu4e-trash-folder'
- + `mu4e-refile-folder'
- + `mu4e-compose-signature'
- + `+mu4e-personal-addresses'
-
-DEFAULT-P is a boolean. If non-nil, it marks that email account as the
-default/fallback account."
-    (require 'mu4e)
-    (setq mu4e-contexts
-          (cl-loop for context in mu4e-contexts
-                   unless (string= (mu4e-context-name context) label)
-                   collect context))
-    (let ((context (make-mu4e-context
-                    :name label
-                    :enter-func
-                    (lambda () (mu4e-message "Switched to %s" label))
-                    :leave-func
-                    (lambda ()
-                      (setq +mu4e-personal-addresses nil)
-                      ;; REVIEW: `mu4e-clear-caches' was removed in 1.12.2, but
-                      ;;   may still be useful to users on older versions.
-                      (if (fboundp 'mu4e-clear-caches) (mu4e-clear-caches)))
-                    :match-func
-                    (lambda (msg)
-                      (when msg
-                        (string-prefix-p (format "/%s" label)
-                                         (mu4e-message-field msg :maildir) t)))
-                    :vars letvars)))
-      (add-to-list 'mu4e-contexts context (not default-p))
-      context))
-
-
-  (set-email-account! "gmail"
-                      '((mu4e-sent-folder       . "/leoaparisi@gmail.com/[Gmail]/Sent Mail")
-                        (mu4e-drafts-folder     . "/leoaparisi@gmail.com/[Gmail]/Drafts")
-                        (mu4e-trash-folder      . "/leoaparisi@gmail.com/[Gmail]/Trash")
-                        (mu4e-refile-folder     . "/leoaparisi@gmail.com/Archives")
-                        (user-mail-address . "leoaparisi@gmail.com")
-                        (smtpmail-smtp-user     . "leoaparisi@gmail.com"))
-                      t)
+        message-send-mail-function #'message-send-mail-with-sendmail
+        mu4e-sent-messages-behavior 'sent ;; Save sent messages
+        mu4e-headers-auto-update t                ; avoid to type `g' to update
+        mml-secure-openpgp-signers '("6A5C039B63B86AC6C5109955B57BA04FBD759C7F" "D1D9947126EE64AC7ED3950196F352393B5B3C2E")
+        mml-secure-openpgp-sign-with-sender t
+        mu4e-use-fancy-chars t                   ; allow fancy icons for mail threads
+        mu4e-change-filenames-when-moving t
+        mu4e-index-lazy-check nil
+        mu4e-search-results-limit 300
+        mu4e-context-policy 'pick-first ;; Always ask which context to use when composing a new mail
+        mu4e-compose-context-policy 'ask ;; Always ask which context to use when composing a new mail
+        mu4e-update-interval 60
+        mu4e-mu-allow-temp-file t
+        mu4e-headers-precise-alignment t
+        mu4e-compose-complete-only-after "2015-01-01"
+        message-dont-reply-to-names #'mu4e-personal-or-alternative-address-p
+        mu4e-bookmarks '((:name "Unread messages" :query "flag:unread AND maildir:/.*inbox/" :key 117)
+                         (:name "Today's messages" :query "date:today..now AND maildir:/.*inbox/" :key 116)
+                         ("flag:flagged" "Flagged messages" 102)
+                         (:name "Unified inbox" :query "maildir:/.*inbox/" :key 105)
+                         (:name "Sent" :query "maildir:/.*Sent/" :key 115)
+                         (:name "Drafts" :query "maildir:/.*Drafts/" :key 100)
+                         (:name "Spam" :query "maildir:/.*Spam/ or maildir:/.*Junk/" :key 83)
+                         (:name "Trash" :query "maildir:/.*Trash/" :key 84))
+        mu4e-attachment-dir "~/Downloads"
+        mu4e-contexts
+        `( ,(make-mu4e-context
+             :name "Personal"
+             :enter-func (lambda () (mu4e-message "Entering Personal context"))
+             :leave-func (lambda () (mu4e-message "Leaving Personal context"))
+             ;; we match based on the contact-fields of the message
+             :match-func (lambda (msg)
+                           (when msg
+                             (mu4e-message-contact-field-matches msg
+                                                                 :to "leoaparisi@gmail.com")))
+             :vars '( ( user-mail-address	    . "leoaparisi@gmail.com"  )
+                      (mu4e-sent-folder       . "/[Gmail]/Sent Mail")
+                      (mu4e-drafts-folder     . "/[Gmail]/Drafts")
+                      (mu4e-trash-folder      . "/[Gmail]/Trash")
+                      (mu4e-refile-folder     . "/Archives")
+                      (user-mail-address . "leoaparisi@gmail.com")
+                      (smtpmail-smtp-user     . "leoaparisi@gmail.com")
+                      ( user-full-name	    . "Leo Aparisi de Lannoy" )))))
+  :init
+  (add-hook 'completion-at-point-functions #'mu4e-complete-contact)
+  (corfu-mode -1)
+  (corfu-mode +1)
   )
 
-(use-package mu4e-compat
-  :after mu4e
-  :ensure (mu4e-compat :type git :host github :repo "tecosaur/mu4e-compat"))
+;; (use-package mu4e-compat
+;;   :after mu4e
+;;   :ensure (mu4e-compat :type git :host github :repo "tecosaur/mu4e-compat"))
 
 (use-package org-msg
   :after (org mu4e)
@@ -957,8 +926,7 @@ Leo Aparisi de Lannoy
 (winner-mode 1)
 (pixel-scroll-precision-mode 1)
 
-(setq user-full-name "Leo Aparisi de Lannoy"
-      user-mail-address "leoaparisi@gmail.com")
+(setq user-full-name "Leo Aparisi de Lannoy")
 (setq treesit-font-lock-level 4)
 (setq auto-save-timeout 10)
 (setq delete-by-moving-to-trash t)
@@ -1221,6 +1189,7 @@ Leo Aparisi de Lannoy
  :desc "Todo list"      "a t"  #'org-todo-list
  :desc "Tags search"    "a m"  #'org-tags-view
  :desc "View search"    "a v"  #'org-search-view
+ :desc "mu4e"    "m"  #'mu4e
  :desc "Default browser"    "b"  #'browse-url-of-file
  :desc "Start debugger"     "d"  #'+debugger/start
  :desc "New frame"          "f"  #'make-frame
