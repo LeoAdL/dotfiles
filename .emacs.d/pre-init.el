@@ -43,3 +43,9 @@
 ;; Optional: Install use-package support
 (elpaca elpaca-use-package
   (elpaca-use-package-mode))
+
+(elpaca (queue
+         :host github
+         :repo "emacsmirror/queue"
+         :inherit nil))
+
