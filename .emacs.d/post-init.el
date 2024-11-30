@@ -45,6 +45,183 @@
   (general-auto-unbind-keys)
   (general-evil-setup)
   )
+(defun +elpaca-unload-seq (e)
+  (and (featurep 'seq) (unload-feature 'seq t))
+  (elpaca--continue-build e))
+
+;; You could embed this code directly in the reicpe, I just abstracted it into a function.
+(defun +elpaca-seq-build-steps ()
+  (append (butlast (if (file-exists-p (expand-file-name "seq" elpaca-builds-directory))
+                       elpaca--pre-built-steps elpaca-build-steps))
+          (list '+elpaca-unload-seq 'elpaca--activate-package)))
+(use-package seq :ensure `(seq :build ,(+elpaca-seq-build-steps)))
+
+(use-package org
+  :defer t
+  :ensure t
+  :general (:prefix "SPC m"
+                    :states 'motion
+                    :keymaps 'override
+                    "A" #'org-archive-subtree-default
+                    "e" #'org-export-dispatch
+                    "f" #'org-footnote-action
+                    "h" #'org-toggle-heading
+                    "i" #'org-toggle-item
+                    "I" #'org-id-get-create
+                    "k" #'org-babel-remove-result
+                    "n" #'org-store-link
+                    "o" #'org-set-property
+                    "q" #'org-set-tags-command
+                    "t" #'org-todo
+                    "T" #'org-todo-list
+                    "x" #'org-toggle-checkbox
+                    "a a" #'org-attach
+                    "a d" #'org-attach-delete-one
+                    "a D" #'org-attach-delete-all
+                    "a n" #'org-attach-new
+                    "a o" #'org-attach-open
+                    "a O" #'org-attach-open-in-emacs
+                    "a r" #'org-attach-reveal
+                    "a R" #'org-attach-reveal-in-emacs
+                    "a u" #'org-attach-url
+                    "a s" #'org-attach-set-directory
+                    "a S" #'org-attach-sync
+                    "b -" #'org-table-insert-hline
+                    "b a" #'org-table-align
+                    "b b" #'org-table-blank-field
+                    "b c" #'org-table-create-or-convert-from-region
+                    "b e" #'org-table-edit-field
+                    "b f" #'org-table-edit-formulas
+                    "b h" #'org-table-field-info
+                    "b s" #'org-table-sort-lines
+                    "b r" #'org-table-recalculate
+                    "b R" #'org-table-recalculate-buffer-tables
+                    "b d c" #'org-table-delete-column
+                    "b d r" #'org-table-kill-row
+                    "b i c" #'org-table-insert-column
+                    "b i h" #'org-table-insert-hline
+                    "b i r" #'org-table-insert-row
+                    "b i H" #'org-table-hline-and-move
+                    "b t f" #'org-table-toggle-formula-debugger
+                    "b t o" #'org-table-toggle-coordinate-overlays
+                    "c c" #'org-clock-cancel
+                    "c d" #'org-clock-mark-default-task
+                    "c e" #'org-clock-modify-effort-estimate
+                    "c E" #'org-set-effort
+                    "c g" #'org-clock-goto
+                    "c i" #'org-clock-in
+                    "c I" #'org-clock-in-last
+                    "c o" #'org-clock-out
+                    "c r" #'org-resolve-clocks
+                    "c R" #'org-clock-report
+                    "c t" #'org-evaluate-time-range
+                    "c =" #'org-clock-timestamps-up
+                    "c -" #'org-clock-timestamps-down
+                    "d d" #'org-deadline
+                    "d s" #'org-schedule
+                    "d t" #'org-time-stamp
+                    "d T" #'org-time-stamp-inactive
+                                        ;"f o" #'consult-org-heading
+                                        ;"f a" #'consult-org-agenda
+                    "l c" #'org-cliplink
+                    "l i" #'org-id-store-link
+                    "l l" #'org-insert-link
+                    "l L" #'org-insert-all-links
+                    "l s" #'org-store-link
+                    "l S" #'org-insert-last-stored-link
+                    "l t" #'org-toggle-link-display
+                    "p d" #'org-priority-down
+                    "p p" #'org-priority
+                    "p u" #'org-priority-up
+                    )
+  :config
+  (setq org-directory "~/org/")
+  (setq org-hide-emphasis-markers t)
+  (setq org-preview-latex-image-directory "~/.cache/ltximg/")
+  ;; ORG LATEX PREVIEW
+  (setq org-startup-with-latex-preview t)
+  (setq org-format-latex-options
+        (plist-put org-format-latex-options :background "Transparent"))
+  (setq org-format-latex-options
+        (plist-put org-format-latex-options :scale 2))
+  (setq org-preview-latex-default-process 'dvipng)
+  (setq
+   org-agenda-files (list org-directory)                  ; Seems like the obvious place.
+   org-use-property-inheritance t                         ; It's convenient to have properties inherited.
+   org-log-done 'time                                     ; Having the time a item is done sounds convenient.
+   org-list-allow-alphabetical t                          ; Have a. A. a) A) list bullets.
+   org-catch-invisible-edits 'smart                       ; Try not to accidently do weird stuff in invisible regions.
+   org-export-with-sub-superscripts '{}                   ; Don't treat lone _ / ^ as sub/superscripts, require _{} / ^{}.
+   org-export-allow-bind-keywords t                       ; Bind keywords can be handy
+   org-image-actual-width '(0.9))
+  (setq org-babel-default-header-args
+        '((:session . "none")
+          (:results . "replace")
+          (:exports . "code")
+          (:cache . "no")
+          (:noweb . "no")
+          (:hlines . "no")
+          (:tangle . "no")
+          (:comments . "link")))
+
+  (setq org-agenda-skip-scheduled-if-done nil
+        org-agenda-skip-deadline-if-done nil
+        org-agenda-tags-column 0
+        org-agenda-block-separator ?─
+        org-agenda-time-grid
+        '((daily today require-timed)
+          (800 1000 1200 1400 1600 1800 2000)
+          " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+        org-agenda-current-time-string
+        "◀── now ─────────────────────────────────────────────────")
+
+  (setq org-src-fontify-natively t
+        org-fontify-whole-heading-line t
+        org-fontify-done-headline t
+        org-fontify-quote-and-verse-blocks t
+        org-startup-with-inline-images t
+        org-startup-indented t
+        ;; Org styling, hide markup etc.
+        org-pretty-entities t
+        org-hide-leading-stars t
+        org-priority-highest ?A
+        org-priority-lowest ?E
+        org-priority-faces
+        '((?A . 'nerd-icons-red)
+          (?B . 'nerd-icons-orange)
+          (?C . 'nerd-icons-yellow)
+          (?D . 'nerd-icons-green)
+          (?E . 'nerd-icons-blue)))
+  (setq org-highlight-latex-and-related '(native script entities))
+  (setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a.")))
+  (setq org-capture-templates
+        '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
+           "* TODO [#B] %?\n:Created: %T\n")
+          ("j" "Journal" entry (file+olp+datetree "~/org/journal.org")
+           "* %?\nEntered on %U\n  %i\n  %a")
+          ("P" "process-soon" entry (file+headline "todo.org" "Todo")
+           "* TODO %:fromname: %a %?\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))")
+          ("c" "Contact" entry (file "~/org/contacts.org")
+           "* %?
+:PROPERTIES:
+:ADDRESS:
+:BIRTHDAY:
+:EMAIL:
+:NOTE:
+:END:"
+           :empty-lines 1)
+          ("w" "Work")
+          ("wp" "Phone Call" entry (file+olp+datetree "~/org/work.org") "* Phone call about %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i" :clock-in t)
+          ("wm" "Meeting"    entry (file+olp+datetree "~/org/work.org") "* Meeting about %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i"    :clock-in t)
+          ("m" "Email Workflow")
+          ("mw" "Write" entry (file+olp "~/org/mail.org" "New")
+           "* TODO Email %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i" :immediate-finish t)
+          ("mf" "Follow Up" entry (file+olp "~/org/mail.org" "Follow Up")
+           "* TODO Follow up with %:fromname on %a\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%i" :immediate-finish t)
+          ("mr" "Read Later" entry (file+olp "~/org/mail.org" "Read Later")
+           "* TODO Read %:subject\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%a\n\n%i" :immediate-finish t)
+          ))
+  )
 
 (use-package vterm
   :ensure t
@@ -667,6 +844,7 @@
 
 (use-package mu4e
   :ensure nil
+  :after org
   :load-path  "/opt/homebrew/share/emacs/site-lisp/mu/mu4e/"
   :defer t
   :init
@@ -802,172 +980,6 @@ Leo Aparisi de Lannoy
  :keymaps '(normal insert emacs)
  "C-=" #'global-text-scale-adjust)
 
-(use-package org 
-  :defer t
-  :ensure t
-  :general (:prefix "SPC m"
-                    :states 'motion
-                    :keymaps 'override
-                    "A" #'org-archive-subtree-default
-                    "e" #'org-export-dispatch
-                    "f" #'org-footnote-action
-                    "h" #'org-toggle-heading
-                    "i" #'org-toggle-item
-                    "I" #'org-id-get-create
-                    "k" #'org-babel-remove-result
-                    "n" #'org-store-link
-                    "o" #'org-set-property
-                    "q" #'org-set-tags-command
-                    "t" #'org-todo
-                    "T" #'org-todo-list
-                    "x" #'org-toggle-checkbox
-                    "a a" #'org-attach
-                    "a d" #'org-attach-delete-one
-                    "a D" #'org-attach-delete-all
-                    "a n" #'org-attach-new
-                    "a o" #'org-attach-open
-                    "a O" #'org-attach-open-in-emacs
-                    "a r" #'org-attach-reveal
-                    "a R" #'org-attach-reveal-in-emacs
-                    "a u" #'org-attach-url
-                    "a s" #'org-attach-set-directory
-                    "a S" #'org-attach-sync
-                    "b -" #'org-table-insert-hline
-                    "b a" #'org-table-align
-                    "b b" #'org-table-blank-field
-                    "b c" #'org-table-create-or-convert-from-region
-                    "b e" #'org-table-edit-field
-                    "b f" #'org-table-edit-formulas
-                    "b h" #'org-table-field-info
-                    "b s" #'org-table-sort-lines
-                    "b r" #'org-table-recalculate
-                    "b R" #'org-table-recalculate-buffer-tables
-                    "b d c" #'org-table-delete-column
-                    "b d r" #'org-table-kill-row
-                    "b i c" #'org-table-insert-column
-                    "b i h" #'org-table-insert-hline
-                    "b i r" #'org-table-insert-row
-                    "b i H" #'org-table-hline-and-move
-                    "b t f" #'org-table-toggle-formula-debugger
-                    "b t o" #'org-table-toggle-coordinate-overlays
-                    "c c" #'org-clock-cancel
-                    "c d" #'org-clock-mark-default-task
-                    "c e" #'org-clock-modify-effort-estimate
-                    "c E" #'org-set-effort
-                    "c g" #'org-clock-goto
-                    "c i" #'org-clock-in
-                    "c I" #'org-clock-in-last
-                    "c o" #'org-clock-out
-                    "c r" #'org-resolve-clocks
-                    "c R" #'org-clock-report
-                    "c t" #'org-evaluate-time-range
-                    "c =" #'org-clock-timestamps-up
-                    "c -" #'org-clock-timestamps-down
-                    "d d" #'org-deadline
-                    "d s" #'org-schedule
-                    "d t" #'org-time-stamp
-                    "d T" #'org-time-stamp-inactive
-                                        ;"f o" #'consult-org-heading
-                                        ;"f a" #'consult-org-agenda
-                    "l c" #'org-cliplink
-                    "l i" #'org-id-store-link
-                    "l l" #'org-insert-link
-                    "l L" #'org-insert-all-links
-                    "l s" #'org-store-link
-                    "l S" #'org-insert-last-stored-link
-                    "l t" #'org-toggle-link-display
-                    "p d" #'org-priority-down
-                    "p p" #'org-priority
-                    "p u" #'org-priority-up
-                    )
-  :config
-  (setq org-directory "~/org/")
-  (setq org-hide-emphasis-markers t)
-  (setq org-preview-latex-image-directory "~/.cache/ltximg/")
-  ;; ORG LATEX PREVIEW
-  (setq org-startup-with-latex-preview t)
-  (setq org-format-latex-options
-        (plist-put org-format-latex-options :background "Transparent"))
-  (setq org-format-latex-options
-        (plist-put org-format-latex-options :scale 2))
-  (setq org-preview-latex-default-process 'dvipng)
-  (setq
-   org-agenda-files (list org-directory)                  ; Seems like the obvious place.
-   org-use-property-inheritance t                         ; It's convenient to have properties inherited.
-   org-log-done 'time                                     ; Having the time a item is done sounds convenient.
-   org-list-allow-alphabetical t                          ; Have a. A. a) A) list bullets.
-   org-catch-invisible-edits 'smart                       ; Try not to accidently do weird stuff in invisible regions.
-   org-export-with-sub-superscripts '{}                   ; Don't treat lone _ / ^ as sub/superscripts, require _{} / ^{}.
-   org-export-allow-bind-keywords t                       ; Bind keywords can be handy
-   org-image-actual-width '(0.9))
-  (setq org-babel-default-header-args
-        '((:session . "none")
-          (:results . "replace")
-          (:exports . "code")
-          (:cache . "no")
-          (:noweb . "no")
-          (:hlines . "no")
-          (:tangle . "no")
-          (:comments . "link")))
-
-  (setq org-agenda-skip-scheduled-if-done nil
-        org-agenda-skip-deadline-if-done nil
-        org-agenda-tags-column 0
-        org-agenda-block-separator ?─
-        org-agenda-time-grid
-        '((daily today require-timed)
-          (800 1000 1200 1400 1600 1800 2000)
-          " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
-        org-agenda-current-time-string
-        "◀── now ─────────────────────────────────────────────────")
-
-  (setq org-src-fontify-natively t
-        org-fontify-whole-heading-line t
-        org-fontify-done-headline t
-        org-fontify-quote-and-verse-blocks t
-        org-startup-with-inline-images t
-        org-startup-indented t
-        ;; Org styling, hide markup etc.
-        org-pretty-entities t
-        org-hide-leading-stars t
-        org-priority-highest ?A
-        org-priority-lowest ?E
-        org-priority-faces
-        '((?A . 'nerd-icons-red)
-          (?B . 'nerd-icons-orange)
-          (?C . 'nerd-icons-yellow)
-          (?D . 'nerd-icons-green)
-          (?E . 'nerd-icons-blue)))
-  (setq org-highlight-latex-and-related '(native script entities))
-  (setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a.")))
-  (setq org-capture-templates
-        '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
-           "* TODO [#B] %?\n:Created: %T\n")
-          ("j" "Journal" entry (file+olp+datetree "~/org/journal.org")
-           "* %?\nEntered on %U\n  %i\n  %a")
-          ("P" "process-soon" entry (file+headline "todo.org" "Todo")
-           "* TODO %:fromname: %a %?\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))")
-          ("c" "Contact" entry (file "~/org/contacts.org")
-           "* %?
-:PROPERTIES:
-:ADDRESS:
-:BIRTHDAY:
-:EMAIL:
-:NOTE:
-:END:"
-           :empty-lines 1)
-          ("w" "Work")
-          ("wp" "Phone Call" entry (file+olp+datetree "~/org/work.org") "* Phone call about %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i" :clock-in t)
-          ("wm" "Meeting"    entry (file+olp+datetree "~/org/work.org") "* Meeting about %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i"    :clock-in t)
-          ("m" "Email Workflow")
-          ("mw" "Write" entry (file+olp "~/org/mail.org" "New")
-           "* TODO Email %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i" :immediate-finish t)
-          ("mf" "Follow Up" entry (file+olp "~/org/mail.org" "Follow Up")
-           "* TODO Follow up with %:fromname on %a\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%i" :immediate-finish t)
-          ("mr" "Read Later" entry (file+olp "~/org/mail.org" "Read Later")
-           "* TODO Read %:subject\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%a\n\n%i" :immediate-finish t)
-          ))
-  )
 
 (use-package ox-jira
   :ensure t
