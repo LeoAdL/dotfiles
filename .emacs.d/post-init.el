@@ -321,7 +321,7 @@
             "f r" #'consult-recent-file
             ;; C-x bindings in `ctl-x-map'
             "f M-:" #'consult-complex-command
-            "f b" #'consult-buffer
+            "b b" #'consult-buffer
             "4 b" #'consult-buffer-other-window
             "5 b" #'consult-buffer-other-frame
             "t b" #'consult-buffer-other-tab
@@ -647,6 +647,10 @@
             :states 'motion
             "." #'dired)
   :config
+  (when (string= system-type "darwin")
+    (setq dired-use-ls-dired t
+          insert-directory-program "/opt/homebrew/bin/gls"
+          dired-listing-switches "-aBhl --group-directories-first"))
   (setq dirvish-attributes'(vc-state subtree-state nerd-icons git-msg file-time file-size))
   (setq dirvish-default-layout '(0 0.4 0.6))
   )
@@ -738,10 +742,8 @@
                     :keymaps 'override
                     :states 'motion
                     "g g" #'magit)
-  :init
-  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
-  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
   )
+
 (use-package magit-todos
   :ensure t
   :after magit
@@ -824,6 +826,7 @@
         jupyter-eval-overlay-keymap "<backtab>"
         jupyter-default-notebook-port 8895)
   :bind (("<backtab>" . jupyter-eval-toggle-overlay)))
+(global-display-line-numbers-mode +1)
 
 (use-package code-cells
   :defer t
@@ -924,7 +927,9 @@ Leo Aparisi de Lannoy
 (display-time-mode)
 (show-paren-mode +1)  ; Paren match highlighting
 (winner-mode 1)
+(global-visual-line-mode +1)
 (pixel-scroll-precision-mode 1)
+(global-display-line-numbers-mode +1)
 
 (setq user-full-name "Leo Aparisi de Lannoy")
 (setq treesit-font-lock-level 4)
@@ -935,13 +940,11 @@ Leo Aparisi de Lannoy
 (setq imagemagick-render-type 1)
 (setq browse-url-chrome-program "brave")
 (setq display-line-numbers-type 'relative)
-(setq global-visual-line-mode +1)
 (setq-default tab-width 4)
 
 (add-to-list 'default-frame-alist
              '(font . "Iosevka:pixelsize=20:foundry=UKWN:weight=medium:slant=normal:width=normal:spacing=90:scalable=true
 "))
-(global-display-line-numbers-mode +1)
 
 
 (general-define-key
