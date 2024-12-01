@@ -757,6 +757,18 @@
   :after flymake 
   :ensure t)
 
+(use-package flymake-vale
+  :ensure (flymake-vale :type git :host github :repo "tpeacock19/flymake-vale")
+  :defer t
+  :after flymake
+  :config
+  (add-hook 'text-mode-hook #'flymake-vale-load)
+  (add-hook 'latex-mode-hook #'flymake-vale-load)
+  (add-hook 'org-mode-hook #'flymake-vale-load)
+  (add-hook 'markdown-mode-hook #'flymake-vale-load)
+  (add-hook 'message-mode-hook #'flymake-vale-load)
+  )
+
 (use-package lsp-mode
   :ensure t
   :general
@@ -924,23 +936,11 @@
 Leo Aparisi de Lannoy
 ,#+end_signature"))
 
-(display-time-mode)
-(show-paren-mode +1)  ; Paren match highlighting
-(winner-mode 1)
-(global-visual-line-mode +1)
-(pixel-scroll-precision-mode 1)
-(global-display-line-numbers-mode +1)
 
-(setq user-full-name "Leo Aparisi de Lannoy")
-(setq treesit-font-lock-level 4)
-(setq auto-save-timeout 10)
-(setq delete-by-moving-to-trash t)
-(setq scroll-margin 0)
-(setq scroll-conservatively 101)
-(setq imagemagick-render-type 1)
-(setq browse-url-chrome-program "brave")
-(setq display-line-numbers-type 'relative)
-(setq-default tab-width 4)
+(add-hook 'conf-mode-hook #'flymake-mode-on)
+(add-hook 'prog-mode-hook #'flymake-mode-on)
+(add-hook 'text-mode-hook #'flymake-mode-on)
+
 
 (add-to-list 'default-frame-alist
              '(font . "Iosevka:pixelsize=20:foundry=UKWN:weight=medium:slant=normal:width=normal:spacing=90:scalable=true
@@ -1220,3 +1220,28 @@ Leo Aparisi de Lannoy
  :desc "Jump to symbol in current workspace" "j"   #'consult-lsp-symbols
 
  )
+
+(use-package benchmark-init
+  :ensure t
+  :config
+  ;; To disable collection of benchmark data after init is done.
+  (add-hook 'after-init-hook 'benchmark-init/deactivate))
+
+(setq user-full-name "Leo Aparisi de Lannoy")
+(setq treesit-font-lock-level 4)
+(setq auto-save-timeout 10)
+(setq scroll-conservatively 101)
+(setq delete-by-moving-to-trash t)
+(setq imagemagick-render-type 1)
+(setq browse-url-chrome-program "brave")
+(setq display-line-numbers-type 'relative)
+(setq-default tab-width 4)
+(add-hook 'elpaca-after-init-hook (lambda () (tool-bar-mode 1) (tool-bar-mode 0)))
+
+(add-hook 'elpaca-after-init-hook (lambda () (server-start)
+                                    (show-paren-mode +1)  ; Paren match highlighting
+                                    (winner-mode 1)
+                                    (global-visual-line-mode +1)
+                                    (pixel-scroll-precision-mode 1)
+                                    (global-display-line-numbers-mode +1)
+                                    ))
