@@ -410,7 +410,7 @@
   (evil-collection-init)
   )
 (use-package evil-args
-  :ensure t 
+  :ensure t
   :after evil)
 
 (use-package evil-goggles
@@ -647,9 +647,10 @@
            :keymaps 'dirvish-mode-map
            "a"   #'dirvish-quick-access
            "q"   #'dirvish-quit
-           "f"   #'dirvish-file-info-menu
-           "y"   #'dirvish-yank-menu
+           "F"   #'dirvish-file-info-menu
+           "p"   #'dirvish-rsync
            "N"   #'dirvish-narrow
+           "/"   #'dirvish-fd-ask
            "^"   #'dirvish-history-last
            "h"   #'dirvish-history-jump
            "s"   #'dirvish-quicksort
