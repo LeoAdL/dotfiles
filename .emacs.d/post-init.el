@@ -60,7 +60,7 @@
   :defer t
   :ensure t
   :general (:prefix "SPC m"
-                    :states 'motion
+                    :states 'normal
                     :keymaps 'override
                     "A" #'org-archive-subtree-default
                     "e" #'org-export-dispatch
@@ -230,7 +230,7 @@
   :commands vterm
   :general (:prefix "SPC"
                     :keymaps 'override
-                    :states 'motion
+                    :states 'normal
                     "o t" #'vterm)
   :config
   ;; Speed up vterm
@@ -310,7 +310,7 @@
   :general (
             :prefix "SPC"
             :keymaps 'override
-            :states 'motion
+            :states 'normal
             "/" #'consult-ripgrep
             "f f" #'consult-fd
             "f x" #'consult-mode-command
@@ -385,7 +385,7 @@
   :ensure t
   :general (:prefix "SPC"
                     :keymaps 'override
-                    :states 'motion
+                    :states 'normal
                     "f d" #'consult-dir)
   )
 
@@ -463,7 +463,7 @@
   :general (
             :prefix "SPC"
             :keymaps 'override
-            :states 'motion
+            :states 'normal
             "s u" #'vundo)
   :config
   (setq vundo-glyph-alist vundo-unicode-symbols
@@ -517,7 +517,7 @@
     "Toggle comment for the region between BEG and END."
     (interactive "<r>")
     (comment-or-uncomment-region beg end))
-  (evil-define-key 'motion 'global (kbd "gc") 'my-evil-comment-or-uncomment))
+  (evil-define-key 'normal 'global (kbd "gc") 'my-evil-comment-or-uncomment))
 (use-package evil-snipe
   :defer t
   :commands evil-snipe-mode
@@ -644,8 +644,12 @@
   :general (
             :prefix "SPC"
             :keymaps 'override
-            :states 'motion
+            :states 'normal
             "." #'dired)
+  (:keymaps 'local
+            :states 'normal
+            "q" #'dirvish-quit
+            )
   :config
   (when (string= system-type "darwin")
     (setq dired-use-ls-dired t
@@ -740,7 +744,7 @@
   :after transient
   :general (:prefix "SPC"
                     :keymaps 'override
-                    :states 'motion
+                    :states 'normal
                     "g g" #'magit)
   )
 
@@ -755,7 +759,9 @@
 
 (use-package flymake-popon
   :after flymake 
-  :ensure t)
+  :ensure t
+  :init
+  (global-flymake-popon-mode +1))
 
 (use-package flymake-vale
   :ensure (flymake-vale :type git :host github :repo "tpeacock19/flymake-vale")
@@ -772,7 +778,7 @@
 (use-package lsp-mode
   :ensure t
   :general
-  (:states 'motion
+  (:states 'normal
            :desc "Jump to definition"                    "g d"   #'lsp-find-definition
            :desc "Jump to references"                    "g r"   #'lsp-find-references
            :desc "Jump to references"                    "g i"   #'lsp-find-implementation
@@ -1078,7 +1084,7 @@ Leo Aparisi de Lannoy
   (easysession-mode-line-misc-info t)
   :general (:prefix "SPC"
                     :keymaps 'override
-                    :states 'motion
+                    :states 'normal
                     "l l" #'easysession-switch-to
                     "l s" #'easysession-save-as)
   :init
@@ -1158,7 +1164,7 @@ Leo Aparisi de Lannoy
   :defer t
   :general (:prefix "SPC"
                     :keymaps 'override
-                    :states 'motion
+                    :states 'normal
                     "p p" #'project-switch-project
                     )
   )
@@ -1175,7 +1181,7 @@ Leo Aparisi de Lannoy
 
 (general-define-key
  :prefix "SPC"
- :states 'motion
+ :states 'normal
  :keymaps 'override
  "x" #'scratch-buffer
  "X" #'org-capture
@@ -1185,7 +1191,7 @@ Leo Aparisi de Lannoy
 
 (general-define-key
  :prefix "SPC o"
- :states 'motion
+ :states 'normal
  :keymaps 'override
  :desc "Org agenda"       "A"  #'org-agenda
  :desc "Agenda"         "a a"  #'org-agenda
@@ -1205,13 +1211,13 @@ Leo Aparisi de Lannoy
  )
 
 (general-define-key
- :states 'motion
+ :states 'normal
  "K" #'lsp-ui-doc-glance
  )
 
 (general-define-key
  :prefix "SPC c"
- :states 'motion
+ :states 'normal
  :keymaps 'override
  :desc "LSP Execute code action"              "a"   #'lsp-execute-code-action
  :desc "LSP Organize imports"                 "o"   #'lsp-organize-imports
@@ -1231,6 +1237,7 @@ Leo Aparisi de Lannoy
 (setq treesit-font-lock-level 4)
 (setq auto-save-timeout 10)
 (setq scroll-conservatively 101)
+
 (setq delete-by-moving-to-trash t)
 (setq imagemagick-render-type 1)
 (setq browse-url-chrome-program "brave")
