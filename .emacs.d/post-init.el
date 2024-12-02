@@ -887,84 +887,85 @@
   :ensure t
   :defer t)
 
-(use-package mu4e
-  :ensure nil
-  :after org
-  :load-path  "/opt/homebrew/share/emacs/site-lisp/mu/mu4e/"
-  :config
-  (setq sendmail-program (executable-find "msmtp")
-        send-mail-function #'smtpmail-send-it
-        message-sendmail-f-is-evil t
-        mu4e-compose-complete-addresses t
-        message-sendmail-extra-arguments '("--read-envelope-from")
-        message-send-mail-function #'message-send-mail-with-sendmail
-        mu4e-sent-messages-behavior 'sent ;; Save sent messages
-        mu4e-headers-auto-update t                ; avoid to type `g' to update
-        mml-secure-openpgp-signers '("6A5C039B63B86AC6C5109955B57BA04FBD759C7F" "D1D9947126EE64AC7ED3950196F352393B5B3C2E")
-        mml-secure-openpgp-sign-with-sender t
-        mu4e-use-fancy-chars t                   ; allow fancy icons for mail threads
-        mu4e-change-filenames-when-moving t
-        mu4e-index-lazy-check nil
-        mu4e-search-results-limit 300
-        mu4e-context-policy 'pick-first ;; Always ask which context to use when composing a new mail
-        mu4e-compose-context-policy 'ask ;; Always ask which context to use when composing a new mail
-        mu4e-update-interval 60
-        mu4e-mu-allow-temp-file t
-        mu4e-headers-precise-alignment t
-        mu4e-compose-complete-only-after "2015-01-01"
-        message-dont-reply-to-names #'mu4e-personal-or-alternative-address-p
-        mu4e-bookmarks '((:name "Unread messages" :query "flag:unread AND maildir:/.*inbox/" :key 117)
-                         (:name "Today's messages" :query "date:today..now AND maildir:/.*inbox/" :key 116)
-                         ("flag:flagged" "Flagged messages" 102)
-                         (:name "Unified inbox" :query "maildir:/.*inbox/" :key 105)
-                         (:name "Sent" :query "maildir:/.*Sent/" :key 115)
-                         (:name "Drafts" :query "maildir:/.*Drafts/" :key 100)
-                         (:name "Spam" :query "maildir:/.*Spam/ or maildir:/.*Junk/" :key 83)
-                         (:name "Trash" :query "maildir:/.*Trash/" :key 84))
-        mu4e-attachment-dir "~/Downloads"
-        mu4e-contexts
-        `( ,(make-mu4e-context
-             :name "Personal"
-             :enter-func (lambda () (mu4e-message "Entering Personal context"))
-             :leave-func (lambda () (mu4e-message "Leaving Personal context"))
-             ;; we match based on the contact-fields of the message
-             :match-func (lambda (msg)
-                           (when msg
-                             (mu4e-message-contact-field-matches msg
-                                                                 :to "leoaparisi@gmail.com")))
-             :vars '( ( user-mail-address	    . "leoaparisi@gmail.com"  )
-                      (mu4e-sent-folder       . "/[Gmail]/Sent Mail")
-                      (mu4e-drafts-folder     . "/[Gmail]/Drafts")
-                      (mu4e-trash-folder      . "/[Gmail]/Trash")
-                      (mu4e-refile-folder     . "/Archives")
-                      (user-mail-address . "leoaparisi@gmail.com")
-                      (smtpmail-smtp-user     . "leoaparisi@gmail.com")
-                      ( user-full-name	    . "Leo Aparisi de Lannoy" )))))
-  :init
-  (add-hook 'completion-at-point-functions #'mu4e-complete-contact)
-  (corfu-mode -1)
-  (corfu-mode +1)
-  )
+(when (string= system-type "darwin")
+  (use-package mu4e
+    :ensure nil
+    :after org
+    :load-path  "/opt/homebrew/share/emacs/site-lisp/mu/mu4e/"
+    :config
+    (setq sendmail-program (executable-find "msmtp")
+          send-mail-function #'smtpmail-send-it
+          message-sendmail-f-is-evil t
+          mu4e-compose-complete-addresses t
+          message-sendmail-extra-arguments '("--read-envelope-from")
+          message-send-mail-function #'message-send-mail-with-sendmail
+          mu4e-sent-messages-behavior 'sent ;; Save sent messages
+          mu4e-headers-auto-update t                ; avoid to type `g' to update
+          mml-secure-openpgp-signers '("6A5C039B63B86AC6C5109955B57BA04FBD759C7F" "D1D9947126EE64AC7ED3950196F352393B5B3C2E")
+          mml-secure-openpgp-sign-with-sender t
+          mu4e-use-fancy-chars t                   ; allow fancy icons for mail threads
+          mu4e-change-filenames-when-moving t
+          mu4e-index-lazy-check nil
+          mu4e-search-results-limit 300
+          mu4e-context-policy 'pick-first ;; Always ask which context to use when composing a new mail
+          mu4e-compose-context-policy 'ask ;; Always ask which context to use when composing a new mail
+          mu4e-update-interval 60
+          mu4e-mu-allow-temp-file t
+          mu4e-headers-precise-alignment t
+          mu4e-compose-complete-only-after "2015-01-01"
+          message-dont-reply-to-names #'mu4e-personal-or-alternative-address-p
+          mu4e-bookmarks '((:name "Unread messages" :query "flag:unread AND maildir:/.*inbox/" :key 117)
+                           (:name "Today's messages" :query "date:today..now AND maildir:/.*inbox/" :key 116)
+                           ("flag:flagged" "Flagged messages" 102)
+                           (:name "Unified inbox" :query "maildir:/.*inbox/" :key 105)
+                           (:name "Sent" :query "maildir:/.*Sent/" :key 115)
+                           (:name "Drafts" :query "maildir:/.*Drafts/" :key 100)
+                           (:name "Spam" :query "maildir:/.*Spam/ or maildir:/.*Junk/" :key 83)
+                           (:name "Trash" :query "maildir:/.*Trash/" :key 84))
+          mu4e-attachment-dir "~/Downloads"
+          mu4e-contexts
+          `( ,(make-mu4e-context
+               :name "Personal"
+               :enter-func (lambda () (mu4e-message "Entering Personal context"))
+               :leave-func (lambda () (mu4e-message "Leaving Personal context"))
+               ;; we match based on the contact-fields of the message
+               :match-func (lambda (msg)
+                             (when msg
+                               (mu4e-message-contact-field-matches msg
+                                                                   :to "leoaparisi@gmail.com")))
+               :vars '( ( user-mail-address	    . "leoaparisi@gmail.com"  )
+                        (mu4e-sent-folder       . "/[Gmail]/Sent Mail")
+                        (mu4e-drafts-folder     . "/[Gmail]/Drafts")
+                        (mu4e-trash-folder      . "/[Gmail]/Trash")
+                        (mu4e-refile-folder     . "/Archives")
+                        (user-mail-address . "leoaparisi@gmail.com")
+                        (smtpmail-smtp-user     . "leoaparisi@gmail.com")
+                        ( user-full-name	    . "Leo Aparisi de Lannoy" )))))
+    :init
+    (add-hook 'completion-at-point-functions #'mu4e-complete-contact)
+    (corfu-mode -1)
+    (corfu-mode +1)
+    )
 
-;; (use-package mu4e-compat
-;;   :after mu4e
-;;   :ensure (mu4e-compat :type git :host github :repo "tecosaur/mu4e-compat"))
+  ;; (use-package mu4e-compat
+  ;;   :after mu4e
+  ;;   :ensure (mu4e-compat :type git :host github :repo "tecosaur/mu4e-compat"))
 
-(use-package org-msg
-  :after (org mu4e)
-  :hook (mu4e-compose-mode . org-msg-edit-mode)
-  :ensure t
-  :config
-  (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil tex:dvipng"
-        org-msg-startup "hidestars indent inlineimages"
-        org-msg-greeting-name-limit 3
-        org-msg-default-alternatives '((new . (html))
-					                   (reply-to-html . (html)))
-        org-msg-convert-citation t
-        org-msg-signature "
+  (use-package org-msg
+    :after (org mu4e)
+    :hook (mu4e-compose-mode . org-msg-edit-mode)
+    :ensure t
+    :config
+    (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil tex:dvipng"
+          org-msg-startup "hidestars indent inlineimages"
+          org-msg-greeting-name-limit 3
+          org-msg-default-alternatives '((new . (html))
+					                     (reply-to-html . (html)))
+          org-msg-convert-citation t
+          org-msg-signature "
 ,#+begin_signature
 Leo Aparisi de Lannoy
-,#+end_signature"))
+,#+end_signature")))
 
 
 (add-hook 'conf-mode-hook #'flymake-mode-on)
