@@ -407,7 +407,8 @@
   :after evil
   :ensure t
   :config
-  (evil-collection-init))
+  (evil-collection-init)
+  )
 (use-package evil-args
   :ensure t 
   :after evil)
@@ -641,23 +642,43 @@
   :defer t
   :init
   (dirvish-override-dired-mode)
-  :general (
-            :prefix "SPC"
-            :keymaps 'override
-            :states 'normal
-            "." #'dired)
-  (:keymaps 'local
-            :states 'normal
-            "q" #'dirvish-quit
-            )
+  :general
+  (:states 'normal
+           :keymaps 'dirvish-mode-map
+           "a"   #'dirvish-quick-access
+           "q"   #'dirvish-quit
+           "f"   #'dirvish-file-info-menu
+           "y"   #'dirvish-yank-menu
+           "N"   #'dirvish-narrow
+           "^"   #'dirvish-history-last
+           "h"   #'dirvish-history-jump
+           "s"   #'dirvish-quicksort
+           "v"   #'dirvish-vc-menu
+           "TAB" #'dirvish-subtree-toggle
+           "M-f" #'dirvish-history-go-forward
+           "M-b" #'dirvish-history-go-backward
+           "M-l" #'dirvish-ls-switches-menu
+           "M-m" #'dirvish-mark-menu
+           "M-t" #'dirvish-layout-toggle
+           "M-s" #'dirvish-setup-menu
+           "M-e" #'dirvish-emerge-menu
+           "M-j" #'dirvish-fd-jump)
+
   :config
+  (evil-make-overriding-map dirvish-mode-map 'normal)
   (when (string= system-type "darwin")
     (setq dired-use-ls-dired t
           insert-directory-program "/opt/homebrew/bin/gls"
           dired-listing-switches "-aBhl --group-directories-first"))
   (setq dirvish-attributes'(vc-state subtree-state nerd-icons git-msg file-time file-size))
   (setq dirvish-default-layout '(0 0.4 0.6))
+  (general-define-key
+   :prefix "SPC"
+   :keymaps 'override
+   :states 'normal
+   "." #'dired)
   )
+
 
 (use-package hl-todo
   :ensure t
@@ -732,7 +753,9 @@
 (use-package diff-hl
   :ensure t
   :defer t
-  :config
+  :init
+  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
   (global-diff-hl-mode +1))
 
 (use-package transient
@@ -751,7 +774,7 @@
 (use-package magit-todos
   :ensure t
   :after magit
-  :config (magit-todos-mode 1))
+  :init (magit-todos-mode 1))
 
 (use-package git-timemachine
   :defer t
