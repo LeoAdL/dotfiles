@@ -226,7 +226,6 @@
 (use-package vterm
   :ensure t
   :defer t
-  :hook (vterm-mode . hide-mode-line-mode) ; modeline serves no purpose in vterm
   :commands vterm
   :general (:prefix "SPC"
                     :keymaps 'override
@@ -568,10 +567,10 @@
   ;; used by `completion-at-point'.
   (setq cape-dabbrev-min-length 2)
 
-  (add-hook 'completion-at-point-functions #'cape-dabbrev)
+  (add-hook 'completion-at-point-functions #'cape-history)
   (add-hook 'completion-at-point-functions #'cape-file)
   (add-hook 'completion-at-point-functions #'cape-keyword)
-  (add-hook 'completion-at-point-functions #'cape-history)
+  (add-hook 'completion-at-point-functions #'cape-dabbrev)
   )
 ;; Hide warnings and display only errors
 (setq warning-minimum-level :error)
@@ -650,7 +649,7 @@
            "F"   #'dirvish-file-info-menu
            "p"   #'dirvish-rsync
            "N"   #'dirvish-narrow
-           "/"   #'dirvish-fd-ask
+           "f"   #'dirvish-fd-ask
            "^"   #'dirvish-history-last
            "h"   #'dirvish-history-jump
            "s"   #'dirvish-quicksort
@@ -677,7 +676,7 @@
    :prefix "SPC"
    :keymaps 'override
    :states 'normal
-   "." #'dired)
+   "." #'find-file)
   )
 
 
@@ -1277,3 +1276,4 @@ Leo Aparisi de Lannoy
                                     (pixel-scroll-precision-mode 1)
                                     (global-display-line-numbers-mode +1)
                                     ))
+(run-at-time nil 600 'recentf-save-list)
