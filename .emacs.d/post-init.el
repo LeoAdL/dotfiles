@@ -712,7 +712,7 @@
   :ensure t
   :defer t
   :init
-  (indent-bars-mode +1)
+  (add-hook 'prog-mode-hook #'indent-bars-mode)
   :custom
   (indent-bars-prefer-character nil)
   (indent-bars-treesit-support t)
@@ -735,7 +735,8 @@
    indent-bars-zigzag nil
    indent-bars-color-by-depth '(:regexp "outline-\\([0-9]+\\)" :blend 0.95) ; blend=1: blend with BG only
    indent-bars-highlight-current-depth '(:blend 0.5) ; pump up the BG blend on current
-   indent-bars-display-on-blank-lines t))
+   indent-bars-display-on-blank-lines t)
+  )
 
 (use-package ligature
   :ensure t
