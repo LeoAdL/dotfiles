@@ -227,10 +227,6 @@
   :ensure t
   :defer t
   :commands vterm
-  :general (:prefix "SPC"
-                    :keymaps 'override
-                    :states 'normal
-                    "o t" #'vterm)
   :config
   ;; Speed up vterm
   (setq vterm-kill-buffer-on-exit t)
@@ -238,6 +234,43 @@
   ;; 5000 lines of scrollback, instead of 1000
   (setq vterm-max-scrollback 5000)
   (setq vterm-timer-delay 0.01))
+(use-package multi-vterm
+  :ensure t
+  :after vterm
+  :config
+  (add-hook 'vterm-mode-hook
+			(lambda ()
+			  (setq-local evil-insert-state-cursor 'box)
+			  (evil-insert-state)))
+  (define-key vterm-mode-map [return]                      #'vterm-send-return)
+
+  (setq vterm-keymap-exceptions nil)
+  (evil-define-key 'insert vterm-mode-map (kbd "C-e")      #'vterm--self-insert)
+  (evil-define-key 'insert vterm-mode-map (kbd "C-f")      #'vterm--self-insert)
+  (evil-define-key 'insert vterm-mode-map (kbd "C-a")      #'vterm--self-insert)
+  (evil-define-key 'insert vterm-mode-map (kbd "C-v")      #'vterm--self-insert)
+  (evil-define-key 'insert vterm-mode-map (kbd "C-b")      #'vterm--self-insert)
+  (evil-define-key 'insert vterm-mode-map (kbd "C-w")      #'vterm--self-insert)
+  (evil-define-key 'insert vterm-mode-map (kbd "C-u")      #'vterm--self-insert)
+  (evil-define-key 'insert vterm-mode-map (kbd "C-d")      #'vterm--self-insert)
+  (evil-define-key 'insert vterm-mode-map (kbd "C-n")      #'vterm--self-insert)
+  (evil-define-key 'insert vterm-mode-map (kbd "C-m")      #'vterm--self-insert)
+  (evil-define-key 'insert vterm-mode-map (kbd "C-p")      #'vterm--self-insert)
+  (evil-define-key 'insert vterm-mode-map (kbd "C-j")      #'vterm--self-insert)
+  (evil-define-key 'insert vterm-mode-map (kbd "C-k")      #'vterm--self-insert)
+  (evil-define-key 'insert vterm-mode-map (kbd "C-r")      #'vterm--self-insert)
+  (evil-define-key 'insert vterm-mode-map (kbd "C-t")      #'vterm--self-insert)
+  (evil-define-key 'insert vterm-mode-map (kbd "C-g")      #'vterm--self-insert)
+  (evil-define-key 'insert vterm-mode-map (kbd "C-c")      #'vterm--self-insert)
+  (evil-define-key 'insert vterm-mode-map (kbd "C-SPC")    #'vterm--self-insert)
+  (evil-define-key 'normal vterm-mode-map (kbd "C-d")      #'vterm--self-insert)
+  (evil-define-key 'normal vterm-mode-map (kbd ",c")       #'multi-vterm)
+  (evil-define-key 'normal vterm-mode-map (kbd ",n")       #'multi-vterm-next)
+  (evil-define-key 'normal vterm-mode-map (kbd ",p")       #'multi-vterm-prev)
+  (evil-define-key 'normal vterm-mode-map (kbd "i")        #'evil-insert-resume)
+  (evil-define-key 'normal vterm-mode-map (kbd "o")        #'evil-insert-resume)
+  (evil-define-key 'normal vterm-mode-map (kbd "<return>") #'evil-insert-resume))
+
 ;; Tip: You can remove the `vertico-mode' use-package and replace it
 ;;      with the built-in `fido-vertical-mode'.
 (use-package vertico
@@ -245,6 +278,17 @@
   :ensure t
   :defer t
   :commands vertico-mode
+  :config
+  (defun +embark-live-vertico ()
+    "Shrink Vertico minibuffer when `embark-live' is active."
+    (when-let (win (and (string-prefix-p "*Embark Live" (buffer-name))
+                        (active-minibuffer-window)))
+      (with-selected-window win
+        (when (and (bound-and-true-p vertico--input)
+                   (fboundp 'vertico-multiform-unobtrusive))
+          (vertico-multiform-unobtrusive)))))
+
+  (add-hook 'embark-collect-mode-hook #'+embark-live-vertico)
   :hook (elpaca-after-init . vertico-mode))
 
 (use-package nerd-icons-completion
@@ -262,7 +306,7 @@
   :custom
   (completion-styles '(orderless basic))
   (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles partial-completion)))))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
 
 (use-package marginalia
   ;; Marginalia allows Embark to offer you preconfigured actions in more contexts.
@@ -278,6 +322,7 @@
   ;; users to perform context-sensitive actions on selected items
   ;; directly from the completion interface.
   :ensure t
+  :after vertico
   :defer t
   :commands (embark-act
              embark-dwim
@@ -378,7 +423,34 @@
    consult--source-recent-file consult--source-project-recent-file
    ;; :preview-key "M-."
    :preview-key '(:debounce 0.4 any))
-  (setq consult-narrow-key "<"))
+  (defun consult-ripgrep-up-directory ()
+    (interactive)
+    (let ((parent-dir (file-name-directory (directory-file-name default-directory))))
+      (when parent-dir
+        (run-at-time 0 nil
+                     #'consult-ripgrep
+                     parent-dir
+                     (ignore-errors
+                       (buffer-substring-no-properties
+                        (1+ (minibuffer-prompt-end)) (point-max))))))
+    (minibuffer-quit-recursive-edit))
+
+  (consult-customize
+   consult-ripgrep
+   :keymap (let ((map (make-sparse-keymap)))
+             (define-key map (kbd "M-l") #'consult-ripgrep-up-directory)
+             map))
+  (setq consult-narrow-key "<")
+  (defun consult--orderless-regexp-compiler (input type &rest _config)
+    (setq input (cdr (orderless-compile input)))
+    (cons
+     (mapcar (lambda (r) (consult--convert-regexp r type)) input)
+     (lambda (str) (orderless--highlight input t str))))
+
+  ;; OPTION 1: Activate globally for all consult-grep/ripgrep/find/...
+  (setq consult--regexp-compiler #'consult--orderless-regexp-compiler)
+
+  )
 
 (use-package consult-dir
   :ensure t
@@ -423,8 +495,15 @@
   ;; other faces such as `diff-added` will be used for other actions
   (evil-goggles-use-diff-faces))
 
+(use-package evil-anzu
+  :after evil
+  :ensure (evil-anzu :type git :host github :repo "emacsorphanage/evil-anzu")
+  :init
+  (global-anzu-mode)
+  )
+
 (use-package vimish-fold
-  :ensure t 
+  :ensure t
   :after evil )
 
 (use-package evil-vimish-fold
@@ -460,6 +539,7 @@
 
 (use-package vundo
   :ensure t
+  :defer t
   :general (
             :prefix "SPC"
             :keymaps 'override
@@ -576,7 +656,7 @@
 (setq warning-minimum-level :error)
 
 (use-package nerd-icons-corfu
-  :ensure t 
+  :ensure t
   :after corfu
   :config
   (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
@@ -606,7 +686,7 @@
 
 (use-package which-key
   :ensure t
-  :config
+  :init
   (which-key-mode))
 
 ;; Configure Emacs to ask for confirmation before exiting
@@ -627,6 +707,17 @@
   :config
   (setq doom-modeline-hud t)
   (setq doom-modeline-unicode-fallback t)
+  (setq find-file-visit-truename t)
+  ;; (setq nerd-icons-scale-factor 1)
+  ;; (setq doom-modeline-height 1) ; optional
+  (setq doom-modeline-project-detection 'project)
+  (setq mode-line-right-align-edge 'right-fringe)
+
+  ;; (custom-set-faces
+  ;;  '(mode-line ((t (:family "Iosevka" :height .9))))
+  ;;  '(mode-line-active ((t (:family "Iosevka" :height .9)))) ; For 29+
+  ;;  '(mode-line-inactive ((t (:family "Iosevka" :height .9)))))
+
   :hook (elpaca-after-init . doom-modeline-mode))
 
 (use-package catppuccin-theme
@@ -648,7 +739,11 @@
            "q"   #'dirvish-quit
            "F"   #'dirvish-file-info-menu
            "p"   #'dirvish-rsync
-           "N"   #'dirvish-narrow
+           "/"   #'dirvish-narrow
+           "u"   #'dired-undo
+           "U"   #'dired-unmark
+           "C-n"   #'dired-next-line
+           "C-p"   #'dired-previous-line
            "f"   #'dirvish-fd-ask
            "^"   #'dirvish-history-last
            "h"   #'dirvish-history-jump
@@ -735,12 +830,13 @@
    indent-bars-zigzag nil
    indent-bars-color-by-depth '(:regexp "outline-\\([0-9]+\\)" :blend 0.95) ; blend=1: blend with BG only
    indent-bars-highlight-current-depth '(:blend 0.5) ; pump up the BG blend on current
-   indent-bars-display-on-blank-lines t)
-  )
+   indent-bars-display-on-blank-lines t))
 
 (use-package ligature
   :ensure t
   :defer t
+  :init
+  (global-ligature-mode +1)
   :config
   ;; Enable all Iosevka ligatures in programming modes
   (ligature-set-ligatures 'prog-mode '("<---" "<--"  "<<-" "<-" "->" "-->" "--->" "<->" "<-->" "<--->" "<---->" "<!--"
@@ -749,7 +845,7 @@
                                        ":=" ":-" ":+" "<*" "<*>" "*>" "<|" "<|>" "|>" "+:" "-:" "=:" "<******>" "++" "+++"))
   ;; Enables ligature checks globally in all buffers. You can also do it
   ;; per mode with `ligature-mode'.
-  (global-ligature-mode +1))
+  )
 
 (use-package diff-hl
   :ensure t
@@ -757,7 +853,8 @@
   :init
   (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-  (global-diff-hl-mode +1))
+  (global-diff-hl-mode +1)
+  (diff-hl-margin-mode))
 
 (use-package transient
   :ensure t
@@ -782,7 +879,7 @@
   :ensure (git-timemachine :type git :host codeberg :repo "pidu/git-timemachine"))
 
 (use-package flymake-popon
-  :after flymake 
+  :after flymake
   :ensure t
   :init
   (global-flymake-popon-mode +1))
@@ -822,25 +919,25 @@
   (setq lsp-warn-no-matched-clients nil))
 
 ;; optionally
-(use-package lsp-ui 
+(use-package lsp-ui
   :after lsp
   :ensure t
   :commands lsp-ui-mode)
 
 (use-package org-contrib
-  :after org 
+  :after org
   :ensure t)
 
 (use-package ox-clip
-  :after org 
+  :after org
   :ensure t)
 
 (use-package org-cliplink
-  :after org 
+  :after org
   :ensure t)
 
 (use-package toc-org
-  :after org 
+  :after org
   :ensure t)
 
 
@@ -868,7 +965,6 @@
         jupyter-eval-overlay-keymap "<backtab>"
         jupyter-default-notebook-port 8895)
   :bind (("<backtab>" . jupyter-eval-toggle-overlay)))
-(global-display-line-numbers-mode +1)
 
 (use-package code-cells
   :defer t
@@ -972,6 +1068,8 @@ Leo Aparisi de Lannoy
 (add-hook 'prog-mode-hook #'flymake-mode-on)
 (add-hook 'text-mode-hook #'flymake-mode-on)
 
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
+(add-hook 'text-mode-hook #'display-line-numbers-mode)
 
 (add-to-list 'default-frame-alist
              '(font . "Iosevka:pixelsize=20:foundry=UKWN:weight=medium:slant=normal:width=normal:spacing=90:scalable=true
@@ -1079,7 +1177,8 @@ Leo Aparisi de Lannoy
             [remap evil-next-flyspell-error] #'jinx-next
             [remap evil-prev-flyspell-error] #'jinx-previous)
   :hook
-  (text-mode . global-jinx-mode))
+  (text-mode . jinx-mode)
+  (prog-mode . jinx-mode))
 
 (use-package outline-indent
   :ensure t
@@ -1233,11 +1332,19 @@ Leo Aparisi de Lannoy
  :desc "Dired"              "-"  #'dired-jump
  :desc "Open directory in dirvish"    "/" #'dirvish
  :desc "Project sidebar"              "p" #'dirvish-side
+ :desc "vterm"              "t" #'multi-vterm
  )
 
 (general-define-key
  :states 'normal
  "K" #'lsp-ui-doc-glance
+ )
+
+(general-define-key
+ :prefix "SPC t"
+ :states 'normal
+ :keymaps 'override
+ :desc "toggle code wrapping"              "w"   #'visual-line-mode
  )
 
 (general-define-key
@@ -1275,6 +1382,26 @@ Leo Aparisi de Lannoy
                                     (winner-mode 1)
                                     (global-visual-line-mode +1)
                                     (pixel-scroll-precision-mode 1)
-                                    (global-display-line-numbers-mode +1)
                                     ))
-(run-at-time nil 600 'recentf-save-list)
+
+(use-package recentf
+  :ensure nil
+  :defer t
+  :init
+  (run-at-time nil 600 'recentf-save-list))
+
+(use-package pdf-tools
+  :mode ("\\.pdf\\'" . pdf-view-mode)
+  :magic ("%PDF" . pdf-view-mode)
+  :ensure t
+  :general
+  ([remap pdf-view-midnight-minor-mode] #'pdf-view-themed-minor-mode
+   )
+  :defer t)
+
+(use-package saveplace-pdf-view
+  :ensure t
+  :after pdf-tools
+  :init
+  (save-place-mode 1)
+  :defer t)
