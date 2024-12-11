@@ -224,7 +224,7 @@
   )
 
 (use-package vterm
-  :ensure t
+  :ensure nil
   :defer t
   :commands vterm
   :config
@@ -888,7 +888,7 @@
   :ensure (flymake-vale :type git :host github :repo "tpeacock19/flymake-vale")
   :defer t
   :after flymake
-  :config
+  :init
   (add-hook 'text-mode-hook #'flymake-vale-load)
   (add-hook 'latex-mode-hook #'flymake-vale-load)
   (add-hook 'org-mode-hook #'flymake-vale-load)
@@ -900,8 +900,8 @@
   :ensure t
   :general
   (:states 'normal
-           :desc "Jump to definition"                    "g d"   #'lsp-find-definition
-           :desc "Jump to references"                    "g r"   #'lsp-find-references
+           :desc "Jump to definition"                    "g d"   #'xref-find-definitions
+           :desc "Jump to references"                    "g r"   #'xref-find-references
            :desc "Jump to references"                    "g i"   #'lsp-find-implementation
            :desc "Jump to references"                    "g D"   #'lsp-find-declarations)
   :defer t
@@ -1005,7 +1005,7 @@
           mu4e-search-results-limit 300
           mu4e-context-policy 'pick-first ;; Always ask which context to use when composing a new mail
           mu4e-compose-context-policy 'ask ;; Always ask which context to use when composing a new mail
-          mu4e-update-interval 60
+          mu4e-update-interval (* 1.5 60)
           mu4e-mu-allow-temp-file t
           mu4e-headers-precise-alignment t
           mu4e-compose-complete-only-after "2015-01-01"
@@ -1139,6 +1139,8 @@ Leo Aparisi de Lannoy
 (use-package vlf
   :ensure t
   :defer t
+  :init
+  (require 'vlf-setup)
   )
 
 (use-package csv-mode
@@ -1157,15 +1159,15 @@ Leo Aparisi de Lannoy
 (use-package lsp-ltex
   :after lsp-mode
   :ensure t
-  ;; :hook (text-mode . (lambda ()
-  ;;                   (require 'lsp-ltex)
-  ;;                   (lsp-deferred)))  ; or lsp-deferred
+  :hook (text-mode . (lambda ()
+                       (require 'lsp-ltex)
+                       (lsp-deferred)))  ; or lsp-deferred
   :init
   (setq lsp-ltex-completion-enabled t)
   (setq lsp-ltex-version "16.0.0"))
 
 (use-package jinx
-  :ensure t
+  :ensure nil
   :defer t
   :config
   ;; Extra face(s) to ignore
@@ -1375,6 +1377,8 @@ Leo Aparisi de Lannoy
 (setq browse-url-chrome-program "brave")
 (setq display-line-numbers-type 'relative)
 (setq-default tab-width 4)
+(setq dired-vc-rename-file t)
+(setq xref-search-program 'ripgrep)
 (add-hook 'elpaca-after-init-hook (lambda () (tool-bar-mode 1) (tool-bar-mode 0)))
 
 (add-hook 'elpaca-after-init-hook (lambda () (server-start)
@@ -1393,7 +1397,7 @@ Leo Aparisi de Lannoy
 (use-package pdf-tools
   :mode ("\\.pdf\\'" . pdf-view-mode)
   :magic ("%PDF" . pdf-view-mode)
-  :ensure t
+  :ensure nil
   :general
   ([remap pdf-view-midnight-minor-mode] #'pdf-view-themed-minor-mode
    )
@@ -1405,3 +1409,24 @@ Leo Aparisi de Lannoy
   :init
   (save-place-mode 1)
   :defer t)
+
+(use-package lsp-nix
+  :ensure lsp-mode
+  :after (lsp-mode)
+  :demand t
+  :custom
+  (lsp-nix-nil-formatter ["nixfmt"]))
+
+(use-package nix-mode
+  :hook (nix-mode . lsp-deferred)
+  :ensure t)
+
+(use-package dumb-jump
+  :ensure t
+  :defer t
+  :init
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+  :config
+  (setq xref-show-definitions-function #'xref-show-definitions-completing-read)
+  (setq dumb-jump-force-searcher 'rg)
+  )
