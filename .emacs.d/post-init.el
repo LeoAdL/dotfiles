@@ -5,19 +5,18 @@
 ;; Ensure JIT compilation is enabled for improved performance by
 ;; native-compiling loaded .elc files asynchronously
 (setq native-comp-jit-compilation t)
-(setq native-comp-deferred-compilation t) ; Deprecated in Emacs > 29.1
 
-(use-package compile-angel
-  :ensure t
-  :demand t
-  :config
-  ;; Ensure that quitting only occurs once Emacs finishes native compiling,
-  ;; preventing incomplete or leftover compilation files in `/tmp`.
-  (setq native-comp-async-query-on-exit t)
-  (setq confirm-kill-processes t)
-  (setq package-native-compile t)
-  (compile-angel-on-load-mode)
-  (add-hook 'emacs-lisp-mode-hook #'compile-angel-on-save-local-mode))
+;; (use-package compile-angel
+;;   :ensure t
+;;   :demand t
+;;   :config
+;;   ;; Ensure that quitting only occurs once Emacs finishes native compiling,
+;;   ;; preventing incomplete or leftover compilation files in `/tmp`.
+;;   (setq native-comp-async-query-on-exit t)
+;;   (setq confirm-kill-processes t)
+;;   (setq package-native-compile t)
+;;   (compile-angel-on-load-mode)
+;;   (add-hook 'emacs-lisp-mode-hook #'compile-angel-on-save-local-mode))
 
 ;; Auto-revert in Emacs is a feature that automatically updates the
 ;; contents of a buffer to reflect changes made to the underlying file
@@ -1005,8 +1004,10 @@
           mu4e-search-results-limit 300
           mu4e-context-policy 'pick-first ;; Always ask which context to use when composing a new mail
           mu4e-compose-context-policy 'ask ;; Always ask which context to use when composing a new mail
-          mu4e-update-interval (* 1.5 60)
+          mu4e-update-interval 60
+          mu4e-get-mail-command "mbsync -a"
           mu4e-mu-allow-temp-file t
+          message-kill-buffer-on-exit t
           mu4e-headers-precise-alignment t
           mu4e-compose-complete-only-after "2015-01-01"
           message-dont-reply-to-names #'mu4e-personal-or-alternative-address-p
