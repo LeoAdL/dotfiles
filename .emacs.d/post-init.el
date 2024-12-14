@@ -763,7 +763,7 @@
   (evil-make-overriding-map dirvish-mode-map 'normal)
   (when (string= system-type "darwin")
     (setq dired-use-ls-dired t
-          insert-directory-program "/opt/homebrew/bin/gls"
+          insert-directory-program "ls"
           dired-listing-switches "-aBhl --group-directories-first"))
   (setq dirvish-attributes'(vc-state subtree-state nerd-icons git-msg file-time file-size))
   (setq dirvish-default-layout '(0 0.4 0.6))
@@ -1049,8 +1049,10 @@
 
   (use-package org-msg
     :after (org mu4e)
-    :hook (mu4e-compose-mode . org-msg-edit-mode)
+    :hook (mu4e-compose-mode . org-msg-mode)
     :ensure t
+    :init
+    (setq mail-user-agent 'mu4e-user-agent)
     :config
     (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil tex:dvipng"
           org-msg-startup "hidestars indent inlineimages"
