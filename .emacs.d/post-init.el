@@ -1050,7 +1050,7 @@
 
   (use-package org-msg
     :after (org mu4e)
-    :hook (mu4e-compose-mode . org-msg-mode)
+    :hook (mu4e-compose-mode . org-msg-edit-mode)
     :ensure t
     :init
     (setq mail-user-agent 'mu4e-user-agent)
@@ -1062,9 +1062,9 @@
 					                     (reply-to-html . (html)))
           org-msg-convert-citation t
           org-msg-signature "
-,#+begin_signature
-Leo Aparisi de Lannoy
-,#+end_signature")))
+                #+begin_signature
+                Leo Aparisi de Lannoy
+                #+end_signature")))
 
 
 (add-hook 'conf-mode-hook #'flymake-mode-on)
