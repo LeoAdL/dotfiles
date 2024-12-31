@@ -1,5 +1,12 @@
 ;;; post-init.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
 ;; Ensure Emacs loads the most recent byte-compiled files.
+(use-package auto-compile
+  :ensure t
+  :demand t
+  :init
+  (auto-compile-on-load-mode)
+  (auto-compile-on-save-mode))
+
 (setq use-package-compute-statistics t)
 ;; (use-package compile-angel
 ;;   :ensure t
