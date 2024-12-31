@@ -1,11 +1,6 @@
 ;;; post-init.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
 ;; Ensure Emacs loads the most recent byte-compiled files.
-(setq load-prefer-newer t)
-
-;; Ensure JIT compilation is enabled for improved performance by
-;; native-compiling loaded .elc files asynchronously
-(setq native-comp-jit-compilation t)
-
+(setq use-package-compute-statistics t)
 ;; (use-package compile-angel
 ;;   :ensure t
 ;;   :demand t
@@ -235,40 +230,7 @@
   (setq vterm-timer-delay 0.01))
 (use-package multi-vterm
   :ensure t
-  :after vterm
-  :config
-  (add-hook 'vterm-mode-hook
-			(lambda ()
-			  (setq-local evil-insert-state-cursor 'box)
-			  (evil-insert-state)))
-  (define-key vterm-mode-map [return]                      #'vterm-send-return)
-
-  (setq vterm-keymap-exceptions nil)
-  (evil-define-key 'insert vterm-mode-map (kbd "C-e")      #'vterm--self-insert)
-  (evil-define-key 'insert vterm-mode-map (kbd "C-f")      #'vterm--self-insert)
-  (evil-define-key 'insert vterm-mode-map (kbd "C-a")      #'vterm--self-insert)
-  (evil-define-key 'insert vterm-mode-map (kbd "C-v")      #'vterm--self-insert)
-  (evil-define-key 'insert vterm-mode-map (kbd "C-b")      #'vterm--self-insert)
-  (evil-define-key 'insert vterm-mode-map (kbd "C-w")      #'vterm--self-insert)
-  (evil-define-key 'insert vterm-mode-map (kbd "C-u")      #'vterm--self-insert)
-  (evil-define-key 'insert vterm-mode-map (kbd "C-d")      #'vterm--self-insert)
-  (evil-define-key 'insert vterm-mode-map (kbd "C-n")      #'vterm--self-insert)
-  (evil-define-key 'insert vterm-mode-map (kbd "C-m")      #'vterm--self-insert)
-  (evil-define-key 'insert vterm-mode-map (kbd "C-p")      #'vterm--self-insert)
-  (evil-define-key 'insert vterm-mode-map (kbd "C-j")      #'vterm--self-insert)
-  (evil-define-key 'insert vterm-mode-map (kbd "C-k")      #'vterm--self-insert)
-  (evil-define-key 'insert vterm-mode-map (kbd "C-r")      #'vterm--self-insert)
-  (evil-define-key 'insert vterm-mode-map (kbd "C-t")      #'vterm--self-insert)
-  (evil-define-key 'insert vterm-mode-map (kbd "C-g")      #'vterm--self-insert)
-  (evil-define-key 'insert vterm-mode-map (kbd "C-c")      #'vterm--self-insert)
-  (evil-define-key 'insert vterm-mode-map (kbd "C-SPC")    #'vterm--self-insert)
-  (evil-define-key 'normal vterm-mode-map (kbd "C-d")      #'vterm--self-insert)
-  (evil-define-key 'normal vterm-mode-map (kbd ",c")       #'multi-vterm)
-  (evil-define-key 'normal vterm-mode-map (kbd ",n")       #'multi-vterm-next)
-  (evil-define-key 'normal vterm-mode-map (kbd ",p")       #'multi-vterm-prev)
-  (evil-define-key 'normal vterm-mode-map (kbd "i")        #'evil-insert-resume)
-  (evil-define-key 'normal vterm-mode-map (kbd "o")        #'evil-insert-resume)
-  (evil-define-key 'normal vterm-mode-map (kbd "<return>") #'evil-insert-resume))
+  :after vterm)
 
 ;; Tip: You can remove the `vertico-mode' use-package and replace it
 ;;      with the built-in `fido-vertical-mode'.
@@ -303,7 +265,7 @@
   ;; matches in any order against the candidates.
   :ensure t
   :custom
-  (completion-styles '(orderless basic))
+  (completion-styles '(orderless partial-comletion basic))
   (completion-category-defaults nil)
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
@@ -620,6 +582,7 @@
 
   ;; Enable Corfu
   :config
+  (setq corfu-auto-prefix 2)
   (setq corfu-quit-no-match t)
   (setq corfu-auto t)
   (global-corfu-mode +1))
@@ -721,7 +684,6 @@
 
 (use-package catppuccin-theme
   :ensure t
-  :defer t
   :init
   (load-theme 'catppuccin :no-confirm)
   )
@@ -766,6 +728,7 @@
           dired-listing-switches "-aBhl --group-directories-first"))
   (setq dirvish-attributes'(vc-state subtree-state nerd-icons git-msg file-time file-size))
   (setq dirvish-default-layout '(0 0.4 0.6))
+  (setq dirvish-yank-rsync-args '("--archive" "--verbose" "--compress" "--info=progress2" "--partial"))
   (general-define-key
    :prefix "SPC"
    :keymaps 'override
@@ -904,17 +867,18 @@
            :desc "Jump to references"                    "g i"   #'lsp-find-implementation
            :desc "Jump to references"                    "g D"   #'lsp-find-declarations)
   :defer t
+  :custom
+  (lsp-completion-provider :none) ;; we use Corfu!
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands (lsp lsp-deferred)
   :init
   (defun my/lsp-mode-setup-completion ()
     (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-          '(flex))) ;; Configure flex
+          '(orderless))) ;; Configure orderless
   :hook
   (lsp-completion-mode . my/lsp-mode-setup-completion)
   :config
-  (setq lsp-completion-provider nil)
   (setq lsp-warn-no-matched-clients nil))
 
 ;; optionally
@@ -986,7 +950,6 @@
   (use-package mu4e
     :ensure nil
     :after org
-    :load-path  "/opt/homebrew/share/emacs/site-lisp/mu/mu4e/"
     :config
     (setq sendmail-program (executable-find "msmtp")
           send-mail-function #'smtpmail-send-it
@@ -1083,10 +1046,6 @@
  :keymaps '(normal insert emacs)
  "C-=" #'global-text-scale-adjust)
 
-
-(use-package ox-jira
-  :ensure t
-  :after org)
 
 (use-package org-modern
   :ensure t
