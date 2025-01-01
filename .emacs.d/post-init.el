@@ -237,7 +237,12 @@
   (setq vterm-timer-delay 0.01))
 (use-package multi-vterm
   :ensure t
-  :after vterm)
+  :after vterm
+  :config
+  (evil-define-key 'normal vterm-mode-map (kbd ",c")       #'multi-vterm)
+  (evil-define-key 'normal vterm-mode-map (kbd ",n")       #'multi-vterm-next)
+  (evil-define-key 'normal vterm-mode-map (kbd ",p")       #'multi-vterm-prev)
+  )
 
 ;; Tip: You can remove the `vertico-mode' use-package and replace it
 ;;      with the built-in `fido-vertical-mode'.
