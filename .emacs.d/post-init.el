@@ -58,7 +58,7 @@
 (use-package seq :ensure `(seq :build ,(+elpaca-seq-build-steps)))
 
 (use-package org
-  :defer t
+  :demand t
   :ensure t
   :general (:prefix "SPC m"
                     :states 'normal
@@ -271,10 +271,11 @@
   ;; to input multiple patterns separated by spaces, which Orderless then
   ;; matches in any order against the candidates.
   :ensure t
-  :custom
-  (completion-styles '(orderless partial-comletion basic))
-  (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles basic partial-completion)))))
+  :init
+  (setq completion-styles '(orderless partial-completion basic)
+        completion-category-defaults nil
+        completion-category-overrides nil))
+
 
 (use-package marginalia
   ;; Marginalia allows Embark to offer you preconfigured actions in more contexts.
@@ -1037,9 +1038,9 @@
                 #+end_signature")))
 
 
-(add-hook 'conf-mode-hook #'flymake-mode-on)
-(add-hook 'prog-mode-hook #'flymake-mode-on)
-(add-hook 'text-mode-hook #'flymake-mode-on)
+(add-hook 'conf-mode-hook #'flymake-mode)
+(add-hook 'prog-mode-hook #'flymake-mode)
+(add-hook 'text-mode-hook #'flymake-mode)
 
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 (add-hook 'text-mode-hook #'display-line-numbers-mode)
@@ -1316,6 +1317,7 @@
  :states 'normal
  :keymaps 'override
  :desc "toggle code wrapping"              "w"   #'visual-line-mode
+ :desc "toggle flymake"              "f"   #'flymake-mode
  )
 
 (general-define-key
