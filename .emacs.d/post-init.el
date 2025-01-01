@@ -714,6 +714,7 @@
            "F"   #'dirvish-file-info-menu
            "p"   #'dirvish-rsync
            "/"   #'dirvish-narrow
+           "W"   #'wdired-change-to-wdired-mode
            "u"   #'dired-undo
            "U"   #'dired-unmark
            "C-n"   #'dired-next-line
