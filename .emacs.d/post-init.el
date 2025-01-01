@@ -838,10 +838,6 @@
 (use-package magit
   :ensure t
   :after transient
-  :general (:prefix "SPC"
-                    :keymaps 'override
-                    :states 'normal
-                    "g g" #'magit)
   )
 
 (use-package magit-todos
@@ -1288,6 +1284,13 @@
  "f F" #'switch-to-buffer-other-frame
  "f W" #'switch-to-buffer-other-window
  )
+
+(general-define-key :prefix "SPC g"
+                    :keymaps 'override
+                    :states 'normal
+                    "g" #'magit
+                    "t" #'git-timemachine
+                    )
 
 (general-define-key
  :prefix "SPC o"
