@@ -878,14 +878,13 @@
   :custom
   (lsp-completion-provider :none) ;; we use Corfu!
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+         (lsp-completion-mode . my/lsp-mode-setup-completion)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands (lsp lsp-deferred)
   :init
   (defun my/lsp-mode-setup-completion ()
     (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
           '(orderless))) ;; Configure orderless
-  :hook
-  (lsp-completion-mode . my/lsp-mode-setup-completion)
   :config
   (setq lsp-warn-no-matched-clients nil))
 
@@ -1382,8 +1381,7 @@
   :defer t)
 
 (use-package lsp-nix
-  :ensure lsp-mode
-  :after (lsp-mode)
+  :after lsp-mode
   :demand t
   :custom
   (lsp-nix-nil-formatter ["nixfmt"]))
