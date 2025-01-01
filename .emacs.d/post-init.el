@@ -1050,7 +1050,7 @@
 (add-hook 'text-mode-hook #'display-line-numbers-mode)
 
 (add-to-list 'default-frame-alist
-             '(font . "Iosevka:pixelsize=20:foundry=UKWN:weight=medium:slant=normal:width=normal:spacing=90:scalable=true
+             '(font . "Iosevka:pixelsize=18:weight=regular:slant=normal:width=normal:spacing=100:scalable=true
 "))
 
 
@@ -1386,8 +1386,8 @@
   :defer t)
 
 (use-package lsp-nix
+  :ensure nil
   :after lsp-mode
-  :demand t
   :custom
   (lsp-nix-nil-formatter ["nixfmt"]))
 
