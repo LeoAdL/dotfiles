@@ -1,6 +1,4 @@
 ;;; pre-init.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
-(setq package-enable-at-startup nil
-      minimal-emacs-package-initialize-and-refresh nil)
 
 (defvar elpaca-installer-version 0.8)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))

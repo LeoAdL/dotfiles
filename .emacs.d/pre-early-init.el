@@ -6,3 +6,5 @@
 (setq custom-file null-device)
 
 (setenv "LSP_USE_PLISTS" "true")
+
+(setq minimal-emacs-package-initialize-and-refresh nil)
