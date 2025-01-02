@@ -34,6 +34,7 @@
 ;; sessions. It saves the history of inputs in the minibuffer, such as commands,
 ;; search strings, and other prompts, to a file. This allows users to retain
 ;; their minibuffer history across Emacs restarts.
+(add-hook 'elpaca-after-init-hook #'savehist-mode)
 
 ;; save-place-mode enables Emacs to remember the last location within a file
 ;; upon reopening. This feature is particularly beneficial for resuming work at
@@ -239,6 +240,7 @@
   :ensure t
   :after vterm
   :config
+  (setq vterm-keymap-exceptions nil)
   (evil-define-key 'normal vterm-mode-map (kbd ",c")       #'multi-vterm)
   (evil-define-key 'normal vterm-mode-map (kbd ",n")       #'multi-vterm-next)
   (evil-define-key 'normal vterm-mode-map (kbd ",p")       #'multi-vterm-prev)
@@ -276,7 +278,7 @@
   ;; to input multiple patterns separated by spaces, which Orderless then
   ;; matches in any order against the candidates.
   :ensure t
-  :init
+  :config
   (setq completion-styles '(orderless partial-completion basic)
         completion-category-defaults nil
         completion-category-overrides nil))
@@ -309,11 +311,10 @@
    ("C-;" . embark-dwim)        ;; good alternative: M-.
    ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
 
-  :init
-  (setq prefix-help-command #'embark-prefix-help-command)
 
   :config
   ;; Hide the mode line of the Embark live/completions buffers
+  (setq prefix-help-command #'embark-prefix-help-command)
   (add-to-list 'display-buffer-alist
                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
                  nil
@@ -384,11 +385,11 @@
   ;; Optionally tweak the register preview window.
   (advice-add #'register-preview :override #'consult-register-window)
 
+
+  :config
   ;; Use Consult to select xref locations with preview
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
-
-  :config
   (consult-customize
    consult-theme :preview-key '(:debounce 0.2 any)
    consult-ripgrep consult-git-grep consult-grep
@@ -428,6 +429,7 @@
 
 (use-package consult-dir
   :ensure t
+  :defer t
   :general (:prefix "SPC"
                     :keymaps 'override
                     :states 'normal
@@ -449,8 +451,8 @@
   (evil-mode 1))
 
 (use-package evil-collection
-  :after evil
   :ensure t
+  :after evil
   :config
   (evil-collection-init)
   )
@@ -460,6 +462,7 @@
 
 (use-package evil-goggles
   :ensure t
+  :after evil
   :config
   (evil-goggles-mode)
 
@@ -472,7 +475,7 @@
 (use-package evil-anzu
   :after evil
   :ensure (evil-anzu :type git :host github :repo "emacsorphanage/evil-anzu")
-  :init
+  :config
   (global-anzu-mode)
   )
 
@@ -483,16 +486,19 @@
 (use-package evil-vimish-fold
   :ensure t
   :after vimish-fold
-  :init
+  :config
   (global-evil-vimish-fold-mode 1)
   )
 
 (use-package visual-fill-column
+  :defer t
   :ensure t)
 
 (use-package ibuffer-vc
+  :defer t
   :ensure t
   )
+
 (use-package undo-fu
   :ensure t
   :commands (undo-fu-only-undo
@@ -607,6 +613,7 @@
 
 (use-package cape-keyword
   :ensure (cape-keyword :type git :host github :repo "minad/cape")
+  :defer t
   :config
   (add-to-list 'cape-keyword-list '(q-mode
                                     "abs" "cor" "ej" "gtime" "like" "mins" "prev" "scov" "system" "wavg" "acos" "cos" "ema" "hclose" "lj" "ljf" "mmax" "prior" "sdev" "tables" "where" "aj" "aj0" "count" "enlist" "hcount" "load" "mmin" "rand" "select" "tan" "while" "ajf" "ajf0" "cov" "eval" "hdel" "log" "mmu" "rank" "set" "til" "within" "all" "cross" "except" "hopen" "lower" "mod" "ratios" "setenv" "trim" "wj" "wj1" "and" "csv" "exec" "hsym" "lsq" "msum" "raze" "show" "type" "wsum" "any" "cut" "exit" "iasc" "ltime" "neg" "read0" "signum" "uj" "ujf" "xasc" "asc" "delete" "exp" "idesc" "ltrim" "next" "read1" "sin" "ungroup" "xbar" "asin" "deltas" "fby" "if" "mavg" "not" "reciprocal" "sqrt" "union" "xcol" "asof" "desc" "fills" "ij" "ijf" "max" "null" "reval" "ss" "update" "xcols" "atan" "dev" "first" "in" "maxs" "or" "reverse" "ssr" "upper" "xdesc" "attr" "differ" "fkeys" "insert" "mcount" "over" "rload" "string" "upsert" "xexp" "avg" "distinct" "flip" "inter" "md5" "parse" "rotate" "sublist" "value" "xgroup" "avgs" "div" "floor" "inv" "mdev" "peach" "rsave" "sum" "var" "xkey" "bin" "binr" "do" "get" "key" "med" "pj" "rtrim" "sums" "view" "xlog" "ceiling" "dsave" "getenv" "keys" "meta" "prd" "save" "sv" "views" "xprev" "cols" "each" "group" "last" "min" "prds" "scan" "svar" "vs" "xrank" ".Q.ajf0" ".Q.sx" ".Q.k" ".Q.K" ".Q.host" ".Q.addr" ".Q.gc" ".Q.ts" ".Q.gz" ".Q.w" ".Q.res" ".Q.addmonths" ".Q.f" ".Q.fmt" ".Q.ff" ".Q.fl" ".Q.opt" ".Q.def" ".Q.ld" ".Q.qt" ".Q.v" ".Q.qp" ".Q.V" ".Q.ft" ".Q.ord" ".Q.nv" ".Q.tx" ".Q.tt" ".Q.fk" ".Q.t" ".Q.ty" ".Q.nct" ".Q.fu" ".Q.fc" ".Q.A" ".Q.a" ".Q.n" ".Q.nA" ".Q.an" ".Q.b6" ".Q.Aa" ".Q.unm" ".Q.id" ".Q.j10" ".Q.x10" ".Q.j12" ".Q.x12" ".Q.btoa" ".Q.sha1" ".Q.prf0" ".Q.objp" ".Q.lo" ".Q.l" ".Q.sw" ".Q.tab" ".Q.t0" ".Q.s1" ".Q.s2" ".Q.S" ".Q.s" ".Q.hap" ".Q.hmb" ".Q.hg" ".Q.hp" ".Q.a1" ".Q.a0" ".Q.IN" ".Q.qa" ".Q.qb" ".Q.vt" ".Q.bvfp" ".Q.bvi" ".Q.bv" ".Q.sp" ".Q.pm" ".Q.pt" ".Q.MAP" ".Q.dd" ".Q.d0" ".Q.p1" ".Q.p2" ".Q.p" ".Q.view" ".Q.jp" ".Q.rp" ".Q.fobj" ".Q.L1" ".Q.L" ".Q.li" ".Q.cn" ".Q.pcnt" ".Q.dt" ".Q.ind" ".Q.fp" ".Q.foo" ".Q.a2" ".Q.qd" ".Q.xy" ".Q.x1" ".Q.x0" ".Q.x2" ".Q.ua" ".Q.q0" ".Q.qe" ".Q.ps" ".Q.enxs" ".Q.enx" ".Q.en" ".Q.ens" ".Q.par" ".Q.dpts" ".Q.dpt" ".Q.dpfts" ".Q.dpft" ".Q.hdpf" ".Q.fsn" ".Q.fs" ".Q.fpn" ".Q.fps" ".Q.dsftg" ".Q.M" ".Q.chk" ".Q.Ll" ".Q.Lp" ".Q.Lx" ".Q.Lu" ".Q.Ls" ".Q.fqk" ".Q.fql" ".Q.btx" ".Q.bt" ".Q.sbt" ".Q.trp" ".Q.trpd" ".Q.dr" ".Q.dw" ".Q.pl0" ".Q.pl" ".Q.jl8" ".Q.srr" ".Q.prr" ".Q.lu" ".Q.DL" ".Q.dbg" ".Q.err" ".Q.BP" ".Q.bp" ".Q.bs" ".Q.bu" ".Q.bd" ".Q.bc" ".h.htc" ".h.hta" ".h.htac" ".h.ha" ".h.hb" ".h.pre" ".h.xmp" ".h.d" ".h.cd" ".h.td" ".h.hc" ".h.xs" ".h.xd" ".h.ex" ".h.iso8601" ".h.eb" ".h.es" ".h.ed" ".h.edsn" ".h.ec" ".h.tx" ".h.xt" ".h.ka" ".h.c0" ".h.c1" ".h.logo" ".h.sa" ".h.html" ".h.sb" ".h.fram" ".h.jx" ".h.uh" ".h.sc" ".h.hug" ".h.hu" ".h.ty" ".h.hnz" ".h.hn" ".h.HOME" ".h.hy" ".h.hp" ".h.he" ".h.val" ".h.br" ".h.hr" ".h.nbr" ".h.code" ".h.http" ".h.text" ".h.data" ".h.ht" ".j.e" ".j.q" ".j.s" ".j.es" ".j.J" ".j.k" ".j.jd" ".j.j"
@@ -617,18 +624,16 @@
   :defer t
   :commands (cape-dabbrev cape-file cape-elisp-block)
   :bind ("C-c p" . cape-prefix-map)
+  :config
+  (setq cape-dabbrev-min-length 2)
   :init
   ;; Add to the global default value of `completion-at-point-functions' which is
   ;; used by `completion-at-point'.
-  (setq cape-dabbrev-min-length 2)
-
   (add-hook 'completion-at-point-functions #'cape-history)
   (add-hook 'completion-at-point-functions #'cape-file)
   (add-hook 'completion-at-point-functions #'cape-keyword)
   (add-hook 'completion-at-point-functions #'cape-dabbrev)
   )
-;; Hide warnings and display only errors
-(setq warning-minimum-level :error)
 
 (use-package nerd-icons-corfu
   :ensure t
@@ -661,7 +666,7 @@
 
 (use-package which-key
   :ensure t
-  :init
+  :config
   (which-key-mode))
 
 ;; Configure Emacs to ask for confirmation before exiting
@@ -697,13 +702,14 @@
 
 (use-package catppuccin-theme
   :ensure t
-  :init
+  :demand t
+  :config
   (load-theme 'catppuccin :no-confirm)
   )
 
 (use-package dirvish
   :ensure t
-  :defer t
+  :after evil
   :init
   (dirvish-override-dired-mode)
   :general
@@ -811,9 +817,8 @@
 (use-package ligature
   :ensure t
   :defer t
-  :init
-  (global-ligature-mode +1)
   :config
+  (global-ligature-mode +1)
   ;; Enable all Iosevka ligatures in programming modes
   (ligature-set-ligatures 'prog-mode '("<---" "<--"  "<<-" "<-" "->" "-->" "--->" "<->" "<-->" "<--->" "<---->" "<!--"
                                        "<==" "<===" "<=" "=>" "=>>" "==>" "===>" ">=" "<=>" "<==>" "<===>" "<====>" "<!---"
@@ -827,9 +832,10 @@
   :ensure t
   :defer t
   :init
+  (global-diff-hl-mode +1)
   (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-  (global-diff-hl-mode +1)
+  :config
   (diff-hl-margin-mode))
 
 (use-package transient
@@ -838,13 +844,14 @@
 
 (use-package magit
   :ensure t
+  :defer t
   :after transient
   )
 
 (use-package magit-todos
   :ensure t
   :after magit
-  :init (magit-todos-mode 1))
+  :config (magit-todos-mode 1))
 
 (use-package git-timemachine
   :defer t
@@ -853,7 +860,7 @@
 (use-package flymake-popon
   :after flymake
   :ensure t
-  :init
+  :config
   (global-flymake-popon-mode +1))
 
 (use-package flymake-vale
@@ -894,7 +901,10 @@
 (use-package lsp-ui
   :after lsp
   :ensure t
-  :commands lsp-ui-mode)
+  :commands lsp-ui-mode
+  :general
+  ([remap xref-find-apropos] #'lsp-ui-doc-glance)
+  )
 
 (use-package org-contrib
   :after org
@@ -1047,7 +1057,7 @@
 (add-hook 'text-mode-hook #'display-line-numbers-mode)
 
 (add-to-list 'default-frame-alist
-             '(font . "Iosevka:pixelsize=18:weight=regular:slant=normal:width=normal:spacing=100:scalable=true
+             '(font . "Iosevka Nerd Font:pixelsize=20:weight=regular:slant=normal:width=normal:spacing=0:scalable=true
 "))
 
 
@@ -1098,7 +1108,7 @@
                              :repo "tecosaur/org-pandoc-import"
                              :files ("*.el" "filters" "preprocessors"))
   :after org
-  :init
+  :config
   (org-pandoc-import-backend jira))
 
 (use-package q-mode
@@ -1133,7 +1143,7 @@
   :hook (text-mode . (lambda ()
                        (require 'lsp-ltex)
                        (lsp-deferred)))  ; or lsp-deferred
-  :init
+  :config
   (setq lsp-ltex-completion-enabled t)
   (setq lsp-ltex-version "16.0.0"))
 
@@ -1167,7 +1177,7 @@
   :config
   (sp-pair "`" "`"
            :actions '())
-  :init
+  :config
   (smartparens-global-mode +1)
   )
 
@@ -1189,8 +1199,6 @@
 
 (use-package savehist
   :ensure nil
-  :hook
-  (elpaca-after-init . savehist-mode)
   :config
   (add-to-list 'savehist-additional-variables 'kill-ring)
   (add-to-list 'savehist-additional-variables 'mark-ring)
@@ -1248,7 +1256,7 @@
 (use-package apheleia
   :ensure t
   :defer t
-  :init
+  :config
   (apheleia-global-mode +1))
 
 (use-package rainbow-delimiters
@@ -1317,7 +1325,7 @@
 
 (general-define-key
  :states 'normal
- "K" #'lsp-ui-doc-glance
+ "K" #'xref-find-apropos
  )
 
 (general-define-key
@@ -1346,6 +1354,16 @@
   ;; To disable collection of benchmark data after init is done.
   (add-hook 'after-init-hook 'benchmark-init/deactivate))
 
+(use-package dumb-jump
+  :ensure t
+  :defer t
+  :init
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+  (setq xref-show-definitions-function #'xref-show-definitions-completing-read)
+  :config
+  (setq dumb-jump-force-searcher 'rg)
+  )
+
 (setq user-full-name "Leo Aparisi de Lannoy")
 (setq treesit-font-lock-level 4)
 (setq auto-save-timeout 10)
@@ -1357,8 +1375,11 @@
 (setq display-line-numbers-type 'relative)
 (setq-default tab-width 4)
 (setq dired-vc-rename-file t)
-(setq xref-search-program 'ripgrep)
+(setq xref-search-program 'ripgrep
+      )
 (add-hook 'elpaca-after-init-hook (lambda () (tool-bar-mode 1) (tool-bar-mode 0)))
+
+(setq pixel-scroll-precision-use-momentum nil)
 
 (add-hook 'elpaca-after-init-hook (lambda () (server-start)
                                     (show-paren-mode +1)  ; Paren match highlighting
@@ -1370,7 +1391,8 @@
 (use-package recentf
   :ensure nil
   :defer t
-  :init
+  :config
+  (recentf-mode)
   (run-at-time nil 600 'recentf-save-list))
 
 (use-package pdf-tools
@@ -1385,7 +1407,7 @@
 (use-package saveplace-pdf-view
   :ensure t
   :after pdf-tools
-  :init
+  :config
   (save-place-mode 1)
   :defer t)
 
@@ -1398,13 +1420,3 @@
 (use-package nix-mode
   :hook (nix-mode . lsp-deferred)
   :ensure t)
-
-(use-package dumb-jump
-  :ensure t
-  :defer t
-  :init
-  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
-  :config
-  (setq xref-show-definitions-function #'xref-show-definitions-completing-read)
-  (setq dumb-jump-force-searcher 'rg)
-  )
