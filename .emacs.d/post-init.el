@@ -34,12 +34,25 @@
 ;; sessions. It saves the history of inputs in the minibuffer, such as commands,
 ;; search strings, and other prompts, to a file. This allows users to retain
 ;; their minibuffer history across Emacs restarts.
-(add-hook 'elpaca-after-init-hook #'savehist-mode)
 
 ;; save-place-mode enables Emacs to remember the last location within a file
 ;; upon reopening. This feature is particularly beneficial for resuming work at
 ;; the precise point where you previously left off.
 (add-hook 'elpaca-after-init-hook #'save-place-mode)
+
+(use-package doom-themes
+  :ensure t
+  :demand t
+  :config
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t
+        doom-themes-padded-modeline t)
+
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
 
 
 (use-package general :ensure (:wait t) :demand t
@@ -264,7 +277,7 @@
           (vertico-multiform-unobtrusive)))))
 
   (add-hook 'embark-collect-mode-hook #'+embark-live-vertico)
-  :hook (elpaca-after-init . vertico-mode))
+  :init (vertico-mode))
 
 (use-package nerd-icons-completion
   :after marginalia
@@ -278,10 +291,10 @@
   ;; to input multiple patterns separated by spaces, which Orderless then
   ;; matches in any order against the candidates.
   :ensure t
-  :config
-  (setq completion-styles '(orderless partial-completion basic)
-        completion-category-defaults nil
-        completion-category-overrides nil))
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles partial-completion)))))
 
 
 (use-package marginalia
@@ -291,7 +304,7 @@
   :ensure t
   :defer t
   :commands (marginalia-mode marginalia-cycle)
-  :hook (elpaca-after-init . marginalia-mode))
+  :init (marginalia-mode))
 
 (use-package embark
   ;; Embark is an Emacs package that acts like a context menu, allowing
@@ -311,10 +324,11 @@
    ("C-;" . embark-dwim)        ;; good alternative: M-.
    ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
 
+  :init
+  (setq prefix-help-command #'embark-prefix-help-command)
 
   :config
   ;; Hide the mode line of the Embark live/completions buffers
-  (setq prefix-help-command #'embark-prefix-help-command)
   (add-to-list 'display-buffer-alist
                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
                  nil
@@ -324,6 +338,7 @@
   :ensure t
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
+
 (use-package consult
   :ensure t
   :general (
@@ -385,11 +400,11 @@
   ;; Optionally tweak the register preview window.
   (advice-add #'register-preview :override #'consult-register-window)
 
-
-  :config
   ;; Use Consult to select xref locations with preview
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
+
+  :config
   (consult-customize
    consult-theme :preview-key '(:debounce 0.2 any)
    consult-ripgrep consult-git-grep consult-grep
@@ -512,8 +527,9 @@
 
 (use-package undo-fu-session
   :ensure t
-  :config
+  :init
   (undo-fu-session-global-mode)
+  :config
   (setq undo-fu-session-compression 'zst)
   )
 
@@ -533,7 +549,7 @@
 (use-package ts-fold
   :ensure (ts-fold :type git :host github :repo "emacs-tree-sitter/ts-fold")
   :after tree-sitter
-  :config
+  :init
   (global-ts-fold-mode +1))
 
 (use-package vdiff
@@ -553,7 +569,7 @@
   :ensure t
   :defer t
   :commands global-evil-visualstar-mode
-  :hook (elpaca-after-init . global-evil-visualstar-mode))
+  :init (global-evil-visualstar-mode))
 (use-package evil-surround
   :after evil
   :ensure t
@@ -571,7 +587,7 @@
 
      (?< . ("<" . ">"))
      (?> . ("<" . ">"))))
-  :hook (elpaca-after-init . global-evil-surround-mode))
+  :init (global-evil-surround-mode))
 (with-eval-after-load "evil"
   (evil-define-operator my-evil-comment-or-uncomment (beg end)
     "Toggle comment for the region between BEG and END."
@@ -581,17 +597,12 @@
 (use-package evil-snipe
   :defer t
   :commands evil-snipe-mode
-  :hook (elpaca-after-init . evil-snipe-mode))
+  :init (evil-snipe-mode))
 
 (use-package corfu
   :ensure t
   :defer t
   :commands (corfu-mode global-corfu-mode)
-
-  :hook ((prog-mode . corfu-mode)
-         (shell-mode . corfu-mode)
-         (eshell-mode . corfu-mode))
-
   :custom
   ;; Hide commands in M-x which do not apply to the current mode.
   (read-extended-command-predicate #'command-completion-default-include-p)
@@ -600,11 +611,14 @@
   (tab-always-indent 'complete)
 
   ;; Enable Corfu
+  :init
+  (global-corfu-mode +1)
   :config
   (setq corfu-auto-prefix 2)
+  (setq corfu-auto-delay 0.2)
   (setq corfu-quit-no-match t)
   (setq corfu-auto t)
-  (global-corfu-mode +1))
+  )
 
 (use-package org-block-capf
   :ensure (org-block-capf  :type git :host github :repo "xenodium/org-block-capf")
@@ -698,11 +712,11 @@
   ;;  '(mode-line-active ((t (:family "Iosevka" :height .9)))) ; For 29+
   ;;  '(mode-line-inactive ((t (:family "Iosevka" :height .9)))))
 
-  :hook (elpaca-after-init . doom-modeline-mode))
+  :init (doom-modeline-mode))
 
 (use-package catppuccin-theme
   :ensure t
-  :demand t
+  :after doom-themes
   :config
   (load-theme 'catppuccin :no-confirm)
   )
@@ -817,7 +831,7 @@
 (use-package ligature
   :ensure t
   :defer t
-  :config
+  :init
   (global-ligature-mode +1)
   ;; Enable all Iosevka ligatures in programming modes
   (ligature-set-ligatures 'prog-mode '("<---" "<--"  "<<-" "<-" "->" "-->" "--->" "<->" "<-->" "<--->" "<---->" "<!--"
@@ -1174,11 +1188,11 @@
 (use-package smartparens
   :ensure t
   :defer t
+  :init
+  (smartparens-global-mode +1)
   :config
   (sp-pair "`" "`"
            :actions '())
-  :config
-  (smartparens-global-mode +1)
   )
 
 (use-package easysession
@@ -1199,6 +1213,8 @@
 
 (use-package savehist
   :ensure nil
+  :init
+  (savehist-mode)
   :config
   (add-to-list 'savehist-additional-variables 'kill-ring)
   (add-to-list 'savehist-additional-variables 'mark-ring)
@@ -1256,7 +1272,7 @@
 (use-package apheleia
   :ensure t
   :defer t
-  :config
+  :init
   (apheleia-global-mode +1))
 
 (use-package rainbow-delimiters
@@ -1381,7 +1397,7 @@
 
 (setq pixel-scroll-precision-use-momentum nil)
 
-(add-hook 'elpaca-after-init-hook (lambda () (server-start)
+(add-hook 'elpaca-after-init-hook (lambda () 
                                     (show-paren-mode +1)  ; Paren match highlighting
                                     (winner-mode 1)
                                     (global-visual-line-mode +1)
@@ -1391,8 +1407,9 @@
 (use-package recentf
   :ensure nil
   :defer t
-  :config
+  :init
   (recentf-mode)
+  :config
   (run-at-time nil 600 'recentf-save-list))
 
 (use-package pdf-tools
