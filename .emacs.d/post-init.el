@@ -762,12 +762,13 @@
           dired-listing-switches "-aBhl --group-directories-first"))
   (setq dirvish-attributes'(vc-state subtree-state nerd-icons git-msg file-time file-size))
   (setq dirvish-default-layout '(0 0.4 0.6))
-  (setq dirvish-yank-rsync-args '("--archive" "--verbose" "--compress" "--info=progress2" "--partial"))
+  (setq dirvish-yank-rsync-args '("-s" "--archive" "--verbose" "--compress" "--info=progress2" "--partial"))
   (general-define-key
    :prefix "SPC"
    :keymaps 'override
    :states 'normal
    "." #'find-file)
+  (diff-hl-dired-mode +1)
   )
 
 
@@ -1416,6 +1417,9 @@
   :mode ("\\.pdf\\'" . pdf-view-mode)
   :magic ("%PDF" . pdf-view-mode)
   :ensure nil
+  :config
+  (setq pdf-view-display-size 'fit-page)
+
   :general
   ([remap pdf-view-midnight-minor-mode] #'pdf-view-themed-minor-mode
    )
