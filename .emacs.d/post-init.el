@@ -1,3 +1,4 @@
+
 ;;; post-init.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
 ;; Ensure Emacs loads the most recent byte-compiled files.
 ;; Ensure Emacs loads the most recent byte-compiled files.
@@ -162,11 +163,11 @@
   (setq org-preview-latex-image-directory "~/.cache/ltximg/")
   ;; ORG LATEX PREVIEW
   (setq org-startup-with-latex-preview t)
+  (setq org-preview-latex-default-process 'dvipng)
   (setq org-format-latex-options
         (plist-put org-format-latex-options :background "Transparent"))
   (setq org-format-latex-options
         (plist-put org-format-latex-options :scale 2))
-  (setq org-preview-latex-default-process 'dvipng)
   (setq
    org-agenda-files (list org-directory)                  ; Seems like the obvious place.
    org-use-property-inheritance t                         ; It's convenient to have properties inherited.
@@ -956,6 +957,9 @@
     :ensure nil
     :after org
     :config
+    (org-msg-mode +1)
+    (setq mail-user-agent 'mu4e-user-agent
+          message-mail-user-agent 'mu4e-user-agent)
     (setq sendmail-program (executable-find "msmtp")
           send-mail-function #'smtpmail-send-it
           message-sendmail-f-is-evil t
@@ -1017,22 +1021,21 @@
   ;;   :ensure (mu4e-compat :type git :host github :repo "tecosaur/mu4e-compat"))
 
   (use-package org-msg
-    :after (org mu4e)
-    :hook (mu4e-compose-mode . org-msg-edit-mode)
     :ensure t
+    :hook (mu4e-compose-mode . org-msg-edit-mode)
     :init
-    (setq mail-user-agent 'mu4e-user-agent)
-    :config
-    (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil tex:dvipng"
+    (setq org-html-with-latex 'dvipng)
+    (setq org-msg-options "html-postamble:nil toc:nil author:nil email:nil tex:dvipng"
           org-msg-startup "hidestars indent inlineimages"
           org-msg-greeting-name-limit 3
-          org-msg-default-alternatives '((new . (html))
-					                     (reply-to-html . (html)))
+          org-msg-default-alternatives '((new . (utf-8 html))
+                                         (reply-to-text . (utf-8))
+                                         (reply-to-html . (utf-8 html)))
           org-msg-convert-citation t
-          org-msg-signature "
-                #+begin_signature
-                Leo Aparisi de Lannoy
-                #+end_signature")))
+          org-msg-convert-citation t
+          org-msg-signature "#+begin_signature
+Leo Aparisi de Lannoy
+#+end_signature")))
 
 
 (add-hook 'conf-mode-hook #'flymake-mode)
@@ -1131,6 +1134,9 @@
   :hook (text-mode . (lambda ()
                        (require 'lsp-ltex)
                        (lsp-deferred)))  ; or lsp-deferred
+  (org-msg-mode . (lambda ()
+                    (require 'lsp-ltex)
+                    (lsp-deferred)))
   :init
   (setq lsp-ltex-completion-enabled t)
   (setq lsp-ltex-version "16.0.0"))
