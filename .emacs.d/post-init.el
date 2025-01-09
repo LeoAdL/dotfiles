@@ -1,13 +1,13 @@
 ;;; post-init.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
 ;; Ensure Emacs loads the most recent byte-compiled files.
-(use-package auto-compile
-  :ensure t
-  :demand t
-  :init
-  (auto-compile-on-load-mode)
-  (auto-compile-on-save-mode))
+;; Ensure Emacs loads the most recent byte-compiled files.
+(setq load-prefer-newer t)
 
-(setq use-package-compute-statistics t)
+;; Ensure JIT compilation is enabled for improved performance by
+;; native-compiling loaded .elc files asynchronously
+(setq native-comp-jit-compilation t)
+(setq native-comp-deferred-compilation t) ; Deprecated in Emacs > 29.1
+
 ;; (use-package compile-angel
 ;;   :ensure t
 ;;   :demand t
@@ -266,18 +266,7 @@
   :ensure t
   :defer t
   :commands vertico-mode
-  :config
-  (defun +embark-live-vertico ()
-    "Shrink Vertico minibuffer when `embark-live' is active."
-    (when-let (win (and (string-prefix-p "*Embark Live" (buffer-name))
-                        (active-minibuffer-window)))
-      (with-selected-window win
-        (when (and (bound-and-true-p vertico--input)
-                   (fboundp 'vertico-multiform-unobtrusive))
-          (vertico-multiform-unobtrusive)))))
-
-  (add-hook 'embark-collect-mode-hook #'+embark-live-vertico)
-  :init (vertico-mode))
+  :hook (elpaca-after-init . vertico-mode))
 
 (use-package nerd-icons-completion
   :after marginalia
@@ -304,14 +293,13 @@
   :ensure t
   :defer t
   :commands (marginalia-mode marginalia-cycle)
-  :init (marginalia-mode))
+  :hook (elpaca-after-init . marginalia-mode))
 
 (use-package embark
   ;; Embark is an Emacs package that acts like a context menu, allowing
   ;; users to perform context-sensitive actions on selected items
   ;; directly from the completion interface.
   :ensure t
-  :after vertico
   :defer t
   :commands (embark-act
              embark-dwim
@@ -413,33 +401,7 @@
    consult--source-recent-file consult--source-project-recent-file
    ;; :preview-key "M-."
    :preview-key '(:debounce 0.4 any))
-  (defun consult-ripgrep-up-directory ()
-    (interactive)
-    (let ((parent-dir (file-name-directory (directory-file-name default-directory))))
-      (when parent-dir
-        (run-at-time 0 nil
-                     #'consult-ripgrep
-                     parent-dir
-                     (ignore-errors
-                       (buffer-substring-no-properties
-                        (1+ (minibuffer-prompt-end)) (point-max))))))
-    (minibuffer-quit-recursive-edit))
-
-  (consult-customize
-   consult-ripgrep
-   :keymap (let ((map (make-sparse-keymap)))
-             (define-key map (kbd "M-l") #'consult-ripgrep-up-directory)
-             map))
   (setq consult-narrow-key "<")
-  (defun consult--orderless-regexp-compiler (input type &rest _config)
-    (setq input (cdr (orderless-compile input)))
-    (cons
-     (mapcar (lambda (r) (consult--convert-regexp r type)) input)
-     (lambda (str) (orderless--highlight input t str))))
-
-  ;; OPTION 1: Activate globally for all consult-grep/ripgrep/find/...
-  (setq consult--regexp-compiler #'consult--orderless-regexp-compiler)
-
   )
 
 (use-package consult-dir
@@ -450,6 +412,8 @@
                     :states 'normal
                     "f d" #'consult-dir)
   )
+
+(setq evil-want-keybinding nil)
 
 (use-package evil
   :ensure t
@@ -955,7 +919,7 @@
 (use-package jupyter
   :defer t
   :ensure t
-  :config
+  :init
   (setq jupyter-use-zmq t
         jupyter-eval-use-overlays nil
         jupyter-eval-short-result-max-lines 0
@@ -1084,6 +1048,9 @@
 (use-package org-modern
   :ensure t
   :after org
+  :init
+  (add-hook 'org-mode-hook #'org-modern-mode)
+  (add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
   :config
   (setq org-modern-star '("◉" "○" "✸" "✿" "✤" "✜" "◆" "▶")
         org-modern-hide-stars nil
@@ -1093,13 +1060,12 @@
         org-modern-progress t
         org-modern-horizontal-rule t
         org-modern-keyword t))
-(add-hook 'org-mode-hook #'org-modern-mode)
-(add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
 
 (use-package org-superstar
   :after org
+  :init
+  (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
   :ensure t)
-(add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
 
 (use-package org-appear
   :ensure t
@@ -1158,7 +1124,7 @@
   :hook (text-mode . (lambda ()
                        (require 'lsp-ltex)
                        (lsp-deferred)))  ; or lsp-deferred
-  :config
+  :init
   (setq lsp-ltex-completion-enabled t)
   (setq lsp-ltex-version "16.0.0"))
 
@@ -1181,6 +1147,8 @@
 (use-package outline-indent
   :ensure t
   :defer t
+  :init
+  (outline-indent-minor-mode +1)
   :config
   (setq outline-indent-default-offset 4)
   (setq outline-indent-shift-width 4)
