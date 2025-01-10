@@ -9,6 +9,7 @@
 (setq native-comp-jit-compilation t)
 (setq native-comp-deferred-compilation t) ; Deprecated in Emacs > 29.1
 
+(setq use-package-compute-statistics t)
 ;; (use-package compile-angel
 ;;   :ensure t
 ;;   :demand t
