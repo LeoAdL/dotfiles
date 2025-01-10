@@ -42,13 +42,9 @@
 ;; the precise point where you previously left off.
 (add-hook 'elpaca-after-init-hook #'save-place-mode)
 
-(use-package exec-path-from-shell
-  :ensure t
-  :demand t
-  :config
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize))
-  )
+(setenv "PATH" (concat ":/Library/TeX/texbin/" (getenv "PATH")))
+(add-to-list 'exec-path "/Library/TeX/texbin/")
+
 (use-package doom-themes
   :ensure t
   :demand t
