@@ -1013,26 +1013,35 @@
     (corfu-mode +1)
     )
 
-  ;; (use-package mu4e-compat
-  ;;   :after mu4e
-  ;;   :ensure (mu4e-compat :type git :host github :repo "tecosaur/mu4e-compat"))
+  (use-package mu4e-compat
+    :after mu4e
+    :ensure (mu4e-compat :type git :host github :repo "tecosaur/mu4e-compat"))
 
   (use-package org-msg
     :ensure t
     :hook (mu4e-compose-mode . org-msg-edit-mode)
-    :init
-    (setq org-html-with-latex 'dvipng)
-    (setq org-msg-options "html-postamble:nil toc:nil author:nil email:nil tex:dvipng"
+    :config
+    (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil tex:dvipng"
           org-msg-startup "hidestars indent inlineimages"
           org-msg-greeting-name-limit 3
           org-msg-default-alternatives '((new . (utf-8 html))
                                          (reply-to-text . (utf-8))
                                          (reply-to-html . (utf-8 html)))
           org-msg-convert-citation t
-          org-msg-convert-citation t
           org-msg-signature "#+begin_signature
-Leo Aparisi de Lannoy
-#+end_signature")))
+  Leo Aparisi de Lannoy
+  #+end_signature"))
+  )
+
+(use-package org-mime
+  :ensure t
+  :after mu4e
+  :config
+  (setq org-mime-export-options '(:with-latex dvipng
+                                              :section-numbers nil
+                                              :with-author nil
+                                              :with-toc nil))
+  )
 
 
 (add-hook 'conf-mode-hook #'flymake-mode)
@@ -1131,9 +1140,9 @@ Leo Aparisi de Lannoy
   :hook (text-mode . (lambda ()
                        (require 'lsp-ltex)
                        (lsp-deferred)))  ; or lsp-deferred
-  (org-msg-mode . (lambda ()
-                    (require 'lsp-ltex)
-                    (lsp-deferred)))
+  (mu4e-compose-edit-mode . (lambda ()
+                              (require 'lsp-ltex)
+                              (lsp-deferred)))
   :init
   (setq lsp-ltex-completion-enabled t)
   (setq lsp-ltex-version "16.0.0"))
@@ -1380,7 +1389,6 @@ Leo Aparisi de Lannoy
                                     (show-paren-mode +1)  ; Paren match highlighting
                                     (winner-mode 1)
                                     (global-visual-line-mode +1)
-                                    (pixel-scroll-precision-mode 1)
                                     ))
 
 (use-package recentf
@@ -1419,3 +1427,11 @@ Leo Aparisi de Lannoy
 (use-package nix-mode
   :hook (nix-mode . lsp-deferred)
   :ensure t)
+
+(use-package ultra-scroll
+  :ensure (ultra-scroll :type git :host github :repo "jdtsmith/ultra-scroll")
+  :defer t  :init
+  (setq scroll-conservatively 101 ; important!
+        scroll-margin 0)
+  :config
+  (ultra-scroll-mode 1))
