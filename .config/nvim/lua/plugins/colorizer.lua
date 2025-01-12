@@ -1,10 +1,17 @@
 return {
-    { "NvChad/nvim-colorizer.lua",      config = true, opts = { user_default_options = { names = false } } },
-    { "nvim-tree/nvim-web-devicons" },
+    {
+        "catgoose/nvim-colorizer.lua",
+        event = "BufReadPre",
+        opts = { -- set to setup table
+        },
+    },
+    { "nvim-tree/nvim-web-devicons",    opts = {} },
     { "HiPhish/rainbow-delimiters.nvim" },
     {
         "lukas-reineke/indent-blankline.nvim",
-        lazy = false,
+        main = "ibl",
+        ---@module "ibl"
+        ---@type ibl.config
         config = function()
             local highlight = {
                 "RainbowRed",

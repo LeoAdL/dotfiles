@@ -2,6 +2,7 @@ return {
     {
         "catppuccin/nvim",
         enabled = true,
+        lazy = true,
         name = "catppuccin",
         priority = 1000,
         opts = {
@@ -46,6 +47,8 @@ return {
     },
     {
         "nvim-lualine/lualine.nvim",
+        lazy = true,
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
         opts = {
             theme = "catppuccin",
             sections = {
