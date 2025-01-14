@@ -7,9 +7,9 @@
 ;; Ensure JIT compilation is enabled for improved performance by
 ;; native-compiling loaded .elc files asynchronously
 (setq native-comp-jit-compilation t)
-(setq native-comp-deferred-compilation t) ; Deprecated in Emacs > 29.1
 
-(setq use-package-compute-statistics t)
+(add-to-list 'default-frame-alist
+             '(font . "Iosevka Nerd Font-20"))
 ;; (use-package compile-angel
 ;;   :ensure t
 ;;   :demand t
@@ -22,6 +22,7 @@
 ;;   (compile-angel-on-load-mode)
 ;;   (add-hook 'emacs-lisp-mode-hook #'compile-angel-on-save-local-mode))
 
+(setq use-package-compute-statistics t)
 ;; Auto-revert in Emacs is a feature that automatically updates the
 ;; contents of a buffer to reflect changes made to the underlying file
 ;; on disk.
@@ -515,12 +516,6 @@
         vundo-compact-display t)
   )
 
-(use-package ts-fold
-  :ensure (ts-fold :type git :host github :repo "emacs-tree-sitter/ts-fold")
-  :after tree-sitter
-  :init
-  (global-ts-fold-mode +1))
-
 (use-package vdiff
   :ensure t
   :defer t
@@ -587,6 +582,7 @@
   (setq corfu-auto-delay 0.2)
   (setq corfu-quit-no-match t)
   (setq corfu-auto t)
+  (setq corfu-preselect 'prompt)
   )
 
 (use-package org-block-capf
@@ -666,29 +662,29 @@
 
 (use-package doom-modeline
   :ensure t
-  :defer t
-  :config
+  :init
   (setq doom-modeline-hud t)
   (setq doom-modeline-unicode-fallback t)
   (setq find-file-visit-truename t)
   ;; (setq nerd-icons-scale-factor 1)
   ;; (setq doom-modeline-height 1) ; optional
   (setq doom-modeline-project-detection 'project)
-  (setq mode-line-right-align-edge 'right-fringe)
+  (setq mode-line-right-align-edge 'right-fringe))
 
-  ;; (custom-set-faces
-  ;;  '(mode-line ((t (:family "Iosevka" :height .9))))
-  ;;  '(mode-line-active ((t (:family "Iosevka" :height .9)))) ; For 29+
-  ;;  '(mode-line-inactive ((t (:family "Iosevka" :height .9)))))
-
-  :init (doom-modeline-mode))
+(add-hook 'elpaca-after-init-hook #'doom-modeline-mode)
 
 (use-package catppuccin-theme
   :ensure t
   :after doom-themes
   :config
+  (setq catppuccin-highlight-matches t)
   (load-theme 'catppuccin :no-confirm)
   )
+
+(use-package diredfl
+  :ensure t
+  :hook (dired-mode . diredfl-mode)
+  :hook (dirvish-directory-view-mode . diredfl-mode))
 
 (use-package dirvish
   :ensure t
@@ -819,8 +815,7 @@
   (global-diff-hl-mode +1)
   (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-  :config
-  (diff-hl-margin-mode))
+  )
 
 (use-package transient
   :ensure t
@@ -830,6 +825,8 @@
   :ensure t
   :defer t
   :after transient
+  :config
+  (setq magit-diff-refine-hunk t)
   )
 
 (use-package magit-todos
@@ -843,9 +840,8 @@
 
 (use-package flymake-popon
   :after flymake
-  :ensure t
-  :config
-  (global-flymake-popon-mode +1))
+  :hook (flymake-mode . flymake-popon-mode)
+  :ensure t)
 
 (use-package flymake-vale
   :ensure (flymake-vale :type git :host github :repo "tpeacock19/flymake-vale")
@@ -879,6 +875,7 @@
     (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
           '(orderless))) ;; Configure orderless
   :config
+  (setq lsp-enable-suggest-server-download nil)
   (setq lsp-warn-no-matched-clients nil))
 
 ;; optionally
@@ -895,7 +892,7 @@
   :ensure t)
 
 (use-package ox-clip
-  :after org
+  :after ox
   :ensure t)
 
 (use-package org-cliplink
@@ -935,14 +932,6 @@
 (use-package code-cells
   :defer t
   :ensure t)
-
-(use-package treesit-auto
-  :ensure t
-  :defer t
-  :after treesit
-  :config
-  (setq treesit-auto-install 'prompt
-        treesit-auto-mode t))
 
 (use-package evil-textobj-tree-sitter
   :after (evil treesit)
@@ -1051,11 +1040,6 @@
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 (add-hook 'text-mode-hook #'display-line-numbers-mode)
 
-(add-to-list 'default-frame-alist
-             '(font . "Iosevka Nerd Font:pixelsize=20:weight=regular:slant=normal:width=normal:spacing=0:scalable=true
-"))
-
-
 (general-define-key
  :keymaps '(normal insert emacs)
  "C-=" #'global-text-scale-adjust)
@@ -1104,7 +1088,7 @@
   :ensure (org-pandoc-import :type git :host github
                              :repo "tecosaur/org-pandoc-import"
                              :files ("*.el" "filters" "preprocessors"))
-  :after org
+  :after ox
   :config
   (org-pandoc-import-backend jira))
 
@@ -1204,6 +1188,8 @@
   :init
   (savehist-mode)
   :config
+  (setq savehist-save-minibuffer-history t
+        savehist-autosave-interval nil)
   (add-to-list 'savehist-additional-variables 'kill-ring)
   (add-to-list 'savehist-additional-variables 'mark-ring)
   (add-to-list 'savehist-additional-variables 'search-ring)
@@ -1279,7 +1265,7 @@
   )
 
 (use-package ox-pandoc
-  :after org
+  :after ox
   :ensure t)
 
 ;; (use-package solaire-mode
@@ -1383,8 +1369,6 @@
       )
 (add-hook 'elpaca-after-init-hook (lambda () (tool-bar-mode 1) (tool-bar-mode 0)))
 
-(setq pixel-scroll-precision-use-momentum nil)
-
 (add-hook 'elpaca-after-init-hook (lambda () 
                                     (show-paren-mode +1)  ; Paren match highlighting
                                     (winner-mode 1)
@@ -1395,9 +1379,7 @@
   :ensure nil
   :defer t
   :init
-  (recentf-mode)
-  :config
-  (run-at-time nil 600 'recentf-save-list))
+  (recentf-mode))
 
 (use-package pdf-tools
   :mode ("\\.pdf\\'" . pdf-view-mode)
@@ -1435,3 +1417,27 @@
         scroll-margin 0)
   :config
   (ultra-scroll-mode 1))
+
+(defun efs/display-startup-time ()
+  (message
+   "Emacs loaded in %s with %d garbage collections."
+   (format
+    "%.2f seconds"
+    (float-time
+     (time-subtract after-init-time before-init-time)))
+   gcs-done))
+
+
+(add-hook 'emacs-startup-hook #'efs/display-startup-time)
+(setq major-mode-remap-alist
+      '((yaml-mode . yaml-ts-mode)
+        (bash-mode . bash-ts-mode)
+        (js2-mode . js-ts-mode)
+        (typescript-mode . typescript-ts-mode)
+        (json-mode . json-ts-mode)
+        (css-mode . css-ts-mode)
+        (python-mode . python-ts-mode)))
+
+(use-package yaml-mode
+  :ensure t
+  :defer t)
