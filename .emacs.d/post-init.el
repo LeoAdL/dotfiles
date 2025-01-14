@@ -1368,6 +1368,7 @@
 (setq xref-search-program 'ripgrep
       )
 (add-hook 'elpaca-after-init-hook (lambda () (tool-bar-mode 1) (tool-bar-mode 0)))
+(setq after-make-frame-functions (lambda (x) (tool-bar-mode 1) (tool-bar-mode 0)))
 
 (add-hook 'elpaca-after-init-hook (lambda () 
                                     (show-paren-mode +1)  ; Paren match highlighting
