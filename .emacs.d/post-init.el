@@ -78,7 +78,6 @@
 (use-package seq :ensure `(seq :build ,(+elpaca-seq-build-steps)))
 
 (use-package org
-  :defer t
   :ensure t
   :demand t
   :general (:prefix "SPC m"
@@ -951,7 +950,6 @@
   (use-package mu4e
     :ensure nil
     :after org
-    :defer t
     :config
     (org-msg-mode +1)
     (setq mail-user-agent 'mu4e-user-agent
