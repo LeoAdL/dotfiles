@@ -78,7 +78,7 @@
 (use-package seq :ensure `(seq :build ,(+elpaca-seq-build-steps)))
 
 (use-package org
-  :demand t
+  :defer t
   :ensure t
   :general (:prefix "SPC m"
                     :states 'normal
@@ -423,6 +423,7 @@
 
 (use-package evil
   :ensure t
+  :defer t
   :init
   (setq evil-undo-system 'undo-fu)
   (setq evil-want-integration t)
@@ -623,6 +624,7 @@
 (use-package corfu-history
   :ensure (corfu-history :type git :host github :repo "minad/corfu")
   :hook (corfu-mode . corfu-history-mode)
+  :defer t
   :after savehist
   :init
   (add-to-list 'savehist-additional-variables 'corfu-history))
@@ -630,6 +632,7 @@
 (use-package corfu-popupinfo
   :ensure (corfu-popupinfo :type git :host github :repo "minad/corfu")
   :hook (corfu-mode . corfu-popupinfo-mode)
+  :defer t
   :config
   (setq corfu-popupinfo-delay '(0.5 . 1.0)))
 
@@ -645,6 +648,7 @@
 
 (use-package which-key
   :ensure t
+  :defer t
   :config
   (which-key-mode))
 
@@ -662,6 +666,7 @@
 
 (use-package doom-modeline
   :ensure t
+  :defer t
   :init
   (setq doom-modeline-hud t)
   (setq doom-modeline-unicode-fallback t)
@@ -675,6 +680,7 @@
 
 (use-package catppuccin-theme
   :ensure t
+  :defer t
   :after doom-themes
   :config
   (setq catppuccin-highlight-matches t)
@@ -683,12 +689,14 @@
 
 (use-package diredfl
   :ensure t
+  :defer t
   :hook (dired-mode . diredfl-mode)
   :hook (dirvish-directory-view-mode . diredfl-mode))
 
 (use-package dirvish
   :ensure t
   :after evil
+  :defer t
   :init
   (dirvish-override-dired-mode)
   :general
@@ -819,6 +827,7 @@
 
 (use-package transient
   :ensure t
+  :defer t
   :defer t)
 
 (use-package magit
@@ -942,6 +951,8 @@
   (use-package mu4e
     :ensure nil
     :after org
+    :defer t
+    :command mu4e
     :config
     (org-msg-mode +1)
     (setq mail-user-agent 'mu4e-user-agent
@@ -1004,10 +1015,12 @@
 
   (use-package mu4e-compat
     :after mu4e
+    :defer t
     :ensure (mu4e-compat :type git :host github :repo "tecosaur/mu4e-compat"))
 
   (use-package org-msg
     :ensure t
+    :after (org . mu4e)
     :hook (mu4e-compose-mode . org-msg-edit-mode)
     :config
     (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil tex:dvipng"
@@ -1024,7 +1037,7 @@
 
 (use-package org-mime
   :ensure t
-  :after mu4e
+  :after (mu4e . org)
   :config
   (setq org-mime-export-options '(:with-latex dvipng
                                               :section-numbers nil
@@ -1061,14 +1074,9 @@
         org-modern-horizontal-rule t
         org-modern-keyword t))
 
-(use-package org-superstar
-  :after org
-  :init
-  (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
-  :ensure t)
-
 (use-package org-appear
   :ensure t
+  :after org
   :hook (org-mode . org-appear-mode)
   :config
   (setq org-appear-autoemphasis t
@@ -1111,7 +1119,9 @@
   :hook ((csv-mode . csv-align-mode)
          (csv-mode . csv-header-line))
   )
+
 (use-package rainbow-csv
+  :defer t
   :ensure (rainbow-csv :type git :host github
                        :repo "emacs-vs/rainbow-csv")
   :hook ((csv-mode . rainbow-csv-mode)
@@ -1408,6 +1418,7 @@
   (lsp-nix-nil-formatter ["nixfmt"]))
 
 (use-package nix-mode
+  :defer t
   :hook (nix-mode . lsp-deferred)
   :ensure t)
 
