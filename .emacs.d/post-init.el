@@ -80,6 +80,7 @@
 (use-package org
   :defer t
   :ensure t
+  :demand t
   :general (:prefix "SPC m"
                     :states 'normal
                     :keymaps 'override
@@ -680,7 +681,6 @@
 
 (use-package catppuccin-theme
   :ensure t
-  :defer t
   :after doom-themes
   :config
   (setq catppuccin-highlight-matches t)
@@ -952,7 +952,6 @@
     :ensure nil
     :after org
     :defer t
-    :command mu4e
     :config
     (org-msg-mode +1)
     (setq mail-user-agent 'mu4e-user-agent
@@ -1020,7 +1019,7 @@
 
   (use-package org-msg
     :ensure t
-    :after (org . mu4e)
+    :after (org  mu4e)
     :hook (mu4e-compose-mode . org-msg-edit-mode)
     :config
     (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil tex:dvipng"
@@ -1037,7 +1036,7 @@
 
 (use-package org-mime
   :ensure t
-  :after (mu4e . org)
+  :after (mu4e  org)
   :config
   (setq org-mime-export-options '(:with-latex dvipng
                                               :section-numbers nil
