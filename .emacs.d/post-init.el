@@ -1450,3 +1450,6 @@
 (use-package yaml-mode
   :ensure t
   :defer t)
+
+(use-package emacs-everywhere
+  :ensure t)
