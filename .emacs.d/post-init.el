@@ -161,6 +161,7 @@
   (setq org-preview-latex-image-directory "~/.cache/ltximg/")
   ;; ORG LATEX PREVIEW
   (setq org-startup-with-latex-preview t)
+  (setq org-use-sub-superscripts "{}")
   (setq org-preview-latex-default-process 'dvipng)
   (setq org-format-latex-options
         (plist-put org-format-latex-options :background "Transparent"))
@@ -680,7 +681,7 @@
 
 (use-package catppuccin-theme
   :ensure t
-  :after doom-themes
+  :demand t
   :config
   (setq catppuccin-highlight-matches t)
   (load-theme 'catppuccin :no-confirm)
