@@ -1,10 +1,8 @@
 return {
     {
         "catppuccin/nvim",
-        enabled = true,
         lazy = true,
         name = "catppuccin",
-        priority = 1000,
         opts = {
             integrations = {
                 aerial = true,
@@ -12,6 +10,7 @@ return {
                 cmp = true,
                 dashboard = true,
                 flash = true,
+                fzf = true,
                 grug_far = true,
                 gitsigns = true,
                 headlines = true,
@@ -37,18 +36,18 @@ return {
                 noice = true,
                 notify = true,
                 semantic_tokens = true,
+                snacks = true,
                 telescope = true,
                 treesitter = true,
                 treesitter_context = true,
                 which_key = true,
             },
-        }
-
+        },
     },
     {
         "nvim-lualine/lualine.nvim",
         lazy = true,
-        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        event = "VeryLazy",
         opts = {
             theme = "catppuccin",
             sections = {

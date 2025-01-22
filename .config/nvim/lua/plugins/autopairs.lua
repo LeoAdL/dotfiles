@@ -1,5 +1,5 @@
 return {
-    'windwp/nvim-autopairs',
-    event = "InsertEnter",
-    opts = {} -- this is equalent to setup({}) function
+    "echasnovski/mini.pairs",
+    event = "VeryLazy",
+    opts = { markdown = true },
 }
