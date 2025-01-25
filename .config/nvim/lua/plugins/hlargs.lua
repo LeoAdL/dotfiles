@@ -1,9 +1,7 @@
 return {
     {
         "m-demare/hlargs.nvim",
-        config = function()
-            require("hlargs").setup()
-        end,
+        event = { "BufReadPost", "BufWritePost", "BufNewFile" },
         dependencies = { "nvim-treesitter/nvim-treesitter" },
         opts = {
             paint_catch_blocks = {
