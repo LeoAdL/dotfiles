@@ -1,21 +1,18 @@
 return {
     {
-        "williamboman/mason.nvim",
-        config = true,
-    },
-    {
-        "WhoIsSethDaniel/mason-tool-installer.nvim",
-        opts = { ensure_installed = { "selene" } },
-    },
-    {
-        "williamboman/mason-lspconfig.nvim",
-        config = true,
-    },
-    {
-        "barreiroleo/ltex_extra.nvim",
-    },
+            "williamboman/mason.nvim",
+        opts ={}},
     {
         "neovim/nvim-lspconfig",
+        event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+        dependencies = {
+            "williamboman/mason-lspconfig.nvim",
+            "barreiroleo/ltex_extra.nvim",
+            {
+                "WhoIsSethDaniel/mason-tool-installer.nvim",
+                opts = { ensure_installed = { "selene" } },
+            },
+        },
         opts = {
             -- options for vim.diagnostic.config()
             diagnostics = {

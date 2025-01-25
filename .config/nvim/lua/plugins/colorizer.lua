@@ -5,5 +5,8 @@ return {
         opts = { -- set to setup table
         },
     },
-    { "HiPhish/rainbow-delimiters.nvim" },
+    {
+        "HiPhish/rainbow-delimiters.nvim",
+        even = { "BufReadPost", "BufWritePost", "BufNewFile" },
+    },
 }

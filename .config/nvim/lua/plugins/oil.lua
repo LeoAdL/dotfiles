@@ -1,6 +1,7 @@
 return {
     {
         'stevearc/oil.nvim',
+        event = { "BufReadPost", "BufWritePost", "BufNewFile" },
         opts = {
             columns = {
                 "icon",

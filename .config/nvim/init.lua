@@ -1,7 +1,5 @@
 require("config.lazy")
 require("config/options")
-require("config/autocmds")
-require("config/keymaps")
 -- Setup lazy.nvim
 require("lazy").setup({
     spec = {
@@ -13,6 +11,8 @@ require("lazy").setup({
     -- automatically check for plugin updates
     checker = { enabled = true },
 })
+require("config/autocmds")
+require("config/keymaps")
 
 vim.cmd.colorscheme "catppuccin"
 vim.cmd.set "shortmess=I"

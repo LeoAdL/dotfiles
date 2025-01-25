@@ -1,6 +1,7 @@
 return {
     {
         "lervag/vimtex",
+        ft = "tex",
         enabled = true,
         config = function()
             vim.g.vimtex_complete_enabled = 0

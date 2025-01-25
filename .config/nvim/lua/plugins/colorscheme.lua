@@ -1,7 +1,8 @@
 return {
     {
         "catppuccin/nvim",
-        lazy = true,
+        lazy = false,
+        priority = 1000,
         name = "catppuccin",
         opts = {
             integrations = {
@@ -46,7 +47,6 @@ return {
     },
     {
         "nvim-lualine/lualine.nvim",
-        lazy = true,
         event = "VeryLazy",
         opts = {
             theme = "catppuccin",
