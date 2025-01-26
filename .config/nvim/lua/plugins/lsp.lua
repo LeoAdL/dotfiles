@@ -1,17 +1,35 @@
 return {
     {
-            "williamboman/mason.nvim",
-        opts ={}},
+        "williamboman/mason.nvim",
+        cmd = "Mason",
+        opts = {},
+    },
+    {
+        "williamboman/mason-lspconfig.nvim",
+        opts = {},
+    },
+    {
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
+        lazy = false,
+        opts = {
+            ensure_installed = {
+                "lua-language-server",
+                "beautysh",
+                "selene",
+                "marksman",
+                "shfmt",
+                "vale",
+                "yamlfmt",
+            },
+        },
+    },
     {
         "neovim/nvim-lspconfig",
         event = { "BufReadPost", "BufWritePost", "BufNewFile" },
         dependencies = {
+            "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
             "barreiroleo/ltex_extra.nvim",
-            {
-                "WhoIsSethDaniel/mason-tool-installer.nvim",
-                opts = { ensure_installed = { "selene" } },
-            },
         },
         opts = {
             -- options for vim.diagnostic.config()
@@ -23,6 +41,7 @@ return {
             },
             -- LSP Server Settings
             ---@type lspconfig.options
+            ---
             servers = {
                 texlab = {
                     settings = {
@@ -66,7 +85,7 @@ return {
                 marksman = {},
                 basedpyright = {
                 },
-                ltex = {
+                ltex_plus = {
                     filetypes = { 'bib', 'gitcommit', 'markdown', 'org', 'plaintex', 'rst', 'rnoweb', 'tex', 'pandoc', 'quarto', 'rmd', 'mail' },
 
                     on_attach = function(client, bufnr)
@@ -114,9 +133,6 @@ return {
         config = function(_, opts)
             local mason_lspconfig = require 'mason-lspconfig'
             local servers = opts.servers
-            -- mason_lspconfig.setup {
-            --     ensure_installed = vim.tbl_keys(servers),
-            -- }
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
             local handlers = { function(server_name)
