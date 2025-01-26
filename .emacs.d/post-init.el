@@ -654,15 +654,17 @@
   :ensure t
   :defer t
   :init
+  (doom-modeline-mode 1)
+  :config
   (setq doom-modeline-hud t)
   (setq doom-modeline-unicode-fallback t)
   (setq find-file-visit-truename t)
   ;; (setq nerd-icons-scale-factor 1)
   ;; (setq doom-modeline-height 1) ; optional
   (setq doom-modeline-project-detection 'project)
-  (setq mode-line-right-align-edge 'right-fringe))
+  (setq mode-line-right-align-edge 'right-fringe)
+  )
 
-(add-hook 'elpaca-after-init-hook #'doom-modeline-mode)
 
 (use-package catppuccin-theme
   :ensure t
@@ -674,8 +676,8 @@
 (use-package diredfl
   :ensure t
   :defer t
-  :hook (dired-mode . diredfl-mode)
-  :hook (dirvish-directory-view-mode . diredfl-mode))
+  :hook ((dired-mode . diredfl-mode) (dirvish-directory-view-mode . diredfl-mode))
+  )
 
 (use-package dirvish
   :ensure t
@@ -811,7 +813,6 @@
 
 (use-package transient
   :ensure t
-  :defer t
   :defer t)
 
 (use-package magit
@@ -832,7 +833,6 @@
   :ensure (git-timemachine :type git :host codeberg :repo "pidu/git-timemachine"))
 
 (use-package flymake-popon
-  :after flymake
   :hook (flymake-mode . flymake-popon-mode)
   :ensure t)
 
@@ -1261,6 +1261,7 @@
 ;; The package is young and doesn't have comprehensive coverage.
 (use-package tempel-collection
   :ensure t
+  :after tempel
   :defer t)
 
 (use-package apheleia
