@@ -3,8 +3,6 @@
 ;; Ensure Emacs loads the most recent byte-compiled files.
 (setenv "PATH" (concat ":/Library/TeX/texbin/" (getenv "PATH")))
 (add-to-list 'exec-path "/Library/TeX/texbin/")
-(setenv "PATH" (concat "/run/current-system/sw/bin" (getenv "PATH")))
-(add-to-list 'exec-path "/run/current-system/sw/bin")
 
 (setq load-prefer-newer t)
 
