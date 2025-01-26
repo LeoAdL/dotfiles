@@ -13,7 +13,7 @@
 (setq native-comp-jit-compilation t)
 
 (add-to-list 'default-frame-alist
-             '(font . "Iosevka Nerd Font-20"))
+             '(font . "Iosevka-20"))
 ;; (use-package compile-angel
 ;;   :ensure t
 ;;   :demand t
@@ -47,29 +47,13 @@
 ;; the precise point where you previously left off.
 (add-hook 'elpaca-after-init-hook #'save-place-mode)
 
-(setenv "PATH" (concat ":/Library/TeX/texbin/" (getenv "PATH")))
-(add-to-list 'exec-path "/Library/TeX/texbin/")
 
-(use-package doom-themes
-  :ensure t
-  :demand t
-  :config
-  ;; Global settings (defaults)
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-        doom-themes-enable-italic t
-        doom-themes-padded-modeline t)
-
-  ;; Enable flashing mode-line on errors
-  (doom-themes-visual-bell-config)
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config))
-
-
-(use-package general :ensure (:wait t) :demand t
+(use-package general :ensure (:wait t) 
   :config
   (general-auto-unbind-keys)
   (general-evil-setup)
   )
+
 (defun +elpaca-unload-seq (e)
   (and (featurep 'seq) (unload-feature 'seq t))
   (elpaca--continue-build e))
@@ -173,12 +157,9 @@
         (plist-put org-format-latex-options :scale 2))
   (setq
    org-agenda-files (list org-directory)                  ; Seems like the obvious place.
-   org-use-property-inheritance t                         ; It's convenient to have properties inherited.
    org-log-done 'time                                     ; Having the time a item is done sounds convenient.
    org-list-allow-alphabetical t                          ; Have a. A. a) A) list bullets.
-   org-catch-invisible-edits 'smart                       ; Try not to accidently do weird stuff in invisible regions.
    org-export-with-sub-superscripts '{}                   ; Don't treat lone _ / ^ as sub/superscripts, require _{} / ^{}.
-   org-export-allow-bind-keywords t                       ; Bind keywords can be handy
    org-image-actual-width '(0.9))
   (setq org-babel-default-header-args
         '((:session . "none")
@@ -428,7 +409,6 @@
 
 (use-package evil
   :ensure t
-  :defer t
   :init
   (setq evil-undo-system 'undo-fu)
   (setq evil-want-integration t)
@@ -476,7 +456,7 @@
 
 (use-package evil-vimish-fold
   :ensure t
-  :after vimish-fold
+  :after (evil vimish-fold)
   :config
   (global-evil-vimish-fold-mode 1)
   )
@@ -540,6 +520,7 @@
   :defer t
   :commands global-evil-visualstar-mode
   :init (global-evil-visualstar-mode))
+
 (use-package evil-surround
   :after evil
   :ensure t
@@ -564,8 +545,10 @@
     (interactive "<r>")
     (comment-or-uncomment-region beg end))
   (evil-define-key 'normal 'global (kbd "gc") 'my-evil-comment-or-uncomment))
+
 (use-package evil-snipe
   :defer t
+  :after evil
   :commands evil-snipe-mode
   :init (evil-snipe-mode))
 
@@ -685,7 +668,6 @@
 
 (use-package catppuccin-theme
   :ensure t
-  :demand t
   :config
   (setq catppuccin-highlight-matches t)
   (load-theme 'catppuccin :no-confirm)
@@ -856,17 +838,19 @@
   :hook (flymake-mode . flymake-popon-mode)
   :ensure t)
 
-(use-package flymake-vale
-  :ensure (flymake-vale :type git :host github :repo "tpeacock19/flymake-vale")
-  :defer t
-  :after flymake
-  :init
-  (add-hook 'text-mode-hook #'flymake-vale-load)
-  (add-hook 'latex-mode-hook #'flymake-vale-load)
-  (add-hook 'org-mode-hook #'flymake-vale-load)
-  (add-hook 'markdown-mode-hook #'flymake-vale-load)
-  (add-hook 'message-mode-hook #'flymake-vale-load)
-  )
+;; (use-package flymake-vale
+;;   :ensure (flymake-vale :type git :host github :repo "tpeacock19/flymake-vale")
+;;   :defer t
+;;   :after flymake
+;;   :init
+;;   (setq flymake-vale-program-args "--config=$HOME/.config/vale/.vale.ini")
+;;   (add-hook 'text-mode-hook #'flymake-vale-load)
+;;   (add-hook 'mu4e-compose-mode-hook #'flymake-vale-load)
+;;   (add-hook 'latex-mode-hook #'flymake-vale-load)
+;;   (add-hook 'org-mode-hook #'flymake-vale-load)
+;;   (add-hook 'markdown-mode-hook #'flymake-vale-load)
+;;   (add-hook 'message-mode-hook #'flymake-vale-load)
+;;   )
 
 (use-package lsp-mode
   :ensure t
@@ -888,6 +872,20 @@
     (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
           '(orderless))) ;; Configure orderless
   :config
+  (defcustom lsp-ltex-executable "ltex-ls-plus"
+    "Command to start the Ltex-Ls-Plus language server."
+    :group 'lsp-ltex
+    :risky t
+    :type 'file)
+
+  (lsp-register-client
+   (make-lsp-client
+    ;; instead of `:new-connection (lsp-stdio-connection lsp-ltex-executable)` use
+    :new-connection (lsp-stdio-connection (lambda () lsp-ltex-executable))
+    :activation-fn (lsp-activate-on "org" "mu4e-compose")
+    :priority -1
+    :server-id 'ltex-ls-plus))
+
   (setq lsp-enable-suggest-server-download nil)
   (setq lsp-warn-no-matched-clients nil))
 
@@ -900,9 +898,9 @@
   ([remap xref-find-apropos] #'lsp-ui-doc-glance)
   )
 
-(use-package org-contrib
-  :after org
-  :ensure t)
+;; (use-package org-contrib
+;;   :after org
+;;   :ensure t)
 
 (use-package ox-clip
   :after ox
@@ -918,7 +916,7 @@
 
 
 (use-package evil-org
-  :after (org)
+  :after (org evil)
   :ensure (evil-org :type git :host github :repo "Somelauw/evil-org-mode")
   :hook (org-mode . (lambda () evil-org-mode))
   :config
@@ -954,9 +952,10 @@
 (when (string= system-type "darwin")
   (use-package mu4e
     :ensure nil
+    :defer t
     :after org
+    :commands mu4e mu4e-compose-new
     :config
-    (org-msg-mode +1)
     (setq mail-user-agent 'mu4e-user-agent
           message-mail-user-agent 'mu4e-user-agent)
     (setq sendmail-program (executable-find "msmtp")
@@ -970,9 +969,11 @@
           mml-secure-openpgp-signers '("6A5C039B63B86AC6C5109955B57BA04FBD759C7F" "D1D9947126EE64AC7ED3950196F352393B5B3C2E")
           mml-secure-openpgp-sign-with-sender t
           mu4e-use-fancy-chars t                   ; allow fancy icons for mail threads
+          mu4e-notification-support t
           mu4e-change-filenames-when-moving t
+          mu4e-thread-mode t
           mu4e-index-lazy-check nil
-          mu4e-search-results-limit 300
+          mu4e-search-results-limit 100
           mu4e-context-policy 'pick-first ;; Always ask which context to use when composing a new mail
           mu4e-compose-context-policy 'ask ;; Always ask which context to use when composing a new mail
           mu4e-update-interval 60
@@ -981,16 +982,26 @@
           message-kill-buffer-on-exit t
           mu4e-headers-precise-alignment t
           mu4e-compose-complete-only-after "2015-01-01"
+          mu4e-headers-date-format "%d/%m/%y"
+          mu4e-headers-time-format "⧖ %H:%M"
           message-dont-reply-to-names #'mu4e-personal-or-alternative-address-p
           mu4e-bookmarks '((:name "Unread messages" :query "flag:unread AND maildir:/.*inbox/" :key 117)
                            (:name "Today's messages" :query "date:today..now AND maildir:/.*inbox/" :key 116)
-                           ("flag:flagged" "Flagged messages" 102)
+                           (:name "Flagged messages" :query "flag:flagged" :key 102)
                            (:name "Unified inbox" :query "maildir:/.*inbox/" :key 105)
                            (:name "Sent" :query "maildir:/.*Sent/" :key 115)
                            (:name "Drafts" :query "maildir:/.*Drafts/" :key 100)
                            (:name "Spam" :query "maildir:/.*Spam/ or maildir:/.*Junk/" :key 83)
                            (:name "Trash" :query "maildir:/.*Trash/" :key 84))
+          mu4e-read-option-use-builtin t
+          mu4e-completing-read-function 'completing-read
           mu4e-attachment-dir "~/Downloads"
+          mu4e-headers-thread-single-orphan-prefix '("─>" . "─▶")
+          mu4e-headers-thread-orphan-prefix        '("┬>" . "┬▶ ")
+          mu4e-headers-thread-connection-prefix    '("│ " . "│ ")
+          mu4e-headers-thread-first-child-prefix   '("├>" . "├▶")
+          mu4e-headers-thread-child-prefix         '("├>" . "├▶")
+          mu4e-headers-thread-last-child-prefix    '("└>" . "╰▶")
           mu4e-contexts
           `( ,(make-mu4e-context
                :name "Personal"
@@ -1009,10 +1020,7 @@
                         (user-mail-address . "leoaparisi@gmail.com")
                         (smtpmail-smtp-user     . "leoaparisi@gmail.com")
                         ( user-full-name	    . "Leo Aparisi de Lannoy" )))))
-    :init
     (add-hook 'completion-at-point-functions #'mu4e-complete-contact)
-    (corfu-mode -1)
-    (corfu-mode +1)
     )
 
   (use-package mu4e-compat
@@ -1020,33 +1028,35 @@
     :defer t
     :ensure (mu4e-compat :type git :host github :repo "tecosaur/mu4e-compat"))
 
-  (use-package org-msg
+  ;; (use-package org-msg
+  ;;   :ensure t
+  ;;   :after (org mu4e)
+  ;;   :config
+  ;;   (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil tex:dvipng"
+  ;;         org-msg-startup "hidestars indent inlineimages"
+  ;;         org-msg-greeting-name-limit 3
+  ;;         org-msg-default-alternatives '((new . (utf-8 html))
+  ;;                                        (reply-to-text . (utf-8))
+  ;;                                        (reply-to-html . (utf-8 html)))
+  ;;         org-msg-convert-citation t
+  ;;         org-msg-signature "#+begin_signature
+  ;; Leo Aparisi de Lannoy
+  ;; #+end_signature")
+  ;;   (org-msg-mode +1)
+  ;;   )
+
+  (use-package org-mime
     :ensure t
-    :after (org  mu4e)
-    :hook (mu4e-compose-mode . org-msg-edit-mode)
+    :after (mu4e)
     :config
-    (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil tex:dvipng"
-          org-msg-startup "hidestars indent inlineimages"
-          org-msg-greeting-name-limit 3
-          org-msg-default-alternatives '((new . (utf-8 html))
-                                         (reply-to-text . (utf-8))
-                                         (reply-to-html . (utf-8 html)))
-          org-msg-convert-citation t
-          org-msg-signature "#+begin_signature
-  Leo Aparisi de Lannoy
-  #+end_signature"))
+    (setq org-mime-library 'mml)
+    (setq org-mime-export-options '(:with-latex imagemagick
+                                                :section-numbers nil
+                                                :with-author nil
+                                                :with-toc nil))
+    (setq org-mime-debug t)
+    )
   )
-
-(use-package org-mime
-  :ensure t
-  :after (mu4e  org)
-  :config
-  (setq org-mime-export-options '(:with-latex dvipng
-                                              :section-numbers nil
-                                              :with-author nil
-                                              :with-toc nil))
-  )
-
 
 (add-hook 'conf-mode-hook #'flymake-mode)
 (add-hook 'prog-mode-hook #'flymake-mode)
@@ -1130,18 +1140,18 @@
          (tsv-mode . rainbow-csv-mode))
   )
 
-(use-package lsp-ltex
-  :after lsp-mode
-  :ensure t
-  :hook (text-mode . (lambda ()
-                       (require 'lsp-ltex)
-                       (lsp-deferred)))  ; or lsp-deferred
-  (mu4e-compose-edit-mode . (lambda ()
-                              (require 'lsp-ltex)
-                              (lsp-deferred)))
-  :init
-  (setq lsp-ltex-completion-enabled t)
-  (setq lsp-ltex-version "16.0.0"))
+;; (use-package lsp-ltex
+;;   :after lsp-mode
+;;   :ensure t
+;;   :hook (text-mode . (lambda ()
+;;                        (require 'lsp-ltex)
+;;                        (lsp-deferred)))  ; or lsp-deferred
+;;   (mu4e-compose-edit-mode . (lambda ()
+;;                               (require 'lsp-ltex)
+;;                               (lsp-deferred)))
+;;   :init
+;;   (setq lsp-ltex-completion-enabled t)
+;;   (setq lsp-ltex-version "16.0.0"))
 
 (use-package jinx
   :ensure nil
@@ -1379,7 +1389,7 @@
 (setq dired-vc-rename-file t)
 (setq xref-search-program 'ripgrep
       )
-(add-hook 'elpaca-after-init-hook (lambda () (tool-bar-mode 1) (tool-bar-mode 0)))
+(add-hook 'elpaca-after-init-hook (lambda () (tool-bar-mode 1) (tool-bar-mode 0)) (server-start))
 (setq after-make-frame-functions (lambda (x) (tool-bar-mode 1) (tool-bar-mode 0)))
 
 (add-hook 'elpaca-after-init-hook (lambda () 
