@@ -884,7 +884,7 @@
     :priority -1
     :server-id 'ltex-ls-plus))
 
-  (setq lsp-enable-suggest-server-download nil)
+  (setq lsp-enable-suggest-server-download t)
   (setq lsp-warn-no-matched-clients nil))
 
 ;; optionally
@@ -1388,10 +1388,11 @@
 (setq dired-vc-rename-file t)
 (setq xref-search-program 'ripgrep
       )
-(add-hook 'elpaca-after-init-hook (lambda () (tool-bar-mode 1) (tool-bar-mode 0)) (server-start))
+(add-hook 'elpaca-after-init-hook (lambda () (tool-bar-mode 1) (tool-bar-mode 0)) )
 (setq after-make-frame-functions (lambda (x) (tool-bar-mode 1) (tool-bar-mode 0)))
 
-(add-hook 'elpaca-after-init-hook (lambda () 
+(add-hook 'elpaca-after-init-hook (lambda ()
+                                    (server-start)
                                     (show-paren-mode +1)  ; Paren match highlighting
                                     (winner-mode 1)
                                     (global-visual-line-mode +1)
