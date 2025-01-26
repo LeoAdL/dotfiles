@@ -47,7 +47,6 @@ return {
     },
     {
         "nvim-lualine/lualine.nvim",
-        event = "VeryLazy",
         opts = {
             theme = "catppuccin",
             sections = {
