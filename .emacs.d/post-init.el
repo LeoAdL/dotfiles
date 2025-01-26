@@ -421,7 +421,7 @@
 
 (use-package evil-collection
   :ensure t
-  :after evil
+  :after (evil mu4e)
   :config
   (evil-collection-init)
   )
@@ -950,7 +950,7 @@
 (when (string= system-type "darwin")
   (use-package mu4e
     :ensure nil
-    :defer t
+    :demand t
     :after org
     :commands mu4e mu4e-compose-new
     :config
