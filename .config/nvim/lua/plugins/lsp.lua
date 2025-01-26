@@ -83,6 +83,7 @@ return {
                     },
                 },
                 marksman = {},
+                nil_ls = {},
                 basedpyright = {
                 },
                 ltex_plus = {
@@ -131,17 +132,15 @@ return {
             },
         },
         config = function(_, opts)
-            local mason_lspconfig = require 'mason-lspconfig'
             local servers = opts.servers
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-            local handlers = { function(server_name)
-                require('lspconfig')[server_name].setup {
+            for server in pairs(opts.servers) do
+                local server_opts = vim.tbl_deep_extend("force", {
                     capabilities = capabilities,
-                }
-            end,
-            }
-            mason_lspconfig.setup_handlers(handlers)
+                }, servers[server])
+                require("lspconfig")[server].setup(server_opts)
+            end
             vim.diagnostic.config(opts.diagnostics)
             vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })
             vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSignWarn' })
