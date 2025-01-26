@@ -5,6 +5,8 @@ return {
         event = "InsertEnter",
         dependencies = {
             { "iguanacucumber/mag-nvim-lsp", name = "cmp-nvim-lsp", opts = {} },
+            { "iguanacucumber/mag-buffer",   name = "cmp-buffer" },
+            { "iguanacucumber/mag-cmdline",  name = "cmp-cmdline" },
             "ray-x/cmp-treesitter",
             "onsails/lspkind.nvim",
             "saadparwaiz1/cmp_luasnip",
