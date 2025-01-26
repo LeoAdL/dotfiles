@@ -1,7 +1,6 @@
 return {
     'MagicDuck/grug-far.nvim',
     cmd = "GrugFar",
-    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     opts = {},
     keys = {
         {

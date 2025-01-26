@@ -1,7 +1,6 @@
 return {
     {
         'stevearc/oil.nvim',
-        event = { "BufReadPost", "BufWritePost", "BufNewFile" },
         opts = {
             columns = {
                 "icon",
@@ -11,6 +10,6 @@ return {
             }
         },
         -- Optional dependencies
-        dependencies = { { "echasnovski/mini.icons", opts = {} } },
+        dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
     }
 }
