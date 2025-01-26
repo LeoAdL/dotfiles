@@ -6,7 +6,7 @@
     "download_delay": true,
     "download_base_path": "~/tidal",
     "quality_audio": "HI_RES_LOSSLESS",
-    "quality_video": "480",
+    "quality_video": "360",
     "format_album": "Albums/{album_artist} - {album_title}{album_explicit}/{track_volume_num_optional}{album_track_num}. {artist_name} - {track_title}",
     "format_playlist": "Playlists/{playlist_name}/{artist_name} - {track_title}",
     "format_mix": "Mix/{mix_name}/{artist_name} - {track_title}",
