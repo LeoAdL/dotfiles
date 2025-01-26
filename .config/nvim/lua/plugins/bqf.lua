@@ -1,7 +1,6 @@
 return {
     {
         "kevinhwang91/nvim-bqf",
-        event = { "BufReadPost", "BufWritePost", "BufNewFile" },
         dependencies = {
             'junegunn/fzf',
         },
@@ -15,6 +14,9 @@ return {
         config = function()
             require('bqf').setup({ func_map = { fzffilter = "<C-f>", pscrolldown = "zf" } })
         end,
-        opts = { auto_resize_height = true, wrap = true }
+        opts = { auto_resize_height = true, wrap = true },
+        keys = {
+            { '<space>q', vim.diagnostic.setloclist, desc = "LSP loclist" }
+        }
     },
 }

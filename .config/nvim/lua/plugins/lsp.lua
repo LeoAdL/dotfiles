@@ -84,6 +84,7 @@ return {
                 },
                 marksman = {},
                 nil_ls = {},
+                ts_ls = {},
                 basedpyright = {
                 },
                 ltex_plus = {

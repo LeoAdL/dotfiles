@@ -1,6 +1,8 @@
 return {
     'fredeeb/tardis.nvim',
-    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     dependencies = { 'nvim-lua/plenary.nvim' },
-    opts = {}
+    opts = {},
+    keys = {
+        { "<leader>gt", "<cmd>Tardis<cr>", desc = "Timemachine" }
+    },
 }
