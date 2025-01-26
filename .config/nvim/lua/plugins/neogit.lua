@@ -5,10 +5,6 @@ return {
         dependencies = {
             "nvim-lua/plenary.nvim",  -- required
             "sindrets/diffview.nvim", -- optional - Diff integration
-
-            -- Only one of these is needed, not both.
-            "nvim-telescope/telescope.nvim", -- optional
-            -- "ibhagwan/fzf-lua",              -- optional
         },
         opt = {
             integrations = {
@@ -20,10 +16,6 @@ return {
                 -- Requires you to have `sindrets/diffview.nvim` installed.
                 diffview = true,
 
-                -- If enabled, uses fzf-lua for menu selection. If the telescope integration
-                -- is also selected then telescope is used instead
-                -- Requires you to have `ibhagwan/fzf-lua` installed.
-                telescope = true,
             },
         },
     },
