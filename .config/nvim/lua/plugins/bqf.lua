@@ -1,22 +1,37 @@
 return {
-    {
-        "kevinhwang91/nvim-bqf",
-        dependencies = {
-            'junegunn/fzf',
+    "folke/trouble.nvim",
+    opts = {}, -- for default options, refer to the configuration section for custom setup.
+    cmd = "Trouble",
+    keys = {
+        {
+            "<leader>xx",
+            "<cmd>Trouble diagnostics toggle<cr>",
+            desc = "Diagnostics (Trouble)",
         },
-        ft = "qf",
-        build = function()
-            if vim.loop.os_uname().sysname ~= 'Windows_NT'
-            then
-                vim.fn['fzf#install']()
-            end
-        end,
-        config = function()
-            require('bqf').setup({ func_map = { fzffilter = "<C-f>", pscrolldown = "zf" } })
-        end,
-        opts = { auto_resize_height = true, wrap = true },
-        keys = {
-            { '<space>q', vim.diagnostic.setloclist, desc = "LSP loclist" }
-        }
+        {
+            "<leader>xX",
+            "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+            desc = "Buffer Diagnostics (Trouble)",
+        },
+        {
+            "<leader>cs",
+            "<cmd>Trouble symbols toggle focus=false<cr>",
+            desc = "Symbols (Trouble)",
+        },
+        {
+            "<leader>cl",
+            "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+            desc = "LSP Definitions / references / ... (Trouble)",
+        },
+        {
+            "<leader>xL",
+            "<cmd>Trouble loclist toggle<cr>",
+            desc = "Location List (Trouble)",
+        },
+        {
+            "<leader>xQ",
+            "<cmd>Trouble qflist toggle<cr>",
+            desc = "Quickfix List (Trouble)",
+        },
     },
 }
