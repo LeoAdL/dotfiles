@@ -1,8 +1,6 @@
 ;;; post-init.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
 ;; Ensure Emacs loads the most recent byte-compiled files.
 ;; Ensure Emacs loads the most recent byte-compiled files.
-(setenv "PATH" (concat ":/Library/TeX/texbin/" (getenv "PATH")))
-(add-to-list 'exec-path "/Library/TeX/texbin/")
 
 (setq load-prefer-newer t)
 
@@ -1221,38 +1219,62 @@
   :defer t
   :hook (prog-mode . ws-butler-mode))
 
-(use-package yasnippet
-  :defer t
+
+;; Configure Tempel
+(use-package tempel
   :ensure t
-  :config
+  :defer t
+  ;; Require trigger prefix before template name when completing.
+  ;; :custom
+  ;; (tempel-trigger-prefix "<")
 
-  ;; HACK In case `+snippets-dir' and `doom-snippets-dir' are the same, or
-  ;;      duplicates exist in `yas-snippet-dirs'.
-  (advice-add #'yas-snippet-dirs :filter-return #'delete-dups)
-
-  (advice-add #'yas-expand :before #'sp-remove-active-pair-overlay)
-
-  ;; (Evil only) fix off-by-one issue with line-wise visual selections in
-  ;; `yas-insert-snippet', and switches to insert mode afterwards.
-  (advice-add #'yas-insert-snippet :around #'+snippets-expand-on-region-a)
-
-  ;; Show keybind hints in snippet header-line
-  (add-hook 'snippet-mode-hook #'+snippets-show-hints-in-header-line-h)
-  ;; Enable `read-only-mode' for built-in snippets (in `doom-local-dir')
-  (add-hook 'snippet-mode-hook #'+snippets-read-only-maybe-h)
+  :bind (("M-+" . tempel-complete) ;; Alternative tempel-expand
+         ("M-*" . tempel-insert))
 
   :init
-  (yas-global-mode +1))
 
-(use-package yasnippet-snippets
-  :ensure t
-  :after yasnippet)
+  ;; Setup completion at point
+  (defun tempel-setup-capf ()
+    ;; Add the Tempel Capf to `completion-at-point-functions'.
+    ;; `tempel-expand' only triggers on exact matches. Alternatively use
+    ;; `tempel-complete' if you want to see all matches, but then you
+    ;; should also configure `tempel-trigger-prefix', such that Tempel
+    ;; does not trigger too often when you don't expect it. NOTE: We add
+    ;; `tempel-expand' *before* the main programming mode Capf, such
+    ;; that it will be tried first.
+    (setq-local completion-at-point-functions
+                (cons #'tempel-expand
+                      completion-at-point-functions)))
 
-(use-package yasnippet-capf
+  (add-hook 'conf-mode-hook 'tempel-setup-capf)
+  (add-hook 'prog-mode-hook 'tempel-setup-capf)
+  (add-hook 'text-mode-hook 'tempel-setup-capf)
+
+  ;; Optionally make the Tempel templates available to Abbrev,
+  ;; either locally or globally. `expand-abbrev' is bound to C-x '.
+  ;; (add-hook 'prog-mode-hook #'tempel-abbrev-mode)
+  ;; (global-tempel-abbrev-mode)
+  )
+
+;; Optional: Add tempel-collection.
+;; The package is young and doesn't have comprehensive coverage.
+(use-package tempel-collection
   :ensure t
-  :after cape
+  :after tempel
+  :defer t)
+
+(use-package lsp-snippet-tempel
+  :ensure (lsp-snippet-tempel :type git
+                              :host github
+                              :repo "svaante/lsp-snippet")
+  :after lsp
   :config
-  (add-to-list 'completion-at-point-functions #'yasnippet-capf))
+  (when (featurep 'lsp-mode)
+    ;; Initialize lsp-snippet -> tempel in lsp-mode
+    (lsp-snippet-tempel-lsp-mode-init))
+  (when (featurep 'eglot)
+    ;; Initialize lsp-snippet -> tempel in eglot
+    (lsp-snippet-tempel-eglot-init)))
 
 (use-package apheleia
   :ensure t
@@ -1382,6 +1404,11 @@
 (setq after-make-frame-functions (lambda (x) (tool-bar-mode 1) (tool-bar-mode 0)))
 
 (add-hook 'elpaca-after-init-hook (lambda ()
+                                    (setenv "PATH"
+                                            (concat
+                                             "/Library/TeX/texbin/" path-separator
+                                             (getenv "PATH")))
+                                    (add-to-list 'exec-path "/Library/TeX/texbin/")
                                     (server-start)
                                     (show-paren-mode +1)  ; Paren match highlighting
                                     (winner-mode 1)
