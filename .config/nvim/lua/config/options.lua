@@ -5,7 +5,7 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
-vim.opt.conceallevel = 2                                    -- hide * markup for bold and italic
+vim.opt.conceallevel = 2 -- hide * markup for bold and italic
 vim.opt.autowrite = true
 vim.opt.autochdir = true
 vim.opt.confirm = true                                      -- Confirm to save changes before exiting modified buffer
@@ -20,11 +20,6 @@ vim.g.autoformat = true
 -- Make line numbers default
 vim.opt.number = true
 vim.opt.relativenumber = true
-
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
-vim.opt.clipboard = 'unnamedplus'
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -58,7 +53,6 @@ vim.opt.mouse = 'a'
 -- NOTE: You should make sure your terminal supports this
 vim.opt.termguicolors = true
 
-vim.wo.relativenumber = true
 vim.opt.tabstop = 4      -- A TAB character looks like 4 spaces
 vim.opt.expandtab = true -- Pressing the TAB key will insert spaces instead of a TAB character
 vim.opt.softtabstop = 4  -- Number of spaces inserted instead of a TAB character

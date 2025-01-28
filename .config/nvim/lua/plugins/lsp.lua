@@ -5,12 +5,8 @@ return {
         opts = {},
     },
     {
-        "williamboman/mason-lspconfig.nvim",
-        opts = {},
-    },
-    {
         "WhoIsSethDaniel/mason-tool-installer.nvim",
-        lazy = false,
+        cmd = "MasonToolsInstallSync",
         opts = {
             ensure_installed = {
                 "lua-language-server",
@@ -28,8 +24,7 @@ return {
         event = { "BufReadPost", "BufWritePost", "BufNewFile" },
         dependencies = {
             "williamboman/mason.nvim",
-            "williamboman/mason-lspconfig.nvim",
-            "barreiroleo/ltex_extra.nvim",
+            "saghen/blink.cmp"
         },
         opts = {
             -- options for vim.diagnostic.config()
@@ -90,24 +85,6 @@ return {
                 ltex_plus = {
                     filetypes = { 'bib', 'gitcommit', 'markdown', 'org', 'plaintex', 'rst', 'rnoweb', 'tex', 'pandoc', 'quarto', 'rmd', 'mail' },
 
-                    on_attach = function(client, bufnr)
-                        -- rest of your on_attach process.
-                        require("ltex_extra").setup {
-                            -- table <string> : languages for witch dictionaries will be loaded, e.g. { "es-AR", "en-US" }
-                            -- https://valentjn.github.io/ltex/supported-languages.html#natural-languages
-                            load_langs = { "en-US" }, -- en-US as default
-                            -- boolean : whether to load dictionaries on startup
-                            init_check = true,        -- string : relative or absolute path to store dictionaries
-                            -- e.g. subfolder in the project root or the current working directory: ".ltex"
-                            -- e.g. shared files for all projects:  vim.fn.expand("~") .. "/.local/share/ltex"
-                            path = "", -- project root or current working directory
-                            -- string : "none", "trace", "debug", "info", "warn", "error", "fatal"
-                            log_level = "none",
-                            -- table : configurations of the ltex language server.
-                            -- Only if you are calling the server from ltex_extra
-                            server_opts = nil
-                        }
-                    end,
                     settings = {
                         ltex = {
                             additionalRules = {
@@ -135,7 +112,7 @@ return {
         config = function(_, opts)
             local servers = opts.servers
             local capabilities = vim.lsp.protocol.make_client_capabilities()
-            capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+            local capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
             for server in pairs(opts.servers) do
                 local server_opts = vim.tbl_deep_extend("force", {
                     capabilities = capabilities,
