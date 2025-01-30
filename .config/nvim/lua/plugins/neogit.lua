@@ -2,8 +2,7 @@ return {
     {
         "NeogitOrg/neogit",
         dependencies = {
-            "nvim-lua/plenary.nvim",  -- required
-            "sindrets/diffview.nvim", -- optional - Diff integration
+            "nvim-lua/plenary.nvim", -- required
         },
         keys = {
             { "<leader>gg", "<cmd>Neogit<cr>", desc = "NeoGit" }
@@ -16,7 +15,6 @@ return {
                 -- The diffview integration enables the diff popup.
                 --
                 -- Requires you to have `sindrets/diffview.nvim` installed.
-                diffview = true,
 
             },
         },
