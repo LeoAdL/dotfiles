@@ -668,6 +668,7 @@
   :ensure t
   :config
   (setq catppuccin-highlight-matches t)
+  :init
   (load-theme 'catppuccin :no-confirm)
   )
 
