@@ -1,7 +1,12 @@
 ;;; post-init.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
 ;; Ensure Emacs loads the most recent byte-compiled files.
 ;; Ensure Emacs loads the most recent byte-compiled files.
-
+(use-package compile-angel
+  :ensure t
+  :demand t
+  :config
+  (compile-angel-on-load-mode)
+  (add-hook 'emacs-lisp-mode-hook #'compile-angel-on-save-local-mode))
 (setq load-prefer-newer t)
 
 ;; Ensure JIT compilation is enabled for improved performance by
@@ -589,7 +594,7 @@
   :commands (cape-dabbrev cape-file cape-elisp-block)
   :bind ("C-c p" . cape-prefix-map)
   :config
-  (setq cape-dabbrev-min-length 2)
+  (setq cape-dabbrev-min-length 1)
   :init
   ;; Add to the global default value of `completion-at-point-functions' which is
   ;; used by `completion-at-point'.
@@ -632,7 +637,6 @@
 
 (use-package which-key
   :ensure t
-  :defer t
   :config
   (which-key-mode))
 
