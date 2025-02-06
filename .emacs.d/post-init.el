@@ -147,10 +147,10 @@
   :config
   (setq org-directory "~/org/")
   (setq org-hide-emphasis-markers t)
+  (setq org-use-sub-superscripts "{}")
   (setq org-preview-latex-image-directory "~/.cache/ltximg/")
   ;; ORG LATEX PREVIEW
   (setq org-startup-with-latex-preview t)
-  (setq org-use-sub-superscripts "{}")
   (setq org-preview-latex-default-process 'dvipng)
   (setq org-format-latex-options
         (plist-put org-format-latex-options :background "Transparent"))
@@ -184,8 +184,11 @@
         "◀── now ─────────────────────────────────────────────────")
 
   (setq org-src-fontify-natively t
+        org-auto-align-tags nil
+        org-tags-column 0
         org-fontify-whole-heading-line t
         org-fontify-done-headline t
+        org-insert-heading-respect-content t
         org-fontify-quote-and-verse-blocks t
         org-startup-with-inline-images t
         org-startup-indented t
@@ -194,12 +197,8 @@
         org-hide-leading-stars t
         org-priority-highest ?A
         org-priority-lowest ?E
-        org-priority-faces
-        '((?A . 'nerd-icons-red)
-          (?B . 'nerd-icons-orange)
-          (?C . 'nerd-icons-yellow)
-          (?D . 'nerd-icons-green)
-          (?E . 'nerd-icons-blue)))
+        org-todo-keywords '((sequence "TODO" "DOING" "DONE"))
+        org-todo-keywords-for-agenda '((sequence "TODO" "DOING" "DONE")))
   (setq org-highlight-latex-and-related '(native script entities))
   (setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a.")))
   (setq org-capture-templates
@@ -211,12 +210,12 @@
            "* TODO %:fromname: %a %?\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))")
           ("c" "Contact" entry (file "~/org/contacts.org")
            "* %?
-:PROPERTIES:
-:ADDRESS:
-:BIRTHDAY:
-:EMAIL:
-:NOTE:
-:END:"
+ :PROPERTIES:
+ :ADDRESS:
+ :BIRTHDAY:
+ :EMAIL:
+ :NOTE:
+ :END:"
            :empty-lines 1)
           ("w" "Work")
           ("wp" "Phone Call" entry (file+olp+datetree "~/org/work.org") "* Phone call about %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i" :clock-in t)
@@ -263,6 +262,7 @@
 
 (use-package nerd-icons-completion
   :after marginalia
+  :defer t
   :ensure t
   :config
   (nerd-icons-completion-mode)
@@ -430,6 +430,7 @@
   )
 (use-package evil-args
   :ensure t
+  :defer t
   :after evil)
 
 (use-package evil-goggles
@@ -453,6 +454,7 @@
 
 (use-package vimish-fold
   :ensure t
+  :defer t
   :after evil )
 
 (use-package evil-vimish-fold
@@ -567,9 +569,16 @@
   ;; Enable Corfu
   :init
   (global-corfu-mode +1)
+  :bind
+  (:map corfu-map
+        ("TAB" . corfu-next)
+        ([tab] . corfu-next)
+        ("S-TAB" . corfu-previous)
+        ([backtab] . corfu-previous))
+
   :config
   (setq corfu-auto-prefix 2)
-  (setq corfu-auto-delay 0.2)
+  (setq corfu-auto-delay 0.1)
   (setq corfu-quit-no-match t)
   (setq corfu-auto t)
   (setq corfu-preselect 'prompt)
@@ -588,6 +597,7 @@
                                     "abs" "cor" "ej" "gtime" "like" "mins" "prev" "scov" "system" "wavg" "acos" "cos" "ema" "hclose" "lj" "ljf" "mmax" "prior" "sdev" "tables" "where" "aj" "aj0" "count" "enlist" "hcount" "load" "mmin" "rand" "select" "tan" "while" "ajf" "ajf0" "cov" "eval" "hdel" "log" "mmu" "rank" "set" "til" "within" "all" "cross" "except" "hopen" "lower" "mod" "ratios" "setenv" "trim" "wj" "wj1" "and" "csv" "exec" "hsym" "lsq" "msum" "raze" "show" "type" "wsum" "any" "cut" "exit" "iasc" "ltime" "neg" "read0" "signum" "uj" "ujf" "xasc" "asc" "delete" "exp" "idesc" "ltrim" "next" "read1" "sin" "ungroup" "xbar" "asin" "deltas" "fby" "if" "mavg" "not" "reciprocal" "sqrt" "union" "xcol" "asof" "desc" "fills" "ij" "ijf" "max" "null" "reval" "ss" "update" "xcols" "atan" "dev" "first" "in" "maxs" "or" "reverse" "ssr" "upper" "xdesc" "attr" "differ" "fkeys" "insert" "mcount" "over" "rload" "string" "upsert" "xexp" "avg" "distinct" "flip" "inter" "md5" "parse" "rotate" "sublist" "value" "xgroup" "avgs" "div" "floor" "inv" "mdev" "peach" "rsave" "sum" "var" "xkey" "bin" "binr" "do" "get" "key" "med" "pj" "rtrim" "sums" "view" "xlog" "ceiling" "dsave" "getenv" "keys" "meta" "prd" "save" "sv" "views" "xprev" "cols" "each" "group" "last" "min" "prds" "scan" "svar" "vs" "xrank" ".Q.ajf0" ".Q.sx" ".Q.k" ".Q.K" ".Q.host" ".Q.addr" ".Q.gc" ".Q.ts" ".Q.gz" ".Q.w" ".Q.res" ".Q.addmonths" ".Q.f" ".Q.fmt" ".Q.ff" ".Q.fl" ".Q.opt" ".Q.def" ".Q.ld" ".Q.qt" ".Q.v" ".Q.qp" ".Q.V" ".Q.ft" ".Q.ord" ".Q.nv" ".Q.tx" ".Q.tt" ".Q.fk" ".Q.t" ".Q.ty" ".Q.nct" ".Q.fu" ".Q.fc" ".Q.A" ".Q.a" ".Q.n" ".Q.nA" ".Q.an" ".Q.b6" ".Q.Aa" ".Q.unm" ".Q.id" ".Q.j10" ".Q.x10" ".Q.j12" ".Q.x12" ".Q.btoa" ".Q.sha1" ".Q.prf0" ".Q.objp" ".Q.lo" ".Q.l" ".Q.sw" ".Q.tab" ".Q.t0" ".Q.s1" ".Q.s2" ".Q.S" ".Q.s" ".Q.hap" ".Q.hmb" ".Q.hg" ".Q.hp" ".Q.a1" ".Q.a0" ".Q.IN" ".Q.qa" ".Q.qb" ".Q.vt" ".Q.bvfp" ".Q.bvi" ".Q.bv" ".Q.sp" ".Q.pm" ".Q.pt" ".Q.MAP" ".Q.dd" ".Q.d0" ".Q.p1" ".Q.p2" ".Q.p" ".Q.view" ".Q.jp" ".Q.rp" ".Q.fobj" ".Q.L1" ".Q.L" ".Q.li" ".Q.cn" ".Q.pcnt" ".Q.dt" ".Q.ind" ".Q.fp" ".Q.foo" ".Q.a2" ".Q.qd" ".Q.xy" ".Q.x1" ".Q.x0" ".Q.x2" ".Q.ua" ".Q.q0" ".Q.qe" ".Q.ps" ".Q.enxs" ".Q.enx" ".Q.en" ".Q.ens" ".Q.par" ".Q.dpts" ".Q.dpt" ".Q.dpfts" ".Q.dpft" ".Q.hdpf" ".Q.fsn" ".Q.fs" ".Q.fpn" ".Q.fps" ".Q.dsftg" ".Q.M" ".Q.chk" ".Q.Ll" ".Q.Lp" ".Q.Lx" ".Q.Lu" ".Q.Ls" ".Q.fqk" ".Q.fql" ".Q.btx" ".Q.bt" ".Q.sbt" ".Q.trp" ".Q.trpd" ".Q.dr" ".Q.dw" ".Q.pl0" ".Q.pl" ".Q.jl8" ".Q.srr" ".Q.prr" ".Q.lu" ".Q.DL" ".Q.dbg" ".Q.err" ".Q.BP" ".Q.bp" ".Q.bs" ".Q.bu" ".Q.bd" ".Q.bc" ".h.htc" ".h.hta" ".h.htac" ".h.ha" ".h.hb" ".h.pre" ".h.xmp" ".h.d" ".h.cd" ".h.td" ".h.hc" ".h.xs" ".h.xd" ".h.ex" ".h.iso8601" ".h.eb" ".h.es" ".h.ed" ".h.edsn" ".h.ec" ".h.tx" ".h.xt" ".h.ka" ".h.c0" ".h.c1" ".h.logo" ".h.sa" ".h.html" ".h.sb" ".h.fram" ".h.jx" ".h.uh" ".h.sc" ".h.hug" ".h.hu" ".h.ty" ".h.hnz" ".h.hn" ".h.HOME" ".h.hy" ".h.hp" ".h.he" ".h.val" ".h.br" ".h.hr" ".h.nbr" ".h.code" ".h.http" ".h.text" ".h.data" ".h.ht" ".j.e" ".j.q" ".j.s" ".j.es" ".j.J" ".j.k" ".j.jd" ".j.j"
                                     ))
   )
+
 (use-package cape
   :ensure t
   :defer t
@@ -638,7 +648,7 @@
 (use-package which-key
   :ensure t
   :config
-  (which-key-mode))
+  (which-key-mode +1))
 
 ;; Configure Emacs to ask for confirmation before exiting
 (setq confirm-kill-emacs 'y-or-n-p)
@@ -673,8 +683,8 @@
   :config
   (setq catppuccin-highlight-matches t)
   :init
-  (load-theme 'catppuccin :no-confirm)
-  )
+  (setq catppuccin-flavor 'mocha)
+  (load-theme 'catppuccin :no-confirm))
 
 (use-package diredfl
   :ensure t
@@ -693,10 +703,10 @@
            :keymaps 'dirvish-mode-map
            "a"   #'dirvish-quick-access
            "q"   #'dirvish-quit
+           "W"   #'wdired-change-to-wdired-mode
            "F"   #'dirvish-file-info-menu
            "p"   #'dirvish-rsync
            "/"   #'dirvish-narrow
-           "W"   #'wdired-change-to-wdired-mode
            "u"   #'dired-undo
            "U"   #'dired-unmark
            "C-n"   #'dired-next-line
@@ -899,6 +909,19 @@
   ([remap xref-find-apropos] #'lsp-ui-doc-glance)
   )
 
+(use-package lsp-snippet-tempel
+  :ensure (lsp-snippet-tempel :type git
+                              :host github
+                              :repo "svaante/lsp-snippet")
+  :after lsp
+  :config
+  (when (featurep 'lsp-mode)
+    ;; Initialize lsp-snippet -> tempel in lsp-mode
+    (lsp-snippet-tempel-lsp-mode-init))
+  (when (featurep 'eglot)
+    ;; Initialize lsp-snippet -> tempel in eglot
+    (lsp-snippet-tempel-eglot-init)))
+
 ;; (use-package org-contrib
 ;;   :after org
 ;;   :ensure t)
@@ -1085,7 +1108,18 @@
         org-modern-block-name t
         org-modern-progress t
         org-modern-horizontal-rule t
-        org-modern-keyword t))
+        org-modern-todo-faces
+        '(("TODO" :inverse-video t :foreground "indian red")
+          ("DOING"  :inverse-video t :foreground "medium aquamarine")
+          ("DONE"  :inverse-video t :foreground "slate gray"))
+        org-modern-priority-faces
+        '((?A :background "indian red" :foreground "black")
+          (?B :background "light salmon" :foreground "black")
+          (?C :background "medium aquamarine" :foreground "black")
+          (?D :background "NavajoWhite" :foreground "black")
+          (?E  :background "bisque" :foreground "black"))
+        org-modern-keyword t)
+  )
 
 (use-package org-appear
   :ensure t
@@ -1268,19 +1302,6 @@
   :after tempel
   :defer t)
 
-(use-package lsp-snippet-tempel
-  :ensure (lsp-snippet-tempel :type git
-                              :host github
-                              :repo "svaante/lsp-snippet")
-  :after lsp
-  :config
-  (when (featurep 'lsp-mode)
-    ;; Initialize lsp-snippet -> tempel in lsp-mode
-    (lsp-snippet-tempel-lsp-mode-init))
-  (when (featurep 'eglot)
-    ;; Initialize lsp-snippet -> tempel in eglot
-    (lsp-snippet-tempel-eglot-init)))
-
 (use-package apheleia
   :ensure t
   :defer t
@@ -1303,6 +1324,7 @@
   )
 
 (use-package ox-pandoc
+  :defer t
   :after ox
   :ensure t)
 
