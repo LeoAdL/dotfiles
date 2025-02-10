@@ -221,12 +221,12 @@
           ("wp" "Phone Call" entry (file+olp+datetree "~/org/work.org") "* Phone call about %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i" :clock-in t)
           ("wm" "Meeting"    entry (file+olp+datetree "~/org/work.org") "* Meeting about %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i"    :clock-in t)
           ("m" "Email Workflow")
-          ("mw" "Write" entry (file+olp "~/org/mail.org" "New")
-           "* TODO Email %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i" :immediate-finish t)
-          ("mf" "Follow Up" entry (file+olp "~/org/mail.org" "Follow Up")
-           "* TODO Follow up with %:fromname on %a\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%i" :immediate-finish t)
-          ("mr" "Read Later" entry (file+olp "~/org/mail.org" "Read Later")
-           "* TODO Read %:subject\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%a\n\n%i" :immediate-finish t)
+          ("mw" "Write" entry (file+headline "~/org/mail.org" "New")
+           "* TODO Email %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i") 
+          ("mf" "Follow Up" entry (file+headline "~/org/mail.org" "Follow Up")
+           "* TODO Follow up with %:fromname on %a\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%i" )
+          ("mr" "Read Later" entry (file+headline "~/org/mail.org" "Read Later")
+           "* TODO Read %:subject\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%a\n\n%i" )
           ))
   )
 
@@ -1115,7 +1115,7 @@
         org-modern-priority-faces
         '((?A :background "indian red" :foreground "black")
           (?B :background "light salmon" :foreground "black")
-          (?C :background "medium aquamarine" :foreground "black")
+          (?C :background "rosy brown" :foreground "black")
           (?D :background "NavajoWhite" :foreground "black")
           (?E  :background "bisque" :foreground "black"))
         org-modern-keyword t)
@@ -1512,3 +1512,17 @@
 
 (use-package emacs-everywhere
   :ensure t)
+
+(use-package empv
+  :ensure (empv :type git :host github :repo "isamert/empv.el")
+  :defer t
+  :autoload (empv--select-action)
+  :config
+  (with-eval-after-load 'embark (empv-embark-initialize-extra-actions))
+  (setq empv-allow-insecure-connections t)
+  (setq empv-youtube-use-tabulated-results t)
+  (add-to-list 'empv-mpv-args "--ytdl-format=bestvideo+bestaudio/best[ext=mp4]/best")
+  (add-to-list 'empv-mpv-args "--save-position-on-quit")
+  (setq empv-reset-playback-speed-on-quit t)
+  (add-hook 'empv-init-hook #'empv-override-quit-key)
+  )
