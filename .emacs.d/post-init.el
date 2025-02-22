@@ -58,6 +58,8 @@
 ;; sessions. It saves the history of inputs in the minibuffer, such as commands,
 ;; search strings, and other prompts, to a file. This allows users to retain
 ;; their minibuffer history across Emacs restarts.
+(add-hook 'elpaca-after-init-hook #'savehist-mode)
+
 
 ;; save-place-mode enables Emacs to remember the last location within a file
 ;; upon reopening. This feature is particularly beneficial for resuming work at
@@ -163,7 +165,8 @@
   :config
   (setq org-directory "~/org/")
   (setq org-hide-emphasis-markers t)
-  (setq org-use-sub-superscripts "{}")
+  (setq org-use-sub-superscripts '{})
+  (setq org-export-with-sub-superscripts t)
   (setq org-preview-latex-image-directory "~/.cache/ltximg/")
   ;; ORG LATEX PREVIEW
   (setq org-startup-with-latex-preview t)
@@ -176,7 +179,6 @@
    org-agenda-files (list org-directory)                  ; Seems like the obvious place.
    org-log-done 'time                                     ; Having the time a item is done sounds convenient.
    org-list-allow-alphabetical t                          ; Have a. A. a) A) list bullets.
-   org-export-with-sub-superscripts '{}                   ; Don't treat lone _ / ^ as sub/superscripts, require _{} / ^{}.
    org-image-actual-width '(0.9))
   (setq org-babel-default-header-args
         '((:session . "none")
@@ -188,17 +190,19 @@
           (:tangle . "no")
           (:comments . "link")))
 
-  (setq org-agenda-skip-scheduled-if-done nil
-        org-agenda-skip-deadline-if-done nil
-        org-agenda-tags-column 0
-        org-agenda-block-separator ?─
+
+  (setq org-agenda-skip-scheduled-if-done t
+        org-agenda-skip-deadline-if-done t
+        org-agenda-include-deadlines t
+        org-agenda-block-separator nil
+        org-agenda-tags-column 100 ;; from testing this seems to be a good value
+        org-agenda-compact-blocks t
         org-agenda-time-grid
-        '((daily today require-timed)
-          (800 1000 1200 1400 1600 1800 2000)
+        '((daily today require-timed) 
+          (800 1000 1200 1400 1600 1800 2000 2200)
           " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
         org-agenda-current-time-string
         "◀── now ─────────────────────────────────────────────────")
-
   (setq org-src-fontify-natively t
         org-auto-align-tags nil
         org-tags-column 0
@@ -213,7 +217,7 @@
         org-hide-leading-stars t
         org-priority-highest ?A
         org-priority-lowest ?E
-        org-todo-keywords '((sequence "TODO" "DOING" "DONE"))
+        org-todo-keywords '((sequence "TODO(t)" "DOING" "DONE"))
         org-todo-keywords-for-agenda '((sequence "TODO" "DOING" "DONE")))
   (setq org-highlight-latex-and-related '(native script entities))
   (setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a.")))
@@ -624,17 +628,23 @@
   :init
   ;; Add to the global default value of `completion-at-point-functions' which is
   ;; used by `completion-at-point'.
-  (add-hook 'completion-at-point-functions #'cape-history)
-  (add-hook 'completion-at-point-functions #'cape-file)
-  (add-hook 'completion-at-point-functions #'cape-keyword)
   (add-hook 'completion-at-point-functions #'cape-dabbrev)
+  (add-hook 'completion-at-point-functions #'cape-keyword)
+  (add-hook 'completion-at-point-functions #'cape-file)
+  (add-hook 'completion-at-point-functions #'cape-history)
   )
 
 (use-package nerd-icons-corfu
   :ensure t
   :after corfu
   :config
-  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
+  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)
+  (setq nerd-icons-corfu-mapping
+        '((array :style "cod" :icon "symbol_array" :face font-lock-type-face)
+          (boolean :style "cod" :icon "symbol_boolean" :face font-lock-builtin-face)
+          ;; ...
+          (t :style "cod" :icon "code" :face font-lock-warning-face)))
+  )
 
 (use-package corfu-history
   :ensure (corfu-history :type git :host github :repo "minad/corfu")
@@ -661,10 +671,68 @@
 ;; Remember to add an entry for `t', the library uses that as default.
 
 
+;; Hide warnings and display only errors
+(setq warning-minimum-level :error)
+
+;; Display of line numbers in the buffer:
+;; (display-line-numbers-mode 1)
+
 (use-package which-key
-  :ensure t
-  :config
-  (which-key-mode +1))
+  :ensure t ; builtin
+  :defer t
+  :commands which-key-mode
+  :hook (elpaca-after-init . which-key-mode)
+  :custom
+  (which-key-idle-delay 0.5)
+  (which-key-idle-secondary-delay 0.25)
+  (which-key-add-column-padding 1)
+  (which-key-max-description-length 40))
+
+(unless (and (eq window-system 'mac)
+             (bound-and-true-p mac-carbon-version-string))
+  ;; Enables `pixel-scroll-precision-mode' on all operating systems and Emacs
+  ;; versions, except for emacs-mac.
+  ;;
+  ;; Enabling `pixel-scroll-precision-mode' is unnecessary with emacs-mac, as
+  ;; this version of Emacs natively supports smooth scrolling.
+  ;; https://bitbucket.org/mituharu/emacs-mac/commits/65c6c96f27afa446df6f9d8eff63f9cc012cc738
+  (setq pixel-scroll-precision-use-momentum nil) ; Precise/smoother scrolling
+  (pixel-scroll-precision-mode 1))
+
+;; Display the time in the modeline
+(display-time-mode 1)
+(setq display-time-mail-string "")
+
+;; Paren match highlighting
+(show-paren-mode 1)
+
+;; Track changes in the window configuration, allowing undoing actions such as
+;; closing windows.
+(winner-mode 1)
+
+;; Replace selected text with typed text
+(delete-selection-mode 1)
+
+;; Configure Emacs to ask for confirmation before exiting
+(setq confirm-kill-emacs 'y-or-n-p)
+
+(use-package uniquify
+  :ensure nil
+  :custom
+  (uniquify-buffer-name-style 'reverse)
+  (uniquify-separator "•")
+  (uniquify-after-kill-buffer-p t)
+  (uniquify-ignore-buffers-re "^\\*"))
+
+;; Window dividers separate windows visually. Window dividers are bars that can
+;; be dragged with the mouse, thus allowing you to easily resize adjacent
+;; windows.
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Window-Dividers.html
+(add-hook 'elpaca-after-init-hook #'window-divider-mode)
+
+;; Automatically hide file details (permissions, size, modification date, etc.)
+;; in Dired buffers for a cleaner display.
+(add-hook 'dired-mode-hook #'dired-hide-details-mode)
 
 ;; Configure Emacs to ask for confirmation before exiting
 (setq confirm-kill-emacs 'y-or-n-p)
@@ -685,7 +753,8 @@
   (doom-modeline-mode 1)
   :config
   (setq doom-modeline-hud t)
-  (setq doom-modeline-unicode-fallback t)
+  (setq doom-modeline-buffer-encoding nil)
+  (setq doom-modeline-unicode-fallback nil)
   (setq find-file-visit-truename t)
   ;; (setq nerd-icons-scale-factor 1)
   ;; (setq doom-modeline-height 1) ; optional
@@ -693,13 +762,62 @@
   (setq mode-line-right-align-edge 'right-fringe)
   )
 
+(defun er-disable-all-active-themes ()
+  "Disable all currently active themes."
+  (interactive)
+  (dolist (theme custom-enabled-themes)
+    (disable-theme theme)))
+(defun er-load-theme (theme)
+  (er-disable-all-active-themes)
+  (load-theme theme t))
+
+(defun er-new-load-theme ()
+  (interactive)
+  (er-disable-all-active-themes)
+  (call-interactively 'load-theme))
+
+(use-package doom-themes
+  :ensure t
+  :config
+  (setq doom-themes-enable-bold t)
+  (setq doom-themes-enable-italic t)
+  (setq doom-themes-padded-modeline t)
+  (doom-themes-visual-bell-config)
+  )
+
+(use-package solaire-mode
+  :ensure t
+  :config
+  (solaire-global-mode +1)
+  )
+
+(defun er-disable-all-active-themes ()
+  "Disable all currently active themes."
+  (interactive)
+  (dolist (theme custom-enabled-themes)
+    (disable-theme theme)))
 
 (use-package catppuccin-theme
   :ensure t
-  :config
-  (setq catppuccin-highlight-matches t)
   :init
+  (setq catppuccin-enlarge-headings nil)
+  ;; Adjust font size of titles level 1 (default 1.3)
+  (setq catppuccin-height-title-1 1.25)
+  ;; Adjust font size of titles level 2 (default 1.1)
+  (setq catppuccin-height-title-2 1.15)
+  ;; Adjust font size of titles level 3 (default 1.0)
+  (setq catppuccin-height-title-3 1.05)
+  ;; Adjust font size of document titles (default 1.44)
+  (setq catppuccin-height-doc-title 1.4)
+  ;; Use background color to make highlighted matches more visible. (default nil)
+  (setq catppuccin-highlight-matches t)
+  ;; Use :slant italic for comments. (default nil)
+  (setq catppuccin-italic-comments t)
+  ;; Use :slant italic for blockquotes in markdown and org. (default nil)
+  (setq catppuccin-italic-blockquotes t)
+  (setq catppuccin-highlight-matches t)
   (setq catppuccin-flavor 'mocha)
+  (er-disable-all-active-themes)
   (load-theme 'catppuccin :no-confirm))
 
 (use-package diredfl
@@ -850,6 +968,7 @@
   :after transient
   :config
   (setq magit-diff-refine-hunk t)
+  (setopt magit-format-file-function #'magit-format-file-nerd-icons)
   )
 
 (use-package magit-todos
@@ -1112,10 +1231,10 @@
 
 (use-package org-modern
   :ensure t
+  :defer t
   :after org
   :init
-  (add-hook 'org-mode-hook #'org-modern-mode)
-  (add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
+  (add-hook 'org-mode-hook #'global-org-modern-mode)
   :config
   (setq org-modern-star '("◉" "○" "✸" "✿" "✤" "✜" "◆" "▶")
         org-modern-hide-stars nil
@@ -1223,12 +1342,19 @@
 (use-package outline-indent
   :ensure t
   :defer t
+  :commands outline-indent-minor-mode
+
   :init
-  (outline-indent-minor-mode +1)
-  :config
-  (setq outline-indent-default-offset 4)
-  (setq outline-indent-shift-width 4)
-  )
+  ;; The minor mode can also be automatically activated for a certain modes.
+  ;; For example for Python and YAML:
+  (add-hook 'python-mode-hook #'outline-indent-minor-mode)
+  (add-hook 'python-ts-mode-hook #'outline-indent-minor-mode)
+
+  (add-hook 'yaml-mode-hook #'outline-indent-minor-mode)
+  (add-hook 'yaml-ts-mode-hook #'outline-indent-minor-mode)
+
+  :custom
+  (outline-indent-ellipsis " ▼ "))
 
 (use-package smartparens
   :ensure t
@@ -1254,12 +1380,11 @@
                     "l l" #'easysession-switch-to
                     "l s" #'easysession-save-as)
   :init
-  (add-hook 'emacs-startup-hook #'easysession-save-mode 99))
+  (add-hook 'emacs-startup-hook #'easysession-load-including-geometry 102)
+  (add-hook 'emacs-startup-hook #'easysession-save-mode 103))
 
 (use-package savehist
   :ensure nil
-  :init
-  (savehist-mode)
   :config
   (setq savehist-save-minibuffer-history t
         savehist-autosave-interval nil)
@@ -1418,7 +1543,7 @@
   :ensure t
   :config
   ;; To disable collection of benchmark data after init is done.
-  (add-hook 'after-init-hook 'benchmark-init/deactivate))
+  (add-hook 'elpaca-after-init-hook 'benchmark-init/deactivate))
 
 (use-package dumb-jump
   :ensure t
@@ -1453,8 +1578,6 @@
                                              (getenv "PATH")))
                                     (add-to-list 'exec-path "/Library/TeX/texbin/")
                                     (server-start)
-                                    (show-paren-mode +1)  ; Paren match highlighting
-                                    (winner-mode 1)
                                     (global-visual-line-mode +1)
                                     ))
 
@@ -1508,7 +1631,7 @@
    (format
     "%.2f seconds"
     (float-time
-     (time-subtract after-init-time before-init-time)))
+     (time-subtract elpaca-after-init-time before-init-time)))
    gcs-done))
 
 
@@ -1542,3 +1665,7 @@
   (setq empv-reset-playback-speed-on-quit t)
   (add-hook 'empv-init-hook #'empv-override-quit-key)
   )
+
+(use-package treesit-fold
+  :ensure (treesit-fold :type git :host github :repo "emacs-tree-sitter/treesit-fold")
+  :defer t)
