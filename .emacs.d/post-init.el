@@ -7,6 +7,19 @@
   :config
   (compile-angel-on-load-mode)
   (add-hook 'emacs-lisp-mode-hook #'compile-angel-on-save-local-mode))
+
+
+(defun my-after-frame (frame)
+  (if (display-graphic-p frame)
+      (progn
+        (set-frame-font "Iosevka-18" nil t)
+        (set-face-font 'default "Iosevka")
+        (set-face-font 'fixed-pitch-serif "IBM Plex Serif")
+        )))
+
+(mapc 'my-after-frame (frame-list))
+(add-hook 'after-make-frame-functions 'my-after-frame)
+
 (setq load-prefer-newer t)
 
 ;; Ensure JIT compilation is enabled for improved performance by
