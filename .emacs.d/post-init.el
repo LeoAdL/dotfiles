@@ -1666,6 +1666,44 @@
   (add-hook 'empv-init-hook #'empv-override-quit-key)
   )
 
+;; (use-package auctex-latexmk
+;;   :ensure t
+;;   :defer t)
+
+(use-package auctex
+  :ensure (auctex :repo "https://git.savannah.gnu.org/git/auctex.git" :branch "main"
+                  :pre-build (("make" "elpa"))
+                  :build (:not elpaca--compile-info) ;; Make will take care of this step
+                  :files ("*.el" "doc/*.info*" "etc" "images" "latex" "style")
+                  :version (lambda (_) (require 'auctex) AUCTeX-version))
+  :defer t
+  :config
+  (setq TeX-parse-self t ; parse on load
+        TeX-auto-save t  ; parse on save
+        ;; Use hidden directories for AUCTeX files.
+        TeX-auto-local ".auctex-auto"
+        TeX-style-local ".auctex-style"
+        TeX-source-correlate-mode t
+        TeX-source-correlate-method 'synctex
+        ;; Don't start the Emacs server when correlating sources.
+        TeX-source-correlate-start-server nil
+        ;; Automatically insert braces after sub/superscript in `LaTeX-math-mode'.
+        TeX-electric-sub-and-superscript t
+        ;; Just save, don't ask before each compilation.
+        TeX-save-query nil
+        TeX-show-compilation t
+        TeX-command-extra-options "-shell-escape")
+  ;; (require 'auctex-latexmk)
+  ;; (auctex-latexmk-setup)
+  )
+
+(use-package evil-tex
+  :ensure t
+  :after (evil auctex)
+  :defer t
+  :init
+  (add-hook 'LaTeX-mode-hook #'evil-tex-mode))
+
 (use-package treesit-fold
   :ensure (treesit-fold :type git :host github :repo "emacs-tree-sitter/treesit-fold")
   :defer t)
