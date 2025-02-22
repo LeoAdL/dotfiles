@@ -1,6 +1,11 @@
 ;;; post-init.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
-;; Ensure Emacs loads the most recent byte-compiled files.
-;; Ensure Emacs loads the most recent byte-compiled files.
+
+(setq native-comp-async-query-on-exit t)
+(setq confirm-kill-processes t)
+
+;; Non-nil means to native compile packages as part of their installation.
+(setq package-native-compile t)
+
 (use-package compile-angel
   :ensure t
   :demand t
@@ -26,8 +31,6 @@
 ;; native-compiling loaded .elc files asynchronously
 (setq native-comp-jit-compilation t)
 
-(add-to-list 'default-frame-alist
-             '(font . "Iosevka-20"))
 ;; (use-package compile-angel
 ;;   :ensure t
 ;;   :demand t
