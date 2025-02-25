@@ -6,11 +6,10 @@ local popup_width = 250
 
 local volume_percent = sbar.add("item", "widgets.volume1", {
   position = "right",
-  icon = { drawing = false },
+  icon = {    font = "Iosevka Nerd Font:Regular:18.0", drawing = false },
   label = {
     string = "??%",
     padding_left = -1,
-    font = { family = settings.font.numbers }
   },
 })
 
@@ -22,18 +21,13 @@ local volume_icon = sbar.add("item", "widgets.volume2", {
     width = 0,
     align = "left",
     color = colors.grey,
-    font = {
-      style = settings.font.style_map["Regular"],
-      size = 14.0,
-    },
+    font = "Iosevka Nerd Font:Regular:18.0",
   },
   label = {
     width = 25,
-    align = "left",
-    font = {
-      style = settings.font.style_map["Regular"],
-      size = 14.0,
-    },
+
+align = "left",
+    font = "Iosevka Nerd Font:Regular:18.0",
   },
 })
 
@@ -60,7 +54,8 @@ local volume_slider = sbar.add("slider", popup_width, {
       color = colors.bg2,
     },
     knob= {
-      string = "􀀁",
+      string = "",
+      font = "Iosevka Nerd Font:Regular:18.0",
       drawing = true,
     },
   },
@@ -138,7 +133,9 @@ local function volume_toggle_details(env)
 end
 
 local function volume_scroll(env)
-  local delta = env.SCROLL_DELTA
+  local delta = env.INFO.delta
+  if not (env.INFO.modifier == "ctrl") then delta = delta * 10.0 end
+
   sbar.exec('osascript -e "set volume output volume (output volume of (get volume settings) + ' .. delta .. ')"')
 end
 
@@ -147,4 +144,3 @@ volume_icon:subscribe("mouse.scrolled", volume_scroll)
 volume_percent:subscribe("mouse.clicked", volume_toggle_details)
 volume_percent:subscribe("mouse.exited.global", volume_collapse_details)
 volume_percent:subscribe("mouse.scrolled", volume_scroll)
-
