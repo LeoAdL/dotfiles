@@ -912,7 +912,7 @@
   :init
   (add-hook 'prog-mode-hook #'indent-bars-mode)
   :custom
-  (indent-bars-prefer-character nil)
+  (indent-bars-prefer-character t)
   (indent-bars-treesit-support t)
   (indent-bars-treesit-ignore-blank-lines-types '("module"))
   ;; Add other languages as needed
