@@ -13,6 +13,10 @@
   (compile-angel-on-load-mode)
   (add-hook 'emacs-lisp-mode-hook #'compile-angel-on-save-local-mode))
 
+(add-to-list 'default-frame-alist '(font . "Iosevka-18"))
+
+(setq mac-command-modifier 'meta
+      mac-option-modifier 'none)
 
 (defun my-after-frame (frame)
   (if (display-graphic-p frame)
@@ -864,7 +868,7 @@
   (evil-make-overriding-map dirvish-mode-map 'normal)
   (when (string= system-type "darwin")
     (setq dired-use-ls-dired t
-          insert-directory-program "ls"
+          insert-directory-program "/opt/homebrew/bin/gls"
           dired-listing-switches "-aBhl --group-directories-first"))
   (setq dirvish-attributes'(vc-state subtree-state nerd-icons git-msg file-time file-size))
   (setq dirvish-default-layout '(0 0.4 0.6))
