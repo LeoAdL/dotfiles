@@ -1065,11 +1065,10 @@
 
 
 (use-package evil-org
-  :after (org evil)
-  :ensure (evil-org :type git :host github :repo "Somelauw/evil-org-mode")
-  :hook (org-mode . (lambda () evil-org-mode))
+  :after (org)
+  :ensure (evil-org :type git :host github :repo "doomelpa/evil-org-mode")
+  :hook (org-mode . evil-org-mode)
   :config
-  (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys)
   )
