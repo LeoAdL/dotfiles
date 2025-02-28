@@ -1022,20 +1022,6 @@
     (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
           '(orderless))) ;; Configure orderless
   :config
-  (defcustom lsp-ltex-executable "ltex-ls-plus"
-    "Command to start the Ltex-Ls-Plus language server."
-    :group 'lsp-ltex
-    :risky t
-    :type 'file)
-
-  (lsp-register-client
-   (make-lsp-client
-    ;; instead of `:new-connection (lsp-stdio-connection lsp-ltex-executable)` use
-    :new-connection (lsp-stdio-connection (lambda () lsp-ltex-executable))
-    :activation-fn (lsp-activate-on "org" "mu4e-compose")
-    :priority -1
-    :server-id 'ltex-ls-plus))
-
   (setq lsp-enable-suggest-server-download t)
   (setq lsp-warn-no-matched-clients nil))
 
@@ -1314,18 +1300,14 @@
          (tsv-mode . rainbow-csv-mode))
   )
 
-;; (use-package lsp-ltex
-;;   :after lsp-mode
-;;   :ensure t
-;;   :hook (text-mode . (lambda ()
-;;                        (require 'lsp-ltex)
-;;                        (lsp-deferred)))  ; or lsp-deferred
-;;   (mu4e-compose-edit-mode . (lambda ()
-;;                               (require 'lsp-ltex)
-;;                               (lsp-deferred)))
-;;   :init
-;;   (setq lsp-ltex-completion-enabled t)
-;;   (setq lsp-ltex-version "16.0.0"))
+(use-package lsp-ltex-plus
+  :ensure (lsp-ltex-plus :type git :host github
+                         :repo "emacs-languagetool/lsp-ltex-plus")
+  :hook (text-mode . (lambda ()
+                       (require 'lsp-ltex-plus)
+                       (lsp-deferred)))  ; or lsp-deferred
+  :init
+  (setq lsp-ltex-plus-version "18.2.0"))  ; make sure you have set this, see below
 
 (use-package jinx
   :ensure nil
