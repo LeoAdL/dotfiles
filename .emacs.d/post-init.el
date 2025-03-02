@@ -1692,3 +1692,70 @@
 (use-package treesit-fold
   :ensure (treesit-fold :type git :host github :repo "emacs-tree-sitter/treesit-fold")
   :defer t)
+
+(use-package citar
+  :ensure t
+  :defer t
+  :hook
+  (LaTeX-mode . citar-capf-setup)
+  (org-mode . citar-capf-setup)
+  :custom
+  (org-cite-global-bibliography '("~/bib/references.bib"))
+  (org-cite-insert-processor 'citar)
+  (org-cite-follow-processor 'citar)
+  (org-cite-activate-processor 'citar)
+  (citar-bibliography org-cite-global-bibliography)
+  (defvar citar-indicator-notes-icons
+    (citar-indicator-create
+     :symbol (nerd-icons-mdicon
+              "nf-md-notebook"
+              :face 'nerd-icons-blue
+              :v-adjust -0.3)
+     :function #'citar-has-notes
+     :padding "  "
+     :tag "has:notes"))
+
+  (defvar citar-indicator-links-icons
+    (citar-indicator-create
+     :symbol (nerd-icons-octicon
+              "nf-oct-link"
+              :face 'nerd-icons-orange
+              :v-adjust -0.1)
+     :function #'citar-has-links
+     :padding "  "
+     :tag "has:links"))
+
+  (defvar citar-indicator-files-icons
+    (citar-indicator-create
+     :symbol (nerd-icons-faicon
+              "nf-fa-file"
+              :face 'nerd-icons-green
+              :v-adjust -0.1)
+     :function #'citar-has-files
+     :padding "  "
+     :tag "has:files"))
+
+  (setq citar-indicators
+        (list citar-indicator-files-icons
+              citar-indicator-notes-icons
+              citar-indicator-links-icons))
+  ;; optional: org-cite-insert is also bound to C-c C-x C-@
+  :bind
+  (:map org-mode-map :package org ("C-c b" . #'org-cite-insert)))
+
+(use-package citar-embark
+  :after citar embark
+  :no-require
+  :config (citar-embark-mode))
+
+(use-package oc-csl-activate
+  :ensure (oc-csl-activate :type git :host github :repo "andras-simonyi/org-cite-csl-activate")
+  :after citar org
+  :init
+  (setq org-cite-activate-processor 'csl-activate)
+  :config
+  (require 'oc-csl-activate)
+  (setq org-cite-csl-activate-use-document-style t)
+  (setq org-cite-csl-activate-use-document-locale t)
+  (setq org-cite-csl-activate-use-citar-cache t)
+  )
