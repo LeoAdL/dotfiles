@@ -1,17 +1,24 @@
 ;;; post-init.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
-
-(setq native-comp-async-query-on-exit t)
-(setq confirm-kill-processes t)
-
-;; Non-nil means to native compile packages as part of their installation.
-(setq package-native-compile t)
-
+;; Ensure adding the following compile-angel code at the very beginning
+;; of your `~/.emacs.d/post-init.el` file, before all other packages.
 (use-package compile-angel
   :ensure t
   :demand t
   :config
-  (compile-angel-on-load-mode)
-  (add-hook 'emacs-lisp-mode-hook #'compile-angel-on-save-local-mode))
+  ;; Set `compile-angel-verbose` to nil to suppress output from compile-angel.
+  ;; Drawback: The minibuffer will not display compile-angel's actions.
+  (setq compile-angel-verbose t)
+
+  ;; A local mode that compiles .el files whenever the user saves them.
+  ;; (add-hook 'emacs-lisp-mode-hook #'compile-angel-on-save-local-mode)
+
+  ;; A global mode that compiles .el files before they are loaded.
+  (compile-angel-on-load-mode))
+
+(setq confirm-kill-processes t)
+
+;; Non-nil means to native compile packages as part of their installation.
+(setq package-native-compile t)
 
 (add-to-list 'default-frame-alist '(font . "Iosevka-18"))
 
@@ -56,7 +63,10 @@
 ;; recentf is an Emacs package that maintains a list of recently
 ;; accessed files, making it easier to reopen files you have worked on
 ;; recently.
-(add-hook 'elpaca-after-init-hook #'recentf-mode)
+(add-hook 'elpaca-after-init-hook #'(lambda()
+                                      (let ((inhibit-message t))
+                                        (recentf-mode 1))))
+(add-hook 'kill-emacs-hook #'recentf-cleanup)
 
 ;; savehist is an Emacs feature that preserves the minibuffer history between
 ;; sessions. It saves the history of inputs in the minibuffer, such as commands,
@@ -90,6 +100,9 @@
 
 (use-package org
   :ensure t
+  :commands (org-mode org-version)
+  :mode
+  ("\\.org\\'" . org-mode)
   :demand t
   :general (:prefix "SPC m"
                     :states 'normal
@@ -216,6 +229,13 @@
         org-fontify-quote-and-verse-blocks t
         org-startup-with-inline-images t
         org-startup-indented t
+        org-adapt-indentation nil
+        org-edit-src-content-indentation 0
+        org-startup-truncated nil
+        org-fontify-done-headline t
+        org-fontify-todo-headline t
+        org-fontify-whole-heading-line t
+        org-fontify-quote-and-verse-blocks t
         ;; Org styling, hide markup etc.
         org-pretty-entities t
         org-hide-leading-stars t
@@ -246,7 +266,7 @@
           ("wm" "Meeting"    entry (file+olp+datetree "~/org/work.org") "* Meeting about %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i"    :clock-in t)
           ("m" "Email Workflow")
           ("mw" "Write" entry (file+headline "~/org/mail.org" "New")
-           "* TODO Email %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i") 
+           "* TODO Email %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i")
           ("mf" "Follow Up" entry (file+headline "~/org/mail.org" "Follow Up")
            "* TODO Follow up with %:fromname on %a\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%i" )
           ("mr" "Read Later" entry (file+headline "~/org/mail.org" "Read Later")
@@ -583,6 +603,11 @@
   :ensure t
   :defer t
   :commands (corfu-mode global-corfu-mode)
+
+  :hook ((prog-mode . corfu-mode)
+         (shell-mode . corfu-mode)
+         (eshell-mode . corfu-mode))
+
   :custom
   ;; Hide commands in M-x which do not apply to the current mode.
   (read-extended-command-predicate #'command-completion-default-include-p)
@@ -591,7 +616,7 @@
   (tab-always-indent 'complete)
 
   ;; Enable Corfu
-  :init
+  :config
   (global-corfu-mode +1)
   :bind
   (:map corfu-map
@@ -758,7 +783,8 @@
   :config
   (setq doom-modeline-hud t)
   (setq doom-modeline-buffer-encoding nil)
-  (setq doom-modeline-unicode-fallback nil)
+  (setq doom-modeline-unicode-fallback t)
+  (setq doom-modeline-time-analogue-clock nil)
   (setq find-file-visit-truename t)
   ;; (setq nerd-icons-scale-factor 1)
   ;; (setq doom-modeline-height 1) ; optional
@@ -1562,7 +1588,6 @@
                                              "/Library/TeX/texbin/" path-separator
                                              (getenv "PATH")))
                                     (add-to-list 'exec-path "/Library/TeX/texbin/")
-                                    (server-start)
                                     (global-visual-line-mode +1)
                                     ))
 
