@@ -308,9 +308,11 @@
   :after marginalia
   :defer t
   :ensure t
+  :init
+  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup)
   :config
   (nerd-icons-completion-mode)
-  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
+  )
 
 (use-package orderless
   ;; Vertico leverages Orderless' flexible matching capabilities, allowing users
@@ -523,10 +525,13 @@
              undo-fu-only-redo
              undo-fu-only-redo-all
              undo-fu-disable-checkpoint)
-  :custom
+  :config
   ;; 3 times the default values
-  (undo-limit (* 3 160000))
-  (undo-strong-limit (* 3 240000)))
+  (setq undo-limit 400000           ; 400kb (default is 160kb)
+        undo-strong-limit 3000000   ; 3mb   (default is 240kb)
+        undo-outer-limit 48000000)  ; 48mb  (default is 24mb)
+  )
+
 
 (use-package undo-fu-session
   :ensure t
@@ -679,7 +684,6 @@
   :ensure (corfu-history :type git :host github :repo "minad/corfu")
   :hook (corfu-mode . corfu-history-mode)
   :defer t
-  :after savehist
   :init
   (add-to-list 'savehist-additional-variables 'corfu-history))
 
@@ -778,7 +782,11 @@
 (use-package doom-modeline
   :ensure t
   :defer t
+  :hook ((doom-modeline-mode . size-indication-mode) ; filesize in modeline
+         (doom-modeline-mode . column-number-mode))   ; cursor column in modeline
   :init
+  (setq display-time-mail-string "")
+  (display-time-mode 1)
   (doom-modeline-mode 1)
   :config
   (setq doom-modeline-hud t)
@@ -983,9 +991,19 @@
   :ensure t
   :defer t
   :init
-  (global-diff-hl-mode +1)
   (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+  (global-diff-hl-mode +1)
+  :config
+  (setq diff-hl-global-modes '(not image-mode pdf-view-mode))
+  ;; PERF: A slightly faster algorithm for diffing.
+  (setq vc-git-diff-switches '("--histogram"))
+  ;; PERF: Slightly more conservative delay before updating the diff
+  (setq diff-hl-flydiff-delay 0.5)  ; default: 0.3
+  ;; PERF: don't block Emacs when updating vc gutter
+  (setq diff-hl-update-async t)
+  ;; UX: get realtime feedback in diffs after staging/unstaging hunks.
+  (setq diff-hl-show-staged-changes nil)
   )
 
 (use-package transient
@@ -997,8 +1015,16 @@
   :defer t
   :after transient
   :config
-  (setq magit-diff-refine-hunk t)
   (setopt magit-format-file-function #'magit-format-file-nerd-icons)
+  (setq transient-default-level 5
+        magit-diff-refine-hunk t ; show granular diffs in selected hunk
+        ;; Don't autosave repo buffers. This is too magical, and saving can
+        ;; trigger a bunch of unwanted side-effects, like save hooks and
+        ;; formatters. Trust the user to know what they're doing.
+        magit-save-repository-buffers nil
+        ;; Don't display parent/related refs in commit buffers; they are rarely
+        ;; helpful and only add to runtime costs.
+        magit-revision-insert-related-refs nil)
   )
 
 (use-package magit-todos
@@ -1008,7 +1034,10 @@
 
 (use-package git-timemachine
   :defer t
-  :ensure (git-timemachine :type git :host codeberg :repo "pidu/git-timemachine"))
+  :ensure (git-timemachine :type git :host codeberg :repo "pidu/git-timemachine")
+  :config
+  (setq git-timemachine-show-minibuffer-details t)
+  )
 
 (use-package flymake-popon
   :hook (flymake-mode . flymake-popon-mode)
@@ -1091,11 +1120,16 @@
 
 
 (use-package evil-org
-  :after (org)
+  :after org
   :ensure (evil-org :type git :host github :repo "doomelpa/evil-org-mode")
   :hook (org-mode . evil-org-mode)
+  )
+
+(use-package evil-org-agenda
+  :after org-agenda
+  :ensure nil
+  :hook (org-agenda-mode . evil-org-agenda-mode)
   :config
-  (require 'evil-org-agenda)
   (evil-org-agenda-set-keys)
   )
 
