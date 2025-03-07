@@ -278,6 +278,10 @@
   :ensure nil
   :defer t
   :commands vterm
+  :custom
+  ;; Important: Ensure the following dependencies are installed:
+  ;; A 'C' compiler, cmake, libtool-bin, and libvterm
+  (vterm-always-compile-module t)  ; Auto-compile libvterm
   :config
   ;; Speed up vterm
   (setq vterm-kill-buffer-on-exit t)
@@ -792,7 +796,7 @@
   (setq doom-modeline-hud t)
   (setq doom-modeline-buffer-encoding nil)
   (setq doom-modeline-unicode-fallback t)
-  (setq doom-modeline-time-analogue-clock t)
+  (setq doom-modeline-time-analogue-clock nil)
   (setq find-file-visit-truename t)
   ;; (setq nerd-icons-scale-factor 1)
   ;; (setq doom-modeline-height 1) ; optional
@@ -1602,8 +1606,14 @@
 
 (setq user-full-name "Leo Aparisi de Lannoy")
 (setq treesit-font-lock-level 4)
+(setq auto-save-default t)
+
+(setq auto-save-interval 300)
 (setq auto-save-timeout 10)
-(setq scroll-conservatively 101)
+(setq auto-save-visited-interval 5)   ; Save after 5 seconds if inactivity
+(auto-save-visited-mode 1)
+(global-visual-line-mode +1)
+
 
 (setq delete-by-moving-to-trash t)
 (setq imagemagick-render-type 1)
@@ -1613,8 +1623,6 @@
 (setq dired-vc-rename-file t)
 (setq xref-search-program 'ripgrep
       )
-(add-hook 'elpaca-after-init-hook (lambda () (tool-bar-mode 1) (tool-bar-mode 0)) )
-(setq after-make-frame-functions (lambda (x) (tool-bar-mode 1) (tool-bar-mode 0)))
 
 (add-hook 'elpaca-after-init-hook (lambda ()
                                     (setenv "PATH"
@@ -1622,7 +1630,6 @@
                                              "/Library/TeX/texbin/" path-separator
                                              (getenv "PATH")))
                                     (add-to-list 'exec-path "/Library/TeX/texbin/")
-                                    (global-visual-line-mode +1)
                                     ))
 
 (use-package recentf
