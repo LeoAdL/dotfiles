@@ -792,7 +792,7 @@
   (setq doom-modeline-hud t)
   (setq doom-modeline-buffer-encoding nil)
   (setq doom-modeline-unicode-fallback t)
-  (setq doom-modeline-time-analogue-clock nil)
+  (setq doom-modeline-time-analogue-clock t)
   (setq find-file-visit-truename t)
   ;; (setq nerd-icons-scale-factor 1)
   ;; (setq doom-modeline-height 1) ; optional
