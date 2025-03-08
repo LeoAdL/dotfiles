@@ -1127,6 +1127,8 @@
   :after org
   :ensure (evil-org :type git :host github :repo "doomelpa/evil-org-mode")
   :hook (org-mode . evil-org-mode)
+  :config
+  (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
   )
 
 (use-package evil-org-agenda
