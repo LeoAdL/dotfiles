@@ -197,6 +197,8 @@
    org-log-done 'time                                     ; Having the time a item is done sounds convenient.
    org-list-allow-alphabetical t                          ; Have a. A. a) A) list bullets.
    org-image-actual-width '(0.9))
+  (setq org-log-into-drawer t)
+  (setq org-log-state-notes-into-drawer t)
   (setq org-babel-default-header-args
         '((:session . "none")
           (:results . "replace")
