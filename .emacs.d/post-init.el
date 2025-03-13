@@ -865,8 +865,27 @@
 (use-package diredfl
   :ensure t
   :defer t
-  :hook ((dired-mode . diredfl-mode) (dirvish-directory-view-mode . diredfl-mode))
-  )
+  :hook
+  ((dired-mode . diredfl-mode)
+   ;; highlight parent and directory preview as well
+   (dirvish-directory-view-mode . diredfl-mode))
+  :config
+  (set-face-attribute 'diredfl-dir-name nil :bold t))
+
+(use-package tramp
+  :config
+  ;; Enable full-featured Dirvish over TRAMP on ssh connections
+  ;; https://www.gnu.org/software/tramp/#Improving-performance-of-asynchronous-remote-processes
+  (connection-local-set-profile-variables
+   'remote-direct-async-process
+   '((tramp-direct-async-process . t)))
+  (connection-local-set-profiles
+   '(:application tramp :protocol "ssh")
+   'remote-direct-async-process)
+  ;; Tips to speed up connections
+  (setq tramp-verbose 0)
+  (setq tramp-chunksize 2000)
+  (setq tramp-ssh-controlmaster-options nil))
 
 (use-package dirvish
   :ensure t
@@ -905,9 +924,7 @@
   :config
   (evil-make-overriding-map dirvish-mode-map 'normal)
   (when (string= system-type "darwin")
-    (setq dired-use-ls-dired t
-          insert-directory-program "/opt/homebrew/bin/gls"
-          dired-listing-switches "-aBhl --group-directories-first"))
+    (setq insert-directory-program "gls"))
   (setq dirvish-attributes'(vc-state subtree-state nerd-icons git-msg file-time file-size))
   (setq dirvish-default-layout '(0 0.4 0.6))
   (setq dirvish-yank-rsync-args '("-s" "--archive" "--verbose" "--compress" "--info=progress2" "--partial"))
@@ -1672,7 +1689,8 @@
 
 (use-package ultra-scroll
   :ensure (ultra-scroll :type git :host github :repo "jdtsmith/ultra-scroll")
-  :defer t  :init
+  :defer t
+  :init
   (setq scroll-conservatively 101 ; important!
         scroll-margin 0)
   :config
