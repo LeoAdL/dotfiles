@@ -458,21 +458,19 @@
                     "f d" #'consult-dir)
   )
 
+(setq evil-want-integration t)
 (setq evil-want-keybinding nil)
+(setq evil-undo-system 'undo-fu)
 
 (use-package evil
   :ensure t
-  :init
-  (setq evil-undo-system 'undo-fu)
-  (setq evil-want-integration t)
-  (setq evil-want-keybinding nil)
-  :custom
-  ( evil-want-C-u-scroll t)
-  ( evil-want-fine-undo t)
-  (evil-want-Y-yank-to-eol t)
+  :commands (evil-mode evil-define-key)
+  :hook (elpaca-after-init . evil-mode)
   :config
+  (setq evil-want-C-u-scroll t)
+  (setq evil-want-fine-undo t)
   (evil-select-search-module 'evil-search-module 'evil-search)
-  (evil-mode 1))
+  )
 
 (use-package evil-collection
   :ensure t
