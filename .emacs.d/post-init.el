@@ -1,26 +1,12 @@
 ;;; post-init.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
 ;; Ensure adding the following compile-angel code at the very beginning
 ;; of your `~/.emacs.d/post-init.el` file, before all other packages.
-(use-package compile-angel
-  :ensure t
-  :demand t
-  :config
-  ;; Set `compile-angel-verbose` to nil to suppress output from compile-angel.
-  ;; Drawback: The minibuffer will not display compile-angel's actions.
-  (setq compile-angel-verbose t)
-
-  ;; A local mode that compiles .el files whenever the user saves them.
-  ;; (add-hook 'emacs-lisp-mode-hook #'compile-angel-on-save-local-mode)
-
-  ;; A global mode that compiles .el files before they are loaded.
-  (compile-angel-on-load-mode))
-
-(setq confirm-kill-processes t)
-
 ;; Non-nil means to native compile packages as part of their installation.
-(setq package-native-compile t)
+(setq load-prefer-newer t)
 
-(add-to-list 'default-frame-alist '(font . "Iosevka-18"))
+;; Ensure JIT compilation is enabled for improved performance by
+;; native-compiling loaded .elc files asynchronously
+(setq native-comp-jit-compilation t)
 
 (setq mac-command-modifier 'meta
       mac-option-modifier 'none)
