@@ -22,25 +22,8 @@
 (mapc 'my-after-frame (frame-list))
 (add-hook 'after-make-frame-functions 'my-after-frame)
 
-(setq load-prefer-newer t)
-
-;; Ensure JIT compilation is enabled for improved performance by
-;; native-compiling loaded .elc files asynchronously
-(setq native-comp-jit-compilation t)
-
-;; (use-package compile-angel
-;;   :ensure t
-;;   :demand t
-;;   :config
-;;   ;; Ensure that quitting only occurs once Emacs finishes native compiling,
-;;   ;; preventing incomplete or leftover compilation files in `/tmp`.
-;;   (setq native-comp-async-query-on-exit t)
-;;   (setq confirm-kill-processes t)
-;;   (setq package-native-compile t)
-;;   (compile-angel-on-load-mode)
-;;   (add-hook 'emacs-lisp-mode-hook #'compile-angel-on-save-local-mode))
-
 (setq use-package-compute-statistics t)
+
 ;; Auto-revert in Emacs is a feature that automatically updates the
 ;; contents of a buffer to reflect changes made to the underlying file
 ;; on disk.
@@ -59,7 +42,6 @@
 ;; search strings, and other prompts, to a file. This allows users to retain
 ;; their minibuffer history across Emacs restarts.
 (add-hook 'elpaca-after-init-hook #'savehist-mode)
-
 
 ;; save-place-mode enables Emacs to remember the last location within a file
 ;; upon reopening. This feature is particularly beneficial for resuming work at
@@ -253,12 +235,12 @@
           ("wp" "Phone Call" entry (file+olp+datetree "~/org/work.org") "* Phone call about %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i" :clock-in t)
           ("wm" "Meeting"    entry (file+olp+datetree "~/org/work.org") "* Meeting about %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i"    :clock-in t)
           ("m" "Email Workflow")
-          ("mw" "Write" entry (file+headline "~/org/mail.org" "New")
-           "* TODO Email %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i")
-          ("mf" "Follow Up" entry (file+headline "~/org/mail.org" "Follow Up")
-           "* TODO Follow up with %:fromname on %a\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%i" )
-          ("mr" "Read Later" entry (file+headline "~/org/mail.org" "Read Later")
-           "* TODO Read %:subject\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%a\n\n%i" )
+          ("mw" "Write" entry (file+olp "~/org/mail.org" "New")
+           "* TODO Email %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i" :immediate-finish t)
+          ("mf" "Follow Up" entry (file+olp "~/org/mail.org" "Follow Up")
+           "* TODO Follow up with %:fromname on %a\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%i" :immediate-finish t)
+          ("mr" "Read Later" entry (file+olp "~/org/mail.org" "Read Later")
+           "* TODO Read %:subject\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%a\n\n%i" :immediate-finish t)
           ))
   )
 
@@ -266,17 +248,13 @@
   :ensure nil
   :defer t
   :commands vterm
-  :custom
-  ;; Important: Ensure the following dependencies are installed:
-  ;; A 'C' compiler, cmake, libtool-bin, and libvterm
-  (vterm-always-compile-module t)  ; Auto-compile libvterm
   :config
   ;; Speed up vterm
   (setq vterm-kill-buffer-on-exit t)
 
   ;; 5000 lines of scrollback, instead of 1000
-  (setq vterm-max-scrollback 5000)
-  (setq vterm-timer-delay 0.01))
+  (setq vterm-max-scrollback 5000))
+
 (use-package multi-vterm
   :ensure t
   :after vterm
@@ -284,17 +262,17 @@
   (setq vterm-keymap-exceptions nil)
   (evil-define-key 'normal vterm-mode-map (kbd ",c")       #'multi-vterm)
   (evil-define-key 'normal vterm-mode-map (kbd ",n")       #'multi-vterm-next)
-  (evil-define-key 'normal vterm-mode-map (kbd ",p")       #'multi-vterm-prev)
-  )
+  (evil-define-key 'normal vterm-mode-map (kbd ",p")       #'multi-vterm-prev))
 
 ;; Tip: You can remove the `vertico-mode' use-package and replace it
 ;;      with the built-in `fido-vertical-mode'.
 (use-package vertico
   ;; (Note: It is recommended to also enable the savehist package.)
   :ensure t
-  :defer t
-  :commands vertico-mode
-  :hook (elpaca-after-init . vertico-mode))
+  :hook (elpaca-after-init . vertico-mode)
+  :config
+  (setq vertico-cycle t)
+  )
 
 (use-package nerd-icons-completion
   :after marginalia
@@ -311,19 +289,16 @@
   ;; to input multiple patterns separated by spaces, which Orderless then
   ;; matches in any order against the candidates.
   :ensure t
-  :custom
-  (completion-styles '(orderless basic))
-  (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles partial-completion)))))
-
+  :config
+  (setq completion-styles '(orderless basic))
+  (setq completion-category-defaults nil)
+  (setq completion-category-overrides '((file (styles basic partial-completion)))))
 
 (use-package marginalia
   ;; Marginalia allows Embark to offer you preconfigured actions in more contexts.
   ;; In addition to that, Marginalia also enhances Vertico by adding rich
   ;; annotations to the completion candidates displayed in Vertico's interface.
   :ensure t
-  :defer t
-  :commands (marginalia-mode marginalia-cycle)
   :hook (elpaca-after-init . marginalia-mode))
 
 (use-package embark
@@ -331,13 +306,8 @@
   ;; users to perform context-sensitive actions on selected items
   ;; directly from the completion interface.
   :ensure t
-  :defer t
-  :commands (embark-act
-             embark-dwim
-             embark-export
-             embark-collect
-             embark-bindings
-             embark-prefix-help-command)
+  :init
+  (setq prefix-help-command #'embark-prefix-help-command)
   :bind
   (("C-." . embark-act)         ;; pick some comfortable binding
    ("C-;" . embark-dwim)        ;; good alternative: M-.
@@ -345,13 +315,14 @@
 
   :init
   (setq prefix-help-command #'embark-prefix-help-command)
-
   :config
+
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
                  nil
                  (window-parameters (mode-line-format . none)))))
+
 
 (use-package embark-consult
   :ensure t
@@ -360,6 +331,7 @@
 
 (use-package consult
   :ensure t
+  :defer t
   :general (
             :prefix "SPC"
             :keymaps 'override
@@ -412,12 +384,14 @@
   :hook (completion-list-mode . consult-preview-at-point-mode)
 
   :init
-  ;; Optionally configure the register formatting. This improves the register
-  (setq register-preview-delay 0.5
-        register-preview-function #'consult-register-format)
-
-  ;; Optionally tweak the register preview window.
+  ;; Tweak the register preview for `consult-register-load',
+  ;; `consult-register-store' and the built-in commands.  This improves the
+  ;; register formatting, adds thin separator lines, register sorting and hides
+  ;; the window mode line.
   (advice-add #'register-preview :override #'consult-register-window)
+
+  ;; Optionally configure the register formatting. This improves the register
+  (setq register-preview-delay 0.5)
 
   ;; Use Consult to select xref locations with preview
   (setq xref-show-xrefs-function #'consult-xref
@@ -433,6 +407,11 @@
    ;; :preview-key "M-."
    :preview-key '(:debounce 0.4 any))
   (setq consult-narrow-key "<")
+  (setq consult-async-min-input 2
+        consult-async-refresh-delay  0.15
+        consult-async-input-throttle 0.2
+        consult-async-input-debounce 0.1)
+
   )
 
 (use-package consult-dir
@@ -444,26 +423,47 @@
                     "f d" #'consult-dir)
   )
 
-(setq evil-want-integration t)
-(setq evil-want-keybinding nil)
-(setq evil-undo-system 'undo-fu)
+(eval-when-compile
+  ;; It has to be defined before evil
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil))
 
 (use-package evil
   :ensure t
-  :commands (evil-mode evil-define-key)
   :hook (elpaca-after-init . evil-mode)
-  :config
+  :commands (evil-mode evil-define-key)
+  :init
+  (setq evil-undo-system 'undo-fu)
   (setq evil-want-C-u-scroll t)
   (setq evil-want-fine-undo t)
+  :config
   (evil-select-search-module 'evil-search-module 'evil-search)
-  )
+  (setq evil-ex-search-vim-style-regexp t
+        evil-ex-visual-char-range t  ; column range for ex commands
+        evil-mode-line-format 'nil
+        ;; more vim-like behavior
+        evil-symbol-word-search t
+        ;; if the current state is obvious from the cursor's color/shape, then
+        ;; we won't need superfluous indicators to do it instead.
+        evil-normal-state-cursor 'box
+        evil-emacs-state-cursor  '(box +evil-emacs-cursor-fn)
+        evil-insert-state-cursor 'bar
+        evil-visual-state-cursor 'hollow
+        ;; Only do highlighting in selected window so that Emacs has less work
+        ;; to do highlighting them all.
+        evil-ex-interactive-search-highlight 'selected-window
+        ;; It's infuriating that innocuous "beginning of line" or "end of line"
+        ;; errors will abort macros, so suppress them:
+        evil-kbd-macro-suppress-motion-error t
+        ))
 
 (use-package evil-collection
   :ensure t
-  :after (evil mu4e)
+  :after evil 
   :config
   (evil-collection-init)
   )
+
 (use-package evil-args
   :ensure t
   :defer t
@@ -501,11 +501,9 @@
   )
 
 (use-package visual-fill-column
-  :defer t
   :ensure t)
 
 (use-package ibuffer-vc
-  :defer t
   :ensure t
   )
 
@@ -516,12 +514,11 @@
              undo-fu-only-redo-all
              undo-fu-disable-checkpoint)
   :config
-  ;; 3 times the default values
+  ;; Increase undo history limits to reduce likelihood of data loss
   (setq undo-limit 400000           ; 400kb (default is 160kb)
         undo-strong-limit 3000000   ; 3mb   (default is 240kb)
         undo-outer-limit 48000000)  ; 48mb  (default is 24mb)
   )
-
 
 (use-package undo-fu-session
   :ensure t
@@ -544,43 +541,24 @@
         vundo-compact-display t)
   )
 
-(use-package vdiff
-  :ensure t
-  :defer t
-  :commands (vdiff-buffers
-             vdiff-buffers3
-             vdiff-quit
-             vdiff-files
-             vdiff-files3)
-  :custom
-  (vdiff-auto-refine t)
-  (vdiff-only-highlight-refinements t))
-
 (use-package evil-visualstar
   :after evil
   :ensure t
   :defer t
-  :commands global-evil-visualstar-mode
-  :init (global-evil-visualstar-mode))
+  :commands (evil-visualstar/begin-search
+             evil-visualstar/begin-search-forward
+             evil-visualstar/begin-search-backward))
 
 (use-package evil-surround
   :after evil
   :ensure t
   :defer t
-  :commands global-evil-surround-mode
-  :custom
-  (evil-surround-pairs-alist
-   '((?\( . ("(" . ")"))
-     (?\[ . ("[" . "]"))
-     (?\{ . ("{" . "}"))
-
-     (?\) . ("(" . ")"))
-     (?\] . ("[" . "]"))
-     (?\} . ("{" . "}"))
-
-     (?< . ("<" . ">"))
-     (?> . ("<" . ">"))))
+  :commands (global-evil-surround-mode
+             evil-surround-edit
+             evil-Surround-edit
+             evil-surround-region)
   :init (global-evil-surround-mode))
+
 (with-eval-after-load "evil"
   (evil-define-operator my-evil-comment-or-uncomment (beg end)
     "Toggle comment for the region between BEG and END."
@@ -596,23 +574,8 @@
 
 (use-package corfu
   :ensure t
-  :defer t
-  :commands (corfu-mode global-corfu-mode)
-
-  :hook ((prog-mode . corfu-mode)
-         (shell-mode . corfu-mode)
-         (eshell-mode . corfu-mode))
-
-  :custom
-  ;; Hide commands in M-x which do not apply to the current mode.
-  (read-extended-command-predicate #'command-completion-default-include-p)
-  ;; Disable Ispell completion function. As an alternative try `cape-dict'.
-  (text-mode-ispell-word-completion nil)
-  (tab-always-indent 'complete)
-
+  :hook (elpaca-after-init . global-corfu-mode)
   ;; Enable Corfu
-  :config
-  (global-corfu-mode +1)
   :bind
   (:map corfu-map
         ("TAB" . corfu-next)
@@ -621,6 +584,7 @@
         ([backtab] . corfu-previous))
 
   :config
+  (global-corfu-mode +1)
   (setq corfu-auto-prefix 2)
   (setq corfu-auto-delay 0.1)
   (setq corfu-quit-no-match t)
@@ -644,8 +608,6 @@
 
 (use-package cape
   :ensure t
-  :defer t
-  :commands (cape-dabbrev cape-file cape-elisp-block)
   :bind ("C-c p" . cape-prefix-map)
   :config
   (setq cape-dabbrev-min-length 1)
@@ -661,13 +623,15 @@
 (use-package nerd-icons-corfu
   :ensure t
   :after corfu
-  :config
+  :init
+  ;; Optionally:
   (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)
   (setq nerd-icons-corfu-mapping
         '((array :style "cod" :icon "symbol_array" :face font-lock-type-face)
           (boolean :style "cod" :icon "symbol_boolean" :face font-lock-builtin-face)
           ;; ...
           (t :style "cod" :icon "code" :face font-lock-warning-face)))
+  ;; Remember to add an entry for `t', the library uses that as default.
   )
 
 (use-package corfu-history
@@ -859,6 +823,7 @@
   (set-face-attribute 'diredfl-dir-name nil :bold t))
 
 (use-package tramp
+  :ensure nil
   :config
   ;; Enable full-featured Dirvish over TRAMP on ssh connections
   ;; https://www.gnu.org/software/tramp/#Improving-performance-of-asynchronous-remote-processes
@@ -970,6 +935,7 @@
   ;;				      parenthesized_expression subscript)))
   :config
   (setq
+   indent-bars-starting-column 0
    indent-bars-color '(highlight :face-bg t :blend 0.05)
    indent-bars-no-stipple nil
    indent-bars-pattern "."
@@ -1147,8 +1113,8 @@
   :ensure t)
 
 (use-package jupyter
-  :defer t
   :ensure t
+  :defer t
   :init
   (setq jupyter-use-zmq t
         jupyter-eval-use-overlays nil
@@ -1351,6 +1317,8 @@
   :defer t
   :init
   (require 'vlf-setup)
+  :config
+  (setq vlf-application "dont-ask")
   )
 
 (use-package csv-mode
@@ -1399,14 +1367,10 @@
   :commands outline-indent-minor-mode
 
   :init
-  ;; The minor mode can also be automatically activated for a certain modes.
-  ;; For example for Python and YAML:
-  (add-hook 'python-mode-hook #'outline-indent-minor-mode)
-  (add-hook 'python-ts-mode-hook #'outline-indent-minor-mode)
-
-  (add-hook 'yaml-mode-hook #'outline-indent-minor-mode)
-  (add-hook 'yaml-ts-mode-hook #'outline-indent-minor-mode)
-
+  (outline-indent-minor-mode +1)
+  :config
+  (setq outline-indent-default-offset 4)
+  (setq outline-indent-shift-width 4)
   :custom
   (outline-indent-ellipsis " ▼ "))
 
@@ -1420,22 +1384,26 @@
            :actions '())
   )
 
-(use-package easysession
-  :ensure t
-  :defer t
-  :custom
-  ;; Interval between automatic session saves
-  (easysession-save-interval (* 10 60))
-  ;; Make the current session name appear in the mode-line
-  (easysession-mode-line-misc-info t)
-  :general (:prefix "SPC"
-                    :keymaps 'override
-                    :states 'normal
-                    "l l" #'easysession-switch-to
-                    "l s" #'easysession-save-as)
-  :init
-  (add-hook 'emacs-startup-hook #'easysession-load-including-geometry 102)
-  (add-hook 'emacs-startup-hook #'easysession-save-mode 103))
+;; (use-package easysession
+;;   :ensure t
+;;   :defer t
+;;   :commands (easysession-switch-to
+;;              easysession-save-as
+;;              easysession-save-mode
+;;              easysession-load-including-geometry)
+;;   :custom
+;;   ;; Interval between automatic session saves
+;;   (easysession-save-interval (* 10 60))
+;;   ;; Make the current session name appear in the mode-line
+;;   (easysession-mode-line-misc-info t)
+;;   :general (:prefix "SPC"
+;;                     :keymaps 'override
+;;                     :states 'normal
+;;                     "l l" #'easysession-switch-to
+;;                     "l s" #'easysession-save-as)
+;;   :init
+;;   (add-hook 'emacs-startup-hook #'easysession-load-including-geometry 102)
+;;   (add-hook 'emacs-startup-hook #'easysession-save-mode 103))
 
 (use-package savehist
   :ensure nil
@@ -1445,7 +1413,7 @@
   (add-to-list 'savehist-additional-variables 'kill-ring)
   (add-to-list 'savehist-additional-variables 'mark-ring)
   (add-to-list 'savehist-additional-variables 'search-ring)
-  (add-to-list 'savehist-additional-variables 'easysession--current-session-name)
+  ;; (add-to-list 'savehist-additional-variables 'easysession--current-session-name)
   (add-to-list 'savehist-additional-variables 'regexp-search-ring))
 
 (use-package ws-butler
@@ -1597,7 +1565,7 @@
   :ensure t
   :config
   ;; To disable collection of benchmark data after init is done.
-  (add-hook 'elpaca-after-init-hook 'benchmark-init/deactivate))
+  (add-hook 'after-init-hook 'benchmark-init/deactivate))
 
 (use-package dumb-jump
   :ensure t
@@ -1618,7 +1586,6 @@
 (setq auto-save-visited-interval 5)   ; Save after 5 seconds if inactivity
 (auto-save-visited-mode 1)
 (global-visual-line-mode +1)
-
 
 (setq delete-by-moving-to-trash t)
 (setq imagemagick-render-type 1)
@@ -1733,6 +1700,10 @@
                   :build (:not elpaca--compile-info) ;; Make will take care of this step
                   :files ("*.el" "doc/*.info*" "etc" "images" "latex" "style")
                   :version (lambda (_) (require 'auctex) AUCTeX-version))
+  :hook ((LaTeX-mode . LaTeX-preview-setup)
+         (LaTeX-mode . TeX-fold-mode)
+         (LaTeX-mode . prettify-symbols-mode)
+         )
   :defer t
   :config
   (setq TeX-parse-self t ; parse on load
@@ -1750,16 +1721,42 @@
         TeX-save-query nil
         TeX-show-compilation t
         TeX-command-extra-options "-shell-escape")
+  (setq TeX-fold-auto-reveal t)
+  (setq-default preview-scale 1.4
+                preview-scale-function
+                (lambda () (* (/ 10.0 (preview-document-pt)) preview-scale)))
+  ;; Don't cache preamble, it creates issues with SyncTeX. Let users enable
+  ;; caching if they have compilation times that long.
+  (setq preview-auto-cache-preamble nil)
+
   ;; (require 'auctex-latexmk)
   ;; (auctex-latexmk-setup)
   )
 
 (use-package evil-tex
   :ensure t
+  :hook (LaTeX-mode . evil-tex-mode)
   :after (evil auctex)
+  :defer t)
+
+(use-package lsp-latex
+  ;; this uses texlab
+  :ensure t
   :defer t
-  :init
-  (add-hook 'LaTeX-mode-hook #'evil-tex-mode))
+  :hook ((LaTeX-mode . (lambda ()
+                         (require 'lsp-latex)
+                         (lsp)))
+         (bibtex-mode . (lambda ()
+                          (require 'lsp-latex)
+                          (lsp-deferred)))
+         )
+  :config
+  ;; Setting for pdf-tools
+  (setq lsp-latex-forward-search-executable "emacsclient")
+  (setq lsp-latex-forward-search-args
+        '("--eval"
+          "(lsp-latex-forward-search-with-pdf-tools \"%f\" \"%p\" \"%l\")"))
+  )
 
 (use-package treesit-fold
   :ensure (treesit-fold :type git :host github :repo "emacs-tree-sitter/treesit-fold")
