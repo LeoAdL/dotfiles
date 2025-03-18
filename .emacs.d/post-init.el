@@ -1693,6 +1693,27 @@
 ;; (use-package auctex-latexmk
 ;;   :ensure t
 ;;   :defer t)
+(use-package reftex
+  :ensure nil
+  :hook (LaTeX-mode . reftex-mode)
+  :config
+  ;; http://tex.stackexchange.com/questions/31966/setting-up-reftex-with-biblatex-citation-commands/31992#31992.
+  (setq reftex-cite-format
+        '((?a . "\\autocite[]{%l}")
+          (?b . "\\blockcquote[]{%l}{}")
+          (?c . "\\cite[]{%l}")
+          (?f . "\\footcite[]{%l}")
+          (?n . "\\nocite{%l}")
+          (?p . "\\parencite[]{%l}")
+          (?s . "\\smartcite[]{%l}")
+          (?t . "\\textcite[]{%l}"))
+        reftex-plug-into-AUCTeX t
+        reftex-toc-split-windows-fraction 0.3
+        ;; This is needed when `reftex-cite-format' is set. See
+        ;; https://superuser.com/a/1386206
+        LaTeX-reftex-cite-format-auto-activate nil)
+  (add-hook 'reftex-mode-hook #'evil-normalize-keymaps)
+  )
 
 (use-package auctex
   :ensure (auctex :repo "https://git.savannah.gnu.org/git/auctex.git" :branch "main"
