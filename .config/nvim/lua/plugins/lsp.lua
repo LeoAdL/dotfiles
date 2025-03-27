@@ -34,6 +34,23 @@ return {
                 virtual_text = false,
                 severity_sort = true,
             },
+            inlay_hints = {
+                enabled = true,
+            },
+            -- Enable this to enable the builtin LSP code lenses on Neovim >= 0.10.0
+            -- Be aware that you also will need to properly configure your LSP server to
+            -- provide the code lenses.
+            codelens = {
+                enabled = true,
+            },
+            capabilities = {
+                workspace = {
+                    fileOperations = {
+                        didRename = true,
+                        willRename = true,
+                    },
+                },
+            },
             -- LSP Server Settings
             ---@type lspconfig.options
             ---
@@ -111,12 +128,17 @@ return {
         },
         config = function(_, opts)
             local servers = opts.servers
-            local capabilities = vim.lsp.protocol.make_client_capabilities()
-            local capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
+            local capabilities = vim.tbl_deep_extend(
+                "force",
+                {},
+                vim.lsp.protocol.make_client_capabilities(),
+                require('blink.cmp').get_lsp_capabilities(),
+                opts.capabilities or {}
+            )
             for server in pairs(opts.servers) do
                 local server_opts = vim.tbl_deep_extend("force", {
-                    capabilities = capabilities,
-                }, servers[server])
+                    capabilities = vim.deepcopy(capabilities),
+                }, servers[server] or {})
                 require("lspconfig")[server].setup(server_opts)
             end
             vim.diagnostic.config(opts.diagnostics)

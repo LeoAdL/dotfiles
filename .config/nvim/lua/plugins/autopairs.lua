@@ -1,5 +1,8 @@
 return {
     "echasnovski/mini.pairs",
     event = "VeryLazy",
-    opts = { markdown = true },
+    opts = {
+        skip_unbalanced = true,
+        markdown = true
+    },
 }
