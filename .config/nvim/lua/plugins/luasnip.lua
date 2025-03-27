@@ -6,6 +6,10 @@ return {
         config = function()
             require("luasnip.loaders.from_vscode").lazy_load({ paths = { "/Users/leoap/.config/nvim/lua/snippets" } })
         end,
+        opts = {
+            history = true,
+            delete_check_events = "TextChanged",
+        },
     },
     { "rafamadriz/friendly-snippets", enabled = false },
 }

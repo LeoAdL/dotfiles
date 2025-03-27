@@ -42,7 +42,7 @@ return {
             sources = {
                 -- adding any nvim-cmp sources here will enable them
                 -- with blink.compat
-                default = { "lsp", "path", "snippets", "buffer", "cmdline" },
+                default = { "lsp", "path", "snippets", "buffer", "cmdline", "omni" },
                 providers = {
                     markdown = {
                         name = 'RenderMarkdown',
