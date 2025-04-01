@@ -4,6 +4,7 @@ return {
         version = "*",
         dependencies = {
             "rafamadriz/friendly-snippets",
+            { 'L3MON4D3/LuaSnip', version = 'v2.*' },
             -- add blink.compat to dependencies
         },
         event = "InsertEnter",
@@ -21,8 +22,9 @@ return {
                 nerd_font_variant = "normal",
             },
             keymap = {
-                preset = "default",
+                preset = "super-tab",
             },
+            snippets = { preset = 'luasnip' },
             completion = {
                 list = { selection = { preselect = false, auto_insert = true } },
                 menu = {
