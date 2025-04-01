@@ -1,6 +1,4 @@
-vim.keymap.set("n", "<leader>.", "<cmd>Oil<cr>", { desc = "file_browser" })
 vim.keymap.set("n", "<leader>lL", "<cmd>Lazy<cr>", { desc = "Lazy" })
-vim.keymap.set("n", "<leader>xg", "<cmd>Gitsigns setqflist<cr>", { desc = "Git QuickFix" })
 local bufopts = { noremap = true, silent = true, desc = "Expand LSP diagnostic" }
 
 vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, bufopts)

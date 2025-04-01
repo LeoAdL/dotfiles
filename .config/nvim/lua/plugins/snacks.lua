@@ -20,6 +20,7 @@ return {
     },
     keys = {
         -- Top Pickers & Explorer
+        { "<leader>tt",      function() Snacks.picker() end,                                         desc = "Snacks Pickers" },
         { "<leader><space>", function() Snacks.picker.smart() end,                                   desc = "Smart Find Files" },
         { "<leader>,",       function() Snacks.picker.buffers() end,                                 desc = "Buffers" },
         { "<leader>/",       function() Snacks.picker.grep() end,                                    desc = "Grep" },
