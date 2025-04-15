@@ -7,6 +7,7 @@
 ;; Ensure JIT compilation is enabled for improved performance by
 ;; native-compiling loaded .elc files asynchronously
 (setq native-comp-jit-compilation t)
+(setq package-native-compile t)
 
 (setq mac-command-modifier 'meta
       mac-option-modifier 'none)
@@ -252,6 +253,7 @@
   ;; Speed up vterm
   (setq vterm-kill-buffer-on-exit t)
 
+  (setq vterm-timer-delay 0.01)
   ;; 5000 lines of scrollback, instead of 1000
   (setq vterm-max-scrollback 5000))
 
@@ -878,6 +880,7 @@
     (setq insert-directory-program "gls"))
   (setq dirvish-attributes'(vc-state subtree-state nerd-icons git-msg file-time file-size))
   (setq dirvish-default-layout '(0 0.4 0.6))
+  (setq dirvish-rsync-program "/run/current-system/sw/bin/rsync")
   (setq dirvish-yank-rsync-args '("-s" "--archive" "--verbose" "--compress" "--info=progress2" "--partial"))
   (general-define-key
    :prefix "SPC"
@@ -1117,6 +1120,7 @@
   :defer t
   :init
   (setq jupyter-use-zmq t
+        jupyter-repl-completion-at-point-hook-depth 2
         jupyter-eval-use-overlays nil
         jupyter-eval-short-result-max-lines 0
         jupyter-eval-overlay-keymap "<backtab>"
@@ -1204,6 +1208,11 @@
                         (smtpmail-smtp-user     . "leoaparisi@gmail.com")
                         ( user-full-name	    . "Leo Aparisi de Lannoy" )))))
     (add-hook 'completion-at-point-functions #'mu4e-complete-contact)
+    (require 'mu4e-icalendar)
+    (mu4e-icalendar-setup)
+    (setq gnus-icalendar-org-capture-file "~/org/notes.org"
+          gnus-icalendar-org-capture-headline '("Calendar"))
+    (gnus-icalendar-org-setup)
     )
 
   (use-package mu4e-compat
@@ -1257,6 +1266,7 @@
   :ensure t
   :defer t
   :after org
+  :hook (org-agenda-finalize . org-modern-agenda)
   :init
   (add-hook 'org-mode-hook #'global-org-modern-mode)
   :config
@@ -1614,20 +1624,20 @@
   :mode ("\\.pdf\\'" . pdf-view-mode)
   :magic ("%PDF" . pdf-view-mode)
   :ensure nil
+  :after latex
   :config
+  (package-initialize)
+  (pdf-tools-install)
   (setq pdf-view-display-size 'fit-page)
-
   :general
   ([remap pdf-view-midnight-minor-mode] #'pdf-view-themed-minor-mode
-   )
-  :defer t)
+   ))
 
 (use-package saveplace-pdf-view
   :ensure t
   :after pdf-tools
   :config
-  (save-place-mode 1)
-  :defer t)
+  (save-place-mode 1))
 
 (use-package lsp-nix
   :ensure nil
@@ -1743,7 +1753,9 @@
         TeX-show-compilation t
         TeX-command-extra-options "-shell-escape")
   (setq TeX-fold-auto-reveal t)
-  (setq-default preview-scale 1.4
+  (setq-default TeX-engine 'xetex)
+  (setq TeX-view-program-selection '((output-pdf "PDF Tools")))
+  (setq-default preview-scale 1.6
                 preview-scale-function
                 (lambda () (* (/ 10.0 (preview-document-pt)) preview-scale)))
   ;; Don't cache preamble, it creates issues with SyncTeX. Let users enable
@@ -1782,6 +1794,13 @@
 (use-package treesit-fold
   :ensure (treesit-fold :type git :host github :repo "emacs-tree-sitter/treesit-fold")
   :defer t)
+
+(use-package treesit-auto
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
 
 (use-package citar
   :ensure t
@@ -1848,4 +1867,25 @@
   (setq org-cite-csl-activate-use-document-style t)
   (setq org-cite-csl-activate-use-document-locale t)
   (setq org-cite-csl-activate-use-citar-cache t)
+  )
+
+(use-package org-noter
+  :ensure t
+  :defer t
+  :preface
+  ;; Allow the user to preempt this and set the document search path
+  ;; If not set then use `org-directory'
+  (defvar org-noter-notes-search-path nil)
+  :config
+  (unless org-noter-notes-search-path
+    (setq org-noter-notes-search-path (list org-directory)))
+  (setq org-noter-auto-save-last-location t
+        org-noter-separate-notes-from-heading t))
+
+(use-package edraw-org
+  :defer t
+  :after org
+  :ensure (edraw-org :type git :host github :repo "misohena/el-easydraw")
+  :config
+  (edraw-org-setup-default)
   )
