@@ -161,7 +161,7 @@
           (plist-put org-format-latex-options :background "Transparent"))
   (setopt org-format-latex-options
           (plist-put org-format-latex-options :scale 2))
-  (setq
+  (setopt
    org-agenda-files (list org-directory)                  ; Seems like the obvious place.
    org-log-done 'time                                     ; Having the time a item is done sounds convenient.
    org-list-allow-alphabetical t                          ; Have a. A. a) A) list bullets.
@@ -937,7 +937,7 @@
   ;;				      dictionary dictionary_comprehension
   ;;				      parenthesized_expression subscript)))
   :config
-  (setq
+  (setopt
    indent-bars-starting-column 0
    indent-bars-color '(highlight :face-bg t :blend 0.05)
    indent-bars-no-stipple nil
@@ -1319,7 +1319,7 @@
 (use-package q-mode
   :defer t
   :ensure t
-  :config (setq
+  :config (setopt
            q-program "q -s 7"))
 
 (use-package vlf
