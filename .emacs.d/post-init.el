@@ -1158,7 +1158,6 @@
             mu4e-use-fancy-chars t                   ; allow fancy icons for mail threads
             mu4e-notification-support t
             mu4e-change-filenames-when-moving t
-            mu4e-thread-mode t
             mu4e-index-lazy-check nil
             mu4e-search-results-limit 100
             mu4e-context-policy 'pick-first ;; Always ask which context to use when composing a new mail
@@ -1207,6 +1206,7 @@
                           (user-mail-address . "leoaparisi@gmail.com")
                           (smtpmail-smtp-user     . "leoaparisi@gmail.com")
                           ( user-full-name	    . "Leo Aparisi de Lannoy" )))))
+    (setq mu4e-thread-mode t)
     (add-hook 'completion-at-point-functions #'mu4e-complete-contact)
     (require 'mu4e-icalendar)
     (mu4e-icalendar-setup)
