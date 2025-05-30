@@ -1503,6 +1503,7 @@
             :keymaps 'override
             :states 'normal
             "H" #'image-transform-fit-to-window
+            "R" #'image-rotate
             )
   )
 
