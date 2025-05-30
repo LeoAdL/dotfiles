@@ -616,7 +616,7 @@
   :defer t
   :after evil
   :commands evil-snipe-mode
-  :init (evil-snipe-mode))
+  :config (evil-snipe-mode))
 
 (use-package corfu
   :ensure t
