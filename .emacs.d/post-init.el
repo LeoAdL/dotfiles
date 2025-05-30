@@ -301,6 +301,8 @@
 (use-package vertico
   ;; (Note: It is recommended to also enable the savehist package.)
   :ensure t
+  :defer t
+  :commands vertico-mode
   :hook (elpaca-after-init . vertico-mode)
   :config
   (setopt vertico-cycle t)
@@ -321,16 +323,18 @@
   ;; to input multiple patterns separated by spaces, which Orderless then
   ;; matches in any order against the candidates.
   :ensure t
-  :config
-  (setopt completion-styles '(orderless basic))
-  (setopt completion-category-defaults nil)
-  (setopt completion-category-overrides '((file (styles basic partial-completion)))))
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles basic partial-completion)))))
 
 (use-package marginalia
   ;; Marginalia allows Embark to offer you preconfigured actions in more contexts.
   ;; In addition to that, Marginalia also enhances Vertico by adding rich
   ;; annotations to the completion candidates displayed in Vertico's interface.
   :ensure t
+  :defer t
+  :commands (marginalia-mode marginalia-cycle)
   :hook (elpaca-after-init . marginalia-mode))
 
 (use-package embark
@@ -338,6 +342,13 @@
   ;; users to perform context-sensitive actions on selected items
   ;; directly from the completion interface.
   :ensure t
+  :defer t
+  :commands (embark-act
+             embark-dwim
+             embark-export
+             embark-collect
+             embark-bindings
+             embark-prefix-help-command)
   :init
   (setopt prefix-help-command #'embark-prefix-help-command)
   :bind
@@ -363,7 +374,6 @@
 
 (use-package consult
   :ensure t
-  :defer t
   :general (
             :prefix "SPC"
             :keymaps 'override
@@ -420,10 +430,9 @@
   ;; `consult-register-store' and the built-in commands.  This improves the
   ;; register formatting, adds thin separator lines, register sorting and hides
   ;; the window mode line.
+  (setopt register-preview-delay 0.5
+          register-preview-function #'consult-register-format)
   (advice-add #'register-preview :override #'consult-register-window)
-
-  ;; Optionally configure the register formatting. This improves the register
-  (setopt register-preview-delay 0.5)
 
   ;; Use Consult to select xref locations with preview
   (setopt xref-show-xrefs-function #'consult-xref
@@ -460,12 +469,15 @@
   (setopt evil-want-integration t)
   (setopt evil-want-keybinding nil))
 
+(setopt evil-undo-system 'undo-fu)
+
 (use-package evil
   :ensure t
+  :defer t
+  :commands (evil-mode evil-define-key)
   :hook (elpaca-after-init . evil-mode)
   :commands (evil-mode evil-define-key)
   :init
-  (setopt evil-undo-system 'undo-fu)
   (setopt evil-want-C-u-scroll t)
   (setopt evil-want-fine-undo t)
   :config
@@ -541,6 +553,7 @@
 
 (use-package undo-fu
   :ensure t
+  :defer t
   :commands (undo-fu-only-undo
              undo-fu-only-redo
              undo-fu-only-redo-all
@@ -554,8 +567,9 @@
 
 (use-package undo-fu-session
   :ensure t
-  :init
-  (undo-fu-session-global-mode)
+  :defer t
+  :commands undo-fu-session-global-mode
+  :hook (elpaca-after-init . undo-fu-session-global-mode)
   :config
   (setopt undo-fu-session-compression 'zst)
   )
@@ -589,7 +603,7 @@
              evil-surround-edit
              evil-Surround-edit
              evil-surround-region)
-  :init (global-evil-surround-mode))
+  :hook (elpaca-after-init . global-evil-surround-mode))
 
 (with-eval-after-load "evil"
   (evil-define-operator my-evil-comment-or-uncomment (beg end)
@@ -606,8 +620,16 @@
 
 (use-package corfu
   :ensure t
+  :defer t
+  :commands (corfu-mode global-corfu-mode)
   :hook (elpaca-after-init . global-corfu-mode)
   ;; Enable Corfu
+  :custom
+  ;; Hide commands in M-x which do not apply to the current mode.
+  (read-extended-command-predicate #'command-completion-default-include-p)
+  ;; Disable Ispell completion function. As an alternative try `cape-dict'.
+  (text-mode-ispell-word-completion nil)
+  (tab-always-indent 'complete)
   :bind
   (:map corfu-map
         ("TAB" . corfu-next)
@@ -640,6 +662,8 @@
 
 (use-package cape
   :ensure t
+  :defer t
+  :commands (cape-history cape-dabbrev cape-file cape-keyword)
   :bind ("C-c p" . cape-prefix-map)
   :config
   (setopt cape-dabbrev-min-length 1)
@@ -719,21 +743,30 @@
   (pixel-scroll-precision-mode 1))
 
 ;; Display the time in the modeline
-(display-time-mode 1)
+;; Display the time in the modeline
+(add-hook 'elpaca-after-init-hook #'display-time-mode)
 (setopt display-time-mail-string "")
 
 ;; Paren match highlighting
-(show-paren-mode 1)
+(add-hook 'elpaca-after-init-hook #'show-paren-mode)
 
 ;; Track changes in the window configuration, allowing undoing actions such as
 ;; closing windows.
-(winner-mode 1)
+(add-hook 'elpaca-after-init-hook #'winner-mode)
 
 ;; Replace selected text with typed text
 (delete-selection-mode 1)
 
 ;; Configure Emacs to ask for confirmation before exiting
 (setopt confirm-kill-emacs 'y-or-n-p)
+
+(setopt make-backup-files t)
+(setopt vc-make-backup-files t)
+(setopt kept-old-versions 10)
+(setopt kept-new-versions 10)
+(setopt redisplay-skip-fontification-on-input t)
+
+
 
 (use-package uniquify
   :ensure nil
@@ -1508,8 +1541,10 @@
 (use-package apheleia
   :ensure t
   :defer t
-  :init
-  (apheleia-global-mode +1))
+  :commands (apheleia-mode
+             apheleia-global-mode)
+  :hook
+  (elpaca-after-init . apheleia-global-mode))
 
 (use-package rainbow-delimiters
   :ensure t
