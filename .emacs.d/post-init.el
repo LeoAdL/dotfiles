@@ -1496,6 +1496,16 @@
                     )
   )
 
+(use-package iimage
+  :ensure nil
+  :defer t
+  :general (
+            :keymaps 'override
+            :states 'normal
+            "H" #'image-transform-fit-to-window
+            )
+  )
+
 (use-package ox-pandoc
   :defer t
   :after ox
@@ -1623,7 +1633,7 @@
 (use-package pdf-tools
   :mode ("\\.pdf\\'" . pdf-view-mode)
   :magic ("%PDF" . pdf-view-mode)
-  :ensure nil
+  :ensure t
   :after latex
   :config
   (package-initialize)
