@@ -638,7 +638,6 @@
         ([backtab] . corfu-previous))
 
   :config
-  (global-corfu-mode +1)
   (setopt corfu-auto-prefix 2)
   (setopt corfu-auto-delay 0.1)
   (setopt corfu-quit-no-match t)
@@ -744,6 +743,7 @@
 
 ;; Display the time in the modeline
 ;; Display the time in the modeline
+(setopt display-time-mail-string "")
 (add-hook 'elpaca-after-init-hook #'display-time-mode)
 (setopt display-time-mail-string "")
 
@@ -753,9 +753,9 @@
 ;; Track changes in the window configuration, allowing undoing actions such as
 ;; closing windows.
 (add-hook 'elpaca-after-init-hook #'winner-mode)
-
-;; Replace selected text with typed text
-(delete-selection-mode 1)
+(add-hook 'elpaca-after-init-hook #'auto-save-visited-mode)
+(add-hook 'elpaca-after-init-hook #'global-visual-line-mode)
+(add-hook 'elpaca-after-init-hook #'delete-selection-mode)
 
 ;; Configure Emacs to ask for confirmation before exiting
 (setopt confirm-kill-emacs 'y-or-n-p)
@@ -801,12 +801,9 @@
 (use-package doom-modeline
   :ensure t
   :defer t
-  :hook ((doom-modeline-mode . size-indication-mode) ; filesize in modeline
+  :hook ((elpaca-after-init . doom-modeline-mode)
+         (doom-modeline-mode . size-indication-mode) ; filesize in modeline
          (doom-modeline-mode . column-number-mode))   ; cursor column in modeline
-  :init
-  (setopt display-time-mail-string "")
-  (display-time-mode 1)
-  (doom-modeline-mode 1)
   :config
   (setopt doom-modeline-hud t)
   (setopt doom-modeline-buffer-encoding nil)
@@ -844,8 +841,7 @@
 
 (use-package solaire-mode
   :ensure t
-  :config
-  (solaire-global-mode +1)
+  :hook (elpaca-after-init . solaire-global-mode)
   )
 
 (defun er-disable-all-active-themes ()
@@ -945,12 +941,12 @@
   (setopt dirvish-default-layout '(0 0.4 0.6))
   (setopt dirvish-rsync-program "/run/current-system/sw/bin/rsync")
   (setopt dirvish-yank-rsync-args '("-s" "--archive" "--verbose" "--compress" "--info=progress2" "--partial"))
+  (diff-hl-dired-mode +1)
   (general-define-key
    :prefix "SPC"
    :keymaps 'override
    :states 'normal
    "." #'find-file)
-  (diff-hl-dired-mode +1)
   )
 
 
@@ -1015,8 +1011,8 @@
 (use-package ligature
   :ensure t
   :defer t
-  :init
-  (global-ligature-mode +1)
+  :hook (elpaca-after-init . global-ligature-mode)
+  :config
   ;; Enable all Iosevka ligatures in programming modes
   (ligature-set-ligatures 'prog-mode '("<---" "<--"  "<<-" "<-" "->" "-->" "--->" "<->" "<-->" "<--->" "<---->" "<!--"
                                        "<==" "<===" "<=" "=>" "=>>" "==>" "===>" ">=" "<=>" "<==>" "<===>" "<====>" "<!---"
@@ -1029,10 +1025,10 @@
 (use-package diff-hl
   :ensure t
   :defer t
+  :hook (elpaca-after-init . global-diff-hl-mode)
   :init
   (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-  (global-diff-hl-mode +1)
   :config
   (setopt diff-hl-global-modes '(not image-mode pdf-view-mode))
   ;; PERF: A slightly faster algorithm for diffing.
@@ -1439,8 +1435,8 @@
   :defer t
   :commands outline-indent-minor-mode
 
-  :init
-  (outline-indent-minor-mode +1)
+  :hook
+  (elpaca-after-init . outline-indent-minor-mode)
   :config
   (setopt outline-indent-default-offset 4)
   (setopt outline-indent-shift-width 4)
@@ -1450,8 +1446,8 @@
 (use-package smartparens
   :ensure t
   :defer t
-  :init
-  (smartparens-global-mode +1)
+  :hook
+  (elpaca-after-init . smartparens-global-mode)
   :config
   (sp-pair "`" "`"
            :actions '())
@@ -1670,8 +1666,6 @@
 (setopt auto-save-interval 300)
 (setopt auto-save-timeout 10)
 (setopt auto-save-visited-interval 5)   ; Save after 5 seconds if inactivity
-(auto-save-visited-mode 1)
-(global-visual-line-mode +1)
 
 (setopt delete-by-moving-to-trash t)
 (setopt imagemagick-render-type 1)
@@ -1732,8 +1726,8 @@
   :init
   (setopt scroll-conservatively 101 ; important!
           scroll-margin 0)
-  :config
-  (ultra-scroll-mode 1))
+  :hook
+  (elpaca-after-init . ultra-scroll-mode))
 
 (defun efs/display-startup-time ()
   (message
