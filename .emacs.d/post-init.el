@@ -1557,13 +1557,14 @@
                     )
   )
 
+
+
 (use-package iimage
   :ensure nil
-  :defer t
   :general (
-            :keymaps 'override
+            :keymaps 'image-mode-map
             :states 'normal
-            "H" #'image-transform-fit-to-window
+            "w" #'image-transform-fit-to-window
             "R" #'image-rotate
             )
   )
@@ -1676,13 +1677,16 @@
 (setopt xref-search-program 'ripgrep
         )
 
-(add-hook 'elpaca-after-init-hook (lambda ()
-                                    (setenv "PATH"
-                                            (concat
-                                             "/Library/TeX/texbin/" path-separator
-                                             (getenv "PATH")))
-                                    (add-to-list 'exec-path "/Library/TeX/texbin/")
-                                    ))
+(add-hook 'after-init-hook (lambda ()
+                             (setenv "PATH"
+                                     (concat
+                                      "/opt/homebrew/bin/" path-separator
+                                      (concat
+                                       "/Library/TeX/texbin/" path-separator
+                                       (getenv "PATH"))))
+                             (add-to-list 'exec-path "/Library/TeX/texbin/")
+                             (add-to-list 'exec-path "/opt/homebrew/bin/")
+                             ))
 
 (use-package recentf
   :ensure nil
