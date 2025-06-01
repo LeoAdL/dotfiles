@@ -1682,13 +1682,11 @@
 (add-hook 'after-init-hook (lambda ()
                              (setenv "PATH"
                                      (concat
-                                      "/opt/homebrew/bin/" path-separator
-                                      (concat
-                                       "/Library/TeX/texbin/" path-separator
-                                       (getenv "PATH"))))
+                                      "/Library/TeX/texbin/" path-separator
+                                      (getenv "PATH")))
                              (add-to-list 'exec-path "/Library/TeX/texbin/")
-                             (add-to-list 'exec-path "/opt/homebrew/bin/")
-                             ))
+                             )
+          )
 
 (use-package recentf
   :ensure nil
