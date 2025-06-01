@@ -1412,7 +1412,9 @@
                        (require 'lsp-ltex-plus)
                        (lsp-deferred)))  ; or lsp-deferred
   :init
-  (setopt lsp-ltex-plus-version "18.2.0"))  ; make sure you have set this, see below
+  (setq lsp-ltex-plus-server-store-path nil)
+  (setq lsp-ltex-plus-version "18.5.1")  ; make sure you have set this, see below
+  )  ; make sure you have set this, see below
 
 (use-package jinx
   :ensure nil
