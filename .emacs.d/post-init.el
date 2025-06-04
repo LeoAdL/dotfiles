@@ -1,43 +1,4 @@
 ;;; post-init.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
-;; Ensure adding the following compile-angel code at the very beginning
-;; of your `~/.emacs.d/post-init.el` file, before all other packages.
-;; Non-nil means to native compile packages as part of their installation.
-;; Ensure adding the following compile-angel code at the very beginning
-;; of your `~/.emacs.d/post-init.el` file, before all other packages.
-(use-package compile-angel
-  :ensure t
-  :demand t
-  :custom
-  ;; Set `compile-angel-verbose` to nil to suppress output from compile-angel.
-  ;; Drawback: The minibuffer will not display compile-angel's actions.
-  (compile-angel-verbose t)
-
-  :config
-  ;; The following directive prevents compile-angel from compiling your init
-  ;; files. If you choose to remove this push to `compile-angel-excluded-files'
-  ;; and compile your pre/post-init files, ensure you understand the
-  ;; implications and thoroughly test your code. For example, if you're using
-  ;; `use-package', you'll need to explicitly add `(require 'use-package)` at
-  ;; the top of your init file.
-  (push "/init.el" compile-angel-excluded-files)
-  (push "/early-init.el" compile-angel-excluded-files)
-  (push "/pre-init.el" compile-angel-excluded-files)
-  (push "/post-init.el" compile-angel-excluded-files)
-  (push "/pre-early-init.el" compile-angel-excluded-files)
-  (push "/post-early-init.el" compile-angel-excluded-files)
-
-  ;; A local mode that compiles .el files whenever the user saves them.
-  ;; (add-hook 'emacs-lisp-mode-hook #'compile-angel-on-save-local-mode)
-
-  ;; A global mode that compiles .el files before they are loaded.
-  (compile-angel-on-load-mode))
-
-(setopt load-prefer-newer t)
-
-;; Ensure JIT compilation is enabled for improved performance by
-;; native-compiling loaded .elc files asynchronously
-(setopt native-comp-jit-compilation t)
-(setopt package-native-compile t)
 
 (setopt mac-command-modifier 'meta
         mac-option-modifier 'none)
@@ -195,7 +156,7 @@
    org-agenda-files (list org-directory)                  ; Seems like the obvious place.
    org-log-done 'time                                     ; Having the time a item is done sounds convenient.
    org-list-allow-alphabetical t                          ; Have a. A. a) A) list bullets.
-   org-image-actual-width '(0.9))
+   )
   (setopt org-log-into-drawer t)
   (setopt org-log-state-notes-into-drawer t)
   (setopt org-babel-default-header-args
@@ -245,7 +206,6 @@
           org-todo-keywords '((sequence "TODO(t)" "DOING" "DONE"))
           org-todo-keywords-for-agenda '((sequence "TODO" "DOING" "DONE")))
   (setopt org-highlight-latex-and-related '(native script entities))
-  (setopt org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a.")))
   (setopt org-capture-templates
           '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
              "* TODO [#B] %?\n:Created: %T\n")
@@ -1298,14 +1258,10 @@
 
   (use-package org-mime
     :ensure t
-    :after (mu4e)
+    :defer t
+    :after (mu4e org)
     :config
     (setopt org-mime-library 'mml)
-    (setopt org-mime-export-options '(:with-latex imagemagick
-                                                  :section-numbers nil
-                                                  :with-author nil
-                                                  :with-toc nil))
-    (setopt org-mime-debug t)
     )
   )
 
@@ -1329,12 +1285,11 @@
   :init
   (add-hook 'org-mode-hook #'global-org-modern-mode)
   :config
-  (setopt org-modern-star '("◉" "○" "✸" "✿" "✤" "✜" "◆" "▶")
+  (setopt org-modern-star 'replace
           org-modern-hide-stars nil
           org-modern-table-vertical 1
           org-modern-table-horizontal 0.2
           org-modern-block-name t
-          org-modern-progress t
           org-modern-horizontal-rule t
           org-modern-todo-faces
           '(("TODO" :inverse-video t :foreground "indian red")
@@ -1406,13 +1361,14 @@
   )
 
 (use-package lsp-ltex-plus
+  :defer t
   :ensure (lsp-ltex-plus :type git :host github
                          :repo "emacs-languagetool/lsp-ltex-plus")
   :hook (text-mode . (lambda ()
                        (require 'lsp-ltex-plus)
                        (lsp-deferred)))  ; or lsp-deferred
   :init
-  (setq lsp-ltex-plus-server-store-path nil)
+  (setq lsp-ltex-plus-server-store-path "")
   (setq lsp-ltex-plus-version "18.5.1")  ; make sure you have set this, see below
   )  ; make sure you have set this, see below
 
