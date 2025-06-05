@@ -1227,29 +1227,29 @@
     :after mu4e
     :ensure (mu4e-compat :type git :host github :repo "tecosaur/mu4e-compat"))
 
-  ;; (use-package org-msg
-  ;;   :ensure t
-  ;;   :after (org mu4e)
-  ;;   :config
-  ;;   (setopt org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil tex:dvipng"
-  ;;         org-msg-startup "hidestars indent inlineimages"
-  ;;         org-msg-greeting-name-limit 3
-  ;;         org-msg-default-alternatives '((new . (utf-8 html))
-  ;;                                        (reply-to-text . (utf-8))
-  ;;                                        (reply-to-html . (utf-8 html)))
-  ;;         org-msg-convert-citation t
-  ;;         org-msg-signature "#+begin_signature
-  ;; Leo Aparisi de Lannoy
-  ;; #+end_signature")
-  ;;   (org-msg-mode +1)
-  ;;   )
-
-  (use-package org-mime
+  (use-package org-msg
     :ensure t
-    :after (mu4e org)
+    :after (org mu4e)
     :config
-    (setopt org-mime-library 'mml)
+    (setopt org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil tex:dvipng"
+            org-msg-startup "hidestars indent inlineimages"
+            org-msg-greeting-name-limit 3
+            org-msg-default-alternatives '((new . (utf-8 html))
+                                           (reply-to-text . (utf-8))
+                                           (reply-to-html . (utf-8 html)))
+            org-msg-convert-citation t
+            org-msg-signature "#+begin_signature
+  Leo Aparisi de Lannoy
+  #+end_signature")
+    (org-msg-mode +1)
     )
+
+  ;; (use-package org-mime
+  ;;   :ensure t
+  ;;   :after (mu4e org)
+  ;;   :config
+  ;;   (setopt org-mime-library 'mml)
+  ;;   )
   )
 
 (add-hook 'conf-mode-hook #'flymake-mode)
