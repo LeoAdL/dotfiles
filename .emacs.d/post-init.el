@@ -1365,6 +1365,7 @@
   :defer t
   :config
   ;; Extra face(s) to ignore
+  (setq jinx-languages "en-us")
   (push 'org-inline-src-block
         (alist-get 'org-mode jinx-exclude-faces))
   ;; Take over the relevant bindings.
