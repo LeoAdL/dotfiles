@@ -41,7 +41,7 @@
 (add-hook 'elpaca-after-init-hook #'save-place-mode)
 
 
-(use-package general :ensure (:wait t) 
+(use-package general :ensure (:wait t)
   :config
   (general-auto-unbind-keys)
   (general-evil-setup)
@@ -329,6 +329,7 @@
 
 (use-package embark-consult
   :ensure t
+  :defer t
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
 
@@ -476,9 +477,9 @@
 (use-package evil-goggles
   :ensure t
   :after evil
+  :defer t
+  :hook (evil-mode . evil-goggles-mode)
   :config
-  (evil-goggles-mode)
-
   ;; optionally use diff-mode's faces; as a result, deleted text
   ;; will be highlighed with `diff-removed` face which is typically
   ;; some red color (as defined by the color theme)
@@ -488,8 +489,8 @@
 (use-package evil-anzu
   :after evil
   :ensure (evil-anzu :type git :host github :repo "emacsorphanage/evil-anzu")
-  :config
-  (global-anzu-mode)
+  :defer t
+  :hook (evil-mode . global-anzu-mode)
   )
 
 (use-package vimish-fold
@@ -500,9 +501,7 @@
 (use-package evil-vimish-fold
   :ensure t
   :after (evil vimish-fold)
-  :config
-  (global-evil-vimish-fold-mode 1)
-  )
+  :hook ((prog-mode conf-mode text-mode) . evil-vimish-fold-mode))
 
 (use-package visual-fill-column
   :ensure t)
@@ -510,6 +509,11 @@
 (use-package ibuffer-vc
   :ensure t
   )
+
+(use-package nerd-icons-ibuffer
+  :ensure t
+  :defer t
+  :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
 
 (use-package undo-fu
   :ensure t
@@ -551,6 +555,7 @@
   :after evil
   :ensure t
   :defer t
+  :hook (evil-mode . global-evil-visualstar-mode)
   :commands (evil-visualstar/begin-search
              evil-visualstar/begin-search-forward
              evil-visualstar/begin-search-backward))
@@ -563,7 +568,7 @@
              evil-surround-edit
              evil-Surround-edit
              evil-surround-region)
-  :hook (elpaca-after-init . global-evil-surround-mode))
+  :hook (evil-mode . global-evil-surround-mode))
 
 (with-eval-after-load "evil"
   (evil-define-operator my-evil-comment-or-uncomment (beg end)
@@ -575,8 +580,8 @@
 (use-package evil-snipe
   :defer t
   :after evil
-  :commands evil-snipe-mode
-  :config (evil-snipe-mode))
+  :hook (evil-mode . evil-snipe-mode)
+  :commands (evil-snipe-mode))
 
 (use-package corfu
   :ensure t
@@ -725,17 +730,6 @@
 (setopt kept-old-versions 10)
 (setopt kept-new-versions 10)
 (setopt redisplay-skip-fontification-on-input t)
-
-
-
-(use-package uniquify
-  :ensure nil
-  :custom
-  (uniquify-buffer-name-style 'reverse)
-  (uniquify-separator "•")
-  (uniquify-after-kill-buffer-p t)
-  (uniquify-ignore-buffers-re "^\\*"))
-
 ;; Window dividers separate windows visually. Window dividers are bars that can
 ;; be dragged with the mouse, thus allowing you to easily resize adjacent
 ;; windows.
@@ -801,6 +795,7 @@
 
 (use-package solaire-mode
   :ensure t
+  :defer t
   :hook (elpaca-after-init . solaire-global-mode)
   )
 
@@ -812,6 +807,7 @@
 
 (use-package catppuccin-theme
   :ensure t
+  :defer t
   :init
   (setopt catppuccin-enlarge-headings nil)
   ;; Adjust font size of titles level 1 (default 1.3)
@@ -845,6 +841,7 @@
 
 (use-package tramp
   :ensure nil
+  :defer t
   :config
   ;; Enable full-featured Dirvish over TRAMP on ssh connections
   ;; https://www.gnu.org/software/tramp/#Improving-performance-of-asynchronous-remote-processes
@@ -1035,6 +1032,7 @@
   )
 
 (use-package flymake-popon
+  :defer t
   :hook (flymake-mode . flymake-popon-mode)
   :ensure t)
 
@@ -1116,6 +1114,7 @@
 
 (use-package evil-org
   :after org
+  :defer t
   :ensure (evil-org :type git :host github :repo "doomelpa/evil-org-mode")
   :hook (org-mode . evil-org-mode)
   :config
@@ -1124,6 +1123,7 @@
 
 (use-package evil-org-agenda
   :after org-agenda
+  :defer t
   :ensure nil
   :hook (org-agenda-mode . evil-org-agenda-mode)
   :config
@@ -1152,8 +1152,7 @@
 
 (use-package evil-textobj-tree-sitter
   :after (evil treesit)
-  :ensure t
-  :defer t)
+  :ensure t)
 
 (when (string= system-type "darwin")
   (use-package mu4e
@@ -1236,7 +1235,6 @@
 
   (use-package mu4e-compat
     :after mu4e
-    :defer t
     :ensure (mu4e-compat :type git :host github :repo "tecosaur/mu4e-compat"))
 
   ;; (use-package org-msg
@@ -1258,7 +1256,6 @@
 
   (use-package org-mime
     :ensure t
-    :defer t
     :after (mu4e org)
     :config
     (setopt org-mime-library 'mml)
@@ -1281,9 +1278,8 @@
   :ensure t
   :defer t
   :after org
-  :hook (org-agenda-finalize . org-modern-agenda)
-  :init
-  (add-hook 'org-mode-hook #'global-org-modern-mode)
+  :hook ((org-agenda-finalize . org-modern-agenda)
+         (org-mode . global-org-modern-mode))
   :config
   (setopt org-modern-star 'replace
           org-modern-hide-stars nil
@@ -1306,6 +1302,7 @@
 
 (use-package org-appear
   :ensure t
+  :defer t
   :after org
   :hook (org-mode . org-appear-mode)
   :config
@@ -1320,6 +1317,7 @@
 (use-package org-fragtog
   :ensure t
   :after org
+  :defer t
   :hook (org-mode . org-fragtog-mode))
 
 (use-package org-pandoc-import
@@ -1489,8 +1487,7 @@
 ;; The package is young and doesn't have comprehensive coverage.
 (use-package tempel-collection
   :ensure t
-  :after tempel
-  :defer t)
+  :after tempel)
 
 (use-package apheleia
   :ensure t
@@ -1528,15 +1525,8 @@
   )
 
 (use-package ox-pandoc
-  :defer t
   :after ox
   :ensure t)
-
-;; (use-package solaire-mode
-;;   :ensure t
-;;   :defer t
-;;   :init
-;;   (solaire-global-mode +1))
 
 (general-define-key
  :prefix "SPC"
@@ -1602,12 +1592,6 @@
 
  )
 
-(use-package benchmark-init
-  :ensure t
-  :config
-  ;; To disable collection of benchmark data after init is done.
-  (add-hook 'after-init-hook 'benchmark-init/deactivate))
-
 (use-package dumb-jump
   :ensure t
   :defer t
@@ -1644,11 +1628,6 @@
                              )
           )
 
-(use-package recentf
-  :ensure nil
-  :defer t
-  :init
-  (recentf-mode))
 
 (use-package pdf-tools
   :mode ("\\.pdf\\'" . pdf-view-mode)
@@ -1672,6 +1651,7 @@
 (use-package lsp-nix
   :ensure nil
   :after lsp-mode
+  :defer t
   :custom
   (lsp-nix-nil-formatter ["nixfmt"]))
 
@@ -1714,6 +1694,7 @@
   :defer t)
 
 (use-package emacs-everywhere
+  :defer t
   :ensure t)
 
 (use-package empv
@@ -1735,6 +1716,7 @@
 ;;   :defer t)
 (use-package reftex
   :ensure nil
+  :defer t
   :hook (LaTeX-mode . reftex-mode)
   :config
   ;; http://tex.stackexchange.com/questions/31966/setting-up-reftex-with-biblatex-citation-commands/31992#31992.
@@ -1823,14 +1805,18 @@
 
 (use-package treesit-fold
   :ensure (treesit-fold :type git :host github :repo "emacs-tree-sitter/treesit-fold")
+  :hook
+  (elpaca-after-init . global-treesit-fold-mode)
   :defer t)
 
 (use-package treesit-auto
+  :defer t
+  :hook (elpaca-after-init . global-treesit-auto-mode)
   :custom
   (treesit-auto-install 'prompt)
   :config
   (treesit-auto-add-to-auto-mode-alist 'all)
-  (global-treesit-auto-mode))
+  )
 
 (use-package citar
   :ensure t
