@@ -1947,3 +1947,30 @@
   ;; Projectile users
   ;; (setopt dape-cwd-function 'projectile-project-root)
   )
+
+(use-package markdown-mode
+  :ensure t
+  :defer t
+  :mode ("/README\\(?:\\.md\\)?\\'" . gfm-mode)
+  :init
+  (setq markdown-italic-underscore t
+        markdown-asymmetric-header t
+        markdown-gfm-additional-languages '("sh")
+        markdown-make-gfm-checkboxes-buttons t
+        markdown-fontify-whole-heading-line t
+        markdown-fontify-code-blocks-natively t
+
+        :config
+        (sp-local-pair '(markdown-mode gfm-mode) "`" "`"
+                       :unless '(:add sp-point-before-word-p sp-point-before-same-p))
+
+        (add-to-list 'markdown-code-lang-modes '("rust" . rustic-mode))))
+
+
+(use-package evil-markdown
+  :ensure (evil-markdown :type git :host github :repo "Somelauw/evil-markdown")
+  :defer t
+  :hook (markdown-mode . evil-markdown-mode)
+  :config
+  (add-hook 'evil-markdown-mode-hook #'evil-normalize-keymaps)
+  )
