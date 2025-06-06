@@ -471,7 +471,6 @@
 
 (use-package evil-args
   :ensure t
-  :defer t
   :after evil)
 
 (use-package evil-goggles
@@ -487,10 +486,11 @@
   (evil-goggles-use-diff-faces))
 
 (use-package evil-anzu
-  :after evil
   :ensure (evil-anzu :type git :host github :repo "emacsorphanage/evil-anzu")
-  :defer t
-  :hook (evil-mode . global-anzu-mode)
+  :hook (elpaca-after-init . global-anzu-mode)
+  :init
+  (with-eval-after-load 'evil
+    (require 'evil-anzu))
   )
 
 (use-package vimish-fold
@@ -500,14 +500,16 @@
 
 (use-package evil-vimish-fold
   :ensure t
-  :after (evil vimish-fold)
+  :after (vimish-fold)
   :hook ((prog-mode conf-mode text-mode) . evil-vimish-fold-mode))
 
 (use-package visual-fill-column
+  :hook (elpaca-after-init . global-visual-fill-column-mode)
   :ensure t)
 
 (use-package ibuffer-vc
   :ensure t
+  :after ibuffer
   )
 
 (use-package nerd-icons-ibuffer
@@ -700,7 +702,6 @@
 ;; Display the time in the modeline
 (setopt display-time-mail-string "")
 (add-hook 'elpaca-after-init-hook #'display-time-mode)
-(setopt display-time-mail-string "")
 
 ;; Paren match highlighting
 (add-hook 'elpaca-after-init-hook #'show-paren-mode)
@@ -715,8 +716,8 @@
 ;; Configure Emacs to ask for confirmation before exiting
 (setopt confirm-kill-emacs 'y-or-n-p)
 
-(setopt make-backup-files t)
-(setopt vc-make-backup-files t)
+(setopt make-backup-files nil)
+(setopt vc-make-backup-files nil)
 (setopt kept-old-versions 10)
 (setopt kept-new-versions 10)
 (setopt redisplay-skip-fontification-on-input t)
@@ -852,6 +853,7 @@
   :defer t
   :init
   (dirvish-override-dired-mode)
+  :hook (dired-mode . diff-hl-dired-mode)
   :general
   (:states 'normal
            :keymaps 'dirvish-mode-map
@@ -888,7 +890,6 @@
   (setopt dirvish-default-layout '(0 0.4 0.6))
   (setopt dirvish-rsync-program "/run/current-system/sw/bin/rsync")
   (setopt dirvish-yank-rsync-args '("-s" "--archive" "--verbose" "--compress" "--info=progress2" "--partial"))
-  (diff-hl-dired-mode +1)
   (general-define-key
    :prefix "SPC"
    :keymaps 'override
@@ -1012,7 +1013,7 @@
 (use-package magit-todos
   :ensure t
   :after magit
-  :config (magit-todos-mode 1))
+  :hook (magit-mode . magit-todos-mode))
 
 (use-package git-timemachine
   :defer t
@@ -1108,6 +1109,7 @@
   :ensure (evil-org :type git :host github :repo "doomelpa/evil-org-mode")
   :hook (org-mode . evil-org-mode)
   :config
+  (add-hook 'evil-org-mode-hook #'evil-normalize-keymaps)
   (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
   )
 
@@ -1635,9 +1637,7 @@
 
 (use-package saveplace-pdf-view
   :ensure t
-  :after pdf-tools
-  :config
-  (save-place-mode 1))
+  :after pdf-tools)
 
 (use-package lsp-nix
   :ensure nil
