@@ -1958,13 +1958,13 @@
         markdown-gfm-additional-languages '("sh")
         markdown-make-gfm-checkboxes-buttons t
         markdown-fontify-whole-heading-line t
-        markdown-fontify-code-blocks-natively t
+        markdown-fontify-code-blocks-natively t)
 
-        :config
-        (sp-local-pair '(markdown-mode gfm-mode) "`" "`"
-                       :unless '(:add sp-point-before-word-p sp-point-before-same-p))
+  :config
+  (sp-local-pair '(markdown-mode gfm-mode) "`" "`"
+                 :unless '(:add sp-point-before-word-p sp-point-before-same-p))
 
-        (add-to-list 'markdown-code-lang-modes '("rust" . rustic-mode))))
+  (add-to-list 'markdown-code-lang-modes '("rust" . rustic-mode)))
 
 
 (use-package evil-markdown
