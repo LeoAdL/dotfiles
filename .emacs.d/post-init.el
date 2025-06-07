@@ -883,6 +883,7 @@
   (when (string= system-type "darwin")
     (setopt insert-directory-program "gls")
     (setopt dired-listing-switches "-aBhl --group-directories-first")
+    )
   (setopt dirvish-attributes'(vc-state subtree-state nerd-icons git-msg file-time file-size))
   (setopt dirvish-default-layout '(0 0.4 0.6))
   (setopt dirvish-rsync-program "/run/current-system/sw/bin/rsync")
@@ -1155,11 +1156,8 @@
     (setopt sendmail-program (executable-find "msmtp")
             send-mail-function #'smtpmail-send-it
             message-sendmail-f-is-evil t
-            mu4e-compose-complete-addresses t
             message-sendmail-extra-arguments '("--read-envelope-from")
             message-send-mail-function #'message-send-mail-with-sendmail
-            mu4e-sent-messages-behavior 'sent ;; Save sent messages
-            mu4e-headers-auto-update t                ; avoid to type `g' to update
             mml-secure-openpgp-signers '("6A5C039B63B86AC6C5109955B57BA04FBD759C7F" "D1D9947126EE64AC7ED3950196F352393B5B3C2E")
             mml-secure-openpgp-sign-with-sender t
             mu4e-use-fancy-chars t                   ; allow fancy icons for mail threads
@@ -1187,7 +1185,6 @@
                              (:name "Spam" :query "maildir:/.*Spam/ or maildir:/.*Junk/" :key 83)
                              (:name "Trash" :query "maildir:/.*Trash/" :key 84))
             mu4e-read-option-use-builtin t
-            mu4e-completing-read-function 'completing-read
             mu4e-attachment-dir "~/Downloads"
             mu4e-headers-thread-single-orphan-prefix '("─>" . "─▶")
             mu4e-headers-thread-orphan-prefix        '("┬>" . "┬▶ ")
@@ -1213,42 +1210,17 @@
                           (user-mail-address . "leoaparisi@gmail.com")
                           (smtpmail-smtp-user     . "leoaparisi@gmail.com")
                           ( user-full-name	    . "Leo Aparisi de Lannoy" )))))
-    (setq mu4e-thread-mode t)
+    ;; (setopt mu4e-thread-mode t)
     (add-hook 'completion-at-point-functions #'mu4e-complete-contact)
-    (require 'mu4e-icalendar)
-    (mu4e-icalendar-setup)
     (setopt gnus-icalendar-org-capture-file "~/org/notes.org"
             gnus-icalendar-org-capture-headline '("Calendar"))
-    (gnus-icalendar-org-setup)
     )
 
-  (use-package mu4e-compat
-    :after mu4e
-    :ensure (mu4e-compat :type git :host github :repo "tecosaur/mu4e-compat"))
-
-  (use-package org-msg
+  (use-package org-mime
     :ensure t
-    :after (org mu4e)
-    :config
-    (setopt org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil tex:dvipng"
-            org-msg-startup "hidestars indent inlineimages"
-            org-msg-greeting-name-limit 3
-            org-msg-default-alternatives '((new . (utf-8 html))
-                                           (reply-to-text . (utf-8))
-                                           (reply-to-html . (utf-8 html)))
-            org-msg-convert-citation t
-            org-msg-signature "#+begin_signature
-  Leo Aparisi de Lannoy
-  #+end_signature")
-    (org-msg-mode +1)
+    :defer t
+    :after (mu4e org)
     )
-
-  ;; (use-package org-mime
-  ;;   :ensure t
-  ;;   :after (mu4e org)
-  ;;   :config
-  ;;   (setopt org-mime-library 'mml)
-  ;;   )
   )
 
 (add-hook 'conf-mode-hook #'flymake-mode)
