@@ -503,10 +503,6 @@
   :after (vimish-fold)
   :hook ((prog-mode conf-mode text-mode) . evil-vimish-fold-mode))
 
-(use-package visual-fill-column
-  :hook (elpaca-after-init . global-visual-fill-column-mode)
-  :ensure t)
-
 (use-package ibuffer-vc
   :ensure t
   :after ibuffer
