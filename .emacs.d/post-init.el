@@ -881,7 +881,8 @@
   :config
   (evil-make-overriding-map dirvish-mode-map 'normal)
   (when (string= system-type "darwin")
-    (setopt insert-directory-program "gls"))
+    (setopt insert-directory-program "gls")
+    (setopt dired-listing-switches "-aBhl --group-directories-first")
   (setopt dirvish-attributes'(vc-state subtree-state nerd-icons git-msg file-time file-size))
   (setopt dirvish-default-layout '(0 0.4 0.6))
   (setopt dirvish-rsync-program "/run/current-system/sw/bin/rsync")
