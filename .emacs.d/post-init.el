@@ -40,6 +40,7 @@
 ;; the precise point where you previously left off.
 (add-hook 'elpaca-after-init-hook #'save-place-mode)
 
+;; Idle garbage collection
 
 (use-package general :ensure (:wait t)
   :config
@@ -147,7 +148,7 @@
   (setopt org-preview-latex-image-directory "~/.cache/ltximg/")
   ;; ORG LATEX PREVIEW
   (setopt org-startup-with-latex-preview t)
-  (setopt org-preview-latex-default-process 'dvipng)
+  (setopt org-preview-latex-default-process 'dvisvgm)
   (setopt org-format-latex-options
           (plist-put org-format-latex-options :background "Transparent"))
   (setopt org-format-latex-options
@@ -947,7 +948,7 @@
    indent-bars-color '(highlight :face-bg t :blend 0.05)
    indent-bars-no-stipple nil
    indent-bars-pattern "."
-   indent-bars-width-frac 0.3
+   indent-bars-width-frac 0.15
    indent-bars-pad-frac 0.1
    indent-bars-zigzag nil
    indent-bars-color-by-depth '(:regexp "outline-\\([0-9]+\\)" :blend 0.95) ; blend=1: blend with BG only
@@ -1171,7 +1172,6 @@
             mu4e-get-mail-command "mbsync -a"
             mu4e-mu-allow-temp-file t
             message-kill-buffer-on-exit t
-            mu4e-headers-precise-alignment t
             mu4e-compose-complete-only-after "2015-01-01"
             mu4e-headers-date-format "%d/%m/%y"
             mu4e-headers-time-format "⧖ %H:%M"
@@ -1220,6 +1220,8 @@
     :ensure t
     :defer t
     :after (mu4e org)
+    :config
+    (setopt org-mime-export-options '(:with-latex mathjax))
     )
   )
 
