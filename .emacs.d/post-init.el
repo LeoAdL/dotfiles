@@ -1173,6 +1173,8 @@
             mu4e-use-fancy-chars t                   ; allow fancy icons for mail threads
             mu4e-notification-support t
             mu4e-change-filenames-when-moving t
+            mu4e-read-option-use-builtin nil
+            mu4e-completing-read-function 'completing-read
             mu4e-index-lazy-check nil
             mu4e-search-results-limit 100
             mu4e-context-policy 'pick-first ;; Always ask which context to use when composing a new mail
@@ -1220,7 +1222,7 @@
                           (smtpmail-smtp-user     . "leoaparisi@gmail.com")
                           ( user-full-name	    . "Leo Aparisi de Lannoy" )))))
     ;; (setopt mu4e-thread-mode t)
-    (add-hook 'completion-at-point-functions #'mu4e-complete-contact)
+    ;; (add-hook 'completion-at-point-functions #'mu4e-complete-contact)
     (setopt gnus-icalendar-org-capture-file "~/org/notes.org"
             gnus-icalendar-org-capture-headline '("Calendar"))
     )
