@@ -7,7 +7,7 @@
   (if (display-graphic-p frame)
       (progn
         (set-frame-font "Iosevka-18" nil t)
-        (set-face-font 'default "Iosevka")
+        (set-face-font 'default "Iosevka-18")
         (set-face-font 'fixed-pitch-serif "IBM Plex Serif")
         )))
 
