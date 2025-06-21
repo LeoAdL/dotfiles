@@ -461,7 +461,9 @@
           ;; It's infuriating that innocuous "beginning of line" or "end of line"
           ;; errors will abort macros, so suppress them:
           evil-kbd-macro-suppress-motion-error t
-          ))
+          )
+  (setopt evil-visual-update-x-selection-p nil)
+  )
 
 (use-package evil-collection
   :ensure t
