@@ -850,7 +850,7 @@
   :defer t
   :init
   (dirvish-override-dired-mode)
-  :hook (dired-mode . diff-hl-dired-mode)
+                                        ; :hook (dired-mode . diff-hl-dired-mode)
   :general
   (:states 'normal
            :keymaps 'dirvish-mode-map
@@ -969,24 +969,24 @@
   ;; per mode with `ligature-mode'.
   )
 
-(use-package diff-hl
-  :ensure t
-  :defer t
-  :hook (elpaca-after-init . global-diff-hl-mode)
-  :init
-  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
-  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-  :config
-  (setopt diff-hl-global-modes '(not image-mode pdf-view-mode))
-  ;; PERF: A slightly faster algorithm for diffing.
-  (setopt vc-git-diff-switches '("--histogram"))
-  ;; PERF: Slightly more conservative delay before updating the diff
-  (setopt diff-hl-flydiff-delay 0.5)  ; default: 0.3
-  ;; PERF: don't block Emacs when updating vc gutter
-  (setopt diff-hl-update-async t)
-  ;; UX: get realtime feedback in diffs after staging/unstaging hunks.
-  (setopt diff-hl-show-staged-changes nil)
-  )
+                                        ; (use-package diff-hl
+                                        ;   :ensure t
+                                        ;   :defer t
+                                        ;   :hook
+                                        ;   ((elpaca-after-init . global-diff-hl-mode)
+                                        ;    (magit-post-refresh . diff-hl-magit-post-refresh)
+                                        ;   )
+                                        ; :config
+                                        ; (setopt diff-hl-global-modes '(not image-mode pdf-view-mode))
+                                        ; ;; PERF: A slightly faster algorithm for diffing.
+                                        ;                                         ; (setopt vc-git-diff-switches '("--histogram"))
+                                        ; ;; PERF: Slightly more conservative delay before updating the diff
+                                        ;                                         ; (setopt diff-hl-flydiff-delay 0.5)  ; default: 0.3
+                                        ; ;; PERF: don't block Emacs when updating vc gutter
+                                        ; (setopt diff-hl-update-async t)
+                                        ; ;; UX: get realtime feedback in diffs after staging/unstaging hunks.
+                                        ; (setopt diff-hl-show-staged-changes nil)
+                                        ; )
 
 (use-package transient
   :ensure t
