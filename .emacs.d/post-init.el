@@ -3,6 +3,38 @@
 (setopt mac-command-modifier 'meta
         mac-option-modifier 'none)
 
+;; Use spotlight search backend as a default for M-x locate (and helm/ivy
+;; variants thereof), since it requires no additional setup.
+(setq locate-command "mdfind")
+
+
+;;
+;;; Compatibilty fixes
+
+;; Curse Lion and its sudden but inevitable fullscreen mode!
+;; This is meaningless to railwaycat's emacs-mac build though.
+(setq ns-use-native-fullscreen nil)
+
+;; Visit files opened outside of Emacs in existing frame, not a new one
+(setq ns-pop-up-frames nil)
+
+;; Sane trackpad/mouse scroll settings. Also disables smooth scrolling because
+;; it's disturbingly clunky and slow without something like
+;; jdtsmith/ultra-scroll-mac.
+(setq mac-redisplay-dont-reset-vscroll t)
+
+;; Sets `ns-transparent-titlebar' and `ns-appearance' frame parameters so window
+;; borders will match the enabled theme.
+(and (or (daemonp)
+         (display-graphic-p))
+     (require 'ns-auto-titlebar nil t)
+     (ns-auto-titlebar-mode +1))
+
+;; Delete files to trash on macOS, as an extra layer of precaution against
+;; accidentally deleting wanted files.
+(setq delete-by-moving-to-trash (not noninteractive))
+
+
 (defun my-after-frame (frame)
   (if (display-graphic-p frame)
       (progn
@@ -413,8 +445,14 @@
   (setopt consult-async-min-input 2
           consult-async-refresh-delay  0.15
           consult-async-input-throttle 0.2
-          consult-async-input-debounce 0.1)
-
+          consult-async-input-debounce 0.1
+          consult-fd-args
+          '((if (executable-find "fdfind" 'remote) "fdfind" "fd")
+            "--color=never"
+            ;; https://github.com/sharkdp/fd/issues/839
+            "--full-path --absolute-path"
+            "--hidden --exclude .git"
+            (if (featurep :system 'windows) "--path-separator=/")))
   )
 
 (use-package consult-dir
@@ -425,6 +463,12 @@
                     :states 'normal
                     "f d" #'consult-dir)
   )
+
+(use-package consult-yasnippet
+  :ensure t
+  :defer t
+  :general ([remap yas-insert-snippet] #'consult-yasnippet))
+
 
 (eval-when-compile
   ;; It has to be defined before evil
@@ -1598,7 +1642,12 @@
   (setopt scroll-conservatively 101 ; important!
           scroll-margin 0)
   :hook
-  (elpaca-after-init . ultra-scroll-mode))
+  (elpaca-after-init . ultra-scroll-mode)
+  :config
+  (add-hook 'ultra-scroll-hide-functions #'hl-todo-mode)
+  (add-hook 'ultra-scroll-hide-functions #'diff-hl-flydiff-mode)
+  (add-hook 'ultra-scroll-hide-functions #'jit-lock-mode)
+  (add-hook 'ultra-scroll-hide-functions #'good-scroll-mode))
 
 (defun efs/display-startup-time ()
   (message
