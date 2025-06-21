@@ -1046,8 +1046,9 @@
   (:states 'normal
            :desc "Jump to definition"                    "g d"   #'xref-find-definitions
            :desc "Jump to references"                    "g r"   #'xref-find-references
-           :desc "Jump to references"                    "g i"   #'lsp-find-implementation
-           :desc "Jump to references"                    "g D"   #'lsp-find-declarations)
+           :desc "Jump to implementations"                    "g i"   #'lsp-find-implementation
+           :desc "Jump to declarations"                    "g D"   #'lsp-find-declarations)
+  ([remap xref-find-apropos] #'lsp-describe-thing-at-point)
   :defer t
   :custom
   (lsp-completion-provider :none) ;; we use Corfu!
@@ -1063,28 +1064,31 @@
   (setopt lsp-enable-suggest-server-download t)
   (setopt lsp-warn-no-matched-clients nil))
 
-;; optionally
-(use-package lsp-ui
-  :after lsp
+(use-package consult-lsp
   :ensure t
-  :commands lsp-ui-mode
-  :general
-  ([remap xref-find-apropos] #'lsp-ui-doc-glance)
-  )
+  :defer t)
 
-(use-package lsp-snippet-tempel
-  :ensure (lsp-snippet-tempel :type git
-                              :host github
-                              :repo "svaante/lsp-snippet")
-  :after lsp
+(use-package lsp-pyright
+  :ensure t
+  :defer t
+  :custom (lsp-pyright-langserver-command "basedpyright") ;; or basedpyright
+  :hook (python-ts-mode . (lambda ()
+                            (require 'lsp-pyright)
+                            (lsp-deferred))))  ; or lsp-deferred
+(use-package yasnippet
+  :ensure t
+  :defer t
+  :hook (elpaca-after-init . yas-global-mode)
   :config
-  (when (featurep 'lsp-mode)
-    ;; Initialize lsp-snippet -> tempel in lsp-mode
-    (lsp-snippet-tempel-lsp-mode-init))
-  (when (featurep 'eglot)
-    ;; Initialize lsp-snippet -> tempel in eglot
-    (lsp-snippet-tempel-eglot-init)))
+  (setopt yas-triggers-in-field t))
 
+(use-package auto-yasnippet
+  :ensure t
+  :defer t)
+
+(use-package doom-snippets
+  :after yasnippet
+  :ensure (doom-snippets :type git :host github :repo "doomemacs/snippets" :files ("*.el" "*")))
 ;; (use-package org-contrib
 ;;   :after org
 ;;   :ensure t)
@@ -1410,48 +1414,6 @@
   :defer t
   :hook (prog-mode . ws-butler-mode))
 
-
-;; Configure Tempel
-(use-package tempel
-  :ensure t
-  :defer t
-  ;; Require trigger prefix before template name when completing.
-  ;; :custom
-  ;; (tempel-trigger-prefix "<")
-
-  :bind (("M-+" . tempel-complete) ;; Alternative tempel-expand
-         ("M-*" . tempel-insert))
-
-  :init
-
-  ;; Setup completion at point
-  (defun tempel-setup-capf ()
-    ;; Add the Tempel Capf to `completion-at-point-functions'.
-    ;; `tempel-expand' only triggers on exact matches. Alternatively use
-    ;; `tempel-complete' if you want to see all matches, but then you
-    ;; should also configure `tempel-trigger-prefix', such that Tempel
-    ;; does not trigger too often when you don't expect it. NOTE: We add
-    ;; `tempel-expand' *before* the main programming mode Capf, such
-    ;; that it will be tried first.
-    (setq-local completion-at-point-functions
-                (cons #'tempel-expand
-                      completion-at-point-functions)))
-
-  (add-hook 'conf-mode-hook 'tempel-setup-capf)
-  (add-hook 'prog-mode-hook 'tempel-setup-capf)
-  (add-hook 'text-mode-hook 'tempel-setup-capf)
-
-  ;; Optionally make the Tempel templates available to Abbrev,
-  ;; either locally or globally. `expand-abbrev' is bound to C-x '.
-  ;; (add-hook 'prog-mode-hook #'tempel-abbrev-mode)
-  ;; (global-tempel-abbrev-mode)
-  )
-
-;; Optional: Add tempel-collection.
-;; The package is young and doesn't have comprehensive coverage.
-(use-package tempel-collection
-  :ensure t
-  :after tempel)
 
 (use-package apheleia
   :ensure t
