@@ -523,9 +523,9 @@
              undo-fu-disable-checkpoint)
   :config
   ;; Increase undo history limits to reduce likelihood of data loss
-  (setopt undo-limit 400000           ; 400kb (default is 160kb)
-          undo-strong-limit 3000000   ; 3mb   (default is 240kb)
-          undo-outer-limit 48000000)  ; 48mb  (default is 24mb)
+  (setq undo-limit 256000           ; 256kb (default is 160kb)
+        undo-strong-limit 2000000   ; 2mb   (default is 240kb)
+        undo-outer-limit 36000000)  ; 36mb  (default is 24mb)
   )
 
 (use-package undo-fu-session
@@ -534,7 +534,10 @@
   :commands undo-fu-session-global-mode
   :hook (elpaca-after-init . undo-fu-session-global-mode)
   :config
-  (setopt undo-fu-session-compression 'zst)
+  (when (executable-find "zstd")
+    ;; There are other algorithms available, but zstd is the fastest, and speed
+    ;; is our priority within Emacs
+    (setq undo-fu-session-compression 'zst))
   )
 
 (use-package vundo
