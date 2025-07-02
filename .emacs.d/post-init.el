@@ -1,5 +1,6 @@
 ;;; post-init.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
 
+(setopt find-file-visit-truename nil)
 (setopt mac-command-modifier 'meta
         mac-option-modifier 'none)
 
@@ -191,6 +192,8 @@
    org-list-allow-alphabetical t                          ; Have a. A. a) A) list bullets.
    )
   (setopt org-log-into-drawer t)
+  (setopt org-list-demote-modify-bullet
+          '(("+" . "-") ("-" . "+") ("*" . "+")))
   (setopt org-log-state-notes-into-drawer t)
   (setopt org-babel-default-header-args
           '((:session . "none")
@@ -470,12 +473,6 @@
   :general ([remap yas-insert-snippet] #'consult-yasnippet))
 
 
-(eval-when-compile
-  ;; It has to be defined before evil
-  (setopt evil-want-integration t)
-  (setopt evil-want-keybinding nil))
-
-(setopt evil-undo-system 'undo-fu)
 
 (use-package evil
   :ensure t
@@ -484,8 +481,11 @@
   :hook (elpaca-after-init . evil-mode)
   :commands (evil-mode evil-define-key)
   :init
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
   (setopt evil-want-C-u-scroll t)
   (setopt evil-want-fine-undo t)
+  (setopt evil-undo-system 'undo-fu)
   :config
   (evil-select-search-module 'evil-search-module 'evil-search)
   (setopt evil-ex-search-vim-style-regexp t
@@ -507,7 +507,29 @@
           evil-kbd-macro-suppress-motion-error t
           )
   (setopt evil-visual-update-x-selection-p nil)
-  )
+  :custom
+  ;; Make :s in visual mode operate only on the actual visual selection
+  ;; (character or block), instead of the full lines covered by the selection
+  (evil-ex-visual-char-range t)
+  ;; Use Vim-style regular expressions in search and substitute commands,
+  ;; allowing features like \v (very magic), \zs, and \ze for precise matches
+  (evil-ex-search-vim-style-regexp t)
+  ;; Enable automatic horizontal split below
+  (evil-split-window-below t)
+  ;; Enable automatic vertical split to the right
+  (evil-vsplit-window-right t)
+  ;; Disable echoing Evil state to avoid replacing eldoc
+  (evil-echo-state nil)
+  ;; Allow C-h to delete in insert state
+  (evil-want-C-h-delete t)
+  ;; Enable C-u to delete back to indentation in insert state
+  (evil-want-C-u-delete t)
+  ;; Enable fine-grained undo behavior
+  (evil-want-fine-undo t)
+  ;; Disable wrapping of search around buffer
+  (evil-search-wrap nil)
+  ;; Whether Y yanks to the end of the line
+  (evil-want-Y-yank-to-eol t))
 
 (use-package evil-collection
   :ensure t
