@@ -1,5 +1,37 @@
 ;;; post-init.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
+;; Native compilation enhances Emacs performance by converting Elisp code into
+;; native machine code, resulting in faster execution and improved
+;; responsiveness.
+;;
+;; Ensure adding the following compile-angel code at the very beginning
+;; of your `~/.emacs.d/post-init.el` file, before all other packages.
+(use-package compile-angel
+  :ensure t
+  :demand t
+  :custom
+  ;; Set `compile-angel-verbose` to nil to suppress output from compile-angel.
+  ;; Drawback: The minibuffer will not display compile-angel's actions.
+  (compile-angel-verbose t)
 
+  :config
+  ;; The following directive prevents compile-angel from compiling your init
+  ;; files. If you choose to remove this push to `compile-angel-excluded-files'
+  ;; and compile your pre/post-init files, ensure you understand the
+  ;; implications and thoroughly test your code. For example, if you're using
+  ;; `use-package', you'll need to explicitly add `(require 'use-package)` at
+  ;; the top of your init file.
+  (push "/init.el" compile-angel-excluded-files)
+  (push "/early-init.el" compile-angel-excluded-files)
+  (push "/pre-init.el" compile-angel-excluded-files)
+  (push "/post-init.el" compile-angel-excluded-files)
+  (push "/pre-early-init.el" compile-angel-excluded-files)
+  (push "/post-early-init.el" compile-angel-excluded-files)
+
+  ;; A local mode that compiles .el files whenever the user saves them.
+  ;; (add-hook 'emacs-lisp-mode-hook #'compile-angel-on-save-local-mode)
+
+  ;; A global mode that compiles .el files before they are loaded.
+  (compile-angel-on-load-mode))
 (setopt find-file-visit-truename nil)
 (setopt mac-command-modifier 'meta
         mac-option-modifier 'none)
@@ -11,13 +43,6 @@
 
 ;;
 ;;; Compatibilty fixes
-
-;; Curse Lion and its sudden but inevitable fullscreen mode!
-;; This is meaningless to railwaycat's emacs-mac build though.
-(setq ns-use-native-fullscreen nil)
-
-;; Visit files opened outside of Emacs in existing frame, not a new one
-(setq ns-pop-up-frames nil)
 
 ;; Sane trackpad/mouse scroll settings. Also disables smooth scrolling because
 ;; it's disturbingly clunky and slow without something like
@@ -486,6 +511,7 @@
   (setopt evil-want-C-u-scroll t)
   (setopt evil-want-fine-undo t)
   (setopt evil-undo-system 'undo-fu)
+  (setopt evil-search-wrap t)
   :config
   (evil-select-search-module 'evil-search-module 'evil-search)
   (setopt evil-ex-search-vim-style-regexp t
@@ -777,7 +803,6 @@
 ;; Track changes in the window configuration, allowing undoing actions such as
 ;; closing windows.
 (add-hook 'elpaca-after-init-hook #'winner-mode)
-(add-hook 'elpaca-after-init-hook #'auto-save-visited-mode)
 (add-hook 'elpaca-after-init-hook #'global-visual-line-mode)
 (add-hook 'elpaca-after-init-hook #'delete-selection-mode)
 
@@ -1607,7 +1632,6 @@
 
 (setopt auto-save-interval 300)
 (setopt auto-save-timeout 10)
-(setopt auto-save-visited-interval 5)   ; Save after 5 seconds if inactivity
 
 (setopt delete-by-moving-to-trash t)
 (setopt imagemagick-render-type 1)
@@ -1985,3 +2009,21 @@
   :config
   (add-hook 'evil-markdown-mode-hook #'evil-normalize-keymaps)
   )
+;; Helpful is an alternative to the built-in Emacs help that provides much more
+;; contextual information.
+(use-package helpful
+  :ensure t
+  :commands (helpful-callable
+             helpful-variable
+             helpful-key
+             helpful-command
+             helpful-at-point
+             helpful-function)
+  :bind
+  ([remap describe-command] . helpful-command)
+  ([remap describe-function] . helpful-callable)
+  ([remap describe-key] . helpful-key)
+  ([remap describe-symbol] . helpful-symbol)
+  ([remap describe-variable] . helpful-variable)
+  :custom
+  (helpful-max-buffers 7))
