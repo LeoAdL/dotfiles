@@ -1,37 +1,4 @@
 ;;; post-init.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
-;; Native compilation enhances Emacs performance by converting Elisp code into
-;; native machine code, resulting in faster execution and improved
-;; responsiveness.
-;;
-;; Ensure adding the following compile-angel code at the very beginning
-;; of your `~/.emacs.d/post-init.el` file, before all other packages.
-(use-package compile-angel
-  :ensure t
-  :demand t
-  :custom
-  ;; Set `compile-angel-verbose` to nil to suppress output from compile-angel.
-  ;; Drawback: The minibuffer will not display compile-angel's actions.
-  (compile-angel-verbose t)
-
-  :config
-  ;; The following directive prevents compile-angel from compiling your init
-  ;; files. If you choose to remove this push to `compile-angel-excluded-files'
-  ;; and compile your pre/post-init files, ensure you understand the
-  ;; implications and thoroughly test your code. For example, if you're using
-  ;; `use-package', you'll need to explicitly add `(require 'use-package)` at
-  ;; the top of your init file.
-  (push "/init.el" compile-angel-excluded-files)
-  (push "/early-init.el" compile-angel-excluded-files)
-  (push "/pre-init.el" compile-angel-excluded-files)
-  (push "/post-init.el" compile-angel-excluded-files)
-  (push "/pre-early-init.el" compile-angel-excluded-files)
-  (push "/post-early-init.el" compile-angel-excluded-files)
-
-  ;; A local mode that compiles .el files whenever the user saves them.
-  ;; (add-hook 'emacs-lisp-mode-hook #'compile-angel-on-save-local-mode)
-
-  ;; A global mode that compiles .el files before they are loaded.
-  (compile-angel-on-load-mode))
 (setopt find-file-visit-truename nil)
 (setopt mac-command-modifier 'meta
         mac-option-modifier 'none)
@@ -985,7 +952,7 @@
   :defer t
   :init
   (dirvish-override-dired-mode)
-                                        ; :hook (dired-mode . diff-hl-dired-mode)
+  :hook (dired-mode . diff-hl-dired-mode)
   :general
   (:states 'normal
            :keymaps 'dirvish-mode-map
@@ -999,7 +966,7 @@
            "U"   #'dired-unmark
            "C-n"   #'dired-next-line
            "C-p"   #'dired-previous-line
-           "f"   #'dirvish-fd-ask
+           "f"   #'dirvish-fd
            "^"   #'dirvish-history-last
            "h"   #'dirvish-history-jump
            "s"   #'dirvish-quicksort
@@ -1011,8 +978,7 @@
            "M-m" #'dirvish-mark-menu
            "M-t" #'dirvish-layout-toggle
            "M-s" #'dirvish-setup-menu
-           "M-e" #'dirvish-emerge-menu
-           "M-j" #'dirvish-fd-jump)
+           "M-e" #'dirvish-emerge-menu)
 
   :config
   (evil-make-overriding-map dirvish-mode-map 'normal)
@@ -1104,24 +1070,24 @@
   ;; per mode with `ligature-mode'.
   )
 
-                                        ; (use-package diff-hl
-                                        ;   :ensure t
-                                        ;   :defer t
-                                        ;   :hook
-                                        ;   ((elpaca-after-init . global-diff-hl-mode)
-                                        ;    (magit-post-refresh . diff-hl-magit-post-refresh)
-                                        ;   )
-                                        ; :config
-                                        ; (setopt diff-hl-global-modes '(not image-mode pdf-view-mode))
-                                        ; ;; PERF: A slightly faster algorithm for diffing.
-                                        ;                                         ; (setopt vc-git-diff-switches '("--histogram"))
-                                        ; ;; PERF: Slightly more conservative delay before updating the diff
-                                        ;                                         ; (setopt diff-hl-flydiff-delay 0.5)  ; default: 0.3
-                                        ; ;; PERF: don't block Emacs when updating vc gutter
-                                        ; (setopt diff-hl-update-async t)
-                                        ; ;; UX: get realtime feedback in diffs after staging/unstaging hunks.
-                                        ; (setopt diff-hl-show-staged-changes nil)
-                                        ; )
+(use-package diff-hl
+  :ensure t
+  :defer t
+  :hook
+  ((elpaca-after-init . global-diff-hl-mode)
+   (magit-post-refresh . diff-hl-magit-post-refresh)
+   )
+  :config
+  (setopt diff-hl-global-modes '(not image-mode pdf-view-mode))
+  ;; PERF: A slightly faster algorithm for diffing.
+                                        ; (setopt vc-git-diff-switches '("--histogram"))
+  ;; PERF: Slightly more conservative delay before updating the diff
+                                        ; (setopt diff-hl-flydiff-delay 0.5)  ; default: 0.3
+  ;; PERF: don't block Emacs when updating vc gutter
+  (setopt diff-hl-update-async t)
+  ;; UX: get realtime feedback in diffs after staging/unstaging hunks.
+  (setopt diff-hl-show-staged-changes nil)
+  )
 
 (use-package transient
   :ensure t
@@ -2055,3 +2021,7 @@
   ([remap describe-variable] . helpful-variable)
   :custom
   (helpful-max-buffers 7))
+
+(use-package cond-let
+  :ensure (cond-let :type git :host github :repo "tarsius/cond-let")
+  :defer t)
