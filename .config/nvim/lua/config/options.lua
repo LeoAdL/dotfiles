@@ -2,13 +2,56 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
+-- LazyVim root dir detection
+-- Each entry can be:
+-- * the name of a detector function like `lsp` or `cwd`
+-- * a pattern or array of patterns like `.git` or `lua`.
+-- * a function with signature `function(buf) -> string|string[]`
+vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
+
+-- Show the current document symbols location from Trouble in lualine
+-- You can disable this for a buffer by setting `vim.b.trouble_lualine = false`
+vim.g.trouble_lualine = true
+
+local opt = vim.opt
+
+opt.completeopt = "menu,menuone,noselect"
+opt.conceallevel = 2  -- Hide * markup for bold and italic, but not markers with substitutions
+opt.confirm = true    -- Confirm to save changes before exiting modified buffer
+opt.cursorline = true -- Enable highlighting of the current line
+opt.expandtab = true  -- Use spaces instead of tabs
+opt.fillchars = {
+    foldopen = "",
+    foldclose = "",
+    fold = " ",
+    foldsep = " ",
+    diff = "╱",
+    eob = " ",
+}
+opt.foldlevel = 99
+opt.foldmethod = "expr"
+opt.foldexpr = "nvim_treesitter#foldexpr()"
+opt.ignorecase = true      -- Ignore case
+opt.inccommand = "nosplit" -- preview incremental substitute
+opt.mouse = "a"            -- Enable mouse mode
+opt.pumblend = 10          -- Popup blend
+opt.pumheight = 10         -- Maximum number of entries in a popup
+opt.scrolloff = 4          -- Lines of context
+opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
+opt.shortmess:append({ W = true, I = true, c = true, C = true })
+opt.smoothscroll = true
+opt.splitkeep = "screen"
+opt.undolevels = 10000
+opt.updatetime = 200      -- Save swap file and trigger CursorHold
+opt.virtualedit = "block" -- Allow cursor to move where there is no text in visual block mode
+
+-- Fix markdown indentation settings
+vim.g.markdown_recommended_style = 0
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
-vim.opt.conceallevel = 2 -- hide * markup for bold and italic
 vim.opt.autowrite = true
 vim.opt.autochdir = true
-vim.opt.confirm = true                                      -- Confirm to save changes before exiting modified buffer
 vim.opt.foldcolumn = "1"                                    -- '0' is not bad
 
 vim.opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
@@ -29,31 +72,23 @@ vim.opt.smartindent = true -- Insert indents automatically
 vim.opt.undofile = true
 
 -- Case-insensitive searching UNLESS \C or capital in search
-vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 -- Keep signcolumn on by default
 vim.opt.signcolumn = 'yes'
 
 -- Decrease update time
-vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
 
 
 vim.opt.splitright = true
 vim.opt.splitbelow = true
--- Set completeopt to have a better completion experience
-vim.opt.completeopt = 'menuone,noselect'
-vim.opt.cursorline = true
 vim.opt.cursorlineopt = "number"
 vim.opt.showmode = false
-
-vim.opt.mouse = 'a'
 
 -- NOTE: You should make sure your terminal supports this
 vim.opt.termguicolors = true
 
-vim.opt.tabstop = 4      -- A TAB character looks like 4 spaces
-vim.opt.expandtab = true -- Pressing the TAB key will insert spaces instead of a TAB character
-vim.opt.softtabstop = 4  -- Number of spaces inserted instead of a TAB character
-vim.opt.shiftwidth = 4   -- Number of spaces inserted when indenting
+vim.opt.tabstop = 4     -- A TAB character looks like 4 spaces
+vim.opt.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
+vim.opt.shiftwidth = 4  -- Number of spaces inserted when indenting
