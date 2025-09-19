@@ -20,11 +20,6 @@ return {
     },
     {
         "neovim/nvim-lspconfig",
-        event = { "BufReadPost", "BufWritePost", "BufNewFile" },
-        dependencies = {
-            "williamboman/mason.nvim",
-            "saghen/blink.cmp"
-        },
         opts = {
             -- options for vim.diagnostic.config()
             diagnostics = {
@@ -135,18 +130,9 @@ return {
         },
         config = function(_, opts)
             local servers = opts.servers
-            local capabilities = vim.tbl_deep_extend(
-                "force",
-                {},
-                vim.lsp.protocol.make_client_capabilities(),
-                require('blink.cmp').get_lsp_capabilities(),
-                opts.capabilities or {}
-            )
-            for server in pairs(opts.servers) do
-                local server_opts = vim.tbl_deep_extend("force", {
-                    capabilities = vim.deepcopy(capabilities),
-                }, servers[server] or {})
-                require("lspconfig")[server].setup(server_opts)
+            for server, settings in pairs(servers) do
+                vim.lsp.config(server, settings)
+                vim.lsp.enable(server)
             end
             vim.diagnostic.config(opts.diagnostics)
         end
