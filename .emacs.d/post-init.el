@@ -830,9 +830,6 @@
 ;; in Dired buffers for a cleaner display.
 (add-hook 'dired-mode-hook #'dired-hide-details-mode)
 
-;; Configure Emacs to ask for confirmation before exiting
-(setopt confirm-kill-emacs 'y-or-n-p)
-
 (use-package uniquify
   :ensure nil
   :custom
@@ -1076,15 +1073,14 @@
   :hook
   ((elpaca-after-init . global-diff-hl-mode)
    (magit-post-refresh . diff-hl-magit-post-refresh)
+   (diff-hl . diff-hl-flydiff-mode)
    )
   :config
   (setopt diff-hl-global-modes '(not image-mode pdf-view-mode))
-  ;; PERF: A slightly faster algorithm for diffing.
-                                        ; (setopt vc-git-diff-switches '("--histogram"))
-  ;; PERF: Slightly more conservative delay before updating the diff
-                                        ; (setopt diff-hl-flydiff-delay 0.5)  ; default: 0.3
-  ;; PERF: don't block Emacs when updating vc gutter
   (setopt diff-hl-update-async t)
+  (setopt vc-git-diff-switches '("--histogram"))
+  (setopt diff-hl-flydiff-delay 0.5)  ; default: 0.3
+
   ;; UX: get realtime feedback in diffs after staging/unstaging hunks.
   (setopt diff-hl-show-staged-changes nil)
   )
@@ -1245,6 +1241,36 @@
 (use-package code-cells
   :defer t
   :ensure t)
+
+(use-package treesit
+  :ensure nil
+  :defer t
+  :config
+
+  ;; At 3 (the default), too many users think syntax highlighting is broken or
+  ;; simply "looks off."
+  (setq treesit-font-lock-level 4)
+  (setq treesit-language-source-alist
+        '((bash "https://github.com/tree-sitter/tree-sitter-bash")
+          (cmake "https://github.com/uyha/tree-sitter-cmake")
+          (css "https://github.com/tree-sitter/tree-sitter-css")
+          (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+          (go "https://github.com/tree-sitter/tree-sitter-go")
+          (html "https://github.com/tree-sitter/tree-sitter-html")
+          (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+          (json "https://github.com/tree-sitter/tree-sitter-json")
+          (make "https://github.com/alemuller/tree-sitter-make")
+          (markdown "https://github.com/ikatyang/tree-sitter-markdown")
+          (python "https://github.com/tree-sitter/tree-sitter-python")
+          (toml "https://github.com/tree-sitter/tree-sitter-toml")
+          (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+          (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+          (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
+
+
+  )
+
+
 
 (use-package evil-textobj-tree-sitter
   :after (evil treesit)
@@ -1828,15 +1854,6 @@
   :hook
   (elpaca-after-init . global-treesit-fold-mode)
   :defer t)
-
-(use-package treesit-auto
-  :defer t
-  :hook (elpaca-after-init . global-treesit-auto-mode)
-  :custom
-  (treesit-auto-install 'prompt)
-  :config
-  (treesit-auto-add-to-auto-mode-alist 'all)
-  )
 
 (use-package citar
   :ensure t
