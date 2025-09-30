@@ -8,7 +8,7 @@ return { {
             -- tex = { 'chktex' },
             git = { 'gitlint' },
             yaml = { 'yamllint' },
-            markdown = { 'markdownlint' },
+            markdown = { 'markdownlint-cli2' },
         }
         local lint_augroup = vim.api.nvim_create_augroup("Linting", { clear = true })
 
