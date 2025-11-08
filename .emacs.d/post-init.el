@@ -216,7 +216,7 @@
   (setopt org-format-latex-options
           (plist-put org-format-latex-options :background "Transparent"))
   (setopt org-format-latex-options
-          (plist-put org-format-latex-options :scale 2))
+          (plist-put org-format-latex-options :scale 1.5))
   (setopt
    org-agenda-files (list org-directory)                  ; Seems like the obvious place.
    org-log-done 'time                                     ; Having the time a item is done sounds convenient.
@@ -260,7 +260,6 @@
           org-startup-indented t
           org-adapt-indentation nil
           org-edit-src-content-indentation 0
-          org-startup-truncated nil
           org-fontify-done-headline t
           org-fontify-todo-headline t
           org-fontify-whole-heading-line t
@@ -1085,6 +1084,12 @@
   (setopt diff-hl-show-staged-changes nil)
   )
 
+(use-package info-colors
+  :ensure t
+  :init
+  (add-hook 'Info-selection-hook 'info-colors-fontify-node))
+
+
 (use-package transient
   :ensure t
   :defer t)
@@ -1459,11 +1464,10 @@
   :ensure (lsp-ltex-plus :type git :host github
                          :repo "emacs-languagetool/lsp-ltex-plus")
   :hook (text-mode . (lambda ()
-                       (require 'lsp-ltex-plus)
                        (lsp-deferred)))  ; or lsp-deferred
   :init
   (setq lsp-ltex-plus-server-store-path "")
-  (setq lsp-ltex-plus-version "18.5.1")  ; make sure you have set this, see below
+  (setq lsp-ltex-plus-version "18.6.1")  ; make sure you have set this, see below
   )  ; make sure you have set this, see below
 
 (use-package jinx
@@ -2040,5 +2044,4 @@
   (helpful-max-buffers 7))
 
 (use-package cond-let
-  :ensure (cond-let :type git :host github :repo "tarsius/cond-let")
-  :defer t)
+  :ensure (cond-let :type git :host github :repo "tarsius/cond-let"))
