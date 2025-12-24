@@ -564,7 +564,7 @@
 
 (use-package evil-collection
   :ensure t
-  :after evil 
+  :after evil
   :config
   (evil-collection-init)
   )
@@ -1078,7 +1078,7 @@
   (setopt diff-hl-global-modes '(not image-mode pdf-view-mode))
   (setopt diff-hl-update-async t)
   (setopt vc-git-diff-switches '("--histogram"))
-  (setopt diff-hl-flydiff-delay 0.5)  ; default: 0.3
+  (setopt diff-hl-flydiff-delay 1.0)  ; default: 0.3
 
   ;; UX: get realtime feedback in diffs after staging/unstaging hunks.
   (setopt diff-hl-show-staged-changes nil)
@@ -1485,7 +1485,13 @@
             [remap evil-prev-flyspell-error] #'jinx-previous)
   :hook
   (text-mode . jinx-mode)
-  (prog-mode . jinx-mode))
+  (prog-mode . jinx-mode)
+  :config
+  (vertico-multiform-mode)
+  (add-to-list
+   'vertico-multiform-categories
+   '(jinx grid (vertico-grid-annotate . 20) (vertico-count . 4))))
+
 
 (use-package outline-indent
   :ensure t
@@ -1997,6 +2003,14 @@
   ;; Projectile users
   ;; (setopt dape-cwd-function 'projectile-project-root)
   )
+
+(use-package markdown-ts-mode
+  :mode ("\\.md\\'" . markdown-ts-mode)
+  :defer t
+  :ensure t
+  :config
+  (add-to-list 'treesit-language-source-alist '(markdown "https://github.com/tree-sitter-grammars/tree-sitter-markdown" "split_parser" "tree-sitter-markdown/src"))
+  (add-to-list 'treesit-language-source-alist '(markdown-inline "https://github.com/tree-sitter-grammars/tree-sitter-markdown" "split_parser" "tree-sitter-markdown-inline/src")))
 
 (use-package markdown-mode
   :ensure t
