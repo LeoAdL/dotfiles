@@ -28,19 +28,12 @@ opt.fillchars = {
     diff = "╱",
     eob = " ",
 }
-opt.foldlevel = 99
 opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
-opt.ignorecase = true      -- Ignore case
-opt.inccommand = "nosplit" -- preview incremental substitute
-opt.mouse = "a"            -- Enable mouse mode
-opt.pumblend = 10          -- Popup blend
-opt.pumheight = 10         -- Maximum number of entries in a popup
-opt.scrolloff = 4          -- Lines of context
+opt.ignorecase = true -- Ignore case
 opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
 opt.shortmess:append({ W = true, I = true, c = true, C = true })
 opt.smoothscroll = true
-opt.splitkeep = "screen"
 opt.undolevels = 10000
 opt.updatetime = 200      -- Save swap file and trigger CursorHold
 opt.virtualedit = "block" -- Allow cursor to move where there is no text in visual block mode
@@ -49,23 +42,19 @@ opt.virtualedit = "block" -- Allow cursor to move where there is no text in visu
 vim.g.markdown_recommended_style = 0
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
 vim.opt.autowrite = true
-vim.opt.autochdir = true
-vim.opt.foldcolumn = "1"                                    -- '0' is not bad
+vim.opt.foldcolumn = "auto:[1-9]"                           -- '0' is not bad
 
 vim.opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
 vim.opt.foldlevel = 999                                     -- Using ufo provider need a large value, feel free to decrease the value
 vim.opt.foldlevelstart = 999
 vim.opt.foldenable = true
-vim.opt.foldcolumn = '0'
 vim.g.autoformat = true
 -- Make line numbers default
 vim.opt.number = true
 vim.opt.relativenumber = true
 
 -- Enable break indent
-vim.opt.breakindent = true
 vim.opt.smartindent = true -- Insert indents automatically
 
 -- Save undo history
@@ -80,10 +69,6 @@ vim.opt.signcolumn = 'yes'
 -- Decrease update time
 vim.opt.timeoutlen = 300
 
-
-vim.opt.splitright = true
-vim.opt.splitbelow = true
-vim.opt.cursorlineopt = "number"
 vim.opt.showmode = false
 
 -- NOTE: You should make sure your terminal supports this

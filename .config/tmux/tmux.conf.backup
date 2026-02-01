@@ -7,17 +7,14 @@ setw -g xterm-keys on
 set -s escape-time 10                     # faster command sequences
 set -sg repeat-time 600                   # increase repeat timeout
 
+unbind C-b
 set -g prefix2 C-a                        # GNU-Screen compatible prefix
 bind C-a send-prefix -2
-
-set -q -g status-utf8 on                  # expect UTF-8 (tmux < 2.2)
-setw -q -g utf8 on
-
 
 set -g mode-keys vi
 set -g status-keys vi
 
-set -g set-clipboard on
+set -s set-clipboard on
 
 set -g base-index 1           # start windows numbering at 1
 set -g pane-base-index 1     # make pane numbering consistent with windows
@@ -29,7 +26,6 @@ set -g renumber-windows on    # renumber windows when a window is closed
 set -g set-titles on          # set terminal title
 
 set -g display-panes-time 800 # slightly longer pane indicators display time
-
 
 # Increase scrollback buffer size from 2000 to 50000 lines
 set -g history-limit 50000
@@ -48,13 +44,7 @@ set -g aggressive-resize on
 
 set -g monitor-activity on
 set -g visual-activity off
-# remap prefix from 'C-b' to 'C-a'
-# remap prefix from 'C-b' to 'C-a'
 
-# Smart pane switching with awareness of Vim splits.
-# See: https://github.com/christoomey/vim-tmux-navigator
-
-# use vim-like keys for splits and windows
 bind v split-window -h
 bind h split-window -v
 
@@ -68,45 +58,49 @@ unbind w  #DEFAULT KEY: change current window interactively
 
 bind n command-prompt "rename-session '%%'"
 bind w new-window -c "#{pane_current_path}"
+bind W choose-window
 
-unbind -T copy-mode-vi Space; #Default for begin-selection
-unbind -T copy-mode-vi Enter; #Default for copy-selection
+# y and p as in vim
+bind Escape copy-mode
+unbind p
+bind p paste-buffer
+bind-key -T copy-mode-vi 'v' send -X begin-selection
+bind-key -T copy-mode-vi 'y' send -X copy-selection
+bind-key -T copy-mode-vi 'Space' send -X halfpage-down
+bind-key -T copy-mode-vi 'Bspace' send -X halfpage-up
+# moving between windows with vim movement keys
+bind -r C-h select-window -t :-
+bind -r C-l select-window -t :+
 
-bind -T copy-mode-vi v send-keys -X begin-selection
-bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xsel --clipboard"
+# resize panes with vim movement keys
+bind -r H resize-pane -L 5
+bind -r J resize-pane -D 5
+bind -r K resize-pane -U 5
+bind -r L resize-pane -R 5
 
 set -g mouse on
-set -g @t-fzf-prompt '  '
 
 set -g @fuzzback-popup 1
 set -g @fuzzback-bind S
+
 set -g @fzf-goto-session s
 TMUX_FZF_LAUNCH_KEY="f"
 set -g @fzf-goto-win-width 140
 set -g @fzf-goto-win-height 20
 
 set -g @fingers-key C-f
-set -g @super-fingers-key g
+
 # List of plugins
 set -g @plugin 'sainnhe/tmux-fzf'
-set -g @plugin 'tmux-plugins/tmux-yank'
+# set -g @plugin 'tmux-plugins/tmux-yank'
 set -g @plugin 'roosta/tmux-fuzzback'
 # set -g @plugin 'schasse/tmux-jump'
 set -g @plugin 'catppuccin/tmux'
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'Morantron/tmux-fingers'
-# set -g @plugin 'artemave/tmux_super_fingers'
-set -g @plugin 'laktak/extrakto'
-set -g @extrakto_clip_tool "xsel --input --clipboard" # works better for nvim
 
 
 
-
-# Other examples:
-# set -g @plugin 'github_username/plugin_name'
-# set -g @plugin 'github_username/plugin_name#branch'
-# set -g @plugin 'git@github.com:user/plugin'
-# set -g @plugin 'git@bitbucket.com:user/plugin'
 
 TMUX_FZF_OPTIONS="-p -w 62% -h 38% -m"
 

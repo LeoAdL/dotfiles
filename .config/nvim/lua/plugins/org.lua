@@ -11,7 +11,6 @@ return {
             org_agenda_files = '~/org/**/*',
             org_default_notes_file = '~/org/refile.org',
         })
-
         require('org-bullets').setup()
     end,
 }
