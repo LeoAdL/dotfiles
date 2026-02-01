@@ -42,38 +42,40 @@ opt.virtualedit = "block" -- Allow cursor to move where there is no text in visu
 vim.g.markdown_recommended_style = 0
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-vim.opt.autowrite = true
-vim.opt.foldcolumn = "0"                           -- '0' is not bad
+opt.autowrite = true
+opt.foldcolumn = "0"                                    -- '0' is not bad
 
-vim.opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
-vim.opt.foldlevel = 999                                     -- Using ufo provider need a large value, feel free to decrease the value
-vim.opt.foldlevelstart = 999
-vim.opt.foldenable = true
+opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
+opt.foldlevel = 999                                     -- Using ufo provider need a large value, feel free to decrease the value
+opt.foldlevelstart = 999
+opt.foldenable = true
 vim.g.autoformat = true
 -- Make line numbers default
-vim.opt.number = true
-vim.opt.relativenumber = true
+opt.number = true
+opt.relativenumber = true
 
 -- Enable break indent
-vim.opt.smartindent = true -- Insert indents automatically
+opt.smartindent = true -- Insert indents automatically
 
 -- Save undo history
-vim.opt.undofile = true
+opt.undofile = true
 
 -- Case-insensitive searching UNLESS \C or capital in search
-vim.opt.smartcase = true
+opt.smartcase = true
 
 -- Keep signcolumn on by default
-vim.opt.signcolumn = 'yes'
+opt.signcolumn = 'yes'
 
 -- Decrease update time
-vim.opt.timeoutlen = 300
+opt.timeoutlen = 300
 
-vim.opt.showmode = false
+opt.showmode = false
 
 -- NOTE: You should make sure your terminal supports this
-vim.opt.termguicolors = true
+opt.termguicolors = true
 
-vim.opt.tabstop = 4     -- A TAB character looks like 4 spaces
-vim.opt.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
-vim.opt.shiftwidth = 4  -- Number of spaces inserted when indenting
+opt.tabstop = 4     -- A TAB character looks like 4 spaces
+opt.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
+opt.shiftwidth = 4  -- Number of spaces inserted when indenting
+
+opt.autochdir = true
