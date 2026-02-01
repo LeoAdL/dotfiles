@@ -43,7 +43,7 @@ vim.g.markdown_recommended_style = 0
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.opt.autowrite = true
-vim.opt.foldcolumn = "auto:[1-9]"                           -- '0' is not bad
+vim.opt.foldcolumn = "0"                           -- '0' is not bad
 
 vim.opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
 vim.opt.foldlevel = 999                                     -- Using ufo provider need a large value, feel free to decrease the value
