@@ -102,17 +102,17 @@ return {
                 harper_ls = {},
                 basedpyright = {
                 },
-                ltex_plus = {
-                    filetypes = { 'bib', 'gitcommit', 'markdown', 'org', 'plaintex', 'rst', 'rnoweb', 'tex', 'pandoc', 'quarto', 'rmd', 'mail' },
-
-                    settings = {
-                        ltex = {
-                            additionalRules = {
-                                enablePickyRules = true,
-                            },
-                        },
-                    },
-                },
+                -- ltex_plus = {
+                --     filetypes = { 'bib', 'gitcommit', 'markdown', 'org', 'plaintex', 'rst', 'rnoweb', 'tex', 'pandoc', 'quarto', 'rmd', 'mail' },
+                --
+                --     settings = {
+                --         ltex = {
+                --             additionalRules = {
+                --                 enablePickyRules = true,
+                --             },
+                --         },
+                --     },
+                -- },
                 lua_ls = {
                     -- mason = false, -- set to false if you don't want this server to be installed with mason
                     settings = {
