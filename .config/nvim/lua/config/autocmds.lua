@@ -76,11 +76,6 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
         vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
     end,
 })
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
-    callback = function()
-        require("lint").try_lint()
-    end,
-})
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)

@@ -99,6 +99,7 @@ return {
                 marksman = {},
                 nil_ls = {},
                 ts_ls = {},
+                harper_ls = {},
                 basedpyright = {
                 },
                 ltex_plus = {

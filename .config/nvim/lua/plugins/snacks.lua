@@ -12,7 +12,7 @@ return {
         bigfile = { enabled = true },
         indent = { enabled = true },
         input = { enabled = true },
-        image = { enabled = false },
+        image = { enabled = true },
         explorer = { enabled = false },
         notifier = { enabled = true },
         statuscolumn = { enabled = true },

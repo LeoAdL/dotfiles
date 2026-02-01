@@ -1,7 +1,7 @@
 return {
     'nvim-orgmode/orgmode',
-    event = 'VeryLazy',
-    enabled = false,
+    ft = 'org',
+    enabled = true,
     dependencies = {
         "nvim-orgmode/org-bullets.nvim",
     },
