@@ -79,3 +79,7 @@ opt.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
 opt.shiftwidth = 4  -- Number of spaces inserted when indenting
 
 opt.autochdir = true
+opt.cursorline = false
+opt.signcolumn = "yes"
+
+opt.pumpblend = 10
