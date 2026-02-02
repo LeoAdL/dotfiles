@@ -82,4 +82,4 @@ opt.autochdir = true
 opt.cursorline = false
 opt.signcolumn = "yes"
 
-opt.pumpblend = 10
+opt.pumblend = 10
