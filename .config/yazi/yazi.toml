@@ -1,1 +1,13 @@
-/nix/store/grw66r3h5slfc1hkpgg12kjzrvqh4k4q-home-manager-files/.config/yazi/yazi.toml
+[manager]
+ratio = [0, 4, 3]
+
+[flavor]
+use = "catppuccin-mocha"
+
+[preview]
+image_delay = 0
+
+[plugin]
+prepend_previewers = [
+    { mime = "text/csv", run = "miller"},
+]
