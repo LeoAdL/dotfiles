@@ -16,3 +16,4 @@
 .config/tmux/plugins/tmux-fingers
 .config/tmux/plugins/tmux
 /davmail.log
+/.config/tmux/plugins
