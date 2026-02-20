@@ -71,7 +71,7 @@ esac'
 zstyle ':fzf-tab:complete:brew-(install|uninstall|search|info):*-argument-rest' fzf-preview 'brew info $word'
 zstyle ':fzf-tab:complete:tldr:argument-1' fzf-preview 'tldr --color always $word'
 zstyle ':fzf-tab:complete:-command-:*' fzf-preview \
-    ¦ '(out=$(tldr --color always "$word") 2>/dev/null && echo $out) || (out=$(MANWIDTH=$FZF_PREVIEW_COLUMNS man "$word") 2>/dev/null && echo $out) || (out=$(which "$word") && echo $out) || echo "${(P)word}"'
+    '(out=$(tldr --color always "$word") 3>/dev/null && echo $out) || (out=$(MANWIDTH=$FZF_PREVIEW_COLUMNS man "$word") 2>/dev/null && echo $out) || (out=$(which "$word") && echo $out) || echo "${(P)word}"'
 
 
 # ${ZDOTDIR:-~}/.zshrc
