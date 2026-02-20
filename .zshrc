@@ -75,6 +75,7 @@ zstyle ':fzf-tab:complete:-command-:*' fzf-preview \
 
 
 # ${ZDOTDIR:-~}/.zshrc
+export ZFUNCDIR=${ZDOTDIR:-$HOME/.config/zsh}/functions
 
 # Set the root name of the plugins files (.txt and .zsh) antidote will use.
 zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins
