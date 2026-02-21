@@ -20,7 +20,6 @@ mattmc3/zephyr path:plugins/zfunctions kind:defer
 romkatv/powerlevel10k
 
 # popular fish-like plugins
-unixorn/fzf-zsh-plugin kind:defer
 Aloxaf/fzf-tab kind:defer
 zdharma-continuum/fast-syntax-highlighting kind:defer
 zsh-users/zsh-autosuggestions kind:defer

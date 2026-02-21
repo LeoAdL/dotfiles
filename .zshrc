@@ -95,5 +95,6 @@ fi
 # Source your static plugins file.
 source ${zsh_plugins}.zsh
 
+zsh-defer -c "source <(fzf --zsh)"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
