@@ -2,24 +2,12 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
--- LazyVim root dir detection
--- Each entry can be:
--- * the name of a detector function like `lsp` or `cwd`
--- * a pattern or array of patterns like `.git` or `lua`.
--- * a function with signature `function(buf) -> string|string[]`
-vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
-
--- Show the current document symbols location from Trouble in lualine
--- You can disable this for a buffer by setting `vim.b.trouble_lualine = false`
-vim.g.trouble_lualine = true
-
 local opt = vim.opt
 
 opt.completeopt = "menu,menuone,noselect"
-opt.conceallevel = 2  -- Hide * markup for bold and italic, but not markers with substitutions
-opt.confirm = true    -- Confirm to save changes before exiting modified buffer
-opt.cursorline = true -- Enable highlighting of the current line
-opt.expandtab = true  -- Use spaces instead of tabs
+opt.conceallevel = 2 -- Hide * markup for bold and italic, but not markers with substitutions
+opt.confirm = true   -- Confirm to save changes before exiting modified buffer
+opt.expandtab = true -- Use spaces instead of tabs
 opt.fillchars = {
     foldopen = "",
     foldclose = "",
@@ -29,7 +17,7 @@ opt.fillchars = {
     eob = " ",
 }
 opt.foldmethod = "expr"
-opt.foldexpr = "nvim_treesitter#foldexpr()"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 opt.ignorecase = true -- Ignore case
 opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
 opt.shortmess:append({ W = true, I = true, c = true, C = true })
@@ -78,8 +66,6 @@ opt.tabstop = 4     -- A TAB character looks like 4 spaces
 opt.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
 opt.shiftwidth = 4  -- Number of spaces inserted when indenting
 
-opt.autochdir = true
 opt.cursorline = false
-opt.signcolumn = "yes"
 
 opt.pumblend = 10

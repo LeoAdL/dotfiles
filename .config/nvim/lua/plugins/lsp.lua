@@ -36,26 +36,6 @@ return {
                     },
                 },
             },
-            inlay_hints = {
-                enabled = true,
-            },
-            -- Enable this to enable the builtin LSP code lenses on Neovim >= 0.10.0
-            -- Be aware that you also will need to properly configure your LSP server to
-            -- provide the code lenses.
-            codelens = {
-                enabled = true,
-            },
-            capabilities = {
-                workspace = {
-                    fileOperations = {
-                        didRename = true,
-                        willRename = true,
-                    },
-                },
-            },
-            -- LSP Server Settings
-            ---@type lspconfig.options
-            ---
             servers = {
                 texlab = {
                     settings = {
@@ -97,7 +77,6 @@ return {
                     },
                 },
                 marksman = {},
-                nil_ls = {},
                 ts_ls = {},
                 harper_ls = {},
                 basedpyright = {

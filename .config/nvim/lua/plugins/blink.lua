@@ -3,11 +3,10 @@ return {
         "saghen/blink.cmp",
         version = "*",
         dependencies = {
-            "rafamadriz/friendly-snippets",
             { 'L3MON4D3/LuaSnip', version = 'v2.*' },
             -- add blink.compat to dependencies
         },
-        event = "InsertEnter",
+        event = { "InsertEnter", "CmdlineEnter" },
 
         ---@module 'blink.cmp'
         ---@type blink.cmp.Config
