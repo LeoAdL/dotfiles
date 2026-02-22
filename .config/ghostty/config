@@ -10,7 +10,7 @@ theme = Catppuccin Mocha
 # ==========================================
 # Core Keybindings
 # ==========================================
-keybind = ctrl+n=new_window
+keybind = super+n=new_window
 keybind = super+r=reload_config
 
 # ==========================================
