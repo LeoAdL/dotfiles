@@ -113,6 +113,7 @@ return {
             for server, settings in pairs(servers) do
                 vim.lsp.config(server, settings)
                 vim.lsp.enable(server)
+                vim.lsp.inlay_hint.enable()
             end
             vim.diagnostic.config(opts.diagnostics)
         end
