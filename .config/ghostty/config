@@ -1,21 +1,33 @@
+# ==========================================
+# Appearance
+# ==========================================
 font-family = "Iosevka Term"
-
 font-size = 18
 
+# Ghostty uses standard lowercase-hyphenated names for themes
 theme = Catppuccin Mocha
 
+# ==========================================
+# Core Keybindings
+# ==========================================
 keybind = ctrl+n=new_window
-
-keybind = ctrl+h=goto_split:left
-keybind = ctrl+j=goto_split:bottom
-keybind = ctrl+k=goto_split:top
-keybind = ctrl+l=goto_split:right
-
-keybind = ctrl+b>h=new_split:down
-keybind = ctrl+b>v=new_split:right
-keybind = ctrl+b>z=toggle_split_zoom
-
-keybind = ctrl+b>n=next_tab
-keybind = ctrl+b>p=previous_tab
-
 keybind = super+r=reload_config
+
+# ==========================================
+# Tmux-like Multiplexing (Leader: Ctrl+A)
+# ==========================================
+# Tab Management
+keybind = ctrl+a>n=next_tab
+keybind = ctrl+a>p=previous_tab
+
+# Window Splits (S for horizontal, V for vertical)
+keybind = ctrl+a>s=new_split:down
+keybind = ctrl+a>v=new_split:right
+keybind = ctrl+a>x=close_surface
+keybind = ctrl+a>z=toggle_split_zoom
+
+# Window Navigation
+keybind = ctrl+a>h=goto_split:left
+keybind = ctrl+a>j=goto_split:bottom
+keybind = ctrl+a>k=goto_split:top
+keybind = ctrl+a>l=goto_split:right
