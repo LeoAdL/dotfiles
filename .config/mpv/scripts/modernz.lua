@@ -1,4 +1,4 @@
--- ModernZ v0.3.0rc (https://github.com/Samillion/ModernZ)
+-- ModernZ v0.3.1rc (https://github.com/Samillion/ModernZ)
 --
 -- This script is a derivative of the original mpv-osc-modern by maoiscat
 -- and subsequent forks:
@@ -179,6 +179,8 @@ local user_opts = {
     nibbles_top = true,                    -- top chapter nibbles above seekbar
     nibbles_bottom = true,                 -- bottom chapter nibbles below seekbar
     nibbles_style = "triangle",            -- chapter nibble style. "triangle", "bar", or "single-bar"
+    nibble_color = "#FB8C00",              -- color of chapter nibbles on the seekbar
+    nibble_current_color = "#FFFFFF",      -- color of the current chapter nibble on the seekbar
 
     automatickeyframemode = true,          -- automatically set keyframes for the seekbar based on video length
     automatickeyframelimit = 600,          -- videos longer than this (in seconds) will have keyframes on the seekbar
@@ -190,7 +192,7 @@ local user_opts = {
     -- Miscellaneous settings
     visibility = "auto",                   -- only used at init to set visibility_mode(...)
     visibility_modes = "never_auto_always",-- visibility modes to cycle through
-    tick_delay = 0.03,                     -- minimum interval between OSC redraws (in seconds)
+    tick_delay = 1 / 60,                   -- minimum interval between OSC redraws (in seconds)
     tick_delay_follow_display_fps = false, -- use display FPS as the minimum redraw interval
 
     -- Elements Position
@@ -552,8 +554,8 @@ end
 
 -- internal states, do not touch
 local state = {
-    showtime = nil,                         -- time of last invocation (last mouse move)
-    touchtime = nil,                        -- time of last invocation (last touch event)
+    showtime = mp.get_time(),               -- time of last invocation (last mouse move)
+    touchtime = mp.get_time(),              -- time of last invocation (last touch event)
     touchpoints = {},                       -- current touch points
     osc_visible = false,
     anistart = nil,                         -- time when the animation started
@@ -1005,52 +1007,7 @@ local function prepare_elements()
             -- a hack which prepares the whole slider area to allow center placements such like an=5
             static_ass:rect_cw(0, 0, elem_geo.w, elem_geo.h)
             static_ass:rect_ccw(0, 0, elem_geo.w, elem_geo.h)
-            -- marker nibbles
-            if element.slider.markerF ~= nil and slider_lo.gap > 0 then
-                local markers = element.slider.markerF()
-                for _,marker in pairs(markers) do
-                    if marker >= element.slider.min.value and
-                    marker <= element.slider.max.value then
-                        local s = get_slider_ele_pos_for(element, marker)
-                        if slider_lo.gap > 5 then -- draw triangles / bars
-                            local bar_h = 3 -- for "bar" and "single-bar" only
-                            --top
-                            if slider_lo.nibbles_top then
-                                if slider_lo.nibbles_style == "triangle" then
-                                    static_ass:move_to(s - 3, slider_lo.gap - 5)
-                                    static_ass:line_to(s + 3, slider_lo.gap - 5)
-                                    static_ass:line_to(s, slider_lo.gap - 1)
-                                elseif slider_lo.nibbles_style == "bar" then
-                                    static_ass:rect_cw(s - 1, slider_lo.gap - bar_h, s + 1, slider_lo.gap);
-                                else
-                                    static_ass:rect_cw(s - 1, slider_lo.gap - bar_h, s + 1, elem_geo.h - slider_lo.gap);
-                                end
-                            end
-                            --bottom
-                            if slider_lo.nibbles_bottom then
-                                if slider_lo.nibbles_style == "triangle" then
-                                    static_ass:move_to(s - 3, elem_geo.h - slider_lo.gap + 5)
-                                    static_ass:line_to(s, elem_geo.h - slider_lo.gap + 1)
-                                    static_ass:line_to(s + 3, elem_geo.h - slider_lo.gap + 5)
-                                elseif slider_lo.nibbles_style == "bar" then
-                                    static_ass:rect_cw(s - 1, elem_geo.h - slider_lo.gap, s + 1, elem_geo.h - slider_lo.gap + bar_h);
-                                else
-                                    static_ass:rect_cw(s - 1, slider_lo.gap, s + 1, elem_geo.h - slider_lo.gap + bar_h);
-                                end
-                            end
-                        else -- draw 2x1px nibbles
-                            --top
-                            if slider_lo.nibbles_top then
-                                static_ass:rect_cw(s - 1, 0, s + 1, slider_lo.gap);
-                            end
-                            --bottom
-                            if slider_lo.nibbles_bottom then
-                                static_ass:rect_cw(s - 1, elem_geo.h - slider_lo.gap, s + 1, elem_geo.h);
-                            end
-                        end
-                    end
-                end
-            end
+            -- marker nibbles are drawn dynamically in draw_seekbar_nibbles()
         end
 
         element.static_ass = static_ass
@@ -1166,6 +1123,89 @@ local function draw_seekbar_ranges(element, elem_ass, xp, rh, override_alpha)
     end
 end
 
+-- Draw chapter nibbles on the seekbar with per-chapter coloring
+local function draw_seekbar_nibbles(element, elem_ass)
+    local slider_lo = element.layout.slider
+    local elem_geo = element.layout.geometry
+
+    if element.slider.markerF == nil or slider_lo.gap <= 0 then
+        return
+    end
+
+    local markers = element.slider.markerF()
+    if #markers == 0 then
+        return
+    end
+
+    local current_chapter = mp.get_property_number("chapter", -1)
+
+    -- draw a single nibble at position s
+    local function draw_nibble(ass, s)
+        if slider_lo.gap > 5 then
+            local bar_h = 3
+            if slider_lo.nibbles_top then
+                if slider_lo.nibbles_style == "triangle" then
+                    ass:move_to(s - 3, slider_lo.gap - 5)
+                    ass:line_to(s + 3, slider_lo.gap - 5)
+                    ass:line_to(s, slider_lo.gap - 1)
+                elseif slider_lo.nibbles_style == "bar" then
+                    ass:rect_cw(s - 1, slider_lo.gap - bar_h, s + 1, slider_lo.gap)
+                else
+                    ass:rect_cw(s - 1, slider_lo.gap - bar_h, s + 1, elem_geo.h - slider_lo.gap)
+                end
+            end
+            if slider_lo.nibbles_bottom then
+                if slider_lo.nibbles_style == "triangle" then
+                    ass:move_to(s - 3, elem_geo.h - slider_lo.gap + 5)
+                    ass:line_to(s, elem_geo.h - slider_lo.gap + 1)
+                    ass:line_to(s + 3, elem_geo.h - slider_lo.gap + 5)
+                elseif slider_lo.nibbles_style == "bar" then
+                    ass:rect_cw(s - 1, elem_geo.h - slider_lo.gap, s + 1, elem_geo.h - slider_lo.gap + bar_h)
+                else
+                    ass:rect_cw(s - 1, slider_lo.gap, s + 1, elem_geo.h - slider_lo.gap + bar_h)
+                end
+            end
+        else
+            if slider_lo.nibbles_top then
+                ass:rect_cw(s - 1, 0, s + 1, slider_lo.gap)
+            end
+            if slider_lo.nibbles_bottom then
+                ass:rect_cw(s - 1, elem_geo.h - slider_lo.gap, s + 1, elem_geo.h)
+            end
+        end
+    end
+
+    -- start a new ASS event with the given color
+    local function start_nibble_event(color)
+        elem_ass:draw_stop()
+        elem_ass:merge(element.style_ass)
+        ass_append_alpha(elem_ass, element.layout.alpha, 0)
+        elem_ass:append("{\\blur0\\bord0\\1c&H" .. osc_color_convert(color) .. "&}")
+        elem_ass:merge(element.static_ass)
+    end
+
+    -- draw non-current chapter nibbles
+    local has_non_current = false
+    for n, marker in ipairs(markers) do
+        if (n - 1) ~= current_chapter and marker >= element.slider.min.value and marker <= element.slider.max.value then
+            if not has_non_current then
+                start_nibble_event(user_opts.nibble_color)
+                has_non_current = true
+            end
+            draw_nibble(elem_ass, get_slider_ele_pos_for(element, marker))
+        end
+    end
+
+    -- draw current chapter nibble on top
+    if current_chapter >= 0 and current_chapter < #markers then
+        local marker = markers[current_chapter + 1]
+        if marker >= element.slider.min.value and marker <= element.slider.max.value then
+            start_nibble_event(user_opts.nibble_current_color)
+            draw_nibble(elem_ass, get_slider_ele_pos_for(element, marker))
+        end
+    end
+end
+
 -- Draw seekbar progress more accurately
 local function draw_seekbar_progress(element, elem_ass)
     local pos = element.slider.posF()
@@ -1244,6 +1284,14 @@ local function render_elements(master_ass)
                 local elem_geo = element.layout.geometry
                 local s_min = element.slider.min.value
                 local s_max = element.slider.max.value
+
+                draw_seekbar_nibbles(element, elem_ass)
+
+                -- reset context so handle/progress render on top of nibbles
+                elem_ass:draw_stop()
+                elem_ass:merge(element.style_ass)
+                ass_append_alpha(elem_ass, element.layout.alpha, 0)
+                elem_ass:merge(element.static_ass)
 
                 local xp, rh = draw_seekbar_handle(element, elem_ass) -- handle posistion, handle radius
                 draw_seekbar_progress(element, elem_ass)
@@ -2126,7 +2174,7 @@ layouts["modern-compact"] = function ()
     lo.geometry = {x = refX, y = refY - 72, an = 5, w = osc_geo.w - 45, h = seekbar_bg_h}
     lo.layer = 13
     lo.style = osc_styles.seekbar_bg
-    lo.box.radius = 2
+    lo.box.radius = user_opts.slider_rounded_corners and 2 or 0
     lo.alpha[1] = 152
     lo.alpha[3] = 128
 
@@ -2136,7 +2184,7 @@ layouts["modern-compact"] = function ()
     lo.layer = 51
     lo.style = osc_styles.seekbar_fg
     lo.slider.gap = (seekbar_h - seekbar_bg_h) / 2.0
-    lo.slider.radius = 2
+    lo.slider.radius = user_opts.slider_rounded_corners and 2 or 0
     lo.slider.tooltip_style = osc_styles.tooltip
     lo.slider.tooltip_an = 2
 
@@ -2189,16 +2237,30 @@ layouts["modern-compact"] = function ()
     local pl_count = mp.get_property_number("playlist-count", 0)
     local pl_pos = mp.get_property_number("playlist-pos", 0) + 1
 
-    if pl_count > 1 and pl_pos > 1 then
+    if pl_count > 1 and pl_pos > 1 and user_opts.track_nextprev_buttons and osc_geo.w >= 500 then
         lo = add_layout("playlist_prev")
         lo.geometry = {x = start_x, y = refY - 35, an = 5, w = 24, h = 24}
         lo.style = osc_styles.control_2
         start_x = start_x + 55
     end
 
-    if pl_count > 1 and pl_pos < pl_count then
+    if pl_count > 1 and pl_pos < pl_count and user_opts.track_nextprev_buttons and osc_geo.w >= 350 then
         lo = add_layout("playlist_next")
         lo.geometry = {x = start_x, y = refY - 35, an = 5, w = 24, h = 24}
+        lo.style = osc_styles.control_2
+        start_x = start_x + 55
+    end
+
+   if user_opts.jump_buttons and osc_geo.w >= 600 then
+        lo = add_layout("jump_backward")
+        lo.geometry = {x = start_x, y = refY - 35, an = 5, w = 30, h = 24}
+        lo.style = (user_opts.jump_icon_number and icons.jump[user_opts.jump_amount] ~= nil) and osc_styles.control_2 or osc_styles.control_2_flip
+        start_x = start_x + 55
+    end
+
+    if user_opts.jump_buttons and osc_geo.w >= 450 then
+        lo = add_layout("jump_forward")
+        lo.geometry = {x = start_x, y = refY - 35, an = 5, w = 30, h = 24}
         lo.style = osc_styles.control_2
         start_x = start_x + 55
     end
@@ -2210,21 +2272,21 @@ layouts["modern-compact"] = function ()
         start_x = start_x + 28
 
         new_element("volumebarbg", "box")
-        elements.volumebar.visible = osc_geo.w >= 750
+        elements.volumebar.visible = osc_geo.w >= 850
         elements.volumebarbg.visible = elements.volumebar.visible
         if elements.volumebar.visible then
             lo = add_layout("volumebarbg")
-            lo.geometry = {x = start_x, y = refY - 35, an = 4, w = 65, h = 3}
+            lo.geometry = {x = start_x, y = refY - 35, an = 4, w = 65, h = 4}
             lo.layer = 13
             lo.alpha[1] = 128
             lo.style = user_opts.volumebar_match_seek_color and osc_styles.seekbar_bg or osc_styles.volumebar_bg
-            lo.box.radius = 2
+            lo.box.radius = user_opts.slider_rounded_corners and 2 or 0
 
             lo = add_layout("volumebar")
-            lo.geometry = {x = start_x, y = refY - 35, an = 4, w = 65, h = 9}
+            lo.geometry = {x = start_x, y = refY - 35, an = 4, w = 65, h = 10}
             lo.style = user_opts.volumebar_match_seek_color and osc_styles.seekbar_fg or osc_styles.volumebar_fg
             lo.slider.gap = 3
-            lo.slider.radius = 1
+            lo.slider.radius = user_opts.slider_rounded_corners and 2 or 0
             lo.slider.tooltip_style = osc_styles.tooltip
             lo.slider.tooltip_an = 2
             start_x = start_x + 75
@@ -2234,14 +2296,15 @@ layouts["modern-compact"] = function ()
     -- Right side buttons
     local end_x = osc_geo.w - 50
 
-    if user_opts.fullscreen_button then
+    elements.tog_fullscreen.visible = user_opts.fullscreen_button and osc_geo.w >= 100
+    if elements.tog_fullscreen.visible then
         lo = add_layout("tog_fullscreen")
         lo.geometry = {x = end_x, y = refY - 35, an = 5, w = 24, h = 24}
         lo.style = osc_styles.control_2
         end_x = end_x - 55
     end
 
-    elements.tog_ontop.visible = user_opts.ontop_button and osc_geo.w >= 500
+    elements.tog_ontop.visible = user_opts.ontop_button and osc_geo.w >= 250
     if elements.tog_ontop.visible then
         lo = add_layout("tog_ontop")
         lo.geometry = {x = end_x, y = refY - 35, an = 5, w = 24, h = 24}
@@ -2249,7 +2312,15 @@ layouts["modern-compact"] = function ()
         end_x = end_x - 55
     end
 
-    elements.sub_track.visible = user_opts.fullscreen_button and sub_track_count > 0 and osc_geo.w >= 600
+    elements.tog_speed.visible = user_opts.speed_button and osc_geo.w >= 300
+    if elements.tog_speed.visible then
+        lo = add_layout("tog_speed")
+        lo.geometry = {x = end_x, y = refY - 35, an = 5, w = 24, h = 24}
+        lo.style = osc_styles.control_2
+        end_x = end_x - 55
+    end
+
+    elements.sub_track.visible = user_opts.subtitles_button and sub_track_count > 0 and osc_geo.w >= 600
     if elements.sub_track.visible then
         lo = add_layout("sub_track")
         lo.geometry = {x = end_x, y = refY - 35, an = 5, w = 24, h = 24}
@@ -2257,7 +2328,7 @@ layouts["modern-compact"] = function ()
         end_x = end_x - 55
     end
 
-    elements.audio_track.visible = user_opts.audio_tracks_button and audio_track_count > 1 and osc_geo.w >= 750
+    elements.audio_track.visible = user_opts.audio_tracks_button and audio_track_count > 0 and osc_geo.w >= 750
     if elements.audio_track.visible then
         lo = add_layout("audio_track")
         lo.geometry = {x = end_x, y = refY - 35, an = 5, w = 24, h = 24}
@@ -2265,15 +2336,17 @@ layouts["modern-compact"] = function ()
         end_x = end_x - 55
     end
 
-    if user_opts.playlist_button then
+    elements.tog_playlist.visible = user_opts.playlist_button and osc_geo.w >= 550
+    if elements.tog_playlist.visible then
         lo = add_layout("tog_playlist")
         lo.geometry = {x = end_x, y = refY - 35, an = 5, w = 24, h = 24}
         lo.style = osc_styles.control_2
         end_x = end_x - 55
     end
 
-    if user_opts.speed_button then
-        lo = add_layout("tog_speed")
+    elements.download.visible = state.is_URL and user_opts.download_button and osc_geo.w >= 450
+    if elements.download.visible then
+        lo = add_layout("download")
         lo.geometry = {x = end_x, y = refY - 35, an = 5, w = 24, h = 24}
         lo.style = osc_styles.control_2
         end_x = end_x - 55
@@ -2705,7 +2778,7 @@ local function osc_init()
     ne.visible = (osc_param.playresx >= (state.is_image and 250 or visible_min_width) - outeroffset)
     ne.content = icons.playlist
     ne.tooltip_style = osc_styles.tooltip
-    ne.tooltipF = user_opts.tooltip_hints and locale.playlist .. "/" .. locale.menu or ""
+    ne.tooltipF = user_opts.tooltip_hints and (have_pl and locale.playlist .. " [" .. pl_pos .. "/" .. pl_count .. "]" or locale.playlist .. " / " .. locale.menu) or ""
     ne.nothingavailable = locale.no_playlist
     ne.eventresponder["mbtn_left_up"] = command_callback(user_opts.playlist_mbtn_left_command)
     ne.eventresponder["mbtn_right_up"] = command_callback(user_opts.playlist_mbtn_right_command)
@@ -2720,7 +2793,7 @@ local function osc_init()
     ne.tooltip_style = osc_styles.tooltip
     ne.tooltipF = function ()
         local prop = mp.get_property("current-tracks/audio/title") or mp.get_property("current-tracks/audio/lang") or locale.na
-        return (locale.audio .. " " .. mp.get_property_number("aid", "-") .. "/" .. audio_track_count .. " [" .. prop .. "]")
+        return (user_opts.tooltip_hints and (locale.audio .. " " .. mp.get_property_number("aid", "-") .. "/" .. audio_track_count .. " [" .. prop .. "]") or "")
     end
     ne.nothingavailable = locale.no_audio
     ne.eventresponder["mbtn_left_up"] = command_callback(user_opts.audio_track_mbtn_left_command)
@@ -2739,7 +2812,7 @@ local function osc_init()
     ne.tooltip_style = osc_styles.tooltip
     ne.tooltipF = function ()
         local prop = mp.get_property("current-tracks/sub/title") or mp.get_property("current-tracks/sub/lang") or locale.na
-        return (locale.subtitle .. " " .. mp.get_property_number("sid", "-") .. "/" .. sub_track_count .. " [" .. prop .. "]")
+        return (user_opts.tooltip_hints and (locale.subtitle .. " " .. mp.get_property_number("sid", "-") .. "/" .. sub_track_count .. " [" .. prop .. "]") or "")
     end
     ne.nothingavailable = locale.no_subs
     ne.eventresponder["mbtn_left_up"] = command_callback(user_opts.sub_track_mbtn_left_command)
@@ -3551,7 +3624,7 @@ local function render()
             state.input_enabled = state.osc_visible
         end
 
-        if mouse_hit_coords(cords.x1, cords.y1, cords.x2, cords.y2) and user_opts.osc_keep_with_cursor then
+        if mouse_hit_coords(cords.x1, cords.y1, cords.x2, cords.y2) then
             mouse_over_osc = true
         end
     end
@@ -3565,7 +3638,7 @@ local function render()
                 mp.disable_key_bindings("window-controls")
             end
 
-            if mouse_hit_coords(cords.x1, cords.y1, cords.x2, cords.y2) and user_opts.osc_keep_with_cursor then
+            if mouse_hit_coords(cords.x1, cords.y1, cords.x2, cords.y2) then
                 mouse_over_osc = true
             end
         end
@@ -3585,7 +3658,7 @@ local function render()
                 state.windowcontrols_title = state.osc_visible
             end
 
-            if mouse_hit_coords(cords.x1, cords.y1, cords.x2, cords.y2) and user_opts.osc_keep_with_cursor then
+            if mouse_hit_coords(cords.x1, cords.y1, cords.x2, cords.y2) then
                 mouse_over_osc = true
             end
         end
@@ -3595,7 +3668,7 @@ local function render()
     if state.showtime ~= nil and get_hidetimeout() >= 0 then
         local timeout = state.showtime + (get_hidetimeout() / 1000) - now
         if timeout <= 0 and get_touchtimeout() <= 0 then
-            if state.active_element == nil and not mouse_over_osc then
+            if state.active_element == nil and not mouse_over_osc or not user_opts.osc_keep_with_cursor then
                 hide_osc()
             end
         else
@@ -3765,20 +3838,18 @@ mp.observe_property("chapter-list", "native", function(_, list)
     update_duration_watch()
     request_init()
 end)
-mp.observe_property("seeking", "native", function(_, seeking)
-    if user_opts.seek_resets_hidetimeout then
-        reset_timeout()
-    end
-
+mp.register_event("seek", function()
     if state.new_file_flag then
         state.new_file_flag = false
         return
     end
-
-    if seeking and user_opts.osc_on_seek then
-        mp.register_event("seek", show_osc) -- show OSC while seeking
-    else
-        mp.unregister_event(show_osc) -- remove event when seeking stops
+    if user_opts.osc_on_seek then
+        show_osc()
+    end
+end)
+mp.observe_property("seeking", "native", function(_, seeking)
+    if user_opts.seek_resets_hidetimeout then
+        reset_timeout()
     end
 end)
 mp.observe_property("fullscreen", "bool", function(_, val)
@@ -4043,6 +4114,7 @@ local function validate_user_opts()
         user_opts.chapter_title_color, user_opts.seekbar_cache_color, user_opts.hover_effect_color,
         user_opts.windowcontrols_close_hover, user_opts.windowcontrols_max_hover, user_opts.windowcontrols_min_hover,
         user_opts.cache_info_color, user_opts.thumbnail_border_outline,
+        user_opts.nibble_color, user_opts.nibble_current_color,
     }
 
     for _, color in pairs(colors) do
