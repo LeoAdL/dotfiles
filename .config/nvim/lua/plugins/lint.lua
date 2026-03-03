@@ -12,7 +12,7 @@ return { {
         }
         local lint_augroup = vim.api.nvim_create_augroup("Linting", { clear = true })
 
-        vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+        vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost", "InsertLeave" }, {
             group = lint_augroup,
             callback = function()
                 -- Check if nvim-lint is available before trying to lint
