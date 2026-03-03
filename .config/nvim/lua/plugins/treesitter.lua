@@ -9,7 +9,6 @@ return {
             -- LazyVim config for treesitter
             indent = { enable = true }, ---@type lazyvim.TSFeat
             highlight = { enable = true }, ---@type lazyvim.TSFeat
-            folds = { enable = true }, ---@type lazyvim.TSFeat
             ensure_installed = {
                 "bash",
                 "c",
