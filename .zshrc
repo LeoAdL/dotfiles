@@ -7,7 +7,6 @@ fi
 
 export PATH="$PATH:/Library/TeX/texbin/"
 alias python3="python"
-alias rsync="/run/current-system/sw/bin/rsync"
 alias -- la='eza -a'
 alias -- ll='eza -l'
 alias -- lla='eza -la'
