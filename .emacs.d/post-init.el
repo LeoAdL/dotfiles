@@ -48,7 +48,13 @@
   :ensure nil
   :commands (auto-revert-mode global-auto-revert-mode)
   :hook
-  (elpaca-after-init . global-auto-revert-mode))
+  (elpaca-after-init . global-auto-revert-mode)
+  :init
+  ;; (setq auto-revert-verbose t)
+  (setq auto-revert-interval 3)
+  (setq auto-revert-remote-files nil)
+  (setq auto-revert-use-notify t)
+  (setq auto-revert-avoid-polling nil))
 
 
 ;; recentf is an Emacs package that maintains a list of recently
@@ -60,15 +66,15 @@
   :hook
   (elpaca-after-init . recentf-mode)
 
-  :custom
-  (recentf-auto-cleanup (if (daemonp) 300 'never))
-  (recentf-exclude
-   (list "\\.tar$" "\\.tbz2$" "\\.tbz$" "\\.tgz$" "\\.bz2$"
-         "\\.bz$" "\\.gz$" "\\.gzip$" "\\.xz$" "\\.zip$"
-         "\\.7z$" "\\.rar$"
-         "COMMIT_EDITMSG\\'"
-         "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
-         "-autoloads\\.el$" "autoload\\.el$"))
+  :init
+  (setq recentf-auto-cleanup (if (daemonp) 300 'never))
+  (setq recentf-exclude
+        (list "\\.tar$" "\\.tbz2$" "\\.tbz$" "\\.tgz$" "\\.bz2$"
+              "\\.bz$" "\\.gz$" "\\.gzip$" "\\.xz$" "\\.zip$"
+              "\\.7z$" "\\.rar$"
+              "COMMIT_EDITMSG\\'"
+              "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
+              "-autoloads\\.el$" "autoload\\.el$"))
 
   :config
   ;; A cleanup depth of -90 ensures that `recentf-cleanup' runs before
@@ -85,8 +91,9 @@
   :ensure nil
   :commands (savehist-mode savehist-save)
   :hook
-  (after-init . savehist-mode)
+  (elpaca-after-init . savehist-mode)
   :custom
+  (history-length 300)
   (savehist-autosave-interval 600)
   (savehist-additional-variables
    '(kill-ring                        ; clipboard
@@ -102,7 +109,10 @@
   :ensure nil
   :commands (save-place-mode save-place-local-mode)
   :hook
-  (elpaca-after-init . save-place-mode))
+  (elpaca-after-init . save-place-mode)
+  :init
+  (setq save-place-limit 400))
+)
 
 ;; Idle garbage collection
 
@@ -112,17 +122,17 @@
   (general-evil-setup)
   )
 
-(defun +elpaca-unload-seq (e)
-  (and (featurep 'seq) (unload-feature 'seq t))
-  (elpaca--continue-build e))
-
-;; You could embed this code directly in the reicpe, I just abstracted it into a function.
-(defun +elpaca-seq-build-steps ()
-  (append (butlast (if (file-exists-p (expand-file-name "seq" elpaca-builds-directory))
-                       elpaca--pre-built-steps elpaca-build-steps))
-          (list '+elpaca-unload-seq 'elpaca--activate-package)))
-(use-package seq :ensure `(seq :build ,(+elpaca-seq-build-steps)))
-
+                                        ; (defun +elpaca-unload-seq (e)
+                                        ;   (and (featurep 'seq) (unload-feature 'seq t))
+                                        ;   (elpaca--continue-build e))
+                                        ;
+                                        ; ;; You could embed this code directly in the reicpe, I just abstracted it into a function.
+                                        ; (defun +elpaca-seq-build-steps ()
+                                        ;   (append (butlast (if (file-exists-p (expand-file-name "seq" elpaca-builds-directory))
+                                        ;                        elpaca--pre-built-steps elpaca-build-steps))
+                                        ;           (list '+elpaca-unload-seq 'elpaca--activate-package)))
+                                        ; (use-package seq :ensure `(seq :build ,(+elpaca-seq-build-steps)))
+                                        ;
 (use-package org
   :ensure t
   :commands (org-mode org-version)
@@ -302,7 +312,7 @@
   )
 
 (use-package vterm
-  :ensure nil
+  :ensure t
   :defer t
   :commands vterm
   :config
@@ -774,7 +784,6 @@
 ;; (display-line-numbers-mode 1)
 
 (use-package which-key
-  :ensure t ; builtin
   :defer t
   :commands which-key-mode
   :hook (elpaca-after-init . which-key-mode)
@@ -1249,37 +1258,25 @@
   :ensure nil
   :defer t
   :config
-
   ;; At 3 (the default), too many users think syntax highlighting is broken or
   ;; simply "looks off."
   (setq treesit-font-lock-level 4)
-  (setq treesit-language-source-alist
-        '((bash "https://github.com/tree-sitter/tree-sitter-bash")
-          (cmake "https://github.com/uyha/tree-sitter-cmake")
-          (css "https://github.com/tree-sitter/tree-sitter-css")
-          (elisp "https://github.com/Wilfred/tree-sitter-elisp")
-          (go "https://github.com/tree-sitter/tree-sitter-go")
-          (html "https://github.com/tree-sitter/tree-sitter-html")
-          (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
-          (json "https://github.com/tree-sitter/tree-sitter-json")
-          (make "https://github.com/alemuller/tree-sitter-make")
-          (markdown "https://github.com/ikatyang/tree-sitter-markdown")
-          (python "https://github.com/tree-sitter/tree-sitter-python")
-          (toml "https://github.com/tree-sitter/tree-sitter-toml")
-          (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-          (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-          (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
-
-
   )
 
-
+(use-package treesit-auto
+  :ensure t
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
 
 (use-package evil-textobj-tree-sitter
   :after (evil treesit)
   :ensure t)
 
 (when (string= system-type "darwin")
+  (add-to-list 'load-path "/opt/homebrew/share/emacs/site-lisp/mu/mu4e")
   (use-package mu4e
     :ensure nil
     :demand t
@@ -1469,7 +1466,7 @@
   )  ; make sure you have set this, see below
 
 (use-package jinx
-  :ensure nil
+  :ensure t
   :defer t
   :config
   ;; Extra face(s) to ignore
@@ -1970,7 +1967,7 @@
   ;; Save breakpoints on quit
   (kill-emacs . dape-breakpoint-save)
   ;; Load breakpoints on startup
-  (after-init . dape-breakpoint-load)
+  (elpaca-after-init . dape-breakpoint-load)
 
   :config
   ;; Persist breakpoints after closing DAPE.
