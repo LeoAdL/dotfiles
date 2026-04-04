@@ -304,7 +304,7 @@
           org-insert-heading-respect-content t
           org-fontify-quote-and-verse-blocks t
           org-startup-with-inline-images t
-          org-startup-indented t
+          org-startup-indented nil
           org-adapt-indentation nil
           org-edit-src-content-indentation 0
           org-fontify-todo-headline t
@@ -1253,15 +1253,6 @@
   :ensure t)
 
 
-(use-package treesit-auto
-  :ensure t
-  :custom
-  (treesit-auto-install 'prompt)
-  :config
-  ;; Remove latex from the list of languages treesit-auto tries to manage
-  (treesit-auto-add-to-auto-mode-alist 'all)
-  (global-treesit-auto-mode))
-
 (use-package evil-textobj-tree-sitter
   :after (evil treesit)
   :ensure t)
@@ -1412,7 +1403,7 @@
                              :files ("*.el" "filters" "preprocessors"))
   :after ox
   :config
-  (org-pandoc-import-backend 'jira))
+  (org-pandoc-import-backend jira))
 
 (use-package q-mode
   :defer t
@@ -1758,7 +1749,7 @@
   :defer t
   :hook ((LaTeX-mode . (lambda ()
                          (require 'lsp-latex)
-                         (lsp)))
+                         (lsp-deferred)))
          (bibtex-mode . (lambda ()
                           (require 'lsp-latex)
                           (lsp-deferred)))
@@ -1979,6 +1970,53 @@
   (helpful-max-buffers 7))
 
 (setopt treesit-font-lock-level 4)
+(setopt treesit-language-source-alist
+        '((bash "https://github.com/tree-sitter/tree-sitter-bash")
+          (cmake "https://github.com/uyha/tree-sitter-cmake")
+          (css "https://github.com/tree-sitter/tree-sitter-css")
+          (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+          (go "https://github.com/tree-sitter/tree-sitter-go")
+          (html "https://github.com/tree-sitter/tree-sitter-html")
+          (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+          (json "https://github.com/tree-sitter/tree-sitter-json")
+          (make "https://github.com/alemuller/tree-sitter-make")
+          (markdown "https://github.com/ikatyang/tree-sitter-markdown")
+          (python "https://github.com/tree-sitter/tree-sitter-python")
+          (toml "https://github.com/tree-sitter/tree-sitter-toml")
+          (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+          (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+          (yaml "https://github.com/ikatyang/tree-sitter-yaml")
+          (awk "https://github.com/Beaglefoot/tree-sitter-awk" nil nil nil nil)
+          (bibtex "https://github.com/latex-lsp/tree-sitter-bibtex" nil nil nil nil)
+          (blueprint "https://github.com/huanie/tree-sitter-blueprint" nil nil nil nil)
+          (commonlisp "https://github.com/tree-sitter-grammars/tree-sitter-commonlisp" nil nil nil nil)
+          (latex "https://github.com/latex-lsp/tree-sitter-latex" nil nil nil nil)
+          (make "https://github.com/tree-sitter-grammars/tree-sitter-make" nil nil nil nil)
+          (nu "https://github.com/nushell/tree-sitter-nu" nil nil nil nil)
+          (org "https://github.com/milisims/tree-sitter-org" nil nil nil nil)
+          (perl "https://github.com/ganezdragon/tree-sitter-perl" nil nil nil nil)
+          (proto "https://github.com/mitchellh/tree-sitter-proto" nil nil nil nil)
+          (r "https://github.com/r-lib/tree-sitter-r" nil nil nil nil)
+          (sql "https://github.com/DerekStride/tree-sitter-sql" "gh-pages" nil nil nil)
+          (surface "https://github.com/connorlay/tree-sitter-surface" nil nil nil nil)
+          (toml "https://github.com/tree-sitter/tree-sitter-toml" nil nil nil nil)
+          (typst "https://github.com/uben0/tree-sitter-typst" "master" "src" nil nil)
+          (verilog "https://github.com/gmlarumbe/tree-sitter-systemverilog" nil nil nil nil)
+          (vhdl "https://github.com/alemuller/tree-sitter-vhdl" nil nil nil nil)
+          (vue "https://github.com/tree-sitter-grammars/tree-sitter-vue" nil nil nil nil)
+          (wast "https://github.com/wasm-lsp/tree-sitter-wasm" nil "wast/src" nil nil)
+          (wat "https://github.com/wasm-lsp/tree-sitter-wasm" nil "wat/src" nil nil)
+          (wgsl "https://github.com/mehmetoguzderin/tree-sitter-wgsl" nil nil nil nil)))
+
+(use-package treesit-auto
+  :ensure t
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  )
+
+
 (setopt user-full-name "Leo Aparisi de Lannoy")
 (setopt auto-save-default t)
 
