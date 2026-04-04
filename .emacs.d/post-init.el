@@ -32,7 +32,25 @@
   ;; the mode `compile-angel-on-load-mode' was activated.
   (compile-angel-on-load-mode 1))
 
-(setopt find-file-visit-truename nil)
+(use-package exec-path-from-shell
+  :if (and (or (display-graphic-p) (daemonp))
+           (eq system-type 'darwin)) ; macOS only
+  :demand t
+  :functions exec-path-from-shell-initialize
+  :config
+  (dolist (var '("TMPDIR"
+                 "SSH_AUTH_SOCK" "SSH_AGENT_PID"
+                 "GPG_AGENT_INFO"
+                 ;; "FZF_DEFAULT_COMMAND" "FZF_DEFAULT_OPTS" ; fzf
+                 ;; "VIRTUAL_ENV" ; Python
+                 ;; "GOPATH" "GOROOT" "GOBIN" ; Go
+                 ;; "CARGO_HOME" "RUSTUP_HOME" ; Rust
+                 ;; "NVM_DIR" "NODE_PATH" ; Node/JS
+                 "LANG" "LC_CTYPE"))
+    (add-to-list 'exec-path-from-shell-variables var))
+  ;; Initialize
+  (exec-path-from-shell-initialize))
+
 (setopt mac-command-modifier 'meta
         mac-option-modifier 'none)
 
@@ -137,7 +155,6 @@
 ;; save-place-mode enables Emacs to remember the last location within a file
 ;; upon reopening. This feature is particularly beneficial for resuming work at
 ;; the precise point where you previously left off.
-;; the precise point where you previously left off.
 (use-package saveplace
   :ensure nil
   :commands (save-place-mode save-place-local-mode)
@@ -156,7 +173,6 @@
 
 (use-package org
   :ensure t
-  :demand t
   :commands (org-mode org-version)
   :mode
   ("\\.org\\'" . org-mode)
@@ -416,8 +432,6 @@
    ("C-;" . embark-dwim)        ;; good alternative: M-.
    ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
 
-  :init
-  (setopt prefix-help-command #'embark-prefix-help-command)
   :config
 
   ;; Hide the mode line of the Embark live/completions buffers
@@ -532,7 +546,6 @@
 (use-package evil
   :ensure t
   :defer t
-  :commands (evil-mode evil-define-key)
   :hook (elpaca-after-init . evil-mode)
   :commands (evil-mode evil-define-key)
   :init
@@ -546,8 +559,6 @@
   (evil-select-search-module 'evil-search-module 'evil-search)
   (setopt evil-ex-search-vim-style-regexp t
           evil-ex-visual-char-range t  ; column range for ex commands
-          evil-mode-line-format 'nil
-          ;; more vim-like behavior
           evil-symbol-word-search t
           ;; if the current state is obvious from the cursor's color/shape, then
           ;; we won't need superfluous indicators to do it instead.
@@ -584,13 +595,6 @@
   (evil-search-wrap nil)
   ;; Whether Y yanks to the end of the line
   (evil-want-Y-yank-to-eol t))
-
-(use-package evil-collection
-  :ensure t
-  :after evil
-  :config
-  (evil-collection-init)
-  )
 
 (use-package evil-collection
   :ensure t
@@ -753,11 +757,7 @@
 
 (use-package corfu
   :ensure t
-  :defer t
   :commands (corfu-mode global-corfu-mode)
-  :hook ((prog-mode . corfu-mode)
-         (shell-mode . corfu-mode)
-         (eshell-mode . corfu-mode))
   ;; Enable Corfu
   :custom
   ;; Hide commands in M-x which do not apply to the current mode.
@@ -772,7 +772,7 @@
         ("S-TAB" . corfu-previous)
         ([backtab] . corfu-previous))
 
-  :config
+  :init
   (setopt corfu-auto-prefix 2)
   (setopt corfu-auto-delay 0.1)
   (setopt corfu-quit-no-match t)
@@ -845,44 +845,6 @@
   (which-key-add-column-padding 1)
   (which-key-max-description-length 40))
 
-(unless (and (eq window-system 'mac)
-             (bound-and-true-p mac-carbon-version-string))
-  ;; Enables `pixel-scroll-precision-mode' on all operating systems and Emacs
-  ;; versions, except for emacs-mac.
-  ;;
-  ;; Enabling `pixel-scroll-precision-mode' is unnecessary with emacs-mac, as
-  ;; this version of Emacs natively supports smooth scrolling.
-  ;; https://bitbucket.org/mituharu/emacs-mac/commits/65c6c96f27afa446df6f9d8eff63f9cc012cc738
-  (setopt pixel-scroll-precision-use-momentum nil) ; Precise/smoother scrolling
-  (pixel-scroll-precision-mode 1))
-
-;; Display the time in the modeline
-;; Display the time in the modeline
-(setopt display-time-mail-string "")
-(add-hook 'elpaca-after-init-hook #'display-time-mode)
-
-;; Paren match highlighting
-(add-hook 'elpaca-after-init-hook #'show-paren-mode)
-
-;; Track changes in the window configuration, allowing undoing actions such as
-;; closing windows.
-(add-hook 'elpaca-after-init-hook #'winner-mode)
-(add-hook 'elpaca-after-init-hook #'global-visual-line-mode)
-(add-hook 'elpaca-after-init-hook #'delete-selection-mode)
-
-;; Configure Emacs to ask for confirmation before exiting
-(setopt confirm-kill-emacs 'y-or-n-p)
-
-(setopt redisplay-skip-fontification-on-input t)
-;; Window dividers separate windows visually. Window dividers are bars that can
-;; be dragged with the mouse, thus allowing you to easily resize adjacent
-;; windows.
-;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Window-Dividers.html
-(add-hook 'elpaca-after-init-hook #'window-divider-mode)
-
-;; Automatically hide file details (permissions, size, modification date, etc.)
-;; in Dired buffers for a cleaner display.
-(add-hook 'dired-mode-hook #'dired-hide-details-mode)
 
 (use-package uniquify
   :ensure nil
@@ -911,20 +873,6 @@
   (setopt mode-line-right-align-edge 'right-fringe)
   )
 
-(defun er-disable-all-active-themes ()
-  "Disable all currently active themes."
-  (interactive)
-  (dolist (theme custom-enabled-themes)
-    (disable-theme theme)))
-(defun er-load-theme (theme)
-  (er-disable-all-active-themes)
-  (load-theme theme t))
-
-(defun er-new-load-theme ()
-  (interactive)
-  (er-disable-all-active-themes)
-  (call-interactively 'load-theme))
-
 (use-package doom-themes
   :ensure t
   :config
@@ -940,16 +888,9 @@
   :hook (elpaca-after-init . solaire-global-mode)
   )
 
-(defun er-disable-all-active-themes ()
-  "Disable all currently active themes."
-  (interactive)
-  (dolist (theme custom-enabled-themes)
-    (disable-theme theme)))
-
 (use-package catppuccin-theme
   :ensure t
-  :defer t
-  :init
+  :config
   (setopt catppuccin-enlarge-headings nil)
   ;; Adjust font size of titles level 1 (default 1.3)
   (setopt catppuccin-height-title-1 1.25)
@@ -967,8 +908,14 @@
   (setopt catppuccin-italic-blockquotes t)
   (setopt catppuccin-highlight-matches t)
   (setopt catppuccin-flavor 'mocha)
-  (er-disable-all-active-themes)
-  (load-theme 'catppuccin :no-confirm))
+  (let ((inhibit-redisplay t))
+    ;; Disable all active themes
+    (mapc #'disable-theme custom-enabled-themes)
+    ;; Load the built-in theme
+    (load-theme 'catppuccin t))
+  )
+
+
 
 (use-package diredfl
   :ensure t
@@ -1039,8 +986,6 @@
     )
   (setopt dirvish-attributes'(vc-state subtree-state nerd-icons git-msg file-time file-size))
   (setopt dirvish-default-layout '(0 0.4 0.6))
-  (setopt dirvish-rsync-program "/run/current-system/sw/bin/rsync")
-  (setopt dirvish-yank-rsync-args '("-s" "--archive" "--verbose" "--compress" "--info=progress2" "--partial"))
   (general-define-key
    :prefix "SPC"
    :keymaps 'override
@@ -1307,20 +1252,13 @@
   :defer t
   :ensure t)
 
-(use-package treesit
-  :ensure nil
-  :defer t
-  :config
-  ;; At 3 (the default), too many users think syntax highlighting is broken or
-  ;; simply "looks off."
-  (setq treesit-font-lock-level 4)
-  )
 
 (use-package treesit-auto
   :ensure t
   :custom
   (treesit-auto-install 'prompt)
   :config
+  ;; Remove latex from the list of languages treesit-auto tries to manage
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
 
@@ -1393,7 +1331,6 @@
                           (mu4e-drafts-folder     . "/[Gmail]/Drafts")
                           (mu4e-trash-folder      . "/[Gmail]/Trash")
                           (mu4e-refile-folder     . "/Archives")
-                          (user-mail-address . "leoaparisi@gmail.com")
                           (smtpmail-smtp-user     . "leoaparisi@gmail.com")
                           ( user-full-name	    . "Leo Aparisi de Lannoy" )))))
     ;; (setopt mu4e-thread-mode t)
@@ -1475,7 +1412,7 @@
                              :files ("*.el" "filters" "preprocessors"))
   :after ox
   :config
-  (org-pandoc-import-backend jira))
+  (org-pandoc-import-backend 'jira))
 
 (use-package q-mode
   :defer t
@@ -1486,11 +1423,9 @@
 (use-package vlf
   :ensure t
   :defer t
-  :init
-  (require 'vlf-setup)
   :config
-  (setopt vlf-application "dont-ask")
-  )
+  (require 'vlf-setup)
+  (setopt vlf-application "dont-ask"))
 
 (use-package csv-mode
   :defer t
@@ -1545,7 +1480,6 @@
 
 (use-package smartparens
   :ensure t
-  :defer t
   :hook
   (elpaca-after-init . smartparens-global-mode)
   :config
@@ -1688,38 +1622,11 @@
     (setq dumb-jump-prefer-searcher 'rg))
   )
 
-(setopt user-full-name "Leo Aparisi de Lannoy")
-(setopt auto-save-default t)
-
-(setopt auto-save-interval 300)
-(setopt auto-save-timeout 10)
-
-(setopt delete-by-moving-to-trash t)
-(setopt imagemagick-render-type 1)
-(setopt browse-url-chrome-program "brave")
-(setopt display-line-numbers-type 'relative)
-(setq-default tab-width 4)
-(setopt dired-vc-rename-file t)
-(setopt xref-search-program 'ripgrep
-        )
-
-(add-hook 'after-init-hook (lambda ()
-                             (setenv "PATH"
-                                     (concat
-                                      "/Library/TeX/texbin/" path-separator
-                                      (getenv "PATH")))
-                             (add-to-list 'exec-path "/Library/TeX/texbin/")
-                             )
-          )
-
-
 (use-package pdf-tools
   :mode ("\\.pdf\\'" . pdf-view-mode)
   :magic ("%PDF" . pdf-view-mode)
   :ensure t
-  :after latex
   :config
-  (package-initialize)
   (pdf-tools-install)
   (setopt pdf-view-display-size 'fit-page)
   :general
@@ -1728,7 +1635,9 @@
 
 (use-package saveplace-pdf-view
   :ensure t
-  :after pdf-tools)
+  :after pdf-tools
+  :config
+  (save-place-pdf-view-enable))
 
 (use-package ultra-scroll
   :ensure (ultra-scroll :type git :host github :repo "jdtsmith/ultra-scroll")
@@ -1800,11 +1709,7 @@
   )
 
 (use-package auctex
-  :ensure (auctex :repo "https://git.savannah.gnu.org/git/auctex.git" :branch "main"
-                  :pre-build (("make" "elpa"))
-                  :build (:not elpaca--compile-info) ;; Make will take care of this step
-                  :files ("*.el" "doc/*.info*" "etc" "images" "latex" "style")
-                  :version (lambda (_) (require 'auctex) AUCTeX-version))
+  :ensure t
   :hook ((LaTeX-mode . LaTeX-preview-setup)
          (LaTeX-mode . TeX-fold-mode)
          (LaTeX-mode . prettify-symbols-mode)
@@ -1874,15 +1779,27 @@
 (use-package citar
   :ensure t
   :defer t
+  :after tex org
   :hook
   (LaTeX-mode . citar-capf-setup)
   (org-mode . citar-capf-setup)
+
+  ;; :custom is ONLY for (variable value) pairs
   :custom
   (org-cite-global-bibliography '("~/bib/references.bib"))
   (org-cite-insert-processor 'citar)
   (org-cite-follow-processor 'citar)
   (org-cite-activate-processor 'citar)
-  (citar-bibliography org-cite-global-bibliography)
+
+  ;; Keybindings
+  :bind
+  (:map org-mode-map ("C-c b" . #'org-cite-insert))
+
+  ;; :config is where ALL executable code and logic goes
+  :config
+  ;; Inherit the bibliography path
+  (setopt citar-bibliography org-cite-global-bibliography)
+
   (defvar citar-indicator-notes-icons
     (citar-indicator-create
      :symbol (nerd-icons-mdicon
@@ -1916,10 +1833,7 @@
   (setopt citar-indicators
           (list citar-indicator-files-icons
                 citar-indicator-notes-icons
-                citar-indicator-links-icons))
-  ;; optional: org-cite-insert is also bound to C-c C-x C-@
-  :bind
-  (:map org-mode-map :package org ("C-c b" . #'org-cite-insert)))
+                citar-indicator-links-icons)))
 
 (use-package citar-embark
   :after citar embark
@@ -2062,3 +1976,35 @@
   ([remap describe-variable] . helpful-variable)
   :custom
   (helpful-max-buffers 7))
+
+(setopt treesit-font-lock-level 4)
+(setopt user-full-name "Leo Aparisi de Lannoy")
+(setopt auto-save-default t)
+
+(setopt auto-save-interval 300)
+(setopt auto-save-timeout 10)
+
+(setopt delete-by-moving-to-trash t)
+(setopt imagemagick-render-type 1)
+(setopt browse-url-chrome-program "brave")
+(setopt display-line-numbers-type 'relative)
+(setq-default tab-width 4)
+(setopt dired-vc-rename-file t)
+(setopt xref-search-program 'ripgrep
+        )
+(setopt pixel-scroll-precision-use-momentum nil) ; Precise/smoother scrolling
+(pixel-scroll-precision-mode 1)
+
+;; Display the time in the modeline
+(setopt display-time-mail-string "")
+(display-time-mode 1)
+(show-paren-mode 1)
+(winner-mode 1)
+(global-visual-line-mode 1)
+(delete-selection-mode 1)
+(window-divider-mode 1)
+
+(setopt confirm-kill-emacs 'y-or-n-p)
+
+(setopt redisplay-skip-fontification-on-input t)
+(add-hook 'dired-mode-hook #'dired-hide-details-mode)
