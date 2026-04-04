@@ -1,4 +1,37 @@
 ;;; post-init.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
+(use-package compile-angel
+  :demand t
+  :config
+  ;; The following disables compilation of packages during installation;
+  ;; compile-angel will handle it.
+  (setq package-native-compile nil)
+
+  ;; Set `compile-angel-verbose' to nil to disable compile-angel messages.
+  ;; (When set to nil, compile-angel won't show which file is being compiled.)
+  (setq compile-angel-verbose t)
+
+  ;; The following directive prevents compile-angel from compiling your init
+  ;; files. If you choose to remove this push to `compile-angel-excluded-files'
+  ;; and compile your pre/post-init files, ensure you understand the
+  ;; implications and thoroughly test your code. For example, if you're using
+  ;; the `use-package' macro, you'll need to explicitly add:
+  ;; (eval-when-compile (require 'use-package))
+  ;; at the top of your init file.
+  (push "/init.el" compile-angel-excluded-files)
+  (push "/early-init.el" compile-angel-excluded-files)
+  (push "/pre-init.el" compile-angel-excluded-files)
+  (push "/post-init.el" compile-angel-excluded-files)
+  (push "/pre-early-init.el" compile-angel-excluded-files)
+  (push "/post-early-init.el" compile-angel-excluded-files)
+
+  ;; A local mode that compiles .el files whenever the user saves them.
+  ;; (add-hook 'emacs-lisp-mode-hook #'compile-angel-on-save-local-mode)
+
+  ;; A global mode that compiles .el files prior to loading them via `load' or
+  ;; `require'. Additionally, it compiles all packages that were loaded before
+  ;; the mode `compile-angel-on-load-mode' was activated.
+  (compile-angel-on-load-mode 1))
+
 (setopt find-file-visit-truename nil)
 (setopt mac-command-modifier 'meta
         mac-option-modifier 'none)
@@ -112,7 +145,6 @@
   (elpaca-after-init . save-place-mode)
   :init
   (setq save-place-limit 400))
-)
 
 ;; Idle garbage collection
 
@@ -122,23 +154,12 @@
   (general-evil-setup)
   )
 
-                                        ; (defun +elpaca-unload-seq (e)
-                                        ;   (and (featurep 'seq) (unload-feature 'seq t))
-                                        ;   (elpaca--continue-build e))
-                                        ;
-                                        ; ;; You could embed this code directly in the reicpe, I just abstracted it into a function.
-                                        ; (defun +elpaca-seq-build-steps ()
-                                        ;   (append (butlast (if (file-exists-p (expand-file-name "seq" elpaca-builds-directory))
-                                        ;                        elpaca--pre-built-steps elpaca-build-steps))
-                                        ;           (list '+elpaca-unload-seq 'elpaca--activate-package)))
-                                        ; (use-package seq :ensure `(seq :build ,(+elpaca-seq-build-steps)))
-                                        ;
 (use-package org
   :ensure t
+  :demand t
   :commands (org-mode org-version)
   :mode
   ("\\.org\\'" . org-mode)
-  :demand t
   :general (:prefix "SPC m"
                     :states 'normal
                     :keymaps 'override
@@ -270,10 +291,7 @@
           org-startup-indented t
           org-adapt-indentation nil
           org-edit-src-content-indentation 0
-          org-fontify-done-headline t
           org-fontify-todo-headline t
-          org-fontify-whole-heading-line t
-          org-fontify-quote-and-verse-blocks t
           ;; Org styling, hide markup etc.
           org-pretty-entities t
           org-hide-leading-stars t
@@ -314,17 +332,22 @@
 (use-package vterm
   :ensure t
   :defer t
-  :commands vterm
+  :commands (vterm
+             vterm-send-string
+             vterm-send-return
+             vterm-send-key
+             vterm-module-compile)
   :config
   ;; Speed up vterm
   (setopt vterm-kill-buffer-on-exit t)
 
-  (setopt vterm-timer-delay 0.01)
+  (setopt vterm-timer-delay 0.05)
   ;; 5000 lines of scrollback, instead of 1000
   (setopt vterm-max-scrollback 5000))
 
 (use-package multi-vterm
   :ensure t
+  :defer t
   :after vterm
   :config
   (setopt vterm-keymap-exceptions nil)
@@ -339,9 +362,10 @@
   :ensure t
   :defer t
   :commands vertico-mode
-  :hook (elpaca-after-init . vertico-mode)
   :config
   (setopt vertico-cycle t)
+  :init
+  (vertico-mode)
   )
 
 (use-package nerd-icons-completion
@@ -477,24 +501,19 @@
 
   :config
   (consult-customize
-   consult-ripgrep consult-git-grep consult-grep consult-man
+   consult-theme :preview-key '(:debounce 0.2 any)
+   consult-ripgrep consult-git-grep consult-grep
    consult-bookmark consult-recent-file consult-xref
    consult-source-bookmark consult-source-file-register
    consult-source-recent-file consult-source-project-recent-file
-   :preview-key '(:debounce 0.4 any)) ;; Option 1: Delay preview
+   ;; :preview-key "M-."
+   :preview-key '(:debounce 0.4 any))
   (setopt consult-narrow-key "<")
   (setopt consult-async-min-input 2
           consult-async-refresh-delay  0.15
           consult-async-input-throttle 0.2
           consult-async-input-debounce 0.1
-          consult-fd-args
-          '((if (executable-find "fdfind" 'remote) "fdfind" "fd")
-            "--color=never"
-            ;; https://github.com/sharkdp/fd/issues/839
-            "--full-path --absolute-path"
-            "--hidden --exclude .git"
-            (if (featurep :system 'windows) "--path-separator=/")))
-  )
+          ))
 
 (use-package consult-dir
   :ensure t
@@ -509,8 +528,6 @@
   :ensure t
   :defer t
   :general ([remap yas-insert-snippet] #'consult-yasnippet))
-
-
 
 (use-package evil
   :ensure t
@@ -549,10 +566,8 @@
   :custom
   ;; Make :s in visual mode operate only on the actual visual selection
   ;; (character or block), instead of the full lines covered by the selection
-  (evil-ex-visual-char-range t)
   ;; Use Vim-style regular expressions in search and substitute commands,
   ;; allowing features like \v (very magic), \zs, and \ze for precise matches
-  (evil-ex-search-vim-style-regexp t)
   ;; Enable automatic horizontal split below
   (evil-split-window-below t)
   ;; Enable automatic vertical split to the right
@@ -569,6 +584,13 @@
   (evil-search-wrap nil)
   ;; Whether Y yanks to the end of the line
   (evil-want-Y-yank-to-eol t))
+
+(use-package evil-collection
+  :ensure t
+  :after evil
+  :config
+  (evil-collection-init)
+  )
 
 (use-package evil-collection
   :ensure t
@@ -603,17 +625,42 @@
 
 (use-package vimish-fold
   :ensure t
-  :defer t
-  :after evil )
+  :defer t)
 
 (use-package evil-vimish-fold
   :ensure t
-  :after (vimish-fold)
   :hook ((prog-mode conf-mode text-mode) . evil-vimish-fold-mode))
+
+(use-package kirigami
+  :commands (kirigami-open-fold
+             kirigami-open-fold-rec
+             kirigami-close-fold
+             kirigami-toggle-fold
+             kirigami-open-folds
+             kirigami-close-folds-except-current
+             kirigami-close-folds)
+
+  :bind
+  (("C-c z o" . kirigami-open-fold)          ; Open fold at point
+   ("C-c z O" . kirigami-open-fold-rec)      ; Open fold recursively
+   ("C-c z r" . kirigami-open-folds)         ; Open all folds
+   ("C-c z c" . kirigami-close-fold)         ; Close fold at point
+   ("C-c z m" . kirigami-close-folds)        ; Close all folds
+   ("C-c z <tab>" . kirigami-toggle-fold)))  ; Toggle fold at point
+
+;; Uncomment the following if you are an `evil-mode' user:
+(with-eval-after-load 'evil
+  (define-key evil-normal-state-map "zo" 'kirigami-open-fold)
+  (define-key evil-normal-state-map "zO" 'kirigami-open-fold-rec)
+  (define-key evil-normal-state-map "zc" 'kirigami-close-fold)
+  (define-key evil-normal-state-map "za" 'kirigami-toggle-fold)
+  (define-key evil-normal-state-map "zr" 'kirigami-open-folds)
+  (define-key evil-normal-state-map "zm" 'kirigami-close-folds))
+
 
 (use-package ibuffer-vc
   :ensure t
-  :after ibuffer
+  :defer t
   )
 
 (use-package nerd-icons-ibuffer
@@ -623,7 +670,6 @@
 
 (use-package undo-fu
   :ensure t
-  :defer t
   :commands (undo-fu-only-undo
              undo-fu-only-redo
              undo-fu-only-redo-all
@@ -633,11 +679,12 @@
   (setq undo-limit 256000           ; 256kb (default is 160kb)
         undo-strong-limit 2000000   ; 2mb   (default is 240kb)
         undo-outer-limit 36000000)  ; 36mb  (default is 24mb)
-  )
+  (global-unset-key (kbd "C-z"))
+  (global-set-key (kbd "C-z") 'undo-fu-only-undo)
+  (global-set-key (kbd "C-S-z") 'undo-fu-only-redo))
 
 (use-package undo-fu-session
   :ensure t
-  :defer t
   :commands undo-fu-session-global-mode
   :hook (elpaca-after-init . undo-fu-session-global-mode)
   :config
@@ -649,7 +696,6 @@
 
 (use-package vundo
   :ensure t
-  :defer t
   :general (
             :prefix "SPC"
             :keymaps 'override
@@ -677,6 +723,19 @@
              evil-surround-edit
              evil-Surround-edit
              evil-surround-region)
+  :custom
+  (evil-surround-pairs-alist
+   '((?\( . ("(" . ")"))
+     (?\[ . ("[" . "]"))
+     (?\{ . ("{" . "}"))
+
+     (?\) . ("(" . ")"))
+     (?\] . ("[" . "]"))
+     (?\} . ("{" . "}"))
+
+     (?< . ("<" . ">"))
+     (?> . ("<" . ">"))))
+
   :hook (evil-mode . global-evil-surround-mode))
 
 (with-eval-after-load "evil"
@@ -696,7 +755,9 @@
   :ensure t
   :defer t
   :commands (corfu-mode global-corfu-mode)
-  :hook (elpaca-after-init . global-corfu-mode)
+  :hook ((prog-mode . corfu-mode)
+         (shell-mode . corfu-mode)
+         (eshell-mode . corfu-mode))
   ;; Enable Corfu
   :custom
   ;; Hide commands in M-x which do not apply to the current mode.
@@ -717,6 +778,11 @@
   (setopt corfu-quit-no-match t)
   (setopt corfu-auto t)
   (setopt corfu-preselect 'prompt)
+  (global-corfu-mode)
+  (add-to-list 'savehist-additional-variables 'corfu-history)
+  (corfu-history-mode)
+  (setopt corfu-popupinfo-delay '(0.5 . 1.0))
+  (corfu-popupinfo-mode)
   )
 
 (use-package org-block-capf
@@ -739,7 +805,7 @@
   :commands (cape-history cape-dabbrev cape-file cape-keyword)
   :bind ("C-c p" . cape-prefix-map)
   :config
-  (setopt cape-dabbrev-min-length 1)
+  (setopt cape-dabbrev-min-length 2)
   :init
   ;; Add to the global default value of `completion-at-point-functions' which is
   ;; used by `completion-at-point'.
@@ -762,20 +828,6 @@
             (t :style "cod" :icon "code" :face font-lock-warning-face)))
   ;; Remember to add an entry for `t', the library uses that as default.
   )
-
-(use-package corfu-history
-  :ensure (corfu-history :type git :host github :repo "minad/corfu")
-  :hook (corfu-mode . corfu-history-mode)
-  :defer t
-  :init
-  (add-to-list 'savehist-additional-variables 'corfu-history))
-
-(use-package corfu-popupinfo
-  :ensure (corfu-popupinfo :type git :host github :repo "minad/corfu")
-  :hook (corfu-mode . corfu-popupinfo-mode)
-  :defer t
-  :config
-  (setopt corfu-popupinfo-delay '(0.5 . 1.0)))
 
 ;; Hide warnings and display only errors
 (setopt warning-minimum-level :error)
@@ -821,10 +873,6 @@
 ;; Configure Emacs to ask for confirmation before exiting
 (setopt confirm-kill-emacs 'y-or-n-p)
 
-(setopt make-backup-files nil)
-(setopt vc-make-backup-files nil)
-(setopt kept-old-versions 10)
-(setopt kept-new-versions 10)
 (setopt redisplay-skip-fontification-on-input t)
 ;; Window dividers separate windows visually. Window dividers are bars that can
 ;; be dragged with the mouse, thus allowing you to easily resize adjacent
@@ -1085,7 +1133,7 @@
   (setopt diff-hl-global-modes '(not image-mode pdf-view-mode))
   (setopt diff-hl-update-async t)
   (setopt vc-git-diff-switches '("--histogram"))
-  (setopt diff-hl-flydiff-delay 1.0)  ; default: 0.3
+  (setopt diff-hl-flydiff-delay 0.4)  ; default: 0.3
 
   ;; UX: get realtime feedback in diffs after staging/unstaging hunks.
   (setopt diff-hl-show-staged-changes nil)
@@ -1095,7 +1143,6 @@
   :ensure t
   :init
   (add-hook 'Info-selection-hook 'info-colors-fontify-node))
-
 
 (use-package transient
   :ensure t
@@ -1169,7 +1216,20 @@
   (defun my/lsp-mode-setup-completion ()
     (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
           '(orderless))) ;; Configure orderless
+  (add-hook 'markdown-mode-hook #'lsp-deferred)
+  (add-hook 'markdown-ts-mode-hook #'lsp-deferred)
+  (add-hook 'text-mode-hook #'lsp-deferred)
+  (add-hook 'org-mode-hook #'lsp-deferred)
+  (add-hook 'python-mode-hook #'lsp-deferred)
   :config
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection '("harper-ls" "--stdio"))
+                    :major-modes '(markdown-mode markdown-ts-mode text-mode org-mode)
+                    :server-id 'harper-ls))
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection '("pyrefly" "lsp"))
+                    :major-modes '(python-mode)
+                    :server-id 'pyrefly-lsp))
   (setopt lsp-enable-suggest-server-download t)
   (setopt lsp-warn-no-matched-clients nil))
 
@@ -1177,13 +1237,6 @@
   :ensure t
   :defer t)
 
-(use-package lsp-pyright
-  :ensure t
-  :defer t
-  :custom (lsp-pyright-langserver-command "basedpyright") ;; or basedpyright
-  :hook (python-ts-mode . (lambda ()
-                            (require 'lsp-pyright)
-                            (lsp-deferred))))  ; or lsp-deferred
 (use-package yasnippet
   :ensure t
   :defer t
@@ -1454,17 +1507,6 @@
          (tsv-mode . rainbow-csv-mode))
   )
 
-(use-package lsp-ltex-plus
-  :defer t
-  :ensure (lsp-ltex-plus :type git :host github
-                         :repo "emacs-languagetool/lsp-ltex-plus")
-  :hook (text-mode . (lambda ()
-                       (lsp-deferred)))  ; or lsp-deferred
-  :init
-  (setq lsp-ltex-plus-server-store-path "")
-  (setq lsp-ltex-plus-version "18.6.1")  ; make sure you have set this, see below
-  )  ; make sure you have set this, see below
-
 (use-package jinx
   :ensure t
   :defer t
@@ -1511,27 +1553,6 @@
            :actions '())
   )
 
-;; (use-package easysession
-;;   :ensure t
-;;   :defer t
-;;   :commands (easysession-switch-to
-;;              easysession-save-as
-;;              easysession-save-mode
-;;              easysession-load-including-geometry)
-;;   :custom
-;;   ;; Interval between automatic session saves
-;;   (easysession-save-interval (* 10 60))
-;;   ;; Make the current session name appear in the mode-line
-;;   (easysession-mode-line-misc-info t)
-;;   :general (:prefix "SPC"
-;;                     :keymaps 'override
-;;                     :states 'normal
-;;                     "l l" #'easysession-switch-to
-;;                     "l s" #'easysession-save-as)
-;;   :init
-;;   (add-hook 'emacs-startup-hook #'easysession-load-including-geometry 102)
-;;   (add-hook 'emacs-startup-hook #'easysession-save-mode 103))
-
 (use-package ws-butler
   :ensure t
   :defer t
@@ -1560,8 +1581,6 @@
                     "p p" #'project-switch-project
                     )
   )
-
-
 
 (use-package iimage
   :ensure nil
@@ -1643,16 +1662,33 @@
 
 (use-package dumb-jump
   :ensure t
+  :commands dumb-jump-xref-activate
   :defer t
   :init
-  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
-  (setopt xref-show-definitions-function #'xref-show-definitions-completing-read)
-  :config
-  (setopt dumb-jump-force-searcher 'rg)
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate 90)
+  ;; (setopt xref-show-definitions-function #'xref-show-definitions-completing-read)
+  (setq dumb-jump-aggressive nil)
+  ;; (setq dumb-jump-quiet t)
+
+  ;; Number of seconds a rg/grep/find command can take before being warned to
+  ;; use ag and config.
+  (setq dumb-jump-max-find-time 3)
+
+  ;; Use `completing-read' so that selection of jump targets integrates with the
+  ;; active completion framework (e.g., Vertico, Ivy, Helm, Icomplete),
+  ;; providing a consistent minibuffer-based interface whenever multiple
+  ;; definitions are found.
+  (setq dumb-jump-selector 'completing-read)
+
+  ;; If ripgrep is available, force `dumb-jump' to use it because it is
+  ;; significantly faster and more accurate than the default searchers (grep,
+  ;; ag, etc.).
+  (when (executable-find "rg")
+    (setq dumb-jump-force-searcher 'rg)
+    (setq dumb-jump-prefer-searcher 'rg))
   )
 
 (setopt user-full-name "Leo Aparisi de Lannoy")
-(setopt treesit-font-lock-level 4)
 (setopt auto-save-default t)
 
 (setopt auto-save-interval 300)
@@ -1694,18 +1730,6 @@
   :ensure t
   :after pdf-tools)
 
-(use-package lsp-nix
-  :ensure nil
-  :after lsp-mode
-  :defer t
-  :custom
-  (lsp-nix-nil-formatter ["nixfmt"]))
-
-(use-package nix-mode
-  :defer t
-  :hook (nix-mode . lsp-deferred)
-  :ensure t)
-
 (use-package ultra-scroll
   :ensure (ultra-scroll :type git :host github :repo "jdtsmith/ultra-scroll")
   :defer t
@@ -1731,22 +1755,9 @@
 
 
 (add-hook 'emacs-startup-hook #'efs/display-startup-time)
-(setopt major-mode-remap-alist
-        '((yaml-mode . yaml-ts-mode)
-          (bash-mode . bash-ts-mode)
-          (js2-mode . js-ts-mode)
-          (typescript-mode . typescript-ts-mode)
-          (json-mode . json-ts-mode)
-          (css-mode . css-ts-mode)
-          (python-mode . python-ts-mode)))
-
 (use-package yaml-mode
   :ensure t
   :defer t)
-
-(use-package emacs-everywhere
-  :defer t
-  :ensure t)
 
 (use-package empv
   :ensure (empv :type git :host github :repo "isamert/empv.el")
@@ -2051,6 +2062,3 @@
   ([remap describe-variable] . helpful-variable)
   :custom
   (helpful-max-buffers 7))
-
-(use-package cond-let
-  :ensure (cond-let :type git :host github :repo "tarsius/cond-let"))
