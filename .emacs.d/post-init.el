@@ -1480,6 +1480,7 @@
 
 (use-package smartparens
   :ensure t
+  :demand t
   :hook
   (elpaca-after-init . smartparens-global-mode)
   :config
