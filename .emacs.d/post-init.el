@@ -57,7 +57,8 @@
 ;; Use spotlight search backend as a default for M-x locate (and helm/ivy
 ;; variants thereof), since it requires no additional setup.
 (setq locate-command "mdfind")
-
+(use-package compat
+  :ensure t)
 
 ;;
 ;;; Compatibilty fixes
@@ -166,6 +167,7 @@
 ;; Idle garbage collection
 
 (use-package general :ensure (:wait t)
+  :demand t
   :config
   (general-auto-unbind-keys)
   (general-evil-setup)
@@ -251,6 +253,8 @@
                     "p p" #'org-priority
                     "p u" #'org-priority-up
                     )
+  :init
+  (setopt org-fold-core-style 'text-properties)
   :config
   (setopt org-directory "~/org/")
   (setopt org-hide-emphasis-markers t)
@@ -366,7 +370,7 @@
   :defer t
   :after vterm
   :config
-  (setopt vterm-keymap-exceptions nil)
+  (setopt vterm-keymap-exceptions '("M-x"))
   (evil-define-key 'normal vterm-mode-map (kbd ",c")       #'multi-vterm)
   (evil-define-key 'normal vterm-mode-map (kbd ",n")       #'multi-vterm-next)
   (evil-define-key 'normal vterm-mode-map (kbd ",p")       #'multi-vterm-prev))
@@ -505,8 +509,7 @@
   ;; `consult-register-store' and the built-in commands.  This improves the
   ;; register formatting, adds thin separator lines, register sorting and hides
   ;; the window mode line.
-  (setopt register-preview-delay 0.5
-          register-preview-function #'consult-register-format)
+  (setopt register-preview-delay 0.5)
   (advice-add #'register-preview :override #'consult-register-window)
 
   ;; Use Consult to select xref locations with preview
@@ -793,10 +796,6 @@
 (use-package cape-keyword
   :ensure (cape-keyword :type git :host github :repo "minad/cape")
   :defer t
-  :config
-  (add-to-list 'cape-keyword-list '(q-mode
-                                    "abs" "cor" "ej" "gtime" "like" "mins" "prev" "scov" "system" "wavg" "acos" "cos" "ema" "hclose" "lj" "ljf" "mmax" "prior" "sdev" "tables" "where" "aj" "aj0" "count" "enlist" "hcount" "load" "mmin" "rand" "select" "tan" "while" "ajf" "ajf0" "cov" "eval" "hdel" "log" "mmu" "rank" "set" "til" "within" "all" "cross" "except" "hopen" "lower" "mod" "ratios" "setenv" "trim" "wj" "wj1" "and" "csv" "exec" "hsym" "lsq" "msum" "raze" "show" "type" "wsum" "any" "cut" "exit" "iasc" "ltime" "neg" "read0" "signum" "uj" "ujf" "xasc" "asc" "delete" "exp" "idesc" "ltrim" "next" "read1" "sin" "ungroup" "xbar" "asin" "deltas" "fby" "if" "mavg" "not" "reciprocal" "sqrt" "union" "xcol" "asof" "desc" "fills" "ij" "ijf" "max" "null" "reval" "ss" "update" "xcols" "atan" "dev" "first" "in" "maxs" "or" "reverse" "ssr" "upper" "xdesc" "attr" "differ" "fkeys" "insert" "mcount" "over" "rload" "string" "upsert" "xexp" "avg" "distinct" "flip" "inter" "md5" "parse" "rotate" "sublist" "value" "xgroup" "avgs" "div" "floor" "inv" "mdev" "peach" "rsave" "sum" "var" "xkey" "bin" "binr" "do" "get" "key" "med" "pj" "rtrim" "sums" "view" "xlog" "ceiling" "dsave" "getenv" "keys" "meta" "prd" "save" "sv" "views" "xprev" "cols" "each" "group" "last" "min" "prds" "scan" "svar" "vs" "xrank" ".Q.ajf0" ".Q.sx" ".Q.k" ".Q.K" ".Q.host" ".Q.addr" ".Q.gc" ".Q.ts" ".Q.gz" ".Q.w" ".Q.res" ".Q.addmonths" ".Q.f" ".Q.fmt" ".Q.ff" ".Q.fl" ".Q.opt" ".Q.def" ".Q.ld" ".Q.qt" ".Q.v" ".Q.qp" ".Q.V" ".Q.ft" ".Q.ord" ".Q.nv" ".Q.tx" ".Q.tt" ".Q.fk" ".Q.t" ".Q.ty" ".Q.nct" ".Q.fu" ".Q.fc" ".Q.A" ".Q.a" ".Q.n" ".Q.nA" ".Q.an" ".Q.b6" ".Q.Aa" ".Q.unm" ".Q.id" ".Q.j10" ".Q.x10" ".Q.j12" ".Q.x12" ".Q.btoa" ".Q.sha1" ".Q.prf0" ".Q.objp" ".Q.lo" ".Q.l" ".Q.sw" ".Q.tab" ".Q.t0" ".Q.s1" ".Q.s2" ".Q.S" ".Q.s" ".Q.hap" ".Q.hmb" ".Q.hg" ".Q.hp" ".Q.a1" ".Q.a0" ".Q.IN" ".Q.qa" ".Q.qb" ".Q.vt" ".Q.bvfp" ".Q.bvi" ".Q.bv" ".Q.sp" ".Q.pm" ".Q.pt" ".Q.MAP" ".Q.dd" ".Q.d0" ".Q.p1" ".Q.p2" ".Q.p" ".Q.view" ".Q.jp" ".Q.rp" ".Q.fobj" ".Q.L1" ".Q.L" ".Q.li" ".Q.cn" ".Q.pcnt" ".Q.dt" ".Q.ind" ".Q.fp" ".Q.foo" ".Q.a2" ".Q.qd" ".Q.xy" ".Q.x1" ".Q.x0" ".Q.x2" ".Q.ua" ".Q.q0" ".Q.qe" ".Q.ps" ".Q.enxs" ".Q.enx" ".Q.en" ".Q.ens" ".Q.par" ".Q.dpts" ".Q.dpt" ".Q.dpfts" ".Q.dpft" ".Q.hdpf" ".Q.fsn" ".Q.fs" ".Q.fpn" ".Q.fps" ".Q.dsftg" ".Q.M" ".Q.chk" ".Q.Ll" ".Q.Lp" ".Q.Lx" ".Q.Lu" ".Q.Ls" ".Q.fqk" ".Q.fql" ".Q.btx" ".Q.bt" ".Q.sbt" ".Q.trp" ".Q.trpd" ".Q.dr" ".Q.dw" ".Q.pl0" ".Q.pl" ".Q.jl8" ".Q.srr" ".Q.prr" ".Q.lu" ".Q.DL" ".Q.dbg" ".Q.err" ".Q.BP" ".Q.bp" ".Q.bs" ".Q.bu" ".Q.bd" ".Q.bc" ".h.htc" ".h.hta" ".h.htac" ".h.ha" ".h.hb" ".h.pre" ".h.xmp" ".h.d" ".h.cd" ".h.td" ".h.hc" ".h.xs" ".h.xd" ".h.ex" ".h.iso8601" ".h.eb" ".h.es" ".h.ed" ".h.edsn" ".h.ec" ".h.tx" ".h.xt" ".h.ka" ".h.c0" ".h.c1" ".h.logo" ".h.sa" ".h.html" ".h.sb" ".h.fram" ".h.jx" ".h.uh" ".h.sc" ".h.hug" ".h.hu" ".h.ty" ".h.hnz" ".h.hn" ".h.HOME" ".h.hy" ".h.hp" ".h.he" ".h.val" ".h.br" ".h.hr" ".h.nbr" ".h.code" ".h.http" ".h.text" ".h.data" ".h.ht" ".j.e" ".j.q" ".j.s" ".j.es" ".j.J" ".j.k" ".j.jd" ".j.j"
-                                    ))
   )
 
 (use-package cape
@@ -1161,22 +1160,22 @@
   (defun my/lsp-mode-setup-completion ()
     (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
           '(orderless))) ;; Configure orderless
+  :config
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection '("pyrefly" "lsp"))
+                    :major-modes '(python-mode python-ts-mode)
+                    :activation-fn (lsp-activate-on "python")
+                    :server-id 'pyrefly-lsp
+                    :priority 10)) ;; <-- Force lsp-mode to prefer this server
+  (setopt lsp-enable-suggest-server-download t)
+  (setopt lsp-warn-no-matched-clients nil)
   (add-hook 'markdown-mode-hook #'lsp-deferred)
   (add-hook 'markdown-ts-mode-hook #'lsp-deferred)
   (add-hook 'text-mode-hook #'lsp-deferred)
   (add-hook 'org-mode-hook #'lsp-deferred)
   (add-hook 'python-mode-hook #'lsp-deferred)
-  :config
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection '("harper-ls" "--stdio"))
-                    :major-modes '(markdown-mode markdown-ts-mode text-mode org-mode)
-                    :server-id 'harper-ls))
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection '("pyrefly" "lsp"))
-                    :major-modes '(python-mode)
-                    :server-id 'pyrefly-lsp))
-  (setopt lsp-enable-suggest-server-download t)
-  (setopt lsp-warn-no-matched-clients nil))
+  (add-hook 'python-ts-mode-hook #'lsp-deferred)
+  )
 
 (use-package consult-lsp
   :ensure t
@@ -1384,7 +1383,6 @@
   :hook (org-mode . org-appear-mode)
   :config
   (setopt org-appear-autoemphasis t
-          org-appear-autosubmarkers t
           org-appear-autolinks t
           org-appear-autokeywords t
           org-appear-autoentities t
@@ -1401,9 +1399,7 @@
   :ensure (org-pandoc-import :type git :host github
                              :repo "tecosaur/org-pandoc-import"
                              :files ("*.el" "filters" "preprocessors"))
-  :after ox
-  :config
-  (org-pandoc-import-backend jira))
+  :after ox)
 
 (use-package q-mode
   :defer t
@@ -1592,14 +1588,6 @@
   :defer t
   :init
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate 90)
-  ;; (setopt xref-show-definitions-function #'xref-show-definitions-completing-read)
-  (setq dumb-jump-aggressive nil)
-  ;; (setq dumb-jump-quiet t)
-
-  ;; Number of seconds a rg/grep/find command can take before being warned to
-  ;; use ag and config.
-  (setq dumb-jump-max-find-time 3)
-
   ;; Use `completing-read' so that selection of jump targets integrates with the
   ;; active completion framework (e.g., Vertico, Ivy, Helm, Icomplete),
   ;; providing a consistent minibuffer-based interface whenever multiple
@@ -1970,43 +1958,6 @@
   (helpful-max-buffers 7))
 
 (setopt treesit-font-lock-level 4)
-(setopt treesit-language-source-alist
-        '((bash "https://github.com/tree-sitter/tree-sitter-bash")
-          (cmake "https://github.com/uyha/tree-sitter-cmake")
-          (css "https://github.com/tree-sitter/tree-sitter-css")
-          (elisp "https://github.com/Wilfred/tree-sitter-elisp")
-          (go "https://github.com/tree-sitter/tree-sitter-go")
-          (html "https://github.com/tree-sitter/tree-sitter-html")
-          (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
-          (json "https://github.com/tree-sitter/tree-sitter-json")
-          (make "https://github.com/alemuller/tree-sitter-make")
-          (markdown "https://github.com/ikatyang/tree-sitter-markdown")
-          (python "https://github.com/tree-sitter/tree-sitter-python")
-          (toml "https://github.com/tree-sitter/tree-sitter-toml")
-          (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-          (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-          (yaml "https://github.com/ikatyang/tree-sitter-yaml")
-          (awk "https://github.com/Beaglefoot/tree-sitter-awk" nil nil nil nil)
-          (bibtex "https://github.com/latex-lsp/tree-sitter-bibtex" nil nil nil nil)
-          (blueprint "https://github.com/huanie/tree-sitter-blueprint" nil nil nil nil)
-          (commonlisp "https://github.com/tree-sitter-grammars/tree-sitter-commonlisp" nil nil nil nil)
-          (latex "https://github.com/latex-lsp/tree-sitter-latex" nil nil nil nil)
-          (make "https://github.com/tree-sitter-grammars/tree-sitter-make" nil nil nil nil)
-          (nu "https://github.com/nushell/tree-sitter-nu" nil nil nil nil)
-          (org "https://github.com/milisims/tree-sitter-org" nil nil nil nil)
-          (perl "https://github.com/ganezdragon/tree-sitter-perl" nil nil nil nil)
-          (proto "https://github.com/mitchellh/tree-sitter-proto" nil nil nil nil)
-          (r "https://github.com/r-lib/tree-sitter-r" nil nil nil nil)
-          (sql "https://github.com/DerekStride/tree-sitter-sql" "gh-pages" nil nil nil)
-          (surface "https://github.com/connorlay/tree-sitter-surface" nil nil nil nil)
-          (toml "https://github.com/tree-sitter/tree-sitter-toml" nil nil nil nil)
-          (typst "https://github.com/uben0/tree-sitter-typst" "master" "src" nil nil)
-          (verilog "https://github.com/gmlarumbe/tree-sitter-systemverilog" nil nil nil nil)
-          (vhdl "https://github.com/alemuller/tree-sitter-vhdl" nil nil nil nil)
-          (vue "https://github.com/tree-sitter-grammars/tree-sitter-vue" nil nil nil nil)
-          (wast "https://github.com/wasm-lsp/tree-sitter-wasm" nil "wast/src" nil nil)
-          (wat "https://github.com/wasm-lsp/tree-sitter-wasm" nil "wat/src" nil nil)
-          (wgsl "https://github.com/mehmetoguzderin/tree-sitter-wgsl" nil nil nil nil)))
 
 (use-package treesit-auto
   :ensure t
@@ -2047,3 +1998,4 @@
 
 (setopt redisplay-skip-fontification-on-input t)
 (add-hook 'dired-mode-hook #'dired-hide-details-mode)
+(setq vc-handled-backends (delq 'Git vc-handled-backends))
