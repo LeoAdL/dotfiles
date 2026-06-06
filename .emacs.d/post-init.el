@@ -1995,7 +1995,7 @@
   :general (
 
             :states 'normal
-            "s" #'evil-avy-goto-char-2)
+            "s" #'evil-avy-goto-char-timer)
   )
 (use-package breadcrumb
   :ensure t
