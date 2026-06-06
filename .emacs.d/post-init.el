@@ -2001,3 +2001,7 @@
   :ensure t
   :hook (elpaca-after-init . breadcrumb-mode)
   )
+
+(use-package so-long
+  :ensure nil
+  :hook (elpaca-after-init . global-so-long-mode))
