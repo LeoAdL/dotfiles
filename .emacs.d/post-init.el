@@ -1165,7 +1165,6 @@
   (setopt lsp-warn-no-matched-clients nil)
   (add-hook 'markdown-mode-hook #'lsp-deferred)
   (add-hook 'markdown-ts-mode-hook #'lsp-deferred)
-  (add-hook 'text-mode-hook #'lsp-deferred)
   (add-hook 'org-mode-hook #'lsp-deferred)
   (add-hook 'python-mode-hook #'lsp-deferred)
   (add-hook 'python-ts-mode-hook #'lsp-deferred)
@@ -1459,15 +1458,14 @@
   :custom
   (outline-indent-ellipsis " ▼ "))
 
-(use-package smartparens
-  :ensure t
-  :demand t
-  :hook
-  (elpaca-after-init . smartparens-global-mode)
+(use-package elec-pair
+  :ensure nil
+  :hook (elpaca-after-init . electric-pair-mode)
   :config
-  (sp-pair "`" "`"
-           :actions '())
-  )
+  ;; Disable auto-pairing for backticks to prevent markdown/org annoyances
+  (defun my-inhibit-electric-pair-backtick (char)
+    (if (char-equal char ?\`) t (electric-pair-default-inhibit char)))
+  (setopt electric-pair-inhibit-predicate #'my-inhibit-electric-pair-backtick))
 
 (use-package ws-butler
   :ensure t
@@ -1898,14 +1896,6 @@
   ;; (setopt dape-cwd-function 'projectile-project-root)
   )
 
-(use-package markdown-ts-mode
-  :mode ("\\.md\\'" . markdown-ts-mode)
-  :defer t
-  :ensure t
-  :config
-  (add-to-list 'treesit-language-source-alist '(markdown "https://github.com/tree-sitter-grammars/tree-sitter-markdown" "split_parser" "tree-sitter-markdown/src"))
-  (add-to-list 'treesit-language-source-alist '(markdown-inline "https://github.com/tree-sitter-grammars/tree-sitter-markdown" "split_parser" "tree-sitter-markdown-inline/src")))
-
 (use-package markdown-mode
   :ensure t
   :defer t
@@ -1976,8 +1966,6 @@
 (setopt dired-vc-rename-file t)
 (setopt xref-search-program 'ripgrep
         )
-(setopt pixel-scroll-precision-use-momentum nil) ; Precise/smoother scrolling
-(pixel-scroll-precision-mode 1)
 
 ;; Display the time in the modeline
 (setopt display-time-mail-string "")
@@ -1992,7 +1980,6 @@
 
 (setopt redisplay-skip-fontification-on-input t)
 (add-hook 'dired-mode-hook #'dired-hide-details-mode)
-(setq vc-handled-backends (delq 'Git vc-handled-backends))
 
 (use-package lsp-ltex-plus
   :defer t
