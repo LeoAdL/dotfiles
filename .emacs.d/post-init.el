@@ -1605,11 +1605,11 @@
   ([remap pdf-view-midnight-minor-mode] #'pdf-view-themed-minor-mode
    ))
 
-(use-package saveplace-pdf-view
-  :ensure t
-  :after pdf-tools
-  :config
-  (save-place-pdf-view-enable))
+;; (use-package saveplace-pdf-view
+;;   :ensure t
+;;   :after pdf-tools
+;;   :config
+;;   (save-place-pdf-view-enable))
 
 (use-package ultra-scroll
   :ensure (ultra-scroll :type git :host github :repo "jdtsmith/ultra-scroll")
@@ -1909,8 +1909,6 @@
         markdown-fontify-code-blocks-natively t)
 
   :config
-  (sp-local-pair '(markdown-mode gfm-mode) "`" "`"
-                 :unless '(:add sp-point-before-word-p sp-point-before-same-p))
 
   (add-to-list 'markdown-code-lang-modes '("rust" . rustic-mode)))
 
@@ -1922,6 +1920,9 @@
   :config
   (add-hook 'evil-markdown-mode-hook #'evil-normalize-keymaps)
   )
+
+(add-hook 'markdown-ts-mode-hook #'lsp-deferred)
+(add-hook 'markdown-ts-mode-hook #'evil-markdown-mode)
 ;; Helpful is an alternative to the built-in Emacs help that provides much more
 ;; contextual information.
 (use-package helpful
