@@ -752,12 +752,6 @@
     (comment-or-uncomment-region beg end))
   (evil-define-key 'normal 'global (kbd "gc") 'my-evil-comment-or-uncomment))
 
-(use-package evil-snipe
-  :defer t
-  :after evil
-  :hook (evil-mode . evil-snipe-mode)
-  :commands (evil-snipe-mode))
-
 (use-package corfu
   :ensure t
   :commands (corfu-mode global-corfu-mode)
@@ -2006,3 +2000,12 @@
   :init
   (lsp-ltex-plus-enable-for-modes
    :restrict-to '(org-mode markdown-mode latex-mode LaTeX-mode)))
+
+(use-package avy
+  :ensure t
+  :defer t
+  :general (
+
+            :states 'normal
+            "s" #'evil-avy-goto-char-2)
+  )
