@@ -1999,3 +1999,10 @@
 (setopt redisplay-skip-fontification-on-input t)
 (add-hook 'dired-mode-hook #'dired-hide-details-mode)
 (setq vc-handled-backends (delq 'Git vc-handled-backends))
+
+(use-package lsp-ltex-plus
+  :defer t
+  :ensure t
+  :init
+  (lsp-ltex-plus-enable-for-modes
+   :restrict-to '(org-mode markdown-mode latex-mode LaTeX-mode)))
