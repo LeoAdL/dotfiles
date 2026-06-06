@@ -262,7 +262,7 @@
   (setopt org-export-with-sub-superscripts t)
   (setopt org-preview-latex-image-directory "~/.cache/ltximg/")
   ;; ORG LATEX PREVIEW
-  (setopt org-startup-with-latex-preview t)
+  (setopt org-startup-with-latex-preview nil)
   (setopt org-preview-latex-default-process 'dvisvgm)
   (setopt org-format-latex-options
           (plist-put org-format-latex-options :background "Transparent"))
