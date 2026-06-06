@@ -2009,3 +2009,7 @@
             :states 'normal
             "s" #'evil-avy-goto-char-2)
   )
+(use-package breadcrumb
+  :ensure t
+  :hook (elpaca-after-init . breadcrumb-mode)
+  )
