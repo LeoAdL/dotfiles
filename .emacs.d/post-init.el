@@ -57,8 +57,6 @@
 ;; Use spotlight search backend as a default for M-x locate (and helm/ivy
 ;; variants thereof), since it requires no additional setup.
 (setq locate-command "mdfind")
-(use-package compat
-  :ensure t)
 
 ;;
 ;;; Compatibilty fixes
@@ -1997,6 +1995,7 @@
             :states 'normal
             "s" #'evil-avy-goto-char-timer)
   )
+
 (use-package breadcrumb
   :ensure t
   :hook (elpaca-after-init . breadcrumb-mode)
