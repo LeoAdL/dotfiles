@@ -104,7 +104,7 @@
   (setq auto-revert-interval 3)
   (setq auto-revert-remote-files nil)
   (setq auto-revert-use-notify t)
-  (setq auto-revert-avoid-polling nil))
+  (setq auto-revert-avoid-polling t))
 
 
 ;; recentf is an Emacs package that maintains a list of recently
@@ -382,6 +382,7 @@
   :commands vertico-mode
   :config
   (setopt vertico-cycle t)
+  (vertico-multiform-mode)
   :init
   (vertico-mode)
   )
@@ -1104,7 +1105,9 @@
 (use-package magit-todos
   :ensure t
   :after magit
-  :hook (magit-mode . magit-todos-mode))
+  :config
+  (setq magit-todos-mode 1)
+  )
 
 (use-package git-timemachine
   :defer t
@@ -1161,6 +1164,7 @@
                     :priority 10)) ;; <-- Force lsp-mode to prefer this server
   (setopt lsp-enable-suggest-server-download t)
   (setopt lsp-warn-no-matched-clients nil)
+  (setopt lsp-headerline-breadcrumb-enable nil)
   (add-hook 'markdown-mode-hook #'lsp-deferred)
   (add-hook 'markdown-ts-mode-hook #'lsp-deferred)
   (add-hook 'org-mode-hook #'lsp-deferred)
@@ -1437,7 +1441,6 @@
   (text-mode . jinx-mode)
   (prog-mode . jinx-mode)
   :config
-  (vertico-multiform-mode)
   (add-to-list
    'vertico-multiform-categories
    '(jinx grid (vertico-grid-annotate . 20) (vertico-count . 4))))
