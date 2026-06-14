@@ -1502,11 +1502,6 @@
   :hook
   (elpaca-after-init . apheleia-global-mode))
 
-(use-package rainbow-delimiters
-  :ensure t
-  :defer t
-  :hook (prog-mode . rainbow-delimiters-mode))
-
 (use-package project
   :ensure nil
   :defer t
