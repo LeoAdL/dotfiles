@@ -2027,3 +2027,38 @@
 (use-package so-long
   :ensure nil
   :hook (elpaca-after-init . global-so-long-mode))
+
+(use-package easysession
+  ;; ':demand t' ensures the package is loaded immediately upon startup
+  :demand t
+
+  :general (:prefix "SPC s"
+                    :states 'normal
+                    "l"#'easysession-switch-to ; Load session
+                    "S"#'easysession-save) ; Save session
+
+  :config
+  ;; Key mappings
+  ;; Save every 10 minutes
+  (setq easysession-save-interval (* 10 60))
+
+  ;; Save the current session when using `easysession-switch-to'
+  (setq easysession-switch-to-save-session t)
+
+  ;; Do not exclude the current session when switching sessions
+  (setq easysession-switch-to-exclude-current nil)
+
+  ;; Display the active session name in the mode-line lighter.
+  ;; (setq easysession-save-mode-lighter-show-session-name t)
+
+  ;; Optionally, the session name can be shown in the modeline info area:
+  ;; (setq easysession-mode-line-misc-info t)
+  ;; non-nil: Make `easysession-setup' load the session automatically.
+  ;; (nil: session is not loaded automatically; the user can load it manually.)
+  (setq easysession-setup-load-session t)
+
+  ;; The `easysession-setup' function adds hooks:
+  ;; - To enable automatic session loading during `emacs-startup-hook', or
+  ;;   `server-after-make-frame-hook' when running in daemon mode.
+  ;; - To save the session at regular intervals, and when Emacs exits.
+  (easysession-setup))
