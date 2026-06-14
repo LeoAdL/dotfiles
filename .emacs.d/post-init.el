@@ -2032,10 +2032,10 @@
   ;; ':demand t' ensures the package is loaded immediately upon startup
   :demand t
 
-  :general (:prefix "SPC s"
+  :general (:prefix "SPC l"
                     :states 'normal
                     "l"#'easysession-switch-to ; Load session
-                    "S"#'easysession-save) ; Save session
+                    "s"#'easysession-save) ; Save session
 
   :config
   ;; Key mappings
