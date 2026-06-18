@@ -1102,12 +1102,12 @@
           magit-revision-insert-related-refs nil)
   )
 
-(use-package magit-todos
-  :ensure t
-  :after magit
-  :config
-  (setq magit-todos-mode 1)
-  )
+;; (use-package magit-todos
+;;   :ensure t
+;;   :after magit
+;;   :config
+;;   (setq magit-todos-mode 1)
+;;   )
 
 (use-package git-timemachine
   :defer t
