@@ -346,31 +346,45 @@
           ))
   )
 
-(use-package vterm
+;; (use-package vterm
+;;   :ensure t
+;;   :defer t
+;;   :commands (vterm
+;;              vterm-send-string
+;;              vterm-send-return
+;;              vterm-send-key
+;;              vterm-module-compile)
+;;   :config
+;;   ;; Speed up vterm
+;;   (setq vterm-kill-buffer-on-exit t)
+;;
+;;   (setq vterm-timer-delay 0.05)
+;;   ;; 5000 lines of scrollback, instead of 1000
+;;   (setq vterm-max-scrollback 5000))
+;;
+;; (use-package multi-vterm
+;;   :ensure t
+;;   :defer t
+;;   :after vterm
+;;   :config
+;;   (setq vterm-keymap-exceptions '("M-x"))
+;;   (evil-define-key 'normal vterm-mode-map (kbd ",c")       #'multi-vterm)
+;;   (evil-define-key 'normal vterm-mode-map (kbd ",n")       #'multi-vterm-next)
+;;   (evil-define-key 'normal vterm-mode-map (kbd ",p")       #'multi-vterm-prev))
+(use-package ghostel
   :ensure t
   :defer t
-  :commands (vterm
-             vterm-send-string
-             vterm-send-return
-             vterm-send-key
-             vterm-module-compile)
-  :config
-  ;; Speed up vterm
-  (setq vterm-kill-buffer-on-exit t)
+  :general (
+            :prefix ","
+            :states 'normal
+            "n" #'ghostel-next
+            "p" #'ghostel-previous
+            ))
 
-  (setq vterm-timer-delay 0.05)
-  ;; 5000 lines of scrollback, instead of 1000
-  (setq vterm-max-scrollback 5000))
-
-(use-package multi-vterm
+(use-package evil-ghostel
   :ensure t
-  :defer t
-  :after vterm
-  :config
-  (setq vterm-keymap-exceptions '("M-x"))
-  (evil-define-key 'normal vterm-mode-map (kbd ",c")       #'multi-vterm)
-  (evil-define-key 'normal vterm-mode-map (kbd ",n")       #'multi-vterm-next)
-  (evil-define-key 'normal vterm-mode-map (kbd ",p")       #'multi-vterm-prev))
+  :after (ghostel evil)
+  :hook (ghostel-mode . evil-ghostel-mode))
 
 ;; Tip: You can remove the `vertico-mode' use-package and replace it
 ;;      with the built-in `fido-vertical-mode'.
@@ -1558,7 +1572,7 @@
  :desc "Dired"              "-"  #'dired-jump
  :desc "Open directory in dirvish"    "/" #'dirvish
  :desc "Project sidebar"              "p" #'dirvish-side
- :desc "vterm"              "t" #'multi-vterm
+ :desc "vterm"              "t" #'ghostel-project
  )
 
 (general-define-key
