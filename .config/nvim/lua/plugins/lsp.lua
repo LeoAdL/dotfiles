@@ -45,8 +45,9 @@ return {
                             auxDirectory = ".",
                             bibtexFormatter = "texlab",
                             build = {
-                                executable = "",
-                                args = { "-X",
+                                executable = "latexmk", -- (Added this placeholder because it was "" in your snippet!)
+                                args = {
+                                    "-X",
                                     "compile",
                                     "%f",
                                     "--synctex",
@@ -61,7 +62,7 @@ return {
                                 args = {
                                     '--reuse-window',
                                     '--execute-command',
-                                    'toggle_synctex', -- Open Sioyek in synctex mode.
+                                    'toggle_synctex',
                                     '--inverse-search',
                                     'nvr --remote %%1 -c %%2',
                                     '--forward-search-file', '%f',
@@ -81,21 +82,8 @@ return {
                 marksman = {},
                 ts_ls = {},
                 harper_ls = {},
-                basedpyright = {
-                },
-                -- ltex_plus = {
-                --     filetypes = { 'bib', 'gitcommit', 'markdown', 'org', 'plaintex', 'rst', 'rnoweb', 'tex', 'pandoc', 'quarto', 'rmd', 'mail' },
-                --
-                --     settings = {
-                --         ltex = {
-                --             additionalRules = {
-                --                 enablePickyRules = true,
-                --             },
-                --         },
-                --     },
-                -- },
+                basedpyright = {},
                 lua_ls = {
-                    -- mason = false, -- set to false if you don't want this server to be installed with mason
                     settings = {
                         Lua = {
                             workspace = {
@@ -111,13 +99,20 @@ return {
             },
         },
         config = function(_, opts)
+            -- Apply diagnostic configuration
+            vim.diagnostic.config(opts.diagnostics)
+
+            -- Modern Neovim 0.11+ native LSP setup
             local servers = opts.servers
             for server, settings in pairs(servers) do
                 vim.lsp.config(server, settings)
                 vim.lsp.enable(server)
-                vim.lsp.inlay_hint.enable()
             end
-            vim.diagnostic.config(opts.diagnostics)
+
+            -- Enable inlay hints globally
+            if vim.lsp.inlay_hint then
+                vim.lsp.inlay_hint.enable(true)
+            end
         end
     }
 }
