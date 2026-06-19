@@ -1134,37 +1134,38 @@
 ;;   (add-hook 'message-mode-hook #'flymake-vale-load)
 ;;   )
 
+(use-package gcmh
+  :ensure t
+  :hook (elpaca-after-init . gcmh-mode)
+  :config
+  (setq gcmh-idle-delay 'auto  ; default is 15s
+        gcmh-auto-idle-delay-factor 10
+        gcmh-high-cons-threshold (* 64 1024 1024))) ; 64mb
+
 (use-package eglot
   :ensure nil
   :general
   (:states 'normal
            :desc "Jump to definition"                    "g d"   #'xref-find-definitions
-           :desc "Jump to references"                    "g r"   #'xref-find-references)
+           :desc "Jump to references"                    "g r"   #'xref-find-references
+           :desc "Jump to implementations"                    "g i"   #'eglot-find-implementation
+           :desc "Jump to declarations"                    "g D"   #'eglot-find-declaration)
   :commands (eglot-ensure
              eglot-rename
              eglot-format-buffer)
-  :config
-  (setq eglot-sync-connect 1
-        eglot-autoshutdown t
-        ;; NOTE: We disable eglot-auto-display-help-buffer because :select t in
-        ;;   its popup rule causes eglot to steal focus too often.
-        eglot-auto-display-help-buffer nil
-        ;; Margin indicator may increase line height due to glyph display
-        ;; failures or emoji font height differences; I also think the eldoc
-        ;; hint is enough.
-        eglot-code-action-indications '(eldoc-hint))
-  ;; Add basedpyright to the list of recognized python servers
-  (add-to-list 'eglot-server-programs
-               '( (python-mode python-ts-mode) . ("rass" "basedruff" ))
-               '( (org-mode) . ("ltex-ls-plus" "--stdio"))
-               '( (markdown-mode markdown-ts-mode) . ("ltex-ls-plus" "--stdio")))
-
+  :init
   (add-hook 'markdown-mode-hook #'eglot-ensure)
   (add-hook 'markdown-ts-mode-hook #'eglot-ensure)
   (add-hook 'org-mode-hook #'eglot-ensure)
   (add-hook 'python-mode-hook #'eglot-ensure)
   (add-hook 'python-ts-mode-hook #'eglot-ensure)
-  (add-hook 'latex-mode-hook #'eglot-ensure)
+  (add-hook 'LaTeX-mode-hook #'eglot-ensure)
+  :config
+  ;; Add basedpyright to the list of recognized python servers
+  (add-to-list 'eglot-server-programs
+               '( (python-mode python-ts-mode) . ("rass" "basedruff" )))
+  (add-to-list 'eglot-server-programs
+               '( (org-mode markdown-mode markdown-ts-mode) . ("ltex-ls-plus")))
   )
 
 (use-package consult-eglot
