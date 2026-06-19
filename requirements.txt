@@ -5,3 +5,6 @@ numpy
 scipy
 polars
 seaborn
+rassumfrassum
+basedpyright
+ruff

@@ -15,6 +15,8 @@ return {
                 "shfmt",
                 "vale",
                 "yamlfmt",
+                "ruff",
+                "basedpyright"
             },
         },
     },
