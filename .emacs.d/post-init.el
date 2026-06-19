@@ -1406,12 +1406,6 @@
                              :files ("*.el" "filters" "preprocessors"))
   :after ox)
 
-(use-package q-mode
-  :defer t
-  :ensure t
-  :config (setq
-           q-program "q -s 7"))
-
 (use-package vlf
   :ensure t
   :defer t
@@ -1964,7 +1958,6 @@
 (setq auto-save-interval 300)
 (setq auto-save-timeout 10)
 
-(setq delete-by-moving-to-trash t)
 (setq imagemagick-render-type 1)
 (setq browse-url-chrome-program "brave")
 (setq display-line-numbers-type 'relative)
