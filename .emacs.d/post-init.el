@@ -1135,925 +1135,883 @@
 ;;   (add-hook 'message-mode-hook #'flymake-vale-load)
 ;;   )
 
-(use-package lsp-mode
-  :ensure t
+(use-package eglot
+  :ensure nil
   :general
   (:states 'normal
            :desc "Jump to definition"                    "g d"   #'xref-find-definitions
-           :desc "Jump to references"                    "g r"   #'xref-find-references
-           :desc "Jump to implementations"                    "g i"   #'lsp-find-implementation
-           :desc "Jump to declarations"                    "g D"   #'lsp-find-declarations)
-  ([remap xref-find-apropos] #'lsp-describe-thing-at-point)
-  :defer t
-  :custom
-  (lsp-completion-provider :none) ;; we use Corfu!
-  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
-         (lsp-completion-mode . my/lsp-mode-setup-completion)
-         (lsp-mode . lsp-enable-which-key-integration))
-  :commands (lsp lsp-deferred)
-  :init
-  (defun my/lsp-mode-setup-completion ()
-    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-          '(orderless))) ;; Configure orderless
+           :desc "Jump to references"                    "g r"   #'xref-find-references)
+  :commands (eglot-ensure
+             eglot-rename
+             eglot-format-buffer)
   :config
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection '("pyrefly" "lsp"))
-                    :major-modes '(python-mode python-ts-mode)
-                    :activation-fn (lsp-activate-on "python")
-                    :server-id 'pyrefly-lsp
-                    :priority 10)) ;; <-- Force lsp-mode to prefer this server
-  (setopt lsp-enable-suggest-server-download t)
-  (setopt lsp-warn-no-matched-clients nil)
-  (setopt lsp-headerline-breadcrumb-enable nil)
-  (add-hook 'markdown-mode-hook #'lsp-deferred)
-  (add-hook 'markdown-ts-mode-hook #'lsp-deferred)
-  (add-hook 'org-mode-hook #'lsp-deferred)
-  (add-hook 'python-mode-hook #'lsp-deferred)
-  (add-hook 'python-ts-mode-hook #'lsp-deferred)
-  )
+  ;; Add basedpyright to the list of recognized python servers
+  (add-to-list 'eglot-server-programs
+               '( (python-mode python-ts-mode) . ("rass" "basedruff" ))
+               ( (text-mode) . ("ltex-ls-plus" "--stdio")))
 
-(use-package consult-lsp
-  :ensure t
-  :defer t)
+               (add-hook 'markdown-mode-hook #'eglot-ensure)
+               (add-hook 'markdown-ts-mode-hook #'eglot-ensure)
+               (add-hook 'org-mode-hook #'eglot-ensure)
+               (add-hook 'python-mode-hook #'eglot-ensure)
+               (add-hook 'python-ts-mode-hook #'eglot-ensure)
+               (add-hook 'latex-mode-hook #'eglot-ensure)
+               )
 
-(use-package yasnippet
-  :ensure t
-  :defer t
-  :hook (elpaca-after-init . yas-global-mode)
-  :config
-  (setopt yas-triggers-in-field t))
+  (use-package consult-eglot
+    :ensure t
+    :defer t)
 
-(use-package auto-yasnippet
-  :ensure t
-  :defer t)
-
-(use-package doom-snippets
-  :after yasnippet
-  :ensure (doom-snippets :type git :host github :repo "doomemacs/snippets" :files ("*.el" "*")))
-;; (use-package org-contrib
-;;   :after org
-;;   :ensure t)
-
-(use-package ox-clip
-  :after ox
-  :ensure t)
-
-(use-package org-cliplink
-  :after org
-  :ensure t)
-
-(use-package toc-org
-  :after org
-  :ensure t)
-
-
-(use-package evil-org
-  :after org
-  :defer t
-  :ensure (evil-org :type git :host github :repo "doomelpa/evil-org-mode")
-  :hook (org-mode . evil-org-mode)
-  :config
-  (add-hook 'evil-org-mode-hook #'evil-normalize-keymaps)
-  (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
-  )
-
-(use-package evil-org-agenda
-  :after org-agenda
-  :defer t
-  :ensure nil
-  :hook (org-agenda-mode . evil-org-agenda-mode)
-  :config
-  (evil-org-agenda-set-keys)
-  )
-
-(use-package orgit
-  :after (org magit)
-  :ensure t)
-
-(use-package jupyter
-  :ensure t
-  :defer t
-  :init
-  (setopt jupyter-use-zmq t
-          jupyter-repl-completion-at-point-hook-depth 2
-          jupyter-eval-use-overlays nil
-          jupyter-eval-short-result-max-lines 0
-          jupyter-eval-overlay-keymap "<backtab>"
-          jupyter-default-notebook-port 8895)
-  :bind (("<backtab>" . jupyter-eval-toggle-overlay)))
-
-(use-package code-cells
-  :defer t
-  :ensure t)
-
-
-(use-package evil-textobj-tree-sitter
-  :after (evil treesit)
-  :ensure t)
-
-(when (string= system-type "darwin")
-  (add-to-list 'load-path "/opt/homebrew/share/emacs/site-lisp/mu/mu4e")
-  (use-package mu4e
-    :ensure nil
-    :demand t
-    :after org
-    :commands mu4e mu4e-compose-new
-    :config
-    (setopt mail-user-agent 'mu4e-user-agent
-            message-mail-user-agent 'mu4e-user-agent)
-    (setopt sendmail-program (executable-find "msmtp")
-            send-mail-function #'smtpmail-send-it
-            message-sendmail-f-is-evil t
-            message-sendmail-extra-arguments '("--read-envelope-from")
-            message-send-mail-function #'message-send-mail-with-sendmail
-            mml-secure-openpgp-signers '("6A5C039B63B86AC6C5109955B57BA04FBD759C7F" "D1D9947126EE64AC7ED3950196F352393B5B3C2E")
-            mml-secure-openpgp-sign-with-sender t
-            mu4e-use-fancy-chars t                   ; allow fancy icons for mail threads
-            mu4e-notification-support t
-            mu4e-change-filenames-when-moving t
-            mu4e-read-option-use-builtin nil
-            mu4e-completing-read-function 'completing-read
-            mu4e-index-lazy-check nil
-            mu4e-search-results-limit 100
-            mu4e-context-policy 'pick-first ;; Always ask which context to use when composing a new mail
-            mu4e-compose-context-policy 'ask ;; Always ask which context to use when composing a new mail
-            mu4e-update-interval 60
-            mu4e-get-mail-command "mbsync -a"
-            mu4e-mu-allow-temp-file t
-            message-kill-buffer-on-exit t
-            mu4e-compose-complete-only-after "2015-01-01"
-            mu4e-headers-date-format "%d/%m/%y"
-            mu4e-headers-time-format "⧖ %H:%M"
-            message-dont-reply-to-names #'mu4e-personal-or-alternative-address-p
-            mu4e-bookmarks '((:name "Unread messages" :query "flag:unread AND maildir:/.*inbox/" :key 117)
-                             (:name "Today's messages" :query "date:today..now AND maildir:/.*inbox/" :key 116)
-                             (:name "Flagged messages" :query "flag:flagged" :key 102)
-                             (:name "Unified inbox" :query "maildir:/.*inbox/" :key 105)
-                             (:name "Sent" :query "maildir:/.*Sent/" :key 115)
-                             (:name "Drafts" :query "maildir:/.*Drafts/" :key 100)
-                             (:name "Spam" :query "maildir:/.*Spam/ or maildir:/.*Junk/" :key 83)
-                             (:name "Trash" :query "maildir:/.*Trash/" :key 84))
-            mu4e-read-option-use-builtin t
-            mu4e-attachment-dir "~/Downloads"
-            mu4e-headers-thread-single-orphan-prefix '("─>" . "─▶")
-            mu4e-headers-thread-orphan-prefix        '("┬>" . "┬▶ ")
-            mu4e-headers-thread-connection-prefix    '("│ " . "│ ")
-            mu4e-headers-thread-first-child-prefix   '("├>" . "├▶")
-            mu4e-headers-thread-child-prefix         '("├>" . "├▶")
-            mu4e-headers-thread-last-child-prefix    '("└>" . "╰▶")
-            mu4e-contexts
-            `( ,(make-mu4e-context
-                 :name "Personal"
-                 :enter-func (lambda () (mu4e-message "Entering Personal context"))
-                 :leave-func (lambda () (mu4e-message "Leaving Personal context"))
-                 ;; we match based on the contact-fields of the message
-                 :match-func (lambda (msg)
-                               (when msg
-                                 (mu4e-message-contact-field-matches msg
-                                                                     :to "leoaparisi@gmail.com")))
-                 :vars '( ( user-mail-address	    . "leoaparisi@gmail.com"  )
-                          (mu4e-sent-folder       . "/[Gmail]/Sent Mail")
-                          (mu4e-drafts-folder     . "/[Gmail]/Drafts")
-                          (mu4e-trash-folder      . "/[Gmail]/Trash")
-                          (mu4e-refile-folder     . "/Archives")
-                          (smtpmail-smtp-user     . "leoaparisi@gmail.com")
-                          ( user-full-name	    . "Leo Aparisi de Lannoy" )))))
-    ;; (setopt mu4e-thread-mode t)
-    ;; (add-hook 'completion-at-point-functions #'mu4e-complete-contact)
-    (setopt gnus-icalendar-org-capture-file "~/org/notes.org"
-            gnus-icalendar-org-capture-headline '("Calendar"))
-    )
-
-  (use-package org-mime
+  (use-package yasnippet
     :ensure t
     :defer t
-    :after (mu4e org)
+    :hook (elpaca-after-init . yas-global-mode)
     :config
-    (setopt org-mime-export-options '(:with-latex mathjax))
+    (setopt yas-triggers-in-field t))
+
+  (use-package auto-yasnippet
+    :ensure t
+    :defer t)
+
+  (use-package doom-snippets
+    :after yasnippet
+    :ensure (doom-snippets :type git :host github :repo "doomemacs/snippets" :files ("*.el" "*")))
+  ;; (use-package org-contrib
+  ;;   :after org
+  ;;   :ensure t)
+
+  (use-package ox-clip
+    :after ox
+    :ensure t)
+
+  (use-package org-cliplink
+    :after org
+    :ensure t)
+
+  (use-package toc-org
+    :after org
+    :ensure t)
+
+
+  (use-package evil-org
+    :after org
+    :defer t
+    :ensure (evil-org :type git :host github :repo "doomelpa/evil-org-mode")
+    :hook (org-mode . evil-org-mode)
+    :config
+    (add-hook 'evil-org-mode-hook #'evil-normalize-keymaps)
+    (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
     )
-  )
-
-(add-hook 'conf-mode-hook #'flymake-mode)
-(add-hook 'prog-mode-hook #'flymake-mode)
-(add-hook 'text-mode-hook #'flymake-mode)
-
-(add-hook 'prog-mode-hook #'display-line-numbers-mode)
-(add-hook 'text-mode-hook #'display-line-numbers-mode)
-
-(general-define-key
- :keymaps '(normal insert emacs)
- "C-=" #'global-text-scale-adjust)
-
-
-(use-package org-modern
-  :ensure t
-  :defer t
-  :after org
-  :hook ((org-agenda-finalize . org-modern-agenda)
-         (org-mode . global-org-modern-mode))
-  :config
-  (setopt org-modern-star 'replace
-          org-modern-hide-stars nil
-          org-modern-table-vertical 1
-          org-modern-table-horizontal 0.2
-          org-modern-block-name t
-          org-modern-horizontal-rule t
-          org-modern-todo-faces
-          '(("TODO" :inverse-video t :foreground "indian red")
-            ("DOING"  :inverse-video t :foreground "medium aquamarine")
-            ("DONE"  :inverse-video t :foreground "slate gray"))
-          org-modern-priority-faces
-          '((?A :background "indian red" :foreground "black")
-            (?B :background "light salmon" :foreground "black")
-            (?C :background "rosy brown" :foreground "black")
-            (?D :background "NavajoWhite" :foreground "black")
-            (?E  :background "bisque" :foreground "black"))
-          org-modern-keyword t)
-  )
-
-(use-package org-appear
-  :ensure t
-  :defer t
-  :after org
-  :hook (org-mode . org-appear-mode)
-  :config
-  (setopt org-appear-autoemphasis t
-          org-appear-autolinks t
-          org-appear-autokeywords t
-          org-appear-autoentities t
-          org-appear-inside-latex nil
-          org-appear-autosubmarkers t))
-
-(use-package org-fragtog
-  :ensure t
-  :after org
-  :defer t
-  :hook (org-mode . org-fragtog-mode))
-
-(use-package org-pandoc-import
-  :ensure (org-pandoc-import :type git :host github
-                             :repo "tecosaur/org-pandoc-import"
-                             :files ("*.el" "filters" "preprocessors"))
-  :after ox)
-
-(use-package q-mode
-  :defer t
-  :ensure t
-  :config (setopt
-           q-program "q -s 7"))
-
-(use-package vlf
-  :ensure t
-  :defer t
-  :config
-  (require 'vlf-setup)
-  (setopt vlf-application "dont-ask"))
-
-(use-package csv-mode
-  :defer t
-  :ensure (csv-mode :type git :host github :repo "emacsmirror/csv-mode":branch "master" )
-  :hook ((csv-mode . csv-align-mode)
-         (csv-mode . csv-header-line))
-  )
-
-(use-package rainbow-csv
-  :defer t
-  :ensure (rainbow-csv :type git :host github
-                       :repo "emacs-vs/rainbow-csv")
-  :hook ((csv-mode . rainbow-csv-mode)
-         (tsv-mode . rainbow-csv-mode))
-  )
-
-(use-package jinx
-  :ensure t
-  :defer t
-  :config
-  ;; Extra face(s) to ignore
-  (setq jinx-languages "en-us")
-  (push 'org-inline-src-block
-        (alist-get 'org-mode jinx-exclude-faces))
-  ;; Take over the relevant bindings.
-  :general (
-            [remap ispell-word] #'jinx-correct
-            [remap evil-next-flyspell-error] #'jinx-next
-            [remap evil-prev-flyspell-error] #'jinx-previous)
-  :hook
-  (text-mode . jinx-mode)
-  (prog-mode . jinx-mode)
-  :config
-  (add-to-list
-   'vertico-multiform-categories
-   '(jinx grid (vertico-grid-annotate . 20) (vertico-count . 4))))
-
-
-(use-package outline-indent
-  :ensure t
-  :defer t
-  :commands outline-indent-minor-mode
-
-  :hook
-  (elpaca-after-init . outline-indent-minor-mode)
-  :config
-  (setopt outline-indent-default-offset 4)
-  (setopt outline-indent-shift-width 4)
-  :custom
-  (outline-indent-ellipsis " ▼ "))
-
-(use-package elec-pair
-  :ensure nil
-  :hook (elpaca-after-init . electric-pair-mode)
-  :config
-  ;; Disable auto-pairing for backticks to prevent markdown/org annoyances
-  (defun my-inhibit-electric-pair-backtick (char)
-    (if (char-equal char ?\`) t (electric-pair-default-inhibit char)))
-  (setopt electric-pair-inhibit-predicate #'my-inhibit-electric-pair-backtick))
-
-;; The stripspace Emacs package provides stripspace-local-mode, a minor mode
-;; that automatically removes trailing whitespace and blank lines at the end of
-;; the buffer when saving.
-(use-package stripspace
-  :commands stripspace-local-mode
-
-  ;; Enable for prog-mode-hook, text-mode-hook, conf-mode-hook
-  :hook ((prog-mode . stripspace-local-mode)
-         (text-mode . stripspace-local-mode)
-         (conf-mode . stripspace-local-mode))
-
-  :custom
-  ;; The `stripspace-only-if-initially-clean' option:
-  ;; - nil to always delete trailing whitespace.
-  ;; - Non-nil to only delete whitespace when the buffer is clean initially.
-  ;; (The initial cleanliness check is performed when `stripspace-local-mode'
-  ;; is enabled.)
-  (stripspace-only-if-initially-clean nil)
-
-  ;; Enabling `stripspace-restore-column' preserves the cursor's column position
-  ;; even after stripping spaces. This is useful in scenarios where you add
-  ;; extra spaces and then save the file. Although the spaces are removed in the
-  ;; saved file, the cursor remains in the same position, ensuring a consistent
-  ;; editing experience without affecting cursor placement.
-  (stripspace-restore-column t))
-
-(use-package apheleia
-  :ensure t
-  :defer t
-  :commands (apheleia-mode
-             apheleia-global-mode)
-  :hook
-  (elpaca-after-init . apheleia-global-mode))
-
-(use-package project
-  :ensure nil
-  :defer t
-  :general (:prefix "SPC"
-                    :keymaps 'override
-                    :states 'normal
-                    "p p" #'project-switch-project
-                    )
-  )
-
-(use-package iimage
-  :ensure nil
-  :general (
-            :keymaps 'image-mode-map
-            :states 'normal
-            "w" #'image-transform-fit-to-window
-            "R" #'image-rotate
-            )
-  )
-
-(use-package ox-pandoc
-  :after ox
-  :ensure t)
-
-(general-define-key
- :prefix "SPC"
- :states 'normal
- :keymaps 'override
- "x" #'scratch-buffer
- "X" #'org-capture
- "f F" #'switch-to-buffer-other-frame
- "f W" #'switch-to-buffer-other-window
- )
-
-(general-define-key :prefix "SPC g"
-                    :keymaps 'override
-                    :states 'normal
-                    "g" #'magit
-                    "t" #'git-timemachine
-                    )
-
-(general-define-key
- :prefix "SPC o"
- :states 'normal
- :keymaps 'override
- :desc "Org agenda"       "A"  #'org-agenda
- :desc "Agenda"         "a a"  #'org-agenda
- :desc "Todo list"      "a t"  #'org-todo-list
- :desc "Tags search"    "a m"  #'org-tags-view
- :desc "View search"    "a v"  #'org-search-view
- :desc "mu4e"    "m"  #'mu4e
- :desc "Default browser"    "b"  #'browse-url-of-file
- :desc "Start debugger"     "d"  #'+debugger/start
- :desc "New frame"          "f"  #'make-frame
- :desc "Select frame"       "F"  #'select-frame-by-name
- :desc "REPL"               "r"  #'+eval/open-repl-other-window
- :desc "REPL (same window)" "R"  #'+eval/open-repl-same-window
- :desc "Dired"              "-"  #'dired-jump
- :desc "Open directory in dirvish"    "/" #'dirvish
- :desc "Project sidebar"              "p" #'dirvish-side
- :desc "vterm"              "t" #'multi-vterm
- )
-
-(general-define-key
- :states 'normal
- "K" #'xref-find-apropos
- )
-
-(general-define-key
- :prefix "SPC t"
- :states 'normal
- :keymaps 'override
- :desc "toggle code wrapping"              "w"   #'visual-line-mode
- :desc "toggle flymake"              "f"   #'flymake-mode
- )
-
-(general-define-key
- :prefix "SPC c"
- :states 'normal
- :keymaps 'override
- :desc "LSP Execute code action"              "a"   #'lsp-execute-code-action
- :desc "LSP Organize imports"                 "o"   #'lsp-organize-imports
- :desc "LSP Rename"                           "r"   #'lsp-rename
- :desc "Symbols"                              "S"   #'lsp-treemacs-symbols
- :desc "Jump to symbol in current workspace" "j"   #'consult-lsp-symbols
-
- )
-
-(use-package dumb-jump
-  :ensure t
-  :commands dumb-jump-xref-activate
-  :defer t
-  :init
-  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate 90)
-  ;; Use `completing-read' so that selection of jump targets integrates with the
-  ;; active completion framework (e.g., Vertico, Ivy, Helm, Icomplete),
-  ;; providing a consistent minibuffer-based interface whenever multiple
-  ;; definitions are found.
-  (setq dumb-jump-selector 'completing-read)
-
-  ;; If ripgrep is available, force `dumb-jump' to use it because it is
-  ;; significantly faster and more accurate than the default searchers (grep,
-  ;; ag, etc.).
-  (when (executable-find "rg")
-    (setq dumb-jump-force-searcher 'rg)
-    (setq dumb-jump-prefer-searcher 'rg))
-  )
-
-(use-package pdf-tools
-  :mode ("\\.pdf\\'" . pdf-view-mode)
-  :magic ("%PDF" . pdf-view-mode)
-  :ensure t
-  :config
-  (pdf-tools-install)
-  (setopt pdf-view-display-size 'fit-page)
-  :general
-  ([remap pdf-view-midnight-minor-mode] #'pdf-view-themed-minor-mode
-   ))
-
-;; (use-package saveplace-pdf-view
-;;   :ensure t
-;;   :after pdf-tools
-;;   :config
-;;   (save-place-pdf-view-enable))
-
-(use-package ultra-scroll
-  :ensure (ultra-scroll :type git :host github :repo "jdtsmith/ultra-scroll")
-  :defer t
-  :init
-  (setopt scroll-conservatively 101 ; important!
-          scroll-margin 0)
-  :hook
-  (elpaca-after-init . ultra-scroll-mode)
-  :config
-  (add-hook 'ultra-scroll-hide-functions #'hl-todo-mode)
-  (add-hook 'ultra-scroll-hide-functions #'diff-hl-flydiff-mode)
-  (add-hook 'ultra-scroll-hide-functions #'jit-lock-mode)
-  (add-hook 'ultra-scroll-hide-functions #'good-scroll-mode))
-
-(defun efs/display-startup-time ()
-  (message
-   "Emacs loaded in %s with %d garbage collections."
-   (format
-    "%.2f seconds"
-    (float-time
-     (time-subtract elpaca-after-init-time before-init-time)))
-   gcs-done))
-
-
-(add-hook 'emacs-startup-hook #'efs/display-startup-time)
-(use-package yaml-mode
-  :ensure t
-  :defer t)
-
-(use-package empv
-  :ensure (empv :type git :host github :repo "isamert/empv.el")
-  :defer t
-  :autoload (empv--select-action)
-  :config
-  (with-eval-after-load 'embark (empv-embark-initialize-extra-actions))
-  (setopt empv-allow-insecure-connections t)
-  (setopt empv-youtube-use-tabulated-results t)
-  (add-to-list 'empv-mpv-args "--ytdl-format=bestvideo+bestaudio/best[ext=mp4]/best")
-  (add-to-list 'empv-mpv-args "--save-position-on-quit")
-  (setopt empv-reset-playback-speed-on-quit t)
-  (add-hook 'empv-init-hook #'empv-override-quit-key)
-  )
-
-;; (use-package auctex-latexmk
-;;   :ensure t
-;;   :defer t)
-(use-package reftex
-  :ensure nil
-  :defer t
-  :hook (LaTeX-mode . reftex-mode)
-  :config
-  ;; http://tex.stackexchange.com/questions/31966/setting-up-reftex-with-biblatex-citation-commands/31992#31992.
-  (setopt reftex-cite-format
-          '((?a . "\\autocite[]{%l}")
-            (?b . "\\blockcquote[]{%l}{}")
-            (?c . "\\cite[]{%l}")
-            (?f . "\\footcite[]{%l}")
-            (?n . "\\nocite{%l}")
-            (?p . "\\parencite[]{%l}")
-            (?s . "\\smartcite[]{%l}")
-            (?t . "\\textcite[]{%l}"))
-          reftex-plug-into-AUCTeX t
-          reftex-toc-split-windows-fraction 0.3
-          ;; This is needed when `reftex-cite-format' is set. See
-          ;; https://superuser.com/a/1386206
-          LaTeX-reftex-cite-format-auto-activate nil)
-  (add-hook 'reftex-mode-hook #'evil-normalize-keymaps)
-  )
-
-(use-package auctex
-  :ensure t
-  :hook ((LaTeX-mode . LaTeX-preview-setup)
-         (LaTeX-mode . TeX-fold-mode)
-         (LaTeX-mode . prettify-symbols-mode)
-         )
-  :defer t
-  :config
-  (setopt TeX-parse-self t ; parse on load
-          TeX-auto-save t  ; parse on save
-          ;; Use hidden directories for AUCTeX files.
-          TeX-auto-local ".auctex-auto"
-          TeX-style-local ".auctex-style"
-          TeX-source-correlate-mode t
-          TeX-source-correlate-method 'synctex
-          ;; Don't start the Emacs server when correlating sources.
-          TeX-source-correlate-start-server nil
-          ;; Automatically insert braces after sub/superscript in `LaTeX-math-mode'.
-          TeX-electric-sub-and-superscript t
-          ;; Just save, don't ask before each compilation.
-          TeX-save-query nil
-          TeX-show-compilation t
-          TeX-command-extra-options "-shell-escape")
-  (setopt TeX-fold-auto-reveal t)
-  (setq-default TeX-engine 'xetex)
-  (setopt TeX-view-program-selection '((output-pdf "PDF Tools")))
-  (setq-default preview-scale 1.6
-                preview-scale-function
-                (lambda () (* (/ 10.0 (preview-document-pt)) preview-scale)))
-  ;; Don't cache preamble, it creates issues with SyncTeX. Let users enable
-  ;; caching if they have compilation times that long.
-  (setopt preview-auto-cache-preamble nil)
-
-  ;; (require 'auctex-latexmk)
-  ;; (auctex-latexmk-setup)
-  )
-
-(use-package evil-tex
-  :ensure t
-  :hook (LaTeX-mode . evil-tex-mode)
-  :after (evil auctex)
-  :defer t)
-
-(use-package lsp-latex
-  ;; this uses texlab
-  :ensure t
-  :defer t
-  :hook ((LaTeX-mode . (lambda ()
-                         (require 'lsp-latex)
-                         (lsp-deferred)))
-         (bibtex-mode . (lambda ()
-                          (require 'lsp-latex)
-                          (lsp-deferred)))
-         )
-  :config
-  ;; Setting for pdf-tools
-  (setopt lsp-latex-forward-search-executable "emacsclient")
-  (setopt lsp-latex-forward-search-args
-          '("--eval"
-            "(lsp-latex-forward-search-with-pdf-tools \"%f\" \"%p\" \"%l\")"))
-  )
-
-(use-package treesit-fold
-  :ensure (treesit-fold :type git :host github :repo "emacs-tree-sitter/treesit-fold")
-  :hook
-  (elpaca-after-init . global-treesit-fold-mode)
-  :defer t)
-
-(use-package citar
-  :ensure t
-  :defer t
-  :after tex org
-  :hook
-  (LaTeX-mode . citar-capf-setup)
-  (org-mode . citar-capf-setup)
-
-  ;; :custom is ONLY for (variable value) pairs
-  :custom
-  (org-cite-global-bibliography '("~/bib/references.bib"))
-  (org-cite-insert-processor 'citar)
-  (org-cite-follow-processor 'citar)
-  (org-cite-activate-processor 'citar)
-
-  ;; Keybindings
-  :bind
-  (:map org-mode-map ("C-c b" . #'org-cite-insert))
-
-  ;; :config is where ALL executable code and logic goes
-  :config
-  ;; Inherit the bibliography path
-  (setopt citar-bibliography org-cite-global-bibliography)
-
-  (defvar citar-indicator-notes-icons
-    (citar-indicator-create
-     :symbol (nerd-icons-mdicon
-              "nf-md-notebook"
-              :face 'nerd-icons-blue
-              :v-adjust -0.3)
-     :function #'citar-has-notes
-     :padding "  "
-     :tag "has:notes"))
-
-  (defvar citar-indicator-links-icons
-    (citar-indicator-create
-     :symbol (nerd-icons-octicon
-              "nf-oct-link"
-              :face 'nerd-icons-orange
-              :v-adjust -0.1)
-     :function #'citar-has-links
-     :padding "  "
-     :tag "has:links"))
-
-  (defvar citar-indicator-files-icons
-    (citar-indicator-create
-     :symbol (nerd-icons-faicon
-              "nf-fa-file"
-              :face 'nerd-icons-green
-              :v-adjust -0.1)
-     :function #'citar-has-files
-     :padding "  "
-     :tag "has:files"))
-
-  (setopt citar-indicators
-          (list citar-indicator-files-icons
-                citar-indicator-notes-icons
-                citar-indicator-links-icons)))
-
-(use-package citar-embark
-  :after citar embark
-  :no-require
-  :config (citar-embark-mode))
-
-(use-package oc-csl-activate
-  :ensure (oc-csl-activate :type git :host github :repo "andras-simonyi/org-cite-csl-activate")
-  :after citar org
-  :init
-  (setopt org-cite-activate-processor 'csl-activate)
-  :config
-  (require 'oc-csl-activate)
-  (setopt org-cite-csl-activate-use-document-style t)
-  (setopt org-cite-csl-activate-use-document-locale t)
-  (setopt org-cite-csl-activate-use-citar-cache t)
-  )
-
-(use-package org-noter
-  :ensure t
-  :defer t
-  :preface
-  ;; Allow the user to preempt this and set the document search path
-  ;; If not set then use `org-directory'
-  (defvar org-noter-notes-search-path nil)
-  :config
-  (unless org-noter-notes-search-path
-    (setopt org-noter-notes-search-path (list org-directory)))
-  (setopt org-noter-auto-save-last-location t
-          org-noter-separate-notes-from-heading t))
-
-(use-package edraw-org
-  :defer t
-  :after org
-  :ensure (edraw-org :type git :host github :repo "misohena/el-easydraw")
-  :config
-  (edraw-org-setup-default)
-  )
-
-(use-package nov
-  :ensure t
-  :defer t
-  :init
-  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
-  )
-
-(use-package dape
-  :ensure t
-  :defer t
-  :preface
-  ;; By default dape shares the same keybinding prefix as `gud'
-  ;; If you do not want to use any prefix, set it to nil.
-  ;; (setopt dape-key-prefix "\C-x\C-a")
-
-  :hook
-  ;; Save breakpoints on quit
-  (kill-emacs . dape-breakpoint-save)
-  ;; Load breakpoints on startup
-  (elpaca-after-init . dape-breakpoint-load)
-
-  :config
-  ;; Persist breakpoints after closing DAPE.
-  (dape-breakpoint-global-mode +1)
-  (add-hook 'dape-start-hook #'dape-breakpoint-load 0)
-  (add-hook 'dape-stopped-hook #'dape-breakpoint-save 'append)
-
-
-  ;; Info buffers to the right
-  (setopt dape-buffer-window-arrangement 'right)
-
-  ;; Info buffers like gud (gdb-mi)
-  ;; (setopt dape-buffer-window-arrangement 'gud)
-  ;; (setopt dape-info-hide-mode-line nil)
-
-  ;; Pulse source line (performance hit)
-  ;; (add-hook 'dape-display-source-hook 'pulse-momentary-highlight-one-line)
-
-  ;; Showing inlay hints
-  (setopt dape-inlay-hints t)
-
-  ;; Save buffers on startup, useful for interpreted languages
-  (add-hook 'dape-start-hook (lambda () (save-some-buffers t t)))
-
-  ;; Kill compile buffer on build success
-  (add-hook 'dape-compile-hook 'kill-buffer)
-
-  ;; Projectile users
-  ;; (setopt dape-cwd-function 'projectile-project-root)
-  )
-
-(use-package markdown-mode
-  :ensure t
-  :defer t
-  :mode ("/README\\(?:\\.md\\)?\\'" . gfm-mode)
-  :init
-  (setq markdown-italic-underscore t
-        markdown-asymmetric-header t
-        markdown-gfm-additional-languages '("sh")
-        markdown-make-gfm-checkboxes-buttons t
-        markdown-fontify-whole-heading-line t
-        markdown-fontify-code-blocks-natively t)
-
-  :config
-
-  (add-to-list 'markdown-code-lang-modes '("rust" . rustic-mode)))
-
-
-(use-package evil-markdown
-  :ensure (evil-markdown :type git :host github :repo "Somelauw/evil-markdown")
-  :defer t
-  :hook (markdown-mode . evil-markdown-mode)
-  :config
-  (add-hook 'evil-markdown-mode-hook #'evil-normalize-keymaps)
-  )
-
-(add-hook 'markdown-ts-mode-hook #'lsp-deferred)
-(add-hook 'markdown-ts-mode-hook #'evil-markdown-mode)
-;; Helpful is an alternative to the built-in Emacs help that provides much more
-;; contextual information.
-(use-package helpful
-  :ensure t
-  :commands (helpful-callable
-             helpful-variable
-             helpful-key
-             helpful-command
-             helpful-at-point
-             helpful-function)
-  :bind
-  ([remap describe-command] . helpful-command)
-  ([remap describe-function] . helpful-callable)
-  ([remap describe-key] . helpful-key)
-  ([remap describe-symbol] . helpful-symbol)
-  ([remap describe-variable] . helpful-variable)
-  :custom
-  (helpful-max-buffers 7))
-
-(setopt treesit-font-lock-level 4)
-
-(use-package treesit-auto
-  :ensure t
-  :custom
-  (treesit-auto-install 'prompt)
-  :config
-  (treesit-auto-add-to-auto-mode-alist 'all)
-  )
-
-
-(setopt user-full-name "Leo Aparisi de Lannoy")
-(setopt auto-save-default t)
-
-(setopt auto-save-interval 300)
-(setopt auto-save-timeout 10)
-
-(setopt delete-by-moving-to-trash t)
-(setopt imagemagick-render-type 1)
-(setopt browse-url-chrome-program "brave")
-(setopt display-line-numbers-type 'relative)
-(setq-default tab-width 4)
-(setopt dired-vc-rename-file t)
-(setopt xref-search-program 'ripgrep
-        )
-
-;; Display the time in the modeline
-(setopt display-time-mail-string "")
-(display-time-mode 1)
-(show-paren-mode 1)
-(winner-mode 1)
-(global-visual-line-mode 1)
-(delete-selection-mode 1)
-(window-divider-mode 1)
-
-(setopt confirm-kill-emacs 'y-or-n-p)
-
-(setopt redisplay-skip-fontification-on-input t)
-(add-hook 'dired-mode-hook #'dired-hide-details-mode)
-
-(use-package lsp-ltex-plus
-  :defer t
-  :ensure t
-  :init
-  (lsp-ltex-plus-enable-for-modes
-   :restrict-to '(org-mode markdown-mode latex-mode LaTeX-mode)))
-
-(use-package avy
-  :ensure t
-  :defer t
-  :general (
-
-            :states 'normal
-            "s" #'evil-avy-goto-char-timer)
-  )
-
-(use-package breadcrumb
-  :ensure t
-  :hook (elpaca-after-init . breadcrumb-mode)
-  )
-
-(use-package so-long
-  :ensure nil
-  :hook (elpaca-after-init . global-so-long-mode))
-
-(use-package easysession
-  ;; ':demand t' ensures the package is loaded immediately upon startup
-  :demand t
-
-  :general (:prefix "SPC l"
-                    :states 'normal
-                    "l"#'easysession-switch-to ; Load session
-                    "s"#'easysession-save) ; Save session
-
-  :config
-  ;; Key mappings
-  ;; Save every 10 minutes
-  (setq easysession-save-interval (* 10 60))
-
-  ;; Save the current session when using `easysession-switch-to'
-  (setq easysession-switch-to-save-session t)
-
-  ;; Do not exclude the current session when switching sessions
-  (setq easysession-switch-to-exclude-current nil)
-
-  ;; Display the active session name in the mode-line lighter.
-  ;; (setq easysession-save-mode-lighter-show-session-name t)
-
-  ;; Optionally, the session name can be shown in the modeline info area:
-  ;; (setq easysession-mode-line-misc-info t)
-  ;; non-nil: Make `easysession-setup' load the session automatically.
-  ;; (nil: session is not loaded automatically; the user can load it manually.)
-  (setq easysession-setup-load-session t)
-
-  ;; The `easysession-setup' function adds hooks:
-  ;; - To enable automatic session loading during `emacs-startup-hook', or
-  ;;   `server-after-make-frame-hook' when running in daemon mode.
-  ;; - To save the session at regular intervals, and when Emacs exits.
-  (easysession-setup))
+
+  (use-package evil-org-agenda
+    :after org-agenda
+    :defer t
+    :ensure nil
+    :hook (org-agenda-mode . evil-org-agenda-mode)
+    :config
+    (evil-org-agenda-set-keys)
+    )
+
+  (use-package orgit
+    :after (org magit)
+    :ensure t)
+
+  (use-package jupyter
+    :ensure t
+    :defer t
+    :init
+    (setopt jupyter-use-zmq t
+            jupyter-repl-completion-at-point-hook-depth 2
+            jupyter-eval-use-overlays nil
+            jupyter-eval-short-result-max-lines 0
+            jupyter-eval-overlay-keymap "<backtab>"
+            jupyter-default-notebook-port 8895)
+    :bind (("<backtab>" . jupyter-eval-toggle-overlay)))
+
+  (use-package code-cells
+    :defer t
+    :ensure t)
+
+
+  (use-package evil-textobj-tree-sitter
+    :after (evil treesit)
+    :ensure t)
+
+  (when (string= system-type "darwin")
+    (add-to-list 'load-path "/opt/homebrew/share/emacs/site-lisp/mu/mu4e")
+    (use-package mu4e
+      :ensure nil
+      :demand t
+      :after org
+      :commands mu4e mu4e-compose-new
+      :config
+      (setopt mail-user-agent 'mu4e-user-agent
+              message-mail-user-agent 'mu4e-user-agent)
+      (setopt sendmail-program (executable-find "msmtp")
+              send-mail-function #'smtpmail-send-it
+              message-sendmail-f-is-evil t
+              message-sendmail-extra-arguments '("--read-envelope-from")
+              message-send-mail-function #'message-send-mail-with-sendmail
+              mml-secure-openpgp-signers '("6A5C039B63B86AC6C5109955B57BA04FBD759C7F" "D1D9947126EE64AC7ED3950196F352393B5B3C2E")
+              mml-secure-openpgp-sign-with-sender t
+              mu4e-use-fancy-chars t                   ; allow fancy icons for mail threads
+              mu4e-notification-support t
+              mu4e-change-filenames-when-moving t
+              mu4e-read-option-use-builtin nil
+              mu4e-completing-read-function 'completing-read
+              mu4e-index-lazy-check nil
+              mu4e-search-results-limit 100
+              mu4e-context-policy 'pick-first ;; Always ask which context to use when composing a new mail
+              mu4e-compose-context-policy 'ask ;; Always ask which context to use when composing a new mail
+              mu4e-update-interval 60
+              mu4e-get-mail-command "mbsync -a"
+              mu4e-mu-allow-temp-file t
+              message-kill-buffer-on-exit t
+              mu4e-compose-complete-only-after "2015-01-01"
+              mu4e-headers-date-format "%d/%m/%y"
+              mu4e-headers-time-format "⧖ %H:%M"
+              message-dont-reply-to-names #'mu4e-personal-or-alternative-address-p
+              mu4e-bookmarks '((:name "Unread messages" :query "flag:unread AND maildir:/.*inbox/" :key 117)
+                               (:name "Today's messages" :query "date:today..now AND maildir:/.*inbox/" :key 116)
+                               (:name "Flagged messages" :query "flag:flagged" :key 102)
+                               (:name "Unified inbox" :query "maildir:/.*inbox/" :key 105)
+                               (:name "Sent" :query "maildir:/.*Sent/" :key 115)
+                               (:name "Drafts" :query "maildir:/.*Drafts/" :key 100)
+                               (:name "Spam" :query "maildir:/.*Spam/ or maildir:/.*Junk/" :key 83)
+                               (:name "Trash" :query "maildir:/.*Trash/" :key 84))
+              mu4e-read-option-use-builtin t
+              mu4e-attachment-dir "~/Downloads"
+              mu4e-headers-thread-single-orphan-prefix '("─>" . "─▶")
+              mu4e-headers-thread-orphan-prefix        '("┬>" . "┬▶ ")
+              mu4e-headers-thread-connection-prefix    '("│ " . "│ ")
+              mu4e-headers-thread-first-child-prefix   '("├>" . "├▶")
+              mu4e-headers-thread-child-prefix         '("├>" . "├▶")
+              mu4e-headers-thread-last-child-prefix    '("└>" . "╰▶")
+              mu4e-contexts
+              `( ,(make-mu4e-context
+                   :name "Personal"
+                   :enter-func (lambda () (mu4e-message "Entering Personal context"))
+                   :leave-func (lambda () (mu4e-message "Leaving Personal context"))
+                   ;; we match based on the contact-fields of the message
+                   :match-func (lambda (msg)
+                                 (when msg
+                                   (mu4e-message-contact-field-matches msg
+                                                                       :to "leoaparisi@gmail.com")))
+                   :vars '( ( user-mail-address	    . "leoaparisi@gmail.com"  )
+                            (mu4e-sent-folder       . "/[Gmail]/Sent Mail")
+                            (mu4e-drafts-folder     . "/[Gmail]/Drafts")
+                            (mu4e-trash-folder      . "/[Gmail]/Trash")
+                            (mu4e-refile-folder     . "/Archives")
+                            (smtpmail-smtp-user     . "leoaparisi@gmail.com")
+                            ( user-full-name	    . "Leo Aparisi de Lannoy" )))))
+      ;; (setopt mu4e-thread-mode t)
+      ;; (add-hook 'completion-at-point-functions #'mu4e-complete-contact)
+      (setopt gnus-icalendar-org-capture-file "~/org/notes.org"
+              gnus-icalendar-org-capture-headline '("Calendar"))
+      )
+
+    (use-package org-mime
+      :ensure t
+      :defer t
+      :after (mu4e org)
+      :config
+      (setopt org-mime-export-options '(:with-latex mathjax))
+      )
+    )
+
+  (add-hook 'conf-mode-hook #'flymake-mode)
+  (add-hook 'prog-mode-hook #'flymake-mode)
+  (add-hook 'text-mode-hook #'flymake-mode)
+
+  (add-hook 'prog-mode-hook #'display-line-numbers-mode)
+  (add-hook 'text-mode-hook #'display-line-numbers-mode)
+
+  (general-define-key
+   :keymaps '(normal insert emacs)
+   "C-=" #'global-text-scale-adjust)
+
+
+  (use-package org-modern
+    :ensure t
+    :defer t
+    :after org
+    :hook ((org-agenda-finalize . org-modern-agenda)
+           (org-mode . global-org-modern-mode))
+    :config
+    (setopt org-modern-star 'replace
+            org-modern-hide-stars nil
+            org-modern-table-vertical 1
+            org-modern-table-horizontal 0.2
+            org-modern-block-name t
+            org-modern-horizontal-rule t
+            org-modern-todo-faces
+            '(("TODO" :inverse-video t :foreground "indian red")
+              ("DOING"  :inverse-video t :foreground "medium aquamarine")
+              ("DONE"  :inverse-video t :foreground "slate gray"))
+            org-modern-priority-faces
+            '((?A :background "indian red" :foreground "black")
+              (?B :background "light salmon" :foreground "black")
+              (?C :background "rosy brown" :foreground "black")
+              (?D :background "NavajoWhite" :foreground "black")
+              (?E  :background "bisque" :foreground "black"))
+            org-modern-keyword t)
+    )
+
+  (use-package org-appear
+    :ensure t
+    :defer t
+    :after org
+    :hook (org-mode . org-appear-mode)
+    :config
+    (setopt org-appear-autoemphasis t
+            org-appear-autolinks t
+            org-appear-autokeywords t
+            org-appear-autoentities t
+            org-appear-inside-latex nil
+            org-appear-autosubmarkers t))
+
+  (use-package org-fragtog
+    :ensure t
+    :after org
+    :defer t
+    :hook (org-mode . org-fragtog-mode))
+
+  (use-package org-pandoc-import
+    :ensure (org-pandoc-import :type git :host github
+                               :repo "tecosaur/org-pandoc-import"
+                               :files ("*.el" "filters" "preprocessors"))
+    :after ox)
+
+  (use-package q-mode
+    :defer t
+    :ensure t
+    :config (setopt
+             q-program "q -s 7"))
+
+  (use-package vlf
+    :ensure t
+    :defer t
+    :config
+    (require 'vlf-setup)
+    (setopt vlf-application "dont-ask"))
+
+  (use-package csv-mode
+    :defer t
+    :ensure (csv-mode :type git :host github :repo "emacsmirror/csv-mode":branch "master" )
+    :hook ((csv-mode . csv-align-mode)
+           (csv-mode . csv-header-line))
+    )
+
+  (use-package rainbow-csv
+    :defer t
+    :ensure (rainbow-csv :type git :host github
+                         :repo "emacs-vs/rainbow-csv")
+    :hook ((csv-mode . rainbow-csv-mode)
+           (tsv-mode . rainbow-csv-mode))
+    )
+
+  (use-package jinx
+    :ensure t
+    :defer t
+    :config
+    ;; Extra face(s) to ignore
+    (setq jinx-languages "en-us")
+    (push 'org-inline-src-block
+          (alist-get 'org-mode jinx-exclude-faces))
+    ;; Take over the relevant bindings.
+    :general (
+              [remap ispell-word] #'jinx-correct
+              [remap evil-next-flyspell-error] #'jinx-next
+              [remap evil-prev-flyspell-error] #'jinx-previous)
+    :hook
+    (text-mode . jinx-mode)
+    (prog-mode . jinx-mode)
+    :config
+    (add-to-list
+     'vertico-multiform-categories
+     '(jinx grid (vertico-grid-annotate . 20) (vertico-count . 4))))
+
+
+  (use-package outline-indent
+    :ensure t
+    :defer t
+    :commands outline-indent-minor-mode
+
+    :hook
+    (elpaca-after-init . outline-indent-minor-mode)
+    :config
+    (setopt outline-indent-default-offset 4)
+    (setopt outline-indent-shift-width 4)
+    :custom
+    (outline-indent-ellipsis " ▼ "))
+
+  (use-package elec-pair
+    :ensure nil
+    :hook (elpaca-after-init . electric-pair-mode)
+    :config
+    ;; Disable auto-pairing for backticks to prevent markdown/org annoyances
+    (defun my-inhibit-electric-pair-backtick (char)
+      (if (char-equal char ?\`) t (electric-pair-default-inhibit char)))
+    (setopt electric-pair-inhibit-predicate #'my-inhibit-electric-pair-backtick))
+
+  ;; The stripspace Emacs package provides stripspace-local-mode, a minor mode
+  ;; that automatically removes trailing whitespace and blank lines at the end of
+  ;; the buffer when saving.
+  (use-package stripspace
+    :commands stripspace-local-mode
+
+    ;; Enable for prog-mode-hook, text-mode-hook, conf-mode-hook
+    :hook ((prog-mode . stripspace-local-mode)
+           (text-mode . stripspace-local-mode)
+           (conf-mode . stripspace-local-mode))
+
+    :custom
+    ;; The `stripspace-only-if-initially-clean' option:
+    ;; - nil to always delete trailing whitespace.
+    ;; - Non-nil to only delete whitespace when the buffer is clean initially.
+    ;; (The initial cleanliness check is performed when `stripspace-local-mode'
+    ;; is enabled.)
+    (stripspace-only-if-initially-clean nil)
+
+    ;; Enabling `stripspace-restore-column' preserves the cursor's column position
+    ;; even after stripping spaces. This is useful in scenarios where you add
+    ;; extra spaces and then save the file. Although the spaces are removed in the
+    ;; saved file, the cursor remains in the same position, ensuring a consistent
+    ;; editing experience without affecting cursor placement.
+    (stripspace-restore-column t))
+
+  (use-package apheleia
+    :ensure t
+    :defer t
+    :commands (apheleia-mode
+               apheleia-global-mode)
+    :hook
+    (elpaca-after-init . apheleia-global-mode))
+
+  (use-package project
+    :ensure nil
+    :defer t
+    :general (:prefix "SPC"
+                      :keymaps 'override
+                      :states 'normal
+                      "p p" #'project-switch-project
+                      )
+    )
+
+  (use-package iimage
+    :ensure nil
+    :general (
+              :keymaps 'image-mode-map
+              :states 'normal
+              "w" #'image-transform-fit-to-window
+              "R" #'image-rotate
+              )
+    )
+
+  (use-package ox-pandoc
+    :after ox
+    :ensure t)
+
+  (general-define-key
+   :prefix "SPC"
+   :states 'normal
+   :keymaps 'override
+   "x" #'scratch-buffer
+   "X" #'org-capture
+   "f F" #'switch-to-buffer-other-frame
+   "f W" #'switch-to-buffer-other-window
+   )
+
+  (general-define-key :prefix "SPC g"
+                      :keymaps 'override
+                      :states 'normal
+                      "g" #'magit
+                      "t" #'git-timemachine
+                      )
+
+  (general-define-key
+   :prefix "SPC o"
+   :states 'normal
+   :keymaps 'override
+   :desc "Org agenda"       "A"  #'org-agenda
+   :desc "Agenda"         "a a"  #'org-agenda
+   :desc "Todo list"      "a t"  #'org-todo-list
+   :desc "Tags search"    "a m"  #'org-tags-view
+   :desc "View search"    "a v"  #'org-search-view
+   :desc "mu4e"    "m"  #'mu4e
+   :desc "Default browser"    "b"  #'browse-url-of-file
+   :desc "Start debugger"     "d"  #'+debugger/start
+   :desc "New frame"          "f"  #'make-frame
+   :desc "Select frame"       "F"  #'select-frame-by-name
+   :desc "REPL"               "r"  #'+eval/open-repl-other-window
+   :desc "REPL (same window)" "R"  #'+eval/open-repl-same-window
+   :desc "Dired"              "-"  #'dired-jump
+   :desc "Open directory in dirvish"    "/" #'dirvish
+   :desc "Project sidebar"              "p" #'dirvish-side
+   :desc "vterm"              "t" #'multi-vterm
+   )
+
+  (general-define-key
+   :states 'normal
+   "K" #'xref-find-apropos
+   )
+
+  (general-define-key
+   :prefix "SPC t"
+   :states 'normal
+   :keymaps 'override
+   :desc "toggle code wrapping"              "w"   #'visual-line-mode
+   :desc "toggle flymake"              "f"   #'flymake-mode
+   )
+
+  (general-define-key
+   :prefix "SPC c"
+   :states 'normal
+   :keymaps 'override
+   :desc "LSP Execute code action"              "a"   #'eglot-code-actions
+   :desc "LSP Organize Imports"              "o"   #'eglot-code-action-organize-imports
+   :desc "LSP Rename"                           "r"   #'eglot-rename
+   :desc "Jump to symbol in current workspace" "j"   #'consult-eglot-symbols
+
+   )
+
+  (use-package dumb-jump
+    :ensure t
+    :commands dumb-jump-xref-activate
+    :defer t
+    :init
+    (add-hook 'xref-backend-functions #'dumb-jump-xref-activate 90)
+    ;; Use `completing-read' so that selection of jump targets integrates with the
+    ;; active completion framework (e.g., Vertico, Ivy, Helm, Icomplete),
+    ;; providing a consistent minibuffer-based interface whenever multiple
+    ;; definitions are found.
+    (setq dumb-jump-selector 'completing-read)
+
+    ;; If ripgrep is available, force `dumb-jump' to use it because it is
+    ;; significantly faster and more accurate than the default searchers (grep,
+    ;; ag, etc.).
+    (when (executable-find "rg")
+      (setq dumb-jump-force-searcher 'rg)
+      (setq dumb-jump-prefer-searcher 'rg))
+    )
+
+  (use-package pdf-tools
+    :mode ("\\.pdf\\'" . pdf-view-mode)
+    :magic ("%PDF" . pdf-view-mode)
+    :ensure t
+    :config
+    (pdf-tools-install)
+    (setopt pdf-view-display-size 'fit-page)
+    :general
+    ([remap pdf-view-midnight-minor-mode] #'pdf-view-themed-minor-mode
+     ))
+
+  ;; (use-package saveplace-pdf-view
+  ;;   :ensure t
+  ;;   :after pdf-tools
+  ;;   :config
+  ;;   (save-place-pdf-view-enable))
+
+  (use-package ultra-scroll
+    :ensure (ultra-scroll :type git :host github :repo "jdtsmith/ultra-scroll")
+    :defer t
+    :init
+    (setopt scroll-conservatively 101 ; important!
+            scroll-margin 0)
+    :hook
+    (elpaca-after-init . ultra-scroll-mode)
+    :config
+    (add-hook 'ultra-scroll-hide-functions #'hl-todo-mode)
+    (add-hook 'ultra-scroll-hide-functions #'diff-hl-flydiff-mode)
+    (add-hook 'ultra-scroll-hide-functions #'jit-lock-mode)
+    (add-hook 'ultra-scroll-hide-functions #'good-scroll-mode))
+
+  (defun efs/display-startup-time ()
+    (message
+     "Emacs loaded in %s with %d garbage collections."
+     (format
+      "%.2f seconds"
+      (float-time
+       (time-subtract elpaca-after-init-time before-init-time)))
+     gcs-done))
+
+
+  (add-hook 'emacs-startup-hook #'efs/display-startup-time)
+  (use-package yaml-mode
+    :ensure t
+    :defer t)
+
+  (use-package empv
+    :ensure (empv :type git :host github :repo "isamert/empv.el")
+    :defer t
+    :autoload (empv--select-action)
+    :config
+    (with-eval-after-load 'embark (empv-embark-initialize-extra-actions))
+    (setopt empv-allow-insecure-connections t)
+    (setopt empv-youtube-use-tabulated-results t)
+    (add-to-list 'empv-mpv-args "--ytdl-format=bestvideo+bestaudio/best[ext=mp4]/best")
+    (add-to-list 'empv-mpv-args "--save-position-on-quit")
+    (setopt empv-reset-playback-speed-on-quit t)
+    (add-hook 'empv-init-hook #'empv-override-quit-key)
+    )
+
+  ;; (use-package auctex-latexmk
+  ;;   :ensure t
+  ;;   :defer t)
+  (use-package reftex
+    :ensure nil
+    :defer t
+    :hook (LaTeX-mode . reftex-mode)
+    :config
+    ;; http://tex.stackexchange.com/questions/31966/setting-up-reftex-with-biblatex-citation-commands/31992#31992.
+    (setopt reftex-cite-format
+            '((?a . "\\autocite[]{%l}")
+              (?b . "\\blockcquote[]{%l}{}")
+              (?c . "\\cite[]{%l}")
+              (?f . "\\footcite[]{%l}")
+              (?n . "\\nocite{%l}")
+              (?p . "\\parencite[]{%l}")
+              (?s . "\\smartcite[]{%l}")
+              (?t . "\\textcite[]{%l}"))
+            reftex-plug-into-AUCTeX t
+            reftex-toc-split-windows-fraction 0.3
+            ;; This is needed when `reftex-cite-format' is set. See
+            ;; https://superuser.com/a/1386206
+            LaTeX-reftex-cite-format-auto-activate nil)
+    (add-hook 'reftex-mode-hook #'evil-normalize-keymaps)
+    )
+
+  (use-package auctex
+    :ensure t
+    :hook ((LaTeX-mode . LaTeX-preview-setup)
+           (LaTeX-mode . TeX-fold-mode)
+           (LaTeX-mode . prettify-symbols-mode)
+           )
+    :defer t
+    :config
+    (setopt TeX-parse-self t ; parse on load
+            TeX-auto-save t  ; parse on save
+            ;; Use hidden directories for AUCTeX files.
+            TeX-auto-local ".auctex-auto"
+            TeX-style-local ".auctex-style"
+            TeX-source-correlate-mode t
+            TeX-source-correlate-method 'synctex
+            ;; Don't start the Emacs server when correlating sources.
+            TeX-source-correlate-start-server nil
+            ;; Automatically insert braces after sub/superscript in `LaTeX-math-mode'.
+            TeX-electric-sub-and-superscript t
+            ;; Just save, don't ask before each compilation.
+            TeX-save-query nil
+            TeX-show-compilation t
+            TeX-command-extra-options "-shell-escape")
+    (setopt TeX-fold-auto-reveal t)
+    (setq-default TeX-engine 'xetex)
+    (setopt TeX-view-program-selection '((output-pdf "PDF Tools")))
+    (setq-default preview-scale 1.6
+                  preview-scale-function
+                  (lambda () (* (/ 10.0 (preview-document-pt)) preview-scale)))
+    ;; Don't cache preamble, it creates issues with SyncTeX. Let users enable
+    ;; caching if they have compilation times that long.
+    (setopt preview-auto-cache-preamble nil)
+
+    ;; (require 'auctex-latexmk)
+    ;; (auctex-latexmk-setup)
+    )
+
+  (use-package evil-tex
+    :ensure t
+    :hook (LaTeX-mode . evil-tex-mode)
+    :after (evil auctex)
+    :defer t)
+
+
+  (use-package treesit-fold
+    :ensure (treesit-fold :type git :host github :repo "emacs-tree-sitter/treesit-fold")
+    :hook
+    (elpaca-after-init . global-treesit-fold-mode)
+    :defer t)
+
+  (use-package citar
+    :ensure t
+    :defer t
+    :after tex org
+    :hook
+    (LaTeX-mode . citar-capf-setup)
+    (org-mode . citar-capf-setup)
+
+    ;; :custom is ONLY for (variable value) pairs
+    :custom
+    (org-cite-global-bibliography '("~/bib/references.bib"))
+    (org-cite-insert-processor 'citar)
+    (org-cite-follow-processor 'citar)
+    (org-cite-activate-processor 'citar)
+
+    ;; Keybindings
+    :bind
+    (:map org-mode-map ("C-c b" . #'org-cite-insert))
+
+    ;; :config is where ALL executable code and logic goes
+    :config
+    ;; Inherit the bibliography path
+    (setopt citar-bibliography org-cite-global-bibliography)
+
+    (defvar citar-indicator-notes-icons
+      (citar-indicator-create
+       :symbol (nerd-icons-mdicon
+                "nf-md-notebook"
+                :face 'nerd-icons-blue
+                :v-adjust -0.3)
+       :function #'citar-has-notes
+       :padding "  "
+       :tag "has:notes"))
+
+    (defvar citar-indicator-links-icons
+      (citar-indicator-create
+       :symbol (nerd-icons-octicon
+                "nf-oct-link"
+                :face 'nerd-icons-orange
+                :v-adjust -0.1)
+       :function #'citar-has-links
+       :padding "  "
+       :tag "has:links"))
+
+    (defvar citar-indicator-files-icons
+      (citar-indicator-create
+       :symbol (nerd-icons-faicon
+                "nf-fa-file"
+                :face 'nerd-icons-green
+                :v-adjust -0.1)
+       :function #'citar-has-files
+       :padding "  "
+       :tag "has:files"))
+
+    (setopt citar-indicators
+            (list citar-indicator-files-icons
+                  citar-indicator-notes-icons
+                  citar-indicator-links-icons)))
+
+  (use-package citar-embark
+    :after citar embark
+    :no-require
+    :config (citar-embark-mode))
+
+  (use-package oc-csl-activate
+    :ensure (oc-csl-activate :type git :host github :repo "andras-simonyi/org-cite-csl-activate")
+    :after citar org
+    :init
+    (setopt org-cite-activate-processor 'csl-activate)
+    :config
+    (require 'oc-csl-activate)
+    (setopt org-cite-csl-activate-use-document-style t)
+    (setopt org-cite-csl-activate-use-document-locale t)
+    (setopt org-cite-csl-activate-use-citar-cache t)
+    )
+
+  (use-package org-noter
+    :ensure t
+    :defer t
+    :preface
+    ;; Allow the user to preempt this and set the document search path
+    ;; If not set then use `org-directory'
+    (defvar org-noter-notes-search-path nil)
+    :config
+    (unless org-noter-notes-search-path
+      (setopt org-noter-notes-search-path (list org-directory)))
+    (setopt org-noter-auto-save-last-location t
+            org-noter-separate-notes-from-heading t))
+
+  (use-package edraw-org
+    :defer t
+    :after org
+    :ensure (edraw-org :type git :host github :repo "misohena/el-easydraw")
+    :config
+    (edraw-org-setup-default)
+    )
+
+  (use-package nov
+    :ensure t
+    :defer t
+    :init
+    (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+    )
+
+  (use-package dape
+    :ensure t
+    :defer t
+    :preface
+    ;; By default dape shares the same keybinding prefix as `gud'
+    ;; If you do not want to use any prefix, set it to nil.
+    ;; (setopt dape-key-prefix "\C-x\C-a")
+
+    :hook
+    ;; Save breakpoints on quit
+    (kill-emacs . dape-breakpoint-save)
+    ;; Load breakpoints on startup
+    (elpaca-after-init . dape-breakpoint-load)
+
+    :config
+    ;; Persist breakpoints after closing DAPE.
+    (dape-breakpoint-global-mode +1)
+    (add-hook 'dape-start-hook #'dape-breakpoint-load 0)
+    (add-hook 'dape-stopped-hook #'dape-breakpoint-save 'append)
+
+
+    ;; Info buffers to the right
+    (setopt dape-buffer-window-arrangement 'right)
+
+    ;; Info buffers like gud (gdb-mi)
+    ;; (setopt dape-buffer-window-arrangement 'gud)
+    ;; (setopt dape-info-hide-mode-line nil)
+
+    ;; Pulse source line (performance hit)
+    ;; (add-hook 'dape-display-source-hook 'pulse-momentary-highlight-one-line)
+
+    ;; Showing inlay hints
+    (setopt dape-inlay-hints t)
+
+    ;; Save buffers on startup, useful for interpreted languages
+    (add-hook 'dape-start-hook (lambda () (save-some-buffers t t)))
+
+    ;; Kill compile buffer on build success
+    (add-hook 'dape-compile-hook 'kill-buffer)
+
+    ;; Projectile users
+    ;; (setopt dape-cwd-function 'projectile-project-root)
+    )
+
+  (use-package markdown-mode
+    :ensure t
+    :defer t
+    :mode ("/README\\(?:\\.md\\)?\\'" . gfm-mode)
+    :init
+    (setq markdown-italic-underscore t
+          markdown-asymmetric-header t
+          markdown-gfm-additional-languages '("sh")
+          markdown-make-gfm-checkboxes-buttons t
+          markdown-fontify-whole-heading-line t
+          markdown-fontify-code-blocks-natively t)
+
+    :config
+
+    (add-to-list 'markdown-code-lang-modes '("rust" . rustic-mode)))
+
+
+  (use-package evil-markdown
+    :ensure (evil-markdown :type git :host github :repo "Somelauw/evil-markdown")
+    :defer t
+    :hook (markdown-mode . evil-markdown-mode)
+    :config
+    (add-hook 'evil-markdown-mode-hook #'evil-normalize-keymaps)
+    )
+
+  ;; Helpful is an alternative to the built-in Emacs help that provides much more
+  ;; contextual information.
+  (use-package helpful
+    :ensure t
+    :commands (helpful-callable
+               helpful-variable
+               helpful-key
+               helpful-command
+               helpful-at-point
+               helpful-function)
+    :bind
+    ([remap describe-command] . helpful-command)
+    ([remap describe-function] . helpful-callable)
+    ([remap describe-key] . helpful-key)
+    ([remap describe-symbol] . helpful-symbol)
+    ([remap describe-variable] . helpful-variable)
+    :custom
+    (helpful-max-buffers 7))
+
+  (setopt treesit-font-lock-level 4)
+
+  (use-package treesit-auto
+    :ensure t
+    :custom
+    (treesit-auto-install 'prompt)
+    :config
+    (treesit-auto-add-to-auto-mode-alist 'all)
+    )
+
+
+  (setopt user-full-name "Leo Aparisi de Lannoy")
+  (setopt auto-save-default t)
+
+  (setopt auto-save-interval 300)
+  (setopt auto-save-timeout 10)
+
+  (setopt delete-by-moving-to-trash t)
+  (setopt imagemagick-render-type 1)
+  (setopt browse-url-chrome-program "brave")
+  (setopt display-line-numbers-type 'relative)
+  (setq-default tab-width 4)
+  (setopt dired-vc-rename-file t)
+  (setopt xref-search-program 'ripgrep
+          )
+
+  ;; Display the time in the modeline
+  (setopt display-time-mail-string "")
+  (display-time-mode 1)
+  (show-paren-mode 1)
+  (winner-mode 1)
+  (global-visual-line-mode 1)
+  (delete-selection-mode 1)
+  (window-divider-mode 1)
+
+  (setopt confirm-kill-emacs 'y-or-n-p)
+
+  (setopt redisplay-skip-fontification-on-input t)
+  (add-hook 'dired-mode-hook #'dired-hide-details-mode)
+
+  (use-package avy
+    :ensure t
+    :defer t
+    :general (
+
+              :states 'normal
+              "s" #'evil-avy-goto-char-timer)
+    )
+
+  (use-package breadcrumb
+    :ensure t
+    :hook (elpaca-after-init . breadcrumb-mode)
+    )
+
+  (use-package so-long
+    :ensure nil
+    :hook (elpaca-after-init . global-so-long-mode))
+
+  (use-package easysession
+    ;; ':demand t' ensures the package is loaded immediately upon startup
+    :demand t
+
+    :general (:prefix "SPC l"
+                      :states 'normal
+                      "l"#'easysession-switch-to ; Load session
+                      "s"#'easysession-save) ; Save session
+
+    :config
+    ;; Key mappings
+    ;; Save every 10 minutes
+    (setq easysession-save-interval (* 10 60))
+
+    ;; Save the current session when using `easysession-switch-to'
+    (setq easysession-switch-to-save-session t)
+
+    ;; Do not exclude the current session when switching sessions
+    (setq easysession-switch-to-exclude-current nil)
+
+    ;; Display the active session name in the mode-line lighter.
+    ;; (setq easysession-save-mode-lighter-show-session-name t)
+
+    ;; Optionally, the session name can be shown in the modeline info area:
+    ;; (setq easysession-mode-line-misc-info t)
+    ;; non-nil: Make `easysession-setup' load the session automatically.
+    ;; (nil: session is not loaded automatically; the user can load it manually.)
+    (setq easysession-setup-load-session t)
+
+    ;; The `easysession-setup' function adds hooks:
+    ;; - To enable automatic session loading during `emacs-startup-hook', or
+    ;;   `server-after-make-frame-hook' when running in daemon mode.
+    ;; - To save the session at regular intervals, and when Emacs exits.
+    (easysession-setup))
