@@ -39,5 +39,4 @@ require("lazy").setup({
 require("config/autocmds")
 require("config/keymaps")
 
-vim.cmd.colorscheme "catppuccin"
 vim.cmd.set "shortmess=I"

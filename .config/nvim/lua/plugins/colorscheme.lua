@@ -3,7 +3,7 @@ return {
         "catppuccin/nvim",
         lazy = false,
         priority = 1000,
-        name = "catppuccin",
+        name = "catppuccin", -- Crucial: Without this, lazy.nvim would name the plugin "nvim"
         opts = {
             lsp_styles = {
                 underlines = {
@@ -36,6 +36,13 @@ return {
                 which_key = true,
             },
         },
+        config = function(_, opts)
+            -- Apply the configuration
+            require("catppuccin").setup(opts)
+
+            -- Actually turn the colorscheme on
+            vim.cmd.colorscheme("catppuccin")
+        end,
     },
     {
         "nvim-lualine/lualine.nvim",

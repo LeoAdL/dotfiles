@@ -4,7 +4,6 @@ return {
         version = "*",
         dependencies = {
             { 'L3MON4D3/LuaSnip', version = 'v2.*' },
-            -- add blink.compat to dependencies
         },
         event = { "InsertEnter", "CmdlineEnter" },
 
@@ -12,12 +11,7 @@ return {
         ---@type blink.cmp.Config
         opts = {
             appearance = {
-                -- sets the fallback highlight groups to nvim-cmp's highlight groups
-                -- useful for when your theme doesn't support blink.cmp
-                -- will be removed in a future release, assuming themes add support
                 use_nvim_cmp_as_default = false,
-                -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-                -- adjusts spacing to ensure icons are aligned
                 nerd_font_variant = "mono",
             },
             keymap = {
@@ -26,16 +20,11 @@ return {
             snippets = { preset = 'luasnip' },
             completion = {
                 accept = {
-                    -- experimental auto-brackets support
-                    auto_brackets = {
-                        enabled = true,
-                    },
+                    auto_brackets = { enabled = true },
                 },
                 list = { selection = { preselect = false, auto_insert = true } },
                 menu = {
-                    draw = {
-                        treesitter = { "lsp" },
-                    },
+                    draw = { treesitter = { "lsp" } },
                 },
                 documentation = {
                     auto_show = true,
@@ -43,13 +32,10 @@ return {
                 },
             },
 
-            -- experimental signature help support
             signature = { enabled = true },
 
             sources = {
-                -- adding any nvim-cmp sources here will enable them
-                -- with blink.compat
-                default = { "lsp", "path", "snippets", "buffer", "cmdline", "omni" },
+                default = { "lsp", "path", "snippets", "buffer", "omni" },
                 providers = {
                     markdown = {
                         name = 'RenderMarkdown',
@@ -63,11 +49,39 @@ return {
                     },
                 },
                 per_filetype = {
-                    org = { 'orgmode', "lsp", "path", "snippets", "buffer", "cmdline", "omni" },
-                    markdown = { 'markdown', "lsp", "path", "snippets", "buffer", "cmdline", "omni" },
+                    org = { 'orgmode', "lsp", "path", "snippets", "buffer", "omni" },
+                    markdown = { 'markdown', "lsp", "path", "snippets", "buffer", "omni" },
                 },
             },
+
+            -- Terminal configuration
+            term = {
+                enabled = true,
+                keymap = { preset = 'inherit' },
+                sources = {},
+            },
+
+            -- Command-line configuration
+            cmdline = {
+                enabled = true,
+                keymap = { preset = 'cmdline' },
+                sources = { 'buffer', 'cmdline' },
+                completion = {
+                    list = {
+                        selection = {
+                            preselect = true,
+                            auto_insert = true,
+                        },
+                    },
+                    -- Default is false for cmdline, true for cmdwin (command-line window)
+                    menu = {
+                        auto_show = function(ctx) return ctx.mode == 'cmdwin' end
+                    },
+                    ghost_text = { enabled = true },
+                }
+            },
         },
+        -- opts_extend MUST be a sibling of opts, not inside it!
         opts_extend = { "sources.default" },
     },
 }
