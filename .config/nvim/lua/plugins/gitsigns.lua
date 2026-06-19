@@ -55,7 +55,7 @@ return {
                 map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
             end,
         },
-        key = {
+        keys = {
             { "<leader>xg", "<cmd>Gitsigns setqflist<cr>", desc = "Git QuickFix" },
         },
     }

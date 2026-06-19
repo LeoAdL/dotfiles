@@ -119,10 +119,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
             vim.keymap.set(mode, keys, func, { buffer = ev.buf, desc = "LSP: " .. desc })
         end
 
-        map('gD', vim.lsp.buf.declaration, 'Goto declaration')
-        map('gd', vim.lsp.buf.definition, 'Goto definition')
-        map('gi', vim.lsp.buf.implementation, 'Goto implementation')
-        map('gr', vim.lsp.buf.references, 'Goto references')
         map('K', vim.lsp.buf.hover, 'Hover Documentation')
         map('<C-k>', vim.lsp.buf.signature_help, 'Signature help')
 
