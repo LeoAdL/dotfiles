@@ -5,6 +5,11 @@ return {
         priority = 1000,
         name = "catppuccin", -- Crucial: Without this, lazy.nvim would name the plugin "nvim"
         opts = {
+            compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
+            compile = {
+                enabled = true,
+                compiler = "cobalt",
+            },
             lsp_styles = {
                 underlines = {
                     errors = { "undercurl" },
