@@ -55,3 +55,5 @@ opt.timeoutlen = 300 -- Decrease update time
 opt.completeopt = "menu,menuone,noselect"
 opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
 opt.shortmess:append({ W = true, I = true, c = true, C = true })
+opt.splitbelow = true -- Put new windows below current
+opt.splitright = true -- Put new windows right of current
