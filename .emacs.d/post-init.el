@@ -2031,3 +2031,10 @@
   ;;   `server-after-make-frame-hook' when running in daemon mode.
   ;; - To save the session at regular intervals, and when Emacs exits.
   (easysession-setup))
+
+(use-package eglot-booster
+  :ensure (eglot-booster :type git :host github :repo "jdtsmith/eglot-booster")
+  :after eglot
+  :config
+  (setq eglot-booster-io-only t)
+  (eglot-booster-mode))
