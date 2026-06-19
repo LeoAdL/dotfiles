@@ -92,7 +92,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- ==============================================================================
--- Keymaps & LSP
+-- Keymaps & Diagnostics
 -- ==============================================================================
 
 -- Global Diagnostic Mappings
@@ -100,6 +100,10 @@ vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, { desc = "Show diagno
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, { desc = "Open diagnostic loclist" })
+
+-- ==============================================================================
+-- LSP Autocommands & Keymaps
+-- ==============================================================================
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
@@ -109,21 +113,31 @@ vim.api.nvim_create_autocmd('LspAttach', {
         -- Enable completion triggered by <c-x><c-o>
         vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-        -- Buffer local mappings.
-        local opts = { buffer = ev.buf }
-        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-        vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-        vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-        vim.keymap.set('n', '<space>wl', function()
+        -- Helper function to easily map LSP keys with descriptions
+        local map = function(keys, func, desc, mode)
+            mode = mode or 'n'
+            vim.keymap.set(mode, keys, func, { buffer = ev.buf, desc = "LSP: " .. desc })
+        end
+
+        map('gD', vim.lsp.buf.declaration, 'Goto declaration')
+        map('gd', vim.lsp.buf.definition, 'Goto definition')
+        map('gi', vim.lsp.buf.implementation, 'Goto implementation')
+        map('gr', vim.lsp.buf.references, 'Goto references')
+        map('K', vim.lsp.buf.hover, 'Hover Documentation')
+        map('<C-k>', vim.lsp.buf.signature_help, 'Signature help')
+
+        map('<space>D', vim.lsp.buf.type_definition, 'Type definition')
+        map('<space>rn', vim.lsp.buf.rename, 'Rename')
+        map('<space>ca', vim.lsp.buf.code_action, 'Code action', { 'n', 'v' })
+
+        map('<space>wa', vim.lsp.buf.add_workspace_folder, 'Add workspace folder')
+        map('<space>wr', vim.lsp.buf.remove_workspace_folder, 'Remove workspace folder')
+        map('<space>wl', function()
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        end, opts)
-        vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-        vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-        vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-        vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+        end, 'List workspace folders')
+
+        map('<space>fF', function()
+            vim.lsp.buf.format { async = true }
+        end, 'Format buffer')
     end,
 })
