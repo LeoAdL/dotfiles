@@ -398,12 +398,36 @@
   (vertico-multiform-mode)
   :init
   (vertico-mode)
+  )
+;; Configure directory extension.
+(use-package vertico-directory
+  :after vertico
+  :ensure nil
+  ;; More convenient directory navigation commands
   :general (
             :keymaps 'vertico-map
             "DEL" #'vertico-directory-delete-word
             "RET" #'vertico-directory-enter
             )
-  )
+  ;; Tidy shadowed file names
+  :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
+;; Emacs minibuffer configurations.
+(use-package emacs
+  :custom
+  ;; Enable context menu. `vertico-multiform-mode' adds a menu in the minibuffer
+  ;; to switch display modes.
+  (context-menu-mode t)
+  ;; Support opening new minibuffers from inside existing minibuffers.
+  (enable-recursive-minibuffers t)
+  ;; Hide commands in M-x which do not work in the current mode.  Vertico
+  ;; commands are hidden in normal buffers. This setting is useful beyond
+  ;; Vertico.
+  (read-extended-command-predicate #'command-completion-default-include-p)
+  ;; Do not allow the cursor in the minibuffer prompt
+  (minibuffer-prompt-properties
+   '(read-only t cursor-intangible t face minibuffer-prompt)))
+
+
 
 (use-package nerd-icons-completion
   :after marginalia
@@ -423,7 +447,9 @@
   :custom
   (completion-styles '(orderless basic))
   (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles basic partial-completion)))))
+  (completion-category-overrides '((file (styles basic partial-completion))))
+  (completion-pcm-leading-wildcard t)) ;; Emacs 31: partial-completion behaves like substring
+)
 
 (use-package marginalia
   ;; Marginalia allows Embark to offer you preconfigured actions in more contexts.
@@ -797,6 +823,9 @@
   (corfu-history-mode)
   (setq corfu-popupinfo-delay '(0.5 . 1.0))
   (corfu-popupinfo-mode)
+  (with-eval-after-load 'eglot
+    (setq completion-category-defaults nil))
+
   )
 
 (use-package org-block-capf
@@ -812,18 +841,39 @@
 (use-package cape
   :ensure t
   :defer t
-  :commands (cape-history cape-dabbrev cape-file cape-keyword)
+  ;; Ensure all functions used globally or in hooks are listed here
+  ;; so Emacs knows to load Cape when they are called.
+  :commands (cape-history cape-dabbrev cape-file cape-keyword cape-capf-super cape-wrap-buster)
   :bind ("C-c p" . cape-prefix-map)
-  :config
-  (setq cape-dabbrev-min-length 2)
+
+  ;; Use :custom instead of (setq ...) inside :config
+  :custom
+  (cape-dabbrev-min-length 2)
+
   :init
-  ;; Add to the global default value of `completion-at-point-functions' which is
-  ;; used by `completion-at-point'.
+  ;; These global hooks are perfect in :init. When completion-at-point
+  ;; triggers them, Cape will automatically load.
   (add-hook 'completion-at-point-functions #'cape-dabbrev)
   (add-hook 'completion-at-point-functions #'cape-keyword)
   (add-hook 'completion-at-point-functions #'cape-file)
   (add-hook 'completion-at-point-functions #'cape-history)
-  )
+
+  :config
+  ;; Wrap Eglot-specific logic in with-eval-after-load to ensure
+  ;; it only runs if/when Eglot is actually loaded.
+  (with-eval-after-load 'eglot
+    ;; Cache busting for Eglot
+    (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
+
+    (defun my/eglot-capf ()
+      (setq-local completion-at-point-functions
+                  (list (cape-capf-super
+                         #'eglot-completion-at-point
+                         #'cape-dabbrev  ;; <-- Now merging words!
+                         #'cape-file     ;; <-- Now merging files!
+                         ))))
+
+    (add-hook 'eglot-managed-mode-hook #'my/eglot-capf)))
 
 (use-package nerd-icons-corfu
   :ensure t
@@ -831,12 +881,6 @@
   :init
   ;; Optionally:
   (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)
-  (setq nerd-icons-corfu-mapping
-        '((array :style "cod" :icon "symbol_array" :face font-lock-type-face)
-          (boolean :style "cod" :icon "symbol_boolean" :face font-lock-builtin-face)
-          ;; ...
-          (t :style "cod" :icon "code" :face font-lock-warning-face)))
-  ;; Remember to add an entry for `t', the library uses that as default.
   )
 
 ;; Hide warnings and display only errors
