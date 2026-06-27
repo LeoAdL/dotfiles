@@ -398,6 +398,11 @@
   (vertico-multiform-mode)
   :init
   (vertico-mode)
+  :general (
+            :keymaps 'vertico-map
+            "DEL" #'vertico-directory-delete-word
+            "RET" #'vertico-directory-enter
+            )
   )
 
 (use-package nerd-icons-completion
