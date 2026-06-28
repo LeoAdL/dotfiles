@@ -413,6 +413,7 @@
   :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
 ;; Emacs minibuffer configurations.
 (use-package emacs
+  :ensure nil
   :custom
   ;; Enable context menu. `vertico-multiform-mode' adds a menu in the minibuffer
   ;; to switch display modes.
@@ -448,7 +449,7 @@
   (completion-styles '(orderless basic))
   (completion-category-defaults nil)
   (completion-category-overrides '((file (styles basic partial-completion))))
-  (completion-pcm-leading-wildcard t)) ;; Emacs 31: partial-completion behaves like substring
+  (completion-pcm-leading-wildcard t) ;; Emacs 31: partial-completion behaves like substring
 )
 
 (use-package marginalia
@@ -706,7 +707,6 @@
   (define-key evil-normal-state-map "za" 'kirigami-toggle-fold)
   (define-key evil-normal-state-map "zr" 'kirigami-open-folds)
   (define-key evil-normal-state-map "zm" 'kirigami-close-folds))
-
 
 (use-package ibuffer-vc
   :ensure t
@@ -1301,11 +1301,6 @@
         jupyter-default-notebook-port 8895)
   :bind (("<backtab>" . jupyter-eval-toggle-overlay)))
 
-(use-package code-cells
-  :defer t
-  :ensure t)
-
-
 (use-package evil-textobj-tree-sitter
   :after (evil treesit)
   :ensure t)
@@ -1460,21 +1455,13 @@
   :defer t
   :config
   (require 'vlf-setup)
-  (setq vlf-application "dont-ask"))
+  (setq vlf-application "ask"))
 
 (use-package csv-mode
   :defer t
   :ensure (csv-mode :type git :host github :repo "emacsmirror/csv-mode":branch "master" )
   :hook ((csv-mode . csv-align-mode)
          (csv-mode . csv-header-line))
-  )
-
-(use-package rainbow-csv
-  :defer t
-  :ensure (rainbow-csv :type git :host github
-                       :repo "emacs-vs/rainbow-csv")
-  :hook ((csv-mode . rainbow-csv-mode)
-         (tsv-mode . rainbow-csv-mode))
   )
 
 (use-package jinx
