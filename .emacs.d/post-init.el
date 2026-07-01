@@ -450,7 +450,7 @@
   (completion-category-defaults nil)
   (completion-category-overrides '((file (styles basic partial-completion))))
   (completion-pcm-leading-wildcard t) ;; Emacs 31: partial-completion behaves like substring
-)
+  )
 
 (use-package marginalia
   ;; Marginalia allows Embark to offer you preconfigured actions in more contexts.
@@ -683,6 +683,7 @@
   :hook ((prog-mode conf-mode text-mode) . evil-vimish-fold-mode))
 
 (use-package kirigami
+  :ensure t
   :commands (kirigami-open-fold
              kirigami-open-fold-rec
              kirigami-close-fold
