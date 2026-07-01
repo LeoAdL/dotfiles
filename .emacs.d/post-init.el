@@ -1553,7 +1553,7 @@
                     )
   )
 
-(use-package iimage
+(use-package iimage-mode
   :ensure nil
   :general (
             :keymaps 'image-mode-map
