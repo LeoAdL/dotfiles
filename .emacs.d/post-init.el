@@ -96,15 +96,14 @@
 ;; on disk.
 (use-package autorevert
   :ensure nil
-  :commands (auto-revert-mode global-auto-revert-mode)
-  :hook
-  (elpaca-after-init . global-auto-revert-mode)
   :init
   ;; (setq auto-revert-verbose t)
   (setq auto-revert-interval 3)
   (setq auto-revert-remote-files nil)
   (setq auto-revert-use-notify t)
-  (setq auto-revert-avoid-polling t))
+  (setq auto-revert-avoid-polling t)
+  (global-auto-revert-mode 1)
+  )
 
 
 ;; recentf is an Emacs package that maintains a list of recently
@@ -112,10 +111,6 @@
 ;; recently.
 (use-package recentf
   :ensure nil
-  :commands (recentf-mode recentf-cleanup)
-  :hook
-  (elpaca-after-init . recentf-mode)
-
   :init
   (setq recentf-auto-cleanup (if (daemonp) 300 'never))
   (setq recentf-exclude
@@ -131,7 +126,8 @@
   ;; `recentf-save-list', allowing stale entries to be removed before the list
   ;; is saved by `recentf-save-list', which is automatically added to
   ;; `kill-emacs-hook' by `recentf-mode'.
-  (add-hook 'kill-emacs-hook #'recentf-cleanup -90))
+  (add-hook 'kill-emacs-hook #'recentf-cleanup -90)
+  (recentf-mode 1))
 
 ;; savehist is an Emacs feature that preserves the minibuffer history between
 ;; sessions. It saves the history of inputs in the minibuffer, such as commands,
@@ -139,9 +135,6 @@
 ;; their minibuffer history across Emacs restarts.
 (use-package savehist
   :ensure nil
-  :commands (savehist-mode savehist-save)
-  :hook
-  (elpaca-after-init . savehist-mode)
   :custom
   (history-length 300)
   (savehist-autosave-interval 600)
@@ -149,18 +142,17 @@
    '(kill-ring                        ; clipboard
      register-alist                   ; macros
      mark-ring global-mark-ring       ; marks
-     search-ring regexp-search-ring)))
+     search-ring regexp-search-ring))
+  (savehist-mode 1))
 
 ;; save-place-mode enables Emacs to remember the last location within a file
 ;; upon reopening. This feature is particularly beneficial for resuming work at
 ;; the precise point where you previously left off.
 (use-package saveplace
   :ensure nil
-  :commands (save-place-mode save-place-local-mode)
-  :hook
-  (elpaca-after-init . save-place-mode)
-  :init
-  (setq save-place-limit 400))
+  :config
+  (setq save-place-limit 400)
+  (save-place-mode 1))
 
 ;; Idle garbage collection
 
@@ -457,8 +449,6 @@
   ;; In addition to that, Marginalia also enhances Vertico by adding rich
   ;; annotations to the completion candidates displayed in Vertico's interface.
   :ensure t
-  :defer t
-  :commands (marginalia-mode marginalia-cycle)
   :hook (elpaca-after-init . marginalia-mode))
 
 (use-package embark
@@ -594,7 +584,6 @@
   :ensure t
   :defer t
   :hook (elpaca-after-init . evil-mode)
-  :commands (evil-mode evil-define-key)
   :init
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
@@ -721,10 +710,6 @@
 
 (use-package undo-fu
   :ensure t
-  :commands (undo-fu-only-undo
-             undo-fu-only-redo
-             undo-fu-only-redo-all
-             undo-fu-disable-checkpoint)
   :config
   ;; Increase undo history limits to reduce likelihood of data loss
   (setq undo-limit 256000           ; 256kb (default is 160kb)
@@ -736,13 +721,12 @@
 
 (use-package undo-fu-session
   :ensure t
-  :commands undo-fu-session-global-mode
-  :hook (elpaca-after-init . undo-fu-session-global-mode)
   :config
   (when (executable-find "zstd")
     ;; There are other algorithms available, but zstd is the fastest, and speed
     ;; is our priority within Emacs
     (setq undo-fu-session-compression 'zst))
+  (undo-fu-session-global-mode 1)
   )
 
 (use-package vundo
@@ -892,13 +876,13 @@
 
 (use-package which-key
   :defer t
-  :commands which-key-mode
-  :hook (elpaca-after-init . which-key-mode)
   :custom
   (which-key-idle-delay 0.5)
   (which-key-idle-secondary-delay 0.25)
   (which-key-add-column-padding 1)
-  (which-key-max-description-length 40))
+  (which-key-max-description-length 40)
+  :config
+  (which-key-mode 1))
 
 
 (use-package uniquify
@@ -939,8 +923,7 @@
 
 (use-package solaire-mode
   :ensure t
-  :defer t
-  :hook (elpaca-after-init . solaire-global-mode)
+  :config (solaire-global-mode 1)
   )
 
 (use-package catppuccin-theme
@@ -1110,7 +1093,6 @@
 (use-package ligature
   :ensure t
   :defer t
-  :hook (elpaca-after-init . global-ligature-mode)
   :config
   ;; Enable all Iosevka ligatures in programming modes
   (ligature-set-ligatures 'prog-mode '("<---" "<--"  "<<-" "<-" "->" "-->" "--->" "<->" "<-->" "<--->" "<---->" "<!--"
@@ -1119,13 +1101,14 @@
                                        ":=" ":-" ":+" "<*" "<*>" "*>" "<|" "<|>" "|>" "+:" "-:" "=:" "<******>" "++" "+++"))
   ;; Enables ligature checks globally in all buffers. You can also do it
   ;; per mode with `ligature-mode'.
+  (global-ligature-mode 1)
   )
 
 (use-package diff-hl
   :ensure t
   :defer t
   :hook
-  ((elpaca-after-init . global-diff-hl-mode)
+  ((dired-mode. diff-hl-dired-mode)
    (magit-post-refresh . diff-hl-magit-post-refresh)
    (diff-hl . diff-hl-flydiff-mode)
    )
@@ -1137,6 +1120,7 @@
 
   ;; UX: get realtime feedback in diffs after staging/unstaging hunks.
   (setq diff-hl-show-staged-changes nil)
+  (global-diff-hl-mode 1)
   )
 
 (use-package info-colors
@@ -1238,10 +1222,10 @@
 
 (use-package yasnippet
   :ensure t
-  :defer t
-  :hook (elpaca-after-init . yas-global-mode)
   :config
-  (setq yas-triggers-in-field t))
+  (setq yas-triggers-in-field t)
+  (yas-global-mode 1)
+  )
 
 (use-package auto-yasnippet
   :ensure t
@@ -1490,24 +1474,21 @@
 (use-package outline-indent
   :ensure t
   :defer t
-  :commands outline-indent-minor-mode
-
-  :hook
-  (elpaca-after-init . outline-indent-minor-mode)
   :config
   (setq outline-indent-default-offset 4)
   (setq outline-indent-shift-width 4)
+  (outline-minor-mode 1)
   :custom
   (outline-indent-ellipsis " ▼ "))
 
 (use-package elec-pair
   :ensure nil
-  :hook (elpaca-after-init . electric-pair-mode)
   :config
   ;; Disable auto-pairing for backticks to prevent markdown/org annoyances
   (defun my-inhibit-electric-pair-backtick (char)
     (if (char-equal char ?\`) t (electric-pair-default-inhibit char)))
-  (setq electric-pair-inhibit-predicate #'my-inhibit-electric-pair-backtick))
+  (setq electric-pair-inhibit-predicate #'my-inhibit-electric-pair-backtick)
+  (electric-pair-mode 1))
 
 ;; The stripspace Emacs package provides stripspace-local-mode, a minor mode
 ;; that automatically removes trailing whitespace and blank lines at the end of
@@ -1538,10 +1519,8 @@
 (use-package apheleia
   :ensure t
   :defer t
-  :commands (apheleia-mode
-             apheleia-global-mode)
-  :hook
-  (elpaca-after-init . apheleia-global-mode))
+  :config
+  ( apheleia-global-mode 1))
 
 (use-package project
   :ensure nil
@@ -1673,13 +1652,12 @@
   :init
   (setq scroll-conservatively 101 ; important!
         scroll-margin 0)
-  :hook
-  (elpaca-after-init . ultra-scroll-mode)
   :config
   (add-hook 'ultra-scroll-hide-functions #'hl-todo-mode)
   (add-hook 'ultra-scroll-hide-functions #'diff-hl-flydiff-mode)
   (add-hook 'ultra-scroll-hide-functions #'jit-lock-mode)
-  (add-hook 'ultra-scroll-hide-functions #'good-scroll-mode))
+  (add-hook 'ultra-scroll-hide-functions #'good-scroll-mode)
+  (ultra-scroll-mode 1))
 
 (defun efs/display-startup-time ()
   (message
@@ -1782,8 +1760,8 @@
 
 (use-package treesit-fold
   :ensure (treesit-fold :type git :host github :repo "emacs-tree-sitter/treesit-fold")
-  :hook
-  (elpaca-after-init . global-treesit-fold-mode)
+  :config
+  (global-treesit-fold-mode 1)
   :defer t)
 
 (use-package citar
@@ -2028,12 +2006,12 @@
 
 (use-package breadcrumb
   :ensure t
-  :hook (elpaca-after-init . breadcrumb-mode)
+  :config (breadcrumb-mode 1)
   )
 
 (use-package so-long
   :ensure nil
-  :hook (elpaca-after-init . global-so-long-mode))
+  :config (global-so-long-mode 1))
 
 (use-package easysession
   ;; ':demand t' ensures the package is loaded immediately upon startup
