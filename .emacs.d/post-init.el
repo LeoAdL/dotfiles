@@ -1,31 +1,6 @@
 ;;; post-init.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
 ;; Ensure Emacs loads the most recent byte-compiled files.
-(setq load-prefer-newer t)
-
-(use-package compile-angel
-  :ensure t
-  :demand t
-  :config
-  ;; Set `compile-angel-verbose' to nil to disable compile-angel messages.
-  ;; (When set to nil, compile-angel won't show which file is being compiled.)
-  (setq compile-angel-verbose t)
-
-  ;; Uncomment the line below to compile automatically when an Elisp file is saved
-  ;; (add-hook 'emacs-lisp-mode-hook #'compile-angel-on-save-local-mode)
-
-  ;; The following directive prevents compile-angel from compiling your init
-  ;; files. If you choose to remove this push to `compile-angel-excluded-path-suffixes'
-  ;; and compile your pre/post-init files, ensure you understand the
-  ;; implications and thoroughly test your code. For example, if you're using
-  ;; the `use-package' macro, you'll need to explicitly add:
-  ;; (eval-when-compile (require 'use-package))
-  ;; at the top of your init file.
-  (push "/init.el" compile-angel-excluded-path-suffixes)
-  (push "/early-init.el" compile-angel-excluded-path-suffixes)
-
-  ;; A global mode that compiles .el files when they are loaded
-  ;; using `load' or `require'.
-  (compile-angel-on-load-mode 1))
+(setopt load-prefer-newer t)
 
 (use-package exec-path-from-shell
   :if (and (or (display-graphic-p) (daemonp))
@@ -46,12 +21,12 @@
   ;; Initialize
   (exec-path-from-shell-initialize))
 
-(setq mac-command-modifier 'meta
+(setopt mac-command-modifier 'meta
       mac-option-modifier 'none)
 
 ;; Use spotlight search backend as a default for M-x locate (and helm/ivy
 ;; variants thereof), since it requires no additional setup.
-(setq locate-command "mdfind")
+(setopt locate-command "mdfind")
 
 ;;
 ;;; Compatibilty fixes
@@ -59,7 +34,7 @@
 ;; Sane trackpad/mouse scroll settings. Also disables smooth scrolling because
 ;; it's disturbingly clunky and slow without something like
 ;; jdtsmith/ultra-scroll-mac.
-(setq mac-redisplay-dont-reset-vscroll t)
+(setopt mac-redisplay-dont-reset-vscroll t)
 
 ;; Sets `ns-transparent-titlebar' and `ns-appearance' frame parameters so window
 ;; borders will match the enabled theme.
@@ -70,7 +45,7 @@
 
 ;; Delete files to trash on macOS, as an extra layer of precaution against
 ;; accidentally deleting wanted files.
-(setq delete-by-moving-to-trash (not noninteractive))
+(setopt delete-by-moving-to-trash (not noninteractive))
 
 
 (defun my-after-frame (frame)
@@ -84,7 +59,7 @@
 (mapc 'my-after-frame (frame-list))
 (add-hook 'after-make-frame-functions 'my-after-frame)
 
-;; (setq use-package-compute-statistics t)
+;; (setopt use-package-compute-statistics t)
 
 ;; Auto-revert in Emacs is a feature that automatically updates the
 ;; contents of a buffer to reflect changes made to the underlying file
@@ -92,11 +67,11 @@
 (use-package autorevert
   :ensure nil
   :init
-  ;; (setq auto-revert-verbose t)
-  (setq auto-revert-interval 3)
-  (setq auto-revert-remote-files nil)
-  (setq auto-revert-use-notify t)
-  (setq auto-revert-avoid-polling t)
+  ;; (setopt auto-revert-verbose t)
+  (setopt auto-revert-interval 3)
+  (setopt auto-revert-remote-files nil)
+  (setopt auto-revert-use-notify t)
+  (setopt auto-revert-avoid-polling t)
   (global-auto-revert-mode 1)
   )
 
@@ -107,8 +82,8 @@
 (use-package recentf
   :ensure nil
   :init
-  (setq recentf-auto-cleanup (if (daemonp) 300 'never))
-  (setq recentf-exclude
+  (setopt recentf-auto-cleanup (if (daemonp) 300 'never))
+  (setopt recentf-exclude
         (list "\\.tar$" "\\.tbz2$" "\\.tbz$" "\\.tgz$" "\\.bz2$"
               "\\.bz$" "\\.gz$" "\\.gzip$" "\\.xz$" "\\.zip$"
               "\\.7z$" "\\.rar$"
@@ -146,7 +121,7 @@
 (use-package saveplace
   :ensure nil
   :config
-  (setq save-place-limit 400)
+  (setopt save-place-limit 400)
   (save-place-mode 1))
 
 ;; Idle garbage collection
@@ -238,30 +213,30 @@
                     "p u" #'org-priority-up
                     )
   :init
-  (setq org-fold-core-style 'text-properties)
+  (setopt org-fold-core-style 'text-properties)
   :config
-  (setq org-directory "~/org/")
-  (setq org-hide-emphasis-markers t)
-  (setq org-use-sub-superscripts '{})
-  (setq org-export-with-sub-superscripts t)
-  (setq org-preview-latex-image-directory "~/.cache/ltximg/")
+  (setopt org-directory "~/org/")
+  (setopt org-hide-emphasis-markers t)
+  (setopt org-use-sub-superscripts '{})
+  (setopt org-export-with-sub-superscripts t)
+  (setopt org-preview-latex-image-directory "~/.cache/ltximg/")
   ;; ORG LATEX PREVIEW
-  (setq org-startup-with-latex-preview nil)
-  (setq org-preview-latex-default-process 'dvisvgm)
-  (setq org-format-latex-options
+  (setopt org-startup-with-latex-preview nil)
+  (setopt org-preview-latex-default-process 'dvisvgm)
+  (setopt org-format-latex-options
         (plist-put org-format-latex-options :background "Transparent"))
-  (setq org-format-latex-options
+  (setopt org-format-latex-options
         (plist-put org-format-latex-options :scale 1.5))
   (setq
    org-agenda-files (list org-directory)                  ; Seems like the obvious place.
    org-log-done 'time                                     ; Having the time a item is done sounds convenient.
    org-list-allow-alphabetical t                          ; Have a. A. a) A) list bullets.
    )
-  (setq org-log-into-drawer t)
-  (setq org-list-demote-modify-bullet
+  (setopt org-log-into-drawer t)
+  (setopt org-list-demote-modify-bullet
         '(("+" . "-") ("-" . "+") ("*" . "+")))
-  (setq org-log-state-notes-into-drawer t)
-  (setq org-babel-default-header-args
+  (setopt org-log-state-notes-into-drawer t)
+  (setopt org-babel-default-header-args
         '((:session . "none")
           (:results . "replace")
           (:exports . "code")
@@ -272,7 +247,7 @@
           (:comments . "link")))
 
 
-  (setq org-agenda-skip-scheduled-if-done t
+  (setopt org-agenda-skip-scheduled-if-done t
         org-agenda-skip-deadline-if-done t
         org-agenda-include-deadlines t
         org-agenda-block-separator nil
@@ -284,7 +259,7 @@
           " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
         org-agenda-current-time-string
         "◀── now ─────────────────────────────────────────────────")
-  (setq org-src-fontify-natively t
+  (setopt org-src-fontify-natively t
         org-auto-align-tags nil
         org-tags-column 0
         org-fontify-whole-heading-line t
@@ -303,8 +278,8 @@
         org-priority-lowest ?E
         org-todo-keywords '((sequence "TODO(t)" "DOING" "DONE"))
         org-todo-keywords-for-agenda '((sequence "TODO" "DOING" "DONE")))
-  (setq org-highlight-latex-and-related '(native script entities))
-  (setq org-capture-templates
+  (setopt org-highlight-latex-and-related '(native script entities))
+  (setopt org-capture-templates
         '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
            "* TODO [#B] %?\n:Created: %T\n")
           ("j" "Journal" entry (file+olp+datetree "~/org/journal.org")
@@ -333,34 +308,11 @@
           ))
   )
 
-;; (use-package vterm
-;;   :ensure t
-;;   :defer t
-;;   :commands (vterm
-;;              vterm-send-string
-;;              vterm-send-return
-;;              vterm-send-key
-;;              vterm-module-compile)
-;;   :config
-;;   ;; Speed up vterm
-;;   (setq vterm-kill-buffer-on-exit t)
-;;
-;;   (setq vterm-timer-delay 0.05)
-;;   ;; 5000 lines of scrollback, instead of 1000
-;;   (setq vterm-max-scrollback 5000))
-;;
-;; (use-package multi-vterm
-;;   :ensure t
-;;   :defer t
-;;   :after vterm
-;;   :config
-;;   (setq vterm-keymap-exceptions '("M-x"))
-;;   (evil-define-key 'normal vterm-mode-map (kbd ",c")       #'multi-vterm)
-;;   (evil-define-key 'normal vterm-mode-map (kbd ",n")       #'multi-vterm-next)
-;;   (evil-define-key 'normal vterm-mode-map (kbd ",p")       #'multi-vterm-prev))
 (use-package ghostel
   :ensure t
   :defer t
+  :config
+  (setopt ghostel-tramp-shell-integration t)
   :general (
             :prefix ","
             :states 'normal
@@ -378,10 +330,9 @@
 (use-package vertico
   ;; (Note: It is recommended to also enable the savehist package.)
   :ensure t
-  :defer t
   :commands vertico-mode
   :config
-  (setq vertico-cycle t)
+  (setopt vertico-cycle t)
   (vertico-multiform-mode)
   :init
   (vertico-mode)
@@ -419,7 +370,6 @@
 
 (use-package nerd-icons-completion
   :after marginalia
-  :defer t
   :ensure t
   :init
   (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup)
@@ -459,7 +409,7 @@
              embark-bindings
              embark-prefix-help-command)
   :init
-  (setq prefix-help-command #'embark-prefix-help-command)
+  (setopt prefix-help-command #'embark-prefix-help-command)
   :bind
   (("C-." . embark-act)         ;; pick some comfortable binding
    ("C-;" . embark-dwim)        ;; good alternative: M-.
@@ -538,11 +488,11 @@
   ;; `consult-register-store' and the built-in commands.  This improves the
   ;; register formatting, adds thin separator lines, register sorting and hides
   ;; the window mode line.
-  (setq register-preview-delay 0.5)
+  (setopt register-preview-delay 0.5)
   (advice-add #'register-preview :override #'consult-register-window)
 
   ;; Use Consult to select xref locations with preview
-  (setq xref-show-xrefs-function #'consult-xref
+  (setopt xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
 
   :config
@@ -554,8 +504,8 @@
    consult-source-recent-file consult-source-project-recent-file
    ;; :preview-key "M-."
    :preview-key '(:debounce 0.4 any))
-  (setq consult-narrow-key "<")
-  (setq consult-async-min-input 2
+  (setopt consult-narrow-key "<")
+  (setopt consult-async-min-input 2
         consult-async-refresh-delay  0.15
         consult-async-input-throttle 0.2
         consult-async-input-debounce 0.1
@@ -580,15 +530,15 @@
   :defer t
   :hook (elpaca-after-init . evil-mode)
   :init
-  (setq evil-want-integration t)
-  (setq evil-want-keybinding nil)
-  (setq evil-want-C-u-scroll t)
-  (setq evil-want-fine-undo t)
-  (setq evil-undo-system 'undo-fu)
-  (setq evil-search-wrap t)
+  (setopt evil-want-integration t)
+  (setopt evil-want-keybinding nil)
+  (setopt evil-want-C-u-scroll t)
+  (setopt evil-want-fine-undo t)
+  (setopt evil-undo-system 'undo-fu)
+  (setopt evil-search-wrap t)
   :config
   (evil-select-search-module 'evil-search-module 'evil-search)
-  (setq evil-ex-search-vim-style-regexp t
+  (setopt evil-ex-search-vim-style-regexp t
         evil-ex-visual-char-range t  ; column range for ex commands
         evil-symbol-word-search t
         ;; if the current state is obvious from the cursor's color/shape, then
@@ -604,7 +554,7 @@
         ;; errors will abort macros, so suppress them:
         evil-kbd-macro-suppress-motion-error t
         )
-  (setq evil-visual-update-x-selection-p nil)
+  (setopt evil-visual-update-x-selection-p nil)
   :custom
   ;; Make :s in visual mode operate only on the actual visual selection
   ;; (character or block), instead of the full lines covered by the selection
@@ -658,14 +608,6 @@
     (require 'evil-anzu))
   )
 
-(use-package vimish-fold
-  :ensure t
-  :defer t)
-
-(use-package evil-vimish-fold
-  :ensure t
-  :hook ((prog-mode conf-mode text-mode) . evil-vimish-fold-mode))
-
 (use-package kirigami
   :ensure t
   :commands (kirigami-open-fold
@@ -693,21 +635,11 @@
   (define-key evil-normal-state-map "zr" 'kirigami-open-folds)
   (define-key evil-normal-state-map "zm" 'kirigami-close-folds))
 
-(use-package ibuffer-vc
-  :ensure t
-  :defer t
-  )
-
-(use-package nerd-icons-ibuffer
-  :ensure t
-  :defer t
-  :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
-
 (use-package undo-fu
   :ensure t
   :config
   ;; Increase undo history limits to reduce likelihood of data loss
-  (setq undo-limit 256000           ; 256kb (default is 160kb)
+  (setopt undo-limit 256000           ; 256kb (default is 160kb)
         undo-strong-limit 2000000   ; 2mb   (default is 240kb)
         undo-outer-limit 36000000)  ; 36mb  (default is 24mb)
   (global-unset-key (kbd "C-z"))
@@ -720,7 +652,7 @@
   (when (executable-find "zstd")
     ;; There are other algorithms available, but zstd is the fastest, and speed
     ;; is our priority within Emacs
-    (setq undo-fu-session-compression 'zst))
+    (setopt undo-fu-session-compression 'zst))
   (undo-fu-session-global-mode 1)
   )
 
@@ -732,7 +664,7 @@
             :states 'normal
             "s u" #'vundo)
   :config
-  (setq vundo-glyph-alist vundo-unicode-symbols
+  (setopt vundo-glyph-alist vundo-unicode-symbols
         vundo-compact-display t)
   )
 
@@ -793,18 +725,18 @@
         ([backtab] . corfu-previous))
 
   :init
-  (setq corfu-auto-prefix 2)
-  (setq corfu-auto-delay 0.1)
-  (setq corfu-quit-no-match t)
-  (setq corfu-auto t)
-  (setq corfu-preselect 'prompt)
+  (setopt corfu-auto-prefix 2)
+  (setopt corfu-auto-delay 0.1)
+  (setopt corfu-quit-no-match t)
+  (setopt corfu-auto t)
+  (setopt corfu-preselect 'prompt)
   (global-corfu-mode)
   (add-to-list 'savehist-additional-variables 'corfu-history)
   (corfu-history-mode)
-  (setq corfu-popupinfo-delay '(0.5 . 1.0))
+  (setopt corfu-popupinfo-delay '(0.5 . 1.0))
   (corfu-popupinfo-mode)
   (with-eval-after-load 'eglot
-    (setq completion-category-defaults nil))
+    (setopt completion-category-defaults nil))
 
   )
 
@@ -815,18 +747,16 @@
 
 (use-package cape-keyword
   :ensure (cape-keyword :type git :host github :repo "minad/cape")
-  :defer t
   )
 
 (use-package cape
   :ensure t
-  :defer t
   ;; Ensure all functions used globally or in hooks are listed here
   ;; so Emacs knows to load Cape when they are called.
   :commands (cape-history cape-dabbrev cape-file cape-keyword cape-capf-super cape-wrap-buster)
   :bind ("C-c p" . cape-prefix-map)
 
-  ;; Use :custom instead of (setq ...) inside :config
+  ;; Use :custom instead of (setopt ...) inside :config
   :custom
   (cape-dabbrev-min-length 2)
 
@@ -849,11 +779,18 @@
       (setq-local completion-at-point-functions
                   (list (cape-capf-super
                          #'eglot-completion-at-point
+                         #'yasnippet-capf     ;; <-- Now merging files!
                          #'cape-dabbrev  ;; <-- Now merging words!
                          #'cape-file     ;; <-- Now merging files!
                          ))))
 
     (add-hook 'eglot-managed-mode-hook #'my/eglot-capf)))
+
+(use-package yasnippet-capf
+  :ensure t
+  :after cape
+  :config
+  (add-to-list 'completion-at-point-functions #'yasnippet-capf))
 
 (use-package nerd-icons-corfu
   :ensure t
@@ -864,13 +801,12 @@
   )
 
 ;; Hide warnings and display only errors
-(setq warning-minimum-level :error)
+(setopt warning-minimum-level :error)
 
 ;; Display of line numbers in the buffer:
 ;; (display-line-numbers-mode 1)
 
 (use-package which-key
-  :defer t
   :custom
   (which-key-idle-delay 0.5)
   (which-key-idle-secondary-delay 0.25)
@@ -891,28 +827,27 @@
 
 (use-package doom-modeline
   :ensure t
-  :defer t
   :hook ((elpaca-after-init . doom-modeline-mode)
          (doom-modeline-mode . size-indication-mode) ; filesize in modeline
          (doom-modeline-mode . column-number-mode))   ; cursor column in modeline
   :config
-  (setq doom-modeline-hud t)
-  (setq doom-modeline-buffer-encoding nil)
-  (setq doom-modeline-unicode-fallback t)
-  (setq doom-modeline-time-analogue-clock nil)
-  (setq find-file-visit-truename t)
-  ;; (setq nerd-icons-scale-factor 1)
-  ;; (setq doom-modeline-height 1) ; optional
-  (setq doom-modeline-project-detection 'project)
-  (setq mode-line-right-align-edge 'right-fringe)
+  (setopt doom-modeline-hud t)
+  (setopt doom-modeline-buffer-encoding nil)
+  (setopt doom-modeline-unicode-fallback t)
+  (setopt doom-modeline-time-analogue-clock nil)
+  (setopt find-file-visit-truename t)
+  ;; (setopt nerd-icons-scale-factor 1)
+  ;; (setopt doom-modeline-height 1) ; optional
+  (setopt doom-modeline-project-detection 'project)
+  (setopt mode-line-right-align-edge 'right-fringe)
   )
 
 (use-package doom-themes
   :ensure t
   :config
-  (setq doom-themes-enable-bold t)
-  (setq doom-themes-enable-italic t)
-  (setq doom-themes-padded-modeline t)
+  (setopt doom-themes-enable-bold t)
+  (setopt doom-themes-enable-italic t)
+  (setopt doom-themes-padded-modeline t)
   (doom-themes-visual-bell-config)
   )
 
@@ -924,23 +859,23 @@
 (use-package catppuccin-theme
   :ensure t
   :config
-  (setq catppuccin-enlarge-headings nil)
+  (setopt catppuccin-enlarge-headings nil)
   ;; Adjust font size of titles level 1 (default 1.3)
-  (setq catppuccin-height-title-1 1.25)
+  (setopt catppuccin-height-title-1 1.25)
   ;; Adjust font size of titles level 2 (default 1.1)
-  (setq catppuccin-height-title-2 1.15)
+  (setopt catppuccin-height-title-2 1.15)
   ;; Adjust font size of titles level 3 (default 1.0)
-  (setq catppuccin-height-title-3 1.05)
+  (setopt catppuccin-height-title-3 1.05)
   ;; Adjust font size of document titles (default 1.44)
-  (setq catppuccin-height-doc-title 1.4)
+  (setopt catppuccin-height-doc-title 1.4)
   ;; Use background color to make highlighted matches more visible. (default nil)
-  (setq catppuccin-highlight-matches t)
+  (setopt catppuccin-highlight-matches t)
   ;; Use :slant italic for comments. (default nil)
-  (setq catppuccin-italic-comments t)
+  (setopt catppuccin-italic-comments t)
   ;; Use :slant italic for blockquotes in markdown and org. (default nil)
-  (setq catppuccin-italic-blockquotes t)
-  (setq catppuccin-highlight-matches t)
-  (setq catppuccin-flavor 'mocha)
+  (setopt catppuccin-italic-blockquotes t)
+  (setopt catppuccin-highlight-matches t)
+  (setopt catppuccin-flavor 'mocha)
   (let ((inhibit-redisplay t))
     ;; Disable all active themes
     (mapc #'disable-theme custom-enabled-themes)
@@ -952,7 +887,6 @@
 
 (use-package diredfl
   :ensure t
-  :defer t
   :hook
   ((dired-mode . diredfl-mode)
    ;; highlight parent and directory preview as well
@@ -962,7 +896,6 @@
 
 (use-package tramp
   :ensure nil
-  :defer t
   :config
   ;; Enable full-featured Dirvish over TRAMP on ssh connections
   ;; https://www.gnu.org/software/tramp/#Improving-performance-of-asynchronous-remote-processes
@@ -973,14 +906,13 @@
    '(:application tramp :protocol "ssh")
    'remote-direct-async-process)
   ;; Tips to speed up connections
-  (setq tramp-verbose 0)
-  (setq tramp-chunksize 2000)
-  (setq tramp-ssh-controlmaster-options nil))
+  (setopt tramp-verbose 0)
+  (setopt tramp-chunksize 2000)
+  (setopt tramp-ssh-controlmaster-options nil))
 
 (use-package dirvish
   :ensure t
   :after evil
-  :defer t
   :init
   (dirvish-override-dired-mode)
   :hook (dired-mode . diff-hl-dired-mode)
@@ -1014,11 +946,11 @@
   :config
   (evil-make-overriding-map dirvish-mode-map 'normal)
   (when (string= system-type "darwin")
-    (setq insert-directory-program "gls")
-    (setq dired-listing-switches "-aBhl --group-directories-first")
+    (setopt insert-directory-program "gls")
+    (setopt dired-listing-switches "-aBhl --group-directories-first")
     )
-  (setq dirvish-attributes'(vc-state subtree-state nerd-icons git-msg file-time file-size))
-  (setq dirvish-default-layout '(0 0.4 0.6))
+  (setopt dirvish-attributes'(vc-state subtree-state nerd-icons git-msg file-time file-size))
+  (setopt dirvish-default-layout '(0 0.4 0.6))
   (general-define-key
    :prefix "SPC"
    :keymaps 'override
@@ -1032,7 +964,7 @@
   :defer t
   :hook (prog-mode . hl-todo-mode)
   :config
-  (setq hl-todo-highlight-punctuation ":"
+  (setopt hl-todo-highlight-punctuation ":"
         hl-todo-keyword-faces
         '(;; For reminders to change or add something at a later date.
           ("TODO" warning bold)
@@ -1087,7 +1019,6 @@
 
 (use-package ligature
   :ensure t
-  :defer t
   :config
   ;; Enable all Iosevka ligatures in programming modes
   (ligature-set-ligatures 'prog-mode '("<---" "<--"  "<<-" "<-" "->" "-->" "--->" "<->" "<-->" "<--->" "<---->" "<!--"
@@ -1108,13 +1039,13 @@
    (diff-hl . diff-hl-flydiff-mode)
    )
   :config
-  (setq diff-hl-global-modes '(not image-mode pdf-view-mode))
-  (setq diff-hl-update-async t)
-  (setq vc-git-diff-switches '("--histogram"))
-  (setq diff-hl-flydiff-delay 0.4)  ; default: 0.3
+  (setopt diff-hl-global-modes '(not image-mode pdf-view-mode))
+  (setopt diff-hl-update-async t)
+  (setopt vc-git-diff-switches '("--histogram"))
+  (setopt diff-hl-flydiff-delay 0.4)  ; default: 0.3
 
   ;; UX: get realtime feedback in diffs after staging/unstaging hunks.
-  (setq diff-hl-show-staged-changes nil)
+  (setopt diff-hl-show-staged-changes nil)
   (global-diff-hl-mode 1)
   )
 
@@ -1132,8 +1063,8 @@
   :defer t
   :after transient
   :config
-  (setq magit-format-file-function #'magit-format-file-nerd-icons)
-  (setq transient-default-level 5
+  (setopt magit-format-file-function #'magit-format-file-nerd-icons)
+  (setopt transient-default-level 5
         magit-diff-refine-hunk t ; show granular diffs in selected hunk
         ;; Don't autosave repo buffers. This is too magical, and saving can
         ;; trigger a bunch of unwanted side-effects, like save hooks and
@@ -1148,14 +1079,14 @@
 ;;   :ensure t
 ;;   :after magit
 ;;   :config
-;;   (setq magit-todos-mode 1)
+;;   (setopt magit-todos-mode 1)
 ;;   )
 
 (use-package git-timemachine
   :defer t
   :ensure (git-timemachine :type git :host codeberg :repo "pidu/git-timemachine")
   :config
-  (setq git-timemachine-show-minibuffer-details t)
+  (setopt git-timemachine-show-minibuffer-details t)
   )
 
 (use-package flymake-popon
@@ -1168,7 +1099,7 @@
 ;;   :defer t
 ;;   :after flymake
 ;;   :init
-;;   (setq flymake-vale-program-args "--config=$HOME/.config/vale/.vale.ini")
+;;   (setopt flymake-vale-program-args "--config=$HOME/.config/vale/.vale.ini")
 ;;   (add-hook 'text-mode-hook #'flymake-vale-load)
 ;;   (add-hook 'mu4e-compose-mode-hook #'flymake-vale-load)
 ;;   (add-hook 'latex-mode-hook #'flymake-vale-load)
@@ -1181,7 +1112,7 @@
   :ensure t
   :hook (elpaca-after-init . gcmh-mode)
   :config
-  (setq gcmh-idle-delay 'auto  ; default is 15s
+  (setopt gcmh-idle-delay 'auto  ; default is 15s
         gcmh-auto-idle-delay-factor 10
         gcmh-high-cons-threshold (* 64 1024 1024))) ; 64mb
 
@@ -1218,13 +1149,13 @@
 (use-package yasnippet
   :ensure t
   :config
-  (setq yas-triggers-in-field t)
+  (setopt yas-triggers-in-field t)
   (yas-global-mode 1)
   )
 
 (use-package auto-yasnippet
-  :ensure t
-  :defer t)
+  :after yasnippet
+  :ensure t)
 
 (use-package doom-snippets
   :after yasnippet
@@ -1248,7 +1179,6 @@
 
 (use-package evil-org
   :after org
-  :defer t
   :ensure (evil-org :type git :host github :repo "doomelpa/evil-org-mode")
   :hook (org-mode . evil-org-mode)
   :config
@@ -1258,7 +1188,6 @@
 
 (use-package evil-org-agenda
   :after org-agenda
-  :defer t
   :ensure nil
   :hook (org-agenda-mode . evil-org-agenda-mode)
   :config
@@ -1273,7 +1202,7 @@
   :ensure t
   :defer t
   :init
-  (setq jupyter-use-zmq t
+  (setopt jupyter-use-zmq t
         jupyter-repl-completion-at-point-hook-depth 2
         jupyter-eval-use-overlays nil
         jupyter-eval-short-result-max-lines 0
@@ -1293,9 +1222,9 @@
     :after org
     :commands mu4e mu4e-compose-new
     :config
-    (setq mail-user-agent 'mu4e-user-agent
+    (setopt mail-user-agent 'mu4e-user-agent
           message-mail-user-agent 'mu4e-user-agent)
-    (setq sendmail-program (executable-find "msmtp")
+    (setopt sendmail-program (executable-find "msmtp")
           send-mail-function #'smtpmail-send-it
           message-sendmail-f-is-evil t
           message-sendmail-extra-arguments '("--read-envelope-from")
@@ -1352,9 +1281,9 @@
                         (mu4e-refile-folder     . "/Archives")
                         (smtpmail-smtp-user     . "leoaparisi@gmail.com")
                         ( user-full-name	    . "Leo Aparisi de Lannoy" )))))
-    ;; (setq mu4e-thread-mode t)
+    ;; (setopt mu4e-thread-mode t)
     ;; (add-hook 'completion-at-point-functions #'mu4e-complete-contact)
-    (setq gnus-icalendar-org-capture-file "~/org/notes.org"
+    (setopt gnus-icalendar-org-capture-file "~/org/notes.org"
           gnus-icalendar-org-capture-headline '("Calendar"))
     )
 
@@ -1363,7 +1292,7 @@
     :defer t
     :after (mu4e org)
     :config
-    (setq org-mime-export-options '(:with-latex mathjax))
+    (setopt org-mime-export-options '(:with-latex mathjax))
     )
   )
 
@@ -1386,7 +1315,7 @@
   :hook ((org-agenda-finalize . org-modern-agenda)
          (org-mode . global-org-modern-mode))
   :config
-  (setq org-modern-star 'replace
+  (setopt org-modern-star 'replace
         org-modern-hide-stars nil
         org-modern-table-vertical 1
         org-modern-table-horizontal 0.2
@@ -1411,7 +1340,7 @@
   :after org
   :hook (org-mode . org-appear-mode)
   :config
-  (setq org-appear-autoemphasis t
+  (setopt org-appear-autoemphasis t
         org-appear-autolinks t
         org-appear-autokeywords t
         org-appear-autoentities t
@@ -1432,10 +1361,9 @@
 
 (use-package vlf
   :ensure t
-  :defer t
   :config
   (require 'vlf-setup)
-  (setq vlf-application "ask"))
+  (setopt vlf-application "ask"))
 
 (use-package csv-mode
   :defer t
@@ -1449,7 +1377,7 @@
   :defer t
   :config
   ;; Extra face(s) to ignore
-  (setq jinx-languages "en-us")
+  (setopt jinx-languages "en-us")
   (push 'org-inline-src-block
         (alist-get 'org-mode jinx-exclude-faces))
   ;; Take over the relevant bindings.
@@ -1468,10 +1396,9 @@
 
 (use-package outline-indent
   :ensure t
-  :defer t
   :config
-  (setq outline-indent-default-offset 4)
-  (setq outline-indent-shift-width 4)
+  (setopt outline-indent-default-offset 4)
+  (setopt outline-indent-shift-width 4)
   (outline-minor-mode 1)
   :custom
   (outline-indent-ellipsis " ▼ "))
@@ -1482,7 +1409,7 @@
   ;; Disable auto-pairing for backticks to prevent markdown/org annoyances
   (defun my-inhibit-electric-pair-backtick (char)
     (if (char-equal char ?\`) t (electric-pair-default-inhibit char)))
-  (setq electric-pair-inhibit-predicate #'my-inhibit-electric-pair-backtick)
+  (setopt electric-pair-inhibit-predicate #'my-inhibit-electric-pair-backtick)
   (electric-pair-mode 1))
 
 ;; The stripspace Emacs package provides stripspace-local-mode, a minor mode
@@ -1513,13 +1440,11 @@
 
 (use-package apheleia
   :ensure t
-  :defer t
   :config
   ( apheleia-global-mode 1))
 
 (use-package project
   :ensure nil
-  :defer t
   :general (:prefix "SPC"
                     :keymaps 'override
                     :states 'normal
@@ -1614,14 +1539,14 @@
   ;; active completion framework (e.g., Vertico, Ivy, Helm, Icomplete),
   ;; providing a consistent minibuffer-based interface whenever multiple
   ;; definitions are found.
-  (setq dumb-jump-selector 'completing-read)
+  (setopt dumb-jump-selector 'completing-read)
 
   ;; If ripgrep is available, force `dumb-jump' to use it because it is
   ;; significantly faster and more accurate than the default searchers (grep,
   ;; ag, etc.).
   (when (executable-find "rg")
-    (setq dumb-jump-force-searcher 'rg)
-    (setq dumb-jump-prefer-searcher 'rg))
+    (setopt dumb-jump-force-searcher 'rg)
+    (setopt dumb-jump-prefer-searcher 'rg))
   )
 
 (use-package pdf-tools
@@ -1630,7 +1555,7 @@
   :ensure t
   :config
   (pdf-tools-install)
-  (setq pdf-view-display-size 'fit-page)
+  (setopt pdf-view-display-size 'fit-page)
   :general
   ([remap pdf-view-midnight-minor-mode] #'pdf-view-themed-minor-mode
    ))
@@ -1645,7 +1570,7 @@
   :ensure (ultra-scroll :type git :host github :repo "jdtsmith/ultra-scroll")
   :defer t
   :init
-  (setq scroll-conservatively 101 ; important!
+  (setopt scroll-conservatively 101 ; important!
         scroll-margin 0)
   :config
   (add-hook 'ultra-scroll-hide-functions #'hl-todo-mode)
@@ -1675,11 +1600,11 @@
   :autoload (empv--select-action)
   :config
   (with-eval-after-load 'embark (empv-embark-initialize-extra-actions))
-  (setq empv-allow-insecure-connections t)
-  (setq empv-youtube-use-tabulated-results t)
+  (setopt empv-allow-insecure-connections t)
+  (setopt empv-youtube-use-tabulated-results t)
   (add-to-list 'empv-mpv-args "--ytdl-format=bestvideo+bestaudio/best[ext=mp4]/best")
   (add-to-list 'empv-mpv-args "--save-position-on-quit")
-  (setq empv-reset-playback-speed-on-quit t)
+  (setopt empv-reset-playback-speed-on-quit t)
   (add-hook 'empv-init-hook #'empv-override-quit-key)
   )
 
@@ -1692,7 +1617,7 @@
   :hook (LaTeX-mode . reftex-mode)
   :config
   ;; http://tex.stackexchange.com/questions/31966/setting-up-reftex-with-biblatex-citation-commands/31992#31992.
-  (setq reftex-cite-format
+  (setopt reftex-cite-format
         '((?a . "\\autocite[]{%l}")
           (?b . "\\blockcquote[]{%l}{}")
           (?c . "\\cite[]{%l}")
@@ -1717,7 +1642,7 @@
          )
   :defer t
   :config
-  (setq TeX-parse-self t ; parse on load
+  (setopt TeX-parse-self t ; parse on load
         TeX-auto-save t  ; parse on save
         ;; Use hidden directories for AUCTeX files.
         TeX-auto-local ".auctex-auto"
@@ -1732,15 +1657,15 @@
         TeX-save-query nil
         TeX-show-compilation t
         TeX-command-extra-options "-shell-escape")
-  (setq TeX-fold-auto-reveal t)
+  (setopt TeX-fold-auto-reveal t)
   (setq-default TeX-engine 'xetex)
-  (setq TeX-view-program-selection '((output-pdf "PDF Tools")))
+  (setopt TeX-view-program-selection '((output-pdf "PDF Tools")))
   (setq-default preview-scale 1.6
                 preview-scale-function
                 (lambda () (* (/ 10.0 (preview-document-pt)) preview-scale)))
   ;; Don't cache preamble, it creates issues with SyncTeX. Let users enable
   ;; caching if they have compilation times that long.
-  (setq preview-auto-cache-preamble nil)
+  (setopt preview-auto-cache-preamble nil)
 
   ;; (require 'auctex-latexmk)
   ;; (auctex-latexmk-setup)
@@ -1756,8 +1681,7 @@
 (use-package treesit-fold
   :ensure (treesit-fold :type git :host github :repo "emacs-tree-sitter/treesit-fold")
   :config
-  (global-treesit-fold-mode 1)
-  :defer t)
+  (global-treesit-fold-mode 1))
 
 (use-package citar
   :ensure t
@@ -1781,7 +1705,7 @@
   ;; :config is where ALL executable code and logic goes
   :config
   ;; Inherit the bibliography path
-  (setq citar-bibliography org-cite-global-bibliography)
+  (setopt citar-bibliography org-cite-global-bibliography)
 
   (defvar citar-indicator-notes-icons
     (citar-indicator-create
@@ -1813,7 +1737,7 @@
      :padding "  "
      :tag "has:files"))
 
-  (setq citar-indicators
+  (setopt citar-indicators
         (list citar-indicator-files-icons
               citar-indicator-notes-icons
               citar-indicator-links-icons)))
@@ -1827,12 +1751,12 @@
   :ensure (oc-csl-activate :type git :host github :repo "andras-simonyi/org-cite-csl-activate")
   :after citar org
   :init
-  (setq org-cite-activate-processor 'csl-activate)
+  (setopt org-cite-activate-processor 'csl-activate)
   :config
   (require 'oc-csl-activate)
-  (setq org-cite-csl-activate-use-document-style t)
-  (setq org-cite-csl-activate-use-document-locale t)
-  (setq org-cite-csl-activate-use-citar-cache t)
+  (setopt org-cite-csl-activate-use-document-style t)
+  (setopt org-cite-csl-activate-use-document-locale t)
+  (setopt org-cite-csl-activate-use-citar-cache t)
   )
 
 (use-package org-noter
@@ -1844,8 +1768,8 @@
   (defvar org-noter-notes-search-path nil)
   :config
   (unless org-noter-notes-search-path
-    (setq org-noter-notes-search-path (list org-directory)))
-  (setq org-noter-auto-save-last-location t
+    (setopt org-noter-notes-search-path (list org-directory)))
+  (setopt org-noter-auto-save-last-location t
         org-noter-separate-notes-from-heading t))
 
 (use-package edraw-org
@@ -1869,7 +1793,7 @@
   :preface
   ;; By default dape shares the same keybinding prefix as `gud'
   ;; If you do not want to use any prefix, set it to nil.
-  ;; (setq dape-key-prefix "\C-x\C-a")
+  ;; (setopt dape-key-prefix "\C-x\C-a")
 
   :hook
   ;; Save breakpoints on quit
@@ -1885,17 +1809,17 @@
 
 
   ;; Info buffers to the right
-  (setq dape-buffer-window-arrangement 'right)
+  (setopt dape-buffer-window-arrangement 'right)
 
   ;; Info buffers like gud (gdb-mi)
-  ;; (setq dape-buffer-window-arrangement 'gud)
-  ;; (setq dape-info-hide-mode-line nil)
+  ;; (setopt dape-buffer-window-arrangement 'gud)
+  ;; (setopt dape-info-hide-mode-line nil)
 
   ;; Pulse source line (performance hit)
   ;; (add-hook 'dape-display-source-hook 'pulse-momentary-highlight-one-line)
 
   ;; Showing inlay hints
-  (setq dape-inlay-hints t)
+  (setopt dape-inlay-hints t)
 
   ;; Save buffers on startup, useful for interpreted languages
   (add-hook 'dape-start-hook (lambda () (save-some-buffers t t)))
@@ -1904,7 +1828,7 @@
   (add-hook 'dape-compile-hook 'kill-buffer)
 
   ;; Projectile users
-  ;; (setq dape-cwd-function 'projectile-project-root)
+  ;; (setopt dape-cwd-function 'projectile-project-root)
   )
 
 (use-package markdown-mode
@@ -1912,7 +1836,7 @@
   :defer t
   :mode ("/README\\(?:\\.md\\)?\\'" . gfm-mode)
   :init
-  (setq markdown-italic-underscore t
+  (setopt markdown-italic-underscore t
         markdown-asymmetric-header t
         markdown-gfm-additional-languages '("sh")
         markdown-make-gfm-checkboxes-buttons t
@@ -1951,7 +1875,7 @@
   :custom
   (helpful-max-buffers 7))
 
-(setq treesit-font-lock-level 4)
+(setopt treesit-font-lock-level 4)
 
 (use-package treesit-auto
   :ensure t
@@ -1962,22 +1886,22 @@
   )
 
 
-(setq user-full-name "Leo Aparisi de Lannoy")
-(setq auto-save-default t)
+(setopt user-full-name "Leo Aparisi de Lannoy")
+(setopt auto-save-default t)
 
-(setq auto-save-interval 300)
-(setq auto-save-timeout 10)
+(setopt auto-save-interval 300)
+(setopt auto-save-timeout 10)
 
-(setq imagemagick-render-type 1)
-(setq browse-url-chrome-program "brave")
-(setq display-line-numbers-type 'relative)
+(setopt imagemagick-render-type 1)
+(setopt browse-url-chrome-program "brave")
+(setopt display-line-numbers-type 'relative)
 (setq-default tab-width 4)
-(setq dired-vc-rename-file t)
-(setq xref-search-program 'ripgrep
+(setopt dired-vc-rename-file t)
+(setopt xref-search-program 'ripgrep
       )
 
 ;; Display the time in the modeline
-(setq display-time-mail-string "")
+(setopt display-time-mail-string "")
 (display-time-mode 1)
 (show-paren-mode 1)
 (winner-mode 1)
@@ -1985,9 +1909,9 @@
 (delete-selection-mode 1)
 (window-divider-mode 1)
 
-(setq confirm-kill-emacs 'y-or-n-p)
+(setopt confirm-kill-emacs 'y-or-n-p)
 
-(setq redisplay-skip-fontification-on-input t)
+(setopt redisplay-skip-fontification-on-input t)
 (add-hook 'dired-mode-hook #'dired-hide-details-mode)
 
 (use-package avy
@@ -2019,32 +1943,25 @@
   :config
   ;; Key mappings
   ;; Save every 10 minutes
-  (setq easysession-save-interval (* 10 60))
+  (setopt easysession-save-interval (* 10 60))
 
   ;; Save the current session when using `easysession-switch-to'
-  (setq easysession-switch-to-save-session t)
+  (setopt easysession-switch-to-save-session t)
 
   ;; Do not exclude the current session when switching sessions
-  (setq easysession-switch-to-exclude-current nil)
+  (setopt easysession-switch-to-exclude-current nil)
 
   ;; Display the active session name in the mode-line lighter.
-  ;; (setq easysession-save-mode-lighter-show-session-name t)
+  ;; (setopt easysession-save-mode-lighter-show-session-name t)
 
   ;; Optionally, the session name can be shown in the modeline info area:
-  ;; (setq easysession-mode-line-misc-info t)
+  ;; (setopt easysession-mode-line-misc-info t)
   ;; non-nil: Make `easysession-setup' load the session automatically.
   ;; (nil: session is not loaded automatically; the user can load it manually.)
-  (setq easysession-setup-load-session nil)
+  (setopt easysession-setup-load-session nil)
 
   ;; The `easysession-setup' function adds hooks:
   ;; - To enable automatic session loading during `emacs-startup-hook', or
   ;;   `server-after-make-frame-hook' when running in daemon mode.
   ;; - To save the session at regular intervals, and when Emacs exits.
   (easysession-setup))
-
-(use-package eglot-booster
-  :ensure (eglot-booster :type git :host github :repo "jdtsmith/eglot-booster")
-  :after eglot
-  :config
-  (setq eglot-booster-io-only t)
-  (eglot-booster-mode))
