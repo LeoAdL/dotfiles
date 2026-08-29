@@ -1851,15 +1851,6 @@
 
 (setopt treesit-font-lock-level 4)
 
-(use-package treesit-auto
-  :ensure t
-  :custom
-  (treesit-auto-install 'prompt)
-  :config
-  (treesit-auto-add-to-auto-mode-alist 'all)
-  )
-
-
 (setopt user-full-name "Leo Aparisi de Lannoy")
 (setopt auto-save-default t)
 
