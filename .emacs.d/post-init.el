@@ -1002,7 +1002,7 @@
   :ensure t
   :defer t
   :hook
-  ((dired-mode. diff-hl-dired-mode)
+  ((dired-mode . diff-hl-dired-mode)
    (magit-post-refresh . diff-hl-magit-post-refresh)
    (diff-hl-mode . diff-hl-flydiff-mode)
    )
