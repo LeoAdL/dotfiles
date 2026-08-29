@@ -52,8 +52,8 @@
   (if (display-graphic-p frame)
       (progn
         (set-frame-font "Iosevka-18" nil t)
-        (set-face-font 'default "Iosevka-18")
-        (set-face-font 'fixed-pitch-serif "IBM Plex Serif")
+        (set-face-attribute 'default nil :font "Iosevka" :height 180)
+        (set-face-attribute 'fixed-pitch-serif nil :font "IBM Plex Serif" :height 180)
         )))
 
 (mapc 'my-after-frame (frame-list))
@@ -331,11 +331,11 @@
   ;; (Note: It is recommended to also enable the savehist package.)
   :ensure t
   :commands vertico-mode
+  :hook
+  (elpaca-after-init . vertico-mode)
   :config
   (setopt vertico-cycle t)
-  (vertico-multiform-mode)
-  :init
-  (vertico-mode)
+  (vertico-multiform-mode 1)
   )
 ;; Configure directory extension.
 (use-package vertico-directory
@@ -544,7 +544,6 @@
         ;; if the current state is obvious from the cursor's color/shape, then
         ;; we won't need superfluous indicators to do it instead.
         evil-normal-state-cursor 'box
-        evil-emacs-state-cursor  '(box +evil-emacs-cursor-fn)
         evil-insert-state-cursor 'bar
         evil-visual-state-cursor 'hollow
         ;; Only do highlighting in selected window so that Emacs has less work
@@ -710,8 +709,6 @@
   :commands (corfu-mode global-corfu-mode)
   ;; Enable Corfu
   :custom
-  ;; Hide commands in M-x which do not apply to the current mode.
-  (read-extended-command-predicate #'command-completion-default-include-p)
   ;; Disable Ispell completion function. As an alternative try `cape-dict'.
   (text-mode-ispell-word-completion nil)
   (tab-always-indent 'complete)
@@ -742,10 +739,6 @@
   :ensure (org-block-capf  :type git :host github :repo "xenodium/org-block-capf")
   :after org
   :hook (org-mode . org-block-capf-add-to-completion-at-point-functions))
-
-(use-package cape-keyword
-  :ensure (cape-keyword :type git :host github :repo "minad/cape")
-  )
 
 (use-package cape
   :ensure t
@@ -805,6 +798,7 @@
 ;; (display-line-numbers-mode 1)
 
 (use-package which-key
+  :ensure nil
   :custom
   (which-key-idle-delay 0.5)
   (which-key-idle-secondary-delay 0.25)
@@ -1468,11 +1462,8 @@
  :desc "View search"    "a v"  #'org-search-view
  :desc "mu4e"    "m"  #'mu4e
  :desc "Default browser"    "b"  #'browse-url-of-file
- :desc "Start debugger"     "d"  #'+debugger/start
  :desc "New frame"          "f"  #'make-frame
  :desc "Select frame"       "F"  #'select-frame-by-name
- :desc "REPL"               "r"  #'+eval/open-repl-other-window
- :desc "REPL (same window)" "R"  #'+eval/open-repl-same-window
  :desc "Dired"              "-"  #'dired-jump
  :desc "Open directory in dirvish"    "/" #'dirvish
  :desc "Project sidebar"              "p" #'dirvish-side
@@ -1564,9 +1555,9 @@
 
 
 (add-hook 'emacs-startup-hook #'efs/display-startup-time)
-(use-package yaml-mode
-  :ensure t
-  :defer t)
+(use-package yaml-ts-mode
+  :ensure nil
+  :mode "\\.ya?ml\\'")
 
 (use-package empv
   :ensure (empv :type git :host github :repo "isamert/empv.el")
@@ -1670,7 +1661,6 @@
   (org-cite-global-bibliography '("~/bib/references.bib"))
   (org-cite-insert-processor 'citar)
   (org-cite-follow-processor 'citar)
-  (org-cite-activate-processor 'citar)
 
   ;; Keybindings
   :bind
