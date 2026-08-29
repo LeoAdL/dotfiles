@@ -18,3 +18,4 @@
 /davmail.log
 /.config/tmux/plugins
 /.local/share/zathura/bookmarks.sqlite
+/.config/mpv/.DS_Store
