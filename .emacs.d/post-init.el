@@ -572,8 +572,6 @@
   (evil-want-C-u-delete t)
   ;; Enable fine-grained undo behavior
   (evil-want-fine-undo t)
-  ;; Disable wrapping of search around buffer
-  (evil-search-wrap nil)
   ;; Whether Y yanks to the end of the line
   (evil-want-Y-yank-to-eol t))
 
@@ -856,34 +854,10 @@
   :config (solaire-global-mode 1)
   )
 
-(use-package catppuccin-theme
+(use-package batppuccin
   :ensure t
   :config
-  (setopt catppuccin-enlarge-headings nil)
-  ;; Adjust font size of titles level 1 (default 1.3)
-  (setopt catppuccin-height-title-1 1.25)
-  ;; Adjust font size of titles level 2 (default 1.1)
-  (setopt catppuccin-height-title-2 1.15)
-  ;; Adjust font size of titles level 3 (default 1.0)
-  (setopt catppuccin-height-title-3 1.05)
-  ;; Adjust font size of document titles (default 1.44)
-  (setopt catppuccin-height-doc-title 1.4)
-  ;; Use background color to make highlighted matches more visible. (default nil)
-  (setopt catppuccin-highlight-matches t)
-  ;; Use :slant italic for comments. (default nil)
-  (setopt catppuccin-italic-comments t)
-  ;; Use :slant italic for blockquotes in markdown and org. (default nil)
-  (setopt catppuccin-italic-blockquotes t)
-  (setopt catppuccin-highlight-matches t)
-  (setopt catppuccin-flavor 'mocha)
-  (let ((inhibit-redisplay t))
-    ;; Disable all active themes
-    (mapc #'disable-theme custom-enabled-themes)
-    ;; Load the built-in theme
-    (load-theme 'catppuccin t))
-  )
-
-
+  (load-theme 'batppuccin-mocha t))
 
 (use-package diredfl
   :ensure t
@@ -1036,7 +1010,7 @@
   :hook
   ((dired-mode. diff-hl-dired-mode)
    (magit-post-refresh . diff-hl-magit-post-refresh)
-   (diff-hl . diff-hl-flydiff-mode)
+   (diff-hl-mode . diff-hl-flydiff-mode)
    )
   :config
   (setopt diff-hl-global-modes '(not image-mode pdf-view-mode))
