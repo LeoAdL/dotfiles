@@ -19,3 +19,4 @@
 /.config/tmux/plugins
 /.local/share/zathura/bookmarks.sqlite
 /.config/mpv/.DS_Store
+/.config/mpv/scripts/.DS_Store
