@@ -22,7 +22,7 @@
   (exec-path-from-shell-initialize))
 
 (setopt mac-command-modifier 'meta
-      mac-option-modifier 'none)
+        mac-option-modifier 'none)
 
 ;; Use spotlight search backend as a default for M-x locate (and helm/ivy
 ;; variants thereof), since it requires no additional setup.
@@ -84,12 +84,12 @@
   :init
   (setopt recentf-auto-cleanup (if (daemonp) 300 'never))
   (setopt recentf-exclude
-        (list "\\.tar$" "\\.tbz2$" "\\.tbz$" "\\.tgz$" "\\.bz2$"
-              "\\.bz$" "\\.gz$" "\\.gzip$" "\\.xz$" "\\.zip$"
-              "\\.7z$" "\\.rar$"
-              "COMMIT_EDITMSG\\'"
-              "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
-              "-autoloads\\.el$" "autoload\\.el$"))
+          (list "\\.tar$" "\\.tbz2$" "\\.tbz$" "\\.tgz$" "\\.bz2$"
+                "\\.bz$" "\\.gz$" "\\.gzip$" "\\.xz$" "\\.zip$"
+                "\\.7z$" "\\.rar$"
+                "COMMIT_EDITMSG\\'"
+                "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
+                "-autoloads\\.el$" "autoload\\.el$"))
 
   :config
   ;; A cleanup depth of -90 ensures that `recentf-cleanup' runs before
@@ -224,9 +224,8 @@
   (setopt org-startup-with-latex-preview nil)
   (setopt org-preview-latex-default-process 'dvisvgm)
   (setopt org-format-latex-options
-        (plist-put org-format-latex-options :background "Transparent"))
-  (setopt org-format-latex-options
-        (plist-put org-format-latex-options :scale 1.5))
+          (plist-put (plist-put org-format-latex-options :background "Transparent")
+                     :scale 1.5))
   (setq
    org-agenda-files (list org-directory)                  ; Seems like the obvious place.
    org-log-done 'time                                     ; Having the time a item is done sounds convenient.
@@ -234,78 +233,78 @@
    )
   (setopt org-log-into-drawer t)
   (setopt org-list-demote-modify-bullet
-        '(("+" . "-") ("-" . "+") ("*" . "+")))
+          '(("+" . "-") ("-" . "+") ("*" . "+")))
   (setopt org-log-state-notes-into-drawer t)
   (setopt org-babel-default-header-args
-        '((:session . "none")
-          (:results . "replace")
-          (:exports . "code")
-          (:cache . "no")
-          (:noweb . "no")
-          (:hlines . "no")
-          (:tangle . "no")
-          (:comments . "link")))
+          '((:session . "none")
+            (:results . "replace")
+            (:exports . "code")
+            (:cache . "no")
+            (:noweb . "no")
+            (:hlines . "no")
+            (:tangle . "no")
+            (:comments . "link")))
 
 
   (setopt org-agenda-skip-scheduled-if-done t
-        org-agenda-skip-deadline-if-done t
-        org-agenda-include-deadlines t
-        org-agenda-block-separator nil
-        org-agenda-tags-column 100 ;; from testing this seems to be a good value
-        org-agenda-compact-blocks t
-        org-agenda-time-grid
-        '((daily today require-timed)
-          (800 1000 1200 1400 1600 1800 2000 2200)
-          " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
-        org-agenda-current-time-string
-        "◀── now ─────────────────────────────────────────────────")
+          org-agenda-skip-deadline-if-done t
+          org-agenda-include-deadlines t
+          org-agenda-block-separator nil
+          org-agenda-tags-column 100 ;; from testing this seems to be a good value
+          org-agenda-compact-blocks t
+          org-agenda-time-grid
+          '((daily today require-timed)
+            (800 1000 1200 1400 1600 1800 2000 2200)
+            " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+          org-agenda-current-time-string
+          "◀── now ─────────────────────────────────────────────────")
   (setopt org-src-fontify-natively t
-        org-auto-align-tags nil
-        org-tags-column 0
-        org-fontify-whole-heading-line t
-        org-fontify-done-headline t
-        org-insert-heading-respect-content t
-        org-fontify-quote-and-verse-blocks t
-        org-startup-with-inline-images t
-        org-startup-indented nil
-        org-adapt-indentation nil
-        org-edit-src-content-indentation 0
-        org-fontify-todo-headline t
-        ;; Org styling, hide markup etc.
-        org-pretty-entities t
-        org-hide-leading-stars t
-        org-priority-highest ?A
-        org-priority-lowest ?E
-        org-todo-keywords '((sequence "TODO(t)" "DOING" "DONE"))
-        org-todo-keywords-for-agenda '((sequence "TODO" "DOING" "DONE")))
+          org-auto-align-tags nil
+          org-tags-column 0
+          org-fontify-whole-heading-line t
+          org-fontify-done-headline t
+          org-insert-heading-respect-content t
+          org-fontify-quote-and-verse-blocks t
+          org-startup-with-inline-images t
+          org-startup-indented nil
+          org-adapt-indentation nil
+          org-edit-src-content-indentation 0
+          org-fontify-todo-headline t
+          ;; Org styling, hide markup etc.
+          org-pretty-entities t
+          org-hide-leading-stars t
+          org-priority-highest ?A
+          org-priority-lowest ?E
+          org-todo-keywords '((sequence "TODO(t)" "DOING" "DONE"))
+          org-todo-keywords-for-agenda '((sequence "TODO" "DOING" "DONE")))
   (setopt org-highlight-latex-and-related '(native script entities))
   (setopt org-capture-templates
-        '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
-           "* TODO [#B] %?\n:Created: %T\n")
-          ("j" "Journal" entry (file+olp+datetree "~/org/journal.org")
-           "* %?\nEntered on %U\n  %i\n  %a")
-          ("P" "process-soon" entry (file+headline "todo.org" "Todo")
-           "* TODO %:fromname: %a %?\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))")
-          ("c" "Contact" entry (file "~/org/contacts.org")
-           "* %?
+          '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
+             "* TODO [#B] %?\n:Created: %T\n")
+            ("j" "Journal" entry (file+olp+datetree "~/org/journal.org")
+             "* %?\nEntered on %U\n  %i\n  %a")
+            ("P" "process-soon" entry (file+headline "todo.org" "Todo")
+             "* TODO %:fromname: %a %?\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))")
+            ("c" "Contact" entry (file "~/org/contacts.org")
+             "* %?
  :PROPERTIES:
  :ADDRESS:
  :BIRTHDAY:
  :EMAIL:
  :NOTE:
  :END:"
-           :empty-lines 1)
-          ("w" "Work")
-          ("wp" "Phone Call" entry (file+olp+datetree "~/org/work.org") "* Phone call about %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i" :clock-in t)
-          ("wm" "Meeting"    entry (file+olp+datetree "~/org/work.org") "* Meeting about %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i"    :clock-in t)
-          ("m" "Email Workflow")
-          ("mw" "Write" entry (file+olp "~/org/mail.org" "New")
-           "* TODO Email %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i" :immediate-finish t)
-          ("mf" "Follow Up" entry (file+olp "~/org/mail.org" "Follow Up")
-           "* TODO Follow up with %:fromname on %a\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%i" :immediate-finish t)
-          ("mr" "Read Later" entry (file+olp "~/org/mail.org" "Read Later")
-           "* TODO Read %:subject\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%a\n\n%i" :immediate-finish t)
-          ))
+             :empty-lines 1)
+            ("w" "Work")
+            ("wp" "Phone Call" entry (file+olp+datetree "~/org/work.org") "* Phone call about %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i" :clock-in t)
+            ("wm" "Meeting"    entry (file+olp+datetree "~/org/work.org") "* Meeting about %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i"    :clock-in t)
+            ("m" "Email Workflow")
+            ("mw" "Write" entry (file+olp "~/org/mail.org" "New")
+             "* TODO Email %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i" :immediate-finish t)
+            ("mf" "Follow Up" entry (file+olp "~/org/mail.org" "Follow Up")
+             "* TODO Follow up with %:fromname on %a\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%i" :immediate-finish t)
+            ("mr" "Read Later" entry (file+olp "~/org/mail.org" "Read Later")
+             "* TODO Read %:subject\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%a\n\n%i" :immediate-finish t)
+            ))
   )
 
 (use-package ghostel
@@ -493,7 +492,7 @@
 
   ;; Use Consult to select xref locations with preview
   (setopt xref-show-xrefs-function #'consult-xref
-        xref-show-definitions-function #'consult-xref)
+          xref-show-definitions-function #'consult-xref)
 
   :config
   (consult-customize
@@ -506,10 +505,10 @@
    :preview-key '(:debounce 0.4 any))
   (setopt consult-narrow-key "<")
   (setopt consult-async-min-input 2
-        consult-async-refresh-delay  0.15
-        consult-async-input-throttle 0.2
-        consult-async-input-debounce 0.1
-        ))
+          consult-async-refresh-delay  0.15
+          consult-async-input-throttle 0.2
+          consult-async-input-debounce 0.1
+          ))
 
 (use-package consult-dir
   :ensure t
@@ -539,20 +538,20 @@
   :config
   (evil-select-search-module 'evil-search-module 'evil-search)
   (setopt evil-ex-search-vim-style-regexp t
-        evil-ex-visual-char-range t  ; column range for ex commands
-        evil-symbol-word-search t
-        ;; if the current state is obvious from the cursor's color/shape, then
-        ;; we won't need superfluous indicators to do it instead.
-        evil-normal-state-cursor 'box
-        evil-insert-state-cursor 'bar
-        evil-visual-state-cursor 'hollow
-        ;; Only do highlighting in selected window so that Emacs has less work
-        ;; to do highlighting them all.
-        evil-ex-interactive-search-highlight 'selected-window
-        ;; It's infuriating that innocuous "beginning of line" or "end of line"
-        ;; errors will abort macros, so suppress them:
-        evil-kbd-macro-suppress-motion-error t
-        )
+          evil-ex-visual-char-range t  ; column range for ex commands
+          evil-symbol-word-search t
+          ;; if the current state is obvious from the cursor's color/shape, then
+          ;; we won't need superfluous indicators to do it instead.
+          evil-normal-state-cursor 'box
+          evil-insert-state-cursor 'bar
+          evil-visual-state-cursor 'hollow
+          ;; Only do highlighting in selected window so that Emacs has less work
+          ;; to do highlighting them all.
+          evil-ex-interactive-search-highlight 'selected-window
+          ;; It's infuriating that innocuous "beginning of line" or "end of line"
+          ;; errors will abort macros, so suppress them:
+          evil-kbd-macro-suppress-motion-error t
+          )
   (setopt evil-visual-update-x-selection-p nil)
   :custom
   ;; Make :s in visual mode operate only on the actual visual selection
@@ -637,8 +636,8 @@
   :config
   ;; Increase undo history limits to reduce likelihood of data loss
   (setopt undo-limit 256000           ; 256kb (default is 160kb)
-        undo-strong-limit 2000000   ; 2mb   (default is 240kb)
-        undo-outer-limit 36000000)  ; 36mb  (default is 24mb)
+          undo-strong-limit 2000000   ; 2mb   (default is 240kb)
+          undo-outer-limit 36000000)  ; 36mb  (default is 24mb)
   (global-unset-key (kbd "C-z"))
   (global-set-key (kbd "C-z") 'undo-fu-only-undo)
   (global-set-key (kbd "C-S-z") 'undo-fu-only-redo))
@@ -662,7 +661,7 @@
             "s u" #'vundo)
   :config
   (setopt vundo-glyph-alist vundo-unicode-symbols
-        vundo-compact-display t)
+          vundo-compact-display t)
   )
 
 (use-package evil-visualstar
@@ -883,7 +882,6 @@
   :after evil
   :init
   (dirvish-override-dired-mode)
-  :hook (dired-mode . diff-hl-dired-mode)
   :general
   (:states 'normal
            :keymaps 'dirvish-mode-map
@@ -933,27 +931,27 @@
   :hook (prog-mode . hl-todo-mode)
   :config
   (setopt hl-todo-highlight-punctuation ":"
-        hl-todo-keyword-faces
-        '(;; For reminders to change or add something at a later date.
-          ("TODO" warning bold)
-          ;; For code (or code paths) that are broken, unimplemented, or slow,
-          ;; and may become bigger problems later.
-          ("FIXME" error bold)
-          ;; For code that needs to be revisited later, either to upstream it,
-          ;; improve it, or address non-critical issues.
-          ("REVIEW" font-lock-keyword-face bold)
-          ;; For code smells where questionable practices are used
-          ;; intentionally, and/or is likely to break in a future update.
-          ("HACK" font-lock-constant-face bold)
-          ;; For sections of code that just gotta go, and will be gone soon.
-          ;; Specifically, this means the code is deprecated, not necessarily
-          ;; the feature it enables.
-          ("DEPRECATED" font-lock-doc-face bold)
-          ;; Extra keywords commonly found in the wild, whose meaning may vary
-          ;; from project to project.
-          ("NOTE" success bold)
-          ("BUG" error bold)
-          ("XXX" font-lock-constant-face bold))))
+          hl-todo-keyword-faces
+          '(;; For reminders to change or add something at a later date.
+            ("TODO" warning bold)
+            ;; For code (or code paths) that are broken, unimplemented, or slow,
+            ;; and may become bigger problems later.
+            ("FIXME" error bold)
+            ;; For code that needs to be revisited later, either to upstream it,
+            ;; improve it, or address non-critical issues.
+            ("REVIEW" font-lock-keyword-face bold)
+            ;; For code smells where questionable practices are used
+            ;; intentionally, and/or is likely to break in a future update.
+            ("HACK" font-lock-constant-face bold)
+            ;; For sections of code that just gotta go, and will be gone soon.
+            ;; Specifically, this means the code is deprecated, not necessarily
+            ;; the feature it enables.
+            ("DEPRECATED" font-lock-doc-face bold)
+            ;; Extra keywords commonly found in the wild, whose meaning may vary
+            ;; from project to project.
+            ("NOTE" success bold)
+            ("BUG" error bold)
+            ("XXX" font-lock-constant-face bold))))
 
 (use-package indent-bars
   :ensure t
@@ -1033,14 +1031,14 @@
   :config
   (setopt magit-format-file-function #'magit-format-file-nerd-icons)
   (setopt transient-default-level 5
-        magit-diff-refine-hunk t ; show granular diffs in selected hunk
-        ;; Don't autosave repo buffers. This is too magical, and saving can
-        ;; trigger a bunch of unwanted side-effects, like save hooks and
-        ;; formatters. Trust the user to know what they're doing.
-        magit-save-repository-buffers nil
-        ;; Don't display parent/related refs in commit buffers; they are rarely
-        ;; helpful and only add to runtime costs.
-        magit-revision-insert-related-refs nil)
+          magit-diff-refine-hunk t ; show granular diffs in selected hunk
+          ;; Don't autosave repo buffers. This is too magical, and saving can
+          ;; trigger a bunch of unwanted side-effects, like save hooks and
+          ;; formatters. Trust the user to know what they're doing.
+          magit-save-repository-buffers nil
+          ;; Don't display parent/related refs in commit buffers; they are rarely
+          ;; helpful and only add to runtime costs.
+          magit-revision-insert-related-refs nil)
   )
 
 ;; (use-package magit-todos
@@ -1081,8 +1079,8 @@
   :hook (elpaca-after-init . gcmh-mode)
   :config
   (setopt gcmh-idle-delay 'auto  ; default is 15s
-        gcmh-auto-idle-delay-factor 10
-        gcmh-high-cons-threshold (* 64 1024 1024))) ; 64mb
+          gcmh-auto-idle-delay-factor 10
+          gcmh-high-cons-threshold (* 64 1024 1024))) ; 64mb
 
 (use-package eglot
   :ensure nil
@@ -1171,11 +1169,11 @@
   :defer t
   :init
   (setopt jupyter-use-zmq t
-        jupyter-repl-completion-at-point-hook-depth 2
-        jupyter-eval-use-overlays nil
-        jupyter-eval-short-result-max-lines 0
-        jupyter-eval-overlay-keymap "<backtab>"
-        jupyter-default-notebook-port 8895)
+          jupyter-repl-completion-at-point-hook-depth 2
+          jupyter-eval-use-overlays nil
+          jupyter-eval-short-result-max-lines 0
+          jupyter-eval-overlay-keymap "<backtab>"
+          jupyter-default-notebook-port 8895)
   :bind (("<backtab>" . jupyter-eval-toggle-overlay)))
 
 (use-package evil-textobj-tree-sitter
@@ -1191,68 +1189,68 @@
     :commands mu4e mu4e-compose-new
     :config
     (setopt mail-user-agent 'mu4e-user-agent
-          message-mail-user-agent 'mu4e-user-agent)
+            message-mail-user-agent 'mu4e-user-agent)
     (setopt sendmail-program (executable-find "msmtp")
-          send-mail-function #'smtpmail-send-it
-          message-sendmail-f-is-evil t
-          message-sendmail-extra-arguments '("--read-envelope-from")
-          message-send-mail-function #'message-send-mail-with-sendmail
-          mml-secure-openpgp-signers '("6A5C039B63B86AC6C5109955B57BA04FBD759C7F" "D1D9947126EE64AC7ED3950196F352393B5B3C2E")
-          mml-secure-openpgp-sign-with-sender t
-          mu4e-use-fancy-chars t                   ; allow fancy icons for mail threads
-          mu4e-notification-support t
-          mu4e-change-filenames-when-moving t
-          mu4e-read-option-use-builtin nil
-          mu4e-completing-read-function 'completing-read
-          mu4e-index-lazy-check nil
-          mu4e-search-results-limit 100
-          mu4e-context-policy 'pick-first ;; Always ask which context to use when composing a new mail
-          mu4e-compose-context-policy 'ask ;; Always ask which context to use when composing a new mail
-          mu4e-update-interval 60
-          mu4e-get-mail-command "mbsync -a"
-          mu4e-mu-allow-temp-file t
-          message-kill-buffer-on-exit t
-          mu4e-compose-complete-only-after "2015-01-01"
-          mu4e-headers-date-format "%d/%m/%y"
-          mu4e-headers-time-format "⧖ %H:%M"
-          message-dont-reply-to-names #'mu4e-personal-or-alternative-address-p
-          mu4e-bookmarks '((:name "Unread messages" :query "flag:unread AND maildir:/.*inbox/" :key 117)
-                           (:name "Today's messages" :query "date:today..now AND maildir:/.*inbox/" :key 116)
-                           (:name "Flagged messages" :query "flag:flagged" :key 102)
-                           (:name "Unified inbox" :query "maildir:/.*inbox/" :key 105)
-                           (:name "Sent" :query "maildir:/.*Sent/" :key 115)
-                           (:name "Drafts" :query "maildir:/.*Drafts/" :key 100)
-                           (:name "Spam" :query "maildir:/.*Spam/ or maildir:/.*Junk/" :key 83)
-                           (:name "Trash" :query "maildir:/.*Trash/" :key 84))
-          mu4e-read-option-use-builtin t
-          mu4e-attachment-dir "~/Downloads"
-          mu4e-headers-thread-single-orphan-prefix '("─>" . "─▶")
-          mu4e-headers-thread-orphan-prefix        '("┬>" . "┬▶ ")
-          mu4e-headers-thread-connection-prefix    '("│ " . "│ ")
-          mu4e-headers-thread-first-child-prefix   '("├>" . "├▶")
-          mu4e-headers-thread-child-prefix         '("├>" . "├▶")
-          mu4e-headers-thread-last-child-prefix    '("└>" . "╰▶")
-          mu4e-contexts
-          `( ,(make-mu4e-context
-               :name "Personal"
-               :enter-func (lambda () (mu4e-message "Entering Personal context"))
-               :leave-func (lambda () (mu4e-message "Leaving Personal context"))
-               ;; we match based on the contact-fields of the message
-               :match-func (lambda (msg)
-                             (when msg
-                               (mu4e-message-contact-field-matches msg
-                                                                   :to "leoaparisi@gmail.com")))
-               :vars '( ( user-mail-address	    . "leoaparisi@gmail.com"  )
-                        (mu4e-sent-folder       . "/[Gmail]/Sent Mail")
-                        (mu4e-drafts-folder     . "/[Gmail]/Drafts")
-                        (mu4e-trash-folder      . "/[Gmail]/Trash")
-                        (mu4e-refile-folder     . "/Archives")
-                        (smtpmail-smtp-user     . "leoaparisi@gmail.com")
-                        ( user-full-name	    . "Leo Aparisi de Lannoy" )))))
+            send-mail-function #'smtpmail-send-it
+            message-sendmail-f-is-evil t
+            message-sendmail-extra-arguments '("--read-envelope-from")
+            message-send-mail-function #'message-send-mail-with-sendmail
+            mml-secure-openpgp-signers '("6A5C039B63B86AC6C5109955B57BA04FBD759C7F" "D1D9947126EE64AC7ED3950196F352393B5B3C2E")
+            mml-secure-openpgp-sign-with-sender t
+            mu4e-use-fancy-chars t                   ; allow fancy icons for mail threads
+            mu4e-notification-support t
+            mu4e-change-filenames-when-moving t
+            mu4e-read-option-use-builtin nil
+            mu4e-completing-read-function 'completing-read
+            mu4e-index-lazy-check nil
+            mu4e-search-results-limit 100
+            mu4e-context-policy 'pick-first ;; Always ask which context to use when composing a new mail
+            mu4e-compose-context-policy 'ask ;; Always ask which context to use when composing a new mail
+            mu4e-update-interval 60
+            mu4e-get-mail-command "mbsync -a"
+            mu4e-mu-allow-temp-file t
+            message-kill-buffer-on-exit t
+            mu4e-compose-complete-only-after "2015-01-01"
+            mu4e-headers-date-format "%d/%m/%y"
+            mu4e-headers-time-format "⧖ %H:%M"
+            message-dont-reply-to-names #'mu4e-personal-or-alternative-address-p
+            mu4e-bookmarks '((:name "Unread messages" :query "flag:unread AND maildir:/.*inbox/" :key 117)
+                             (:name "Today's messages" :query "date:today..now AND maildir:/.*inbox/" :key 116)
+                             (:name "Flagged messages" :query "flag:flagged" :key 102)
+                             (:name "Unified inbox" :query "maildir:/.*inbox/" :key 105)
+                             (:name "Sent" :query "maildir:/.*Sent/" :key 115)
+                             (:name "Drafts" :query "maildir:/.*Drafts/" :key 100)
+                             (:name "Spam" :query "maildir:/.*Spam/ or maildir:/.*Junk/" :key 83)
+                             (:name "Trash" :query "maildir:/.*Trash/" :key 84))
+            mu4e-read-option-use-builtin t
+            mu4e-attachment-dir "~/Downloads"
+            mu4e-headers-thread-single-orphan-prefix '("─>" . "─▶")
+            mu4e-headers-thread-orphan-prefix        '("┬>" . "┬▶ ")
+            mu4e-headers-thread-connection-prefix    '("│ " . "│ ")
+            mu4e-headers-thread-first-child-prefix   '("├>" . "├▶")
+            mu4e-headers-thread-child-prefix         '("├>" . "├▶")
+            mu4e-headers-thread-last-child-prefix    '("└>" . "╰▶")
+            mu4e-contexts
+            `( ,(make-mu4e-context
+                 :name "Personal"
+                 :enter-func (lambda () (mu4e-message "Entering Personal context"))
+                 :leave-func (lambda () (mu4e-message "Leaving Personal context"))
+                 ;; we match based on the contact-fields of the message
+                 :match-func (lambda (msg)
+                               (when msg
+                                 (mu4e-message-contact-field-matches msg
+                                                                     :to "leoaparisi@gmail.com")))
+                 :vars '( ( user-mail-address	    . "leoaparisi@gmail.com"  )
+                          (mu4e-sent-folder       . "/[Gmail]/Sent Mail")
+                          (mu4e-drafts-folder     . "/[Gmail]/Drafts")
+                          (mu4e-trash-folder      . "/[Gmail]/Trash")
+                          (mu4e-refile-folder     . "/Archives")
+                          (smtpmail-smtp-user     . "leoaparisi@gmail.com")
+                          ( user-full-name	    . "Leo Aparisi de Lannoy" )))))
     ;; (setopt mu4e-thread-mode t)
     ;; (add-hook 'completion-at-point-functions #'mu4e-complete-contact)
     (setopt gnus-icalendar-org-capture-file "~/org/notes.org"
-          gnus-icalendar-org-capture-headline '("Calendar"))
+            gnus-icalendar-org-capture-headline '("Calendar"))
     )
 
   (use-package org-mime
@@ -1284,22 +1282,22 @@
          (org-mode . global-org-modern-mode))
   :config
   (setopt org-modern-star 'replace
-        org-modern-hide-stars nil
-        org-modern-table-vertical 1
-        org-modern-table-horizontal 0.2
-        org-modern-block-name t
-        org-modern-horizontal-rule t
-        org-modern-todo-faces
-        '(("TODO" :inverse-video t :foreground "indian red")
-          ("DOING"  :inverse-video t :foreground "medium aquamarine")
-          ("DONE"  :inverse-video t :foreground "slate gray"))
-        org-modern-priority-faces
-        '((?A :background "indian red" :foreground "black")
-          (?B :background "light salmon" :foreground "black")
-          (?C :background "rosy brown" :foreground "black")
-          (?D :background "NavajoWhite" :foreground "black")
-          (?E  :background "bisque" :foreground "black"))
-        org-modern-keyword t)
+          org-modern-hide-stars nil
+          org-modern-table-vertical 1
+          org-modern-table-horizontal 0.2
+          org-modern-block-name t
+          org-modern-horizontal-rule t
+          org-modern-todo-faces
+          '(("TODO" :inverse-video t :foreground "indian red")
+            ("DOING"  :inverse-video t :foreground "medium aquamarine")
+            ("DONE"  :inverse-video t :foreground "slate gray"))
+          org-modern-priority-faces
+          '((?A :background "indian red" :foreground "black")
+            (?B :background "light salmon" :foreground "black")
+            (?C :background "rosy brown" :foreground "black")
+            (?D :background "NavajoWhite" :foreground "black")
+            (?E  :background "bisque" :foreground "black"))
+          org-modern-keyword t)
   )
 
 (use-package org-appear
@@ -1309,11 +1307,11 @@
   :hook (org-mode . org-appear-mode)
   :config
   (setopt org-appear-autoemphasis t
-        org-appear-autolinks t
-        org-appear-autokeywords t
-        org-appear-autoentities t
-        org-appear-inside-latex nil
-        org-appear-autosubmarkers t))
+          org-appear-autolinks t
+          org-appear-autokeywords t
+          org-appear-autoentities t
+          org-appear-inside-latex nil
+          org-appear-autosubmarkers t))
 
 (use-package org-fragtog
   :ensure t
@@ -1331,11 +1329,11 @@
   :ensure t
   :config
   (require 'vlf-setup)
-  (setopt vlf-application "ask"))
+  (setopt vlf-application 'ask))
 
 (use-package csv-mode
   :defer t
-  :ensure (csv-mode :type git :host github :repo "emacsmirror/csv-mode":branch "master" )
+  :ensure t
   :hook ((csv-mode . csv-align-mode)
          (csv-mode . csv-header-line))
   )
@@ -1536,7 +1534,7 @@
   :defer t
   :init
   (setopt scroll-conservatively 101 ; important!
-        scroll-margin 0)
+          scroll-margin 0)
   :config
   (add-hook 'ultra-scroll-hide-functions #'hl-todo-mode)
   (add-hook 'ultra-scroll-hide-functions #'diff-hl-flydiff-mode)
@@ -1583,19 +1581,19 @@
   :config
   ;; http://tex.stackexchange.com/questions/31966/setting-up-reftex-with-biblatex-citation-commands/31992#31992.
   (setopt reftex-cite-format
-        '((?a . "\\autocite[]{%l}")
-          (?b . "\\blockcquote[]{%l}{}")
-          (?c . "\\cite[]{%l}")
-          (?f . "\\footcite[]{%l}")
-          (?n . "\\nocite{%l}")
-          (?p . "\\parencite[]{%l}")
-          (?s . "\\smartcite[]{%l}")
-          (?t . "\\textcite[]{%l}"))
-        reftex-plug-into-AUCTeX t
-        reftex-toc-split-windows-fraction 0.3
-        ;; This is needed when `reftex-cite-format' is set. See
-        ;; https://superuser.com/a/1386206
-        LaTeX-reftex-cite-format-auto-activate nil)
+          '((?a . "\\autocite[]{%l}")
+            (?b . "\\blockcquote[]{%l}{}")
+            (?c . "\\cite[]{%l}")
+            (?f . "\\footcite[]{%l}")
+            (?n . "\\nocite{%l}")
+            (?p . "\\parencite[]{%l}")
+            (?s . "\\smartcite[]{%l}")
+            (?t . "\\textcite[]{%l}"))
+          reftex-plug-into-AUCTeX t
+          reftex-toc-split-windows-fraction 0.3
+          ;; This is needed when `reftex-cite-format' is set. See
+          ;; https://superuser.com/a/1386206
+          LaTeX-reftex-cite-format-auto-activate nil)
   (add-hook 'reftex-mode-hook #'evil-normalize-keymaps)
   )
 
@@ -1608,20 +1606,20 @@
   :defer t
   :config
   (setopt TeX-parse-self t ; parse on load
-        TeX-auto-save t  ; parse on save
-        ;; Use hidden directories for AUCTeX files.
-        TeX-auto-local ".auctex-auto"
-        TeX-style-local ".auctex-style"
-        TeX-source-correlate-mode t
-        TeX-source-correlate-method 'synctex
-        ;; Don't start the Emacs server when correlating sources.
-        TeX-source-correlate-start-server nil
-        ;; Automatically insert braces after sub/superscript in `LaTeX-math-mode'.
-        TeX-electric-sub-and-superscript t
-        ;; Just save, don't ask before each compilation.
-        TeX-save-query nil
-        TeX-show-compilation t
-        TeX-command-extra-options "-shell-escape")
+          TeX-auto-save t  ; parse on save
+          ;; Use hidden directories for AUCTeX files.
+          TeX-auto-local ".auctex-auto"
+          TeX-style-local ".auctex-style"
+          TeX-source-correlate-mode t
+          TeX-source-correlate-method 'synctex
+          ;; Don't start the Emacs server when correlating sources.
+          TeX-source-correlate-start-server nil
+          ;; Automatically insert braces after sub/superscript in `LaTeX-math-mode'.
+          TeX-electric-sub-and-superscript t
+          ;; Just save, don't ask before each compilation.
+          TeX-save-query nil
+          TeX-show-compilation t
+          TeX-command-extra-options "-shell-escape")
   (setopt TeX-fold-auto-reveal t)
   (setq-default TeX-engine 'xetex)
   (setopt TeX-view-program-selection '((output-pdf "PDF Tools")))
@@ -1702,9 +1700,9 @@
      :tag "has:files"))
 
   (setopt citar-indicators
-        (list citar-indicator-files-icons
-              citar-indicator-notes-icons
-              citar-indicator-links-icons)))
+          (list citar-indicator-files-icons
+                citar-indicator-notes-icons
+                citar-indicator-links-icons)))
 
 (use-package citar-embark
   :after citar embark
@@ -1734,7 +1732,7 @@
   (unless org-noter-notes-search-path
     (setopt org-noter-notes-search-path (list org-directory)))
   (setopt org-noter-auto-save-last-location t
-        org-noter-separate-notes-from-heading t))
+          org-noter-separate-notes-from-heading t))
 
 (use-package edraw-org
   :defer t
@@ -1801,11 +1799,11 @@
   :mode ("/README\\(?:\\.md\\)?\\'" . gfm-mode)
   :init
   (setopt markdown-italic-underscore t
-        markdown-asymmetric-header t
-        markdown-gfm-additional-languages '("sh")
-        markdown-make-gfm-checkboxes-buttons t
-        markdown-fontify-whole-heading-line t
-        markdown-fontify-code-blocks-natively t)
+          markdown-asymmetric-header t
+          markdown-gfm-additional-languages '("sh")
+          markdown-make-gfm-checkboxes-buttons t
+          markdown-fontify-whole-heading-line t
+          markdown-fontify-code-blocks-natively t)
 
   :config
 
@@ -1853,7 +1851,7 @@
 (setq-default tab-width 4)
 (setopt dired-vc-rename-file t)
 (setopt xref-search-program 'ripgrep
-      )
+        )
 
 ;; Display the time in the modeline
 (setopt display-time-mail-string "")
