@@ -1153,10 +1153,11 @@
 (use-package evil-org
   :after org
   :ensure (evil-org :type git :host github :repo "doomelpa/evil-org-mode")
-  :hook (org-mode . evil-org-mode)
+  :hook ((org-mode . evil-org-mode)
+         (evil-org-mode . (lambda () (setq-default evil-shift-width 2))))
   :config
   (add-hook 'evil-org-mode-hook #'evil-normalize-keymaps)
-  (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
+  (evil-org-set-key-theme)
   )
 
 (use-package evil-org-agenda
