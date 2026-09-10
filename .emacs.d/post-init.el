@@ -816,22 +816,29 @@
   (uniquify-ignore-buffers-re "^\\*"))
 
 
-(use-package doom-modeline
+(use-package moody
   :ensure t
-  :hook ((elpaca-after-init . doom-modeline-mode)
-         (doom-modeline-mode . size-indication-mode) ; filesize in modeline
-         (doom-modeline-mode . column-number-mode))   ; cursor column in modeline
   :config
-  (setopt doom-modeline-hud t)
-  (setopt doom-modeline-buffer-encoding nil)
-  (setopt doom-modeline-unicode-fallback t)
-  (setopt doom-modeline-time-analogue-clock nil)
-  (setopt find-file-visit-truename t)
-  ;; (setopt nerd-icons-scale-factor 1)
-  ;; (setopt doom-modeline-height 1) ; optional
-  (setopt doom-modeline-project-detection 'project)
-  (setopt mode-line-right-align-edge 'right-fringe)
+  ;; Display the time in the modeline
+  (setopt display-time-mail-string "")
+  (display-time-mode 1)
+  (setq-default mode-line-format '("%e" mode-line-front-space
+                                   mode-line-modified mode-line-remote mode-line-window-dedicated
+                                   mode-line-buffer-identification "   "
+                                   mode-line-position (project-mode-line project-mode-line-format)
+                                   (vc-mode vc-mode) "  " mode-line-modes mode-line-format-right-align mode-line-misc-info mode-line-end-spaces))
+  (moody-replace-mode-line-front-space)
+  (moody-replace-mode-line-buffer-identification)
+  (moody-replace-vc-mode))
+
+(use-package minions
+  :ensure t
+  :config
+  (setopt minions-prominent-modes '(flymake-mode eglot-mode))
+  (setopt minions-mode-line-lighter " ⚙ ")
+  (minions-mode 1)
   )
+
 
 (use-package doom-themes
   :ensure t
