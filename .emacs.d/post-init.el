@@ -1,7 +1,5 @@
 ;;; post-init.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
 ;; Ensure Emacs loads the most recent byte-compiled files.
-(setopt load-prefer-newer t)
-
 (use-package exec-path-from-shell
   :if (and (or (display-graphic-p) (daemonp))
            (eq system-type 'darwin)) ; macOS only
@@ -70,7 +68,6 @@
   ;; (setopt auto-revert-verbose t)
   (setopt auto-revert-interval 3)
   (setopt auto-revert-remote-files nil)
-  (setopt auto-revert-use-notify t)
   (setopt auto-revert-avoid-polling t)
   (global-auto-revert-mode 1)
   )
@@ -112,7 +109,10 @@
    '(kill-ring                        ; clipboard
      register-alist                   ; macros
      mark-ring global-mark-ring       ; marks
+     evil-ex-history
+     corfu-history
      search-ring regexp-search-ring))
+  :config
   (savehist-mode 1))
 
 ;; save-place-mode enables Emacs to remember the last location within a file
