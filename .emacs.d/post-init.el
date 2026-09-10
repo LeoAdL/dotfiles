@@ -815,13 +815,17 @@
   (uniquify-after-kill-buffer-p t)
   (uniquify-ignore-buffers-re "^\\*"))
 
+(use-package time
+  :ensure nil
+  :custom
+  (display-time-mail-string "")
+  :init
+  (display-time-mode 1))
 
 (use-package moody
   :ensure t
   :config
   ;; Display the time in the modeline
-  (setopt display-time-mail-string "")
-  (display-time-mode 1)
   (setq-default mode-line-format '("%e" mode-line-front-space
                                    mode-line-modified mode-line-remote mode-line-window-dedicated
                                    mode-line-buffer-identification "   "
