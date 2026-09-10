@@ -1861,9 +1861,6 @@
 (setopt xref-search-program 'ripgrep
         )
 
-;; Display the time in the modeline
-(setopt display-time-mail-string "")
-(display-time-mode 1)
 (show-paren-mode 1)
 (winner-mode 1)
 (global-visual-line-mode 1)
