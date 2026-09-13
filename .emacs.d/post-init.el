@@ -534,40 +534,54 @@
   :general ([remap yas-insert-snippet] #'consult-yasnippet))
 
 
-evil-ex-visual-char-range t  ; column range for ex commands
-evil-symbol-word-search t
-;; if the current state is obvious from the cursor's color/shape, then
-;; we won't need superfluous indicators to do it instead.
-evil-normal-state-cursor 'box
-evil-insert-state-cursor 'bar
-evil-visual-state-cursor 'hollow
-;; Only do highlighting in selected window so that Emacs has less work
-;; to do highlighting them all.
-evil-ex-interactive-search-highlight 'selected-window
-;; It's infuriating that innocuous "beginning of line" or "end of line"
-;; errors will abort macros, so suppress them:
-evil-kbd-macro-suppress-motion-error t
-)
-(setopt evil-visual-update-x-selection-p nil)
-:custom
-;; Make :s in visual mode operate only on the actual visual selection
-;; (character or block), instead of the full lines covered by the selection
-;; Use Vim-style regular expressions in search and substitute commands,
-;; allowing features like \v (very magic), \zs, and \ze for precise matches
-;; Enable automatic horizontal split below
-(evil-split-window-below t)
-;; Enable automatic vertical split to the right
-(evil-vsplit-window-right t)
-;; Disable echoing Evil state to avoid replacing eldoc
-(evil-echo-state nil)
-;; Allow C-h to delete in insert state
-(evil-want-C-h-delete t)
-;; Enable C-u to delete back to indentation in insert state
-(evil-want-C-u-delete t)
-;; Enable fine-grained undo behavior
-(evil-want-fine-undo t)
-;; Whether Y yanks to the end of the line
-(evil-want-Y-yank-to-eol t))
+(use-package evil
+  :ensure t
+  :defer t
+  :hook (elpaca-after-init . evil-mode)
+  :init
+  (setopt evil-want-integration t)
+  (setopt evil-want-keybinding nil)
+  (setopt evil-want-C-u-scroll t)
+  (setopt evil-want-fine-undo t)
+  (setopt evil-undo-system 'undo-fu)
+  (setopt evil-search-wrap t)
+  :config
+  (evil-select-search-module 'evil-search-module 'evil-search)
+  (setopt evil-ex-search-vim-style-regexp t
+          evil-ex-visual-char-range t  ; column range for ex commands
+          evil-symbol-word-search t
+          ;; if the current state is obvious from the cursor's color/shape, then
+          ;; we won't need superfluous indicators to do it instead.
+          evil-normal-state-cursor 'box
+          evil-insert-state-cursor 'bar
+          evil-visual-state-cursor 'hollow
+          ;; Only do highlighting in selected window so that Emacs has less work
+          ;; to do highlighting them all.
+          evil-ex-interactive-search-highlight 'selected-window
+          ;; It's infuriating that innocuous "beginning of line" or "end of line"
+          ;; errors will abort macros, so suppress them:
+          evil-kbd-macro-suppress-motion-error t
+          )
+  (setopt evil-visual-update-x-selection-p nil)
+  :custom
+  ;; Make :s in visual mode operate only on the actual visual selection
+  ;; (character or block), instead of the full lines covered by the selection
+  ;; Use Vim-style regular expressions in search and substitute commands,
+  ;; allowing features like \v (very magic), \zs, and \ze for precise matches
+  ;; Enable automatic horizontal split below
+  (evil-split-window-below t)
+  ;; Enable automatic vertical split to the right
+  (evil-vsplit-window-right t)
+  ;; Disable echoing Evil state to avoid replacing eldoc
+  (evil-echo-state nil)
+  ;; Allow C-h to delete in insert state
+  (evil-want-C-h-delete t)
+  ;; Enable C-u to delete back to indentation in insert state
+  (evil-want-C-u-delete t)
+  ;; Enable fine-grained undo behavior
+  (evil-want-fine-undo t)
+  ;; Whether Y yanks to the end of the line
+  (evil-want-Y-yank-to-eol t))
 
 (use-package evil-collection
   :ensure t
@@ -1148,7 +1162,6 @@ evil-kbd-macro-suppress-motion-error t
   (with-eval-after-load 'org-agenda
     (require 'evil-org-agenda)
     (evil-org-agenda-set-keys)))
-)
 
 (use-package orgit
   :after (org magit)
