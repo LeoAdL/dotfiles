@@ -111,9 +111,16 @@
      mark-ring global-mark-ring       ; marks
      evil-ex-history
      corfu-history
-     search-ring regexp-search-ring))
+     search-ring regexp-search-ring
+     file-name-history                ; Mini-buffer file history (M-x find-file)
+     extended-command-history         ; M-x command history
+     buffer-name-history              ; Switch-to-buffer history
+     shell-command-history            ; Shell command history (M-!)
+     grep-history                     ; Grep/ripgrep search history
+     ))
   :config
-  (savehist-mode 1))
+  (savehist-mode 1)
+  )
 
 ;; save-place-mode enables Emacs to remember the last location within a file
 ;; upon reopening. This feature is particularly beneficial for resuming work at
