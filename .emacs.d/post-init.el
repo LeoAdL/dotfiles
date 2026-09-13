@@ -1016,7 +1016,6 @@
 
 (use-package diff-hl
   :ensure t
-  :defer t
   :hook
   ((dired-mode . diff-hl-dired-mode)
    (magit-post-refresh . diff-hl-magit-post-refresh)
@@ -1038,14 +1037,9 @@
   :init
   (add-hook 'Info-selection-hook 'info-colors-fontify-node))
 
-(use-package transient
-  :ensure t
-  :defer t)
-
 (use-package magit
   :ensure t
   :defer t
-  :after transient
   :config
   (setopt magit-format-file-function #'magit-format-file-nerd-icons)
   (setopt transient-default-level 5
