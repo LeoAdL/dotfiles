@@ -148,7 +148,7 @@
   ("\\.org\\'" . org-mode)
   :general (:prefix "SPC m"
                     :states 'normal
-                    :keymaps 'override
+                    :keymaps 'org-mode-map
                     "A" #'org-archive-subtree-default
                     "e" #'org-export-dispatch
                     "f" #'org-footnote-action
@@ -226,7 +226,7 @@
   :config
   (setopt org-directory "~/org/")
   (setopt org-hide-emphasis-markers t)
-  (setopt org-use-sub-superscripts '{})
+  (setopt org-use-sub-superscripts nil)
   (setopt org-export-with-sub-superscripts t)
   (setopt org-preview-latex-image-directory "~/.cache/ltximg/")
   ;; ORG LATEX PREVIEW
@@ -336,7 +336,6 @@
 ;; Tip: You can remove the `vertico-mode' use-package and replace it
 ;;      with the built-in `fido-vertical-mode'.
 (use-package vertico
-  ;; (Note: It is recommended to also enable the savehist package.)
   :ensure t
   :commands vertico-mode
   :hook
@@ -374,8 +373,6 @@
   (minibuffer-prompt-properties
    '(read-only t cursor-intangible t face minibuffer-prompt)))
 
-
-
 (use-package nerd-icons-completion
   :after marginalia
   :ensure t
@@ -392,10 +389,8 @@
   :ensure t
   :custom
   (completion-styles '(orderless basic))
-  (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles basic partial-completion))))
-  (completion-pcm-leading-wildcard t) ;; Emacs 31: partial-completion behaves like substring
-  )
+  (completion-category-overrides '((file (styles partial-completion))))
+  (completion-pcm-leading-wildcard t)) ;; Emacs 31: partial-completion behaves like substring
 
 (use-package marginalia
   ;; Marginalia allows Embark to offer you preconfigured actions in more contexts.
@@ -418,10 +413,18 @@
              embark-prefix-help-command)
   :init
   (setopt prefix-help-command #'embark-prefix-help-command)
-  :bind
-  (("C-." . embark-act)         ;; pick some comfortable binding
-   ("C-;" . embark-dwim)        ;; good alternative: M-.
-   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+
+  :general
+  ;; FIX: Migrated from standard :bind to explicit general maps to guarantee
+  ;; flawless lazy loading integration without overriding autoload pointers.
+  (:states 'normal
+           "C-."   #'embark-act
+           "C-;"   #'embark-dwim)
+  (:keymaps 'global-map
+            "C-."   #'embark-act
+            "C-h B" #'embark-bindings)
+  (:keymaps 'minibuffer-local-map
+            "C-."   #'embark-act)
 
   :config
 
@@ -434,7 +437,7 @@
 
 (use-package embark-consult
   :ensure t
-  :defer t
+  :after (embark consult)
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
 
@@ -442,7 +445,6 @@
   :ensure t
   :general (
             :prefix "SPC"
-            :keymaps 'override
             :states 'normal
             "/" #'consult-ripgrep
             "f f" #'consult-fd
@@ -521,9 +523,7 @@
 
 (use-package consult-dir
   :ensure t
-  :defer t
   :general (:prefix "SPC"
-                    :keymaps 'override
                     :states 'normal
                     "f d" #'consult-dir)
   )
@@ -533,54 +533,41 @@
   :defer t
   :general ([remap yas-insert-snippet] #'consult-yasnippet))
 
-(use-package evil
-  :ensure t
-  :defer t
-  :hook (elpaca-after-init . evil-mode)
-  :init
-  (setopt evil-want-integration t)
-  (setopt evil-want-keybinding nil)
-  (setopt evil-want-C-u-scroll t)
-  (setopt evil-want-fine-undo t)
-  (setopt evil-undo-system 'undo-fu)
-  (setopt evil-search-wrap t)
-  :config
-  (evil-select-search-module 'evil-search-module 'evil-search)
-  (setopt evil-ex-search-vim-style-regexp t
-          evil-ex-visual-char-range t  ; column range for ex commands
-          evil-symbol-word-search t
-          ;; if the current state is obvious from the cursor's color/shape, then
-          ;; we won't need superfluous indicators to do it instead.
-          evil-normal-state-cursor 'box
-          evil-insert-state-cursor 'bar
-          evil-visual-state-cursor 'hollow
-          ;; Only do highlighting in selected window so that Emacs has less work
-          ;; to do highlighting them all.
-          evil-ex-interactive-search-highlight 'selected-window
-          ;; It's infuriating that innocuous "beginning of line" or "end of line"
-          ;; errors will abort macros, so suppress them:
-          evil-kbd-macro-suppress-motion-error t
-          )
-  (setopt evil-visual-update-x-selection-p nil)
-  :custom
-  ;; Make :s in visual mode operate only on the actual visual selection
-  ;; (character or block), instead of the full lines covered by the selection
-  ;; Use Vim-style regular expressions in search and substitute commands,
-  ;; allowing features like \v (very magic), \zs, and \ze for precise matches
-  ;; Enable automatic horizontal split below
-  (evil-split-window-below t)
-  ;; Enable automatic vertical split to the right
-  (evil-vsplit-window-right t)
-  ;; Disable echoing Evil state to avoid replacing eldoc
-  (evil-echo-state nil)
-  ;; Allow C-h to delete in insert state
-  (evil-want-C-h-delete t)
-  ;; Enable C-u to delete back to indentation in insert state
-  (evil-want-C-u-delete t)
-  ;; Enable fine-grained undo behavior
-  (evil-want-fine-undo t)
-  ;; Whether Y yanks to the end of the line
-  (evil-want-Y-yank-to-eol t))
+
+evil-ex-visual-char-range t  ; column range for ex commands
+evil-symbol-word-search t
+;; if the current state is obvious from the cursor's color/shape, then
+;; we won't need superfluous indicators to do it instead.
+evil-normal-state-cursor 'box
+evil-insert-state-cursor 'bar
+evil-visual-state-cursor 'hollow
+;; Only do highlighting in selected window so that Emacs has less work
+;; to do highlighting them all.
+evil-ex-interactive-search-highlight 'selected-window
+;; It's infuriating that innocuous "beginning of line" or "end of line"
+;; errors will abort macros, so suppress them:
+evil-kbd-macro-suppress-motion-error t
+)
+(setopt evil-visual-update-x-selection-p nil)
+:custom
+;; Make :s in visual mode operate only on the actual visual selection
+;; (character or block), instead of the full lines covered by the selection
+;; Use Vim-style regular expressions in search and substitute commands,
+;; allowing features like \v (very magic), \zs, and \ze for precise matches
+;; Enable automatic horizontal split below
+(evil-split-window-below t)
+;; Enable automatic vertical split to the right
+(evil-vsplit-window-right t)
+;; Disable echoing Evil state to avoid replacing eldoc
+(evil-echo-state nil)
+;; Allow C-h to delete in insert state
+(evil-want-C-h-delete t)
+;; Enable C-u to delete back to indentation in insert state
+(evil-want-C-u-delete t)
+;; Enable fine-grained undo behavior
+(evil-want-fine-undo t)
+;; Whether Y yanks to the end of the line
+(evil-want-Y-yank-to-eol t))
 
 (use-package evil-collection
   :ensure t
@@ -595,8 +582,6 @@
 
 (use-package evil-goggles
   :ensure t
-  :after evil
-  :defer t
   :hook (evil-mode . evil-goggles-mode)
   :config
   ;; optionally use diff-mode's faces; as a result, deleted text
@@ -787,9 +772,7 @@
 
 (use-package yasnippet-capf
   :ensure t
-  :after cape
-  :config
-  (add-to-list 'completion-at-point-functions #'yasnippet-capf))
+  :after (cape yasnippet))
 
 (use-package nerd-icons-corfu
   :ensure t
@@ -851,7 +834,6 @@
   (setopt minions-mode-line-lighter " ⚙ ")
   (minions-mode 1)
   )
-
 
 (use-package doom-themes
   :ensure t
@@ -935,11 +917,10 @@
     (setopt insert-directory-program "gls")
     (setopt dired-listing-switches "-aBhl --group-directories-first")
     )
-  (setopt dirvish-attributes'(vc-state subtree-state nerd-icons git-msg file-time file-size))
+  (setopt dirvish-attributes '(vc-state subtree-state nerd-icons git-msg file-time file-size))
   (setopt dirvish-default-layout '(0 0.4 0.6))
   (general-define-key
    :prefix "SPC"
-   :keymaps 'override
    :states 'normal
    "." #'find-file)
   )
@@ -991,10 +972,9 @@
   ;;				      dictionary dictionary_comprehension
   ;;				      parenthesized_expression subscript)))
   :config
-  (setq
+  (setopt
    indent-bars-starting-column 0
    indent-bars-color '(highlight :face-bg t :blend 0.05)
-   indent-bars-no-stipple nil
    indent-bars-pattern "."
    indent-bars-width-frac 0.15
    indent-bars-pad-frac 0.1
@@ -1021,7 +1001,6 @@
   :hook
   ((dired-mode . diff-hl-dired-mode)
    (magit-post-refresh . diff-hl-magit-post-refresh)
-   (diff-hl-mode . diff-hl-flydiff-mode)
    )
   :config
   (setopt diff-hl-global-modes '(not image-mode pdf-view-mode))
@@ -1032,6 +1011,7 @@
   ;; UX: get realtime feedback in diffs after staging/unstaging hunks.
   (setopt diff-hl-show-staged-changes nil)
   (global-diff-hl-mode 1)
+  (diff-hl-flydiff-mode 1)
   )
 
 (use-package info-colors
@@ -1161,19 +1141,14 @@
   :after org
   :ensure (evil-org :type git :host github :repo "doomelpa/evil-org-mode")
   :hook ((org-mode . evil-org-mode)
-         (evil-org-mode . (lambda () (setq-default evil-shift-width 2))))
+         (evil-org-mode . (lambda () (setq-local evil-shift-width 2))))
   :config
   (add-hook 'evil-org-mode-hook #'evil-normalize-keymaps)
   (evil-org-set-key-theme)
-  )
-
-(use-package evil-org-agenda
-  :after org-agenda
-  :ensure nil
-  :hook (org-agenda-mode . evil-org-agenda-mode)
-  :config
-  (evil-org-agenda-set-keys)
-  )
+  (with-eval-after-load 'org-agenda
+    (require 'evil-org-agenda)
+    (evil-org-agenda-set-keys)))
+)
 
 (use-package orgit
   :after (org magit)
@@ -1356,20 +1331,22 @@
 (use-package jinx
   :ensure t
   :defer t
+  :general
+  ;; OPTIMIZATION: Seamlessly maps Jinx over standard Emacs and Evil spellchecking paths,
+  ;; allowing commands like `]s` and `[s` to use Jinx's ultra-fast engine.
+  ([remap ispell-word] #'jinx-correct)
+  (:states 'normal
+           "]s" #'jinx-next
+           "[s" #'jinx-previous)
+  :hook
+  (text-mode . jinx-mode)
+  (prog-mode . jinx-mode)
   :config
   ;; Extra face(s) to ignore
   (setopt jinx-languages "en-us")
   (push 'org-inline-src-block
         (alist-get 'org-mode jinx-exclude-faces))
   ;; Take over the relevant bindings.
-  :general (
-            [remap ispell-word] #'jinx-correct
-            [remap evil-next-flyspell-error] #'jinx-next
-            [remap evil-prev-flyspell-error] #'jinx-previous)
-  :hook
-  (text-mode . jinx-mode)
-  (prog-mode . jinx-mode)
-  :config
   (add-to-list
    'vertico-multiform-categories
    '(jinx grid (vertico-grid-annotate . 20) (vertico-count . 4))))
@@ -1422,12 +1399,11 @@
 (use-package apheleia
   :ensure t
   :config
-  ( apheleia-global-mode 1))
+  (apheleia-global-mode 1))
 
 (use-package project
   :ensure nil
   :general (:prefix "SPC"
-                    :keymaps 'override
                     :states 'normal
                     "p p" #'project-switch-project
                     )
@@ -1450,7 +1426,6 @@
 (general-define-key
  :prefix "SPC"
  :states 'normal
- :keymaps 'override
  "x" #'scratch-buffer
  "X" #'org-capture
  "f F" #'switch-to-buffer-other-frame
@@ -1458,7 +1433,6 @@
  )
 
 (general-define-key :prefix "SPC g"
-                    :keymaps 'override
                     :states 'normal
                     "g" #'magit
                     "t" #'git-timemachine
@@ -1467,7 +1441,6 @@
 (general-define-key
  :prefix "SPC o"
  :states 'normal
- :keymaps 'override
  :desc "Org agenda"       "A"  #'org-agenda
  :desc "Agenda"         "a a"  #'org-agenda
  :desc "Todo list"      "a t"  #'org-todo-list
@@ -1491,7 +1464,6 @@
 (general-define-key
  :prefix "SPC t"
  :states 'normal
- :keymaps 'override
  :desc "toggle code wrapping"              "w"   #'visual-line-mode
  :desc "toggle flymake"              "f"   #'flymake-mode
  )
@@ -1499,7 +1471,6 @@
 (general-define-key
  :prefix "SPC c"
  :states 'normal
- :keymaps 'override
  :desc "LSP Execute code action"              "a"   #'eglot-code-actions
  :desc "LSP Organize Imports"              "o"   #'eglot-code-action-organize-imports
  :desc "LSP Rename"                           "r"   #'eglot-rename
