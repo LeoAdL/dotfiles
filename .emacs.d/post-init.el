@@ -133,7 +133,9 @@
 
 ;; Idle garbage collection
 
-(use-package general :ensure (:wait t)
+(use-package general
+  :ensure (:wait t)
+  :demand t
   :config
   (general-auto-unbind-keys)
   (general-evil-setup)
