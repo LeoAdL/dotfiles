@@ -2,7 +2,7 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 export PATH="$PATH:/Library/TeX/texbin/"
@@ -57,12 +57,12 @@ zstyle ':fzf-tab:complete:git-log:*' fzf-preview \
 zstyle ':fzf-tab:complete:git-help:*' fzf-preview \
     'git help $word | bat -plman --color=always'
 zstyle ':fzf-tab:complete:git-show:*' fzf-preview \
-    'case "$group" in
+'case "$group" in
 "commit tag") git show --color=always $word ;;
 *) git show --color=always $word | delta ;;
 esac'
 zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
-    'case "$group" in
+'case "$group" in
 "modified file") git diff $word | delta ;;
 "recent commit object name") git show --color=always $word | delta ;;
 *) git log --color=always $word ;;
@@ -73,6 +73,9 @@ zstyle ':fzf-tab:complete:-command-:*' fzf-preview \
     '(out=$(tldr --color always "$word") 3>/dev/null && echo $out) || (out=$(MANWIDTH=$FZF_PREVIEW_COLUMNS man "$word") 2>/dev/null && echo $out) || (out=$(which "$word") && echo $out) || echo "${(P)word}"'
 # zsh - add to ~/.zshrc:
 [[ "${${INSIDE_EMACS-}%%,*}" = 'ghostel' ]] && source "$EMACS_GHOSTEL_PATH/etc/shell/ghostel.zsh"
+
+export EDITOR=nvim
+export VISUAL=nvim
 
 # ${ZDOTDIR:-~}/.zshrc
 export ZFUNCDIR=${ZDOTDIR:-$HOME/.config/zsh}/functions
@@ -89,7 +92,7 @@ autoload -Uz antidote
 
 # Generate a new static file whenever .zsh_plugins.txt is updated.
 if [[ ! ${zsh_plugins}.zsh -nt ${zsh_plugins}.txt ]]; then
-  antidote bundle <${zsh_plugins}.txt >|${zsh_plugins}.zsh
+    antidote bundle <${zsh_plugins}.txt >|${zsh_plugins}.zsh
 fi
 
 # Source your static plugins file.
