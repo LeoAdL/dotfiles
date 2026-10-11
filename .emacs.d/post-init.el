@@ -284,1633 +284,1649 @@
           org-hide-leading-stars t
           org-priority-highest ?A
           org-priority-lowest ?E
-          org-todo-keywords '((sequence "TODO(t)" "DOING" "DONE"))
-          org-todo-keywords-for-agenda '((sequence "TODO" "DOING" "DONE")))
-  (setopt org-highlight-latex-and-related '(native script entities))
-  (setopt org-capture-templates
-          '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
-             "* TODO [#B] %?\n:Created: %T\n")
-            ("j" "Journal" entry (file+olp+datetree "~/org/journal.org")
-             "* %?\nEntered on %U\n  %i\n  %a")
-            ("P" "process-soon" entry (file+headline "todo.org" "Todo")
-             "* TODO %:fromname: %a %?\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))")
-            ("c" "Contact" entry (file "~/org/contacts.org")
-             "* %?
+          org-todo-keywords '((sequence "TODO(t)" "DOING" "DONE")))
+          (setopt org-highlight-latex-and-related '(native script entities))
+          (setopt org-capture-templates
+                  '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
+                     "* TODO [#B] %?\n:Created: %T\n")
+                    ("j" "Journal" entry (file+olp+datetree "~/org/journal.org")
+                     "* %?\nEntered on %U\n  %i\n  %a")
+                    ("P" "process-soon" entry (file+headline "todo.org" "Todo")
+                     "* TODO %:fromname: %a %?\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))")
+                    ("c" "Contact" entry (file "~/org/contacts.org")
+                     "* %?
  :PROPERTIES:
  :ADDRESS:
  :BIRTHDAY:
  :EMAIL:
  :NOTE:
  :END:"
-             :empty-lines 1)
-            ("w" "Work")
-            ("wp" "Phone Call" entry (file+olp+datetree "~/org/work.org") "* Phone call about %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i" :clock-in t)
-            ("wm" "Meeting"    entry (file+olp+datetree "~/org/work.org") "* Meeting about %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i"    :clock-in t)
-            ("m" "Email Workflow")
-            ("mw" "Write" entry (file+olp "~/org/mail.org" "New")
-             "* TODO Email %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i" :immediate-finish t)
-            ("mf" "Follow Up" entry (file+olp "~/org/mail.org" "Follow Up")
-             "* TODO Follow up with %:fromname on %a\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%i" :immediate-finish t)
-            ("mr" "Read Later" entry (file+olp "~/org/mail.org" "Read Later")
-             "* TODO Read %:subject\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%a\n\n%i" :immediate-finish t)
-            ))
-  )
-
-(use-package ghostel
-  :ensure t
-  :defer t
-  :config
-  (setopt ghostel-tramp-shell-integration t)
-  :general (
-            :prefix ","
-            :states 'normal
-            "n" #'ghostel-next
-            "p" #'ghostel-previous
-            ))
-
-(use-package evil-ghostel
-  :ensure t
-  :after (ghostel evil)
-  :hook (ghostel-mode . evil-ghostel-mode))
-
-;; Tip: You can remove the `vertico-mode' use-package and replace it
-;;      with the built-in `fido-vertical-mode'.
-(use-package vertico
-  :ensure t
-  :commands vertico-mode
-  :hook
-  (elpaca-after-init . vertico-mode)
-  :config
-  (setopt vertico-cycle t)
-  (vertico-multiform-mode 1)
-  )
-;; Configure directory extension.
-(use-package vertico-directory
-  :after vertico
-  :ensure nil
-  ;; More convenient directory navigation commands
-  :general (
-            :keymaps 'vertico-directory-map
-            "DEL" #'vertico-directory-delete-word
-            "RET" #'vertico-directory-enter
-            )
-  ;; Tidy shadowed file names
-  :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
-;; Emacs minibuffer configurations.
-(use-package emacs
-  :ensure nil
-  :custom
-  ;; Enable context menu. `vertico-multiform-mode' adds a menu in the minibuffer
-  ;; to switch display modes.
-  (context-menu-mode t)
-  ;; Support opening new minibuffers from inside existing minibuffers.
-  (enable-recursive-minibuffers t)
-  ;; Hide commands in M-x which do not work in the current mode.  Vertico
-  ;; commands are hidden in normal buffers. This setting is useful beyond
-  ;; Vertico.
-  (read-extended-command-predicate #'command-completion-default-include-p)
-  ;; Do not allow the cursor in the minibuffer prompt
-  (minibuffer-prompt-properties
-   '(read-only t cursor-intangible t face minibuffer-prompt)))
-
-(use-package nerd-icons-completion
-  :after marginalia
-  :ensure t
-  :init
-  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup)
-  :config
-  (nerd-icons-completion-mode)
-  )
-
-(use-package orderless
-  ;; Vertico leverages Orderless' flexible matching capabilities, allowing users
-  ;; to input multiple patterns separated by spaces, which Orderless then
-  ;; matches in any order against the candidates.
-  :ensure t
-  :custom
-  (completion-styles '(orderless basic))
-  (completion-category-overrides '((file (styles partial-completion))))
-  (completion-pcm-leading-wildcard t)) ;; Emacs 31: partial-completion behaves like substring
-
-(use-package marginalia
-  ;; Marginalia allows Embark to offer you preconfigured actions in more contexts.
-  ;; In addition to that, Marginalia also enhances Vertico by adding rich
-  ;; annotations to the completion candidates displayed in Vertico's interface.
-  :ensure t
-  :hook (elpaca-after-init . marginalia-mode))
-
-(use-package embark
-  ;; Embark is an Emacs package that acts like a context menu, allowing
-  ;; users to perform context-sensitive actions on selected items
-  ;; directly from the completion interface.
-  :ensure t
-  :defer t
-  :commands (embark-act
-             embark-dwim
-             embark-export
-             embark-collect
-             embark-bindings
-             embark-prefix-help-command)
-  :init
-  (setopt prefix-help-command #'embark-prefix-help-command)
-
-  :general
-  ;; FIX: Migrated from standard :bind to explicit general maps to guarantee
-  ;; flawless lazy loading integration without overriding autoload pointers.
-  (:states 'normal
-           "C-."   #'embark-act
-           "C-;"   #'embark-dwim)
-  (:keymaps 'global-map
-            "C-."   #'embark-act
-            "C-h B" #'embark-bindings)
-  (:keymaps 'minibuffer-local-map
-            "C-."   #'embark-act)
-
-  :config
-
-  ;; Hide the mode line of the Embark live/completions buffers
-  (add-to-list 'display-buffer-alist
-               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
-                 nil
-                 (window-parameters (mode-line-format . none)))))
-
-
-(use-package embark-consult
-  :ensure t
-  :after (embark consult)
-  :hook
-  (embark-collect-mode . consult-preview-at-point-mode))
-
-(use-package consult
-  :ensure t
-  :general (
-            :prefix "SPC"
-            :states 'normal
-            "/" #'consult-ripgrep
-            "f f" #'consult-fd
-            "f x" #'consult-mode-command
-            "f h" #'consult-history
-            "f k" #'consult-kmacro
-            "f m" #'consult-man
-            "f i" #'consult-info
-            "f r" #'consult-recent-file
-            ;; C-x bindings in `ctl-x-map'
-            "f M-:" #'consult-complex-command
-            "b b" #'consult-buffer
-            "4 b" #'consult-buffer-other-window
-            "5 b" #'consult-buffer-other-frame
-            "t b" #'consult-buffer-other-tab
-            "r b" #'consult-bookmark
-            "p b" #'consult-project-buffer
-            ;; Custom M-# bindings for fast register access
-            "r r" #'consult-register
-            ;; Other custom bindings
-            "y" #'consult-yank-pop
-            ;; g bindings in `goto-map'
-            "G e" #'consult-compile-error
-            "c b" #'consult-flymake
-            "G g" #'consult-goto-line
-            "G o" #'consult-outline
-            "G m" #'consult-mark
-            "G k" #'consult-global-mark
-            "G i" #'consult-imenu
-            "G I" #'consult-imenu-multi
-            ;; M-s bindings in `search-map'
-            "s d" #'consult-find
-            "s c" #'consult-locate
-            "s g" #'consult-grep
-            "s G" #'consult-git-grep
-            "s l" #'consult-line
-            "s L" #'consult-line-multi
-            "s k" #'consult-keep-lines
-            "s u" #'consult-focus-lines
-            ;; Isearch integration
-            "s e" #'consult-isearch-history
-            ;; Minibuffer history
-            "s s" #'consult-history)
-
-
-  ;; Enable automatic preview at point in the *Completions* buffer.
-  :hook (completion-list-mode . consult-preview-at-point-mode)
-
-  :init
-  ;; Tweak the register preview for `consult-register-load',
-  ;; `consult-register-store' and the built-in commands.  This improves the
-  ;; register formatting, adds thin separator lines, register sorting and hides
-  ;; the window mode line.
-  (setopt register-preview-delay 0.5)
-  (advice-add #'register-preview :override #'consult-register-window)
-
-  ;; Use Consult to select xref locations with preview
-  (setopt xref-show-xrefs-function #'consult-xref
-          xref-show-definitions-function #'consult-xref)
-
-  :config
-  (consult-customize
-   consult-theme :preview-key '(:debounce 0.2 any)
-   consult-ripgrep consult-git-grep consult-grep
-   consult-bookmark consult-recent-file consult-xref
-   consult-source-bookmark consult-source-file-register
-   consult-source-recent-file consult-source-project-recent-file
-   ;; :preview-key "M-."
-   :preview-key '(:debounce 0.4 any))
-  (setopt consult-narrow-key "<")
-  (setopt consult-async-min-input 2
-          consult-async-refresh-delay  0.15
-          consult-async-input-throttle 0.2
-          consult-async-input-debounce 0.1
-          ))
-
-(use-package consult-dir
-  :ensure t
-  :general (:prefix "SPC"
-                    :states 'normal
-                    "f d" #'consult-dir)
-  )
-
-(use-package consult-yasnippet
-  :ensure t
-  :defer t
-  :general ([remap yas-insert-snippet] #'consult-yasnippet))
-
-
-(use-package evil
-  :ensure t
-  :defer t
-  :hook (elpaca-after-init . evil-mode)
-  :init
-  (setopt evil-want-integration t)
-  (setopt evil-want-keybinding nil)
-  (setopt evil-want-C-u-scroll t)
-  (setopt evil-want-fine-undo t)
-  (setopt evil-undo-system 'undo-fu)
-  (setopt evil-search-wrap t)
-  :config
-  (evil-select-search-module 'evil-search-module 'evil-search)
-  (setopt evil-ex-search-vim-style-regexp t
-          evil-ex-visual-char-range t  ; column range for ex commands
-          evil-symbol-word-search t
-          ;; if the current state is obvious from the cursor's color/shape, then
-          ;; we won't need superfluous indicators to do it instead.
-          evil-normal-state-cursor 'box
-          evil-insert-state-cursor 'bar
-          evil-visual-state-cursor 'hollow
-          ;; Only do highlighting in selected window so that Emacs has less work
-          ;; to do highlighting them all.
-          evil-ex-interactive-search-highlight 'selected-window
-          ;; It's infuriating that innocuous "beginning of line" or "end of line"
-          ;; errors will abort macros, so suppress them:
-          evil-kbd-macro-suppress-motion-error t
+                     :empty-lines 1)
+                    ("w" "Work")
+                    ("wp" "Phone Call" entry (file+olp+datetree "~/org/work.org") "* Phone call about %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i" :clock-in t)
+                    ("wm" "Meeting"    entry (file+olp+datetree "~/org/work.org") "* Meeting about %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i"    :clock-in t)
+                    ("m" "Email Workflow")
+                    ("mw" "Write" entry (file+olp "~/org/mail.org" "New")
+                     "* TODO Email %?\nSCHEDULED:%t\nDEADLINE: %^T\n\n%i" :immediate-finish t)
+                    ("mf" "Follow Up" entry (file+olp "~/org/mail.org" "Follow Up")
+                     "* TODO Follow up with %:fromname on %a\nSCHEDULED: %t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%i" :immediate-finish t)
+                    ("mr" "Read Later" entry (file+olp "~/org/mail.org" "Read Later")
+                     "* TODO Read %:subject\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n\n%a\n\n%i" :immediate-finish t)
+                    ))
           )
-  (setopt evil-visual-update-x-selection-p nil)
-  :custom
-  ;; Make :s in visual mode operate only on the actual visual selection
-  ;; (character or block), instead of the full lines covered by the selection
-  ;; Use Vim-style regular expressions in search and substitute commands,
-  ;; allowing features like \v (very magic), \zs, and \ze for precise matches
-  ;; Enable automatic horizontal split below
-  (evil-split-window-below t)
-  ;; Enable automatic vertical split to the right
-  (evil-vsplit-window-right t)
-  ;; Disable echoing Evil state to avoid replacing eldoc
-  (evil-echo-state nil)
-  ;; Allow C-h to delete in insert state
-  (evil-want-C-h-delete t)
-  ;; Enable C-u to delete back to indentation in insert state
-  (evil-want-C-u-delete t)
-  ;; Enable fine-grained undo behavior
-  (evil-want-fine-undo t)
-  ;; Whether Y yanks to the end of the line
-  (evil-want-Y-yank-to-eol t))
 
-(use-package evil-collection
-  :ensure t
-  :after evil
-  :config
-  (evil-collection-init)
-  )
+  (use-package ghostel
+    :ensure t
+    :defer t
+    :config
+    (setopt ghostel-tramp-shell-integration t)
+    :general (
+              :prefix ","
+              :states 'normal
+              :keymaps 'ghostel-mode-map
+              "n" #'ghostel-next
+              "p" #'ghostel-previous
+              ))
 
-(use-package evil-args
-  :ensure t
-  :after evil)
+  (use-package evil-ghostel
+    :ensure t
+    :after (ghostel evil)
+    :hook (ghostel-mode . evil-ghostel-mode))
 
-(use-package evil-goggles
-  :ensure t
-  :hook (evil-mode . evil-goggles-mode)
-  :config
-  ;; optionally use diff-mode's faces; as a result, deleted text
-  ;; will be highlighed with `diff-removed` face which is typically
-  ;; some red color (as defined by the color theme)
-  ;; other faces such as `diff-added` will be used for other actions
-  (evil-goggles-use-diff-faces))
-
-(use-package evil-anzu
-  :ensure (evil-anzu :type git :host github :repo "emacsorphanage/evil-anzu")
-  :hook (elpaca-after-init . global-anzu-mode)
-  :init
-  (with-eval-after-load 'evil
-    (require 'evil-anzu))
-  )
-
-(use-package kirigami
-  :ensure t
-  :commands (kirigami-open-fold
-             kirigami-open-fold-rec
-             kirigami-close-fold
-             kirigami-toggle-fold
-             kirigami-open-folds
-             kirigami-close-folds-except-current
-             kirigami-close-folds)
-
-  :bind
-  (("C-c z o" . kirigami-open-fold)          ; Open fold at point
-   ("C-c z O" . kirigami-open-fold-rec)      ; Open fold recursively
-   ("C-c z r" . kirigami-open-folds)         ; Open all folds
-   ("C-c z c" . kirigami-close-fold)         ; Close fold at point
-   ("C-c z m" . kirigami-close-folds)        ; Close all folds
-   ("C-c z <tab>" . kirigami-toggle-fold)))  ; Toggle fold at point
-
-;; Uncomment the following if you are an `evil-mode' user:
-(with-eval-after-load 'evil
-  (define-key evil-normal-state-map "zo" 'kirigami-open-fold)
-  (define-key evil-normal-state-map "zO" 'kirigami-open-fold-rec)
-  (define-key evil-normal-state-map "zc" 'kirigami-close-fold)
-  (define-key evil-normal-state-map "za" 'kirigami-toggle-fold)
-  (define-key evil-normal-state-map "zr" 'kirigami-open-folds)
-  (define-key evil-normal-state-map "zm" 'kirigami-close-folds))
-
-(use-package undo-fu
-  :ensure t
-  :config
-  ;; Increase undo history limits to reduce likelihood of data loss
-  (setopt undo-limit 256000           ; 256kb (default is 160kb)
-          undo-strong-limit 2000000   ; 2mb   (default is 240kb)
-          undo-outer-limit 36000000)  ; 36mb  (default is 24mb)
-  (global-unset-key (kbd "C-z"))
-  (global-set-key (kbd "C-z") 'undo-fu-only-undo)
-  (global-set-key (kbd "C-S-z") 'undo-fu-only-redo))
-
-(use-package undo-fu-session
-  :ensure t
-  :config
-  (when (executable-find "zstd")
-    ;; There are other algorithms available, but zstd is the fastest, and speed
-    ;; is our priority within Emacs
-    (setopt undo-fu-session-compression 'zst))
-  (undo-fu-session-global-mode 1)
-  )
-
-(use-package vundo
-  :ensure t
-  :general (
-            :prefix "SPC"
-            :keymaps 'override
-            :states 'normal
-            "s u" #'vundo)
-  :config
-  (setopt vundo-glyph-alist vundo-unicode-symbols
-          vundo-compact-display t)
-  )
-
-(use-package evil-visualstar
-  :after evil
-  :ensure t
-  :defer t
-  :hook (evil-mode . global-evil-visualstar-mode)
-  :commands (evil-visualstar/begin-search
-             evil-visualstar/begin-search-forward
-             evil-visualstar/begin-search-backward))
-
-(use-package evil-surround
-  :after evil
-  :ensure t
-  :defer t
-  :commands (global-evil-surround-mode
-             evil-surround-edit
-             evil-Surround-edit
-             evil-surround-region)
-  :custom
-  (evil-surround-pairs-alist
-   '((?\( . ("(" . ")"))
-     (?\[ . ("[" . "]"))
-     (?\{ . ("{" . "}"))
-
-     (?\) . ("(" . ")"))
-     (?\] . ("[" . "]"))
-     (?\} . ("{" . "}"))
-
-     (?< . ("<" . ">"))
-     (?> . ("<" . ">"))))
-
-  :hook (evil-mode . global-evil-surround-mode))
-
-(with-eval-after-load "evil"
-  (evil-define-operator my-evil-comment-or-uncomment (beg end)
-    "Toggle comment for the region between BEG and END."
-    (interactive "<r>")
-    (comment-or-uncomment-region beg end))
-  (evil-define-key 'normal 'global (kbd "gc") 'my-evil-comment-or-uncomment))
-
-(use-package corfu
-  :ensure t
-  :commands (corfu-mode global-corfu-mode)
-  ;; Enable Corfu
-  :custom
-  ;; Disable Ispell completion function. As an alternative try `cape-dict'.
-  (text-mode-ispell-word-completion nil)
-  (tab-always-indent 'complete)
-  :bind
-  (:map corfu-map
-        ("TAB" . corfu-next)
-        ([tab] . corfu-next)
-        ("S-TAB" . corfu-previous)
-        ([backtab] . corfu-previous))
-
-  :init
-  (setopt corfu-auto-prefix 2)
-  (setopt corfu-auto-delay 0.1)
-  (setopt corfu-quit-no-match t)
-  (setopt corfu-auto t)
-  (setopt corfu-preselect 'prompt)
-  (global-corfu-mode)
-  (add-to-list 'savehist-additional-variables 'corfu-history)
-  (corfu-history-mode)
-  (setopt corfu-popupinfo-delay '(0.5 . 1.0))
-  (corfu-popupinfo-mode)
-  (with-eval-after-load 'eglot
-    (setopt completion-category-defaults nil))
-
-  )
-
-(use-package org-block-capf
-  :ensure (org-block-capf  :type git :host github :repo "xenodium/org-block-capf")
-  :after org
-  :hook (org-mode . org-block-capf-add-to-completion-at-point-functions))
-
-(use-package cape
-  :ensure t
-  ;; Ensure all functions used globally or in hooks are listed here
-  ;; so Emacs knows to load Cape when they are called.
-  :commands (cape-history cape-dabbrev cape-file cape-keyword cape-capf-super cape-wrap-buster)
-  :bind ("C-c p" . cape-prefix-map)
-
-  ;; Use :custom instead of (setopt ...) inside :config
-  :custom
-  (cape-dabbrev-min-length 2)
-
-  :init
-  ;; These global hooks are perfect in :init. When completion-at-point
-  ;; triggers them, Cape will automatically load.
-  (add-hook 'completion-at-point-functions #'cape-dabbrev)
-  (add-hook 'completion-at-point-functions #'cape-keyword)
-  (add-hook 'completion-at-point-functions #'cape-file)
-  (add-hook 'completion-at-point-functions #'cape-history)
-
-  :config
-  ;; Wrap Eglot-specific logic in with-eval-after-load to ensure
-  ;; it only runs if/when Eglot is actually loaded.
-  (with-eval-after-load 'eglot
-    ;; Cache busting for Eglot
-    (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
-
-    (defun my/eglot-capf ()
-      (setq-local completion-at-point-functions
-                  (list (cape-capf-super
-                         #'eglot-completion-at-point
-                         #'yasnippet-capf     ;; <-- Now merging files!
-                         #'cape-dabbrev  ;; <-- Now merging words!
-                         #'cape-file     ;; <-- Now merging files!
-                         ))))
-
-    (add-hook 'eglot-managed-mode-hook #'my/eglot-capf)))
-
-(use-package yasnippet-capf
-  :ensure t
-  :after (cape yasnippet))
-
-(use-package nerd-icons-corfu
-  :ensure t
-  :after corfu
-  :init
-  ;; Optionally:
-  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)
-  )
-
-;; Hide warnings and display only errors
-(setopt warning-minimum-level :error)
-
-;; Display of line numbers in the buffer:
-;; (display-line-numbers-mode 1)
-
-(use-package which-key
-  :ensure nil
-  :custom
-  (which-key-idle-delay 0.5)
-  (which-key-idle-secondary-delay 0.25)
-  (which-key-add-column-padding 1)
-  (which-key-max-description-length 40)
-  :config
-  (which-key-mode 1))
-
-
-(use-package uniquify
-  :ensure nil
-  :custom
-  (uniquify-buffer-name-style 'reverse)
-  (uniquify-separator "•")
-  (uniquify-after-kill-buffer-p t)
-  (uniquify-ignore-buffers-re "^\\*"))
-
-(use-package time
-  :ensure nil
-  :custom
-  (display-time-mail-string "")
-  :init
-  (display-time-mode 1))
-
-(use-package moody
-  :ensure t
-  :config
-  ;; Display the time in the modeline
-  (setq-default mode-line-format '("%e" mode-line-front-space
-                                   mode-line-modified mode-line-remote mode-line-window-dedicated
-                                   mode-line-buffer-identification "   "
-                                   mode-line-position (project-mode-line project-mode-line-format)
-                                   (vc-mode vc-mode) "  " mode-line-modes mode-line-format-right-align mode-line-misc-info mode-line-end-spaces))
-  (moody-replace-mode-line-front-space)
-  (moody-replace-mode-line-buffer-identification)
-  (moody-replace-vc-mode))
-
-(use-package minions
-  :ensure t
-  :config
-  (setopt minions-prominent-modes '(flymake-mode eglot-mode))
-  (setopt minions-mode-line-lighter " ⚙ ")
-  (minions-mode 1)
-  )
-
-(use-package doom-themes
-  :ensure t
-  :config
-  (setopt doom-themes-enable-bold t)
-  (setopt doom-themes-enable-italic t)
-  (setopt doom-themes-padded-modeline t)
-  (doom-themes-visual-bell-config)
-  )
-
-(use-package solaire-mode
-  :ensure t
-  :config (solaire-global-mode 1)
-  )
-
-(use-package batppuccin
-  :ensure t
-  :config
-  (load-theme 'batppuccin-mocha t))
-
-(use-package diredfl
-  :ensure t
-  :hook
-  ((dired-mode . diredfl-mode)
-   ;; highlight parent and directory preview as well
-   (dirvish-directory-view-mode . diredfl-mode))
-  :config
-  (set-face-attribute 'diredfl-dir-name nil :bold t))
-
-(use-package tramp
-  :ensure nil
-  :config
-  ;; Enable full-featured Dirvish over TRAMP on ssh connections
-  ;; https://www.gnu.org/software/tramp/#Improving-performance-of-asynchronous-remote-processes
-  (connection-local-set-profile-variables
-   'remote-direct-async-process
-   '((tramp-direct-async-process . t)))
-  (connection-local-set-profiles
-   '(:application tramp :protocol "ssh")
-   'remote-direct-async-process)
-  ;; Tips to speed up connections
-  (setopt tramp-verbose 0)
-  (setopt tramp-chunksize 2000)
-  (setopt tramp-ssh-controlmaster-options nil))
-
-(use-package dirvish
-  :ensure t
-  :after evil
-  :init
-  (dirvish-override-dired-mode)
-  :general
-  (:states 'normal
-           :keymaps 'dirvish-mode-map
-           "a"   #'dirvish-quick-access
-           "q"   #'dirvish-quit
-           "W"   #'wdired-change-to-wdired-mode
-           "F"   #'dirvish-file-info-menu
-           "p"   #'dirvish-rsync
-           "/"   #'dirvish-narrow
-           "u"   #'dired-undo
-           "U"   #'dired-unmark
-           "C-n"   #'dired-next-line
-           "C-p"   #'dired-previous-line
-           "f"   #'dirvish-fd
-           "^"   #'dirvish-history-last
-           "h"   #'dirvish-history-jump
-           "s"   #'dirvish-quicksort
-           "v"   #'dirvish-vc-menu
-           "TAB" #'dirvish-subtree-toggle
-           "M-f" #'dirvish-history-go-forward
-           "M-b" #'dirvish-history-go-backward
-           "M-l" #'dirvish-ls-switches-menu
-           "M-m" #'dirvish-mark-menu
-           "M-t" #'dirvish-layout-toggle
-           "M-s" #'dirvish-setup-menu
-           "M-e" #'dirvish-emerge-menu)
-
-  :config
-  (evil-make-overriding-map dirvish-mode-map 'normal)
-  (when (string= system-type "darwin")
-    (setopt insert-directory-program "gls")
-    (setopt dired-listing-switches "-aBhl --group-directories-first")
+  ;; Tip: You can remove the `vertico-mode' use-package and replace it
+  ;;      with the built-in `fido-vertical-mode'.
+  (use-package vertico
+    :ensure t
+    :commands vertico-mode
+    :hook
+    (elpaca-after-init . vertico-mode)
+    :config
+    (setopt vertico-cycle t)
+    (vertico-multiform-mode 1)
     )
-  (setopt dirvish-attributes '(vc-state subtree-state nerd-icons git-msg file-time file-size))
-  (setopt dirvish-default-layout '(0 0.4 0.6))
+  ;; Configure directory extension.
+  (use-package vertico-directory
+    :after vertico
+    :ensure nil
+    ;; More convenient directory navigation commands
+    :general (:keymaps 'vertico-map
+                       "RET"   #'vertico-directory-enter
+                       "DEL"   #'vertico-directory-delete-char
+                       "M-DEL" #'vertico-directory-delete-word)
+    ;; Tidy shadowed file names
+    :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
+  ;; Emacs minibuffer configurations.
+  (use-package emacs
+    :ensure nil
+    :custom
+    ;; Enable context menu. `vertico-multiform-mode' adds a menu in the minibuffer
+    ;; to switch display modes.
+    (context-menu-mode t)
+    ;; Support opening new minibuffers from inside existing minibuffers.
+    (enable-recursive-minibuffers t)
+    ;; Hide commands in M-x which do not work in the current mode.  Vertico
+    ;; commands are hidden in normal buffers. This setting is useful beyond
+    ;; Vertico.
+    (read-extended-command-predicate #'command-completion-default-include-p)
+    ;; Do not allow the cursor in the minibuffer prompt
+    (minibuffer-prompt-properties
+     '(read-only t cursor-intangible t face minibuffer-prompt)))
+
+  (use-package nerd-icons-completion
+    :after marginalia
+    :ensure t
+    :init
+    (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup)
+    :config
+    (nerd-icons-completion-mode)
+    )
+
+  (use-package orderless
+    ;; Vertico leverages Orderless' flexible matching capabilities, allowing users
+    ;; to input multiple patterns separated by spaces, which Orderless then
+    ;; matches in any order against the candidates.
+    :ensure t
+    :custom
+    (completion-styles '(orderless basic))
+    (completion-category-overrides '((file (styles partial-completion))))
+    (completion-pcm-leading-wildcard t)) ;; Emacs 31: partial-completion behaves like substring
+
+  (use-package marginalia
+    ;; Marginalia allows Embark to offer you preconfigured actions in more contexts.
+    ;; In addition to that, Marginalia also enhances Vertico by adding rich
+    ;; annotations to the completion candidates displayed in Vertico's interface.
+    :ensure t
+    :hook (elpaca-after-init . marginalia-mode))
+
+  (use-package embark
+    ;; Embark is an Emacs package that acts like a context menu, allowing
+    ;; users to perform context-sensitive actions on selected items
+    ;; directly from the completion interface.
+    :ensure t
+    :defer t
+    :commands (embark-act
+               embark-dwim
+               embark-export
+               embark-collect
+               embark-bindings
+               embark-prefix-help-command)
+    :init
+    (setopt prefix-help-command #'embark-prefix-help-command)
+
+    :general
+    ;; FIX: Migrated from standard :bind to explicit general maps to guarantee
+    ;; flawless lazy loading integration without overriding autoload pointers.
+    (:states 'normal
+             "C-."   #'embark-act
+             "C-;"   #'embark-dwim)
+    (:keymaps 'global-map
+              "C-."   #'embark-act
+              "C-h B" #'embark-bindings)
+    (:keymaps 'minibuffer-local-map
+              "C-."   #'embark-act)
+
+    :config
+
+    ;; Hide the mode line of the Embark live/completions buffers
+    (add-to-list 'display-buffer-alist
+                 '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                   nil
+                   (window-parameters (mode-line-format . none)))))
+
+
+  (use-package embark-consult
+    :ensure t
+    :after (embark consult)
+    :hook
+    (embark-collect-mode . consult-preview-at-point-mode))
+
+  (use-package consult
+    :ensure t
+    :general (
+              :prefix "SPC"
+              :states 'normal
+              "/" #'consult-ripgrep
+              "f f" #'consult-fd
+              "f x" #'consult-mode-command
+              "f h" #'consult-history
+              "f k" #'consult-kmacro
+              "f m" #'consult-man
+              "f i" #'consult-info
+              "f r" #'consult-recent-file
+              ;; C-x bindings in `ctl-x-map'
+              "f M-:" #'consult-complex-command
+              "b b" #'consult-buffer
+              "4 b" #'consult-buffer-other-window
+              "5 b" #'consult-buffer-other-frame
+              "t b" #'consult-buffer-other-tab
+              "r b" #'consult-bookmark
+              "p b" #'consult-project-buffer
+              ;; Custom M-# bindings for fast register access
+              "r r" #'consult-register
+              ;; Other custom bindings
+              "y" #'consult-yank-pop
+              ;; g bindings in `goto-map'
+              "G e" #'consult-compile-error
+              "c b" #'consult-flymake
+              "G g" #'consult-goto-line
+              "G o" #'consult-outline
+              "G m" #'consult-mark
+              "G k" #'consult-global-mark
+              "G i" #'consult-imenu
+              "G I" #'consult-imenu-multi
+              ;; M-s bindings in `search-map'
+              "s d" #'consult-find
+              "s c" #'consult-locate
+              "s g" #'consult-grep
+              "s G" #'consult-git-grep
+              "s l" #'consult-line
+              "s L" #'consult-line-multi
+              "s k" #'consult-keep-lines
+              ;; Isearch integration
+              "s e" #'consult-isearch-history
+              ;; Minibuffer history
+              "s s" #'consult-history)
+
+
+    ;; Enable automatic preview at point in the *Completions* buffer.
+    :hook (completion-list-mode . consult-preview-at-point-mode)
+
+    :init
+    ;; Tweak the register preview for `consult-register-load',
+    ;; `consult-register-store' and the built-in commands.  This improves the
+    ;; register formatting, adds thin separator lines, register sorting and hides
+    ;; the window mode line.
+    (setopt register-preview-delay 0.5)
+    (advice-add #'register-preview :override #'consult-register-window)
+
+    ;; Use Consult to select xref locations with preview
+    (setopt xref-show-xrefs-function #'consult-xref
+            xref-show-definitions-function #'consult-xref)
+
+    :config
+    (consult-customize
+     consult-theme :preview-key '(:debounce 0.2 any)
+     consult-ripgrep consult-git-grep consult-grep
+     consult-bookmark consult-recent-file consult-xref
+     consult-source-bookmark consult-source-file-register
+     consult-source-recent-file consult-source-project-recent-file
+     ;; :preview-key "M-."
+     :preview-key '(:debounce 0.4 any))
+    (setopt consult-narrow-key "<")
+    (setopt consult-async-min-input 2
+            consult-async-refresh-delay  0.15
+            consult-async-input-throttle 0.2
+            consult-async-input-debounce 0.1
+            ))
+
+  (use-package consult-dir
+    :ensure t
+    :general (:prefix "SPC"
+                      :states 'normal
+                      "f d" #'consult-dir)
+    )
+
+  (use-package consult-yasnippet
+    :ensure t
+    :defer t
+    :general ([remap yas-insert-snippet] #'consult-yasnippet))
+
+
+  (use-package evil
+    :ensure t
+    :defer t
+    :hook (elpaca-after-init . evil-mode)
+    :init
+    (setopt evil-want-integration t)
+    (setopt evil-want-keybinding nil)
+    (setopt evil-want-C-u-scroll t)
+    (setopt evil-want-fine-undo t)
+    (setopt evil-undo-system 'undo-fu)
+    (setopt evil-search-wrap t)
+    :config
+    (evil-select-search-module 'evil-search-module 'evil-search)
+    (setopt evil-ex-search-vim-style-regexp t
+            evil-ex-visual-char-range t  ; column range for ex commands
+            evil-symbol-word-search t
+            ;; if the current state is obvious from the cursor's color/shape, then
+            ;; we won't need superfluous indicators to do it instead.
+            evil-normal-state-cursor 'box
+            evil-insert-state-cursor 'bar
+            evil-visual-state-cursor 'hollow
+            ;; Only do highlighting in selected window so that Emacs has less work
+            ;; to do highlighting them all.
+            evil-ex-interactive-search-highlight 'selected-window
+            ;; It's infuriating that innocuous "beginning of line" or "end of line"
+            ;; errors will abort macros, so suppress them:
+            evil-kbd-macro-suppress-motion-error t
+            )
+    (setopt evil-visual-update-x-selection-p nil)
+    :custom
+    ;; Make :s in visual mode operate only on the actual visual selection
+    ;; (character or block), instead of the full lines covered by the selection
+    ;; Use Vim-style regular expressions in search and substitute commands,
+    ;; allowing features like \v (very magic), \zs, and \ze for precise matches
+    ;; Enable automatic horizontal split below
+    (evil-split-window-below t)
+    ;; Enable automatic vertical split to the right
+    (evil-vsplit-window-right t)
+    ;; Disable echoing Evil state to avoid replacing eldoc
+    (evil-echo-state nil)
+    ;; Allow C-h to delete in insert state
+    (evil-want-C-h-delete t)
+    ;; Enable C-u to delete back to indentation in insert state
+    (evil-want-C-u-delete t)
+    ;; Enable fine-grained undo behavior
+    (evil-want-fine-undo t)
+    ;; Whether Y yanks to the end of the line
+    (evil-want-Y-yank-to-eol t))
+
+  (use-package evil-collection
+    :ensure t
+    :after evil
+    :config
+    (evil-collection-init)
+    )
+
+  (use-package evil-args
+    :ensure t
+    :after evil)
+
+  (use-package evil-goggles
+    :ensure t
+    :hook (evil-mode . evil-goggles-mode)
+    :config
+    ;; optionally use diff-mode's faces; as a result, deleted text
+    ;; will be highlighed with `diff-removed` face which is typically
+    ;; some red color (as defined by the color theme)
+    ;; other faces such as `diff-added` will be used for other actions
+    (evil-goggles-use-diff-faces))
+
+  (use-package evil-anzu
+    :ensure (evil-anzu :type git :host github :repo "emacsorphanage/evil-anzu")
+    :hook (elpaca-after-init . global-anzu-mode)
+    :init
+    (with-eval-after-load 'evil
+      (require 'evil-anzu))
+    )
+
+  (use-package kirigami
+    :ensure t
+    :commands (kirigami-open-fold
+               kirigami-open-fold-rec
+               kirigami-close-fold
+               kirigami-toggle-fold
+               kirigami-open-folds
+               kirigami-close-folds-except-current
+               kirigami-close-folds)
+
+    :bind
+    (("C-c z o" . kirigami-open-fold)          ; Open fold at point
+     ("C-c z O" . kirigami-open-fold-rec)      ; Open fold recursively
+     ("C-c z r" . kirigami-open-folds)         ; Open all folds
+     ("C-c z c" . kirigami-close-fold)         ; Close fold at point
+     ("C-c z m" . kirigami-close-folds)        ; Close all folds
+     ("C-c z <tab>" . kirigami-toggle-fold)))  ; Toggle fold at point
+
+  ;; Uncomment the following if you are an `evil-mode' user:
+  (with-eval-after-load 'evil
+    (define-key evil-normal-state-map "zo" 'kirigami-open-fold)
+    (define-key evil-normal-state-map "zO" 'kirigami-open-fold-rec)
+    (define-key evil-normal-state-map "zc" 'kirigami-close-fold)
+    (define-key evil-normal-state-map "za" 'kirigami-toggle-fold)
+    (define-key evil-normal-state-map "zr" 'kirigami-open-folds)
+    (define-key evil-normal-state-map "zm" 'kirigami-close-folds))
+
+  (use-package undo-fu
+    :ensure t
+    :config
+    ;; Increase undo history limits to reduce likelihood of data loss
+    (setopt undo-limit 256000           ; 256kb (default is 160kb)
+            undo-strong-limit 2000000   ; 2mb   (default is 240kb)
+            undo-outer-limit 36000000)  ; 36mb  (default is 24mb)
+    (global-unset-key (kbd "C-z"))
+    (global-set-key (kbd "C-z") 'undo-fu-only-undo)
+    (global-set-key (kbd "C-S-z") 'undo-fu-only-redo))
+
+  (use-package undo-fu-session
+    :ensure t
+    :config
+    (when (executable-find "zstd")
+      ;; There are other algorithms available, but zstd is the fastest, and speed
+      ;; is our priority within Emacs
+      (setopt undo-fu-session-compression 'zst))
+    (undo-fu-session-global-mode 1)
+    )
+
+  (use-package vundo
+    :ensure t
+    :general (
+              :prefix "SPC"
+              :keymaps 'override
+              :states 'normal
+              "s u" #'vundo)
+    :config
+    (setopt vundo-glyph-alist vundo-unicode-symbols
+            vundo-compact-display t)
+    )
+
+  (use-package evil-visualstar
+    :after evil
+    :ensure t
+    :defer t
+    :hook (evil-mode . global-evil-visualstar-mode)
+    :commands (evil-visualstar/begin-search
+               evil-visualstar/begin-search-forward
+               evil-visualstar/begin-search-backward))
+
+  (use-package evil-surround
+    :after evil
+    :ensure t
+    :defer t
+    :commands (global-evil-surround-mode
+               evil-surround-edit
+               evil-Surround-edit
+               evil-surround-region)
+    :custom
+    (evil-surround-pairs-alist
+     '((?\( . ("(" . ")"))
+       (?\[ . ("[" . "]"))
+       (?\{ . ("{" . "}"))
+
+       (?\) . ("(" . ")"))
+       (?\] . ("[" . "]"))
+       (?\} . ("{" . "}"))
+
+       (?< . ("<" . ">"))
+       (?> . ("<" . ">"))))
+
+    :hook (evil-mode . global-evil-surround-mode))
+
+  (with-eval-after-load "evil"
+    (evil-define-operator my-evil-comment-or-uncomment (beg end)
+      "Toggle comment for the region between BEG and END."
+      (interactive "<r>")
+      (comment-or-uncomment-region beg end))
+    (evil-define-key 'normal 'global (kbd "gc") 'my-evil-comment-or-uncomment))
+
+  (use-package corfu
+    :ensure t
+    :commands (corfu-mode global-corfu-mode)
+    ;; Enable Corfu
+    :custom
+    ;; Disable Ispell completion function. As an alternative try `cape-dict'.
+    (text-mode-ispell-word-completion nil)
+    (tab-always-indent 'complete)
+    :bind
+    (:map corfu-map
+          ("TAB" . corfu-next)
+          ([tab] . corfu-next)
+          ("S-TAB" . corfu-previous)
+          ([backtab] . corfu-previous))
+
+    :init
+    (setopt corfu-auto-prefix 2)
+    (setopt corfu-auto-delay 0.1)
+    (setopt corfu-quit-no-match t)
+    (setopt corfu-auto t)
+    (setopt corfu-preselect 'prompt)
+    (global-corfu-mode)
+    (add-to-list 'savehist-additional-variables 'corfu-history)
+    (corfu-history-mode)
+    (setopt corfu-popupinfo-delay '(0.5 . 1.0))
+    (corfu-popupinfo-mode)
+    (with-eval-after-load 'eglot
+      (setopt completion-category-defaults nil))
+
+    )
+
+  (use-package org-block-capf
+    :ensure (org-block-capf  :type git :host github :repo "xenodium/org-block-capf")
+    :after org
+    :hook (org-mode . org-block-capf-add-to-completion-at-point-functions))
+
+  (use-package cape
+    :ensure t
+    ;; Ensure all functions used globally or in hooks are listed here
+    ;; so Emacs knows to load Cape when they are called.
+    :commands (cape-history cape-dabbrev cape-file cape-keyword cape-capf-super cape-wrap-buster)
+    :bind ("C-c p" . cape-prefix-map)
+
+    ;; Use :custom instead of (setopt ...) inside :config
+    :custom
+    (cape-dabbrev-min-length 2)
+
+    :init
+    ;; These global hooks are perfect in :init. When completion-at-point
+    ;; triggers them, Cape will automatically load.
+    (add-hook 'completion-at-point-functions #'cape-dabbrev)
+    (add-hook 'completion-at-point-functions #'cape-keyword)
+    (add-hook 'completion-at-point-functions #'cape-file)
+    (add-hook 'completion-at-point-functions #'cape-history)
+
+    :config
+    ;; Wrap Eglot-specific logic in with-eval-after-load to ensure
+    ;; it only runs if/when Eglot is actually loaded.
+    (with-eval-after-load 'eglot
+      ;; Cache busting for Eglot
+      (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
+
+      (defun my/eglot-capf ()
+        (setq-local completion-at-point-functions
+                    (list (cape-capf-super
+                           #'eglot-completion-at-point
+                           #'yasnippet-capf     ;; <-- Now merging files!
+                           #'cape-dabbrev  ;; <-- Now merging words!
+                           #'cape-file     ;; <-- Now merging files!
+                           ))))
+
+      (add-hook 'eglot-managed-mode-hook #'my/eglot-capf)))
+
+  (use-package yasnippet-capf
+    :ensure t
+    :after (cape yasnippet))
+
+  (use-package nerd-icons-corfu
+    :ensure t
+    :after corfu
+    :init
+    ;; Optionally:
+    (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)
+    )
+
+  ;; Hide warnings and display only errors
+  (setopt warning-minimum-level :error)
+
+  ;; Display of line numbers in the buffer:
+  ;; (display-line-numbers-mode 1)
+
+  (use-package which-key
+    :ensure nil
+    :custom
+    (which-key-idle-delay 0.5)
+    (which-key-idle-secondary-delay 0.25)
+    (which-key-add-column-padding 1)
+    (which-key-max-description-length 40)
+    :config
+    (which-key-mode 1))
+
+
+  (use-package uniquify
+    :ensure nil
+    :custom
+    (uniquify-buffer-name-style 'reverse)
+    (uniquify-separator "•")
+    (uniquify-after-kill-buffer-p t)
+    (uniquify-ignore-buffers-re "^\\*"))
+
+  (use-package time
+    :ensure nil
+    :custom
+    (display-time-mail-string "")
+    :init
+    (display-time-mode 1))
+
+  (use-package moody
+    :ensure t
+    :config
+    ;; Display the time in the modeline
+    (setq-default mode-line-format '("%e" mode-line-front-space
+                                     mode-line-modified mode-line-remote mode-line-window-dedicated
+                                     mode-line-buffer-identification "   "
+                                     mode-line-position (project-mode-line project-mode-line-format)
+                                     (vc-mode vc-mode) "  " mode-line-modes mode-line-format-right-align mode-line-misc-info mode-line-end-spaces))
+    (moody-replace-mode-line-front-space)
+    (moody-replace-mode-line-buffer-identification)
+    (moody-replace-vc-mode))
+
+  (use-package minions
+    :ensure t
+    :config
+    (setopt minions-prominent-modes '(flymake-mode eglot-mode))
+    (setopt minions-mode-line-lighter " ⚙ ")
+    (minions-mode 1)
+    )
+
+  (use-package doom-themes
+    :ensure t
+    :config
+    (setopt doom-themes-enable-bold t)
+    (setopt doom-themes-enable-italic t)
+    (setopt doom-themes-padded-modeline t)
+    (doom-themes-visual-bell-config)
+    )
+
+  (use-package solaire-mode
+    :ensure t
+    :config (solaire-global-mode 1)
+    )
+
+  (use-package batppuccin
+    :ensure t
+    :config
+    (load-theme 'batppuccin-mocha t))
+
+  (use-package diredfl
+    :ensure t
+    :hook
+    ((dired-mode . diredfl-mode)
+     ;; highlight parent and directory preview as well
+     (dirvish-directory-view-mode . diredfl-mode))
+    :config
+    (set-face-attribute 'diredfl-dir-name nil :bold t))
+
+  (use-package tramp
+    :ensure nil
+    :config
+    ;; Enable full-featured Dirvish over TRAMP on ssh connections
+    ;; https://www.gnu.org/software/tramp/#Improving-performance-of-asynchronous-remote-processes
+    (connection-local-set-profile-variables
+     'remote-direct-async-process
+     '((tramp-direct-async-process . t)))
+    (connection-local-set-profiles
+     '(:application tramp :protocol "ssh")
+     'remote-direct-async-process)
+    ;; Tips to speed up connections
+    (setopt tramp-verbose 0)
+    (setopt tramp-chunksize 2000)
+    (setopt tramp-ssh-controlmaster-options nil))
+
+  (use-package dirvish
+    :ensure t
+    :after evil
+    :init
+    (dirvish-override-dired-mode)
+    :general
+    (:states 'normal
+             :keymaps 'dirvish-mode-map
+             "a"   #'dirvish-quick-access
+             "q"   #'dirvish-quit
+             "W"   #'wdired-change-to-wdired-mode
+             "F"   #'dirvish-file-info-menu
+             "p"   #'dirvish-rsync
+             "/"   #'dirvish-narrow
+             "u"   #'dired-undo
+             "U"   #'dired-unmark
+             "C-n"   #'dired-next-line
+             "C-p"   #'dired-previous-line
+             "f"   #'dirvish-fd
+             "^"   #'dirvish-history-last
+             "h"   #'dirvish-history-jump
+             "s"   #'dirvish-quicksort
+             "v"   #'dirvish-vc-menu
+             "TAB" #'dirvish-subtree-toggle
+             "M-f" #'dirvish-history-go-forward
+             "M-b" #'dirvish-history-go-backward
+             "M-l" #'dirvish-ls-switches-menu
+             "M-m" #'dirvish-mark-menu
+             "M-t" #'dirvish-layout-toggle
+             "M-s" #'dirvish-setup-menu
+             "M-e" #'dirvish-emerge-menu)
+
+    :config
+    (evil-make-overriding-map dirvish-mode-map 'normal)
+    (when (string= system-type "darwin")
+      (setopt insert-directory-program "gls")
+      (setopt dired-listing-switches "-aBhl --group-directories-first")
+      )
+    (setopt dirvish-attributes '(vc-state subtree-state nerd-icons git-msg file-time file-size))
+    (setopt dirvish-default-layout '(0 0.4 0.6))
+    (general-define-key
+     :prefix "SPC"
+     :states 'normal
+     "." #'find-file)
+    )
+
+
+  (use-package hl-todo
+    :ensure t
+    :defer t
+    :hook (prog-mode . hl-todo-mode)
+    :config
+    (setopt hl-todo-highlight-punctuation ":"
+            hl-todo-keyword-faces
+            '(;; For reminders to change or add something at a later date.
+              ("TODO" warning bold)
+              ;; For code (or code paths) that are broken, unimplemented, or slow,
+              ;; and may become bigger problems later.
+              ("FIXME" error bold)
+              ;; For code that needs to be revisited later, either to upstream it,
+              ;; improve it, or address non-critical issues.
+              ("REVIEW" font-lock-keyword-face bold)
+              ;; For code smells where questionable practices are used
+              ;; intentionally, and/or is likely to break in a future update.
+              ("HACK" font-lock-constant-face bold)
+              ;; For sections of code that just gotta go, and will be gone soon.
+              ;; Specifically, this means the code is deprecated, not necessarily
+              ;; the feature it enables.
+              ("DEPRECATED" font-lock-doc-face bold)
+              ;; Extra keywords commonly found in the wild, whose meaning may vary
+              ;; from project to project.
+              ("NOTE" success bold)
+              ("BUG" error bold)
+              ("XXX" font-lock-constant-face bold))))
+
+  (use-package indent-bars
+    :ensure t
+    :defer t
+    :init
+    (add-hook 'prog-mode-hook #'indent-bars-mode)
+    :custom
+    (indent-bars-prefer-character t)
+    (indent-bars-treesit-support t)
+    (indent-bars-treesit-ignore-blank-lines-types '("module"))
+    ;; Add other languages as needed
+    (indent-bars-treesit-scope '((python function_definition class_definition for_statement
+	                                     if_statement with_statement while_statement)))
+    ;; wrap may not be needed if no-descend-list is enough
+    ;;(indent-bars-treesit-wrap '((python argument_list parameters ; for python, as an example
+    ;;				      list list_comprehension
+    ;;				      dictionary dictionary_comprehension
+    ;;				      parenthesized_expression subscript)))
+    :config
+    (setopt
+     indent-bars-starting-column 0
+     indent-bars-color '(highlight :face-bg t :blend 0.05)
+     indent-bars-pattern "."
+     indent-bars-width-frac 0.15
+     indent-bars-pad-frac 0.1
+     indent-bars-zigzag nil
+     indent-bars-color-by-depth '(:regexp "outline-\\([0-9]+\\)" :blend 0.95) ; blend=1: blend with BG only
+     indent-bars-highlight-current-depth '(:blend 0.5) ; pump up the BG blend on current
+     indent-bars-display-on-blank-lines t))
+
+  (use-package ligature
+    :ensure t
+    :config
+    ;; Enable all Iosevka ligatures in programming modes
+    (ligature-set-ligatures 'prog-mode '("<---" "<--"  "<<-" "<-" "->" "-->" "--->" "<->" "<-->" "<--->" "<---->" "<!--"
+                                         "<==" "<===" "<=" "=>" "=>>" "==>" "===>" ">=" "<=>" "<==>" "<===>" "<====>" "<!---"
+                                         "<~~" "<~" "~>" "~~>" "::" ":::" "==" "!=" "===" "!=="
+                                         ":=" ":-" ":+" "<*" "<*>" "*>" "<|" "<|>" "|>" "+:" "-:" "=:" "<******>" "++" "+++"))
+    ;; Enables ligature checks globally in all buffers. You can also do it
+    ;; per mode with `ligature-mode'.
+    (global-ligature-mode 1)
+    )
+
+  (use-package diff-hl
+    :ensure t
+    :hook
+    (magit-post-refresh . diff-hl-magit-post-refresh)
+    :config
+    (setopt diff-hl-global-modes '(not image-mode pdf-view-mode))
+    (setopt diff-hl-update-async t)
+    (setopt vc-git-diff-switches '("--histogram"))
+    (setopt diff-hl-flydiff-delay 0.4)  ; default: 0.3
+
+    ;; UX: get realtime feedback in diffs after staging/unstaging hunks.
+    (setopt diff-hl-show-staged-changes nil)
+    (global-diff-hl-mode 1)
+    (diff-hl-flydiff-mode 1)
+    )
+
+  (use-package info-colors
+    :ensure t
+    :init
+    (add-hook 'Info-selection-hook 'info-colors-fontify-node))
+
+  (use-package magit
+    :ensure t
+    :defer t
+    :config
+    (setopt magit-format-file-function #'magit-format-file-nerd-icons)
+    (setopt transient-default-level 5
+            magit-diff-refine-hunk t ; show granular diffs in selected hunk
+            ;; Don't autosave repo buffers. This is too magical, and saving can
+            ;; trigger a bunch of unwanted side-effects, like save hooks and
+            ;; formatters. Trust the user to know what they're doing.
+            magit-save-repository-buffers nil
+            ;; Don't display parent/related refs in commit buffers; they are rarely
+            ;; helpful and only add to runtime costs.
+            magit-revision-insert-related-refs nil)
+    )
+
+  ;; (use-package magit-todos
+  ;;   :ensure t
+  ;;   :after magit
+  ;;   :config
+  ;;   (setopt magit-todos-mode 1)
+  ;;   )
+
+  (use-package git-timemachine
+    :defer t
+    :ensure (git-timemachine :type git :host codeberg :repo "pidu/git-timemachine")
+    :config
+    (setopt git-timemachine-show-minibuffer-details t)
+    )
+
+  (use-package flymake-popon
+    :defer t
+    :hook (flymake-mode . flymake-popon-mode)
+    :ensure t)
+
+  ;; (use-package flymake-vale
+  ;;   :ensure (flymake-vale :type git :host github :repo "tpeacock19/flymake-vale")
+  ;;   :defer t
+  ;;   :after flymake
+  ;;   :init
+  ;;   (setopt flymake-vale-program-args "--config=$HOME/.config/vale/.vale.ini")
+  ;;   (add-hook 'text-mode-hook #'flymake-vale-load)
+  ;;   (add-hook 'mu4e-compose-mode-hook #'flymake-vale-load)
+  ;;   (add-hook 'latex-mode-hook #'flymake-vale-load)
+  ;;   (add-hook 'org-mode-hook #'flymake-vale-load)
+  ;;   (add-hook 'markdown-mode-hook #'flymake-vale-load)
+  ;;   (add-hook 'message-mode-hook #'flymake-vale-load)
+  ;;   )
+
+  (use-package gcmh
+    :ensure t
+    :hook (elpaca-after-init . gcmh-mode)
+    :config
+    (setopt gcmh-idle-delay 'auto  ; default is 15s
+            gcmh-auto-idle-delay-factor 10
+            gcmh-high-cons-threshold (* 64 1024 1024))) ; 64mb
+
+  (use-package eglot
+    :ensure nil
+    :general
+    (:states 'normal
+             :keymaps 'eglot-mode-map
+             :desc "Jump to definition"                    "g d"   #'xref-find-definitions
+             :desc "Jump to references"                    "g r"   #'xref-find-references
+             :desc "Jump to implementations"                    "g i"   #'eglot-find-implementation
+             :desc "Jump to declarations"                    "g D"   #'eglot-find-declaration)
+    :commands (eglot-ensure
+               eglot-rename
+               eglot-format-buffer)
+    :init
+    (add-hook 'markdown-mode-hook #'eglot-ensure)
+    (add-hook 'markdown-ts-mode-hook #'eglot-ensure)
+    (add-hook 'org-mode-hook #'eglot-ensure)
+    (add-hook 'python-mode-hook #'eglot-ensure)
+    (add-hook 'python-ts-mode-hook #'eglot-ensure)
+    (add-hook 'LaTeX-mode-hook #'eglot-ensure)
+    :config
+    ;; Add basedpyright to the list of recognized python servers
+    (add-to-list 'eglot-server-programs
+                 '( (python-mode python-ts-mode) . ("rass" "basedruff" )))
+    )
+
+  (use-package consult-eglot
+    :ensure t
+    :defer t)
+
+  (use-package yasnippet
+    :ensure t
+    :config
+    (setopt yas-triggers-in-field t)
+    (yas-global-mode 1)
+    )
+
+  (use-package auto-yasnippet
+    :after yasnippet
+    :ensure t)
+
+  (use-package doom-snippets
+    :after yasnippet
+    :ensure (doom-snippets :type git :host github :repo "doomemacs/snippets" :files ("*.el" "*")))
+  ;; (use-package org-contrib
+  ;;   :after org
+  ;;   :ensure t)
+
+  (use-package ox-clip
+    :after ox
+    :ensure t)
+
+  (use-package org-cliplink
+    :after org
+    :ensure t)
+
+  (use-package toc-org
+    :after org
+    :ensure t)
+
+
+  (use-package evil-org
+    :after org
+    :ensure (evil-org :type git :host github :repo "doomelpa/evil-org-mode")
+    :hook ((org-mode . evil-org-mode)
+           (evil-org-mode . (lambda () (setq-local evil-shift-width 2))))
+    :config
+    (add-hook 'evil-org-mode-hook #'evil-normalize-keymaps)
+    (evil-org-set-key-theme)
+    (with-eval-after-load 'org-agenda
+      (require 'evil-org-agenda)
+      (evil-org-agenda-set-keys)))
+
+  (use-package orgit
+    :after (org magit)
+    :ensure t)
+
+  (use-package jupyter
+    :ensure t
+    :defer t
+    :init
+    (setopt jupyter-use-zmq t
+            jupyter-repl-completion-at-point-hook-depth 2
+            jupyter-eval-use-overlays nil
+            jupyter-eval-short-result-max-lines 0
+            jupyter-eval-overlay-keymap "<backtab>"
+            jupyter-default-notebook-port 8895)
+    :bind (("<backtab>" . jupyter-eval-toggle-overlay)))
+
+  (use-package evil-textobj-tree-sitter
+    :after (evil treesit)
+    :ensure t)
+
+  (when (string= system-type "darwin")
+    (add-to-list 'load-path "/opt/homebrew/share/emacs/site-lisp/mu/mu4e")
+    (use-package mu4e
+      :ensure nil
+      :demand t
+      :after org
+      :commands mu4e mu4e-compose-new
+      :config
+      (setopt mail-user-agent 'mu4e-user-agent
+              message-mail-user-agent 'mu4e-user-agent)
+      (setopt sendmail-program (executable-find "msmtp")
+              send-mail-function #'smtpmail-send-it
+              message-sendmail-f-is-evil t
+              message-sendmail-extra-arguments '("--read-envelope-from")
+              message-send-mail-function #'message-send-mail-with-sendmail
+              mml-secure-openpgp-signers '("6A5C039B63B86AC6C5109955B57BA04FBD759C7F" "D1D9947126EE64AC7ED3950196F352393B5B3C2E")
+              mml-secure-openpgp-sign-with-sender t
+              mu4e-use-fancy-chars t                   ; allow fancy icons for mail threads
+              mu4e-notification-support t
+              mu4e-change-filenames-when-moving t
+              mu4e-read-option-use-builtin nil
+              mu4e-completing-read-function 'completing-read
+              mu4e-index-lazy-check nil
+              mu4e-search-results-limit 100
+              mu4e-context-policy 'pick-first ;; Always ask which context to use when composing a new mail
+              mu4e-compose-context-policy 'ask ;; Always ask which context to use when composing a new mail
+              mu4e-update-interval 60
+              mu4e-get-mail-command "mbsync -a"
+              mu4e-mu-allow-temp-file t
+              message-kill-buffer-on-exit t
+              mu4e-compose-complete-only-after "2015-01-01"
+              mu4e-headers-date-format "%d/%m/%y"
+              mu4e-headers-time-format "⧖ %H:%M"
+              message-dont-reply-to-names #'mu4e-personal-or-alternative-address-p
+              mu4e-bookmarks '((:name "Unread messages" :query "flag:unread AND maildir:/.*inbox/" :key 117)
+                               (:name "Today's messages" :query "date:today..now AND maildir:/.*inbox/" :key 116)
+                               (:name "Flagged messages" :query "flag:flagged" :key 102)
+                               (:name "Unified inbox" :query "maildir:/.*inbox/" :key 105)
+                               (:name "Sent" :query "maildir:/.*Sent/" :key 115)
+                               (:name "Drafts" :query "maildir:/.*Drafts/" :key 100)
+                               (:name "Spam" :query "maildir:/.*Spam/ or maildir:/.*Junk/" :key 83)
+                               (:name "Trash" :query "maildir:/.*Trash/" :key 84))
+              mu4e-read-option-use-builtin t
+              mu4e-attachment-dir "~/Downloads"
+              mu4e-headers-thread-single-orphan-prefix '("─>" . "─▶")
+              mu4e-headers-thread-orphan-prefix        '("┬>" . "┬▶ ")
+              mu4e-headers-thread-connection-prefix    '("│ " . "│ ")
+              mu4e-headers-thread-first-child-prefix   '("├>" . "├▶")
+              mu4e-headers-thread-child-prefix         '("├>" . "├▶")
+              mu4e-headers-thread-last-child-prefix    '("└>" . "╰▶")
+              mu4e-contexts
+              `( ,(make-mu4e-context
+                   :name "Personal"
+                   :enter-func (lambda () (mu4e-message "Entering Personal context"))
+                   :leave-func (lambda () (mu4e-message "Leaving Personal context"))
+                   ;; we match based on the contact-fields of the message
+                   :match-func (lambda (msg)
+                                 (when msg
+                                   (mu4e-message-contact-field-matches msg
+                                                                       :to "leoaparisi@gmail.com")))
+                   :vars '( ( user-mail-address	    . "leoaparisi@gmail.com"  )
+                            (mu4e-sent-folder       . "/[Gmail]/Sent Mail")
+                            (mu4e-drafts-folder     . "/[Gmail]/Drafts")
+                            (mu4e-trash-folder      . "/[Gmail]/Trash")
+                            (mu4e-refile-folder     . "/Archives")
+                            (smtpmail-smtp-user     . "leoaparisi@gmail.com")
+                            ( user-full-name	    . "Leo Aparisi de Lannoy" )))))
+      ;; (setopt mu4e-thread-mode t)
+      ;; (add-hook 'completion-at-point-functions #'mu4e-complete-contact)
+      (setopt gnus-icalendar-org-capture-file "~/org/notes.org"
+              gnus-icalendar-org-capture-headline '("Calendar"))
+      )
+
+    (use-package org-mime
+      :ensure t
+      :defer t
+      :after (mu4e org)
+      :config
+      (setopt org-mime-export-options '(:with-latex mathjax))
+      )
+    )
+
+  (add-hook 'conf-mode-hook #'flymake-mode)
+  (add-hook 'prog-mode-hook #'flymake-mode)
+  (add-hook 'text-mode-hook #'flymake-mode)
+
+  (add-hook 'prog-mode-hook #'display-line-numbers-mode)
+  (add-hook 'text-mode-hook #'display-line-numbers-mode)
+
+  (general-define-key
+   :keymaps '(normal insert emacs)
+   "C-=" #'global-text-scale-adjust)
+
+
+  (use-package org-modern
+    :ensure t
+    :defer t
+    :after org
+    :hook ((org-agenda-finalize . org-modern-agenda)
+           (org-mode . org-modern-mode))
+    :config
+    (setopt org-modern-star 'replace
+            org-modern-hide-stars nil
+            org-modern-table-vertical 1
+            org-modern-table-horizontal 0.2
+            org-modern-block-name t
+            org-modern-horizontal-rule t
+            org-modern-todo-faces
+            '(("TODO" :inverse-video t :foreground "indian red")
+              ("DOING"  :inverse-video t :foreground "medium aquamarine")
+              ("DONE"  :inverse-video t :foreground "slate gray"))
+            org-modern-priority-faces
+            '((?A :background "indian red" :foreground "black")
+              (?B :background "light salmon" :foreground "black")
+              (?C :background "rosy brown" :foreground "black")
+              (?D :background "NavajoWhite" :foreground "black")
+              (?E  :background "bisque" :foreground "black"))
+            org-modern-keyword t)
+    )
+
+  (use-package org-appear
+    :ensure t
+    :defer t
+    :after org
+    :hook (org-mode . org-appear-mode)
+    :config
+    (setopt org-appear-autoemphasis t
+            org-appear-autolinks t
+            org-appear-autokeywords t
+            org-appear-autoentities t
+            org-appear-inside-latex nil
+            org-appear-autosubmarkers t))
+
+  (use-package org-fragtog
+    :ensure t
+    :after org
+    :defer t
+    :hook (org-mode . org-fragtog-mode))
+
+  (use-package org-pandoc-import
+    :ensure (org-pandoc-import :type git :host github
+                               :repo "tecosaur/org-pandoc-import"
+                               :files ("*.el" "filters" "preprocessors"))
+    :after ox)
+
+  (use-package vlf
+    :ensure t
+    :config
+    (require 'vlf-setup)
+    (setopt vlf-application 'ask))
+
+  (use-package csv-mode
+    :defer t
+    :ensure t
+    :hook ((csv-mode . csv-align-mode)
+           (csv-mode . csv-header-line))
+    )
+
+  (use-package jinx
+    :ensure t
+    :defer t
+    :general
+    ;; OPTIMIZATION: Seamlessly maps Jinx over standard Emacs and Evil spellchecking paths,
+    ;; allowing commands like `]s` and `[s` to use Jinx's ultra-fast engine.
+    ([remap ispell-word] #'jinx-correct)
+    (:states 'normal
+             "]s" #'jinx-next
+             "[s" #'jinx-previous)
+    :hook
+    (text-mode . jinx-mode)
+    (prog-mode . jinx-mode)
+    :config
+    ;; Extra face(s) to ignore
+    (setopt jinx-languages "en-us")
+    (push 'org-inline-src-block
+          (alist-get 'org-mode jinx-exclude-faces))
+    ;; Take over the relevant bindings.
+    (add-to-list
+     'vertico-multiform-categories
+     '(jinx grid (vertico-grid-annotate . 20) (vertico-count . 4))))
+
+
+  (use-package outline-indent
+    :ensure t
+    :config
+    (setopt outline-indent-default-offset 4)
+    (setopt outline-indent-shift-width 4)
+    (outline-minor-mode 1)
+    :custom
+    (outline-indent-ellipsis " ▼ "))
+
+  (use-package elec-pair
+    :ensure nil
+    :config
+    ;; Disable auto-pairing for backticks to prevent markdown/org annoyances
+    (defun my-inhibit-electric-pair-backtick (char)
+      (if (char-equal char ?\`) t (electric-pair-default-inhibit char)))
+    (setopt electric-pair-inhibit-predicate #'my-inhibit-electric-pair-backtick)
+    (electric-pair-mode 1))
+
+  ;; The stripspace Emacs package provides stripspace-local-mode, a minor mode
+  ;; that automatically removes trailing whitespace and blank lines at the end of
+  ;; the buffer when saving.
+  (use-package stripspace
+    :commands stripspace-local-mode
+
+    ;; Enable for prog-mode-hook, text-mode-hook, conf-mode-hook
+    :hook ((prog-mode . stripspace-local-mode)
+           (text-mode . stripspace-local-mode)
+           (conf-mode . stripspace-local-mode))
+
+    :custom
+    ;; The `stripspace-only-if-initially-clean' option:
+    ;; - nil to always delete trailing whitespace.
+    ;; - Non-nil to only delete whitespace when the buffer is clean initially.
+    ;; (The initial cleanliness check is performed when `stripspace-local-mode'
+    ;; is enabled.)
+    (stripspace-only-if-initially-clean nil)
+
+    ;; Enabling `stripspace-restore-column' preserves the cursor's column position
+    ;; even after stripping spaces. This is useful in scenarios where you add
+    ;; extra spaces and then save the file. Although the spaces are removed in the
+    ;; saved file, the cursor remains in the same position, ensuring a consistent
+    ;; editing experience without affecting cursor placement.
+    (stripspace-restore-column t))
+
+  (use-package apheleia
+    :ensure t
+    :config
+    (apheleia-global-mode 1))
+
+  (use-package project
+    :ensure nil
+    :general (:prefix "SPC"
+                      :states 'normal
+                      "p p" #'project-switch-project
+                      )
+    )
+
+  (use-package image-mode
+    :ensure nil
+    :general (
+              :keymaps 'image-mode-map
+              :states 'normal
+              "w" #'image-transform-fit-to-window
+              "R" #'image-rotate
+              )
+    )
+
+  (use-package ox-pandoc
+    :after ox
+    :ensure t)
+
   (general-define-key
    :prefix "SPC"
    :states 'normal
-   "." #'find-file)
-  )
-
-
-(use-package hl-todo
-  :ensure t
-  :defer t
-  :hook (prog-mode . hl-todo-mode)
-  :config
-  (setopt hl-todo-highlight-punctuation ":"
-          hl-todo-keyword-faces
-          '(;; For reminders to change or add something at a later date.
-            ("TODO" warning bold)
-            ;; For code (or code paths) that are broken, unimplemented, or slow,
-            ;; and may become bigger problems later.
-            ("FIXME" error bold)
-            ;; For code that needs to be revisited later, either to upstream it,
-            ;; improve it, or address non-critical issues.
-            ("REVIEW" font-lock-keyword-face bold)
-            ;; For code smells where questionable practices are used
-            ;; intentionally, and/or is likely to break in a future update.
-            ("HACK" font-lock-constant-face bold)
-            ;; For sections of code that just gotta go, and will be gone soon.
-            ;; Specifically, this means the code is deprecated, not necessarily
-            ;; the feature it enables.
-            ("DEPRECATED" font-lock-doc-face bold)
-            ;; Extra keywords commonly found in the wild, whose meaning may vary
-            ;; from project to project.
-            ("NOTE" success bold)
-            ("BUG" error bold)
-            ("XXX" font-lock-constant-face bold))))
-
-(use-package indent-bars
-  :ensure t
-  :defer t
-  :init
-  (add-hook 'prog-mode-hook #'indent-bars-mode)
-  :custom
-  (indent-bars-prefer-character t)
-  (indent-bars-treesit-support t)
-  (indent-bars-treesit-ignore-blank-lines-types '("module"))
-  ;; Add other languages as needed
-  (indent-bars-treesit-scope '((python function_definition class_definition for_statement
-	                                   if_statement with_statement while_statement)))
-  ;; wrap may not be needed if no-descend-list is enough
-  ;;(indent-bars-treesit-wrap '((python argument_list parameters ; for python, as an example
-  ;;				      list list_comprehension
-  ;;				      dictionary dictionary_comprehension
-  ;;				      parenthesized_expression subscript)))
-  :config
-  (setopt
-   indent-bars-starting-column 0
-   indent-bars-color '(highlight :face-bg t :blend 0.05)
-   indent-bars-pattern "."
-   indent-bars-width-frac 0.15
-   indent-bars-pad-frac 0.1
-   indent-bars-zigzag nil
-   indent-bars-color-by-depth '(:regexp "outline-\\([0-9]+\\)" :blend 0.95) ; blend=1: blend with BG only
-   indent-bars-highlight-current-depth '(:blend 0.5) ; pump up the BG blend on current
-   indent-bars-display-on-blank-lines t))
-
-(use-package ligature
-  :ensure t
-  :config
-  ;; Enable all Iosevka ligatures in programming modes
-  (ligature-set-ligatures 'prog-mode '("<---" "<--"  "<<-" "<-" "->" "-->" "--->" "<->" "<-->" "<--->" "<---->" "<!--"
-                                       "<==" "<===" "<=" "=>" "=>>" "==>" "===>" ">=" "<=>" "<==>" "<===>" "<====>" "<!---"
-                                       "<~~" "<~" "~>" "~~>" "::" ":::" "==" "!=" "===" "!=="
-                                       ":=" ":-" ":+" "<*" "<*>" "*>" "<|" "<|>" "|>" "+:" "-:" "=:" "<******>" "++" "+++"))
-  ;; Enables ligature checks globally in all buffers. You can also do it
-  ;; per mode with `ligature-mode'.
-  (global-ligature-mode 1)
-  )
-
-(use-package diff-hl
-  :ensure t
-  :hook
-  ((dired-mode . diff-hl-dired-mode)
-   (magit-post-refresh . diff-hl-magit-post-refresh)
+   "x" #'scratch-buffer
+   "X" #'org-capture
+   "f F" #'switch-to-buffer-other-frame
+   "f W" #'switch-to-buffer-other-window
    )
-  :config
-  (setopt diff-hl-global-modes '(not image-mode pdf-view-mode))
-  (setopt diff-hl-update-async t)
-  (setopt vc-git-diff-switches '("--histogram"))
-  (setopt diff-hl-flydiff-delay 0.4)  ; default: 0.3
 
-  ;; UX: get realtime feedback in diffs after staging/unstaging hunks.
-  (setopt diff-hl-show-staged-changes nil)
-  (global-diff-hl-mode 1)
-  (diff-hl-flydiff-mode 1)
-  )
+  (general-define-key :prefix "SPC g"
+                      :states 'normal
+                      "g" #'magit
+                      "t" #'git-timemachine
+                      )
 
-(use-package info-colors
-  :ensure t
-  :init
-  (add-hook 'Info-selection-hook 'info-colors-fontify-node))
+  (general-define-key
+   :prefix "SPC o"
+   :states 'normal
+   :desc "Org agenda"       "A"  #'org-agenda
+   :desc "Agenda"         "a a"  #'org-agenda
+   :desc "Todo list"      "a t"  #'org-todo-list
+   :desc "Tags search"    "a m"  #'org-tags-view
+   :desc "View search"    "a v"  #'org-search-view
+   :desc "mu4e"    "m"  #'mu4e
+   :desc "Default browser"    "b"  #'browse-url-of-file
+   :desc "New frame"          "f"  #'make-frame
+   :desc "Select frame"       "F"  #'select-frame-by-name
+   :desc "Dired"              "-"  #'dired-jump
+   :desc "Open directory in dirvish"    "/" #'dirvish
+   :desc "Project sidebar"              "p" #'dirvish-side
+   :desc "vterm"              "t" #'ghostel-project
+   )
 
-(use-package magit
-  :ensure t
-  :defer t
-  :config
-  (setopt magit-format-file-function #'magit-format-file-nerd-icons)
-  (setopt transient-default-level 5
-          magit-diff-refine-hunk t ; show granular diffs in selected hunk
-          ;; Don't autosave repo buffers. This is too magical, and saving can
-          ;; trigger a bunch of unwanted side-effects, like save hooks and
-          ;; formatters. Trust the user to know what they're doing.
-          magit-save-repository-buffers nil
-          ;; Don't display parent/related refs in commit buffers; they are rarely
-          ;; helpful and only add to runtime costs.
-          magit-revision-insert-related-refs nil)
-  )
+  (general-define-key
+   :states 'normal
+   "K" #'xref-find-apropos
+   )
 
-;; (use-package magit-todos
-;;   :ensure t
-;;   :after magit
-;;   :config
-;;   (setopt magit-todos-mode 1)
-;;   )
+  (general-define-key
+   :prefix "SPC t"
+   :states 'normal
+   :desc "toggle code wrapping"              "w"   #'visual-line-mode
+   :desc "toggle flymake"              "f"   #'flymake-mode
+   )
 
-(use-package git-timemachine
-  :defer t
-  :ensure (git-timemachine :type git :host codeberg :repo "pidu/git-timemachine")
-  :config
-  (setopt git-timemachine-show-minibuffer-details t)
-  )
+  (general-define-key
+   :prefix "SPC c"
+   :states 'normal
+   :desc "LSP Execute code action"              "a"   #'eglot-code-actions
+   :desc "LSP Organize Imports"              "o"   #'eglot-code-action-organize-imports
+   :desc "LSP Rename"                           "r"   #'eglot-rename
+   :desc "Jump to symbol in current workspace" "j"   #'consult-eglot-symbols
 
-(use-package flymake-popon
-  :defer t
-  :hook (flymake-mode . flymake-popon-mode)
-  :ensure t)
+   )
 
-;; (use-package flymake-vale
-;;   :ensure (flymake-vale :type git :host github :repo "tpeacock19/flymake-vale")
-;;   :defer t
-;;   :after flymake
-;;   :init
-;;   (setopt flymake-vale-program-args "--config=$HOME/.config/vale/.vale.ini")
-;;   (add-hook 'text-mode-hook #'flymake-vale-load)
-;;   (add-hook 'mu4e-compose-mode-hook #'flymake-vale-load)
-;;   (add-hook 'latex-mode-hook #'flymake-vale-load)
-;;   (add-hook 'org-mode-hook #'flymake-vale-load)
-;;   (add-hook 'markdown-mode-hook #'flymake-vale-load)
-;;   (add-hook 'message-mode-hook #'flymake-vale-load)
-;;   )
+  (use-package dumb-jump
+    :ensure t
+    :commands dumb-jump-xref-activate
+    :defer t
+    :init
+    (add-hook 'xref-backend-functions #'dumb-jump-xref-activate 90)
+    ;; Use `completing-read' so that selection of jump targets integrates with the
+    ;; active completion framework (e.g., Vertico, Ivy, Helm, Icomplete),
+    ;; providing a consistent minibuffer-based interface whenever multiple
+    ;; definitions are found.
+    (setopt dumb-jump-selector 'completing-read)
 
-(use-package gcmh
-  :ensure t
-  :hook (elpaca-after-init . gcmh-mode)
-  :config
-  (setopt gcmh-idle-delay 'auto  ; default is 15s
-          gcmh-auto-idle-delay-factor 10
-          gcmh-high-cons-threshold (* 64 1024 1024))) ; 64mb
-
-(use-package eglot
-  :ensure nil
-  :general
-  (:states 'normal
-           :desc "Jump to definition"                    "g d"   #'xref-find-definitions
-           :desc "Jump to references"                    "g r"   #'xref-find-references
-           :desc "Jump to implementations"                    "g i"   #'eglot-find-implementation
-           :desc "Jump to declarations"                    "g D"   #'eglot-find-declaration)
-  :commands (eglot-ensure
-             eglot-rename
-             eglot-format-buffer)
-  :init
-  (add-hook 'markdown-mode-hook #'eglot-ensure)
-  (add-hook 'markdown-ts-mode-hook #'eglot-ensure)
-  (add-hook 'org-mode-hook #'eglot-ensure)
-  (add-hook 'python-mode-hook #'eglot-ensure)
-  (add-hook 'python-ts-mode-hook #'eglot-ensure)
-  (add-hook 'LaTeX-mode-hook #'eglot-ensure)
-  :config
-  ;; Add basedpyright to the list of recognized python servers
-  (add-to-list 'eglot-server-programs
-               '( (python-mode python-ts-mode) . ("rass" "basedruff" )))
-  (add-to-list 'eglot-server-programs
-               '( (org-mode markdown-mode markdown-ts-mode) . ("ltex-ls-plus")))
-  )
-
-(use-package consult-eglot
-  :ensure t
-  :defer t)
-
-(use-package yasnippet
-  :ensure t
-  :config
-  (setopt yas-triggers-in-field t)
-  (yas-global-mode 1)
-  )
-
-(use-package auto-yasnippet
-  :after yasnippet
-  :ensure t)
-
-(use-package doom-snippets
-  :after yasnippet
-  :ensure (doom-snippets :type git :host github :repo "doomemacs/snippets" :files ("*.el" "*")))
-;; (use-package org-contrib
-;;   :after org
-;;   :ensure t)
-
-(use-package ox-clip
-  :after ox
-  :ensure t)
-
-(use-package org-cliplink
-  :after org
-  :ensure t)
-
-(use-package toc-org
-  :after org
-  :ensure t)
-
-
-(use-package evil-org
-  :after org
-  :ensure (evil-org :type git :host github :repo "doomelpa/evil-org-mode")
-  :hook ((org-mode . evil-org-mode)
-         (evil-org-mode . (lambda () (setq-local evil-shift-width 2))))
-  :config
-  (add-hook 'evil-org-mode-hook #'evil-normalize-keymaps)
-  (evil-org-set-key-theme)
-  (with-eval-after-load 'org-agenda
-    (require 'evil-org-agenda)
-    (evil-org-agenda-set-keys)))
-
-(use-package orgit
-  :after (org magit)
-  :ensure t)
-
-(use-package jupyter
-  :ensure t
-  :defer t
-  :init
-  (setopt jupyter-use-zmq t
-          jupyter-repl-completion-at-point-hook-depth 2
-          jupyter-eval-use-overlays nil
-          jupyter-eval-short-result-max-lines 0
-          jupyter-eval-overlay-keymap "<backtab>"
-          jupyter-default-notebook-port 8895)
-  :bind (("<backtab>" . jupyter-eval-toggle-overlay)))
-
-(use-package evil-textobj-tree-sitter
-  :after (evil treesit)
-  :ensure t)
-
-(when (string= system-type "darwin")
-  (add-to-list 'load-path "/opt/homebrew/share/emacs/site-lisp/mu/mu4e")
-  (use-package mu4e
-    :ensure nil
-    :demand t
-    :after org
-    :commands mu4e mu4e-compose-new
-    :config
-    (setopt mail-user-agent 'mu4e-user-agent
-            message-mail-user-agent 'mu4e-user-agent)
-    (setopt sendmail-program (executable-find "msmtp")
-            send-mail-function #'smtpmail-send-it
-            message-sendmail-f-is-evil t
-            message-sendmail-extra-arguments '("--read-envelope-from")
-            message-send-mail-function #'message-send-mail-with-sendmail
-            mml-secure-openpgp-signers '("6A5C039B63B86AC6C5109955B57BA04FBD759C7F" "D1D9947126EE64AC7ED3950196F352393B5B3C2E")
-            mml-secure-openpgp-sign-with-sender t
-            mu4e-use-fancy-chars t                   ; allow fancy icons for mail threads
-            mu4e-notification-support t
-            mu4e-change-filenames-when-moving t
-            mu4e-read-option-use-builtin nil
-            mu4e-completing-read-function 'completing-read
-            mu4e-index-lazy-check nil
-            mu4e-search-results-limit 100
-            mu4e-context-policy 'pick-first ;; Always ask which context to use when composing a new mail
-            mu4e-compose-context-policy 'ask ;; Always ask which context to use when composing a new mail
-            mu4e-update-interval 60
-            mu4e-get-mail-command "mbsync -a"
-            mu4e-mu-allow-temp-file t
-            message-kill-buffer-on-exit t
-            mu4e-compose-complete-only-after "2015-01-01"
-            mu4e-headers-date-format "%d/%m/%y"
-            mu4e-headers-time-format "⧖ %H:%M"
-            message-dont-reply-to-names #'mu4e-personal-or-alternative-address-p
-            mu4e-bookmarks '((:name "Unread messages" :query "flag:unread AND maildir:/.*inbox/" :key 117)
-                             (:name "Today's messages" :query "date:today..now AND maildir:/.*inbox/" :key 116)
-                             (:name "Flagged messages" :query "flag:flagged" :key 102)
-                             (:name "Unified inbox" :query "maildir:/.*inbox/" :key 105)
-                             (:name "Sent" :query "maildir:/.*Sent/" :key 115)
-                             (:name "Drafts" :query "maildir:/.*Drafts/" :key 100)
-                             (:name "Spam" :query "maildir:/.*Spam/ or maildir:/.*Junk/" :key 83)
-                             (:name "Trash" :query "maildir:/.*Trash/" :key 84))
-            mu4e-read-option-use-builtin t
-            mu4e-attachment-dir "~/Downloads"
-            mu4e-headers-thread-single-orphan-prefix '("─>" . "─▶")
-            mu4e-headers-thread-orphan-prefix        '("┬>" . "┬▶ ")
-            mu4e-headers-thread-connection-prefix    '("│ " . "│ ")
-            mu4e-headers-thread-first-child-prefix   '("├>" . "├▶")
-            mu4e-headers-thread-child-prefix         '("├>" . "├▶")
-            mu4e-headers-thread-last-child-prefix    '("└>" . "╰▶")
-            mu4e-contexts
-            `( ,(make-mu4e-context
-                 :name "Personal"
-                 :enter-func (lambda () (mu4e-message "Entering Personal context"))
-                 :leave-func (lambda () (mu4e-message "Leaving Personal context"))
-                 ;; we match based on the contact-fields of the message
-                 :match-func (lambda (msg)
-                               (when msg
-                                 (mu4e-message-contact-field-matches msg
-                                                                     :to "leoaparisi@gmail.com")))
-                 :vars '( ( user-mail-address	    . "leoaparisi@gmail.com"  )
-                          (mu4e-sent-folder       . "/[Gmail]/Sent Mail")
-                          (mu4e-drafts-folder     . "/[Gmail]/Drafts")
-                          (mu4e-trash-folder      . "/[Gmail]/Trash")
-                          (mu4e-refile-folder     . "/Archives")
-                          (smtpmail-smtp-user     . "leoaparisi@gmail.com")
-                          ( user-full-name	    . "Leo Aparisi de Lannoy" )))))
-    ;; (setopt mu4e-thread-mode t)
-    ;; (add-hook 'completion-at-point-functions #'mu4e-complete-contact)
-    (setopt gnus-icalendar-org-capture-file "~/org/notes.org"
-            gnus-icalendar-org-capture-headline '("Calendar"))
+    ;; If ripgrep is available, force `dumb-jump' to use it because it is
+    ;; significantly faster and more accurate than the default searchers (grep,
+    ;; ag, etc.).
+    (when (executable-find "rg")
+      (setopt dumb-jump-force-searcher 'rg)
+      (setopt dumb-jump-prefer-searcher 'rg))
     )
 
-  (use-package org-mime
+  (use-package pdf-tools
+    :mode ("\\.pdf\\'" . pdf-view-mode)
+    :magic ("%PDF" . pdf-view-mode)
+    :ensure t
+    :config
+    (pdf-tools-install)
+    (setopt pdf-view-display-size 'fit-page)
+    :general
+    ([remap pdf-view-midnight-minor-mode] #'pdf-view-themed-minor-mode
+     ))
+
+  ;; (use-package saveplace-pdf-view
+  ;;   :ensure t
+  ;;   :after pdf-tools
+  ;;   :config
+  ;;   (save-place-pdf-view-enable))
+
+  (use-package ultra-scroll
+    :ensure (ultra-scroll :type git :host github :repo "jdtsmith/ultra-scroll")
+    :init
+    (setopt scroll-conservatively 101 ; important!
+            scroll-margin 0)
+    :config
+    (add-hook 'ultra-scroll-hide-functions #'hl-todo-mode)
+    (add-hook 'ultra-scroll-hide-functions #'diff-hl-flydiff-mode)
+    (add-hook 'ultra-scroll-hide-functions #'jit-lock-mode)
+    (add-hook 'ultra-scroll-hide-functions #'good-scroll-mode)
+    (ultra-scroll-mode 1))
+
+  (defun efs/display-startup-time ()
+    (message
+     "Emacs loaded in %s with %d garbage collections."
+     (format
+      "%.2f seconds"
+      (float-time
+       (time-subtract elpaca-after-init-time before-init-time)))
+     gcs-done))
+
+
+  (add-hook 'emacs-startup-hook #'efs/display-startup-time)
+  (use-package yaml-ts-mode
+    :ensure nil
+    :mode "\\.ya?ml\\'")
+
+  (use-package empv
+    :ensure (empv :type git :host github :repo "isamert/empv.el")
+    :defer t
+    :autoload (empv--select-action)
+    :config
+    (with-eval-after-load 'embark (empv-embark-initialize-extra-actions))
+    (setopt empv-allow-insecure-connections t)
+    (setopt empv-youtube-use-tabulated-results t)
+    (add-to-list 'empv-mpv-args "--ytdl-format=bestvideo+bestaudio/best[ext=mp4]/best")
+    (add-to-list 'empv-mpv-args "--save-position-on-quit")
+    (setopt empv-reset-playback-speed-on-quit t)
+    (add-hook 'empv-init-hook #'empv-override-quit-key)
+    )
+
+  ;; (use-package auctex-latexmk
+  ;;   :ensure t
+  ;;   :defer t)
+  (use-package reftex
+    :ensure nil
+    :defer t
+    :hook (LaTeX-mode . reftex-mode)
+    :config
+    ;; http://tex.stackexchange.com/questions/31966/setting-up-reftex-with-biblatex-citation-commands/31992#31992.
+    (setopt reftex-cite-format
+            '((?a . "\\autocite[]{%l}")
+              (?b . "\\blockcquote[]{%l}{}")
+              (?c . "\\cite[]{%l}")
+              (?f . "\\footcite[]{%l}")
+              (?n . "\\nocite{%l}")
+              (?p . "\\parencite[]{%l}")
+              (?s . "\\smartcite[]{%l}")
+              (?t . "\\textcite[]{%l}"))
+            reftex-plug-into-AUCTeX t
+            reftex-toc-split-windows-fraction 0.3
+            ;; This is needed when `reftex-cite-format' is set. See
+            ;; https://superuser.com/a/1386206
+            LaTeX-reftex-cite-format-auto-activate nil)
+    (add-hook 'reftex-mode-hook #'evil-normalize-keymaps)
+    )
+
+  (use-package auctex
+    :ensure t
+    :hook ((LaTeX-mode . LaTeX-preview-setup)
+           (LaTeX-mode . TeX-fold-mode)
+           (LaTeX-mode . prettify-symbols-mode)
+           )
+    :defer t
+    :config
+    (setopt TeX-parse-self t ; parse on load
+            TeX-auto-save t  ; parse on save
+            ;; Use hidden directories for AUCTeX files.
+            TeX-auto-local ".auctex-auto"
+            TeX-style-local ".auctex-style"
+            TeX-source-correlate-mode t
+            TeX-source-correlate-method 'synctex
+            ;; Don't start the Emacs server when correlating sources.
+            TeX-source-correlate-start-server nil
+            ;; Automatically insert braces after sub/superscript in `LaTeX-math-mode'.
+            TeX-electric-sub-and-superscript t
+            ;; Just save, don't ask before each compilation.
+            TeX-save-query nil
+            TeX-show-compilation t
+            TeX-command-extra-options "-shell-escape")
+    (setopt TeX-fold-auto-reveal t)
+    (setq-default TeX-engine 'xetex)
+    (setopt TeX-view-program-selection '((output-pdf "PDF Tools")))
+    (setq-default preview-scale 1.6
+                  preview-scale-function
+                  (lambda () (* (/ 10.0 (preview-document-pt)) preview-scale)))
+    ;; Don't cache preamble, it creates issues with SyncTeX. Let users enable
+    ;; caching if they have compilation times that long.
+    (setopt preview-auto-cache-preamble nil)
+
+    ;; (require 'auctex-latexmk)
+    ;; (auctex-latexmk-setup)
+    )
+
+  (use-package evil-tex
+    :ensure t
+    :hook (LaTeX-mode . evil-tex-mode)
+    :after (evil auctex)
+    :defer t)
+
+
+  (use-package treesit-fold
+    :ensure (treesit-fold :type git :host github :repo "emacs-tree-sitter/treesit-fold")
+    :config
+    (global-treesit-fold-mode 1))
+
+  (use-package citar
     :ensure t
     :defer t
-    :after (mu4e org)
+    :after (:any tex org)
+    :hook
+    (LaTeX-mode . citar-capf-setup)
+    (org-mode . citar-capf-setup)
+
+    ;; :custom is ONLY for (variable value) pairs
+    :custom
+    (org-cite-global-bibliography '("~/bib/references.bib"))
+    (org-cite-insert-processor 'citar)
+    (org-cite-follow-processor 'citar)
+
+    ;; Keybindings
+    :bind
+    (:map org-mode-map ("C-c b" . #'org-cite-insert))
+
+    ;; :config is where ALL executable code and logic goes
     :config
-    (setopt org-mime-export-options '(:with-latex mathjax))
+    ;; Inherit the bibliography path
+    (setopt citar-bibliography org-cite-global-bibliography)
+
+    (defvar citar-indicator-notes-icons
+      (citar-indicator-create
+       :symbol (nerd-icons-mdicon
+                "nf-md-notebook"
+                :face 'nerd-icons-blue
+                :v-adjust -0.3)
+       :function #'citar-has-notes
+       :padding "  "
+       :tag "has:notes"))
+
+    (defvar citar-indicator-links-icons
+      (citar-indicator-create
+       :symbol (nerd-icons-octicon
+                "nf-oct-link"
+                :face 'nerd-icons-orange
+                :v-adjust -0.1)
+       :function #'citar-has-links
+       :padding "  "
+       :tag "has:links"))
+
+    (defvar citar-indicator-files-icons
+      (citar-indicator-create
+       :symbol (nerd-icons-faicon
+                "nf-fa-file"
+                :face 'nerd-icons-green
+                :v-adjust -0.1)
+       :function #'citar-has-files
+       :padding "  "
+       :tag "has:files"))
+
+    (setopt citar-indicators
+            (list citar-indicator-files-icons
+                  citar-indicator-notes-icons
+                  citar-indicator-links-icons)))
+
+  (use-package citar-embark
+    :after citar embark
+    :no-require
+    :config (citar-embark-mode))
+
+  (use-package oc-csl-activate
+    :ensure (oc-csl-activate :type git :host github :repo "andras-simonyi/org-cite-csl-activate")
+    :after citar org
+    :init
+    (setopt org-cite-activate-processor 'csl-activate)
+    :config
+    (require 'oc-csl-activate)
+    (setopt org-cite-csl-activate-use-document-style t)
+    (setopt org-cite-csl-activate-use-document-locale t)
+    (setopt org-cite-csl-activate-use-citar-cache t)
     )
-  )
-
-(add-hook 'conf-mode-hook #'flymake-mode)
-(add-hook 'prog-mode-hook #'flymake-mode)
-(add-hook 'text-mode-hook #'flymake-mode)
-
-(add-hook 'prog-mode-hook #'display-line-numbers-mode)
-(add-hook 'text-mode-hook #'display-line-numbers-mode)
-
-(general-define-key
- :keymaps '(normal insert emacs)
- "C-=" #'global-text-scale-adjust)
-
-
-(use-package org-modern
-  :ensure t
-  :defer t
-  :after org
-  :hook ((org-agenda-finalize . org-modern-agenda)
-         (org-mode . global-org-modern-mode))
-  :config
-  (setopt org-modern-star 'replace
-          org-modern-hide-stars nil
-          org-modern-table-vertical 1
-          org-modern-table-horizontal 0.2
-          org-modern-block-name t
-          org-modern-horizontal-rule t
-          org-modern-todo-faces
-          '(("TODO" :inverse-video t :foreground "indian red")
-            ("DOING"  :inverse-video t :foreground "medium aquamarine")
-            ("DONE"  :inverse-video t :foreground "slate gray"))
-          org-modern-priority-faces
-          '((?A :background "indian red" :foreground "black")
-            (?B :background "light salmon" :foreground "black")
-            (?C :background "rosy brown" :foreground "black")
-            (?D :background "NavajoWhite" :foreground "black")
-            (?E  :background "bisque" :foreground "black"))
-          org-modern-keyword t)
-  )
-
-(use-package org-appear
-  :ensure t
-  :defer t
-  :after org
-  :hook (org-mode . org-appear-mode)
-  :config
-  (setopt org-appear-autoemphasis t
-          org-appear-autolinks t
-          org-appear-autokeywords t
-          org-appear-autoentities t
-          org-appear-inside-latex nil
-          org-appear-autosubmarkers t))
-
-(use-package org-fragtog
-  :ensure t
-  :after org
-  :defer t
-  :hook (org-mode . org-fragtog-mode))
-
-(use-package org-pandoc-import
-  :ensure (org-pandoc-import :type git :host github
-                             :repo "tecosaur/org-pandoc-import"
-                             :files ("*.el" "filters" "preprocessors"))
-  :after ox)
-
-(use-package vlf
-  :ensure t
-  :config
-  (require 'vlf-setup)
-  (setopt vlf-application 'ask))
-
-(use-package csv-mode
-  :defer t
-  :ensure t
-  :hook ((csv-mode . csv-align-mode)
-         (csv-mode . csv-header-line))
-  )
-
-(use-package jinx
-  :ensure t
-  :defer t
-  :general
-  ;; OPTIMIZATION: Seamlessly maps Jinx over standard Emacs and Evil spellchecking paths,
-  ;; allowing commands like `]s` and `[s` to use Jinx's ultra-fast engine.
-  ([remap ispell-word] #'jinx-correct)
-  (:states 'normal
-           "]s" #'jinx-next
-           "[s" #'jinx-previous)
-  :hook
-  (text-mode . jinx-mode)
-  (prog-mode . jinx-mode)
-  :config
-  ;; Extra face(s) to ignore
-  (setopt jinx-languages "en-us")
-  (push 'org-inline-src-block
-        (alist-get 'org-mode jinx-exclude-faces))
-  ;; Take over the relevant bindings.
-  (add-to-list
-   'vertico-multiform-categories
-   '(jinx grid (vertico-grid-annotate . 20) (vertico-count . 4))))
-
 
-(use-package outline-indent
-  :ensure t
-  :config
-  (setopt outline-indent-default-offset 4)
-  (setopt outline-indent-shift-width 4)
-  (outline-minor-mode 1)
-  :custom
-  (outline-indent-ellipsis " ▼ "))
-
-(use-package elec-pair
-  :ensure nil
-  :config
-  ;; Disable auto-pairing for backticks to prevent markdown/org annoyances
-  (defun my-inhibit-electric-pair-backtick (char)
-    (if (char-equal char ?\`) t (electric-pair-default-inhibit char)))
-  (setopt electric-pair-inhibit-predicate #'my-inhibit-electric-pair-backtick)
-  (electric-pair-mode 1))
-
-;; The stripspace Emacs package provides stripspace-local-mode, a minor mode
-;; that automatically removes trailing whitespace and blank lines at the end of
-;; the buffer when saving.
-(use-package stripspace
-  :commands stripspace-local-mode
-
-  ;; Enable for prog-mode-hook, text-mode-hook, conf-mode-hook
-  :hook ((prog-mode . stripspace-local-mode)
-         (text-mode . stripspace-local-mode)
-         (conf-mode . stripspace-local-mode))
-
-  :custom
-  ;; The `stripspace-only-if-initially-clean' option:
-  ;; - nil to always delete trailing whitespace.
-  ;; - Non-nil to only delete whitespace when the buffer is clean initially.
-  ;; (The initial cleanliness check is performed when `stripspace-local-mode'
-  ;; is enabled.)
-  (stripspace-only-if-initially-clean nil)
-
-  ;; Enabling `stripspace-restore-column' preserves the cursor's column position
-  ;; even after stripping spaces. This is useful in scenarios where you add
-  ;; extra spaces and then save the file. Although the spaces are removed in the
-  ;; saved file, the cursor remains in the same position, ensuring a consistent
-  ;; editing experience without affecting cursor placement.
-  (stripspace-restore-column t))
-
-(use-package apheleia
-  :ensure t
-  :config
-  (apheleia-global-mode 1))
-
-(use-package project
-  :ensure nil
-  :general (:prefix "SPC"
-                    :states 'normal
-                    "p p" #'project-switch-project
-                    )
-  )
-
-(use-package iimage-mode
-  :ensure nil
-  :general (
-            :keymaps 'image-mode-map
-            :states 'normal
-            "w" #'image-transform-fit-to-window
-            "R" #'image-rotate
-            )
-  )
-
-(use-package ox-pandoc
-  :after ox
-  :ensure t)
-
-(general-define-key
- :prefix "SPC"
- :states 'normal
- "x" #'scratch-buffer
- "X" #'org-capture
- "f F" #'switch-to-buffer-other-frame
- "f W" #'switch-to-buffer-other-window
- )
-
-(general-define-key :prefix "SPC g"
-                    :states 'normal
-                    "g" #'magit
-                    "t" #'git-timemachine
-                    )
-
-(general-define-key
- :prefix "SPC o"
- :states 'normal
- :desc "Org agenda"       "A"  #'org-agenda
- :desc "Agenda"         "a a"  #'org-agenda
- :desc "Todo list"      "a t"  #'org-todo-list
- :desc "Tags search"    "a m"  #'org-tags-view
- :desc "View search"    "a v"  #'org-search-view
- :desc "mu4e"    "m"  #'mu4e
- :desc "Default browser"    "b"  #'browse-url-of-file
- :desc "New frame"          "f"  #'make-frame
- :desc "Select frame"       "F"  #'select-frame-by-name
- :desc "Dired"              "-"  #'dired-jump
- :desc "Open directory in dirvish"    "/" #'dirvish
- :desc "Project sidebar"              "p" #'dirvish-side
- :desc "vterm"              "t" #'ghostel-project
- )
-
-(general-define-key
- :states 'normal
- "K" #'xref-find-apropos
- )
-
-(general-define-key
- :prefix "SPC t"
- :states 'normal
- :desc "toggle code wrapping"              "w"   #'visual-line-mode
- :desc "toggle flymake"              "f"   #'flymake-mode
- )
-
-(general-define-key
- :prefix "SPC c"
- :states 'normal
- :desc "LSP Execute code action"              "a"   #'eglot-code-actions
- :desc "LSP Organize Imports"              "o"   #'eglot-code-action-organize-imports
- :desc "LSP Rename"                           "r"   #'eglot-rename
- :desc "Jump to symbol in current workspace" "j"   #'consult-eglot-symbols
-
- )
-
-(use-package dumb-jump
-  :ensure t
-  :commands dumb-jump-xref-activate
-  :defer t
-  :init
-  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate 90)
-  ;; Use `completing-read' so that selection of jump targets integrates with the
-  ;; active completion framework (e.g., Vertico, Ivy, Helm, Icomplete),
-  ;; providing a consistent minibuffer-based interface whenever multiple
-  ;; definitions are found.
-  (setopt dumb-jump-selector 'completing-read)
-
-  ;; If ripgrep is available, force `dumb-jump' to use it because it is
-  ;; significantly faster and more accurate than the default searchers (grep,
-  ;; ag, etc.).
-  (when (executable-find "rg")
-    (setopt dumb-jump-force-searcher 'rg)
-    (setopt dumb-jump-prefer-searcher 'rg))
-  )
-
-(use-package pdf-tools
-  :mode ("\\.pdf\\'" . pdf-view-mode)
-  :magic ("%PDF" . pdf-view-mode)
-  :ensure t
-  :config
-  (pdf-tools-install)
-  (setopt pdf-view-display-size 'fit-page)
-  :general
-  ([remap pdf-view-midnight-minor-mode] #'pdf-view-themed-minor-mode
-   ))
-
-;; (use-package saveplace-pdf-view
-;;   :ensure t
-;;   :after pdf-tools
-;;   :config
-;;   (save-place-pdf-view-enable))
-
-(use-package ultra-scroll
-  :ensure (ultra-scroll :type git :host github :repo "jdtsmith/ultra-scroll")
-  :defer t
-  :init
-  (setopt scroll-conservatively 101 ; important!
-          scroll-margin 0)
-  :config
-  (add-hook 'ultra-scroll-hide-functions #'hl-todo-mode)
-  (add-hook 'ultra-scroll-hide-functions #'diff-hl-flydiff-mode)
-  (add-hook 'ultra-scroll-hide-functions #'jit-lock-mode)
-  (add-hook 'ultra-scroll-hide-functions #'good-scroll-mode)
-  (ultra-scroll-mode 1))
-
-(defun efs/display-startup-time ()
-  (message
-   "Emacs loaded in %s with %d garbage collections."
-   (format
-    "%.2f seconds"
-    (float-time
-     (time-subtract elpaca-after-init-time before-init-time)))
-   gcs-done))
-
-
-(add-hook 'emacs-startup-hook #'efs/display-startup-time)
-(use-package yaml-ts-mode
-  :ensure nil
-  :mode "\\.ya?ml\\'")
-
-(use-package empv
-  :ensure (empv :type git :host github :repo "isamert/empv.el")
-  :defer t
-  :autoload (empv--select-action)
-  :config
-  (with-eval-after-load 'embark (empv-embark-initialize-extra-actions))
-  (setopt empv-allow-insecure-connections t)
-  (setopt empv-youtube-use-tabulated-results t)
-  (add-to-list 'empv-mpv-args "--ytdl-format=bestvideo+bestaudio/best[ext=mp4]/best")
-  (add-to-list 'empv-mpv-args "--save-position-on-quit")
-  (setopt empv-reset-playback-speed-on-quit t)
-  (add-hook 'empv-init-hook #'empv-override-quit-key)
-  )
-
-;; (use-package auctex-latexmk
-;;   :ensure t
-;;   :defer t)
-(use-package reftex
-  :ensure nil
-  :defer t
-  :hook (LaTeX-mode . reftex-mode)
-  :config
-  ;; http://tex.stackexchange.com/questions/31966/setting-up-reftex-with-biblatex-citation-commands/31992#31992.
-  (setopt reftex-cite-format
-          '((?a . "\\autocite[]{%l}")
-            (?b . "\\blockcquote[]{%l}{}")
-            (?c . "\\cite[]{%l}")
-            (?f . "\\footcite[]{%l}")
-            (?n . "\\nocite{%l}")
-            (?p . "\\parencite[]{%l}")
-            (?s . "\\smartcite[]{%l}")
-            (?t . "\\textcite[]{%l}"))
-          reftex-plug-into-AUCTeX t
-          reftex-toc-split-windows-fraction 0.3
-          ;; This is needed when `reftex-cite-format' is set. See
-          ;; https://superuser.com/a/1386206
-          LaTeX-reftex-cite-format-auto-activate nil)
-  (add-hook 'reftex-mode-hook #'evil-normalize-keymaps)
-  )
-
-(use-package auctex
-  :ensure t
-  :hook ((LaTeX-mode . LaTeX-preview-setup)
-         (LaTeX-mode . TeX-fold-mode)
-         (LaTeX-mode . prettify-symbols-mode)
-         )
-  :defer t
-  :config
-  (setopt TeX-parse-self t ; parse on load
-          TeX-auto-save t  ; parse on save
-          ;; Use hidden directories for AUCTeX files.
-          TeX-auto-local ".auctex-auto"
-          TeX-style-local ".auctex-style"
-          TeX-source-correlate-mode t
-          TeX-source-correlate-method 'synctex
-          ;; Don't start the Emacs server when correlating sources.
-          TeX-source-correlate-start-server nil
-          ;; Automatically insert braces after sub/superscript in `LaTeX-math-mode'.
-          TeX-electric-sub-and-superscript t
-          ;; Just save, don't ask before each compilation.
-          TeX-save-query nil
-          TeX-show-compilation t
-          TeX-command-extra-options "-shell-escape")
-  (setopt TeX-fold-auto-reveal t)
-  (setq-default TeX-engine 'xetex)
-  (setopt TeX-view-program-selection '((output-pdf "PDF Tools")))
-  (setq-default preview-scale 1.6
-                preview-scale-function
-                (lambda () (* (/ 10.0 (preview-document-pt)) preview-scale)))
-  ;; Don't cache preamble, it creates issues with SyncTeX. Let users enable
-  ;; caching if they have compilation times that long.
-  (setopt preview-auto-cache-preamble nil)
-
-  ;; (require 'auctex-latexmk)
-  ;; (auctex-latexmk-setup)
-  )
-
-(use-package evil-tex
-  :ensure t
-  :hook (LaTeX-mode . evil-tex-mode)
-  :after (evil auctex)
-  :defer t)
-
-
-(use-package treesit-fold
-  :ensure (treesit-fold :type git :host github :repo "emacs-tree-sitter/treesit-fold")
-  :config
-  (global-treesit-fold-mode 1))
-
-(use-package citar
-  :ensure t
-  :defer t
-  :after tex org
-  :hook
-  (LaTeX-mode . citar-capf-setup)
-  (org-mode . citar-capf-setup)
-
-  ;; :custom is ONLY for (variable value) pairs
-  :custom
-  (org-cite-global-bibliography '("~/bib/references.bib"))
-  (org-cite-insert-processor 'citar)
-  (org-cite-follow-processor 'citar)
-
-  ;; Keybindings
-  :bind
-  (:map org-mode-map ("C-c b" . #'org-cite-insert))
-
-  ;; :config is where ALL executable code and logic goes
-  :config
-  ;; Inherit the bibliography path
-  (setopt citar-bibliography org-cite-global-bibliography)
-
-  (defvar citar-indicator-notes-icons
-    (citar-indicator-create
-     :symbol (nerd-icons-mdicon
-              "nf-md-notebook"
-              :face 'nerd-icons-blue
-              :v-adjust -0.3)
-     :function #'citar-has-notes
-     :padding "  "
-     :tag "has:notes"))
-
-  (defvar citar-indicator-links-icons
-    (citar-indicator-create
-     :symbol (nerd-icons-octicon
-              "nf-oct-link"
-              :face 'nerd-icons-orange
-              :v-adjust -0.1)
-     :function #'citar-has-links
-     :padding "  "
-     :tag "has:links"))
-
-  (defvar citar-indicator-files-icons
-    (citar-indicator-create
-     :symbol (nerd-icons-faicon
-              "nf-fa-file"
-              :face 'nerd-icons-green
-              :v-adjust -0.1)
-     :function #'citar-has-files
-     :padding "  "
-     :tag "has:files"))
-
-  (setopt citar-indicators
-          (list citar-indicator-files-icons
-                citar-indicator-notes-icons
-                citar-indicator-links-icons)))
-
-(use-package citar-embark
-  :after citar embark
-  :no-require
-  :config (citar-embark-mode))
-
-(use-package oc-csl-activate
-  :ensure (oc-csl-activate :type git :host github :repo "andras-simonyi/org-cite-csl-activate")
-  :after citar org
-  :init
-  (setopt org-cite-activate-processor 'csl-activate)
-  :config
-  (require 'oc-csl-activate)
-  (setopt org-cite-csl-activate-use-document-style t)
-  (setopt org-cite-csl-activate-use-document-locale t)
-  (setopt org-cite-csl-activate-use-citar-cache t)
-  )
-
-(use-package org-noter
-  :ensure t
-  :defer t
-  :preface
-  ;; Allow the user to preempt this and set the document search path
-  ;; If not set then use `org-directory'
-  (defvar org-noter-notes-search-path nil)
-  :config
-  (unless org-noter-notes-search-path
-    (setopt org-noter-notes-search-path (list org-directory)))
-  (setopt org-noter-auto-save-last-location t
-          org-noter-separate-notes-from-heading t))
-
-(use-package edraw-org
-  :defer t
-  :after org
-  :ensure (edraw-org :type git :host github :repo "misohena/el-easydraw")
-  :config
-  (edraw-org-setup-default)
-  )
-
-(use-package nov
-  :ensure t
-  :defer t
-  :init
-  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
-  )
-
-(use-package dape
-  :ensure t
-  :defer t
-  :preface
-  ;; By default dape shares the same keybinding prefix as `gud'
-  ;; If you do not want to use any prefix, set it to nil.
-  ;; (setopt dape-key-prefix "\C-x\C-a")
-
-  :hook
-  ;; Save breakpoints on quit
-  (kill-emacs . dape-breakpoint-save)
-  ;; Load breakpoints on startup
-  (elpaca-after-init . dape-breakpoint-load)
-
-  :config
-  ;; Persist breakpoints after closing DAPE.
-  (dape-breakpoint-global-mode +1)
-  (add-hook 'dape-start-hook #'dape-breakpoint-load 0)
-  (add-hook 'dape-stopped-hook #'dape-breakpoint-save 'append)
-
-
-  ;; Info buffers to the right
-  (setopt dape-buffer-window-arrangement 'right)
-
-  ;; Info buffers like gud (gdb-mi)
-  ;; (setopt dape-buffer-window-arrangement 'gud)
-  ;; (setopt dape-info-hide-mode-line nil)
-
-  ;; Pulse source line (performance hit)
-  ;; (add-hook 'dape-display-source-hook 'pulse-momentary-highlight-one-line)
-
-  ;; Showing inlay hints
-  (setopt dape-inlay-hints t)
-
-  ;; Save buffers on startup, useful for interpreted languages
-  (add-hook 'dape-start-hook (lambda () (save-some-buffers t t)))
-
-  ;; Kill compile buffer on build success
-  (add-hook 'dape-compile-hook 'kill-buffer)
-
-  ;; Projectile users
-  ;; (setopt dape-cwd-function 'projectile-project-root)
-  )
-
-(use-package markdown-mode
-  :ensure t
-  :defer t
-  :mode ("/README\\(?:\\.md\\)?\\'" . gfm-mode)
-  :init
-  (setopt markdown-italic-underscore t
-          markdown-asymmetric-header t
-          markdown-gfm-additional-languages '("sh")
-          markdown-make-gfm-checkboxes-buttons t
-          markdown-fontify-whole-heading-line t
-          markdown-fontify-code-blocks-natively t)
-
-  :config
-
-  (add-to-list 'markdown-code-lang-modes '("rust" . rustic-mode)))
-
-
-(use-package evil-markdown
-  :ensure (evil-markdown :type git :host github :repo "Somelauw/evil-markdown")
-  :defer t
-  :hook (markdown-mode . evil-markdown-mode)
-  :config
-  (add-hook 'evil-markdown-mode-hook #'evil-normalize-keymaps)
-  )
-
-;; Helpful is an alternative to the built-in Emacs help that provides much more
-;; contextual information.
-(use-package helpful
-  :ensure t
-  :commands (helpful-callable
-             helpful-variable
-             helpful-key
-             helpful-command
-             helpful-at-point
-             helpful-function)
-  :bind
-  ([remap describe-command] . helpful-command)
-  ([remap describe-function] . helpful-callable)
-  ([remap describe-key] . helpful-key)
-  ([remap describe-symbol] . helpful-symbol)
-  ([remap describe-variable] . helpful-variable)
-  :custom
-  (helpful-max-buffers 7))
-
-(setopt treesit-font-lock-level 4)
-
-(setopt user-full-name "Leo Aparisi de Lannoy")
-(setopt auto-save-default t)
-
-(setopt auto-save-interval 300)
-(setopt auto-save-timeout 10)
-
-(setopt imagemagick-render-type 1)
-(setopt browse-url-chrome-program "brave")
-(setopt display-line-numbers-type 'relative)
-(setq-default tab-width 4)
-(setopt dired-vc-rename-file t)
-(setopt xref-search-program 'ripgrep
-        )
-
-(show-paren-mode 1)
-(winner-mode 1)
-(global-visual-line-mode 1)
-(delete-selection-mode 1)
-(window-divider-mode 1)
-
-(setopt confirm-kill-emacs 'y-or-n-p)
-
-(setopt redisplay-skip-fontification-on-input t)
-(add-hook 'dired-mode-hook #'dired-hide-details-mode)
-
-(use-package avy
-  :ensure t
-  :defer t
-  :general (
-
-            :states 'normal
-            "s" #'evil-avy-goto-char-timer)
-  )
-
-(use-package breadcrumb
-  :ensure t
-  :config (breadcrumb-mode 1)
-  )
-
-(use-package so-long
-  :ensure nil
-  :config (global-so-long-mode 1))
-
-(use-package easysession
-  ;; ':demand t' ensures the package is loaded immediately upon startup
-
-  :general (:prefix "SPC l"
-                    :states 'normal
-                    "l"#'easysession-switch-to ; Load session
-                    "s"#'easysession-save) ; Save session
-
-  :config
-  ;; Key mappings
-  ;; Save every 10 minutes
-  (setopt easysession-save-interval (* 10 60))
-
-  ;; Save the current session when using `easysession-switch-to'
-  (setopt easysession-switch-to-save-session t)
-
-  ;; Do not exclude the current session when switching sessions
-  (setopt easysession-switch-to-exclude-current nil)
-
-  ;; Display the active session name in the mode-line lighter.
-  ;; (setopt easysession-save-mode-lighter-show-session-name t)
-
-  ;; Optionally, the session name can be shown in the modeline info area:
-  ;; (setopt easysession-mode-line-misc-info t)
-  ;; non-nil: Make `easysession-setup' load the session automatically.
-  ;; (nil: session is not loaded automatically; the user can load it manually.)
-  (setopt easysession-setup-load-session nil)
-
-  ;; The `easysession-setup' function adds hooks:
-  ;; - To enable automatic session loading during `emacs-startup-hook', or
-  ;;   `server-after-make-frame-hook' when running in daemon mode.
-  ;; - To save the session at regular intervals, and when Emacs exits.
-  (easysession-setup))
+  (use-package org-noter
+    :ensure t
+    :defer t
+    :preface
+    ;; Allow the user to preempt this and set the document search path
+    ;; If not set then use `org-directory'
+    (defvar org-noter-notes-search-path nil)
+    :config
+    (unless org-noter-notes-search-path
+      (setopt org-noter-notes-search-path (list org-directory)))
+    (setopt org-noter-auto-save-last-location t
+            org-noter-separate-notes-from-heading t))
+
+  (use-package edraw-org
+    :defer t
+    :after org
+    :ensure (edraw-org :type git :host github :repo "misohena/el-easydraw")
+    :config
+    (edraw-org-setup-default)
+    )
+
+  (use-package nov
+    :ensure t
+    :defer t
+    :init
+    (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+    )
+
+  (use-package dape
+    :ensure t
+    :defer t
+    :preface
+    ;; By default dape shares the same keybinding prefix as `gud'
+    ;; If you do not want to use any prefix, set it to nil.
+    ;; (setopt dape-key-prefix "\C-x\C-a")
+
+    :hook
+    ;; Save breakpoints on quit
+    (kill-emacs . dape-breakpoint-save)
+    ;; Load breakpoints on startup
+    (elpaca-after-init . dape-breakpoint-load)
+
+    :config
+    ;; Persist breakpoints after closing DAPE.
+    (dape-breakpoint-global-mode +1)
+    (add-hook 'dape-start-hook #'dape-breakpoint-load 0)
+    (add-hook 'dape-stopped-hook #'dape-breakpoint-save 'append)
+
+
+    ;; Info buffers to the right
+    (setopt dape-buffer-window-arrangement 'right)
+
+    ;; Info buffers like gud (gdb-mi)
+    ;; (setopt dape-buffer-window-arrangement 'gud)
+    ;; (setopt dape-info-hide-mode-line nil)
+
+    ;; Pulse source line (performance hit)
+    ;; (add-hook 'dape-display-source-hook 'pulse-momentary-highlight-one-line)
+
+    ;; Showing inlay hints
+    (setopt dape-inlay-hints t)
+
+    ;; Save buffers on startup, useful for interpreted languages
+    (add-hook 'dape-start-hook (lambda () (save-some-buffers t t)))
+
+    ;; Kill compile buffer on build success
+    (add-hook 'dape-compile-hook 'kill-buffer)
+
+    ;; Projectile users
+    ;; (setopt dape-cwd-function 'projectile-project-root)
+    )
+
+  (use-package markdown-mode
+    :ensure t
+    :defer t
+    :mode ("/README\\(?:\\.md\\)?\\'" . gfm-mode)
+    :init
+    (setopt markdown-italic-underscore t
+            markdown-asymmetric-header t
+            markdown-gfm-additional-languages '("sh")
+            markdown-make-gfm-checkboxes-buttons t
+            markdown-fontify-whole-heading-line t
+            markdown-fontify-code-blocks-natively t)
+
+    :config
+
+    (add-to-list 'markdown-code-lang-modes '("rust" . rustic-mode)))
+
+
+  (use-package evil-markdown
+    :ensure (evil-markdown :type git :host github :repo "Somelauw/evil-markdown")
+    :defer t
+    :hook (markdown-mode . evil-markdown-mode)
+    :config
+    (add-hook 'evil-markdown-mode-hook #'evil-normalize-keymaps)
+    )
+
+  ;; Helpful is an alternative to the built-in Emacs help that provides much more
+  ;; contextual information.
+  (use-package helpful
+    :ensure t
+    :commands (helpful-callable
+               helpful-variable
+               helpful-key
+               helpful-command
+               helpful-at-point
+               helpful-function)
+    :bind
+    ([remap describe-command] . helpful-command)
+    ([remap describe-function] . helpful-callable)
+    ([remap describe-key] . helpful-key)
+    ([remap describe-symbol] . helpful-symbol)
+    ([remap describe-variable] . helpful-variable)
+    :custom
+    (helpful-max-buffers 7))
+
+  (setopt treesit-font-lock-level 4)
+
+  (setopt user-full-name "Leo Aparisi de Lannoy")
+  (setopt auto-save-default t)
+
+  (setopt auto-save-interval 300)
+  (setopt auto-save-timeout 10)
+
+  (setopt imagemagick-render-type 1)
+  (setopt browse-url-chrome-program "brave")
+  (setopt display-line-numbers-type 'relative)
+  (setq-default tab-width 4)
+  (setopt dired-vc-rename-file t)
+  (setopt xref-search-program 'ripgrep
+          )
+
+  (show-paren-mode 1)
+  (winner-mode 1)
+  (global-visual-line-mode 1)
+  (delete-selection-mode 1)
+  (window-divider-mode 1)
+
+  (setopt confirm-kill-emacs 'y-or-n-p)
+
+  (setopt redisplay-skip-fontification-on-input t)
+  (add-hook 'dired-mode-hook #'dired-hide-details-mode)
+
+  (use-package avy
+    :ensure t
+    :defer t
+    :general (
+
+              :states 'normal
+              "s" #'evil-avy-goto-char-timer)
+    )
+
+  (use-package breadcrumb
+    :ensure t
+    :config (breadcrumb-mode 1)
+    )
+
+  (use-package so-long
+    :ensure nil
+    :config (global-so-long-mode 1))
+
+  (use-package easysession
+    ;; ':demand t' ensures the package is loaded immediately upon startup
+    :ensure t
+    :demand t
+    :general (:prefix "SPC l"
+                      :states 'normal
+                      "l"#'easysession-switch-to ; Load session
+                      "s"#'easysession-save) ; Save session
+
+    :config
+    ;; Key mappings
+    ;; Save every 10 minutes
+    (setopt easysession-save-interval (* 10 60))
+
+    ;; Save the current session when using `easysession-switch-to'
+    (setopt easysession-switch-to-save-session t)
+
+    ;; Do not exclude the current session when switching sessions
+    (setopt easysession-switch-to-exclude-current nil)
+
+    ;; Display the active session name in the mode-line lighter.
+    ;; (setopt easysession-save-mode-lighter-show-session-name t)
+
+    ;; Optionally, the session name can be shown in the modeline info area:
+    ;; (setopt easysession-mode-line-misc-info t)
+    ;; non-nil: Make `easysession-setup' load the session automatically.
+    ;; (nil: session is not loaded automatically; the user can load it manually.)
+    (setopt easysession-setup-load-session nil)
+
+    ;; The `easysession-setup' function adds hooks:
+    ;; - To enable automatic session loading during `emacs-startup-hook', or
+    ;;   `server-after-make-frame-hook' when running in daemon mode.
+    ;; - To save the session at regular intervals, and when Emacs exits.
+    (easysession-setup))
+
+  (use-package lsp-ltex-plus
+    :ensure t
+    :defer t
+    :custom
+    ;; Opt in to grammar checking inside programming language comments.
+    ;; By default only markup languages (LaTeX, Markdown, Org, …) are checked.
+    ;; Set to t to also check comments in Python, C, Rust, and all other
+    ;; programming languages in lsp-ltex-plus-major-modes.
+    (lsp-ltex-plus-check-programming-languages t)
+
+    ;; Send the buffer to the server a little sooner after you stop typing.
+    (lsp-ltex-plus-idle-delay 0.3)
+
+    :init
+    ;; Enable lsp-ltex-plus for all supported major modes. The full package
+    ;; loads lazily — only when you first open a relevant file.
+    (lsp-ltex-plus-enable-for-modes)
+    :general (:prefix "SPC c"
+                      :states 'normal
+                      "l"#'lsp-ltex-plus-actions ; Load session
