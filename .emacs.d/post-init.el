@@ -16,7 +16,6 @@
                  ;; "NVM_DIR" "NODE_PATH" ; Node/JS
                  "LANG" "LC_CTYPE"))
     (add-to-list 'exec-path-from-shell-variables var))
-  (setopt exec-path-from-shell-arguments '("-l"))
   ;; Initialize
   (exec-path-from-shell-initialize))
 
@@ -1511,7 +1510,7 @@
   :magic ("%PDF" . pdf-view-mode)
   :ensure t
   :config
-  (pdf-tools-install)
+  (pdf-loader-install)
   (setopt pdf-view-display-size 'fit-page)
   :general
   ([remap pdf-view-midnight-minor-mode] #'pdf-view-themed-minor-mode
@@ -1545,10 +1544,7 @@
    gcs-done))
 
 
-(add-hook 'emacs-startup-hook #'efs/display-startup-time)
-(use-package yaml-ts-mode
-  :ensure nil
-  :mode "\\.ya?ml\\'")
+(add-hook 'elpaca-after-init-hook #'efs/display-startup-time)
 
 (use-package empv
   :ensure (empv :type git :host github :repo "isamert/empv.el")
