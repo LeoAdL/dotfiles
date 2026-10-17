@@ -1,5 +1,7 @@
 ;;; post-init.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
 ;; Ensure Emacs loads the most recent byte-compiled files.
+;; (setopt use-package-compute-statistics t)
+
 (use-package exec-path-from-shell
   :if (and (or (display-graphic-p) (daemonp))
            (eq system-type 'darwin)) ; macOS only
@@ -57,7 +59,6 @@
 (mapc 'my-after-frame (frame-list))
 (add-hook 'after-make-frame-functions 'my-after-frame)
 
-;; (setopt use-package-compute-statistics t)
 
 ;; Auto-revert in Emacs is a feature that automatically updates the
 ;; contents of a buffer to reflect changes made to the underlying file
@@ -107,16 +108,7 @@
   (savehist-autosave-interval 600)
   (savehist-additional-variables
    '(kill-ring                        ; clipboard
-     register-alist                   ; macros
-     mark-ring global-mark-ring       ; marks
-     evil-ex-history
-     corfu-history
      search-ring regexp-search-ring
-     file-name-history                ; Mini-buffer file history (M-x find-file)
-     extended-command-history         ; M-x command history
-     buffer-name-history              ; Switch-to-buffer history
-     shell-command-history            ; Shell command history (M-!)
-     grep-history                     ; Grep/ripgrep search history
      ))
   :config
   (savehist-mode 1)
@@ -146,81 +138,83 @@
   :commands (org-mode org-version)
   :mode
   ("\\.org\\'" . org-mode)
-  :general (:prefix "SPC m"
-                    :states 'normal
-                    :keymaps 'org-mode-map
-                    "A" #'org-archive-subtree-default
-                    "e" #'org-export-dispatch
-                    "f" #'org-footnote-action
-                    "h" #'org-toggle-heading
-                    "i" #'org-toggle-item
-                    "I" #'org-id-get-create
-                    "k" #'org-babel-remove-result
-                    "n" #'org-store-link
-                    "o" #'org-set-property
-                    "q" #'org-set-tags-command
-                    "t" #'org-todo
-                    "T" #'org-todo-list
-                    "x" #'org-toggle-checkbox
-                    "a a" #'org-attach
-                    "a d" #'org-attach-delete-one
-                    "a D" #'org-attach-delete-all
-                    "a n" #'org-attach-new
-                    "a o" #'org-attach-open
-                    "a O" #'org-attach-open-in-emacs
-                    "a r" #'org-attach-reveal
-                    "a R" #'org-attach-reveal-in-emacs
-                    "a u" #'org-attach-url
-                    "a s" #'org-attach-set-directory
-                    "a S" #'org-attach-sync
-                    "b -" #'org-table-insert-hline
-                    "b a" #'org-table-align
-                    "b b" #'org-table-blank-field
-                    "b c" #'org-table-create-or-convert-from-region
-                    "b e" #'org-table-edit-field
-                    "b f" #'org-table-edit-formulas
-                    "b h" #'org-table-field-info
-                    "b s" #'org-table-sort-lines
-                    "b r" #'org-table-recalculate
-                    "b R" #'org-table-recalculate-buffer-tables
-                    "b d c" #'org-table-delete-column
-                    "b d r" #'org-table-kill-row
-                    "b i c" #'org-table-insert-column
-                    "b i h" #'org-table-insert-hline
-                    "b i r" #'org-table-insert-row
-                    "b i H" #'org-table-hline-and-move
-                    "b t f" #'org-table-toggle-formula-debugger
-                    "b t o" #'org-table-toggle-coordinate-overlays
-                    "c c" #'org-clock-cancel
-                    "c d" #'org-clock-mark-default-task
-                    "c e" #'org-clock-modify-effort-estimate
-                    "c E" #'org-set-effort
-                    "c g" #'org-clock-goto
-                    "c i" #'org-clock-in
-                    "c I" #'org-clock-in-last
-                    "c o" #'org-clock-out
-                    "c r" #'org-resolve-clocks
-                    "c R" #'org-clock-report
-                    "c t" #'org-evaluate-time-range
-                    "c =" #'org-clock-timestamps-up
-                    "c -" #'org-clock-timestamps-down
-                    "d d" #'org-deadline
-                    "d s" #'org-schedule
-                    "d t" #'org-time-stamp
-                    "d T" #'org-time-stamp-inactive
+  :general 
+  (:keymaps 'org-mode-map "C-c b" #'org-cite-insert)
+  (:prefix "SPC m"
+           :states 'normal
+           :keymaps 'org-mode-map
+           "A" #'org-archive-subtree-default
+           "e" #'org-export-dispatch
+           "f" #'org-footnote-action
+           "h" #'org-toggle-heading
+           "i" #'org-toggle-item
+           "I" #'org-id-get-create
+           "k" #'org-babel-remove-result
+           "n" #'org-store-link
+           "o" #'org-set-property
+           "q" #'org-set-tags-command
+           "t" #'org-todo
+           "T" #'org-todo-list
+           "x" #'org-toggle-checkbox
+           "a a" #'org-attach
+           "a d" #'org-attach-delete-one
+           "a D" #'org-attach-delete-all
+           "a n" #'org-attach-new
+           "a o" #'org-attach-open
+           "a O" #'org-attach-open-in-emacs
+           "a r" #'org-attach-reveal
+           "a R" #'org-attach-reveal-in-emacs
+           "a u" #'org-attach-url
+           "a s" #'org-attach-set-directory
+           "a S" #'org-attach-sync
+           "b -" #'org-table-insert-hline
+           "b a" #'org-table-align
+           "b b" #'org-table-blank-field
+           "b c" #'org-table-create-or-convert-from-region
+           "b e" #'org-table-edit-field
+           "b f" #'org-table-edit-formulas
+           "b h" #'org-table-field-info
+           "b s" #'org-table-sort-lines
+           "b r" #'org-table-recalculate
+           "b R" #'org-table-recalculate-buffer-tables
+           "b d c" #'org-table-delete-column
+           "b d r" #'org-table-kill-row
+           "b i c" #'org-table-insert-column
+           "b i h" #'org-table-insert-hline
+           "b i r" #'org-table-insert-row
+           "b i H" #'org-table-hline-and-move
+           "b t f" #'org-table-toggle-formula-debugger
+           "b t o" #'org-table-toggle-coordinate-overlays
+           "c c" #'org-clock-cancel
+           "c d" #'org-clock-mark-default-task
+           "c e" #'org-clock-modify-effort-estimate
+           "c E" #'org-set-effort
+           "c g" #'org-clock-goto
+           "c i" #'org-clock-in
+           "c I" #'org-clock-in-last
+           "c o" #'org-clock-out
+           "c r" #'org-resolve-clocks
+           "c R" #'org-clock-report
+           "c t" #'org-evaluate-time-range
+           "c =" #'org-clock-timestamps-up
+           "c -" #'org-clock-timestamps-down
+           "d d" #'org-deadline
+           "d s" #'org-schedule
+           "d t" #'org-time-stamp
+           "d T" #'org-time-stamp-inactive
                                         ;"f o" #'consult-org-heading
                                         ;"f a" #'consult-org-agenda
-                    "l c" #'org-cliplink
-                    "l i" #'org-id-store-link
-                    "l l" #'org-insert-link
-                    "l L" #'org-insert-all-links
-                    "l s" #'org-store-link
-                    "l S" #'org-insert-last-stored-link
-                    "l t" #'org-toggle-link-display
-                    "p d" #'org-priority-down
-                    "p p" #'org-priority
-                    "p u" #'org-priority-up
-                    )
+           "l c" #'org-cliplink
+           "l i" #'org-id-store-link
+           "l l" #'org-insert-link
+           "l L" #'org-insert-all-links
+           "l s" #'org-store-link
+           "l S" #'org-insert-last-stored-link
+           "l t" #'org-toggle-link-display
+           "p d" #'org-priority-down
+           "p p" #'org-priority
+           "p u" #'org-priority-up
+           )
   :init
   (setopt org-fold-core-style 'text-properties)
   :config
@@ -540,7 +534,6 @@
   (setopt evil-want-integration t)
   (setopt evil-want-keybinding nil)
   (setopt evil-want-C-u-scroll t)
-  (setopt evil-want-fine-undo t)
   (setopt evil-undo-system 'undo-fu)
   (setopt evil-search-wrap t)
   :config
@@ -762,25 +755,7 @@
   (add-hook 'completion-at-point-functions #'cape-dabbrev)
   (add-hook 'completion-at-point-functions #'cape-keyword)
   (add-hook 'completion-at-point-functions #'cape-file)
-  (add-hook 'completion-at-point-functions #'cape-history)
-
-  :config
-  ;; Wrap Eglot-specific logic in with-eval-after-load to ensure
-  ;; it only runs if/when Eglot is actually loaded.
-  (with-eval-after-load 'eglot
-    ;; Cache busting for Eglot
-    (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
-
-    (defun my/eglot-capf ()
-      (setq-local completion-at-point-functions
-                  (list (cape-capf-super
-                         #'eglot-completion-at-point
-                         #'yasnippet-capf     ;; <-- Now merging files!
-                         #'cape-dabbrev  ;; <-- Now merging words!
-                         #'cape-file     ;; <-- Now merging files!
-                         ))))
-
-    (add-hook 'eglot-managed-mode-hook #'my/eglot-capf)))
+  (add-hook 'completion-at-point-functions #'cape-history))
 
 (use-package yasnippet-capf
   :ensure t
@@ -847,15 +822,6 @@
   (minions-mode 1)
   )
 
-(use-package doom-themes
-  :ensure t
-  :config
-  (setopt doom-themes-enable-bold t)
-  (setopt doom-themes-enable-italic t)
-  (setopt doom-themes-padded-modeline t)
-  (doom-themes-visual-bell-config)
-  )
-
 (use-package solaire-mode
   :ensure t
   :config (solaire-global-mode 1)
@@ -876,6 +842,7 @@
   (set-face-attribute 'diredfl-dir-name nil :bold t))
 
 (use-package tramp
+  :defer t
   :ensure nil
   :config
   ;; Enable full-featured Dirvish over TRAMP on ssh connections
@@ -889,7 +856,8 @@
   ;; Tips to speed up connections
   (setopt tramp-verbose 0)
   (setopt tramp-chunksize 2000)
-  (setopt tramp-ssh-controlmaster-options nil))
+  (setopt tramp-use-connection-share nil)  ; Emacs 30+ name of tramp-use-ssh-controlmaster-options
+  )
 
 (use-package dirvish
   :ensure t
@@ -1087,22 +1055,32 @@
 
 (use-package eglot
   :ensure nil
-  :general
-  (:states 'normal
-           :keymaps 'eglot-mode-map
-           :desc "Jump to definition"                    "g d"   #'xref-find-definitions
-           :desc "Jump to references"                    "g r"   #'xref-find-references
-           :desc "Jump to implementations"                    "g i"   #'eglot-find-implementation
-           :desc "Jump to declarations"                    "g D"   #'eglot-find-declaration)
-  :commands (eglot-ensure
-             eglot-rename
-             eglot-format-buffer)
   :init
   (add-hook 'markdown-ts-mode-hook #'eglot-ensure)
   (add-hook 'org-mode-hook #'eglot-ensure)
   (add-hook 'python-mode-hook #'eglot-ensure)
   (add-hook 'python-ts-mode-hook #'eglot-ensure)
   (add-hook 'LaTeX-mode-hook #'eglot-ensure)
+  (with-eval-after-load 'eglot
+    (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
+    (defalias 'my/eglot-super-capf
+      (cape-capf-super #'eglot-completion-at-point #'yasnippet-capf
+                       #'cape-dabbrev #'cape-file))
+    (defun my/eglot-capf ()
+      (if (eglot-managed-p)
+          (add-hook 'completion-at-point-functions #'my/eglot-super-capf nil t)
+        (remove-hook 'completion-at-point-functions #'my/eglot-super-capf t)))
+    (add-hook 'eglot-managed-mode-hook #'my/eglot-capf))
+  :general
+  (:states 'normal
+           :keymaps 'eglot-mode-map
+           "g d"   #'xref-find-definitions
+           "g r"   #'xref-find-references
+           "g i"   #'eglot-find-implementation
+           "g D"   #'eglot-find-declaration)
+  :commands (eglot-ensure
+             eglot-rename
+             eglot-format-buffer)
   :config
   ;; Add basedpyright to the list of recognized python servers
   (add-to-list 'eglot-server-programs
@@ -1115,9 +1093,9 @@
 
 (use-package yasnippet
   :ensure t
+  :hook (elpaca-after-init . yas-global-mode)
   :config
   (setopt yas-triggers-in-field t)
-  (yas-global-mode 1)
   )
 
 (use-package auto-yasnippet
@@ -1168,9 +1146,7 @@
           jupyter-repl-completion-at-point-hook-depth 2
           jupyter-eval-use-overlays nil
           jupyter-eval-short-result-max-lines 0
-          jupyter-eval-overlay-keymap "<backtab>"
-          jupyter-default-notebook-port 8895)
-  :bind (("<backtab>" . jupyter-eval-toggle-overlay)))
+          jupyter-default-notebook-port 8895))
 
 (use-package evil-textobj-tree-sitter
   :after (evil treesit)
@@ -1180,8 +1156,6 @@
   (add-to-list 'load-path "/opt/homebrew/share/emacs/site-lisp/mu/mu4e")
   (use-package mu4e
     :ensure nil
-    :demand t
-    :after org
     :commands mu4e mu4e-compose-new
     :config
     (setopt mail-user-agent 'mu4e-user-agent
@@ -1218,7 +1192,6 @@
                              (:name "Drafts" :query "maildir:/.*Drafts/" :key 100)
                              (:name "Spam" :query "maildir:/.*Spam/ or maildir:/.*Junk/" :key 83)
                              (:name "Trash" :query "maildir:/.*Trash/" :key 84))
-            mu4e-read-option-use-builtin t
             mu4e-attachment-dir "~/Downloads"
             mu4e-headers-thread-single-orphan-prefix '("─>" . "─▶")
             mu4e-headers-thread-orphan-prefix        '("┬>" . "┬▶ ")
@@ -1393,7 +1366,7 @@
   ;; - Non-nil to only delete whitespace when the buffer is clean initially.
   ;; (The initial cleanliness check is performed when `stripspace-local-mode'
   ;; is enabled.)
-  (stripspace-only-if-initially-clean nil)
+  (stripspace-only-if-initially-clean t)
 
   ;; Enabling `stripspace-restore-column' preserves the cursor's column position
   ;; even after stripping spaces. This is useful in scenarios where you add
@@ -1447,19 +1420,19 @@
 (general-define-key
  :prefix "SPC o"
  :states 'normal
- :desc "Org agenda"       "A"  #'org-agenda
- :desc "Agenda"         "a a"  #'org-agenda
- :desc "Todo list"      "a t"  #'org-todo-list
- :desc "Tags search"    "a m"  #'org-tags-view
- :desc "View search"    "a v"  #'org-search-view
- :desc "mu4e"    "m"  #'mu4e
- :desc "Default browser"    "b"  #'browse-url-of-file
- :desc "New frame"          "f"  #'make-frame
- :desc "Select frame"       "F"  #'select-frame-by-name
- :desc "Dired"              "-"  #'dired-jump
- :desc "Open directory in dirvish"    "/" #'dirvish
- :desc "Project sidebar"              "p" #'dirvish-side
- :desc "vterm"              "t" #'ghostel-project
+ "A"  #'org-agenda
+ "a a"  #'org-agenda
+ "a t"  #'org-todo-list
+ "a m"  #'org-tags-view
+ "a v"  #'org-search-view
+ "m"  #'mu4e
+ "b"  #'browse-url-of-file
+ "f"  #'make-frame
+ "F"  #'select-frame-by-name
+ "-"  #'dired-jump
+ "/" #'dirvish
+ "p" #'dirvish-side
+ "t" #'ghostel-project
  )
 
 (general-define-key
@@ -1470,17 +1443,17 @@
 (general-define-key
  :prefix "SPC t"
  :states 'normal
- :desc "toggle code wrapping"              "w"   #'visual-line-mode
- :desc "toggle flymake"              "f"   #'flymake-mode
+ "w"   #'visual-line-mode
+ "f"   #'flymake-mode
  )
 
 (general-define-key
  :prefix "SPC c"
  :states 'normal
- :desc "LSP Execute code action"              "a"   #'eglot-code-actions
- :desc "LSP Organize Imports"              "o"   #'eglot-code-action-organize-imports
- :desc "LSP Rename"                           "r"   #'eglot-rename
- :desc "Jump to symbol in current workspace" "j"   #'consult-eglot-symbols
+ "a"   #'eglot-code-actions
+ "o"   #'eglot-code-action-organize-imports
+ "r"   #'eglot-rename
+ "j"   #'consult-eglot-symbols
 
  )
 
@@ -1505,11 +1478,10 @@
   )
 
 (use-package pdf-tools
-  :mode ("\\.pdf\\'" . pdf-view-mode)
-  :magic ("%PDF" . pdf-view-mode)
+  :init
+  (pdf-loader-install)
   :ensure t
   :config
-  (pdf-loader-install)
   (setopt pdf-view-display-size 'fit-page)
   :general
   ([remap pdf-view-midnight-minor-mode] #'pdf-view-themed-minor-mode
@@ -1637,21 +1609,15 @@
 (use-package citar
   :ensure t
   :defer t
-  :after (:any tex org)
   :hook
   (LaTeX-mode . citar-capf-setup)
   (org-mode . citar-capf-setup)
-
   ;; :custom is ONLY for (variable value) pairs
   :custom
   (org-cite-global-bibliography '("~/bib/references.bib"))
+  (citar-bibliography '("~/bib/references.bib"))
   (org-cite-insert-processor 'citar)
   (org-cite-follow-processor 'citar)
-
-  ;; Keybindings
-  :bind
-  (:map org-mode-map ("C-c b" . #'org-cite-insert))
-
   ;; :config is where ALL executable code and logic goes
   :config
   ;; Inherit the bibliography path
@@ -1911,10 +1877,12 @@
   :config
   (setopt markdown-ts-appear-diagram-renderers
           '(("mermaid" . markdown-ts-appear-diagram-mmdc)))
+  (setopt markdown-ts-appear-enable-math-preview t)
   )
 
 (use-package mathjax
   :ensure t
   :defer t
-  :custom
-  (markdown-ts-appear-enable-math-preview t))
+  )
+
+(use-package wgrep :ensure t :custom (wgrep-auto-save-buffer t))
