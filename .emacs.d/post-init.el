@@ -1098,7 +1098,6 @@
              eglot-rename
              eglot-format-buffer)
   :init
-  (add-hook 'markdown-mode-hook #'eglot-ensure)
   (add-hook 'markdown-ts-mode-hook #'eglot-ensure)
   (add-hook 'org-mode-hook #'eglot-ensure)
   (add-hook 'python-mode-hook #'eglot-ensure)
@@ -1516,11 +1515,11 @@
   ([remap pdf-view-midnight-minor-mode] #'pdf-view-themed-minor-mode
    ))
 
-;; (use-package saveplace-pdf-view
-;;   :ensure t
-;;   :after pdf-tools
-;;   :config
-;;   (save-place-pdf-view-enable))
+(use-package saveplace-pdf-view
+  :ensure t
+  :after pdf-tools
+  :config
+  (save-place-pdf-view-enable))
 
 (use-package ultra-scroll
   :ensure (ultra-scroll :type git :host github :repo "jdtsmith/ultra-scroll")
@@ -1782,31 +1781,6 @@
   ;; (setopt dape-cwd-function 'projectile-project-root)
   )
 
-(use-package markdown-mode
-  :ensure t
-  :defer t
-  :mode ("/README\\(?:\\.md\\)?\\'" . gfm-mode)
-  :init
-  (setopt markdown-italic-underscore t
-          markdown-asymmetric-header t
-          markdown-gfm-additional-languages '("sh")
-          markdown-make-gfm-checkboxes-buttons t
-          markdown-fontify-whole-heading-line t
-          markdown-fontify-code-blocks-natively t)
-
-  :config
-
-  (add-to-list 'markdown-code-lang-modes '("rust" . rustic-mode)))
-
-
-(use-package evil-markdown
-  :ensure (evil-markdown :type git :host github :repo "Somelauw/evil-markdown")
-  :defer t
-  :hook (markdown-mode . evil-markdown-mode)
-  :config
-  (add-hook 'evil-markdown-mode-hook #'evil-normalize-keymaps)
-  )
-
 ;; Helpful is an alternative to the built-in Emacs help that provides much more
 ;; contextual information.
 (use-package helpful
@@ -1928,3 +1902,19 @@
                     :states 'normal
                     "l"#'lsp-ltex-plus-actions ; Load session
                     ))
+
+(add-to-list 'major-mode-remap-alist '(markdown-mode . markdown-ts-mode))
+
+(use-package markdown-ts-appear
+  :ensure (markdown-ts-appear  :type git :host github :repo "Thysrael/markdown-ts-appear")
+  :hook (markdown-ts-mode . markdown-ts-appear-mode)
+  :config
+  (setopt markdown-ts-appear-diagram-renderers
+          '(("mermaid" . markdown-ts-appear-diagram-mmdc)))
+  )
+
+(use-package mathjax
+  :ensure t
+  :defer t
+  :custom
+  (markdown-ts-appear-enable-math-preview t))
