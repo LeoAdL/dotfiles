@@ -223,12 +223,6 @@
   (setopt org-use-sub-superscripts nil)
   (setopt org-export-with-sub-superscripts t)
   (setopt org-preview-latex-image-directory "~/.cache/ltximg/")
-  ;; ORG LATEX PREVIEW
-  (setopt org-startup-with-latex-preview nil)
-  (setopt org-preview-latex-default-process 'dvisvgm)
-  (setopt org-format-latex-options
-          (plist-put (plist-put org-format-latex-options :background "Transparent")
-                     :scale 1.5))
   (setq
    org-agenda-files (list org-directory)                  ; Seems like the obvious place.
    org-log-done 'time                                     ; Having the time a item is done sounds convenient.
@@ -1282,11 +1276,29 @@
           org-appear-inside-latex nil
           org-appear-autosubmarkers t))
 
-(use-package org-fragtog
-  :ensure t
-  :after org
-  :defer t
-  :hook (org-mode . org-fragtog-mode))
+(use-package org-latex-preview
+  :ensure nil
+  :hook (org-mode . org-latex-preview-mode)
+  :config
+  ;; Increase preview width
+  (plist-put org-latex-preview-appearance-options
+             :page-width 0.8)
+
+  ;; ;; Block C-n, C-p etc from opening up previews when using `org-latex-preview-mode'
+  ;; (setq org-latex-preview-mode-ignored-commands
+  ;;       '(next-line previous-line mwheel-scroll
+  ;;         scroll-up-command scroll-down-command))
+
+  ;; ;; Enable consistent equation numbering
+  (setq org-latex-preview-numbered t)
+
+  ;; Bonus: Turn on live previews.  This shows you a live preview of a LaTeX
+  ;; fragment and updates the preview in real-time as you edit it.
+  ;; To preview only environments, set it to '(block edit-special) instead
+  (setq org-latex-preview-mode-display-live t)
+
+  ;; More immediate live-previews -- the default delay is 1 second
+  (setq org-latex-preview-mode-update-delay 0.25))
 
 (use-package org-pandoc-import
   :ensure (org-pandoc-import :type git :host github
@@ -1869,7 +1881,12 @@
                     "l"#'lsp-ltex-plus-actions ; Load session
                     ))
 
-(add-to-list 'major-mode-remap-alist '(markdown-mode . markdown-ts-mode))
+(use-package markdown-ts-mode
+  :ensure nil ; Built-in to Emacs 31+
+  :mode ("\\.md\\'" "\\.markdown\\'")
+  :init
+  ;; Remap classic markdown-mode to the new tree-sitter mode
+  (add-to-list 'treesit-major-mode-remap-alist '(markdown-mode . markdown-ts-mode)))
 
 (use-package markdown-ts-appear
   :ensure (markdown-ts-appear  :type git :host github :repo "Thysrael/markdown-ts-appear")
@@ -1880,9 +1897,16 @@
   (setopt markdown-ts-appear-enable-math-preview t)
   )
 
-(use-package mathjax
-  :ensure t
-  :defer t
-  )
+(use-package latex-to-svg-for-markdown
+  :ensure (latex-to-svg-for-markdown  :type git :host github :repo "alberti42/latex-to-svg")
+  :hook (markdown-ts-mode . latex-to-svg-for-markdown-mode))
+
+(use-package latex-to-svg-frontend
+  :ensure (latex-to-svg-frontend  :type git :host github :repo "alberti42/latex-to-svg")
+  :defer t)
+
+(use-package latex-to-svg-backend
+  :ensure (latex-to-svg-backend  :type git :host github :repo "alberti42/latex-to-svg-backend")
+  :defer t)
 
 (use-package wgrep :ensure t :custom (wgrep-auto-save-buffer t))
