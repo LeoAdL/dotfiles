@@ -1276,30 +1276,6 @@
           org-appear-inside-latex nil
           org-appear-autosubmarkers t))
 
-(use-package org-latex-preview
-  :ensure nil
-  :hook (org-mode . org-latex-preview-mode)
-  :config
-  ;; Increase preview width
-  (plist-put org-latex-preview-appearance-options
-             :page-width 0.8)
-
-  ;; ;; Block C-n, C-p etc from opening up previews when using `org-latex-preview-mode'
-  ;; (setq org-latex-preview-mode-ignored-commands
-  ;;       '(next-line previous-line mwheel-scroll
-  ;;         scroll-up-command scroll-down-command))
-
-  ;; ;; Enable consistent equation numbering
-  (setq org-latex-preview-numbered t)
-
-  ;; Bonus: Turn on live previews.  This shows you a live preview of a LaTeX
-  ;; fragment and updates the preview in real-time as you edit it.
-  ;; To preview only environments, set it to '(block edit-special) instead
-  (setq org-latex-preview-mode-display-live t)
-
-  ;; More immediate live-previews -- the default delay is 1 second
-  (setq org-latex-preview-mode-update-delay 0.25))
-
 (use-package org-pandoc-import
   :ensure (org-pandoc-import :type git :host github
                              :repo "tecosaur/org-pandoc-import"
@@ -1908,5 +1884,16 @@
 (use-package latex-to-svg-backend
   :ensure (latex-to-svg-backend  :type git :host github :repo "alberti42/latex-to-svg-backend")
   :defer t)
+
+(use-package latex-to-svg-for-org
+  :ensure (latex-to-svg-for-org  :type git :host github :repo "alberti42/latex-to-svg")
+  :hook (org-mode . latex-to-svg-for-org-mode)
+  :init
+  ;; Ignore `#+startup: latexpreview': it would run Org's own preview
+  ;; before this mode turns on (see Troubleshooting).
+  (with-eval-after-load 'org
+    (setq org-startup-options
+          (assoc-delete-all "latexpreview" org-startup-options))))
+
 
 (use-package wgrep :ensure t :custom (wgrep-auto-save-buffer t))
