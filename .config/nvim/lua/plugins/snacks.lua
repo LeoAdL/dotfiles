@@ -8,7 +8,7 @@ return {
         lazygit = { enabled = true },
         bigfile = { enabled = true },
         quickfile = { enabled = true },
-        indent = { enabled = true, animate = { enabled = false } },
+        indent = { enabled = true },
         input = { enabled = true },
         image = { enabled = true },
         notifier = { enabled = true },
