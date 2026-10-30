@@ -9,7 +9,7 @@ return {
             vim.g.vimtex_syntax_enabled = 1
             vim.g.vimtex_quickfix_open_on_warning = 0
             vim.g.vimtex_view_enabled = 1
-            vim.g.vimtex_view_method = "sioyek"
+            vim.g.vimtex_view_method = "skim"
             vim.g.vimtex_callback_progpath = '/opt/homebrew/bin/nvim'
         end,
         keys = {
