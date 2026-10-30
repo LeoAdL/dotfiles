@@ -39,21 +39,13 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
 vim.api.nvim_create_autocmd("FileType", {
     group = augroup("close_with_q"),
     pattern = {
-        "PlenaryTestPopup",
         "checkhealth",
-        "dbout",
         "gitsigns-blame",
         "grug-far",
         "help",
-        "lspinfo",
-        "neotest-output",
-        "neotest-output-panel",
-        "neotest-summary",
-        "notify",
+        "man",
         "qf",
-        "spectre_panel",
         "startuptime",
-        "tsplayground",
     },
     callback = function(event)
         vim.bo[event.buf].buflisted = false
@@ -106,7 +98,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
             vim.keymap.set(mode, keys, func, { buffer = ev.buf, desc = "LSP: " .. desc })
         end
 
-        map('K', vim.lsp.buf.hover, 'Hover Documentation')
 
         map('<space>D', vim.lsp.buf.type_definition, 'Type definition')
         map('<space>rn', vim.lsp.buf.rename, 'Rename')
@@ -119,7 +110,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         end, 'List workspace folders')
 
         map('<space>fF', function()
-            vim.lsp.buf.format { async = true }
+            require("conform").format({ async = true, lsp_format = "fallback" })
         end, 'Format buffer')
     end,
 })

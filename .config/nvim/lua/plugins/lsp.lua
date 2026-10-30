@@ -47,7 +47,7 @@ return {
                 },
             },
             servers = {
-                -- vimtex handles compiling and forward/inverse search with sioyek
+                -- vimtex handles compiling and forward/inverse search with Skim
                 texlab = {
                     settings = {
                         texlab = {
@@ -62,8 +62,15 @@ return {
                 },
                 marksman = {},
                 harper_ls = {},
-                basedpyright = {},
-                ruff = {},
+                -- ruff sorts imports (on save, via conform) and basedpyright owns hover
+                basedpyright = {
+                    settings = { basedpyright = { disableOrganizeImports = true } },
+                },
+                ruff = {
+                    on_attach = function(client)
+                        client.server_capabilities.hoverProvider = false
+                    end,
+                },
                 lua_ls = {
                     settings = {
                         Lua = {

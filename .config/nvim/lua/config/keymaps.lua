@@ -9,6 +9,9 @@ vim.keymap.set("n", "<leader>lL", "<cmd>Lazy<cr>", { desc = "Open lazy.nvim UI" 
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down half page and center" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll up half page and center" })
 
+-- Clear search highlight (<C-l> used to do this; it now moves between windows)
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<cr><Esc>", { desc = "Clear search highlight" })
+
 -- Keep cursor centered when navigating search results
 vim.keymap.set("n", "n", "nzzzv", { desc = "Next search result and center" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Prev search result and center" })
