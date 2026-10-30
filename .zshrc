@@ -17,7 +17,6 @@ export FZF_DEFAULT_OPTS="--layout=reverse --height 70% --info=inline --border --
 --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
 --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
-export FZF_PREVIEW_ADVANCED=true
 
 # fzf shortcuts
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -70,14 +69,10 @@ zstyle ':fzf-tab:complete:-command-:*' fzf-preview \
 export EDITOR=nvim
 export VISUAL=nvim
 
-# ${ZDOTDIR:-~}/.zshrc
 export ZFUNCDIR=${ZDOTDIR:-$HOME/.config/zsh}/functions
 
 # Set the root name of the plugins files (.txt and .zsh) antidote will use.
 zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins
-
-# Ensure the .zsh_plugins.txt file exists so you can add plugins.
-[[ -f ${zsh_plugins}.txt ]] || touch ${zsh_plugins}.txt
 
 # Lazy-load antidote from its functions directory.
 fpath=($HOME/.antidote/functions   $fpath)
@@ -87,6 +82,14 @@ autoload -Uz antidote
 if [[ ! ${zsh_plugins}.zsh -nt ${zsh_plugins}.txt ]]; then
     antidote bundle <${zsh_plugins}.txt >|${zsh_plugins}.zsh
 fi
+
+# One completion dump per zsh version: /bin/zsh and Homebrew's zsh can't share
+# a compiled .zwc ("zwc file has wrong version")
+ZSH_COMPDUMP=${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump-$ZSH_VERSION
+
+# Don't re-wrap every widget at each prompt (halves per-command lag); widgets
+# defined after autosuggestions loads just aren't wrapped
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
 # Source your static plugins file.
 source ${zsh_plugins}.zsh
