@@ -1,28 +1,31 @@
+[user]
+	email = leoaparisi@gmail.com
+	name = Leo Aparisi de Lannoy
+[core]
+	editor = nvim
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	features = diff-so-fancy
+	dark = true
+	line-numbers = true
+	side-by-side = true
+	syntax-theme = Catppuccin Mocha
+[diff]
+	tool = nvimdiff
+[difftool]
+	prompt = false
+[merge]
+	tool = nvimdiff
+[mergetool]
+	prompt = true
+[mergetool "nvimdiff"]
+	cmd = "nvim -d \"$LOCAL\" \"$REMOTE\" \"$MERGED\" -c 'wincmd w' -c 'wincmd J'"
+[diff "org"]
+	xfuncname = "^(\\*+ +.*)$"
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-[user]
-	email = leoaparisi@gmail.com
-	name = Leo Aparisi de Lannoy
-[core]
-  editor = nvim
-[diff]
-    tool = nvimdiff
-[difftool]
-    prompt = false
-[difftool "nvimdiff"]
-    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
-[merge]
-    tool = nvimdiff
-[mergetool]
-    prompt = true
-[mergetool "nvimdiff"]
-    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\" \"$MERGED\" -c 'wincmd w' -c 'wincmd J'"
-[diff "org"]
-  xfuncname = "^(\\*+ +.*)$"
-[delta]
-[core]
-	pager = delta --dark --line-numbers  --diff-so-fancy --side-by-side --syntax-theme Nord
-	excludesfile = /Users/leoap/.gitignore_global

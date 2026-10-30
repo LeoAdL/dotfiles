@@ -14,20 +14,20 @@ keybind = super+n=new_window
 keybind = super+r=reload_config
 
 # ==========================================
-# Tmux-like Multiplexing (Leader: Ctrl+A)
+# Tmux-like Multiplexing (Leader: Ctrl+B — Ctrl+A is the tmux prefix)
 # ==========================================
 # Tab Management
-keybind = ctrl+a>n=next_tab
-keybind = ctrl+a>p=previous_tab
+keybind = ctrl+b>n=next_tab
+keybind = ctrl+b>p=previous_tab
 
 # Window Splits (S for horizontal, V for vertical)
-keybind = ctrl+a>s=new_split:down
-keybind = ctrl+a>v=new_split:right
-keybind = ctrl+a>x=close_surface
-keybind = ctrl+a>z=toggle_split_zoom
+keybind = ctrl+b>s=new_split:down
+keybind = ctrl+b>v=new_split:right
+keybind = ctrl+b>x=close_surface
+keybind = ctrl+b>z=toggle_split_zoom
 
 # Window Navigation
-keybind = ctrl+a>h=goto_split:left
-keybind = ctrl+a>j=goto_split:bottom
-keybind = ctrl+a>k=goto_split:top
-keybind = ctrl+a>l=goto_split:right
+keybind = ctrl+b>h=goto_split:left
+keybind = ctrl+b>j=goto_split:bottom
+keybind = ctrl+b>k=goto_split:top
+keybind = ctrl+b>l=goto_split:right
