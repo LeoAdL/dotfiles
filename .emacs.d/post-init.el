@@ -8,18 +8,21 @@
   :demand t
   :functions exec-path-from-shell-initialize
   :config
+  ;; A login shell has the full PATH (brew shellenv, /etc/paths.d); skipping -i
+  ;; avoids loading the interactive zsh setup (plugins, prompt) at every start.
+  (setopt exec-path-from-shell-arguments '("-l"))
   (dolist (var '("TMPDIR"
                  "SSH_AUTH_SOCK" "SSH_AGENT_PID"
-                 "GPG_AGENT_INFO"
-                 ;; "FZF_DEFAULT_COMMAND" "FZF_DEFAULT_OPTS" ; fzf
-                 ;; "VIRTUAL_ENV" ; Python
-                 ;; "GOPATH" "GOROOT" "GOBIN" ; Go
-                 ;; "CARGO_HOME" "RUSTUP_HOME" ; Rust
-                 ;; "NVM_DIR" "NODE_PATH" ; Node/JS
-                 "LANG" "LC_CTYPE"))
+                 "GPG_AGENT_INFO"))
     (add-to-list 'exec-path-from-shell-variables var))
   ;; Initialize
-  (exec-path-from-shell-initialize))
+  (exec-path-from-shell-initialize)
+  ;; The login shell falls back to LANG=C.UTF-8; the interactive one used en_US
+  (setenv "LANG" "en_US.UTF-8")
+  ;; zsh activates ~/.venv deferred, so the shell PATH above lacks it (eglot needs rass)
+  (let ((venv (expand-file-name "~/.venv/bin")))
+    (add-to-list 'exec-path venv)
+    (setenv "PATH" (concat venv path-separator (getenv "PATH")))))
 
 (setopt mac-command-modifier 'meta
         mac-option-modifier 'none)
@@ -36,12 +39,6 @@
 ;; jdtsmith/ultra-scroll-mac.
 (setopt mac-redisplay-dont-reset-vscroll t)
 
-;; Sets `ns-transparent-titlebar' and `ns-appearance' frame parameters so window
-;; borders will match the enabled theme.
-(and (or (daemonp)
-         (display-graphic-p))
-     (require 'ns-auto-titlebar nil t)
-     (ns-auto-titlebar-mode +1))
 
 ;; Delete files to trash on macOS, as an extra layer of precaution against
 ;; accidentally deleting wanted files.
@@ -111,6 +108,11 @@
      search-ring regexp-search-ring
      ))
   :config
+  ;; Save the kill ring as plain text; text properties bloat the history file,
+  ;; which is read at every startup
+  (add-hook 'savehist-save-hook
+            (lambda () (setq kill-ring (mapcar #'substring-no-properties
+                                               (seq-filter #'stringp kill-ring)))))
   (savehist-mode 1)
   )
 
@@ -501,6 +503,8 @@
    ;; :preview-key "M-."
    :preview-key '(:debounce 0.4 any))
   (setopt consult-narrow-key "<")
+  ;; macOS locate doesn't take GNU options and its database is off by default
+  (setopt consult-locate-args "mdfind -name")
   (setopt consult-async-min-input 2
           consult-async-refresh-delay  0.15
           consult-async-input-throttle 0.2
@@ -577,7 +581,10 @@
 
 (use-package evil-args
   :ensure t
-  :after evil)
+  :after evil
+  :config
+  (define-key evil-inner-text-objects-map "a" #'evil-inner-arg)
+  (define-key evil-outer-text-objects-map "a" #'evil-outer-arg))
 
 (use-package evil-goggles
   :ensure t
@@ -748,8 +755,7 @@
   ;; triggers them, Cape will automatically load.
   (add-hook 'completion-at-point-functions #'cape-dabbrev)
   (add-hook 'completion-at-point-functions #'cape-keyword)
-  (add-hook 'completion-at-point-functions #'cape-file)
-  (add-hook 'completion-at-point-functions #'cape-history))
+  (add-hook 'completion-at-point-functions #'cape-file))
 
 (use-package yasnippet-capf
   :ensure t
@@ -886,7 +892,6 @@
            "M-e" #'dirvish-emerge-menu)
 
   :config
-  (evil-make-overriding-map dirvish-mode-map 'normal)
   (when (string= system-type "darwin")
     (setopt insert-directory-program "gls")
     (setopt dired-listing-switches "-aBhl --group-directories-first")
@@ -972,6 +977,7 @@
 
 (use-package diff-hl
   :ensure t
+  :defer 1 ; load shortly after startup; :hook alone would wait until magit runs
   :hook
   (magit-post-refresh . diff-hl-magit-post-refresh)
   :config
@@ -1051,7 +1057,6 @@
   :ensure nil
   :init
   (add-hook 'markdown-ts-mode-hook #'eglot-ensure)
-  (add-hook 'org-mode-hook #'eglot-ensure)
   (add-hook 'python-mode-hook #'eglot-ensure)
   (add-hook 'python-ts-mode-hook #'eglot-ensure)
   (add-hook 'LaTeX-mode-hook #'eglot-ensure)
@@ -1079,6 +1084,8 @@
   ;; Add basedpyright to the list of recognized python servers
   (add-to-list 'eglot-server-programs
                '( (python-mode python-ts-mode) . ("rass" "basedruff" )))
+  ;; eglot only maps the old markdown-mode to marksman
+  (add-to-list 'eglot-server-programs '(markdown-ts-mode . ("marksman" "server")))
   )
 
 (use-package consult-eglot
@@ -1144,7 +1151,12 @@
 
 (use-package evil-textobj-tree-sitter
   :after (evil treesit)
-  :ensure t)
+  :ensure t
+  :config
+  (define-key evil-outer-text-objects-map "f" (evil-textobj-tree-sitter-get-textobj "function.outer"))
+  (define-key evil-inner-text-objects-map "f" (evil-textobj-tree-sitter-get-textobj "function.inner"))
+  (define-key evil-outer-text-objects-map "c" (evil-textobj-tree-sitter-get-textobj "class.outer"))
+  (define-key evil-inner-text-objects-map "c" (evil-textobj-tree-sitter-get-textobj "class.inner")))
 
 (when (string= system-type "darwin")
   (add-to-list 'load-path "/opt/homebrew/share/emacs/site-lisp/mu/mu4e")
@@ -1319,15 +1331,6 @@
    '(jinx grid (vertico-grid-annotate . 20) (vertico-count . 4))))
 
 
-(use-package outline-indent
-  :ensure t
-  :config
-  (setopt outline-indent-default-offset 4)
-  (setopt outline-indent-shift-width 4)
-  (outline-minor-mode 1)
-  :custom
-  (outline-indent-ellipsis " ▼ "))
-
 (use-package elec-pair
   :ensure nil
   :config
@@ -1475,11 +1478,11 @@
   ([remap pdf-view-midnight-minor-mode] #'pdf-view-themed-minor-mode
    ))
 
-(use-package saveplace-pdf-view
-  :ensure t
-  :after pdf-tools
-  :config
-  (save-place-pdf-view-enable))
+;; (use-package saveplace-pdf-view
+;;   :ensure t
+;;   :after pdf-tools
+;;   :config
+;;   (save-place-pdf-view-enable))
 
 (use-package ultra-scroll
   :ensure (ultra-scroll :type git :host github :repo "jdtsmith/ultra-scroll")
@@ -1490,7 +1493,6 @@
   (add-hook 'ultra-scroll-hide-functions #'hl-todo-mode)
   (add-hook 'ultra-scroll-hide-functions #'diff-hl-flydiff-mode)
   (add-hook 'ultra-scroll-hide-functions #'jit-lock-mode)
-  (add-hook 'ultra-scroll-hide-functions #'good-scroll-mode)
   (ultra-scroll-mode 1))
 
 (defun efs/display-startup-time ()
@@ -1519,9 +1521,6 @@
   (add-hook 'empv-init-hook #'empv-override-quit-key)
   )
 
-;; (use-package auctex-latexmk
-;;   :ensure t
-;;   :defer t)
 (use-package reftex
   :ensure nil
   :defer t
@@ -1551,7 +1550,6 @@
          (LaTeX-mode . TeX-fold-mode)
          (LaTeX-mode . prettify-symbols-mode)
          )
-  :defer t
   :config
   (setopt TeX-parse-self t ; parse on load
           TeX-auto-save t  ; parse on save
@@ -1566,20 +1564,13 @@
           TeX-electric-sub-and-superscript t
           ;; Just save, don't ask before each compilation.
           TeX-save-query nil
-          TeX-show-compilation t
-          TeX-command-extra-options "-shell-escape")
+          TeX-show-compilation t)
   (setopt TeX-fold-auto-reveal t)
-  (setq-default TeX-engine 'xetex)
+  (setq-default TeX-engine 'luatex)
   (setopt TeX-view-program-selection '((output-pdf "PDF Tools")))
-  (setq-default preview-scale 1.6
-                preview-scale-function
-                (lambda () (* (/ 10.0 (preview-document-pt)) preview-scale)))
   ;; Don't cache preamble, it creates issues with SyncTeX. Let users enable
   ;; caching if they have compilation times that long.
   (setopt preview-auto-cache-preamble nil)
-
-  ;; (require 'auctex-latexmk)
-  ;; (auctex-latexmk-setup)
   )
 
 (use-package evil-tex
@@ -1587,7 +1578,6 @@
   :hook (LaTeX-mode . evil-tex-mode)
   :after (evil auctex)
   :defer t)
-
 
 (use-package treesit-fold
   :ensure (treesit-fold :type git :host github :repo "emacs-tree-sitter/treesit-fold")
@@ -1603,13 +1593,12 @@
   ;; :custom is ONLY for (variable value) pairs
   :custom
   (org-cite-global-bibliography '("~/bib/references.bib"))
-  (citar-bibliography '("~/bib/references.bib"))
+  (citar-bibliography org-cite-global-bibliography)
   (org-cite-insert-processor 'citar)
   (org-cite-follow-processor 'citar)
   ;; :config is where ALL executable code and logic goes
   :config
   ;; Inherit the bibliography path
-  (setopt citar-bibliography org-cite-global-bibliography)
 
   (defvar citar-indicator-notes-icons
     (citar-indicator-create
@@ -1699,14 +1688,11 @@
   ;; If you do not want to use any prefix, set it to nil.
   ;; (setopt dape-key-prefix "\C-x\C-a")
 
-  :hook
-  ;; Save breakpoints on quit
-  (kill-emacs . dape-breakpoint-save)
-  ;; Load breakpoints on startup
-  (elpaca-after-init . dape-breakpoint-load)
-
   :config
-  ;; Persist breakpoints after closing DAPE.
+  ;; Persist breakpoints. Load/save only once dape is in use, instead of
+  ;; loading dape at every startup to restore them.
+  (dape-breakpoint-load)
+  (add-hook 'kill-emacs-hook #'dape-breakpoint-save)
   (dape-breakpoint-global-mode +1)
   (add-hook 'dape-start-hook #'dape-breakpoint-load 0)
   (add-hook 'dape-stopped-hook #'dape-breakpoint-save 'append)
@@ -1778,6 +1764,7 @@
 (window-divider-mode 1)
 
 (setopt confirm-kill-emacs 'y-or-n-p)
+(editorconfig-mode 1) ; built in since Emacs 30; respects per-project .editorconfig
 
 (setopt redisplay-skip-fontification-on-input t)
 (add-hook 'dired-mode-hook #'dired-hide-details-mode)
@@ -1896,4 +1883,4 @@
           (assoc-delete-all "latexpreview" org-startup-options))))
 
 
-(use-package wgrep :ensure t :custom (wgrep-auto-save-buffer t))
+(use-package wgrep :ensure t :defer t :custom (wgrep-auto-save-buffer t))
