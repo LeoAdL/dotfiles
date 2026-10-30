@@ -20,3 +20,6 @@
 .config/vdirsyncer/google
 .davmail.properties
 davmail.log
+
+# htop rewrites its config on every exit
+.config/htop/htoprc
