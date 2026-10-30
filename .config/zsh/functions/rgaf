@@ -1,0 +1,11 @@
+# Search inside documents (PDF, epub, docx, ...) with ripgrep-all and fzf,
+# then open the selected file. Usage: rgaf [query] (searches the current dir)
+local rga_files="rga --files-with-matches --smart-case"
+local file
+file="$(
+	FZF_DEFAULT_COMMAND="$rga_files ${(q)1}" \
+		fzf --disabled --query "$1" \
+			--bind "change:reload:$rga_files {q} || true" \
+			--preview "rga --pretty --smart-case --context 3 {q} {}" \
+			--preview-window '70%:wrap'
+)" && open "$file"

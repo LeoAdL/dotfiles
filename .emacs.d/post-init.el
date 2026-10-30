@@ -511,6 +511,25 @@
           consult-async-input-debounce 0.1
           ))
 
+;; consult-ripgrep through ripgrep-all, which also searches inside PDFs, epubs,
+;; docx, ... (`rga' accepts rg's flags). C-u prompts for the directory.
+(defun my/consult-rga (&optional dir initial)
+  "Search DIR with `consult-ripgrep' using ripgrep-all."
+  (interactive "P")
+  (let ((consult-ripgrep-args
+         (replace-regexp-in-string "\\`rg " "rga " consult-ripgrep-args)))
+    (consult-ripgrep dir initial)))
+
+(defun my/consult-rga-zotero ()
+  "Search the full text of the Zotero library."
+  (interactive)
+  (my/consult-rga "~/Zotero/storage"))
+
+(general-define-key :prefix "SPC s"
+                    :states 'normal
+                    "a" #'my/consult-rga
+                    "z" #'my/consult-rga-zotero)
+
 (use-package consult-dir
   :ensure t
   :general (:prefix "SPC"
