@@ -13,15 +13,48 @@
 	side-by-side = true
 	syntax-theme = Catppuccin Mocha
 [diff]
+	algorithm = histogram
+	colorMoved = default
+	colorMovedWS = allow-indentation-change
+	mnemonicPrefix = true
+	renames = copies
 	tool = nvimdiff
 [difftool]
 	prompt = false
 [merge]
+	conflictStyle = zdiff3
 	tool = nvimdiff
 [mergetool]
 	prompt = true
+	keepBackup = false
 [mergetool "nvimdiff"]
 	cmd = "nvim -d \"$LOCAL\" \"$REMOTE\" \"$MERGED\" -c 'wincmd w' -c 'wincmd J'"
+[rerere]
+	enabled = true
+	autoUpdate = true
+[fetch]
+	prune = true
+	pruneTags = true
+	all = true
+[pull]
+	rebase = true
+[rebase]
+	autoSquash = true
+	autoStash = true
+	updateRefs = true
+[push]
+	autoSetupRemote = true
+	followTags = true
+[commit]
+	verbose = true
+[branch]
+	sort = -committerdate
+[tag]
+	sort = version:refname
+[column]
+	ui = auto
+[help]
+	autocorrect = prompt
 [diff "org"]
 	xfuncname = "^(\\*+ +.*)$"
 [filter "lfs"]
