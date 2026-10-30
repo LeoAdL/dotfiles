@@ -1,0 +1,14 @@
+# Live ripgrep with fzf: type to search, preview the match in context, Enter
+# opens it in nvim at that line. Usage: rgf [query] (searches the current dir)
+local rg="rg --column --line-number --no-heading --color=always --smart-case"
+local sel
+sel="$(
+	fzf --ansi --disabled --query "$1" \
+		--bind "start:reload:$rg {q} || true" \
+		--bind "change:reload:sleep 0.1; $rg {q} || true" \
+		--delimiter : \
+		--preview 'bat --color=always --highlight-line {2} {1}' \
+		--preview-window 'up,60%,border-bottom,+{2}+3/3,~3'
+)" || return
+local file=${sel%%:*} rest=${sel#*:}
+nvim "$file" "+${rest%%:*}"
