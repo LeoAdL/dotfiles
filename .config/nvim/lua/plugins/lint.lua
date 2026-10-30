@@ -1,23 +1,20 @@
 return { {
     "mfussenegger/nvim-lint",
-    event = { "BufWritePost", "BufReadPost", "InsertLeave" },
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
         local lint = require('lint')
         lint.linters_by_ft = {
-            lua = { 'selene', },
-            -- tex = { 'chktex' },
-            git = { 'gitlint' },
+            lua = { 'selene' },
+            gitcommit = { 'gitlint' },
             yaml = { 'yamllint' },
             markdown = { 'markdownlint-cli2' },
         }
-        local lint_augroup = vim.api.nvim_create_augroup("Linting", { clear = true })
-
         vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost", "InsertLeave" }, {
-            group = lint_augroup,
+            group = vim.api.nvim_create_augroup("Linting", { clear = true }),
             callback = function()
-                -- Check if nvim-lint is available before trying to lint
                 lint.try_lint()
             end,
         })
+        lint.try_lint() -- the buffer that triggered loading
     end
 } }

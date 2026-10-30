@@ -10,13 +10,21 @@ return {
             ensure_installed = {
                 "lua-language-server",
                 "beautysh",
-                "selene",
                 "marksman",
+                "selene",
                 "shfmt",
-                "vale",
+                "stylua",
                 "yamlfmt",
-                "ruff",
-                "basedpyright"
+            },
+        },
+    },
+    {
+        -- Completion/types for the Neovim Lua API when editing this config
+        "folke/lazydev.nvim",
+        ft = "lua",
+        opts = {
+            library = {
+                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
             },
         },
     },
@@ -31,65 +39,34 @@ return {
                 severity_sort = true,
                 signs = {
                     text = {
-                        [vim.diagnostic.severity.ERROR] = '',
-                        [vim.diagnostic.severity.WARN] = '',
-                        [vim.diagnostic.severity.INFO] = '',
-                        [vim.diagnostic.severity.HINT] = '',
+                        [vim.diagnostic.severity.ERROR] = '',
+                        [vim.diagnostic.severity.WARN] = '',
+                        [vim.diagnostic.severity.INFO] = '',
+                        [vim.diagnostic.severity.HINT] = '',
                     },
                 },
             },
             servers = {
+                -- vimtex handles compiling and forward/inverse search with sioyek
                 texlab = {
                     settings = {
                         texlab = {
-                            auxDirectory = ".",
-                            bibtexFormatter = "texlab",
-                            build = {
-                                executable = "latexmk", -- (Added this placeholder because it was "" in your snippet!)
-                                args = {
-                                    "-X",
-                                    "compile",
-                                    "%f",
-                                    "--synctex",
-                                    "--keep-logs",
-                                    "--keep-intermediates"
-                                },
-                                forwardSearchAfter = false,
-                                onSave = false,
-                            },
-                            forwardSearch = {
-                                executable = "sioyek",
-                                args = {
-                                    '--reuse-window',
-                                    '--execute-command',
-                                    'toggle_synctex',
-                                    '--inverse-search',
-                                    'nvr --remote %%1 -c %%2',
-                                    '--forward-search-file', '%f',
-                                    '--forward-search-line', '%l', '%p'
-                                },
-                            },
                             chktex = {
                                 onEdit = false,
                                 onOpenAndSave = false,
                             },
                             diagnosticsDelay = 300,
-                            formatterLineLength = 80,
                             latexFormatter = "none",
                         },
                     },
                 },
                 marksman = {},
-                ts_ls = {},
                 harper_ls = {},
                 basedpyright = {},
+                ruff = {},
                 lua_ls = {
                     settings = {
                         Lua = {
-                            workspace = {
-                                checkThirdParty = false,
-                            },
-                            diagnostics = { globals = { 'vim' } },
                             completion = {
                                 callSnippet = "Replace",
                             },
@@ -99,20 +76,14 @@ return {
             },
         },
         config = function(_, opts)
-            -- Apply diagnostic configuration
             vim.diagnostic.config(opts.diagnostics)
 
-            -- Modern Neovim 0.11+ native LSP setup
-            local servers = opts.servers
-            for server, settings in pairs(servers) do
+            for server, settings in pairs(opts.servers) do
                 vim.lsp.config(server, settings)
                 vim.lsp.enable(server)
             end
 
-            -- Enable inlay hints globally
-            if vim.lsp.inlay_hint then
-                vim.lsp.inlay_hint.enable(true)
-            end
+            vim.lsp.inlay_hint.enable(true)
         end
     }
 }

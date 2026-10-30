@@ -16,6 +16,7 @@ require("lazy").setup({
         version = false, -- always use the latest git commit
         -- version = "*", -- try installing the latest stable version for plugins that support semver
     },
+    rocks = { enabled = false }, -- no plugin needs luarocks
     checker = {
         enabled = true, -- check for plugin updates periodically
         notify = false, -- notify on update
@@ -27,7 +28,7 @@ require("lazy").setup({
                 "gzip",
                 -- "matchit",
                 -- "matchparen",
-                -- "netrwPlugin",
+                "netrwPlugin", -- replaced by oil.nvim
                 "tarPlugin",
                 "tohtml",
                 "tutor",
@@ -39,4 +40,3 @@ require("lazy").setup({
 require("config/autocmds")
 require("config/keymaps")
 
-vim.cmd.set "shortmess=I"

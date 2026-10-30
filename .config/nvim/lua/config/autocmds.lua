@@ -92,16 +92,6 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- ==============================================================================
--- Keymaps & Diagnostics
--- ==============================================================================
-
--- Global Diagnostic Mappings
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, { desc = "Show diagnostic error messages" })
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, { desc = "Open diagnostic loclist" })
-
--- ==============================================================================
 -- LSP Autocommands & Keymaps
 -- ==============================================================================
 
@@ -110,9 +100,6 @@ vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, { desc = "Open diagno
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('UserLspConfig', { clear = true }),
     callback = function(ev)
-        -- Enable completion triggered by <c-x><c-o>
-        vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
         -- Helper function to easily map LSP keys with descriptions
         local map = function(keys, func, desc, mode)
             mode = mode or 'n'
@@ -120,7 +107,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
         end
 
         map('K', vim.lsp.buf.hover, 'Hover Documentation')
-        map('<C-k>', vim.lsp.buf.signature_help, 'Signature help')
 
         map('<space>D', vim.lsp.buf.type_definition, 'Type definition')
         map('<space>rn', vim.lsp.buf.rename, 'Rename')

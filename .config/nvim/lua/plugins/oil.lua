@@ -11,7 +11,7 @@ return {
             }
         },
         -- Optional dependencies
-        dependencies = { { "nvim-mini/mini.icons", opts = {}, lazy = true } },
+        dependencies = { "nvim-mini/mini.icons" },
 
         keys = { { "<leader>.", "<cmd>Oil<cr>", desc = "file_browser" }, },
 

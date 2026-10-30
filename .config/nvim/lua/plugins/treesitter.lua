@@ -1,15 +1,13 @@
 return {
     {
+        -- The `main` branch no longer takes highlight/indent/ensure_installed opts:
+        -- parsers are installed with install() and highlighting is started per buffer.
         "nvim-treesitter/nvim-treesitter",
         branch = "main",
-        version = false, -- last release is way too old and doesn't work on Windows
-        event = 'VeryLazy',
+        lazy = false, -- does not support lazy-loading
         build = ":TSUpdate",
-        opts = {
-            -- LazyVim config for treesitter
-            indent = { enable = true }, ---@type lazyvim.TSFeat
-            highlight = { enable = true }, ---@type lazyvim.TSFeat
-            ensure_installed = {
+        config = function()
+            require("nvim-treesitter").install({
                 "bash",
                 "c",
                 "diff",
@@ -17,7 +15,6 @@ return {
                 "javascript",
                 "jsdoc",
                 "json",
-                "jsonc",
                 "lua",
                 "luadoc",
                 "luap",
@@ -34,12 +31,24 @@ return {
                 "vimdoc",
                 "xml",
                 "yaml",
-            },
-        },
+            })
+            vim.api.nvim_create_autocmd("FileType", {
+                group = vim.api.nvim_create_augroup("custom_treesitter", { clear = true }),
+                callback = function(ev)
+                    -- vimtex relies on regex syntax for LaTeX
+                    if ev.match == "tex" then
+                        return
+                    end
+                    if pcall(vim.treesitter.start, ev.buf) then
+                        vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                    end
+                end,
+            })
+        end,
     },
     {
         "nvim-treesitter/nvim-treesitter-context",
-        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        event = "VeryLazy",
         opts = {},
     },
 }

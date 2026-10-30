@@ -4,16 +4,13 @@ return {
     lazy = false,
     ---@type snacks.Config
     opts = {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
         git = { enabled = true },
         lazygit = { enabled = true },
         bigfile = { enabled = true },
+        quickfile = { enabled = true },
         indent = { enabled = true },
         input = { enabled = true },
         image = { enabled = true },
-        explorer = { enabled = false },
         notifier = { enabled = true },
         statuscolumn = { enabled = true },
         words = { enabled = true },
@@ -51,7 +48,6 @@ return {
         { '<leader>s"',      function() Snacks.picker.registers() end,                               desc = "Registers" },
         { '<leader>s/',      function() Snacks.picker.search_history() end,                          desc = "Search History" },
         { "<leader>sa",      function() Snacks.picker.autocmds() end,                                desc = "Autocmds" },
-        { "<leader>sb",      function() Snacks.picker.lines() end,                                   desc = "Buffer Lines" },
         { "<leader>sc",      function() Snacks.picker.command_history() end,                         desc = "Command History" },
         { "<leader>sC",      function() Snacks.picker.commands() end,                                desc = "Commands" },
         { "<leader>sd",      function() Snacks.picker.diagnostics() end,                             desc = "Diagnostics" },
@@ -67,7 +63,6 @@ return {
         { "<leader>sp",      function() Snacks.picker.lazy() end,                                    desc = "Search for Plugin Spec" },
         { "<leader>sq",      function() Snacks.picker.qflist() end,                                  desc = "Quickfix List" },
         { "<leader>sR",      function() Snacks.picker.resume() end,                                  desc = "Resume" },
-        { "<leader>u",       function() Snacks.picker.undo() end,                                    desc = "Undo History" },
         { "<leader>uC",      function() Snacks.picker.colorschemes() end,                            desc = "Colorschemes" },
         -- LSP
         { "gd",              function() Snacks.picker.lsp_definitions() end,                         desc = "Goto Definition" },

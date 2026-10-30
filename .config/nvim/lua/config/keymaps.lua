@@ -21,16 +21,14 @@ vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
 -- Diagnostics
 -- ==============================================================================
 
--- Show line diagnostics and loclist
+-- Show line diagnostics
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic error messages" })
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic loclist" })
 
 -- Helper function for jumping between diagnostics
 local diagnostic_goto = function(next, severity)
-    local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
     severity = severity and vim.diagnostic.severity[severity] or nil
     return function()
-        go({ severity = severity })
+        vim.diagnostic.jump({ count = next and 1 or -1, float = true, severity = severity })
     end
 end
 
@@ -40,3 +38,22 @@ vim.keymap.set("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" 
 vim.keymap.set("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
 vim.keymap.set("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
 vim.keymap.set("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
+
+-- ==============================================================================
+-- Window navigation (pairs with the is_vim C-h/j/k/l bindings in tmux.conf)
+-- ==============================================================================
+
+-- Move to the neighbouring split, or hand off to tmux at the edge
+local function navigate(dir)
+    return function()
+        local win = vim.api.nvim_get_current_win()
+        vim.cmd.wincmd(dir)
+        if vim.env.TMUX and win == vim.api.nvim_get_current_win() then
+            vim.system({ "tmux", "select-pane", "-" .. ({ h = "L", j = "D", k = "U", l = "R" })[dir] })
+        end
+    end
+end
+
+for _, dir in ipairs({ "h", "j", "k", "l" }) do
+    vim.keymap.set("n", "<C-" .. dir .. ">", navigate(dir), { desc = "Go to window " .. dir })
+end

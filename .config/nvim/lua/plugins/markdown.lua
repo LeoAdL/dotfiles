@@ -5,11 +5,6 @@ return {
         opts = {}
     },
     {
-        "jghauser/follow-md-links.nvim",
-        ft = "markdown",
-    },
-
-    {
         'MeanderingProgrammer/render-markdown.nvim',
         ft = "markdown",
         -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' }, -- if you use the mini.nvim suite
