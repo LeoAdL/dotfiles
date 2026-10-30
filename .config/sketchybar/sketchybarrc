@@ -12,8 +12,8 @@ PLUGIN_DIR="$CONFIG_DIR/plugins"
 # If you are looking for other colors, see the color picker:
 # https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
 
-sketchybar --bar position=top height=30 color=0xff4c566a\
-                topmost = on \
+sketchybar --bar position=top height=30 color=0xff4c566a \
+                topmost=on \
                 padding_left=10 \
                 padding_right=10 \
                 corner_radius=40 \
