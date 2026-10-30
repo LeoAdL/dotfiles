@@ -1,5 +1,3 @@
-jellyfin-mpv-shim
-uv
 matplotlib
 numpy
 scipy

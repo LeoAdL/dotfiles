@@ -15,7 +15,6 @@
 .local/share/newsboat/
 .local/share/buku/
 .local/share/zathura/
-.local/share/pandoc/pandoc-crossref
 .config/gh/
 .config/vdirsyncer/uchicago
 .config/vdirsyncer/google
