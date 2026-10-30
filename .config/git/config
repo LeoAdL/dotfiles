@@ -36,12 +36,6 @@
 	prune = true
 	pruneTags = true
 	all = true
-[pull]
-	rebase = true
-[rebase]
-	autoSquash = true
-	autoStash = true
-	updateRefs = true
 [push]
 	autoSetupRemote = true
 	followTags = true
