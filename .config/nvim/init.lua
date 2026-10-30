@@ -10,7 +10,6 @@ require("lazy").setup({
         lazy = false,    -- plugins with keys/cmd/event/ft triggers are still lazy-loaded
         version = false, -- always use the latest git commit
     },
-    rocks = { enabled = false }, -- no plugin needs luarocks
     checker = {
         enabled = true, -- check for plugin updates periodically
         notify = false, -- notify on update
@@ -22,7 +21,7 @@ require("lazy").setup({
                 "gzip",
                 -- "matchit",
                 -- "matchparen",
-                "netrwPlugin", -- replaced by oil.nvim
+                -- "netrwPlugin",
                 "tarPlugin",
                 "tohtml",
                 "tutor",

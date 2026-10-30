@@ -1,7 +1,1 @@
 .DS_Store
-.auctex-auto/
-*.aux
-*.blg
-*.fdb_latexmk
-*.fls
-*.synctex.gz

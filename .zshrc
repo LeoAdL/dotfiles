@@ -16,8 +16,7 @@ export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --e
 export FZF_DEFAULT_OPTS="--layout=reverse --height 70% --info=inline --border --margin=1 --padding=1 \
 --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
---color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
---color=selected-bg:#45475a,border:#313244,label:#cdd6f4"
+--color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 
 # fzf shortcuts
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -32,18 +31,6 @@ export FZF_CTRL_R_OPTS="
 --header 'Press CTRL-Y to copy command into clipboard'"
 export FZF_ALT_C_COMMAND='fd --type d --strip-cwd-prefix --hidden --follow --exclude .git'
 export FZF_ALT_C_OPTS="--preview 'eza --tree --level=2 --color=always {}'"
-# `**<Tab>` completion: list paths with fd (like the bindings above) and preview them
-_fzf_compgen_path() { fd --hidden --follow --exclude .git . "$1" }
-_fzf_compgen_dir() { fd --type d --hidden --follow --exclude .git . "$1" }
-_fzf_comprun() {
-    local command=$1
-    shift
-    case "$command" in
-        cd) fzf --preview 'eza --tree --level=2 --color=always {}' "$@" ;;
-        export | unset) fzf --preview "eval 'echo \${}'" "$@" ;;
-        *) fzf --preview '~/.lessfilter {}' "$@" ;;
-    esac
-}
 # ZSH fzf-tab
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'

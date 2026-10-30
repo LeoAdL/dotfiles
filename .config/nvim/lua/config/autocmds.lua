@@ -43,7 +43,6 @@ vim.api.nvim_create_autocmd("FileType", {
         "gitsigns-blame",
         "grug-far",
         "help",
-        "man",
         "qf",
         "startuptime",
     },

@@ -1,27 +1,3 @@
-gui:
-  nerdFontsVersion: "3"
-  # Catppuccin Mocha (blue accent)
-  theme:
-    activeBorderColor: ["#89b4fa", bold]
-    inactiveBorderColor: ["#a6adc8"]
-    optionsTextColor: ["#89b4fa"]
-    selectedLineBgColor: ["#313244"]
-    cherryPickedCommitBgColor: ["#45475a"]
-    cherryPickedCommitFgColor: ["#89b4fa"]
-    unstagedChangesColor: ["#f38ba8"]
-    defaultFgColor: ["#cdd6f4"]
-    searchingActiveBorderColor: ["#f9e2af"]
-    authorColors:
-      "*": "#b4befe"
 git:
-  # Cycle with `|`. delta picks up the [delta] section of the git config
-  # (side-by-side, line numbers, theme); --width fits it to the panel.
   diffRenderers:
-    - name: delta
-      command: >-
-        delta --{{colorScheme}} --paging=never --width={{width}} --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
-    - type: rawGit
-      name: color-words
-      args: [--color-words]
-os:
-  editPreset: nvim
+    - command: delta --{{colorScheme}} --paging=never

@@ -1,3 +1,8 @@
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
 [user]
 	email = leoaparisi@gmail.com
 	name = Leo Aparisi de Lannoy
@@ -6,21 +11,9 @@
 	pager = delta
 [interactive]
 	diffFilter = delta --color-only
-[include]
-	path = catppuccin.gitconfig # https://github.com/catppuccin/delta
-[delta]
-	features = catppuccin-mocha
-	dark = true
-	syntax-theme = Catppuccin Mocha
-	line-numbers = true
-	navigate = true
-	hyperlinks = true
 [diff]
 	algorithm = histogram
 	colorMoved = default
-	colorMovedWS = allow-indentation-change
-	mnemonicPrefix = true
-	renames = copies
 	tool = nvimdiff
 [difftool]
 	prompt = false
@@ -29,33 +22,17 @@
 	tool = nvimdiff
 [mergetool]
 	prompt = true
-	keepBackup = false
 [mergetool "nvimdiff"]
 	cmd = "nvim -d \"$LOCAL\" \"$REMOTE\" \"$MERGED\" -c 'wincmd w' -c 'wincmd J'"
-[rerere]
-	enabled = true
-	autoUpdate = true
 [fetch]
 	prune = true
-	pruneTags = true
-	all = true
 [push]
 	autoSetupRemote = true
-	followTags = true
-[commit]
-	verbose = true
-[branch]
-	sort = -committerdate
-[tag]
-	sort = version:refname
-[column]
-	ui = auto
-[help]
-	autocorrect = prompt
 [diff "org"]
 	xfuncname = "^(\\*+ +.*)$"
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+[delta]
+	dark = true
+	line-numbers = true
+	navigate = true
+	hyperlinks = true
+	syntax-theme = Catppuccin Mocha

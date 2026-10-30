@@ -8,17 +8,18 @@
   :demand t
   :functions exec-path-from-shell-initialize
   :config
-  ;; A login shell has the full PATH (brew shellenv, /etc/paths.d); skipping -i
-  ;; avoids loading the interactive zsh setup (plugins, prompt) at every start.
-  (setopt exec-path-from-shell-arguments '("-l"))
   (dolist (var '("TMPDIR"
                  "SSH_AUTH_SOCK" "SSH_AGENT_PID"
-                 "GPG_AGENT_INFO"))
+                 "GPG_AGENT_INFO"
+                 ;; "FZF_DEFAULT_COMMAND" "FZF_DEFAULT_OPTS" ; fzf
+                 ;; "VIRTUAL_ENV" ; Python
+                 ;; "GOPATH" "GOROOT" "GOBIN" ; Go
+                 ;; "CARGO_HOME" "RUSTUP_HOME" ; Rust
+                 ;; "NVM_DIR" "NODE_PATH" ; Node/JS
+                 "LANG" "LC_CTYPE"))
     (add-to-list 'exec-path-from-shell-variables var))
   ;; Initialize
   (exec-path-from-shell-initialize)
-  ;; The login shell falls back to LANG=C.UTF-8; the interactive one used en_US
-  (setenv "LANG" "en_US.UTF-8")
   ;; zsh activates ~/.venv deferred, so the shell PATH above lacks it (eglot needs rass)
   (let ((venv (expand-file-name "~/.venv/bin")))
     (add-to-list 'exec-path venv)
@@ -774,7 +775,8 @@
   ;; triggers them, Cape will automatically load.
   (add-hook 'completion-at-point-functions #'cape-dabbrev)
   (add-hook 'completion-at-point-functions #'cape-keyword)
-  (add-hook 'completion-at-point-functions #'cape-file))
+  (add-hook 'completion-at-point-functions #'cape-file)
+  (add-hook 'completion-at-point-functions #'cape-history))
 
 (use-package yasnippet-capf
   :ensure t
@@ -1783,7 +1785,6 @@
 (window-divider-mode 1)
 
 (setopt confirm-kill-emacs 'y-or-n-p)
-(editorconfig-mode 1) ; built in since Emacs 30; respects per-project .editorconfig
 
 (setopt redisplay-skip-fontification-on-input t)
 (add-hook 'dired-mode-hook #'dired-hide-details-mode)

@@ -1,8 +1,7 @@
 #!/bin/sh
 
-BATT="$(pmset -g batt)"
-PERCENTAGE="$(echo "$BATT" | grep -Eo "\d+%" | cut -d% -f1)"
-CHARGING="$(echo "$BATT" | grep 'AC Power')"
+PERCENTAGE="$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)"
+CHARGING="$(pmset -g batt | grep 'AC Power')"
 
 if [ "$PERCENTAGE" = "" ]; then
   exit 0
@@ -20,7 +19,7 @@ case "${PERCENTAGE}" in
   *) ICON=""
 esac
 
-if [ -n "$CHARGING" ]; then
+if [[ "$CHARGING" != "" ]]; then
   ICON=""
 fi
 

@@ -1,10 +1,1 @@
-# Language-aware hunk headers (the function/section a change is in)
-*.org   diff=org
-*.tex   diff=tex
-*.bib   diff=bibtex
-*.md    diff=markdown
-*.py    diff=python
-*.sh    diff=bash
-*.zsh   diff=bash
-*.css   diff=css
-*.html  diff=html
+*.org diff=org
