@@ -1,0 +1,23 @@
+IMAPAccount gmail
+Host imap.gmail.com
+Port 993
+TLSType IMAPS
+CertificateFile /etc/ssl/cert.pem
+User leoaparisi@gmail.com
+PassCmd "pass leoaparisi@gmail.com"
+
+IMAPStore gmail-remote
+Account gmail
+
+MaildirStore gmail-local
+Path ~/.local/share/mail/leoaparisi@gmail.com/
+Inbox ~/.local/share/mail/leoaparisi@gmail.com/INBOX
+SubFolders Verbatim
+
+Channel gmail
+Far :gmail-remote:
+Near :gmail-local:
+Patterns *
+Create Both
+Expunge Both
+SyncState *

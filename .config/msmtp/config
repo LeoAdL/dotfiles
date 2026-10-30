@@ -1,0 +1,14 @@
+defaults
+tls on
+tls_trust_file /etc/ssl/cert.pem
+
+account gmail
+host smtp.gmail.com
+port 465
+tls_starttls off
+auth on
+user leoaparisi@gmail.com
+from leoaparisi@gmail.com
+passwordeval "pass leoaparisi@gmail.com"
+
+account default : gmail

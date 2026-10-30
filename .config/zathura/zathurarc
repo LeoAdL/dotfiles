@@ -23,7 +23,7 @@ set scroll-full-overlap 0.01
 set scroll-step 50
 
 #zoom settings
-set font "lato 15"
+set font "IBM Plex Sans 15"
 
 set recolor false
 set recolor-reverse-video "true"
