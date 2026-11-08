@@ -1,6 +1,6 @@
 return {
     {
-        'stevearc/oil.nvim',
+        "stevearc/oil.nvim",
         lazy = false,
         opts = {
             columns = {
@@ -8,12 +8,11 @@ return {
                 "permissions",
                 "size",
                 "mtime",
-            }
+            },
         },
         -- Optional dependencies
         dependencies = { "nvim-mini/mini.icons" },
 
-        keys = { { "<leader>.", "<cmd>Oil<cr>", desc = "file_browser" }, },
-
-    }
+        keys = { { "<leader>.", "<cmd>Oil<cr>", desc = "file_browser" } },
+    },
 }

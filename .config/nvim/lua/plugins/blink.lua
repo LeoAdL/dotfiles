@@ -3,7 +3,7 @@ return {
         "saghen/blink.cmp",
         version = "*",
         dependencies = {
-            { 'L3MON4D3/LuaSnip', version = 'v2.*' },
+            { "L3MON4D3/LuaSnip", version = "v2.*" },
         },
         event = { "InsertEnter", "CmdlineEnter" },
 
@@ -13,7 +13,7 @@ return {
             keymap = {
                 preset = "super-tab",
             },
-            snippets = { preset = 'luasnip' },
+            snippets = { preset = "luasnip" },
             completion = {
                 list = { selection = { preselect = false, auto_insert = true } },
                 menu = {
@@ -36,20 +36,20 @@ return {
                         score_offset = 100, -- show at a higher priority than lsp
                     },
                     markdown = {
-                        name = 'RenderMarkdown',
-                        module = 'render-markdown.integ.blink',
-                        fallbacks = { 'lsp' },
+                        name = "RenderMarkdown",
+                        module = "render-markdown.integ.blink",
+                        fallbacks = { "lsp" },
                     },
                     orgmode = {
-                        name = 'Orgmode',
-                        module = 'orgmode.org.autocompletion.blink',
-                        fallbacks = { 'buffer' },
+                        name = "Orgmode",
+                        module = "orgmode.org.autocompletion.blink",
+                        fallbacks = { "buffer" },
                     },
                 },
                 per_filetype = {
-                    lua = { inherit_defaults = true, 'lazydev' },
-                    org = { inherit_defaults = true, 'orgmode' },
-                    markdown = { inherit_defaults = true, 'markdown' },
+                    lua = { inherit_defaults = true, "lazydev" },
+                    org = { inherit_defaults = true, "orgmode" },
+                    markdown = { inherit_defaults = true, "markdown" },
                 },
             },
         },

@@ -1,5 +1,5 @@
 return {
-    'MagicDuck/grug-far.nvim',
+    "MagicDuck/grug-far.nvim",
     cmd = "GrugFar",
     opts = {},
     keys = {

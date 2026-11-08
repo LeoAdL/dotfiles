@@ -79,6 +79,7 @@ vim.api.nvim_create_autocmd("FileType", {
     pattern = "markdown",
     callback = function()
         vim.opt_local.shiftwidth = 2
+        vim.opt_local.softtabstop = 2
     end,
 })
 
@@ -88,28 +89,27 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
-vim.api.nvim_create_autocmd('LspAttach', {
-    group = vim.api.nvim_create_augroup('UserLspConfig', { clear = true }),
+vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
     callback = function(ev)
         -- Helper function to easily map LSP keys with descriptions
         local map = function(keys, func, desc, mode)
-            mode = mode or 'n'
+            mode = mode or "n"
             vim.keymap.set(mode, keys, func, { buffer = ev.buf, desc = "LSP: " .. desc })
         end
 
+        map("<space>D", vim.lsp.buf.type_definition, "Type definition")
+        map("<space>rn", vim.lsp.buf.rename, "Rename")
+        map("<space>ca", vim.lsp.buf.code_action, "Code action", { "n", "v" })
 
-        map('<space>D', vim.lsp.buf.type_definition, 'Type definition')
-        map('<space>rn', vim.lsp.buf.rename, 'Rename')
-        map('<space>ca', vim.lsp.buf.code_action, 'Code action', { 'n', 'v' })
-
-        map('<space>wa', vim.lsp.buf.add_workspace_folder, 'Add workspace folder')
-        map('<space>wr', vim.lsp.buf.remove_workspace_folder, 'Remove workspace folder')
-        map('<space>wl', function()
+        map("<space>wa", vim.lsp.buf.add_workspace_folder, "Add workspace folder")
+        map("<space>wr", vim.lsp.buf.remove_workspace_folder, "Remove workspace folder")
+        map("<space>wl", function()
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        end, 'List workspace folders')
+        end, "List workspace folders")
 
-        map('<space>fF', function()
+        map("<space>fF", function()
             require("conform").format({ async = true, lsp_format = "fallback" })
-        end, 'Format buffer')
+        end, "Format buffer")
     end,
 })

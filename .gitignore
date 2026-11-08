@@ -1,9 +1,6 @@
 .DS_Store
 *.bbl
 
-# Neovim
-.config/nvim/lazy-lock.json
-
 # tmux plugins and their runtime state
 .config/tmux/plugins/
 .config/tmux/resurrect/

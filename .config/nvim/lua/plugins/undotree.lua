@@ -1,13 +1,9 @@
 return {
     {
         "jiaoshijie/undotree",
-        ---@module 'undotree.collector'
-        ---@type UndoTreeCollector.Opts
-        opts = {
-            -- your options
-        },
-        keys = { -- load the plugin only when using it's keybinding:
+        opts = {},
+        keys = {
             { "<leader>su", "<cmd>lua require('undotree').toggle()<cr>", desc = "Undo Tree" },
         },
-    }
+    },
 }
