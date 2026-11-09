@@ -4,3 +4,5 @@
 (setq package-user-dir (expand-file-name "elpa" user-emacs-directory))
 (setq minimal-emacs-package-initialize-and-refresh nil)
 (setq package-enable-at-startup nil)
+;; Set the font before the first frame is drawn, avoiding a resize at startup
+(push '(font . "Iosevka-18") default-frame-alist)

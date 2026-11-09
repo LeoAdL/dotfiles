@@ -1,5 +1,4 @@
 ;;; post-init.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
-;; Ensure Emacs loads the most recent byte-compiled files.
 ;; (setopt use-package-compute-statistics t)
 
 (use-package exec-path-from-shell
@@ -46,16 +45,8 @@
 (setopt delete-by-moving-to-trash (not noninteractive))
 
 
-(defun my-after-frame (frame)
-  (if (display-graphic-p frame)
-      (progn
-        (set-frame-font "Iosevka-18" nil t)
-        (set-face-attribute 'default nil :font "Iosevka" :height 180)
-        (set-face-attribute 'fixed-pitch-serif nil :font "IBM Plex Serif" :height 180)
-        )))
-
-(mapc 'my-after-frame (frame-list))
-(add-hook 'after-make-frame-functions 'my-after-frame)
+;; The default font is set in `default-frame-alist' (pre-early-init.el)
+(set-face-attribute 'fixed-pitch-serif nil :family "IBM Plex Serif" :height 180)
 
 
 ;; Auto-revert in Emacs is a feature that automatically updates the
@@ -218,8 +209,6 @@
            "p p" #'org-priority
            "p u" #'org-priority-up
            )
-  :init
-  (setopt org-fold-core-style 'text-properties)
   :config
   (setopt org-directory "~/org/")
   (setopt org-hide-emphasis-markers t)
@@ -282,7 +271,7 @@
              "* TODO [#B] %?\n:Created: %T\n")
             ("j" "Journal" entry (file+olp+datetree "~/org/journal.org")
              "* %?\nEntered on %U\n  %i\n  %a")
-            ("P" "process-soon" entry (file+headline "todo.org" "Todo")
+            ("P" "process-soon" entry (file+headline "~/org/todo.org" "Tasks")
              "* TODO %:fromname: %a %?\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))")
             ("c" "Contact" entry (file "~/org/contacts.org")
              "* %?
@@ -657,10 +646,7 @@
   ;; Increase undo history limits to reduce likelihood of data loss
   (setopt undo-limit 256000           ; 256kb (default is 160kb)
           undo-strong-limit 2000000   ; 2mb   (default is 240kb)
-          undo-outer-limit 36000000)  ; 36mb  (default is 24mb)
-  (global-unset-key (kbd "C-z"))
-  (global-set-key (kbd "C-z") 'undo-fu-only-undo)
-  (global-set-key (kbd "C-S-z") 'undo-fu-only-redo))
+          undo-outer-limit 36000000))  ; 36mb  (default is 24mb)
 
 (use-package undo-fu-session
   :ensure t
@@ -877,6 +863,7 @@
   ;; Tips to speed up connections
   (setopt tramp-verbose 0)
   (setopt tramp-chunksize 2000)
+  ;; Connection sharing comes from ControlMaster in ~/.ssh/config
   (setopt tramp-use-connection-share nil)  ; Emacs 30+ name of tramp-use-ssh-controlmaster-options
   )
 
@@ -1065,14 +1052,6 @@
 ;;   (add-hook 'markdown-mode-hook #'flymake-vale-load)
 ;;   (add-hook 'message-mode-hook #'flymake-vale-load)
 ;;   )
-
-(use-package gcmh
-  :ensure t
-  :hook (elpaca-after-init . gcmh-mode)
-  :config
-  (setopt gcmh-idle-delay 'auto  ; default is 15s
-          gcmh-auto-idle-delay-factor 10
-          gcmh-high-cons-threshold (* 64 1024 1024))) ; 64mb
 
 (use-package eglot
   :ensure nil
@@ -1390,6 +1369,9 @@
 (use-package apheleia
   :ensure t
   :config
+  ;; The default Python formatter is black; use ruff instead
+  (dolist (mode '(python-mode python-ts-mode))
+    (setf (alist-get mode apheleia-mode-alist) '(ruff-isort ruff)))
   (apheleia-global-mode 1))
 
 (use-package project
@@ -1778,9 +1760,10 @@
 (setopt xref-search-program 'ripgrep
         )
 
-(show-paren-mode 1)
 (winner-mode 1)
 (global-visual-line-mode 1)
+(global-visual-wrap-prefix-mode 1)
+(editorconfig-mode 1)
 (delete-selection-mode 1)
 (window-divider-mode 1)
 
@@ -1877,12 +1860,14 @@
   :config
   (setopt markdown-ts-appear-diagram-renderers
           '(("mermaid" . markdown-ts-appear-diagram-mmdc)))
+  ;; Appear turns the math renderer on itself; `auto' would prefer MathJax
+  (setopt markdown-ts-appear-math-renderer 'latex-to-svg)
   (setopt markdown-ts-appear-enable-math-preview t)
   )
 
 (use-package latex-to-svg-for-markdown
   :ensure (latex-to-svg-for-markdown  :type git :host github :repo "alberti42/latex-to-svg")
-  :hook (markdown-ts-mode . latex-to-svg-for-markdown-mode))
+  :defer t)
 
 (use-package latex-to-svg-frontend
   :ensure (latex-to-svg-frontend  :type git :host github :repo "alberti42/latex-to-svg")
